@@ -1,0 +1,21 @@
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.featureImg {
+  height: 160px;
+  width: 160px;
+}
+
+.featureTitle {
+  color: var(--color-text-alt);
+}
+
+.featureDescription {
+  font-family: monospace;
+  color: var(--color-muted);
+  font-size: 1.1em;
+}

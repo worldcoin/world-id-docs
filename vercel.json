@@ -1,0 +1,19 @@
+{
+  "redirects": [
+    {
+      "source": "/zkp",
+      "destination": "/docs/advanced/zero-knowledge-proofs",
+      "permanent": true
+    },
+    {
+      "source": "/protocol",
+      "destination": "/docs/about",
+      "permanent": true
+    },
+    {
+      "source": "/test",
+      "destination": "/docs/about/test-network",
+      "permanent": true
+    }
+  ]
+}

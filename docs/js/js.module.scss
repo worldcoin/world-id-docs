@@ -1,0 +1,15 @@
+.encodingTable {
+  table-layout: fixed;
+  width: 100%;
+  display: table;
+
+  pre {
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+
+  td:last-child,
+  th:last-child {
+    width: 50%;
+  }
+}

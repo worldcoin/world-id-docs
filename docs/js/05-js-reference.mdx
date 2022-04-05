@@ -1,0 +1,383 @@
+---
+title: JS Reference
+slug: reference
+---
+
+import { ABIEncoder } from "@site/src/components/ABIEncoder/ABIEncoder";
+import styles from "./js.module.scss";
+import Link from "@docusaurus/Link";
+
+Here you will find information about all the methods and parameters that the JS package exposes.
+
+## Methods
+
+### .init()
+
+The `.init()` method is the main initialization method. It should be called to start the World ID package and render the World ID verification widget.
+
+<div className="text--center margin-bottom--lg">
+  <img src="/img/world-id-widget.svg" alt="Render of World ID widget" />
+  <div className="text--muted">Render of World ID widget</div>
+</div>
+
+:::caution
+The `.init()` method should only be called once in the lifecycle of your app. To update properties, please use `.update()` instead.
+:::
+
+**.init(elementNodeOrID, parameters) => void**
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>elementNodeOrID</td>
+      <td>
+        HTML ID of the element on where to mount the World ID widget{" "}
+        <strong>or</strong> HTML node of where to mount the element.
+      </td>
+      <td>
+        <code>world-id-container</code>
+        <br />
+        <br />
+        <pre>document.getElementsByClassName('world-id')[0]</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>parameters</td>
+      <td>
+        List of additional parameters. Please see{" "}
+        <Link href="#parameters">Parameters</Link> for details.{" "}
+        <code>externalNullifer</code> is always required.
+      </td>
+      <td>See below for example.</td>
+    </tr>
+  </tbody>
+</table>
+
+**Example:**
+
+```js
+worldID.init(
+  "world-id-container", // This can be the HTML ID of an element or any HTML node. Please be sure the node is mounted in your DOM before you call `.init()`
+  {
+    enableTelemetry: true,
+    externalNullifier:
+      "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001063616e64794170702d61697264726f7000000000000000000000000000000000",
+    proofSignal:
+      "0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41",
+    appName: "My App",
+    signalDescription: "Receive a super cool airdrop!",
+  }
+);
+```
+
+### .update()
+
+The `.update()` method works similarly to `.init()` except it's used only to update the relevant parameters to run the World ID widget. The DOM element (`elementNodeOrID`) where World ID is mounted **cannot be changed**.
+
+:::tip
+One common use case for `.update()` is if you want to render the World ID widget even if the user hasn't logged in to your dapp with their wallet. This will keep your UI consistent. Once the user logs in, you can use `.update()` to pass the wallet's address as `proofSignal`.
+:::
+
+**.update(parameters?) => void**
+
+When calling `.update()` you only need to include the parameters you wish to update. No need to include all original init parameters again.
+
+**Example:**
+
+```js
+worldID.update({
+  proofSignal:
+    "0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41",
+});
+```
+
+### .enable()
+
+The `.enable()` method makes the World ID widget available. It returns a promise with the results of the verification.
+
+:::note
+The World ID widget will not be enabled until you call `.enable()`. Additionally, a valid `proofSignal` parameter must always be present. If you didn't pass this parameter in `.init()`, you can always use `.update()`.
+:::
+
+**.enable() => Promise(successResult, errorResult)**
+
+```js
+worldID
+  .enable()
+  .then((successResult) => {
+    console.log("Verified succesfully:", successResult);
+  })
+  .catch((errorResult) => console.warn("Verification failed:", errorResult));
+```
+
+The `.enable()` method will return a promise. The promise will be resolved or rejected depending on the outcome of the World ID verification. The promise will only be resolved/rejected when the user closes the World ID modal (i.e. retries within the same lifecycle will not result in the promise being terminated, until the user reaches a final state).
+
+If the process fails and you receive a promise rejection, the World ID widget will remain disabled until you call `.enable()` again. This is so you can properly listen for the new promise results.
+
+To understand the `successResult` and `errorResult` responses please check out the [Response](#response) section and [Error handling](/docs/js/error-handling) section respectively.
+
+### .isInitialized()
+
+Will return whether World ID has already been initialized. **Please be mindful this is a method, not a property.**
+
+**.isInitialized() => boolean**
+
+```js
+if (worldID.isInitialized()) {
+  // do something
+}
+```
+
+### .isEnabled()
+
+Will return whether World ID is initialized and enabled, i.e. ready to be used. **Please be mindful this is a method, not a property.**
+
+**.isEnabled() => boolean**
+
+```js
+if (worldID.isEnabled()) {
+  // do something
+}
+```
+
+## Parameters
+
+The following parameters can be passed to both `.init()` and `.update()`.
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Required</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>externalNullifier</code>
+      </td>
+      <td>
+        <code>string</code> (<Link to="#parameter-encoding">ABI-encoded</Link>)
+      </td>
+      <td>Yes</td>
+      <td>
+        Read more about the{" "}
+        <Link to="/docs/about/glossary#external-nullifier">
+          External Nullifier
+        </Link>
+        .
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>proofSignal</code>
+      </td>
+      <td>
+        <code>string</code> (<Link href="#parameter-encoding">ABI-encoded</Link>)
+      </td>
+      <td>Not required, but widget won't be enabled until passed</td>
+      <td>
+        Read more about the{" "}
+        <Link to="/docs/about/glossary#proof-signal">Proof Signal</Link>. You
+        will usually want to use your user's wallet address as the signal.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>enableTelemetry</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>No</td>
+      <td>
+        Whether telemetry is enabled. We send very few events, with no PII to
+        help us improve the product. Read more in the{" "}
+        <Link to="/docs/js/telemetry">Telemetry</Link> section.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>appName</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>No</td>
+      <td>
+        <b>Highly recommended!</b> The name of your app/project/company. This
+        will be shown to the users in the WLD app, unless you have a{" "}
+        <Link to="/docs/advanced/verified-actions">Verified action</Link>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>signalDescription</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>No</td>
+      <td>
+        <b>Highly recommended!</b> The description of the specific action the
+        user is verifying. This will be shown to the users in the WLD app,
+        unless you have a{" "}
+        <Link to="/docs/advanced/verified-actions">Verified action</Link>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>disableRemoteFonts</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>No</td>
+      <td>
+        Disables loading remote fonts for the widget and uses the system's font
+        instead (e.g. Roboto, San Francisco). The library currently loads a
+        single font from Google Fonts.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Parameter encoding
+
+The `externalNullifier` and `proofSignal` parameters must be ABI-encoded when passed to the JS package. Generally any parameters you use in a web3 app that interacts with the blockchain will be ABI-encoded, but you can also find a few examples below, as well as a simple tool to help you encode your parameters correctly.
+
+### Encoding examples
+
+<table width="100%" className={styles.encodingTable}>
+  <thead>
+    <tr>
+      <th>Input value</th>
+      <th>Type of value</th>
+      <th>ABI-encoded value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>myApp/helloWorld</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <pre>
+          0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000116d794170702f68656c6c6f576f726c6409000000000000000000000000000000
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>appName/wid1</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>
+        <pre>
+          0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000116d794170702f68656c6c6f576f726c6409000000000000000000000000000000
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>1928491</code>
+      </td>
+      <td>
+        <code>integer</code>
+      </td>
+      <td>
+        <pre>
+          0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000116d794170702f68656c6c6f576f726c6409000000000000000000000000000000
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>0x4976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41</code>
+      </td>
+      <td>
+        <code>address</code>
+      </td>
+      <td>
+        <pre>
+          0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41
+        </pre>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+### Encoding helper
+
+Type any value below and select the type of value to generate the ABI-encoded result. You can use this helper to generate your own `externalNullifier`. We recommend you generate this dynamically for `proofSignal`s as these will change dynamically.
+
+<ABIEncoder />
+
+## Response
+
+Upon successful completion of the World ID verification request, you will receive a response object in the respective Promise you subscribed to in the `.init()` method. The response object will contain the following attributes. **Normally, you will pass all these parameters to the transaction to be executed on-chain with your smart contract.**
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>merkleRoot</code>
+      </td>
+      <td>
+        <code>string</code> (<Link to="#parameter-encoding">ABI-encoded</Link>)
+      </td>
+      <td>
+        This is the hash pointer to the root of the Merkle tree that proves
+        membership of the user's identity in the list of identities verified by
+        the Orb. Read more about the{" "}
+        <Link to="/docs/about/glossary#merkle-root">Merkle root</Link>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>nullifierHash</code>
+      </td>
+      <td>
+        <code>string</code> (<Link href="#parameter-encoding">ABI-encoded</Link>)
+      </td>
+      <td>
+        The hash of the user's World ID nullifier. Read more about the{" "}
+        <Link to="/docs/about/glossary#nullifier-and-nullifier-hash">
+          Nullifier
+        </Link>
+        .
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>proof</code>
+      </td>
+      <td>
+        <code>string</code> (<Link href="#parameter-encoding">ABI-encoded</Link>)
+      </td>
+      <td>The Zero-knowledge proof of the verification.</td>
+    </tr>
+  </tbody>
+</table>

@@ -17,7 +17,7 @@ const config = {
   organizationName: "worldcoin", // GitHub org.
   projectName: "world-id-docs", // Repo name.
 
-  plugins: ["docusaurus-plugin-sass"],
+  plugins: ["docusaurus-plugin-sass", "posthog-docusaurus"],
 
   presets: [
     [
@@ -115,6 +115,13 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      posthog: {
+        apiKey: "phc_QttqgDbMQDYHX1EMH7FnT6ECBVzdp0kGUq92aQaVQ6I",
+        appUrl: "https://app.posthog.com",
+        enableInDevelopment: true,
+        persistence: "localStorage",
+        autocapture: false,
       },
     }),
 };

@@ -87,13 +87,9 @@ const request = {
 await connector.sendCustomRequest(request);
 ```
 
-:::note
-Please be mindful that the `proofSignal` and `externalNullifier` must be ABI-encoded. Please review [Parameter encoding](/docs/js/reference#parameter-encoding) for details.
-:::
-
 ### 3. Receive the proof
 
-When the Worldcoin app receives the verification request, it'll show a prompt to the user to confirm they want to verify their request. Once the user approves this request, you will receive the proof results. The proof result will be a JSON object with 3 ABI-encoded parameters, which your smart contract should expect. Read more about the received response [here](/docs/js/reference#response).
+When the Worldcoin app receives the verification request, it'll show a prompt to the user to confirm they want to verify their request. Once the user approves this request, you will receive the proof results. The proof result will be a JSON object with 3 ABI-encoded string parameters, which your smart contract should expect (note that when submitting to a smart contract, you should include the entire proof array of 8 `BigInt`s, i.e. `uint[8]`). Read more about the received response [here](/docs/js/reference#response).
 
 **Example (partial, see #4 for complete snippet):**
 

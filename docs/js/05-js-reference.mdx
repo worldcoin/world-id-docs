@@ -3,7 +3,6 @@ title: JS Reference
 slug: reference
 ---
 
-import { ABIEncoder } from "@site/src/components/ABIEncoder/ABIEncoder";
 import styles from "./js.module.scss";
 import Link from "@docusaurus/Link";
 
@@ -166,7 +165,7 @@ The following parameters can be passed to both `.init()` and `.update()`.
         <code>externalNullifier</code>
       </td>
       <td>
-        <code>string</code> (<Link to="#parameter-encoding">ABI-encoded</Link>)
+        <code>string</code>
       </td>
       <td>Yes</td>
       <td>
@@ -182,7 +181,7 @@ The following parameters can be passed to both `.init()` and `.update()`.
         <code>proofSignal</code>
       </td>
       <td>
-        <code>string</code> (<Link href="#parameter-encoding">ABI-encoded</Link>)
+        <code>string</code>
       </td>
       <td>Not required, but widget won't be enabled until passed</td>
       <td>
@@ -251,83 +250,6 @@ The following parameters can be passed to both `.init()` and `.update()`.
   </tbody>
 </table>
 
-### Parameter encoding
-
-The `externalNullifier` and `proofSignal` parameters must be ABI-encoded when passed to the JS package. Generally any parameters you use in a web3 app that interacts with the blockchain will be ABI-encoded, but you can also find a few examples below, as well as a simple tool to help you encode your parameters correctly.
-
-### Encoding examples
-
-<table width="100%" className={styles.encodingTable}>
-  <thead>
-    <tr>
-      <th>Input value</th>
-      <th>Type of value</th>
-      <th>ABI-encoded value</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <code>myApp/helloWorld</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>
-        <pre>
-          0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000116d794170702f68656c6c6f576f726c6409000000000000000000000000000000
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>appName/wid1</code>
-      </td>
-      <td>
-        <code>string</code>
-      </td>
-      <td>
-        <pre>
-          0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000116d794170702f68656c6c6f576f726c6409000000000000000000000000000000
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>1928491</code>
-      </td>
-      <td>
-        <code>integer</code>
-      </td>
-      <td>
-        <pre>
-          0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000116d794170702f68656c6c6f576f726c6409000000000000000000000000000000
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <code>0x4976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41</code>
-      </td>
-      <td>
-        <code>address</code>
-      </td>
-      <td>
-        <pre>
-          0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41
-        </pre>
-      </td>
-    </tr>
-
-  </tbody>
-</table>
-
-### Encoding helper
-
-Type any value below and select the type of value to generate the ABI-encoded result. You can use this helper to generate your own `externalNullifier`. We recommend you generate this dynamically for `proofSignal`s as these will change dynamically.
-
-<ABIEncoder />
-
 ## Response
 
 Upon successful completion of the World ID verification request, you will receive a response object in the respective Promise you subscribed to in the `.init()` method. The response object will contain the following attributes. **Normally, you will pass all these parameters to the transaction to be executed on-chain with your smart contract.**
@@ -346,7 +268,7 @@ Upon successful completion of the World ID verification request, you will receiv
         <code>merkleRoot</code>
       </td>
       <td>
-        <code>string</code> (<Link to="#parameter-encoding">ABI-encoded</Link>)
+        <code>string</code> (ABI-encoded)
       </td>
       <td>
         This is the hash pointer to the root of the Merkle tree that proves
@@ -360,7 +282,7 @@ Upon successful completion of the World ID verification request, you will receiv
         <code>nullifierHash</code>
       </td>
       <td>
-        <code>string</code> (<Link href="#parameter-encoding">ABI-encoded</Link>)
+        <code>string</code> (ABI-encoded)
       </td>
       <td>
         The hash of the user's World ID nullifier. Read more about the{" "}
@@ -375,7 +297,7 @@ Upon successful completion of the World ID verification request, you will receiv
         <code>proof</code>
       </td>
       <td>
-        <code>string</code> (<Link href="#parameter-encoding">ABI-encoded</Link>)
+        <code>string</code> (ABI-encoded)
       </td>
       <td>The Zero-knowledge proof of the verification.</td>
     </tr>

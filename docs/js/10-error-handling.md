@@ -75,7 +75,7 @@ The JS package may return any of the following error codes.
        The external nullifier provided to the JS package from your dapp is not valid.
       </td>
       <td>
-       Check the external nullifier. Make sure it's an <a href="/docs/js/reference#parameter-encoding">ABI-encoded</a> string.
+       Check the external nullifier. Make sure it's a valid string.
       </td>
     </tr>
     <tr>
@@ -86,7 +86,7 @@ The JS package may return any of the following error codes.
        The proof signal provided to the JS package from yoru dapp is not valid.
       </td>
       <td>
-       Check the proof signal. Make sure it's an <a href="/docs/js/reference#parameter-encoding">ABI-encoded</a> string or address.
+       Check the proof signal. Make sure it's valid string or address (stringified).
       </td>
     </tr>
     <tr>

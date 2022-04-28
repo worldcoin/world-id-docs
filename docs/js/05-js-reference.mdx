@@ -53,7 +53,7 @@ The `.init()` method should only be called once in the lifecycle of your app. To
       <td>
         List of additional parameters. Please see{" "}
         <Link href="#parameters">Parameters</Link> for details.{" "}
-        <code>externalNullifer</code> is always required.
+        <code>actionId</code> is always required.
       </td>
       <td>See below for example.</td>
     </tr>
@@ -67,9 +67,9 @@ worldID.init(
   "world-id-container", // This can be the HTML ID of an element or any HTML node. Please be sure the node is mounted in your DOM before you call `.init()`
   {
     enableTelemetry: true,
-    externalNullifier:
+    actionId:
       "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001063616e64794170702d61697264726f7000000000000000000000000000000000",
-    proofSignal:
+    signal:
       "0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41",
     appName: "My App",
     signalDescription: "Receive a super cool airdrop!",
@@ -82,7 +82,7 @@ worldID.init(
 The `.update()` method works similarly to `.init()` except it's used only to update the relevant parameters to run the World ID widget. The DOM element (`elementNodeOrID`) where World ID is mounted **cannot be changed**.
 
 :::tip
-One common use case for `.update()` is if you want to render the World ID widget even if the user hasn't logged in to your dapp with their wallet. This will keep your UI consistent. Once the user logs in, you can use `.update()` to pass the wallet's address as `proofSignal`.
+One common use case for `.update()` is if you want to render the World ID widget even if the user hasn't logged in to your dapp with their wallet. This will keep your UI consistent. Once the user logs in, you can use `.update()` to pass the wallet's address as `signal`.
 :::
 
 **.update(parameters?) => void**
@@ -93,8 +93,7 @@ When calling `.update()` you only need to include the parameters you wish to upd
 
 ```js
 worldID.update({
-  proofSignal:
-    "0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41",
+  signal: "0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41",
 });
 ```
 
@@ -103,7 +102,7 @@ worldID.update({
 The `.enable()` method makes the World ID widget available. It returns a promise with the results of the verification.
 
 :::note
-The World ID widget will not be enabled until you call `.enable()`. Additionally, a valid `proofSignal` parameter must always be present. If you didn't pass this parameter in `.init()`, you can always use `.update()`.
+The World ID widget will not be enabled until you call `.enable()`. Additionally, a valid `signal` parameter must always be present. If you didn't pass this parameter in `.init()`, you can always use `.update()`.
 :::
 
 **.enable() => Promise(successResult, errorResult)**
@@ -163,23 +162,20 @@ The following parameters can be passed to both `.init()` and `.update()`.
   <tbody>
     <tr>
       <td>
-        <code>externalNullifier</code>
+        <code>actionId</code>
       </td>
       <td>
         <code>string</code> (<Link to="#parameter-encoding">ABI-encoded</Link>)
       </td>
       <td>Yes</td>
       <td>
-        Read more about the{" "}
-        <Link to="/docs/about/glossary#external-nullifier">
-          External Nullifier
-        </Link>
-        .
+        Unique identifier for the action being verified. Read more about the{" "}
+        <Link to="/docs/about/glossary#action-id">action ID</Link>.
       </td>
     </tr>
     <tr>
       <td>
-        <code>proofSignal</code>
+        <code>signal</code>
       </td>
       <td>
         <code>string</code> (<Link href="#parameter-encoding">ABI-encoded</Link>
@@ -254,7 +250,7 @@ The following parameters can be passed to both `.init()` and `.update()`.
 
 ### Parameter encoding
 
-The `externalNullifier` and `proofSignal` parameters must be ABI-encoded when passed to the JS package. Generally any parameters you use in a web3 app that interacts with the blockchain will be ABI-encoded, but you can also find a few examples below, as well as a simple tool to help you encode your parameters correctly.
+The `actionId` and `signal` parameters must be ABI-encoded when passed to the JS package. Generally any parameters you use in a web3 app that interacts with the blockchain will be ABI-encoded, but you can also find a few examples below, as well as a simple tool to help you encode your parameters correctly.
 
 ### Encoding examples
 
@@ -325,7 +321,7 @@ The `externalNullifier` and `proofSignal` parameters must be ABI-encoded when pa
 
 ### Encoding helper
 
-Type any value below and select the type of value to generate the ABI-encoded result. You can use this helper to generate your own `externalNullifier`. We recommend you generate this dynamically for `proofSignal`s as these will change dynamically.
+Type any value below and select the type of value to generate the ABI-encoded result. You can use this helper to generate your own `actionId`. We recommend you generate this dynamically for `signal`s as these will change dynamically.
 
 <ABIEncoder />
 
@@ -358,18 +354,16 @@ Upon successful completion of the World ID verification request, you will receiv
     </tr>
     <tr>
       <td>
-        <code>nullifierHash</code>
+        <code>uniquenessHash</code>
       </td>
       <td>
         <code>string</code> (<Link href="#parameter-encoding">ABI-encoded</Link>
         )
       </td>
       <td>
-        The hash of the user's World ID nullifier. Read more about the{" "}
-        <Link to="/docs/about/glossary#nullifier-and-nullifier-hash">
-          Nullifier
-        </Link>
-        .
+        The hash that proves uniqueness between a single person and an action.
+        Read more about the{" "}
+        <Link to="/docs/about/glossary#uniqueness-hash">uniqueness hash</Link>.
       </td>
     </tr>
     <tr>

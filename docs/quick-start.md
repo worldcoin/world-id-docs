@@ -18,7 +18,7 @@ This tutorial assumes you already have a dapp and smart contract which perform s
 2.  Add a `div` to mount World ID, and later initialize. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on X"). For testing purposes, you can just use the [External nullifier](/docs/about/glossary#external-nullifier) below, but we recommend you [create your own](/docs/js/reference#encoding-helper).
 
     :::tip
-    You'll want to enable World ID **after the user has logged in**, so you can use their wallet address as the [Proof signal](/docs/about/glossary#proof-signal).
+    You'll want to enable World ID **after the user has logged in**, so you can use their wallet address as the [Proof signal](/docs/about/glossary#signal).
     :::
 
     ```html

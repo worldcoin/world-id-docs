@@ -72,10 +72,10 @@ const request = {
   method: "wld_worldIDVerification", // always `wld_worldIDVerification`
   params: [
     {
-      proofSignal:
-        "0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41", // example; send relevant signal here
-      externalNullifier:
-        "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000f63616e64792d64726f702d323032320000000000000000000000000000000000", // example; send relevant external nullifier here
+      signal:
+        "0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41", // example; enter relevant signal here
+      actionId:
+        "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000f63616e64792d64726f702d323032320000000000000000000000000000000000", // example; enter action ID here
     },
   ],
 };
@@ -88,7 +88,7 @@ await connector.sendCustomRequest(request);
 ```
 
 :::note
-Please be mindful that the `proofSignal` and `externalNullifier` must be ABI-encoded. Please review [Parameter encoding](/docs/js/reference#parameter-encoding) for details.
+Please be mindful that the `signal` and `actionId` must be ABI-encoded. Please review [Parameter encoding](/docs/js/reference#parameter-encoding) for details.
 :::
 
 ### 3. Receive the proof

@@ -15,10 +15,10 @@ This tutorial assumes you already have a dapp and smart contract which perform s
     yarn add @worldcoin/id
     ```
 
-2.  Add a `div` to mount World ID, and later initialize. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on X"). For testing purposes, you can just use the [External nullifier](/docs/about/glossary#external-nullifier) below, but we recommend you [create your own](/docs/js/reference#encoding-helper).
+2.  Add a `div` to mount World ID, and later initialize. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on X").
 
     :::tip
-    You'll want to enable World ID **after the user has logged in**, so you can use their wallet address as the [Proof signal](/docs/about/glossary#proof-signal).
+    You'll want to enable World ID **after the user has logged in**, so you can use their wallet address as the [Proof signal](/docs/about/glossary#signal).
     :::
 
     ```html
@@ -31,9 +31,9 @@ This tutorial assumes you already have a dapp and smart contract which perform s
     import worldID from "@worldcoin/id";
     worldID.init("world-id-container", {
       enableTelemetry: true,
-      externalNullifier:
+      actionId:
         "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001063616e64794170702d61697264726f7000000000000000000000000000000000",
-      proofSignal: userWalletAddress, // <- Fill in with the user's wallet address here
+      signal: userWalletAddress, // <- Fill in with the user's wallet address here
     });
     ```
 
@@ -51,11 +51,11 @@ This tutorial assumes you already have a dapp and smart contract which perform s
     });
     ```
 
-4.  Update your action smart contract, using our [Examples](/docs/examples) as a starting point. Goal is to **verify the ZKP before executing the relevant action**. You will verify both the validity of the ZKP as well as the uniqueness (i.e. that it hasn't been used before for this action). Your smart contract will need to receive: external nullifier, signal, nullifier hash (provided by JS widget), merkle root (provided by JS widget) and the proof (provided by JS widget).
+4.  Update your action smart contract, using our [Examples](/docs/examples) as a starting point. Goal is to **verify the ZKP before executing the relevant action**. You will verify both the validity of the ZKP as well as the uniqueness (i.e. that it hasn't been used before for this action) of the nullifier. Your smart contract will need to receive: action ID, signal, nullifier hash (provided by JS widget), merkle root (provided by JS widget) and the proof (provided by JS widget).
 
     :::tip
     Check out our Airdrop full example repo on [GitHub](https://github.com/worldcoin/world-id-example-airdrop). You can fork this repo to create your own smart contract.
     :::
 
-5.  Update your wallet transaction to include the additional parameters related to the ZKP. The proof, merkle root & nullifier hash come from the promise result when you call `.enable()` on the JS package.
+5.  Update your wallet transaction to include the additional parameters related to the ZKP. The proof, merkle root & nullifier hash come from the promise result when you call `.enable()` on the JS widget.
 6.  [**🧪 Test your integration!**](/docs/about/test-network)

@@ -18,7 +18,7 @@ The action ID sets a unique identifier for each action verified with World ID an
 Read more about the Semaphore protocol which World ID relies on in the [Semaphore withepaper](https://docs.zkproof.org/pages/standards/accepted-workshop3/proposal-semaphore.pdf).
 
 :::note
-On the Semaphore protocol the Action ID is called the _External nullifier_.
+On the Semaphore protocol the Action ID is called the _External nullifier_ (not to be confused with nullifier hash).
 :::
 
 ### Signal
@@ -27,13 +27,9 @@ The signal is an arbitrary message. One of the main security claims of the Semap
 
 The developer integrating World ID selects the signal to use. For most use cases, we **recommend using the end user's wallet address as the signal**. Another example of a signal: for a voting/survey app the signal could be the vote/answer to the question.
 
-### Uniqueness hash
+### Nullifier hash
 
-The uniqueness hash is a string generated together with the [ZKP](/docs/advanced/zero-knowledge-proofs) (by the Worldcoin app). The uniqueness hash is derived from the user's identity and the [action ID](#action-id) and is what ensures uniqueness. This generated hash should be stored and compared for uniqueness when new proofs are submitted. The same identity and [action ID](#action-id) pair will always generate the same uniqueness hash.
-
-:::note
-On the Semaphore protocol the uniqueness hash is called the _Nullifier hash_ (not to be confused with External nullifier).
-:::
+The nullifier hash is a string generated together with the [ZKP](/docs/advanced/zero-knowledge-proofs) (by the Worldcoin app). The nullifier hash is derived from the user's identity and the [action ID](#action-id) and is what ensures uniqueness. This generated hash should be stored and compared for nullifier when new proofs are submitted. The same identity and [action ID](#action-id) pair will always generate the same nullifier hash.
 
 ### Merkle root
 
@@ -45,5 +41,5 @@ Currently, the Worldcoin sequencer helps with the computation of the Merkle root
 
 For the context of World ID, an action can only be performed once by a single person. When a user receives a verification request for an action, they can only verify it once. This means the action determines the scope for which identity uniqueness is considered. For instance, a project doing an airdrop can have an action for this particular airdrop, and no single person will be able to claim it twice. If the project then decides to do a new airdrop, they can use a new action and every one who claimed the first action will be able to claim the second action, but not the first action again.
 
-- Each action has its own set of _used_/_claimed_ identities, which is a set of [uniqueness hashes](#uniqueness-hash).
+- Each action has its own set of _used_/_claimed_ identities, which is a set of [nullifier hashes](#nullifier-hash).
 - An action is defined by a unique [action ID](#action-id).

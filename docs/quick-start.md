@@ -51,11 +51,11 @@ This tutorial assumes you already have a dapp and smart contract which perform s
     });
     ```
 
-4.  Update your action smart contract, using our [Examples](/docs/examples) as a starting point. Goal is to **verify the ZKP before executing the relevant action**. You will verify both the validity of the ZKP as well as the uniqueness (i.e. that it hasn't been used before for this action). Your smart contract will need to receive: action ID, signal, uniqueness hash (provided by JS widget), merkle root (provided by JS widget) and the proof (provided by JS widget).
+4.  Update your action smart contract, using our [Examples](/docs/examples) as a starting point. Goal is to **verify the ZKP before executing the relevant action**. You will verify both the validity of the ZKP as well as the uniqueness (i.e. that it hasn't been used before for this action) of the nullifier. Your smart contract will need to receive: action ID, signal, nullifier hash (provided by JS widget), merkle root (provided by JS widget) and the proof (provided by JS widget).
 
     :::tip
     Check out our Airdrop full example repo on [GitHub](https://github.com/worldcoin/world-id-example-airdrop). You can fork this repo to create your own smart contract.
     :::
 
-5.  Update your wallet transaction to include the additional parameters related to the ZKP. The proof, merkle root & uniqueness hash come from the promise result when you call `.enable()` on the JS widget.
+5.  Update your wallet transaction to include the additional parameters related to the ZKP. The proof, merkle root & nullifier hash come from the promise result when you call `.enable()` on the JS widget.
 6.  [**🧪 Test your integration!**](/docs/about/test-network)

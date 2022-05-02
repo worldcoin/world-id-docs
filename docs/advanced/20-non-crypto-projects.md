@@ -5,7 +5,7 @@ title: Non-crypto Projects
 World ID introduces a new web3 primitive, however its use is not limited to web3 projects. There are multiple use cases for traditional web applications not on the blockchain (e.g. spam prevention, individual accounts creation, etc.). Integrating World ID with a traditional web project is not difficult, here are the main distinctions.
 
 - Validation of ZKPs need to be implemented and executed on your own backend (as opposed to the blockchain).
-- Backend must keep track of all the uniqueness hashes to guarantee uniqueness.
+- Backend must keep track of all the nullifier hashes to guarantee uniqueness.
 
 Currently we don't have implementation examples for traditional web applications, but we plan on adding a few soon for some common languages/frameworks. You can use the smart contract [examples](/docs/examples) as reference for how to implement ZKP validation on a different language.
 

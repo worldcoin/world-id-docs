@@ -98,7 +98,7 @@ When the Worldcoin app receives the verification request, it'll show a prompt to
 **Example (partial, see #4 for complete snippet):**
 
 ```js
-const { merkleRoot, uniquenessHash, proof } = await connector.sendCustomRequest(
+const { merkleRoot, nullifierHash, proof } = await connector.sendCustomRequest(
   request
 );
 ```
@@ -111,7 +111,7 @@ You should properly handle errors when interacting with the Worlcoin app. There 
 
 ```js
 try {
-  const { merkleRoot, uniquenessHash, proof } =
+  const { merkleRoot, nullifierHash, proof } =
     await connector.sendCustomRequest(request);
 } catch (errorResult) {
   const { code, detail } = errorResult;

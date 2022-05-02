@@ -31,7 +31,7 @@ The protocol relies on a [Semaphore](https://github.com/appliedzkp/semaphore) in
 
 ## Proof of uniqueness
 
-Given that we don't know anything about the person who's proving their membership to the set, a critical piece of the protocol is making sure a person can only prove their membership in a particular context only once. For instance, if you're doing an airdrop, you want to make sure a single person can only claim the airdrop once. We do this through actions. A user can only submit a proof for an action once. To define each action, we use [action IDs](/docs/about/glossary#action-id) which is an arbitrary string that the verifying party crafts and provides. **A single user will always output the same [uniqueness hash](/docs/about/glossary#uniqueness-hash) for the same action ID.**
+Given that we don't know anything about the person who's proving their membership to the set, a critical piece of the protocol is making sure a person can only prove their membership in a particular context only once. For instance, if you're doing an airdrop, you want to make sure a single person can only claim the airdrop once. We do this through actions. A user can only submit a proof for an action once. To define each action, we use [action IDs](/docs/about/glossary#action-id) which is an arbitrary string that the verifying party crafts and provides. **A single user will always output the same [nullifier hash](/docs/about/glossary#nullifier-hash) for the same action ID.**
 
 <div className="text--center">
 <img src="/img/proof-of-uniqueness.svg" alt="When an existing proof for an action ID and the same identity is found, proof of uniqueness fails" />
@@ -41,11 +41,11 @@ Given that we don't know anything about the person who's proving their membershi
 Alice is an end user who has verified at a Worldcoin orb. MeshaApp is a dapp with a new token that wants to airdrop a piece but only once per person.
 
 - MeshaApp asks Alice to verify with World ID and provides action ID `meshaApp-airdrop`.
-- Alice generates a [ZKP](/docs/advanced/zero-knowledge-proofs) in their Worldcoin app using the action ID: `meshaApp-airdrop` => `uniquenessHash1`.
-- MeshaApp can verify the proof comes from an identity belonging to the set of verified identities and can store `uniquenessHash1` in the list of claimed airdrops. **Note in particular, MeshaApp has no way of associating `uniquenessHash1` to any particular identity**.
-- If Alice ever generates another ZKP at any point in time for the same action ID `meshaApp-airdrop`, the generated uniqueness hash will always be `uniquenessHash1`, and therefore MeshaApp can decline any additional airdrop requests for claimed hashes.
-- If Bob (another end user), generates a ZKP with their identity for action ID `meshaApp-airdrop`, the result will be `uniquenessHash2` (different from Alice's uniqueness hash).
-- If Alice generates a ZKP for another action ID (e.g. `meshaApp-airdrop-2`), the generated uniqueness hash will be different from the very first one => `uniquenessHash3`.
+- Alice generates a [ZKP](/docs/advanced/zero-knowledge-proofs) in their Worldcoin app using the action ID: `meshaApp-airdrop` => `nullifierHash1`.
+- MeshaApp can verify the proof comes from an identity belonging to the set of verified identities and can store `nullifierHash1` in the list of claimed airdrops. **Note in particular, MeshaApp has no way of associating `nullifierHash1` to any particular identity**.
+- If Alice ever generates another ZKP at any point in time for the same action ID `meshaApp-airdrop`, the generated nullifier hash will always be `nullifierHash1`, and therefore MeshaApp can decline any additional airdrop requests for claimed hashes.
+- If Bob (another end user), generates a ZKP with their identity for action ID `meshaApp-airdrop`, the result will be `nullifierHash2` (different from Alice's nullifier hash).
+- If Alice generates a ZKP for another action ID (e.g. `meshaApp-airdrop-2`), the generated nullifier hash will be different from the very first one => `nullifierHash3`.
 
 ## Components
 

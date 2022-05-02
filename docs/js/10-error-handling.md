@@ -61,7 +61,7 @@ The JS package may return any of the following error codes.
         <code>already_signed</code>
       </td>
       <td>
-       This person has already submitted a proof for the particular action (i.e. <code>externalNullifier</code>).
+       This person has already submitted a proof for the particular action.
       </td>
       <td>
        Nothing to do. User cannot submit a request for the same action twice.
@@ -69,24 +69,24 @@ The JS package may return any of the following error codes.
     </tr>
     <tr>
       <td>
-        <code>invalid_external_nullifier</code>
+        <code>invalid_action_id</code>
       </td>
       <td>
-       The external nullifier provided to the JS package from your dapp is not valid.
+       The action ID provided to the JS widget is not valid.
       </td>
       <td>
-       Check the external nullifier. Make sure it's a valid string.
+       Check the action ID. Make sure it's a valid string.
       </td>
     </tr>
     <tr>
       <td>
-        <code>invalid_proof_signal</code>
+        <code>invalid_signal</code>
       </td>
       <td>
-       The proof signal provided to the JS package from yoru dapp is not valid.
+       The signal provided to the JS widget is not valid.
       </td>
       <td>
-       Check the proof signal. Make sure it's valid string or address (stringified).
+       Check the signal. Make sure it's a valid string or address.
       </td>
     </tr>
     <tr>

@@ -40,6 +40,10 @@ User verifies they are a unique human with a <Link to="/docs/advanced/zero-knowl
 </tr>
 </table>
 
+:::cautionFYI
+World ID is currently in Alpha. This means World ID is currently only running in a [test network](/docs/about/test-network), but you can already start testing your own apps on top of World ID. Please help us improve by sharing [feedback](/docs/feedback) on your experience and any ideas for how to improve.
+:::
+
 ## How it works
 
 In broad strokes, this is how World ID works.

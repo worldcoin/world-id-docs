@@ -72,10 +72,8 @@ const request = {
   method: "wld_worldIDVerification", // always `wld_worldIDVerification`
   params: [
     {
-      signal:
-        "0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41", // example; enter relevant signal here
-      actionId:
-        "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000f63616e64792d64726f702d323032320000000000000000000000000000000000", // example; enter action ID here
+      signal: "0x4976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41", // example; enter relevant signal here (e.g. user's wallet address)
+      actionId: "0x330C8452C879506f313D1565702560435b0fee4C", // example; use the address of your smart contract
     },
   ],
 };
@@ -87,13 +85,9 @@ const request = {
 await connector.sendCustomRequest(request);
 ```
 
-:::note
-Please be mindful that the `signal` and `actionId` must be ABI-encoded. Please review [Parameter encoding](/docs/js/reference#parameter-encoding) for details.
-:::
-
 ### 3. Receive the proof
 
-When the Worldcoin app receives the verification request, it'll show a prompt to the user to confirm they want to verify their request. Once the user approves this request, you will receive the proof results. The proof result will be a JSON object with 3 ABI-encoded parameters, which your smart contract should expect. Read more about the received response [here](/docs/js/reference#response).
+When the Worldcoin app receives the verification request, it'll show a prompt to the user to confirm they want to verify their request. Once the user approves this request, you will receive the proof results. The proof result will be a JSON object with 3 ABI-encoded string parameters, which your smart contract should expect (note that when submitting to a smart contract, you should include the entire proof array of 8 `BigInt`s, i.e. `uint[8]`). Read more about the received response [here](/docs/js/reference#response).
 
 **Example (partial, see #4 for complete snippet):**
 

@@ -75,7 +75,7 @@ The JS package may return any of the following error codes.
        The action ID provided to the JS widget is not valid.
       </td>
       <td>
-       Check the action ID. Make sure it's an <a href="/docs/js/reference#parameter-encoding">ABI-encoded</a> string.
+       Check the action ID. Make sure it's a valid string.
       </td>
     </tr>
     <tr>
@@ -86,7 +86,7 @@ The JS package may return any of the following error codes.
        The signal provided to the JS widget is not valid.
       </td>
       <td>
-       Check the signal. Make sure it's an <a href="/docs/js/reference#parameter-encoding">ABI-encoded</a> string or address.
+       Check the signal. Make sure it's a valid string or address.
       </td>
     </tr>
     <tr>

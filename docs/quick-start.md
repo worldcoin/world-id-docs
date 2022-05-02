@@ -7,55 +7,65 @@ title: Quick start
 
 This tutorial assumes you already have a dapp and smart contract which perform some action that you want to protect with Proof of personhood. Of course, if you're interested in just testing World ID you can create a mock dapp and smart contract, or you can simply fork our sample from the JS integration on [GitHub](https://github.com/worldcoin/world-id-js) or from our [Examples](/docs/examples).
 
-1.  Include the [Javascript integration](/docs/js/) in your dapp.
+1. Update your action smart contract, using our [Examples](/docs/examples) as a starting point. Goal is to **verify the ZKP before executing the relevant action**. You will verify both the validity of the ZKP as well as the uniqueness (i.e. that it hasn't been used before for this action) of the nullifier hash. Your smart contract will need to receive: action ID, signal, nullifier hash (provided by JS widget), merkle root (provided by JS widget) and the proof (provided by JS widget).
 
-    ```bash
-    npm install @worldcoin/id
-    # or
-    yarn add @worldcoin/id
-    ```
+   :::tip
+   Check out our Airdrop full example repo on [GitHub](https://github.com/worldcoin/world-id-example-airdrop). You can fork this repo to create your own smart contract.
+   :::
 
-2.  Add a `div` to mount World ID, and later initialize. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on X").
+2. Include the [Javascript integration](/docs/js/) in your dapp.
 
-    :::tip
-    You'll want to enable World ID **after the user has logged in**, so you can use their wallet address as the [Proof signal](/docs/about/glossary#signal).
-    :::
+   ```bash
+   npm install @worldcoin/id
+   # or
+   yarn add @worldcoin/id
+   ```
 
-    ```html
-    <div id="world-id-container"></div>
-    ```
+3. Add a `div` to mount World ID, and later initialize. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on X").
 
-    Now initialize World ID from your JS code.
+   :::tip
+   You'll want to enable World ID **after the user has authenticated their wallet**, so you can use their wallet address as the [signal](/docs/about/glossary#signal).
+   :::
 
-    ```js
-    import worldID from "@worldcoin/id";
-    worldID.init("world-id-container", {
-      enableTelemetry: true,
-      actionId:
-        "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001063616e64794170702d61697264726f7000000000000000000000000000000000",
-      signal: userWalletAddress, // <- Fill in with the user's wallet address here
-    });
-    ```
+   ```html
+   <div id="world-id-container"></div>
+   ```
 
-3.  On document load, enable the package and listen for the verification results.
+   Now initialize World ID from your JS code.
 
-    ```js
-    document.addEventListener("DOMContentLoaded", async function () {
-      try {
-        const result = await worldID.enable();
-        console.log("World ID verified succesfully:", result); // <- Pass this result to your wallet transaction
-      } catch (failure) {
-        console.warn("World ID verification failed:", failure);
-        // Re-activate here so your end user can try again
-      }
-    });
-    ```
+   ```js
+   import worldID from "@worldcoin/id";
+   worldID.init("world-id-container", {
+     enableTelemetry: true,
+     actionId: "0x330C8452C879506f313D1565702560435b0fee4C", // <- use the address of your smart contract
+     signal: userWalletAddress, // <- Fill in with the user's wallet address here
+   });
+   ```
 
-4.  Update your action smart contract, using our [Examples](/docs/examples) as a starting point. Goal is to **verify the ZKP before executing the relevant action**. You will verify both the validity of the ZKP as well as the uniqueness (i.e. that it hasn't been used before for this action) of the nullifier. Your smart contract will need to receive: action ID, signal, nullifier hash (provided by JS widget), merkle root (provided by JS widget) and the proof (provided by JS widget).
+   :::note
+   For the `actionId` make sure to use the address for the smart contract you deployed on Step 1.
+   :::
 
-    :::tip
-    Check out our Airdrop full example repo on [GitHub](https://github.com/worldcoin/world-id-example-airdrop). You can fork this repo to create your own smart contract.
-    :::
+4. On document load, enable the package and listen for the verification results.
 
-5.  Update your wallet transaction to include the additional parameters related to the ZKP. The proof, merkle root & nullifier hash come from the promise result when you call `.enable()` on the JS widget.
-6.  [**🧪 Test your integration!**](/docs/about/test-network)
+   ```js
+   document.addEventListener("DOMContentLoaded", async function () {
+     try {
+       const result = await worldID.enable();
+       console.log("World ID verified succesfully:", result); // <- Pass this result to your wallet transaction
+     } catch (failure) {
+       console.warn("World ID verification failed:", failure);
+       // Re-activate here so your end user can try again
+     }
+   });
+   ```
+
+5. Update your action smart contract, using our [Examples](/docs/examples) as a starting point. Goal is to **verify the ZKP before executing the relevant action**. You will verify both the validity of the ZKP as well as the uniqueness (i.e. that it hasn't been used before for this action) of the nullifier. Your smart contract will need to receive: action ID, signal, nullifier hash (provided by JS widget), merkle root (provided by JS widget) and the proof (provided by JS widget).
+
+   :::tip
+   Check out our Airdrop full example repo on [GitHub](https://github.com/worldcoin/world-id-example-airdrop). You can fork this repo to create your own smart contract.
+   :::
+
+6. Update your wallet transaction to include the additional parameters related to the ZKP. The proof, merkle root & nullifier hash come from the promise result when you call `.enable()` on the JS widget.
+
+7. [**🧪 Test your integration!**](/docs/about/test-network)

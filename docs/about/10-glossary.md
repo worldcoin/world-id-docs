@@ -8,6 +8,10 @@ There are a few terms that are used all throughout the World ID protocol.
 
 ### Action ID
 
+:::tip
+As of now, the action ID should be the address of your smart contract.
+:::
+
 The action ID sets a unique identifier for each action verified with World ID and helps guarantee uniqueness. **A single user will only be able to use a World ID proof for an action once.** Together with the identity nullifier (which is handled internally in the Worldcoin app) and signal, they form an opaque nonce that helps uniquely associate an identity with a specific action (without exposing any information on the identity).
 
 **Each action must have a unique action ID**. A single app/project could have multiple actions if they are performing different actions for which they want to ensure human-uniqueness. Examples:

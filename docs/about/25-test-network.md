@@ -33,3 +33,22 @@ Generating an identity is not enough to use World ID. You also need to verify th
 :::note
 The faucet can be accessed directly from the mockWLD app.
 :::
+
+:::caution
+Please mind that identities verified with the faucet will **only be valid for ~1 hour**. If you want to keep using your identity simply add it again with the faucet.
+:::
+
+## Chain test network
+
+We have a couple of [Examples](/docs/examples) deployed on test networks on-chain to make it easy to test World ID flows end-to-end. All of our examples are deployed on Polygon's [Mumbai-Testnet](https://docs.polygon.technology/docs/develop/network-details/network/). This testnet makes it easy to interact with World ID and has very short contract execution times so you can test and debug quickly. To access this network, we recommend using a [MetaMask](https://metamask.io) wallet and configuring as follows (both mobile and desktop work fine):
+
+1. Go to Settings -> Networks.
+2. Click on "Add network" and set the following parameters.
+   1. Network Name: **Matic Mumbai**
+   2. RPC URL: `https://rpc-mumbai.maticvigil.com` or `https://rpc-mumbai.matic.today` or `https://matic-mumbai.chainstacklabs.com`
+   3. Chain ID: `80001`
+   4. Symbol: `MATIC`
+   5. Block Exporer URL: `https://mumbai.polygonscan.com/`
+3. After adding your network and switching to it, copy the wallet address.
+4. Go to a Mumbai Faucet, for example [https://faucet.polygon.technology](https://faucet.polygon.technology) and get some `MATIC` on your wallet.
+5. Done! You can now use any example to test World ID, try [https://example.id.worldcoin.org](https://example.id.worldcoin.org).

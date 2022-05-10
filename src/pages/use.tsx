@@ -10,6 +10,7 @@ import worldID, { AppProps, VerificationResponse } from "@worldcoin/id";
 import Link from "@docusaurus/Link";
 import { useLocation } from "@docusaurus/router";
 import Tooltip from "react-simple-tooltip";
+import BrowserOnly from "@docusaurus/BrowserOnly";
 
 const PAGE_DESCRIPTION =
   "Prove you're a unique human without revealing any personal data";
@@ -56,50 +57,54 @@ export default function HostedWorldID(): JSX.Element {
   }, [queryParams]);
 
   return (
-    <>
-      <Head>
-        <title>Verify with World ID</title>
-        <meta name="description" content={PAGE_DESCRIPTION} />
-        <meta name="og:description" content={PAGE_DESCRIPTION} />
-      </Head>
-      <div className={styles.hostedWID}>
-        <div>
-          <Logo className={styles.logo} />
-        </div>
-        <div className={styles.card}>
-          <h1 className={styles.title}>Welcome to World ID</h1>
-          <p className={styles.caption}>
-            Verify you are a unique human with World ID.
-          </p>
-          {state === State.Ready && (
-            <WorldIDComponent
-              actionId={queryParams.get("actionId")}
-              signal={queryParams.get("signal")}
-              appName={queryParams.get("appName")}
-              signalDescription={queryParams.get("signalDescription")}
-              returnTo={new URL(queryParams.get("returnTo"))}
-            />
-          )}
-          {state === State.MissingParams && (
-            <>
-              <p className={styles.errorText}>
-                It looks like some parameters are missing or invalid from this
-                request. Please check your link and try again.
+    <BrowserOnly>
+      {() => (
+        <>
+          <Head>
+            <title>Verify with World ID</title>
+            <meta name="description" content={PAGE_DESCRIPTION} />
+            <meta name="og:description" content={PAGE_DESCRIPTION} />
+          </Head>
+          <div className={styles.hostedWID}>
+            <div>
+              <Logo className={styles.logo} />
+            </div>
+            <div className={styles.card}>
+              <h1 className={styles.title}>Welcome to World ID</h1>
+              <p className={styles.caption}>
+                Verify you are a unique human with World ID.
               </p>
-              <p className={styles.devCaption}>
-                If you're a developer, check{" "}
-                <Link to="/docs/js#hosted-version">the docs</Link> for this
-                hosted version of the World ID widget.
-              </p>
-            </>
-          )}
-        </div>
-        <div className={styles.learnMore}>
-          Learn more about <Link to="/docs">World ID</Link> and about{" "}
-          <Link to="https://worldcoin.org">Worldcoin</Link>.
-        </div>
-      </div>
-    </>
+              {state === State.Ready && (
+                <WorldIDComponent
+                  actionId={queryParams.get("actionId")}
+                  signal={queryParams.get("signal")}
+                  appName={queryParams.get("appName")}
+                  signalDescription={queryParams.get("signalDescription")}
+                  returnTo={new URL(queryParams.get("returnTo"))}
+                />
+              )}
+              {state === State.MissingParams && (
+                <>
+                  <p className={styles.errorText}>
+                    It looks like some parameters are missing or invalid from
+                    this request. Please check your link and try again.
+                  </p>
+                  <p className={styles.devCaption}>
+                    If you're a developer, check{" "}
+                    <Link to="/docs/js#hosted-version">the docs</Link> for this
+                    hosted version of the World ID widget.
+                  </p>
+                </>
+              )}
+            </div>
+            <div className={styles.learnMore}>
+              Learn more about <Link to="/docs">World ID</Link> and about{" "}
+              <Link to="https://worldcoin.org">Worldcoin</Link>.
+            </div>
+          </div>
+        </>
+      )}
+    </BrowserOnly>
   );
 }
 

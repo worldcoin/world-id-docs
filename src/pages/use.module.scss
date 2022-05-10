@@ -1,7 +1,12 @@
+$text_muted: #777e91;
+$primary: #4940e0;
+
 .hostedWID {
   background-color: #fafafa;
   width: 100%;
   height: 100vh;
+  min-height: 400px;
+  position: relative;
 }
 
 .logo {
@@ -31,5 +36,34 @@
 }
 
 .caption {
-  color: #777e91;
+  color: $text_muted;
+}
+
+.learnMore {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  color: $text_muted;
+}
+
+.btnContainer {
+  margin-top: 16px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.btnContinue {
+  border-radius: 10px;
+  background-color: $primary;
+  outline: 0;
+  border: 0;
+  color: white;
+  padding: 16px;
+  width: 100%;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: lighten($primary, 20%);
+  }
 }

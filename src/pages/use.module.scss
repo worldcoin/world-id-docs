@@ -28,6 +28,7 @@ $warning: #ff6471;
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 600px;
 }
 
 .title {
@@ -47,8 +48,28 @@ $warning: #ff6471;
   color: $text_muted;
 }
 
+.urlInfo {
+  border-radius: 10px;
+  padding: 8px 16px;
+  border: 1px solid #dde7ea;
+  color: $text_muted;
+  width: 100%;
+  margin-bottom: var(--ifm-paragraph-margin-bottom);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.url {
+  margin-left: 4px;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .btnContainer {
-  margin-top: 16px;
+  margin-top: var(--ifm-paragraph-margin-bottom);
   width: 100%;
   max-width: 300px;
 }

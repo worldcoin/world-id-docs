@@ -5,9 +5,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import Head from "@docusaurus/Head";
 import styles from "./use.module.scss";
 import Logo from "@site/static/img/logo.svg";
+import IconQuestionCircle from "@site/static/img/icon-question-circle.svg";
 import worldID, { AppProps, VerificationResponse } from "@worldcoin/id";
 import Link from "@docusaurus/Link";
 import { useLocation } from "@docusaurus/router";
+import Tooltip from "react-simple-tooltip";
 
 const PAGE_DESCRIPTION =
   "Prove you're a unique human without revealing any personal data";
@@ -19,6 +21,20 @@ enum State {
   Completed,
 }
 
+const validateUrl = (candidate: string): boolean => {
+  try {
+    const url = new URL(candidate);
+    if (url.protocol !== "https:") {
+      console.error("Provided `returnTo` must always be over https.");
+      return false;
+    }
+    return true;
+  } catch {
+    console.error("Provided `returnTo` url is not valid.");
+    return false;
+  }
+};
+
 export default function HostedWorldID(): JSX.Element {
   const [state, setState] = useState(State.Initial);
   const location = useLocation();
@@ -27,7 +43,12 @@ export default function HostedWorldID(): JSX.Element {
     [location]
   );
   useEffect(() => {
-    if (queryParams.get("signal") && queryParams.get("actionId")) {
+    if (
+      queryParams.get("signal") &&
+      queryParams.get("actionId") &&
+      queryParams.get("returnTo") &&
+      validateUrl(queryParams.get("returnTo"))
+    ) {
       setState(State.Ready);
     } else {
       setState(State.MissingParams);
@@ -48,7 +69,7 @@ export default function HostedWorldID(): JSX.Element {
         <div className={styles.card}>
           <h1 className={styles.title}>Welcome to World ID</h1>
           <p className={styles.caption}>
-            Verify you are a unique human with World ID
+            Verify you are a unique human with World ID.
           </p>
           {state === State.Ready && (
             <WorldIDComponent
@@ -56,13 +77,14 @@ export default function HostedWorldID(): JSX.Element {
               signal={queryParams.get("signal")}
               appName={queryParams.get("appName")}
               signalDescription={queryParams.get("signalDescription")}
+              returnTo={new URL(queryParams.get("returnTo"))}
             />
           )}
           {state === State.MissingParams && (
             <>
               <p className={styles.errorText}>
-                It looks like some parameters are missing from this request.
-                Please check your link and try again.
+                It looks like some parameters are missing or invalid from this
+                request. Please check your link and try again.
               </p>
               <p className={styles.devCaption}>
                 If you're a developer, check{" "}
@@ -81,7 +103,14 @@ export default function HostedWorldID(): JSX.Element {
   );
 }
 
-function WorldIDComponent(props: AppProps): JSX.Element {
+interface WorldIDComponentProps extends AppProps {
+  returnTo: URL;
+}
+
+function WorldIDComponent({
+  returnTo,
+  ...worldIDProps
+}: WorldIDComponentProps): JSX.Element {
   const [proof, setProof] = useState(null as null | VerificationResponse);
   const enableWorldID = async (): Promise<void> => {
     try {
@@ -97,7 +126,7 @@ function WorldIDComponent(props: AppProps): JSX.Element {
   useEffect(() => {
     if (!worldID.isInitialized()) {
       worldID.init("world-id-container", {
-        ...props,
+        ...worldIDProps,
         enableTelemetry: true,
         disableRemoteFonts: true,
       });
@@ -106,6 +135,25 @@ function WorldIDComponent(props: AppProps): JSX.Element {
   }, []);
   return (
     <>
+      <div className={styles.urlInfo}>
+        Verifying for{" "}
+        <b className={styles.url} title={returnTo.hostname}>
+          {returnTo.hostname}
+        </b>
+        <Tooltip
+          content={
+            <div style={{ width: 220 }}>
+              Please make sure you trust this domain.
+            </div>
+          }
+          padding={8}
+          placement="bottom"
+          fontSize="0.85em"
+          radius={10}
+        >
+          <IconQuestionCircle style={{ marginBottom: -6 }} />
+        </Tooltip>
+      </div>
       <div id="world-id-container" />
       <div className={styles.btnContainer}>
         <button className={styles.btnContinue} disabled>

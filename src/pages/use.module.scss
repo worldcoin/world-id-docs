@@ -1,5 +1,6 @@
 $text_muted: #777e91;
 $primary: #4940e0;
+$warning: #ff6471;
 
 .hostedWID {
   background-color: #fafafa;
@@ -66,4 +67,19 @@ $primary: #4940e0;
     cursor: not-allowed;
     background-color: lighten($primary, 20%);
   }
+}
+
+.errorText {
+  color: $warning;
+  max-width: 320px;
+  text-align: center;
+}
+
+.devCaption {
+  font-size: 0.8em;
+  max-width: 280px;
+  position: absolute;
+  bottom: -76px;
+  color: $text_muted;
+  text-align: center;
 }

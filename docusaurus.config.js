@@ -28,7 +28,6 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl: "https://github.com/worldcoin/world-id-docs/tree/main/",
           showLastUpdateTime: true,
-          showLastUpdateAuthor: true,
         },
         theme: {
           customCss: require.resolve("./src/css/custom.scss"),

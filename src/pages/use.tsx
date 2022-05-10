@@ -133,6 +133,14 @@ function WorldIDComponent({
       enableWorldID();
     }
   }, []);
+
+  const handleContinue = (): void => {
+    const params = new URLSearchParams(
+      proof as unknown as Record<string, string>
+    );
+    window.location.href = `${returnTo}?${params.toString()}`;
+  };
+
   return (
     <>
       <div className={styles.urlInfo}>
@@ -156,8 +164,12 @@ function WorldIDComponent({
       </div>
       <div id="world-id-container" />
       <div className={styles.btnContainer}>
-        <button className={styles.btnContinue} disabled>
-          Continue
+        <button
+          className={styles.btnContinue}
+          disabled={!proof}
+          onClick={handleContinue}
+        >
+          Continue{proof && <> to {returnTo.hostname}</>}
         </button>
       </div>
     </>

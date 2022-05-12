@@ -12,10 +12,10 @@ const config = {
   url: "https://world-id.worldcoin.org",
   baseUrl: "/",
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
+  onBrokenMarkdownLinks: "throw",
   favicon: "img/favicon.ico",
-  organizationName: "worldcoin", // GitHub org.
-  projectName: "world-id-docs", // Repo name.
+  organizationName: "worldcoin", // GitHub org
+  projectName: "world-id-docs", // Repo name
 
   plugins: ["docusaurus-plugin-sass", "posthog-docusaurus"],
 
@@ -42,8 +42,8 @@ const config = {
         title: "World ID",
         logo: {
           alt: "World ID Logo",
-          src: "img/logo.svg",
-          srcDark: "img/logo-dark.svg",
+          src: "img/logomark.svg",
+          srcDark: "img/logomark-dark.svg",
         },
         items: [
           {

@@ -19,7 +19,7 @@ The action ID sets a unique identifier for each action verified with World ID an
 - candyApp airdrop 2022 could have a `candyApp-airdrop-2022` action ID.
 - candyApp airdrop 2023 could have a `candyApp-airdrop-2023` action ID. Users who claimed `candyApp-airdrop-2022` will be able to claim `candyApp-airdrop-2023`, but not claim `candyApp-airdrop-2022` again.
 
-Read more about the Semaphore protocol which World ID relies on in the [Semaphore withepaper](https://docs.zkproof.org/pages/standards/accepted-workshop3/proposal-semaphore.pdf).
+Read more about the Semaphore protocol which World ID relies on in the [Semaphore whitepaper](https://docs.zkproof.org/pages/standards/accepted-workshop3/proposal-semaphore.pdf).
 
 :::note
 On the Semaphore protocol the Action ID is called the _External nullifier_ (not to be confused with nullifier hash).

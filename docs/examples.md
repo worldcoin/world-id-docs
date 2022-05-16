@@ -3,6 +3,8 @@ title: Examples
 sidebar_position: 20
 ---
 
+import Link from "@docusaurus/Link";
+
 This section contains full end-to-end examples of smart contracts and dapps for World ID.
 
 :::tip
@@ -20,13 +22,17 @@ Sample airdrop app. Let users claim a free ERC-20 token airdrop but only once pe
 <table className="table--center margin-top--lg">
 <tr>
 <td>
-<a href="https://example.id.worldcoin.org" target="_blank">Demo</a>
+<Link href="https://example.id.worldcoin.org">Demo</Link>
 </td>
 <td>
-<a href="https://github.com/worldcoin/world-id-example-airdrop" target="_blank">Smart contract source</a>
+<Link href="https://github.com/worldcoin/world-id-example-airdrop">Smart contract source</Link>
 </td>
 <td>
-<a href="https://github.com/worldcoin/world-id-example-airdrop-dapp" target="_blank">dapp source</a>
+<Link href="https://github.com/worldcoin/world-id-example-airdrop-dapp">dapp source</Link>
+</td>
+<td>
+<div><b>Deployed example address (<Link to="https://mumbai.polygonscan.com/address/0x505Fd4741F00850024FBD3926ebECfB4c675A9fe">Mumbai Testnet</Link>)</b></div>
+<code>0x505Fd4741F00850024FBD3926ebECfB4c675A9fe</code>
 </td>
 </tr>
 </table>

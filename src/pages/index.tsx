@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
+import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./home.module.scss";
 import {
@@ -33,9 +34,12 @@ export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      title="Docs"
+      description="Prove a human is doing an action only once without revealing any personal data."
     >
+      <Head>
+        <meta property="og:image" content="/img/og-image.png" />
+      </Head>
       <HomepageHeader />
       <main>
         <HomepageFeatures />

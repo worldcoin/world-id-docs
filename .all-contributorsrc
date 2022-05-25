@@ -4,7 +4,7 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
-    "README.md"
+    "CONTRIBUTING.md"
   ],
   "imageSize": 75,
   "commit": true,
@@ -18,6 +18,15 @@
       "contributions": [
         "code",
         "doc"
+      ]
+    },
+    {
+      "login": "tino-otto",
+      "name": "Tino Vyatkin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/101298311?v=4",
+      "profile": "https://github.com/tino-otto",
+      "contributions": [
+        "code"
       ]
     }
   ],

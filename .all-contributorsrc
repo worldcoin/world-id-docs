@@ -28,6 +28,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "m1guelpf",
+      "name": "Miguel Piedrafita",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23558090?v=4",
+      "profile": "https://miguelpiedrafita.com/",
+      "contributions": [
+        "code",
+        "example"
+      ]
     }
   ],
   "contributorsPerLine": 7

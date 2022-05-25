@@ -65,6 +65,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "flyin",
+      "name": "Alexander Polesov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/394168?v=4",
+      "profile": "https://polesov.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

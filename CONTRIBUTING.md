@@ -20,6 +20,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/philsippl"><img src="https://avatars.githubusercontent.com/u/15144388?v=4?s=75" width="75px;" alt=""/><br /><sub><b>Philipp Sippl</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=philsippl" title="Code">💻</a></td>
     <td align="center"><a href="https://xn--2-umb.com/"><img src="https://avatars.githubusercontent.com/u/4532328?v=4?s=75" width="75px;" alt=""/><br /><sub><b>Remco Bloemen</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=recmo" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/igorosip0v"><img src="https://avatars.githubusercontent.com/u/89008845?v=4?s=75" width="75px;" alt=""/><br /><sub><b>igorosip0v</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=igorosip0v" title="Code">💻</a></td>
+    <td align="center"><a href="https://polesov.com/"><img src="https://avatars.githubusercontent.com/u/394168?v=4?s=75" width="75px;" alt=""/><br /><sub><b>Alexander Polesov</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=flyin" title="Code">💻</a></td>
   </tr>
 </table>
 

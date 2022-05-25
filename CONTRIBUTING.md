@@ -18,6 +18,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/tino-otto"><img src="https://avatars.githubusercontent.com/u/101298311?v=4?s=75" width="75px;" alt=""/><br /><sub><b>Tino Vyatkin</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=tino-otto" title="Code">💻</a></td>
     <td align="center"><a href="https://miguelpiedrafita.com/"><img src="https://avatars.githubusercontent.com/u/23558090?v=4?s=75" width="75px;" alt=""/><br /><sub><b>Miguel Piedrafita</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=m1guelpf" title="Code">💻</a> <a href="#example-m1guelpf" title="Examples">💡</a></td>
     <td align="center"><a href="https://github.com/philsippl"><img src="https://avatars.githubusercontent.com/u/15144388?v=4?s=75" width="75px;" alt=""/><br /><sub><b>Philipp Sippl</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=philsippl" title="Code">💻</a></td>
+    <td align="center"><a href="https://xn--2-umb.com/"><img src="https://avatars.githubusercontent.com/u/4532328?v=4?s=75" width="75px;" alt=""/><br /><sub><b>Remco Bloemen</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=recmo" title="Code">💻</a></td>
   </tr>
 </table>
 

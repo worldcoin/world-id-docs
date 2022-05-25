@@ -1,9 +1,25 @@
 {
+  "projectName": "world-id-docs",
+  "projectOwner": "worldcoin",
+  "repoType": "github",
+  "repoHost": "https://github.com",
   "files": [
     "README.md"
   ],
-  "imageSize": 60,
-  "contributorsPerLine": 7,
-  "skipCi": "true",
-  "contributors": []
+  "imageSize": 75,
+  "commit": true,
+  "commitConvention": "eslint",
+  "contributors": [
+    {
+      "login": "paolodamico",
+      "name": "Paolo D'Amico",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5864173?v=4",
+      "profile": "https://github.com/paolodamico",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
 }

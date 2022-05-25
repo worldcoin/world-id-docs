@@ -22,6 +22,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/igorosip0v"><img src="https://avatars.githubusercontent.com/u/89008845?v=4?s=75" width="75px;" alt=""/><br /><sub><b>igorosip0v</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=igorosip0v" title="Code">💻</a></td>
     <td align="center"><a href="https://polesov.com/"><img src="https://avatars.githubusercontent.com/u/394168?v=4?s=75" width="75px;" alt=""/><br /><sub><b>Alexander Polesov</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=flyin" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/giovannidisiena"><img src="https://avatars.githubusercontent.com/u/22510773?v=4?s=75" width="75px;" alt=""/><br /><sub><b>Giovanni Di Siena</b></sub></a><br /><a href="#content-giovannidisiena" title="Content">🖋</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->

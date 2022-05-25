@@ -38,6 +38,15 @@
         "code",
         "example"
       ]
+    },
+    {
+      "login": "philsippl",
+      "name": "Philipp Sippl",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15144388?v=4",
+      "profile": "https://github.com/philsippl",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

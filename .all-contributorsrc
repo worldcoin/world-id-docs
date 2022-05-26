@@ -1,0 +1,89 @@
+{
+  "projectName": "world-id-docs",
+  "projectOwner": "worldcoin",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "CONTRIBUTING.md"
+  ],
+  "imageSize": 75,
+  "commit": true,
+  "commitConvention": "eslint",
+  "contributors": [
+    {
+      "login": "paolodamico",
+      "name": "Paolo D'Amico",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5864173?v=4",
+      "profile": "https://github.com/paolodamico",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "tino-otto",
+      "name": "Tino Vyatkin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/101298311?v=4",
+      "profile": "https://github.com/tino-otto",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "m1guelpf",
+      "name": "Miguel Piedrafita",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23558090?v=4",
+      "profile": "https://miguelpiedrafita.com/",
+      "contributions": [
+        "code",
+        "example"
+      ]
+    },
+    {
+      "login": "philsippl",
+      "name": "Philipp Sippl",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15144388?v=4",
+      "profile": "https://github.com/philsippl",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "recmo",
+      "name": "Remco Bloemen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4532328?v=4",
+      "profile": "https://xn--2-umb.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "igorosip0v",
+      "name": "igorosip0v",
+      "avatar_url": "https://avatars.githubusercontent.com/u/89008845?v=4",
+      "profile": "https://github.com/igorosip0v",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "flyin",
+      "name": "Alexander Polesov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/394168?v=4",
+      "profile": "https://polesov.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "giovannidisiena",
+      "name": "Giovanni Di Siena",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22510773?v=4",
+      "profile": "https://github.com/giovannidisiena",
+      "contributions": [
+        "content"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}

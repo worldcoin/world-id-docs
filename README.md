@@ -1,4 +1,7 @@
 <img src="https://raw.githubusercontent.com/worldcoin/world-id-js/main/world-id-logo.svg" alt="World ID logo" width="300" />
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # World ID Docs
 
@@ -21,6 +24,10 @@ To develop locally and contribute to this package, you can simply follow these i
   ```bash
   yarn build
   ```
+
+## ✨ Contributors
+
+Thanks to all [the contributors](CONTRIBUTING.md) who have made World ID possible!
 
 ## 🧑‍⚖️ License
 

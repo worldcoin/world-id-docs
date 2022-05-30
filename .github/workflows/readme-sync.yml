@@ -44,4 +44,6 @@ jobs:
           commit_author: GitHub Actions <actions@github.com>
       
       - name: Sync remote READMEs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node readme-sync.js remote

@@ -2,14 +2,15 @@ name: Readme sync
 
 on:
   pull_request:
+    types: [closed]
     paths:
       - 'SHARED-README.md'
       - 'repositories.json'
 
 jobs:
 
-  sync-readmes:
-    name: Sync World ID READMEs
+  sync-remote-readme:
+    name: Sync all World ID READMEs
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -34,17 +35,6 @@ jobs:
 
       - name: Compile script to JS
         run: ./node_modules/typescript/bin/tsc readme-sync.ts
-      
-      - name: Sync local README
-        run: node readme-sync.js
-
-      - name: Commit changes to repository
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: sync shared README content
-          commit_options: '--no-verify --signoff'
-          file_pattern: README.md
-          commit_author: GitHub Actions <actions@github.com>
       
       - name: Sync remote READMEs
         env:

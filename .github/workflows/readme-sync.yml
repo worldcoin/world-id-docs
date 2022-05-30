@@ -1,7 +1,10 @@
 name: Readme sync
 
 on:
-  - pull_request
+  pull_request:
+    paths:
+      - 'SHARED-README.md'
+      - 'repositories.json'
 
 jobs:
 

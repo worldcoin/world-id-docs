@@ -9,7 +9,7 @@ jobs:
     name: Sync local readme
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Set up Node 16
         uses: actions/setup-node@v1
@@ -41,8 +41,7 @@ jobs:
       - name: Commit changes to repository
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: sync shared README content
           commit_options: '--no-verify --signoff'
           file_pattern: README.md
-          # commit_author: GitHub Actions <actions@github.com>
+          commit_author: GitHub Actions <actions@github.com>

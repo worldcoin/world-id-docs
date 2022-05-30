@@ -16,7 +16,17 @@ jobs:
         with:
           node-version: 16
 
+      - uses: actions/cache@v2
+        id: node-modules-cache
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules
+      
       - name: Install dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
       
       - name: Install typescript
@@ -31,6 +41,7 @@ jobs:
       - name: Commit changes to repository
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: sync shared README content
           commit_options: '--no-verify --signoff'
           file_pattern: README.md

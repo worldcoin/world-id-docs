@@ -16,7 +16,7 @@ Regardless of how you landed here, the easiest way to get started with World ID 
 
 <a href="https://app.id.worldcoin.org">
 <p align="center">
-  <img src="static/img/readme-get-started.png">
+  <img src="static/img/readme-get-started.png" alt="Get started" height="50" />
 </p>
 </a>
 
@@ -24,9 +24,21 @@ Regardless of how you landed here, the easiest way to get started with World ID 
 
 Want to see World ID in action? We have a bunch of [Examples](https://id.worldcoin.org/examples).
 
+<a href="https://id.worldcoin.org/examples">
+<p align="center">
+  <img src="static/img/readme-examples.png" alt="Click here to see examples" height="150" />
+</p>
+</a>
+
 ## 📄 Documentation
 
 We have comprehensive docs for World ID at https://id.worldcoin.org/docs.
+
+<a href="https://id.worldcoin.org/docs">
+<p align="center">
+  <img src="static/img/readme-docs.png" alt="Visit documentation" height="50" />
+</p>
+</a>
 
 ## 🗣 Feedback
 

@@ -5,8 +5,8 @@ on:
 
 jobs:
 
-  sync-local-readme:
-    name: Sync local readme
+  sync-readmes:
+    name: Sync World ID READMEs
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -28,14 +28,11 @@ jobs:
       - name: Install dependencies
         if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
-      
-      - name: Install typescript
-        run: npm install -g typescript
 
       - name: Compile script to JS
-        run: tsc readme-sync.ts
+        run: ./node_modules/typescript/bin/tsc readme-sync.ts
       
-      - name: Sync local readme
+      - name: Sync local README
         run: node readme-sync.js
 
       - name: Commit changes to repository
@@ -45,3 +42,6 @@ jobs:
           commit_options: '--no-verify --signoff'
           file_pattern: README.md
           commit_author: GitHub Actions <actions@github.com>
+      
+      - name: Sync remote READMEs
+        run: node readme-sync.js remote

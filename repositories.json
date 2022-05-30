@@ -1,0 +1,9 @@
+{
+  "description": "This file contains a list of all World ID repositories.",
+  "list": [
+    {
+      "name": "World ID JS",
+      "url": "https://github.com/worldcoin/world-id-js"
+    }
+  ]
+}

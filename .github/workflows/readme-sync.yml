@@ -17,7 +17,7 @@ jobs:
           node-version: 16
       
       - name: Install typescript
-        run: npm install -g typescript
+        run: npm install -g typescript @types/node
 
       - name: Compile script to JS
         run: tsc readme-sync.ts

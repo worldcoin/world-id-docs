@@ -1,0 +1,34 @@
+name: Readme sync
+
+on:
+  - pull_request
+
+jobs:
+
+  sync-local-readme:
+    name: Sync local readme
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up Node 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      
+      - name: Install typescript
+        run: npm install -g typescript
+
+      - name: Compile script to JS
+        run: tsc readme-sync.ts
+      
+      - name: Sync local readme
+        run: node readme-sync.js
+
+      - name: Commit changes to repository
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: sync shared README content
+          commit_options: '--no-verify --signoff'
+          file_pattern: README.md
+          commit_author: GitHub Actions <actions@github.com>

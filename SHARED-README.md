@@ -44,5 +44,11 @@ We have comprehensive docs for World ID at https://id.worldcoin.org/docs.
 
 **World ID is in Beta, help us improve!** Please share feedback on your experience. You can find us on [Discord][discord], look for the [#world-id](https://discord.com/channels/956750052771127337/968523914638688306) channel. You can also open an issue or a PR directly on this repo.
 
+<a href="https://discord.gg/worldcoin">
+<p align="center">
+  <img src="static/img/readme-discord.png" alt="Join Discord" height="50" />
+</p>
+</a>
+
 [app]: https://app.id.worldcoin.org
 [discord]: https://discord.gg/worldcoin

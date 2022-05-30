@@ -19,15 +19,15 @@ const localSync = async () => {
 
   if (newReadme !== localReadme) {
     fs.writeFileSync("README.md", newReadme, { encoding: "utf8", flag: "w" });
-    console.log("✏️ Updated local README.");
+    console.log("✅ Updated local README.");
   } else {
-    console.log("✅ Local README is up-to-date.");
+    console.log("🟢 Local README is already up-to-date.");
   }
 };
 
 interface RepositoryInterface {
   name: string;
-  url: string;
+  repository: string;
 }
 interface RepositoriesInterface {
   description: string;
@@ -35,23 +35,29 @@ interface RepositoriesInterface {
 }
 
 const remoteSync = async () => {
+  const githubToken = process.env.GITHUB_TOKEN;
+  if (!githubToken) {
+    throw new Error("`GITHUB_TOKEN` must be set to run this script.");
+  }
+
   console.log("Starting remote sync ...");
 
   const repositories: RepositoriesInterface = require("./repositories.json");
 
   for (const repository of repositories.list) {
-    console.log(`Starting check for ${repository.name}`);
+    console.log(`Starting check for ${repository.repository}`);
     const response = await fetch(
-      `${repository.url}/blob/main/README.md?raw=true`
+      `https://api.github.com/repos/${repository.repository}/contents/README.md`
     );
 
     if (!response.ok) {
-      throw new Error(
-        `Error fetching README for repository ${repository.name}`
-      );
+      throw new Error(`Error fetching repository ${repository.repository}.`);
     }
 
-    const currentReadme: string = await response.text();
+    const readmeMeta = await response.json();
+    const currentReadme = Buffer.from(readmeMeta.content, "base64").toString(
+      "binary"
+    );
 
     if (currentReadme.indexOf("WORLD-ID-SHARED-README-TAG:START") === -1) {
       throw new Error(
@@ -59,9 +65,44 @@ const remoteSync = async () => {
       );
     }
 
-    const newReadme = currentReadme.replace(matchRegex, readmeSubstitution);
-    if (newReadme !== currentReadme) {
-      console.log(`Updating ${repository.name}`);
+    const newContents = Buffer.from(
+      currentReadme.replace(matchRegex, readmeSubstitution),
+      "utf8"
+    ).toString("base64");
+
+    if (newContents !== readmeMeta.content.replaceAll("\n", "")) {
+      console.log(`Updating ${repository.repository}...`);
+      const payload = {
+        message: "docs: syncing README for World ID repositories",
+        content: newContents,
+        sha: readmeMeta.sha,
+        committer: {
+          name: "worldcoin[bot]",
+          email: "bot@worldcoin.org",
+        },
+      };
+      const updateResponse = await fetch(
+        `https://api.github.com/repos/${repository.repository}/contents/README.md`,
+        {
+          method: "PUT",
+          body: JSON.stringify(payload),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `token ${githubToken}`,
+          },
+        }
+      );
+
+      if (!updateResponse.ok) {
+        throw new Error(
+          `Error updating repository ${
+            repository.repository
+          }. ${await updateResponse.text()}`
+        );
+      }
+      console.log(`✅ Updated repository ${repository.repository}.`);
+    } else {
+      console.log(`🟢 ${repository.repository} is already up-to-date.`);
     }
   }
 };

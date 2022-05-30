@@ -3,7 +3,7 @@
   "list": [
     {
       "name": "World ID JS",
-      "url": "https://github.com/worldcoin/world-id-js"
+      "repository": "worldcoin/world-id-js"
     }
   ]
 }

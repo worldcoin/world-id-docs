@@ -1,0 +1,35 @@
+name: Readme sync
+
+on:
+  pull_request:
+    paths:
+      - 'SHARED-README.md'
+      - 'repositories.json'
+
+jobs:
+
+  sync-local-readme:
+    name: Sync local README
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Sync local README
+        run: npx ts-node readme-sync.ts
+
+      - name: Commit changes to repository
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: sync shared README content
+          commit_options: '--no-verify --signoff'
+          file_pattern: README.md
+          commit_author: GitHub Actions <actions@github.com>

@@ -2,8 +2,6 @@
  * This script syncs the READMEs of all World ID repositories so all of them have the same contextual information.
  * The content from SHARED-README.md is added to all World ID repositories.
  */
-
-import fetch from "node-fetch";
 const fs = require("fs");
 
 const matchRegex =
@@ -11,7 +9,7 @@ const matchRegex =
 const sharedReadme: string = fs.readFileSync("SHARED-README.md", "utf8");
 const readmeSubstitution = `<!-- WORLD-ID-SHARED-README-TAG:START - Do not remove or modify this section directly -->\n${sharedReadme}\n<!-- WORLD-ID-SHARED-README-TAG:END -->`;
 
-const localSync = async () => {
+const localSync = () => {
   // Local sync
   const localReadme: string = fs.readFileSync("README.md", "utf8");
 
@@ -59,7 +57,7 @@ const remoteSync = async () => {
       "binary"
     );
 
-    if (currentReadme.indexOf("WORLD-ID-SHARED-README-TAG:START") === -1) {
+    if (!currentReadme.includes("WORLD-ID-SHARED-README-TAG:START")) {
       throw new Error(
         `${repository.name} repository does not have the shared README tag.`
       );

@@ -54,8 +54,8 @@ const config = {
             label: "Docs",
           },
           {
-            href: "https://worldcoin.org",
-            label: "Worldcoin",
+            to: "/feedback",
+            label: "✨ Feedback",
             position: "right",
           },
         ],

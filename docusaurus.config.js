@@ -95,6 +95,10 @@ const config = {
                 label: "Twitter",
                 href: "https://twitter.com/worldcoin",
               },
+              {
+                label: "Hackathons",
+                to: "/docs/hackathons",
+              },
             ],
           },
           {

@@ -1,4 +1,4 @@
-name: Readme sync
+name: Repositories sync
 
 on:
   pull_request:
@@ -6,10 +6,11 @@ on:
     paths:
       - 'SHARED-README.md'
       - 'repositories.json'
+      - 'sync.ts'
 
 jobs:
 
-  sync-remote-readme:
+  sync-remote-readmes:
     name: Sync all World ID READMEs
     runs-on: ubuntu-20.04
     steps:

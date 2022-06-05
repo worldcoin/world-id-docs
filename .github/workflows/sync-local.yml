@@ -1,15 +1,16 @@
-name: Readme sync
+name: Repositories sync
 
 on:
   pull_request:
     paths:
       - 'SHARED-README.md'
       - 'repositories.json'
+      - 'sync.ts'
 
 jobs:
 
-  sync-local-readme:
-    name: Sync local README
+  sync-local-repository:
+    name: Sync local README & repositories
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2

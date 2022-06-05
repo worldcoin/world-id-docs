@@ -122,14 +122,10 @@ const descriptionsSync = async () => {
     const response = await fetch(
       `https://api.github.com/repos/${repository.repository}`
     );
-
     repositories.list[i].description = (await response.json()).description;
-
-    fs.writeFileSync(
-      "repositories.json",
-      JSON.stringify(repositories, null, 2)
-    );
   }
+
+  fs.writeFileSync("repositories.json", JSON.stringify(repositories, null, 2));
 };
 
 if (require.main === module) {

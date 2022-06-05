@@ -45,6 +45,10 @@ const remoteSync = async () => {
   const repositories: RepositoriesInterface = require("./repositories.json");
 
   for (const repository of repositories.list) {
+    if (!repository.sync_readme) {
+      continue;
+    }
+
     console.log(`Starting check for ${repository.repository}`);
     const response = await fetch(
       `https://api.github.com/repos/${repository.repository}/contents/README.md`

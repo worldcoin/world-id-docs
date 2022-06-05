@@ -6,6 +6,36 @@
       "repository": "worldcoin/world-id-js",
       "sync_readme": true,
       "description": ""
+    },
+    {
+      "name": "World ID Starter Kit",
+      "repository": "world-id-starter-hardhat",
+      "sync_readme": true,
+      "description": ""
+    },
+    {
+      "name": "World ID Starter Kit - Hardhat",
+      "repository": "world-id-starter-hardhat",
+      "sync_readme": true,
+      "description": ""
+    },
+    {
+      "name": "World ID Mock App",
+      "repository": "world-id-mock-app",
+      "sync_readme": true,
+      "description": ""
+    },
+    {
+      "name": "World ID Docs",
+      "repository": "world-id-docs",
+      "sync_readme": false,
+      "description": ""
+    },
+    {
+      "name": "World ID - Example - Airdrop",
+      "repository": "world-id-example-airdrop",
+      "sync_readme": true,
+      "description": ""
     }
   ]
 }

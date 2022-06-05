@@ -9,7 +9,7 @@
     },
     {
       "name": "World ID Starter Kit",
-      "repository": "worldcoin/world-id-starter-hardhat",
+      "repository": "worldcoin/world-id-starter",
       "sync_readme": true,
       "description": "Smart contracts required to get started building with World ID"
     },

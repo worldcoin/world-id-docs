@@ -27,4 +27,4 @@ jobs:
       - name: Sync remote READMEs
         env:
           GITHUB_TOKEN: ${{ secrets.WLD_ID_SYNC }}
-        run: npx ts-node readme-sync.ts remote
+        run: npx ts-node sync.ts remote

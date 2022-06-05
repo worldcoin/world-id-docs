@@ -1,9 +1,11 @@
 {
-  "description": "This file contains a list of all World ID repositories.",
+  "description": "This file contains a list of all World ID repositories. Descriptions are automatically pulled from GitHub.",
   "list": [
     {
       "name": "World ID JS",
-      "repository": "worldcoin/world-id-js"
+      "repository": "worldcoin/world-id-js",
+      "sync_readme": true,
+      "description": ""
     }
   ]
 }

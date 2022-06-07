@@ -1,4 +1,4 @@
-name: Readme sync
+name: Repositories sync
 
 on:
   pull_request:
@@ -6,10 +6,11 @@ on:
     paths:
       - 'SHARED-README.md'
       - 'repositories.json'
+      - 'sync.ts'
 
 jobs:
 
-  sync-remote-readme:
+  sync-remote-readmes:
     name: Sync all World ID READMEs
     runs-on: ubuntu-20.04
     steps:
@@ -27,4 +28,4 @@ jobs:
       - name: Sync remote READMEs
         env:
           GITHUB_TOKEN: ${{ secrets.WLD_ID_SYNC }}
-        run: npx ts-node readme-sync.ts remote
+        run: npx ts-node sync.ts remote

@@ -26,6 +26,8 @@ const localSync = () => {
 interface RepositoryInterface {
   name: string;
   repository: string;
+  sync_readme: boolean;
+  description: string;
 }
 interface RepositoriesInterface {
   description: string;
@@ -43,6 +45,10 @@ const remoteSync = async () => {
   const repositories: RepositoriesInterface = require("./repositories.json");
 
   for (const repository of repositories.list) {
+    if (!repository.sync_readme) {
+      continue;
+    }
+
     console.log(`Starting check for ${repository.repository}`);
     const response = await fetch(
       `https://api.github.com/repos/${repository.repository}/contents/README.md`
@@ -105,10 +111,29 @@ const remoteSync = async () => {
   }
 };
 
+/**
+ * Syncs the descriptions for all repositories from GitHub.
+ */
+const descriptionsSync = async () => {
+  const repositories: RepositoriesInterface = require("./repositories.json");
+
+  for (let i = 0; i < repositories.list.length; i++) {
+    const repository = repositories.list[i];
+    const response = await fetch(
+      `https://api.github.com/repos/${repository.repository}`
+    );
+    repositories.list[i].description = (await response.json()).description;
+  }
+
+  fs.writeFileSync("repositories.json", JSON.stringify(repositories, null, 2));
+};
+
 if (require.main === module) {
   if (process.argv[2] === "remote") {
     remoteSync();
-  } else {
+  } else if (process.argv[2] === "local") {
     localSync();
+  } else {
+    descriptionsSync();
   }
 }

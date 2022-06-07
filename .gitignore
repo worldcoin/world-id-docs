@@ -9,6 +9,3 @@ build
 /.vscode
 /.idea
 /.history
-
-# README sync
-readme-sync.js

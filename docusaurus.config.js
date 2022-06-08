@@ -124,6 +124,13 @@ const config = {
         persistence: "localStorage",
         autocapture: false,
       },
+      algolia: {
+        appId: "O4JS38E98E",
+        apiKey: "4ed94b4d8517278004c4fd8b4f5bf659", // Public API key: it is safe to commit it
+        indexName: "worldcoin",
+        contextualSearch: true,
+        searchPagePath: "search",
+      },
     }),
 };
 

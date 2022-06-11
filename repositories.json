@@ -5,7 +5,7 @@
       "name": "World ID JS",
       "repository": "worldcoin/world-id-js",
       "sync_readme": true,
-      "description": "Integrate World ID into your Javascript apps. Docs: https://id.worldcoin.org/docs/js"
+      "description": "Integrate World ID into your app/DApp with the World ID JS widget."
     }
   ]
 }

@@ -11,49 +11,46 @@
       "name": "World ID Starter Kit - Foundry",
       "repository": "worldcoin/world-id-starter",
       "sync_readme": true,
-      "description": "Smart contracts required to get started building with World ID"
+      "description": "Quick start. Starter kit with Foundry to deploy your own smart contract that verifies unique-humanness with World ID."
     },
     {
       "name": "World ID Starter Kit - Hardhat",
       "repository": "worldcoin/world-id-starter-hardhat",
       "sync_readme": true,
-      "description": "Smart contracts required to get started building with World ID"
+      "description": "Quick start. Starter kit with Hardhat to deploy your own smart contract that verifies unique-humanness with World ID."
     },
     {
       "name": "World ID Mock App",
       "repository": "worldcoin/world-id-mock-app",
       "sync_readme": true,
-      "description": "Mock app that handles World ID verfication requests to use World ID's Test Network. Docs: https://id.worldcoin.org/test"
+      "description": "Simulator to test the World ID protocol in the staging network."
     },
     {
       "name": "World ID Docs",
       "repository": "worldcoin/world-id-docs",
       "sync_readme": false,
-      "description": "Documentation for World ID. https://id.worldcoin.org"
+      "description": "Documentation for the World ID protocol."
     },
     {
       "name": "World ID Airdrop",
       "repository": "worldcoin/world-id-example-airdrop",
       "sync_readme": true,
-      "description": "Airdrop ERC-20 tokens to a group of addresses using World ID, preserving privacy for the claimers with zero-knowledge proofs. Dapp example: https://github.com/worldcoin/world-id-example-airdrop-dapp"
+      "description": "World ID Example. Create an airdrop of ERC-20 tokens that can only be claimed once by a single human. Completely privacy preserving."
     },
     {
       "name": "World ID #petorbz",
       "repository": "worldcoin/world-id-petorbz",
-      "sync_readme": true,
-      "description": ""
+      "sync_readme": true
     },
     {
       "name": "World ID Discord Bot",
       "repository": "worldcoin/world-id-discord-bot",
-      "sync_readme": false,
-      "description": ""
+      "sync_readme": false
     },
     {
       "name": "Worldcoin Developer Portal",
       "repository": "worldcoin/developer-portal",
-      "sync_readme": false,
-      "description": ""
+      "sync_readme": false
     }
   ]
 }

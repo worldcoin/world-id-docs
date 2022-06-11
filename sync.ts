@@ -60,7 +60,7 @@ const remoteSync = async () => {
 
     const readmeMeta = await response.json();
     const currentReadme = Buffer.from(readmeMeta.content, "base64").toString(
-      "binary"
+      "utf8"
     );
 
     if (!currentReadme.includes("WORLD-ID-SHARED-README-TAG:START")) {

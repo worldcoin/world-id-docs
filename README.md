@@ -13,17 +13,17 @@ World ID is a protocol that lets you **prove a human is doing an action only onc
 
 World ID uses a device called the [Orb](https://worldcoin.org/how-the-launch-works) which takes a picture of a person's iris to verify they are a unique and alive human. The protocol only requires a hash-equivalent (i.e. irreversible) of the iris to be stored (which happens on a blockchain). The protocol uses [Zero-knowledge proofs](https://id.worldcoin.org/zkp) so no traceable information is ever public.
 
-World ID is meant for on-chain web3 apps, traditional Cloud applications, and even IRL verifications. Go to the [World ID app][app] to get started.
+World ID is meant for on-chain web3 apps, traditional cloud applications, and even IRL verifications.
 
-<img src="static/img/readme-diagram.png" alt="Diagram of how World ID works."  />
+<img src="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/static/img/readme-diagram.png" alt="Diagram of how World ID works."  />
 
 ### Getting started with World ID
 
-Regardless of how you landed here, the easiest way to get started with World ID is through the the [World ID app][app].
+Regardless of how you landed here, the easiest way to get started with World ID is through the the [Dev Portal][portal].
 
 <a href="https://app.id.worldcoin.org">
 <p align="center">
-  <img src="static/img/readme-get-started.png" alt="Get started" height="50" />
+  <img src="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/static/img/readme-get-started.png" alt="Get started" height="50" />
 </p>
 </a>
 
@@ -33,7 +33,7 @@ Want to see World ID in action? We have a bunch of [Examples](https://id.worldco
 
 <a href="https://id.worldcoin.org/examples">
 <p align="center">
-  <img src="static/img/readme-examples.png" alt="Click here to see examples" height="150" />
+  <img src="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/static/img/readme-examples.png" alt="Click here to see examples" height="150" />
 </p>
 </a>
 
@@ -43,7 +43,7 @@ We have comprehensive docs for World ID at https://id.worldcoin.org/docs.
 
 <a href="https://id.worldcoin.org/docs">
 <p align="center">
-  <img src="static/img/readme-docs.png" alt="Visit documentation" height="50" />
+  <img src="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/static/img/readme-docs.png" alt="Visit documentation" height="50" />
 </p>
 </a>
 
@@ -57,7 +57,7 @@ We have comprehensive docs for World ID at https://id.worldcoin.org/docs.
 </p>
 </a>
 
-[app]: https://app.id.worldcoin.org
+[portal]: https://developer.worldcoin.org
 [discord]: https://discord.gg/worldcoin
 
 <!-- WORLD-ID-SHARED-README-TAG:END -->

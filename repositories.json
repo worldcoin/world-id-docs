@@ -6,36 +6,6 @@
       "repository": "worldcoin/world-id-js",
       "sync_readme": true,
       "description": "Integrate World ID into your Javascript apps. Docs: https://id.worldcoin.org/docs/js"
-    },
-    {
-      "name": "World ID Starter Kit",
-      "repository": "worldcoin/world-id-starter",
-      "sync_readme": true,
-      "description": "Smart contracts required to get started building with World ID"
-    },
-    {
-      "name": "World ID Starter Kit - Hardhat",
-      "repository": "worldcoin/world-id-starter-hardhat",
-      "sync_readme": true,
-      "description": "Smart contracts required to get started building with World ID"
-    },
-    {
-      "name": "World ID Mock App",
-      "repository": "worldcoin/world-id-mock-app",
-      "sync_readme": true,
-      "description": "Mock app that handles World ID verfication requests to use World ID's Test Network. Docs: https://id.worldcoin.org/test"
-    },
-    {
-      "name": "World ID Docs",
-      "repository": "worldcoin/world-id-docs",
-      "sync_readme": false,
-      "description": "Documentation for World ID. https://id.worldcoin.org"
-    },
-    {
-      "name": "World ID - Example - Airdrop",
-      "repository": "worldcoin/world-id-example-airdrop",
-      "sync_readme": true,
-      "description": "Airdrop ERC-20 tokens to a group of addresses using World ID, preserving privacy for the claimers with zero-knowledge proofs. Dapp example: https://github.com/worldcoin/world-id-example-airdrop-dapp"
     }
   ]
 }

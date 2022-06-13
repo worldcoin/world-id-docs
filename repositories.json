@@ -6,6 +6,53 @@
       "repository": "worldcoin/world-id-js",
       "sync_readme": true,
       "description": "Integrate World ID into your app/DApp with the World ID JS widget."
+    },
+    {
+      "name": "World ID Starter Kit - Foundry",
+      "repository": "worldcoin/world-id-starter",
+      "sync_readme": true,
+      "description": "Quick start. Starter kit with Foundry to deploy your own smart contract that verifies unique-humanness with World ID."
+    },
+    {
+      "name": "World ID Starter Kit - Hardhat",
+      "repository": "worldcoin/world-id-starter-hardhat",
+      "sync_readme": true,
+      "description": "Quick start. Starter kit with Hardhat to deploy your own smart contract that verifies unique-humanness with World ID."
+    },
+    {
+      "name": "World ID Mock App",
+      "repository": "worldcoin/world-id-mock-app",
+      "sync_readme": true,
+      "description": "Simulator to test the World ID protocol in the staging network."
+    },
+    {
+      "name": "World ID Docs",
+      "repository": "worldcoin/world-id-docs",
+      "sync_readme": false,
+      "description": "Documentation for the World ID protocol."
+    },
+    {
+      "name": "World ID Airdrop",
+      "repository": "worldcoin/world-id-example-airdrop",
+      "sync_readme": true,
+      "description": "World ID Example. Create an airdrop of ERC-20 tokens that can only be claimed once by a single human. Completely privacy preserving."
+    },
+    {
+      "name": "World ID #petorbz",
+      "repository": "worldcoin/world-id-petorbz",
+      "sync_readme": true
+    },
+    {
+      "name": "World ID Discord Bot",
+      "repository": "worldcoin/world-id-discord-bot",
+      "sync_readme": false,
+      "description": "Improve your Discord server by verifying unique people with World ID."
+    },
+    {
+      "name": "Worldcoin Developer Portal",
+      "repository": "worldcoin/developer-portal",
+      "sync_readme": false,
+      "description": "The Worldcoin Developer Portal provides tools to interact with the Worldcoin SDK. Easiest way to get started with World ID."
     }
   ]
 }

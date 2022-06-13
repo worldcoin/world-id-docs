@@ -17,7 +17,21 @@ const config = {
   organizationName: "worldcoin", // GitHub org
   projectName: "world-id-docs", // Repo name
 
-  plugins: ["docusaurus-plugin-sass", "posthog-docusaurus"],
+  plugins: [
+    "docusaurus-plugin-sass",
+    "posthog-docusaurus",
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "api",
+        path: "api",
+        routeBasePath: "api",
+        sidebarPath: require.resolve("./sidebars.js"),
+        editUrl: "https://github.com/worldcoin/world-id-docs/tree/main/",
+        showLastUpdateTime: true,
+      },
+    ],
+  ],
 
   presets: [
     [
@@ -52,6 +66,13 @@ const config = {
             docId: "index",
             position: "left",
             label: "Docs",
+          },
+          {
+            type: "doc",
+            docsPluginId: "api",
+            docId: "index",
+            position: "left",
+            label: "API",
           },
           {
             to: "/feedback",

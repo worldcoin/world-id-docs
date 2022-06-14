@@ -65,6 +65,16 @@ Error response sent when input parameters or proof are invalid. Some other error
 }
 ```
 
+**Response (400)**
+
+```json
+{
+  "code": "already_verified",
+  "detail": "This user has already verified for this action.",
+  "attribute": null
+}
+```
+
 ### /jwks
 
 This endpoint lets you retrieve the JWKs (public keys) used to verify the signature on JSON web tokens that authenticate a verification request from the Developer Portal. This verification method is only used if you are using the **Hosted page user inteface.**

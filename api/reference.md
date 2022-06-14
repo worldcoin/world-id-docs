@@ -7,10 +7,10 @@ title: API Reference
 
 ### /verify
 
-Enables you to verify a World ID proof for a **Cloud action.**
+Enables you to verify a World ID proof for a **Cloud action.** To ensure [human-uniqueness](/docs/about/protocol#proof-of-uniqueness), a single person can only verify once for every action. If you send a proof for the same user twice, an error will be returned.
 
 ```
-POST http://localhost:3000/api/verify
+POST /api/v1/verify
 ```
 
 **Headers**
@@ -33,8 +33,126 @@ POST http://localhost:3000/api/verify
 }
 ```
 
+| Parameter       | Description                                                                                        | Type     |
+| --------------- | -------------------------------------------------------------------------------------------------- | -------- |
+| `signal`        | The signal you provided to the JS widget when verifying.                                           | `string` |
+| `actionId`      | The ID of the action you are verifying.                                                            | `string` |
+| `nullifierHash` | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details. | `string` |
+| `merkleRoot`    | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details. | `string` |
+| `proof`         | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details. | `string` |
+
+**Response (200)**
+
+```json
+{
+  "success": true,
+  "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
+  "return_url": ""
+}
+```
+
+- The parameter `return_url` will only be sent for actions running on a hosted page where the user should be redirected.
+
+**Response (400)**
+
+Error response example sent when input parameters or proof are invalid.
+
+```json
+{
+  "code": "invalid_proof",
+  "detail": "The provided proof is invalid and it cannot be verified. Please check all inputs and try again.",
+  "attribute": null
+}
+```
+
 ### /jwks
 
-Coming soon
+This endpoint lets you retrieve the JWKs (public keys) used to verify the signature on JSON web tokens that authenticate a verification request from the Developer Portal. This verification method is only used if you are using the **Hosted page user inteface.**
 
-## GraphQL endpoints
+```
+POST /api/v1/jwks
+```
+
+**Headers**
+
+```json
+{
+  "Content-Type": "application/json"
+}
+```
+
+**Response (200)**
+
+```json
+{
+  "keys": [
+    {
+      "e": "AQAB",
+      "n": "09ETz2k4_9IbDBYK_Tcr6DzbDdJPeqIgvoeUvXNVjNU8mYzFbhdqh8jRH80FwtuoFqyw5oyuG9ILHxfGaG_SeutPWSxBsqulXhxTnTAx2i8HtF0i2toMuvsEtiAjQ3hD4_w2xInBVOO98WAGcNA_UgWAG2DlWpe2km_V5bv3iKteCsSTZtzT3RjEO6FeOlVr8rmx9EGwWITdPIvrEXm_3REFqvDOnQvLu2-Au8m1V3U_6404m4RV_wlWGPnhHfG57VTkkqjgrnFKGUDniG-VMJs-WFX4VIQRvy2z1A5nQsmYpobK_clGyV0D0i5P1A_lmWGDEXBLSjEW9zH_o0d2DQ",
+      "kty": "RSA",
+      "kid": "jwk_8934bcc47ec5b86dd490cc2a46f18a5e"
+    }
+  ]
+}
+```
+
+## GraphQL endpoint
+
+Interaction with the Developer Portal API is mostly done through a GraphQL endpoint, which enables retrieving information and interacting with any of the API objects. You can read more about [queries](https://hasura.io/docs/latest/graphql/core/api-reference/graphql-api/query/) and [mutations](https://hasura.io/docs/latest/graphql/core/api-reference/graphql-api/mutation/) for GraphQL to help you construct your query.
+
+The GraphQL endpoint can be accessed at the endpoint below
+
+```
+POST /v1/graphql
+```
+
+**Headers**
+
+```json
+{
+  "Content-Type": "application/json",
+  "Authorization": "Bearer key_rd52mParM7KruA2N3FvX"
+}
+```
+
+**Request**
+
+```json
+{
+  "query": "<your_GraphQL_query_or_mutation_here>"
+}
+```
+
+Some example of GraphQL queries can be found below,
+
+#### Listing actions
+
+**Request**
+
+```graphql
+query MyActions {
+  action {
+    public_id
+    name
+    status
+  }
+}
+```
+
+#### Listing nullifiers for action
+
+**Request**
+
+```graphql
+query ActionNullifiers {
+  action(where: { public_id: { _eq: $actionId }, status: { _eq: "active" } }) {
+    id
+    is_staging
+    engine
+    return_url
+    nullifiers {
+      nullifier_hash
+    }
+  }
+}
+```

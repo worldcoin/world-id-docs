@@ -75,6 +75,66 @@ Error response sent when input parameters or proof are invalid. Some other error
 }
 ```
 
+### /precheck/{id}
+
+Enables fetching information about a particular action to determine eligibility for verification. This endpoint is also used by the hosted page, Kiosk and Worldcoin mobile apps to show metadata about the action being verified.
+
+:::tip
+Bear in mind this endpoint will only return information for active actions.
+:::
+
+:::note
+This endpoint requires no authentication, but is rate limited.
+:::
+
+```
+POST /api/v1/precheck/{id}
+```
+
+**Headers**
+
+```json
+{
+  "Content-Type": "application/json"
+}
+```
+
+**Request**
+
+```json
+{}
+```
+
+**Response (200)**
+
+```json
+{
+  "id": "wid_fd607652ad9c8b70930463e70c2fc504",
+  "public_description": "Receive a bunch of tokens from my awesome airdrop!",
+  "name": "My Awesome Airdrop",
+  "is_staging": false,
+  "team": {
+    "app_name": "Mesha Airdrop",
+    "is_verified": false,
+    "verified_app_logo": "",
+    "__typename": "team"
+  },
+  "__typename": "action"
+}
+```
+
+- The `verified_app_logo` will contain an absolute URL to the location of the logo for this app.
+
+**Response (400)**
+
+```json
+{
+  "code": "not_found",
+  "detail": "We couldn't find an action with this ID. Action may be no longer active.",
+  "attribute": null
+}
+```
+
 ### /jwks
 
 This endpoint lets you retrieve the JWKs (public keys) used to verify the signature on JSON web tokens that authenticate a verification request from the Developer Portal. This verification method is only used if you are using the **Hosted page user inteface.**

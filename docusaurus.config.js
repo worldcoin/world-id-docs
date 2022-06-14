@@ -75,6 +75,11 @@ const config = {
             label: "API",
           },
           {
+            href: "https://developer.worldcoin.org",
+            position: "right",
+            label: "Developer Portal",
+          },
+          {
             to: "/feedback",
             label: "✨ Feedback",
             position: "right",

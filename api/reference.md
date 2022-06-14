@@ -55,7 +55,7 @@ POST /api/v1/verify
 
 **Response (400)**
 
-Error response example sent when input parameters or proof are invalid.
+Error response sent when input parameters or proof are invalid. Some other error responses may be sent, please check the response body for details.
 
 ```json
 {
@@ -111,9 +111,11 @@ POST /v1/graphql
 ```json
 {
   "Content-Type": "application/json",
-  "Authorization": "Bearer key_rd52mParM7KruA2N3FvX"
+  "Authorization": ""
 }
 ```
+
+- The `Authorization` header should be set as detailed in the [Authentication](authentication) section.
 
 **Request**
 

@@ -2460,10 +2460,10 @@
     "@webassemblyjs/ast" "1.11.1"
     "@xtuc/long" "4.2.2"
 
-"@worldcoin/id@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@worldcoin/id/-/id-0.2.0.tgz#11b1f7b72ea1c9433e2f4f69025fc5001c9434c4"
-  integrity sha512-LOa2QwESaHL+fzJroVBcuMBFp//w7WBMyg84mXS1MJ2pqVELlvjMd2u6iY+oZ/GDZdfStrVRW//VKOmwDMtcug==
+"@worldcoin/id@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@worldcoin/id/-/id-0.3.0.tgz#21d09a49e92a7e5e83be644fbab5d6c2c1253258"
+  integrity sha512-AV4k4XcXh3Stoyt7+vKURR+blf9O5dK4la4Mx/yMHyn2Fryn4kiDtY6ZDHX/Mw0hIWPCkK+3diZj1m8IrrV/ug==
   dependencies:
     "@ethersproject/bytes" "5.6.1"
     "@walletconnect/client" "1.7.5"

@@ -41,11 +41,11 @@ Given that we don't know anything about the person who's proving their membershi
 Alice is an end user who has verified at a Worldcoin orb. MeshaApp is a dapp with a new token that wants to airdrop a piece but only once per person.
 
 - MeshaApp asks Alice to verify with World ID and provides action ID `meshaApp-airdrop`.
-- Alice generates a [ZKP](/docs/advanced/zero-knowledge-proofs) in their Worldcoin app using the action ID: `meshaApp-airdrop` => `nullifierHash1`.
-- MeshaApp can verify the proof comes from an identity belonging to the set of verified identities and can store `nullifierHash1` in the list of claimed airdrops. **Note in particular, MeshaApp has no way of associating `nullifierHash1` to any particular identity**.
-- If Alice ever generates another ZKP at any point in time for the same action ID `meshaApp-airdrop`, the generated nullifier hash will always be `nullifierHash1`, and therefore MeshaApp can decline any additional airdrop requests for claimed hashes.
-- If Bob (another end user), generates a ZKP with their identity for action ID `meshaApp-airdrop`, the result will be `nullifierHash2` (different from Alice's nullifier hash).
-- If Alice generates a ZKP for another action ID (e.g. `meshaApp-airdrop-2`), the generated nullifier hash will be different from the very first one => `nullifierHash3`.
+- Alice generates a [ZKP](/docs/advanced/zero-knowledge-proofs) in their Worldcoin app using the action ID: `meshaApp-airdrop` => `nullifier_hash_1`.
+- MeshaApp can verify the proof comes from an identity belonging to the set of verified identities and can store `nullifier_hash_1` in the list of claimed airdrops. **Note in particular, MeshaApp has no way of associating `nullifier_hash_1` to any particular identity**.
+- If Alice ever generates another ZKP at any point in time for the same action ID `meshaApp-airdrop`, the generated nullifier hash will always be `nullifier_hash_1`, and therefore MeshaApp can decline any additional airdrop requests for claimed hashes.
+- If Bob (another end user), generates a ZKP with their identity for action ID `meshaApp-airdrop`, the result will be `nullifier_hash_2` (different from Alice's nullifier hash).
+- If Alice generates a ZKP for another action ID (e.g. `meshaApp-airdrop-2`), the generated nullifier hash will be different from the very first one => `nullifier_hash_3`.
 
 ## Components
 

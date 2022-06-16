@@ -73,7 +73,7 @@ const request = {
   params: [
     {
       signal: "0x4976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41", // example; enter relevant signal here (e.g. user's wallet address)
-      actionId: "0x330C8452C879506f313D1565702560435b0fee4C", // example; use the address of your smart contract
+      action_id: "wid_BPZsRJANxct2cZxVRyh80SFG", // example; use the action ID from the Developer Portal
     },
   ],
 };
@@ -92,9 +92,8 @@ When the Worldcoin app receives the verification request, it'll show a prompt to
 **Example (partial, see #4 for complete snippet):**
 
 ```js
-const { merkleRoot, nullifierHash, proof } = await connector.sendCustomRequest(
-  request
-);
+const { merkle_root, nullifier_hash, proof } =
+  await connector.sendCustomRequest(request);
 ```
 
 ### 4. Handle errors appropiately
@@ -105,7 +104,7 @@ You should properly handle errors when interacting with the Worlcoin app. There 
 
 ```js
 try {
-  const { merkleRoot, nullifierHash, proof } =
+  const { merkle_root, nullifier_hash, proof } =
     await connector.sendCustomRequest(request);
 } catch (errorResult) {
   const { code, detail } = errorResult;

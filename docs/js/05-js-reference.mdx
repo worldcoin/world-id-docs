@@ -52,7 +52,7 @@ The `.init()` method should only be called once in the lifecycle of your app. To
       <td>
         List of additional parameters. Please see{" "}
         <Link href="#parameters">Parameters</Link> for details.{" "}
-        <code>actionId</code> is always required.
+        <code>action_id</code> is always required.
       </td>
       <td>See below for example.</td>
     </tr>
@@ -65,13 +65,11 @@ The `.init()` method should only be called once in the lifecycle of your app. To
 worldID.init(
   "world-id-container", // This can be the HTML ID of an element or any HTML node. Please be sure the node is mounted in your DOM before you call `.init()`
   {
-    enableTelemetry: true,
-    actionId:
-      "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001063616e64794170702d61697264726f7000000000000000000000000000000000",
-    signal:
-      "0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41",
-    appName: "My App",
-    signalDescription: "Receive a super cool airdrop!",
+    enable_telemetry: true,
+    action_id: "wid_lshSNnaJfdt6Sohu6YAA",
+    signal: "my-user-id-1",
+    app_name: "My App",
+    signal_description: "Receive a super cool airdrop!",
   }
 );
 ```
@@ -161,7 +159,7 @@ The following parameters can be passed to both `.init()` and `.update()`.
   <tbody>
     <tr>
       <td>
-        <code>actionId</code>
+        <code>action_id</code>
       </td>
       <td>
         <code>string</code>
@@ -169,7 +167,9 @@ The following parameters can be passed to both `.init()` and `.update()`.
       <td>Yes</td>
       <td>
         Unique identifier for the action being verified. This should be the
-        address of your smart contract. Read more about the{" "}
+        action ID obtained from the{" "}
+        <Link to="https://developer.worldcoin.org">Developer Portal</Link>. Read
+        more about the{" "}
         <Link to="/docs/about/glossary#action-id">action ID</Link>.
       </td>
     </tr>
@@ -183,12 +183,13 @@ The following parameters can be passed to both `.init()` and `.update()`.
       <td>Not required, but widget won't be enabled until passed</td>
       <td>
         Read more about the <Link to="/docs/about/glossary#signal">signal</Link>
-        . You will usually want to use your user's wallet address as the signal.
+        . For web3 dApps, you will usually want to use your user's wallet
+        address.
       </td>
     </tr>
     <tr>
       <td>
-        <code>enableTelemetry</code>
+        <code>enable_telemetry</code>
       </td>
       <td>
         <code>boolean</code>
@@ -202,7 +203,7 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
-        <code>appName</code>
+        <code>app_name</code>
       </td>
       <td>
         <code>string</code>
@@ -216,7 +217,7 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
-        <code>signalDescription</code>
+        <code>signal_description</code>
       </td>
       <td>
         <code>string</code>
@@ -261,7 +262,7 @@ Upon successful completion of the World ID verification request, you will receiv
   <tbody>
     <tr>
       <td>
-        <code>merkleRoot</code>
+        <code>merkle_root</code>
       </td>
       <td>
         <code>string</code> (ABI-encoded)
@@ -275,7 +276,7 @@ Upon successful completion of the World ID verification request, you will receiv
     </tr>
     <tr>
       <td>
-        <code>nullifierHash</code>
+        <code>nullifier_hash</code>
       </td>
       <td>
         <code>string</code> (ABI-encoded)

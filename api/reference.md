@@ -204,7 +204,7 @@ Some example of GraphQL queries can be found below,
 ```graphql
 query MyActions {
   action {
-    public_id
+    id
     name
     status
   }
@@ -217,7 +217,7 @@ query MyActions {
 
 ```graphql
 query ActionNullifiers {
-  action(where: { public_id: { _eq: $actionId }, status: { _eq: "active" } }) {
+  action(where: { id: { _eq: $action_id }, status: { _eq: "active" } }) {
     id
     is_staging
     engine

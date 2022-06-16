@@ -4,29 +4,19 @@ on:
   - pull_request
 
 jobs:
-
   typecheck:
     name: Typecheck
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Set up Node 16
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 16
-
-      - uses: actions/cache@v2
-        id: node-modules-cache
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules
+          cache: "yarn"
 
       - name: Install dependencies
-        if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
 
       - name: Typecheck
@@ -37,21 +27,13 @@ jobs:
     name: Test production build
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Set up Node 16
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 16
-
-      - uses: actions/cache@v2
-        id: node-modules-cache
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules
+          cache: "yarn"
 
       - name: Install dependencies
         if: steps.node-modules-cache.outputs.cache-hit != 'true'

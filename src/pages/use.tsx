@@ -54,9 +54,9 @@ function _HostedWorldIDComponent(): JSX.Element {
   useEffect(() => {
     if (
       queryParams.get("signal") &&
-      queryParams.get("actionId") &&
-      queryParams.get("returnTo") &&
-      validateUrl(queryParams.get("returnTo"))
+      queryParams.get("action_id") &&
+      queryParams.get("return_to") &&
+      validateUrl(queryParams.get("return_to"))
     ) {
       setState(State.Ready);
     } else {
@@ -82,11 +82,11 @@ function _HostedWorldIDComponent(): JSX.Element {
           </p>
           {state === State.Ready && (
             <WorldIDComponent
-              actionId={queryParams.get("actionId")}
+              action_id={queryParams.get("action_id")}
               signal={queryParams.get("signal")}
-              appName={queryParams.get("appName")}
-              signalDescription={queryParams.get("signalDescription")}
-              returnTo={new URL(queryParams.get("returnTo"))}
+              app_name={queryParams.get("app_name")}
+              signal_description={queryParams.get("signal_description")}
+              returnTo={new URL(queryParams.get("return_to"))}
             />
           )}
           {state === State.MissingParams && (
@@ -137,8 +137,7 @@ function WorldIDComponent({
     if (!worldID.isInitialized()) {
       worldID.init("world-id-container", {
         ...worldIDProps,
-        enableTelemetry: true,
-        disableRemoteFonts: true,
+        enable_telemetry: true,
       });
       enableWorldID();
     }

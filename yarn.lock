@@ -1703,6 +1703,18 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
+"@ethersproject/bytes@5.6.1":
+  version "5.6.1"
+  resolved "https://registry.yarnpkg.com/@ethersproject/bytes/-/bytes-5.6.1.tgz#24f916e411f82a8a60412344bf4a813b917eefe7"
+  integrity sha512-NwQt7cKn5+ZE4uDn+X5RAXLp46E1chXoaMmrxAyA0rblpxz8t58lVkrHXoRIn0lz1joQElQ8410GqhTqMOwc6g==
+  dependencies:
+    "@ethersproject/logger" "^5.6.0"
+
+"@ethersproject/logger@^5.6.0":
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/@ethersproject/logger/-/logger-5.6.0.tgz#d7db1bfcc22fd2e4ab574cba0bb6ad779a9a3e7a"
+  integrity sha512-BiBWllUROH9w+P21RzoxJKzqoqpkyM1pRnEKG69bulE9TSQD8SAIvTQqIMZmmCO8pUNkgLP1wndX1gKghSpBmg==
+
 "@hapi/hoek@^9.0.0":
   version "9.2.1"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.2.1.tgz#9551142a1980503752536b5050fd99f4a7f13b17"
@@ -2448,12 +2460,14 @@
     "@webassemblyjs/ast" "1.11.1"
     "@xtuc/long" "4.2.2"
 
-"@worldcoin/id@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@worldcoin/id/-/id-0.1.0.tgz#de754fd5856a48e9cf190c6f66a01c82a5a70b03"
-  integrity sha512-OuYgj5sBdFxqjW9ANhaFLQm7ZCL4ynO6kmBz/Uf16KdjNF9iCU5L0GqN1NTB+nMoXBxEjy3OYt69o7e2Vpnkiw==
+"@worldcoin/id@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@worldcoin/id/-/id-0.2.0.tgz#11b1f7b72ea1c9433e2f4f69025fc5001c9434c4"
+  integrity sha512-LOa2QwESaHL+fzJroVBcuMBFp//w7WBMyg84mXS1MJ2pqVELlvjMd2u6iY+oZ/GDZdfStrVRW//VKOmwDMtcug==
   dependencies:
+    "@ethersproject/bytes" "5.6.1"
     "@walletconnect/client" "1.7.5"
+    js-sha3 "0.8.0"
     kea "3.0.1"
     posthog-js-lite "0.0.5"
     preact "10.7.3"

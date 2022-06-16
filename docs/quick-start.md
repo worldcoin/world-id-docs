@@ -36,15 +36,11 @@ This tutorial assumes you already have a dapp and smart contract which perform s
    ```js
    import worldID from "@worldcoin/id";
    worldID.init("world-id-container", {
-     enableTelemetry: true,
-     actionId: "0x330C8452C879506f313D1565702560435b0fee4C", // <- use the address of your smart contract
+     enable_telemetry: true,
+     action_id: "wid_staging_fMY8wNIw2AKLjcb7tVyI", // <- use the address from the Developer Portal
      signal: userWalletAddress, // <- Fill in with the user's wallet address here
    });
    ```
-
-   :::note
-   For the `actionId` make sure to use the address for the smart contract you deployed on Step 1.
-   :::
 
 4. On document load, enable the package and listen for the verification results.
 

@@ -33,8 +33,8 @@ To add the script directly in your HTML, just add this tag to your `<head>`.
 import worldID from "@worldcoin/id"; // If you installed the JS package as a module
 
 worldID.init("world-id-container", {
-  enableTelemetry: true,
-  actionId: "0x330C8452C879506f313D1565702560435b0fee4C",
+  enable_telemetry: true,
+  action_id: "wid_BPZsRJANxct2cZxVRyh80SFG",
 });
 ```
 
@@ -76,7 +76,7 @@ The way it works is:
 Here's an example of your request could look like. **Remember to URL encode all parameters!**
 
 ```
-https://id.worldcoin.org/use?actionId=0x32D59776E91fdb3F377755e12cEC05d9067c2B4F&signal=0x0000000000000000000000000000000000000000&returnTo=https%3A%2F%2Fmyapp.worldcoin.org
+https://id.worldcoin.org/use?action_id=0x32D59776E91fdb3F377755e12cEC05d9067c2B4F&signal=0x0000000000000000000000000000000000000000&return_to=https%3A%2F%2Fmyapp.worldcoin.org
 ```
 
 <table>
@@ -90,7 +90,7 @@ https://id.worldcoin.org/use?actionId=0x32D59776E91fdb3F377755e12cEC05d9067c2B4F
   <tbody>
   <tr>
       <td>
-        <code>returnTo</code>
+        <code>return_to</code>
       </td>
       <td>Yes</td>
       <td>
@@ -105,7 +105,7 @@ https://id.worldcoin.org/use?actionId=0x32D59776E91fdb3F377755e12cEC05d9067c2B4F
     </tr>
     <tr>
       <td>
-        <code>actionId</code>
+        <code>action_id</code>
       </td>
       <td>Yes</td>
       <td>
@@ -126,7 +126,7 @@ https://id.worldcoin.org/use?actionId=0x32D59776E91fdb3F377755e12cEC05d9067c2B4F
     </tr>
     <tr>
       <td>
-        <code>appName</code>
+        <code>app_name</code>
       </td>
       <td>No</td>
       <td>
@@ -137,7 +137,7 @@ https://id.worldcoin.org/use?actionId=0x32D59776E91fdb3F377755e12cEC05d9067c2B4F
     </tr>
     <tr>
       <td>
-        <code>signalDescription</code>
+        <code>signal_description</code>
       </td>
       <td>No</td>
       <td>
@@ -155,5 +155,5 @@ https://id.worldcoin.org/use?actionId=0x32D59776E91fdb3F377755e12cEC05d9067c2B4F
 The ZKP and related parameters which the World ID verification outputs will be sent to you via query string parameters to your return URL. The parameters that will be sent are the same which the World ID widget sends ([docs here](/docs/js/reference#response)). Below is an example of a response to the return URL `https://myapp.worldcoin.org`
 
 ```
-https://myapp.worldcoin.org/?merkleRoot=0x2a92313324532131530395d13b8a0e230149fa9bf8feb677ecea7749937083f6&nullifierHash=0x2de0cf609355bb58ca267bc495a9603bd2e00ef2afda676b2927c4be533a5923&proof=0x2a2d8fdf047570e92dc37816849dadd87827e3b555828cdc84c2d42c8e4f6bb6102328fa1936b1ababde362faa03d23654a3b0187ba4f0fed55abd0d11cf1b8a0bdf6b8c683f8b610f93014e40aa245c1578f1e558db3ff99ec78f19c6493fb22dd14ae3b30cff03e5ccddf8f390739cb3e9dc7fd5a09115f26671b7d42dfd981e2c63484361883100b35c1f0b3f405bc4134284c2a7fdfb0b338e8554c5c7ca034a903497cea8e5c1e325ecd801e006be2de521112a39cbab6f389e3eecee37056d3e46bca9e704f8faaa52dba47c83e5cd7d4b9b6ca6b8d6fa03939bb0483c2065d6bd6502bea669daaee2ebf46d70170800a834e571661f87ef01512fabe0
+https://myapp.worldcoin.org/?merkle_root=0x2a92313324532131530395d13b8a0e230149fa9bf8feb677ecea7749937083f6&nullifier_hash=0x2de0cf609355bb58ca267bc495a9603bd2e00ef2afda676b2927c4be533a5923&proof=0x2a2d8fdf047570e92dc37816849dadd87827e3b555828cdc84c2d42c8e4f6bb6102328fa1936b1ababde362faa03d23654a3b0187ba4f0fed55abd0d11cf1b8a0bdf6b8c683f8b610f93014e40aa245c1578f1e558db3ff99ec78f19c6493fb22dd14ae3b30cff03e5ccddf8f390739cb3e9dc7fd5a09115f26671b7d42dfd981e2c63484361883100b35c1f0b3f405bc4134284c2a7fdfb0b338e8554c5c7ca034a903497cea8e5c1e325ecd801e006be2de521112a39cbab6f389e3eecee37056d3e46bca9e704f8faaa52dba47c83e5cd7d4b9b6ca6b8d6fa03939bb0483c2065d6bd6502bea669daaee2ebf46d70170800a834e571661f87ef01512fabe0
 ```

@@ -1,4 +1,4 @@
-Contributions to this repository are welcomed! If you're loking to contribute to the documentation of World ID or simply spot an error or typo, feel free to open a PR or issue on this repository.
+Contributions to this repository are welcomed! If you're looking to contribute to the documentation of World ID or simply spot an error or typo, feel free to open a PR or issue on this repository.
 
 A few notes to keep in mind on our writing style:
 

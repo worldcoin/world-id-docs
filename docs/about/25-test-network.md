@@ -14,7 +14,7 @@ The test network is currently available through the [mockWLD app](https://github
 
 ## Using test network on-chain
 
-A critical piece of using the test network is making sure your smart contract connects to the test Semaphore network when verifying the ZKPs. Otherwise, you will get an error as the identity from the test network will not be registered in the list of verified identities. To use the staging network just make sure to point your smart contract to our Semaphore instance contract. See our Airdrop [example](/docs/examples) for more details on this.
+A critical piece of using the test network is making sure your smart contract connects to the test Semaphore network when verifying the ZKPs. Otherwise, you will get an error as the identity from the test network will not be registered in the list of verified identities. To use the staging network just make sure to point your smart contract to our Semaphore instance contract. See our Airdrop [example](/examples) for more details on this.
 
 ```
 0x505Fd4741F00850024FBD3926ebECfB4c675A9fe
@@ -40,7 +40,7 @@ Please mind that identities verified with the faucet will **only be valid for ~1
 
 ## Chain test network
 
-We have a couple of [Examples](/docs/examples) deployed on test networks on-chain to make it easy to test World ID flows end-to-end. All of our examples are deployed on Polygon's [Mumbai-Testnet](https://docs.polygon.technology/docs/develop/network-details/network/). This testnet makes it easy to interact with World ID and has very short contract execution times so you can test and debug quickly. To access this network, we recommend using a [MetaMask](https://metamask.io) wallet and configuring as follows (both mobile and desktop work fine):
+We have a couple of [Examples](/examples) deployed on test networks on-chain to make it easy to test World ID flows end-to-end. All of our examples are deployed on Polygon's [Mumbai-Testnet](https://docs.polygon.technology/docs/develop/network-details/network/). This testnet makes it easy to interact with World ID and has very short contract execution times so you can test and debug quickly. To access this network, we recommend using a [MetaMask](https://metamask.io) wallet and configuring as follows (both mobile and desktop work fine):
 
 1. Go to Settings -> Networks.
 2. Click on "Add network" and set the following parameters.

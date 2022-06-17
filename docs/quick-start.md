@@ -5,9 +5,9 @@ title: Quick start
 
 **Fastest way to get rolling with World ID!**
 
-This tutorial assumes you already have a dapp and smart contract which perform some action that you want to protect with Proof of personhood. Of course, if you're interested in just testing World ID you can create a mock dapp and smart contract, or you can simply fork our sample from the JS integration on [GitHub](https://github.com/worldcoin/world-id-js) or from our [Examples](/docs/examples).
+This tutorial assumes you already have a dapp and smart contract which perform some action that you want to protect with Proof of personhood. Of course, if you're interested in just testing World ID you can create a mock dapp and smart contract, or you can simply fork our sample from the JS integration on [GitHub](https://github.com/worldcoin/world-id-js) or from our [Examples](/examples).
 
-1. Update your action smart contract, using our [Examples](/docs/examples) as a starting point. Goal is to **verify the ZKP before executing the relevant action**. You will verify both the validity of the ZKP as well as the uniqueness (i.e. that it hasn't been used before for this action) of the nullifier hash. Your smart contract will need to receive: action ID, signal, nullifier hash (provided by JS widget), merkle root (provided by JS widget) and the proof (provided by JS widget).
+1. Update your action smart contract, using our [Examples](/examples) as a starting point. Goal is to **verify the ZKP before executing the relevant action**. You will verify both the validity of the ZKP as well as the uniqueness (i.e. that it hasn't been used before for this action) of the nullifier hash. Your smart contract will need to receive: action ID, signal, nullifier hash (provided by JS widget), merkle root (provided by JS widget) and the proof (provided by JS widget).
 
    :::tip
    Check out our Airdrop full example repo on [GitHub](https://github.com/worldcoin/world-id-example-airdrop). You can fork this repo to create your own smart contract.
@@ -56,7 +56,7 @@ This tutorial assumes you already have a dapp and smart contract which perform s
    });
    ```
 
-5. Update your action smart contract, using our [Examples](/docs/examples) as a starting point. Goal is to **verify the ZKP before executing the relevant action**. You will verify both the validity of the ZKP as well as the uniqueness (i.e. that it hasn't been used before for this action) of the nullifier. Your smart contract will need to receive: action ID, signal, nullifier hash (provided by JS widget), merkle root (provided by JS widget) and the proof (provided by JS widget).
+5. Update your action smart contract, using our [Examples](/examples) as a starting point. Goal is to **verify the ZKP before executing the relevant action**. You will verify both the validity of the ZKP as well as the uniqueness (i.e. that it hasn't been used before for this action) of the nullifier. Your smart contract will need to receive: action ID, signal, nullifier hash (provided by JS widget), merkle root (provided by JS widget) and the proof (provided by JS widget).
 
    :::tip
    Check out our Airdrop full example repo on [GitHub](https://github.com/worldcoin/world-id-example-airdrop). You can fork this repo to create your own smart contract.

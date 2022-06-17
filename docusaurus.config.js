@@ -75,6 +75,11 @@ const config = {
             label: "API",
           },
           {
+            to: "/examples",
+            position: "left",
+            label: "Examples",
+          },
+          {
             href: "https://developer.worldcoin.org",
             position: "right",
             label: "Developer Portal",
@@ -93,12 +98,12 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Quick start",
-                to: "/docs/quick-start",
+                label: "Introduction",
+                to: "/docs",
               },
               {
-                label: "About the Protocol",
-                to: "/docs/about/protocol",
+                label: "Quick Start",
+                to: "/docs/quick-start",
               },
               {
                 label: "Javascript Integration",
@@ -106,7 +111,7 @@ const config = {
               },
               {
                 label: "Examples",
-                to: "/docs/examples",
+                to: "/examples",
               },
             ],
           },

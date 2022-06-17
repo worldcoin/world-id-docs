@@ -7,7 +7,7 @@ World ID introduces a new web3 primitive, however its use is not limited to web3
 - Validation of ZKPs need to be implemented and executed on your own backend (as opposed to the blockchain).
 - Backend must keep track of all the nullifier hashes to guarantee uniqueness.
 
-Currently we don't have implementation examples for traditional web applications, but we plan on adding a few soon for some common languages/frameworks. You can use the smart contract [examples](/docs/examples) as reference for how to implement ZKP validation on a different language.
+Currently we don't have implementation examples for traditional web applications, but we plan on adding a few soon for some common languages/frameworks. You can use the smart contract [examples](/examples) as reference for how to implement ZKP validation on a different language.
 
 :::note
 If you want to improve the protocol's availability and help others use World ID, share your custom integration by opening an issue on [GitHub](https://github.com/worldcoin/world-id-docs).

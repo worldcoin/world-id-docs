@@ -83,7 +83,7 @@ Alice is an end user who has verified at a Worldcoin orb. MeshaApp is a dapp wit
 <tr>
 <td>Smart contract</td>
 <td>Developer (<b>You</b>)</td>
-<td>Main execution point of World ID. The smart contract verifies submitted ZKPs, ensures uniqueness of ZKPs and then executes whatever action. Can be forked from any of our <Link to="/docs/examples">Example apps</Link>.</td>
+<td>Main execution point of World ID. The smart contract verifies submitted ZKPs, ensures uniqueness of ZKPs and then executes whatever action. Can be forked from any of our <Link to="/examples">Example apps</Link>.</td>
 </tr>
 <tr>
 <td>Client wallet</td>

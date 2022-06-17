@@ -2,6 +2,8 @@
 title: Non-crypto Projects
 ---
 
+<!-- TODO: Rename to Cloud and move outside of Advanced section -->
+
 World ID introduces a new web3 primitive, however its use is not limited to web3 projects. There are multiple use cases for traditional web applications not on the blockchain (e.g. spam prevention, individual accounts creation, etc.). Integrating World ID with a traditional web project is not difficult, here are the main distinctions.
 
 - Validation of ZKPs need to be implemented and executed on your own backend (as opposed to the blockchain).

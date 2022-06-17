@@ -7,14 +7,13 @@ import Link from "@docusaurus/Link";
 
 World ID is a way to anonymously verify someone is an actual human when performing an action, and that they have performed the action only once (without revealing anything about themselves). This happens through [Zero-knowledge proofs](/docs/advanced/zero-knowledge-proofs).
 
-You can easily integrate World ID into your dapp and smart contract.
+You can easily integrate World ID into your app and smart contract or backend. End user can easily and anonymously verify they are a unique human through the [Worldcoin app](https://worldcoin.org/download).
 
 <div className="text--center">
 <img src="/img/mesha-airdrop-render.jpg" alt="Example of World ID in a dapp" width="700" />
 </div>
 
-End user can anonymously verify they are a unique human
-
+<!-- TODO: All the screenshots here need to be updated with the new UI -->
 <table>
 <tbody>
 <tr>
@@ -43,7 +42,7 @@ User verifies they are a unique human with a <Link to="/docs/advanced/zero-knowl
 </table>
 
 :::cautionFYI
-World ID is currently in Alpha. This means World ID is currently only running in a [test network](/docs/about/test-network), but you can already start testing your own apps on top of World ID. Please help us improve by sharing [feedback](/feedback) on your experience and any ideas for how to improve.
+World ID is currently in **Beta** and some functionality might change. Please help us improve by sharing [feedback](/feedback) on your experience and any ideas for how to improve.
 :::
 
 ## How it works
@@ -58,11 +57,13 @@ In broad strokes, this is how World ID works.
 
 3. Whenever performing a specific [action](/docs/about/protocol#what-are-actions), user proves they are a unique human by submitting a [Zero-knowledge proof](/docs/advanced/zero-knowledge-proofs) from the Worldcoin app.
 
-4. Project validates the [Zero-knowledge proof](/docs/advanced/zero-knowledge-proofs) on-chain and executes the action (e.g. token airdrop).
+4. Project validates the [Zero-knowledge proof](/docs/advanced/zero-knowledge-proofs) and executes the action (e.g. token airdrop, NFT minting, account creation, ...).
 
 Read more about how World ID works in the [Protocol](/docs/about/protocol) section.
 
 ## Use cases
+
+<!-- TODO: Add use cases for Cloud apps -->
 
 World ID prevents sibyl attacks for actions on-chain and [off-chain](/docs/advanced/non-crypto-projects). Some use cases:
 
@@ -70,10 +71,6 @@ World ID prevents sibyl attacks for actions on-chain and [off-chain](/docs/advan
 - **Democratic voting**. Ensure one person equals one vote; e.g. governance, proposal voting, etc.
 - **Quadratic funding**. Funding where the number of contributors matter more than the sheer number of dollars provided (to democratize the process). Ensure a single person only funds a project once. An example of quadratic funding is [Gitcoin](https://gitcoin.co/blog/gitcoin-grants-quadratic-funding-for-the-world/).
 - **Person-bound NFTs**. Enables the possibility of blockchain-based records (e.g. university degrees, vaccination records, citizenship confirmation, ...). Without World ID you could transfer those NFTs to a third party which would make the records useless.
-
-  :::info
-  World ID can work for traditional web2 applications too. Read more about this on our [Non-crypto projects](/docs/advanced/non-crypto-projects) section.
-  :::
 
 :::note
 Spot an error in these docs? Our docs are open source too and contributions are welcome. Open a PR on [GitHub](https://github.com/worldcoin/world-id-docs).

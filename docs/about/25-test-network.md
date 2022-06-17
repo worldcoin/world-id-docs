@@ -3,7 +3,7 @@ title: Test network
 ---
 
 :::tip
-Go to [https://mock-app.id.worldcoin.org](https://mock-app.id.worldcoin.org) for a hosted version of the Worlcoin Mock App.
+Go to [https://mock-app.id.worldcoin.org](https://mock-app.id.worldcoin.org) for a hosted version of the Worldcoin Mock App.
 :::
 
 To make sure the World ID flow can be fully tested at any time, we created a _Test network_ which doesn't require physically going to an orb to do the identity verification. If you have verified your identity at an orb, you will be able to try the full World ID flow soon. We're working on integrating World ID on the Worldcoin app.
@@ -48,7 +48,7 @@ We have a couple of [Examples](/examples) deployed on test networks on-chain to 
    2. RPC URL: `https://rpc-mumbai.maticvigil.com` or `https://rpc-mumbai.matic.today` or `https://matic-mumbai.chainstacklabs.com`
    3. Chain ID: `80001`
    4. Symbol: `MATIC`
-   5. Block Exporer URL: `https://mumbai.polygonscan.com/`
+   5. Block Explorer URL: `https://mumbai.polygonscan.com/`
 3. After adding your network and switching to it, copy the wallet address.
 4. Go to a Mumbai Faucet, for example [https://faucet.polygon.technology](https://faucet.polygon.technology) and get some `MATIC` on your wallet.
 5. Done! You can now use any example to test World ID, try [https://example.id.worldcoin.org](https://example.id.worldcoin.org).

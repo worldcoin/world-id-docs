@@ -153,7 +153,8 @@ const config = {
         darkTheme: darkCodeTheme,
       },
       posthog: {
-        apiKey: "phc_QttqgDbMQDYHX1EMH7FnT6ECBVzdp0kGUq92aQaVQ6I",
+        apiKey:
+          "phc_QttqgDbMQDYHX1EMH7FnT6ECBVzdp0kGUq92aQaVQ6I" /* spell-checker: disable */,
         appUrl: "https://app.posthog.com",
         enableInDevelopment: false,
         persistence: "localStorage",

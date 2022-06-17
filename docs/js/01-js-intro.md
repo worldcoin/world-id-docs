@@ -29,6 +29,8 @@ To add the script directly in your HTML, just add this tag to your `<head>`.
 
 ## Usage
 
+<!-- spell-checker: disable -->
+
 ```js
 import worldID from "@worldcoin/id"; // If you installed the JS package as a module
 
@@ -37,6 +39,8 @@ worldID.init("world-id-container", {
   action_id: "wid_BPZsRJANxct2cZxVRyh80SFG",
 });
 ```
+
+<!-- spell-checker: enable -->
 
 Enable the package by calling `.enable()`. You will receive a promise with the results of the verification process.
 

@@ -59,6 +59,7 @@ Alice is an end user who has verified at a Worldcoin orb. MeshaApp is a dapp wit
 <th>Description</th>
 </tr>
 </thead>
+<tbody>
 <tr>
 <td>The Orb</td>
 <td>Worldcoin (<i>OSS in 2022</i>)</td>
@@ -99,4 +100,5 @@ Alice is an end user who has verified at a Worldcoin orb. MeshaApp is a dapp wit
 <td>Worldcoin (<b>optional</b>)</td>
 <td>Simple service that stores information on <Link to="/docs/advanced/verified-actions">Verified Actions</Link>.</td>
 </tr>
+</tbody>
 </table>

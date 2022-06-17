@@ -20,6 +20,7 @@ Sample airdrop app. Let users claim a free ERC-20 token airdrop but only once pe
 </div>
 
 <table className="table--center margin-top--lg">
+<tbody>
 <tr>
 <td>
 <Link href="https://example.id.worldcoin.org">Demo</Link>
@@ -35,6 +36,7 @@ Sample airdrop app. Let users claim a free ERC-20 token airdrop but only once pe
 <code>0x505Fd4741F00850024FBD3926ebECfB4c675A9fe</code>
 </td>
 </tr>
+</tbody>
 </table>
 
 ### Usage instructions

@@ -16,6 +16,7 @@ You can easily integrate World ID into your dapp and smart contract.
 End user can anonymously verify they are a unique human
 
 <table>
+<tbody>
 <tr>
 <td className="text--center">
 <img src="/img/world-id-widget.svg" alt="Render of World ID widget" />
@@ -38,6 +39,7 @@ The lightweight <Link to="/docs/js">JS widget</Link> is added to your dapp.
 User verifies they are a unique human with a <Link to="/docs/advanced/zero-knowledge-proofs">ZKP</Link>.
 </td>
 </tr>
+</tbody>
 </table>
 
 :::cautionFYI

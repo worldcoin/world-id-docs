@@ -58,7 +58,7 @@ If you selected the **cloud** engine, these instructions continue with details o
    document.addEventListener("DOMContentLoaded", async function () {
      try {
        const result = await worldID.enable(); // <- Pass this `result` to your backend or smart contract (see below)
-       console.log("World ID verified succesfully!");
+       console.log("World ID verified successfully!");
      } catch (failure) {
        console.warn("World ID verification failed:", failure);
        // Re-activate here so your end user can try again

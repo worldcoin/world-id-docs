@@ -23,6 +23,8 @@ POST /api/v1/verify
 
 **Request**
 
+<!-- spell-checker: disable -->
+
 ```json
 {
   "merkle_root": "0x2264a66d162d7893e12ea8e3c072c51e785bc085ad655f64c10c1a61e00f0bc2",
@@ -32,6 +34,8 @@ POST /api/v1/verify
   "proof": "0x1aa8b8f3b2d2de5ff452c0e1a83e29d6bf46fb83ef35dc5957121ff3d3698a1119090fbeadf792c6f62dcd481f36819cd6d28380bd76dc30000449d6d81b87a60c5c9cecf97f25350063bfa9606419483ced7f78b450ff429c3e710b2575c62316daf97756236dcfcbb26351afc990874e5a0659995a4ac8e3eef5f721ac2b900136c3a152ef5c0b68e1786f797309e3bd97dc2183aab3b988437c61acc60d6f213fb1675a302c7ebd437d77bf36f0d5054a2eded3d4ec72ff9aa3fabea9609e18dbdffabd8012071c114e89df8209f36e5c9079b8ff237c7f3abe14076edf740058b5848efbd3d4b7ffb1fc7637311ea4e4511564a770bf189b7063d61d73df"
 }
 ```
+
+<!-- spell-checker: enable -->
 
 | Parameter        | Description                                                                                        | Type     |
 | ---------------- | -------------------------------------------------------------------------------------------------- | -------- |
@@ -137,7 +141,7 @@ POST /api/v1/precheck/{id}
 
 ### /jwks
 
-This endpoint lets you retrieve the JWKs (public keys) used to verify the signature on JSON web tokens that authenticate a verification request from the Developer Portal. This verification method is only used if you are using the **Hosted page user inteface.**
+This endpoint lets you retrieve the JWKs (public keys) used to verify the signature on JSON web tokens that authenticate a verification request from the Developer Portal. This verification method is only used if you are using the **Hosted page user interface.**
 
 ```
 POST /api/v1/jwks
@@ -150,6 +154,8 @@ POST /api/v1/jwks
   "Content-Type": "application/json"
 }
 ```
+
+<!-- spell-checker: disable -->
 
 **Response (200)**
 
@@ -165,6 +171,8 @@ POST /api/v1/jwks
   ]
 }
 ```
+
+<!-- spell-checker: enable -->
 
 ## GraphQL endpoint
 

@@ -9,7 +9,7 @@ title: Quick start
 
    > An action is something that a single human can perform only once.
 
-2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for in real life [IRL] verifications). **Take note of your action ID** (which looks something like `wid_GBkZ1KlVUdFTjeMXskrX`).
+2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for in real life [IRL] verifications). **Take note of your action ID** (which looks something like <!-- spell-checker: disable -->`wid_GBkZ1KlVUdFTjeMXskrX`<!-- spell-checker: enable -->).
 
    :::tip
    If you want to test your integration and you haven't been verified by an orb, select the **Staging** environment. You'll be able to use the [Simulator](/docs/about/test-network) instead.
@@ -37,6 +37,8 @@ If you selected the **cloud** engine, these instructions continue with details o
 
    Now initialize World ID from your JS code. You can choose any signal you want, but we recommend reading [on signals](/docs/about/glossary#signal) to select an optimal signal.
 
+   <!-- spell-checker: disable -->
+
    ```js
    import worldID from "@worldcoin/id";
    worldID.init("world-id-container", {
@@ -46,7 +48,11 @@ If you selected the **cloud** engine, these instructions continue with details o
    });
    ```
 
+   <!-- spell-checker: enable -->
+
 5. On document load, enable the widget and listen for verification results.
+
+   <!-- spell-checker: disable -->
 
    ```js
    document.addEventListener("DOMContentLoaded", async function () {
@@ -59,6 +65,8 @@ If you selected the **cloud** engine, these instructions continue with details o
      }
    });
    ```
+
+   <!-- spell-checker: enable -->
 
 ## Cloud verification
 
@@ -84,25 +92,29 @@ Cloud actions are verified by the Developer Portal. You can validate a user is a
 
    **Request body**
 
-   ```json
-   {
-     "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
-     "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
-     "action_id": "wid_staging_fMY8wNIw2AKLjcb7tVyI",
-     "signal": "your_signal_here",
-     "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"
-   }
-   ```
+<!-- spell-checker: disable -->
 
-   **Response (200)**
+```json
+{
+  "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
+  "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
+  "action_id": "wid_staging_fMY8wNIw2AKLjcb7tVyI",
+  "signal": "your_signal_here",
+  "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"
+}
+```
 
-   ```json
-   {
-     "success": true,
-     "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
-     "return_url": ""
-   }
-   ```
+   <!-- spell-checker: enable -->
+
+**Response (200)**
+
+```json
+{
+  "success": true,
+  "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
+  "return_url": ""
+}
+```
 
 7. The user is a unique human! Execute your action on your backend (e.g. create an account).
 

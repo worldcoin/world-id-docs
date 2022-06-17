@@ -22,6 +22,25 @@ jobs:
       - name: Typecheck
         run: |
           yarn typecheck
+  
+  spellcheck:
+    name: Spellcheck
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Spellcheck
+        run: |
+          yarn spellcheck
 
   test-build:
     name: Test production build

@@ -61,6 +61,8 @@ The `.init()` method should only be called once in the lifecycle of your app. To
 
 **Example:**
 
+<!-- spell-checker: disable -->
+
 ```js
 worldID.init(
   "world-id-container", // This can be the HTML ID of an element or any HTML node. Please be sure the node is mounted in your DOM before you call `.init()`
@@ -73,6 +75,8 @@ worldID.init(
   }
 );
 ```
+
+<!-- spell-checker: enable -->
 
 ### .update()
 
@@ -108,7 +112,7 @@ The World ID widget will not be enabled until you call `.enable()`. Additionally
 worldID
   .enable()
   .then((successResult) => {
-    console.log("Verified succesfully:", successResult);
+    console.log("Verified successfully:", successResult);
   })
   .catch((errorResult) => console.warn("Verification failed:", errorResult));
 ```

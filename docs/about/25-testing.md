@@ -20,7 +20,7 @@ Whenever testing in the **Staging network** you will **always have to use the [W
 
 ## Using the Staging network
 
-Using the staging network as a "user" is simple, just go to the [Simulator](simulator),
+Using the staging network as a "user" is simple, just go to the [Simulator][simulator],
 
 1. Create or load a staging identity.
 2. Add your identity to the list of "verified identities" with the faucet.

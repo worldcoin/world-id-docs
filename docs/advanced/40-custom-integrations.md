@@ -27,7 +27,7 @@ Support for regular non-crypto applications will be possible soon. Stay tuned fo
 ## Details
 
 :::tip
-To test your integration or if you haven't gone to a Worldcoin orb you can test using the [Test network](/docs/about/test-network). You can easily launch a mock version of the app at [https://mock-app.id.worldcoin.org](https://mock-app.id.worldcoin.org) so you can test your flow end to end.
+To test your integration or if you haven't gone to a Worldcoin orb you can test using the [Staging network](/docs/about/testing). You can easily do this through the [Worldcoin Simulator](https://simulator.worldcoin.org).
 :::
 
 ### 1. Connecting to the Worldcoin app

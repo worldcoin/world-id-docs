@@ -22,8 +22,7 @@
     {
       "name": "Worldcoin Simulator",
       "repository": "worldcoin/simulator",
-      "sync_readme": true,
-      "description": "Simulator to test the World ID protocol in the staging network."
+      "sync_readme": true
     },
     {
       "name": "World ID Docs",

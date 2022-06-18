@@ -20,8 +20,8 @@
       "description": "Quick start. Starter kit with Hardhat to deploy your own smart contract that verifies unique-humanness with World ID."
     },
     {
-      "name": "World ID Mock App",
-      "repository": "worldcoin/world-id-mock-app",
+      "name": "Worldcoin Simulator",
+      "repository": "worldcoin/simulator",
       "sync_readme": true,
       "description": "Simulator to test the World ID protocol in the staging network."
     },

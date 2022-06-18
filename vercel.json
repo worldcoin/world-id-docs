@@ -12,7 +12,12 @@
     },
     {
       "source": "/test",
-      "destination": "/docs/about/test-network",
+      "destination": "/docs/about/testing",
+      "permanent": true
+    },
+    {
+      "source": "/docs/about/test-network",
+      "destination": "/docs/about/testing",
       "permanent": true
     }
   ]

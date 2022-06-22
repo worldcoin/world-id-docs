@@ -32,7 +32,7 @@ And all of this doesn't even account for edge cases such as dual nationals, coun
 
 ### Fingerprints and other biometrics
 
-We explored using other biometrics, such as fingerprints, palm prints and even DNA sequencing. We needed to optimize for several different factors in order to maximize exposure and accesibility for 1B+ people: privacy preservation, non-invasive techniques, feasibility of large-scale operation, and minimization of error rates.
+We explored using other biometrics, such as fingerprints, palm prints and even DNA sequencing. We needed to optimize for several different factors in order to maximize exposure and accessibility for 1B+ people: privacy preservation, non-invasive techniques, feasibility of large-scale operation, and minimization of error rates.
 
 Some techniques did not provide enough entropy to guarantee uniqueness at scale, 100M+ people (e.g. fingerprints or face recognition). It's important to remember that contrary to most fingerprint use cases (e.g. border crossing, security, etc.) are intended for authentication, meaning your seeking to validate some fingerprint to one in a particular set. Contrary to this, with World ID we have to a validate that some fingerprint is completely different to everyone elses'.
 

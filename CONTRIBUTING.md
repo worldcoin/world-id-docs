@@ -1,4 +1,4 @@
-Contributions to this repository are welcomed! If you're loking to contribute to the documentation of World ID or simply spot an error or typo, feel free to open a PR or issue on this repository.
+Contributions to this repository are welcomed! If you're looking to contribute to the documentation of World ID or simply spot an error or typo, feel free to open a PR or issue on this repository.
 
 A few notes to keep in mind on our writing style:
 
@@ -9,6 +9,7 @@ A few notes to keep in mind on our writing style:
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
+<!-- spell-checker: disable -->
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->

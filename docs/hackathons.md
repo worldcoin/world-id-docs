@@ -28,7 +28,7 @@ If you are already a hacker, get familiar with the World ID protocol and how to 
 
 From May 6 to May 27, organized by ETH Global. Visit the [official website](https://hackathon.money/).
 
-We were sponsors of this **online Hackathon**, where developers built the very first dapps with World ID. Some of these projects are showcased in our [Examples](/docs/examples) section. You can check out all the winners [here](https://showcase.ethglobal.com/hackmoney2022).
+We were sponsors of this **online Hackathon**, where developers built the very first dapps with World ID. Some of these projects are showcased in our [Examples](/examples) section. You can check out all the winners [here](https://showcase.ethglobal.com/hackmoney2022).
 
 ### ETHAmsterdam 2022
 

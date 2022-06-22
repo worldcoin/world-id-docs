@@ -13,7 +13,7 @@ Creating a custom integration involves the following process:
 1. Establishing a connection to the Worldcoin app through [WalletConnect v1.0](https://docs.walletconnect.com).
 2. Sending a `wld_worldIDVerification` JSON-RPC 2.0 request with the required proof input.
 3. Receiving the proof results through WalletConnect.
-4. Handling errors received from the Worldcoin app appropiately.
+4. Handling errors received from the Worldcoin app appropriately.
 
 **On the blockchain side:**
 
@@ -27,7 +27,7 @@ Support for regular non-crypto applications will be possible soon. Stay tuned fo
 ## Details
 
 :::tip
-To test your integration or if you haven't gone to a Worldcoin orb you can test using the [Test network](/docs/about/test-network). You can easily launch a mock version of the app at [https://mock-app.id.worldcoin.org](https://mock-app.id.worldcoin.org) so you can test your flow end to end.
+To test your integration or if you haven't gone to a Worldcoin orb you can test using the [Staging network](/docs/about/testing). You can easily do this through the [Worldcoin Simulator](https://simulator.worldcoin.org).
 :::
 
 ### 1. Connecting to the Worldcoin app
@@ -65,6 +65,8 @@ Avoid using the default WalletConnect modal. A large number of users will not be
 
 The Worldcoin app will automatically accept the connection request after the user scans the QR code with their app. Upon the connection being established, send the verification request as a JSON-RPC 2.0 message with the following structure.
 
+<!-- spell-checker: disable -->
+
 ```js
 const request = {
   id: 1000, // use a different ID every time
@@ -78,6 +80,8 @@ const request = {
   ],
 };
 ```
+
+<!-- spell-checker: enable -->
 
 **Example (partial, see #4 for complete snippet):**
 
@@ -96,9 +100,9 @@ const { merkle_root, nullifier_hash, proof } =
   await connector.sendCustomRequest(request);
 ```
 
-### 4. Handle errors appropiately
+### 4. Handle errors appropriately
 
-You should properly handle errors when interacting with the Worlcoin app. There are some error cases that in particular should be expected. For example, if the user declines the verification request in the Worldcoin app. Check out the list of [error codes](/docs/js/error-handling#error-codes) for details on possible error codes.
+You should properly handle errors when interacting with the Worldcoin app. There are some error cases that in particular should be expected. For example, if the user declines the verification request in the Worldcoin app. Check out the list of [error codes](/docs/js/error-handling#error-codes) for details on possible error codes.
 
 **Example:**
 

@@ -61,7 +61,7 @@ We have comprehensive docs for World ID at https://id.worldcoin.org/docs.
 
 ## 🧑‍💻 Development & testing
 
-To develop locally and contribute to our docs, you can simply follow these instructions after clonning the repo.
+To develop locally and contribute to our docs, you can simply follow these instructions after cloning the repo.
 
 - Install dependencies
   ```bash

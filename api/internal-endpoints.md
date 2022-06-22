@@ -40,11 +40,15 @@ POST /api/v1/login
 
 **Response (200)**
 
+<!-- spell-checker: disable -->
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNTE2MjM5MDIyfQ.HThTAuYC6RyvZgF5h2cJCVEUQZ9g8Y18Tf-IU2gaYBc"
 }
 ```
+
+<!-- spell-checker: enable -->
 
 **Response (400)**
 
@@ -68,8 +72,7 @@ POST /api/v1/signup
 
 **Headers**
 
-```json
-{
+```json{
   "Content-Type": "application/json"
 }
 ```
@@ -90,11 +93,15 @@ POST /api/v1/signup
 
 **Response (201)**
 
+<!-- spell-checker: disable -->
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNTE2MjM5MDIyfQ.HThTAuYC6RyvZgF5h2cJCVEUQZ9g8Y18Tf-IU2gaYBc"
 }
 ```
+
+<!-- spell-checker: enable -->
 
 **Response (400)**
 
@@ -177,6 +184,8 @@ POST /api/_jwk-gen
 
 **Response (201)**
 
+<!-- spell-checker: disable -->
+
 ```json
 {
   "success": true,
@@ -187,3 +196,5 @@ POST /api/_jwk-gen
   }
 }
 ```
+
+<!-- spell-checker: enable -->

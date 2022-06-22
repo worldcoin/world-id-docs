@@ -2,7 +2,7 @@
 title: Privacy
 ---
 
-We are committed to preserving each user's privacy and anonimity, collecting as little information as possible from our users. More on Worldcoin's commitment to privacy in [this blog post](https://worldcoin.org/privacy-by-design).
+We are committed to preserving each user's privacy and anonymity, collecting as little information as possible from our users. More on Worldcoin's commitment to privacy in [this blog post](https://worldcoin.org/privacy-by-design).
 
 :::info
 No one can personally identify a World ID account with a specific person. Further, there's no way to tie different World ID verifications with a specific identity.
@@ -10,7 +10,7 @@ No one can personally identify a World ID account with a specific person. Furthe
 
 ### Verification without storing iris images or any PII (\*)
 
-When a user goes through the orb verification process, all the required computations are perfomed in real-time within the orb. The orb runs multiple neural networks to rule out fraud, recognize the iris and positions it properly in the frame. The pictures are then converted to an IrisCode (which is just a mathematical representation of the iris). Any images taken during the verification process are immediately deleted from memory and never transferred (unless the user opted to allow storage for research or convenience purposes, see below).
+When a user goes through the orb verification process, all the required computations are performed in real-time within the orb. The orb runs multiple neural networks to rule out fraud, recognize the iris and positions it properly in the frame. The pictures are then converted to an IrisCode (which is just a mathematical representation of the iris). Any images taken during the verification process are immediately deleted from memory and never transferred (unless the user opted to allow storage for research or convenience purposes, see below).
 
 The orb receives an identity commitment from the user (created in the Worldcoin app) via a QR code and uses that commitment to submit a new verified identity to the set. When the user utilizes their identity (even to claim their free share of Worldcoin), a [Zero-knowledge proof](/docs/advanced/zero-knowledge-proofs) is used, so not even the identity commitment is tied to a particular wallet or any other user information.
 

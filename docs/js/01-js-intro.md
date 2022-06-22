@@ -29,6 +29,8 @@ To add the script directly in your HTML, just add this tag to your `<head>`.
 
 ## Usage
 
+<!-- spell-checker: disable -->
+
 ```js
 import worldID from "@worldcoin/id"; // If you installed the JS package as a module
 
@@ -38,13 +40,15 @@ worldID.init("world-id-container", {
 });
 ```
 
+<!-- spell-checker: enable -->
+
 Enable the package by calling `.enable()`. You will receive a promise with the results of the verification process.
 
 ```js
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     const result = await worldID.enable();
-    console.log("World ID verified succesfully:", result);
+    console.log("World ID verified successfully:", result);
   } catch (failure) {
     console.warn("World ID verification failed:", failure);
     // Re-activate here so your end user can try again

@@ -19,7 +19,7 @@ Here are the events we capture:
 - `wid connection established`. When the connection to the user's WLD app is established. We include the number of seconds it took from the previous step.
 - `wid verification success`. When the complete World ID process is successful.
 - `wid verification failed`. When the complete World ID process fails. We include the `errorCode` here too.
-- `$exception`. When an unhandled exception occurrs in the package. We include the error message and the stack trace.
+- `$exception`. When an unhandled exception occurs in the package. We include the error message and the stack trace.
 
 ### Attributes captured
 

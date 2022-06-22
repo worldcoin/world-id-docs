@@ -41,7 +41,7 @@ Sample airdrop app. Let users claim a free ERC-20 token airdrop but only once pe
 Serverless Discord Bot that uses World ID to verify humans. Verified humans get a special role assigned which can then be used to manage special permissions.
 
 <div className="text--center">
-<img src="/img/discord-bot-screenshot.png" alt="Discord Bot screenshot" width="700" />
+<img src="/img/discord-bot-screenshot.png" alt="Discord Bot screenshot" width="500" />
 </div>
 
 <table className="table--center margin-top--lg">

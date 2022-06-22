@@ -40,12 +40,12 @@
     {
       "name": "World ID #petorbz",
       "repository": "worldcoin/world-id-petorbz",
-      "sync_readme": true
+      "sync_readme": false
     },
     {
       "name": "World ID Discord Bot",
       "repository": "worldcoin/world-id-discord-bot",
-      "sync_readme": false,
+      "sync_readme": true,
       "description": "Improve your Discord server by verifying unique people with World ID."
     },
     {

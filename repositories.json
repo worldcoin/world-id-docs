@@ -45,7 +45,7 @@
     {
       "name": "World ID Discord Bot",
       "repository": "worldcoin/world-id-discord-bot",
-      "sync_readme": false,
+      "sync_readme": true,
       "description": "Improve your Discord server by verifying unique people with World ID."
     },
     {

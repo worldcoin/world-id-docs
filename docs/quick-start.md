@@ -12,7 +12,7 @@ title: Quick start
 2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for in real life [IRL] verifications). **Take note of your action ID** (which looks something like <!-- spell-checker: disable -->`wid_GBkZ1KlVUdFTjeMXskrX`<!-- spell-checker: enable -->).
 
    :::tip
-   If you want to test your integration and you haven't been verified by an orb, select the **Staging** environment. You'll be able to use the [Simulator](/docs/about/test-network) instead.
+   If you want to test your integration and you haven't been verified by an orb, select the **Staging** environment. You'll be able to use the [Simulator](/docs/about/testing) instead.
    :::
 
    <img src="/img/dev-portal-engine-selection.png" alt="Screenshot of Dev Portal: Engine selection" />

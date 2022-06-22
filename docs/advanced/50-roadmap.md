@@ -31,4 +31,4 @@ The World ID protocol is platform agnostic on the frontend. However, we currentl
 
 ## Multi-blockchain and multi-layer-2 support
 
-Currently World ID operates on the Ethereum mainnet (aside from the [Test network](/docs/about/test-network)), however the protocol conceptually can operate in a multitude of different chains and layer 2s. We want to extend this support so projects operating in other chains can benefit from this new primitive as well as make the protocol more efficient and cost effective.
+Currently World ID operates on the Polygon L2 (aside from the [Staging network](/docs/about/testing)), however the protocol conceptually can operate in a multitude of different chains and layer 2s. We want to extend this support so projects operating in other chains can benefit from this new primitive as well as make the protocol more efficient and cost effective.

@@ -36,6 +36,44 @@ Sample airdrop app. Let users claim a free ERC-20 token airdrop but only once pe
 </tbody>
 </table>
 
+### Discord Bot
+
+Serverless Discord Bot that uses World ID to verify humans. Verified humans get a special role assigned which can then be used to manage special permissions.
+
+<div className="text--center">
+<img src="/img/discord-bot-screenshot.png" alt="Discord Bot screenshot" width="700" />
+</div>
+
+<table className="table--center margin-top--lg">
+<tbody>
+<tr>
+<td>
+Landing page <i>(coming soon)</i>
+</td>
+<td>
+<Link href="https://github.com/worldcoin/world-id-discord-bot">Source code</Link>
+</td>
+</tr>
+</tbody>
+</table>
+
+### Hyperdrop
+
+A universal airdrop for humans only, every month. Distribute ERC-20 tokens evenly among humans.
+
+<table className="table--center margin-top--lg">
+<tbody>
+<tr>
+<td>
+Demo <i>(coming soon)</i>
+</td>
+<td>
+<Link href="https://github.com/worldcoin/hyperdrop-contracts">Smart contract source</Link>
+</td>
+</tr>
+</tbody>
+</table>
+
 ### Coming soon! Cubed voting
 
 Truly democratic voting on various topics. Each person gets only one vote.

@@ -38,6 +38,12 @@
       "description": "World ID Example. Create an airdrop of ERC-20 tokens that can only be claimed once by a single human. Completely privacy preserving."
     },
     {
+      "name": "World ID Airdrop Dapp",
+      "repository": "worldcoin/world-id-example-airdrop-dapp",
+      "sync_readme": false,
+      "description": "World ID Example. Create an airdrop of ERC-20 tokens that can only be claimed once by a single human. Completely privacy preserving."
+    },
+    {
       "name": "World ID #petorbz",
       "repository": "worldcoin/world-id-petorbz",
       "sync_readme": false

@@ -166,14 +166,14 @@ const config = {
         contextualSearch: true,
         searchPagePath: "search",
       },
-      announcementBar: {
-        // id: "eth_ny",
-        // content:
-        //   '🗽 Are you coming to ETH NY? Check out our <a target="_blank" href="https://worldcoin.org/ethny">Hub</a> for full hackathon details, workshops and other amazing events.',
-        // backgroundColor: "#F0EDF9",
-        // textColor: "#29576B",
-        // isCloseable: true,
-      },
+      // announcementBar: {
+      // id: "eth_ny",
+      // content:
+      //   '🗽 Are you coming to ETH NY? Check out our <a target="_blank" href="https://worldcoin.org/ethny">Hub</a> for full hackathon details, workshops and other amazing events.',
+      // backgroundColor: "#F0EDF9",
+      // textColor: "#29576B",
+      // isCloseable: true,
+      // },
     }),
 };
 

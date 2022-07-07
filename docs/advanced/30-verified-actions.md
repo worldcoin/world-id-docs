@@ -1,8 +1,8 @@
 ---
-title: Verified Actions
+title: Verified actions
 ---
 
-Verified Actions work similarly to verified accounts on Twitter, or when you see a checkmark in Uniswap tokens. It's used to provide additional context to end users to provide increased assurance that they are executing the action they expect and can help prevent spoofing of actions. A key distinction here is that a Verified Action only exists in the context of a single action, we don't verify full projects or organizations. This is because the only thing that ties a verified action is the [action ID](/docs/about/glossary#action-id).
+Verified actions work similarly to verified accounts on Twitter, or when you see a checkmark in Uniswap tokens. It's used to provide additional context to end users to provide increased assurance that they are executing the action they expect and can help prevent spoofing of actions. A key distinction here is that a Verified Action only exists in the context of a single action, we don't verify full projects or organizations. This is because the only thing that ties a verified action is the [action ID](/docs/about/glossary#action-id).
 
 <table>
 <tbody>

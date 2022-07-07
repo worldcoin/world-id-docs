@@ -1,5 +1,5 @@
 ---
-title: Hackathons & Workshops
+title: Hackathons & workshops
 ---
 
 We are actively sponsoring hackathons to help developers get started with World ID. We'll also try to have a presence in those events (at least the ones IRL) so you can test the orb sign up experience if there are no Worldcoin orbs in your country. You can check out the events we're and will be participating at here.

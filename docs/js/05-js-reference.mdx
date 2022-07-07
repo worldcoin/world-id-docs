@@ -186,9 +186,8 @@ The following parameters can be passed to both `.init()` and `.update()`.
       </td>
       <td>Not required, but widget won't be enabled until passed</td>
       <td>
-        Read more about the <Link to="/docs/about/glossary#signal">signal</Link>
-        . For web3 dApps, you will usually want to use your user's wallet
-        address.
+        Read more about the <Link to="/docs/about/glossary#signal">signal</Link>.
+        For web3 dApps, you will usually want to use your user's wallet address.
       </td>
     </tr>
     <tr>
@@ -207,6 +206,16 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
+        <code>theme</code>
+      </td>
+      <td>
+        <code>light</code> or <code>dark</code>
+      </td>
+      <td>No</td>
+      <td>The theme to apply to the widget's UI.</td>
+    </tr>
+    <tr>
+      <td>
         <code>app_name</code>
       </td>
       <td>
@@ -214,9 +223,10 @@ The following parameters can be passed to both `.init()` and `.update()`.
       </td>
       <td>No</td>
       <td>
-        <b>Highly recommended!</b> The name of your app/project/company. This
-        will be shown to the users in the WLD app, unless you have a{" "}
-        <Link to="/docs/advanced/verified-actions">Verified action</Link>.
+        <b>
+          Not required if you registered your action in the Developer Portal
+        </b>
+        . The name of your app/project/company (shown to users in Worldcoin app).
       </td>
     </tr>
     <tr>
@@ -228,24 +238,50 @@ The following parameters can be passed to both `.init()` and `.update()`.
       </td>
       <td>No</td>
       <td>
-        <b>Highly recommended!</b> The description of the specific action the
-        user is verifying. This will be shown to the users in the WLD app,
-        unless you have a{" "}
-        <Link to="/docs/advanced/verified-actions">Verified action</Link>.
+        <b>
+          Not required if you registered your action in the Developer Portal
+        </b>
+        . The description of the specific action (shown to users in Worldcoin app).
       </td>
     </tr>
     <tr>
       <td>
-        <code>disableRemoteFonts</code>
+        <code>disable_remote_fonts</code>
       </td>
       <td>
         <code>boolean</code>
       </td>
       <td>No</td>
       <td>
-        Disables loading remote fonts for the widget and uses the system's font
-        instead (e.g. Roboto, San Francisco). The library currently loads a
-        single font from Google Fonts.
+        Disables loading remote fonts (from Google Fonts) for the widget and
+        uses the system's font instead (e.g. Roboto, San Francisco).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>advanced_use_raw_signal</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>No</td>
+      <td>
+        <b>Advanced!</b> Use this to hash and encode your own signal. Read more
+        on <Link to="/docs/advanced/advanced-signals">Advanced signals</Link>.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>advanced_use_raw_action_id</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>No</td>
+      <td>
+        <b>Advanced!</b> Use this to hash and encode your own Action ID. Read
+        more on{" "}
+        <Link to="/docs/advanced/advanced-signals">Advanced signals</Link>.
       </td>
     </tr>
   </tbody>

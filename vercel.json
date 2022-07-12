@@ -19,6 +19,11 @@
       "source": "/docs/about/test-network",
       "destination": "/docs/about/testing",
       "permanent": true
+    },
+    {
+      "source": "/docs/hackathons",
+      "destination": "/docs/events-and-grants/hackathons",
+      "permanent": false
     }
   ]
 }

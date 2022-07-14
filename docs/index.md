@@ -65,7 +65,7 @@ Read more about how World ID works in the [Protocol](/docs/about/protocol) secti
 
 <!-- TODO: Add use cases for Cloud apps -->
 
-World ID prevents sibyl attacks for actions on-chain and [off-chain](/docs/advanced/non-crypto-projects). Some use cases:
+World ID prevents sybil attacks both on-chain and off-chain. Some use cases:
 
 - **Receiving airdrops**. Reward early users of your project without abuse from bots, users creating multiple accounts, etc. For example, democratic airdrops like [Worldcoin](https://worldcoin.org).
 - **Democratic voting**. Ensure one person equals one vote; e.g. governance, proposal voting, etc.

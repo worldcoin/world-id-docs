@@ -1,5 +1,5 @@
 ---
-title: Custom Integrations
+title: Custom integrations
 ---
 
 As of now, World ID only includes a [Javascript package](/docs/js) for use in web projects. However, creating a custom integration to use World ID in other type of projects (e.g. mobile apps) is fairly straightforward. Below you will find details on how to do this.

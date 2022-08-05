@@ -64,13 +64,13 @@
       "name": "World ID + Lens",
       "repository": "worldcoin/world-id-lens",
       "sync_readme": false,
-      "description": "Smart contracts for the Lens + Worldcoin integration. Verify your Lens profile belongs to a human!"
+      "description": "Human verification for Lens Protocol with World ID."
     },
     {
       "name": "World ID + Lens Dapp",
       "repository": "worldcoin/world-id-lens-dapp",
       "sync_readme": false,
-      "description": "Frontend for the Lens + Worldcoin integration. Verify your Lens profile belongs to a human!"
+      "description": "Frontend used to verify Lens accounts. Smart contract: https://github.com/worldcoin/world-id-lens"
     }
   ]
 }

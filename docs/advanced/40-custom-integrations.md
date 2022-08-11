@@ -52,8 +52,15 @@ const connector = new WalletConnect({
 if (!connector.connected) {
   // create new session
   await connector.createSession();
-  // display the URI below in the modal's QR code
-  console.log(connector.uri);
+  // build qr code data
+  const bridgeUrl = new URL(connector.bridge)
+  const url = new URL('https://worldcoin.org/verify')
+  url.searchParams.append('t', connector.handshakeTopic) // handshake topic
+  url.searchParams.append('k', connector.key) // symmetric key
+  url.searchParams.append('b', bridgeUrl.hostname) // bridge host
+  url.searchParams.append('v', '1') // version
+  // display qr
+  console.log(url.toString())
 }
 ```
 

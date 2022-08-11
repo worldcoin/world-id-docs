@@ -27,7 +27,47 @@ To add the script directly in your HTML, just add this tag to your `<head>`.
 ></script>
 ```
 
-## Usage
+## Usage in React apps
+
+If your app is built on React, using the React widget is by far the easiest approach.
+
+<!-- spell-checker: disable -->
+
+```jsx
+import { WorldIDWidget } from "@worldcoin/id";
+
+<WorldIDWidget
+    actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+    signal="my_signal"
+    enableTelemetry
+    onSuccess={(proof) => console.log(proof)}
+    onError={(error) => console.error(error)}
+/>;
+```
+
+<!-- spell-checker: enable -->
+
+## Usage in Nextjs apps
+
+If your app is built on Nextjs, using the React widget is by far the easiest approach, but need to skip SSR.
+
+<!-- spell-checker: disable -->
+
+```jsx
+const WorldIDWidget = dynamic(() => import("@worldcoin/id").then((mod) => mod.WorldIDWidget), { ssr: false });
+
+<WorldIDWidget
+    actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+    signal="my_signal"
+    enableTelemetry
+    onSuccess={(proof) => console.log(proof)}
+    onError={(error) => console.error(error)}
+/>;
+```
+
+<!-- spell-checker: enable -->
+
+## Usage in Generic JS apps
 
 <!-- spell-checker: disable -->
 
@@ -36,7 +76,7 @@ import worldID from "@worldcoin/id"; // If you installed the JS package as a mod
 
 worldID.init("world-id-container", {
   enable_telemetry: true,
-  action_id: "wid_BPZsRJANxct2cZxVRyh80SFG",
+  action_id: "wid_BPZsRJANxct2cZxVRyh80SFG", // obtain this from developer.worldcoin.org
 });
 ```
 

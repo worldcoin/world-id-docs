@@ -49,12 +49,13 @@ import { WorldIDWidget } from "@worldcoin/id";
 
 ## Usage in Next.js apps
 
-If your app is built on Next.js, using the React widget is by far the easiest approach, but need to skip SSR.
+If your app is built on Next.js, using the React widget is by far the easiest approach, but need to disable SSR.
 
 <!-- spell-checker: disable -->
 
 ```jsx
-const WorldIDWidget = dynamic(() => import("@worldcoin/id").then((mod) => mod.WorldIDWidget), { ssr: false });
+import { WidgetProps } from "@worldcoin/id";
+const WorldIDWidget = dynamic<WidgetProps>(() => import("@worldcoin/id").then((mod) => mod.WorldIDWidget), { ssr: false });
 
 <WorldIDWidget
     actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org

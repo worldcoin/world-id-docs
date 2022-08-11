@@ -47,9 +47,9 @@ import { WorldIDWidget } from "@worldcoin/id";
 
 <!-- spell-checker: enable -->
 
-## Usage in Nextjs apps
+## Usage in Next.js apps
 
-If your app is built on Nextjs, using the React widget is by far the easiest approach, but need to skip SSR.
+If your app is built on Next.js, using the React widget is by far the easiest approach, but need to skip SSR.
 
 <!-- spell-checker: disable -->
 

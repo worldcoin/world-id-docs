@@ -29,41 +29,20 @@ If you selected the **cloud** engine, these instructions continue with details o
    yarn add @worldcoin/id
    ```
 
-4. Add a `div` to mount World ID, and later initialize. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account").
-
-   ```html
-   <div id="world-id-container"></div>
-   ```
-
-   Now initialize World ID from your JS code. You can choose any signal you want, but we recommend reading [on signals](/docs/about/glossary#signal) to select an optimal signal.
+4. Import and render World ID component. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account"). You can choose any signal you want, but we recommend reading [on signals](/docs/about/glossary#signal) to select an optimal signal.
 
    <!-- spell-checker: disable -->
 
-   ```js
-   import worldID from "@worldcoin/id";
-   worldID.init("world-id-container", {
-     enable_telemetry: true,
-     action_id: "wid_staging_fMY8wNIw2AKLjcb7tVyI", // <- use the address from the Developer Portal
-     signal: "your_signal_here",
-   });
-   ```
-
-   <!-- spell-checker: enable -->
-
-5. On document load, enable the widget and listen for verification results.
-
-   <!-- spell-checker: disable -->
-
-   ```js
-   document.addEventListener("DOMContentLoaded", async function () {
-     try {
-       const result = await worldID.enable(); // <- Pass this `result` to your backend or smart contract (see below)
-       console.log("World ID verified successfully!");
-     } catch (failure) {
-       console.warn("World ID verification failed:", failure);
-       // Re-activate here so your end user can try again
-     }
-   });
+   ```jsx
+   import { WorldIDWidget } from "@worldcoin/id";
+   
+   <WorldIDWidget
+       actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+       signal="my_signal"
+       enableTelemetry
+       onSuccess={(proof) => console.log(proof)}
+       onError={(error) => console.error(error)}
+   />;
    ```
 
    <!-- spell-checker: enable -->

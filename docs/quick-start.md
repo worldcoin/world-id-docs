@@ -32,7 +32,7 @@ If you selected the **cloud** engine, these instructions continue with details o
 4. Import and render the World ID widget. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account"). You can choose any signal you want, but we recommend reading [on signals](/docs/about/glossary#signal) to select an optimal signal.
 
    :::tip
-   If you're not using React, check out the [JS intro](/docs/js/js-intro) section. We have a section for **Next.js** too!
+   If you're not using React, check out the [JS intro](/docs/js/) section. We have a section for **Next.js** too!
    :::
 
    <!-- spell-checker: disable -->

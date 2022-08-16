@@ -18,7 +18,7 @@ npm install @worldcoin/id
 yarn add @worldcoin/id
 ```
 
-To add the script directly in your HTML, just add this tag to your `<head>`.
+**Alternatively**, to add the script directly in your HTML, just add this tag to your `<head>`.
 
 ```html
 <script
@@ -27,34 +27,95 @@ To add the script directly in your HTML, just add this tag to your `<head>`.
 ></script>
 ```
 
-## Usage
+## Usage in React apps
+
+If your app is built on React, using the React widget is by far the easiest approach.
 
 <!-- spell-checker: disable -->
 
-```js
-import worldID from "@worldcoin/id"; // If you installed the JS package as a module
+```tsx
+import { WorldIDWidget } from "@worldcoin/id";
 
-worldID.init("world-id-container", {
-  enable_telemetry: true,
-  action_id: "wid_BPZsRJANxct2cZxVRyh80SFG",
-});
+<WorldIDWidget
+  actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+  signal="my_signal"
+  enableTelemetry
+  onSuccess={(verificationResponse) => console.log(verificationResponse)} // you'll actually want to pass the proof to the API or your smart contract
+  onError={(error) => console.error(error)}
+/>;
 ```
 
 <!-- spell-checker: enable -->
 
-Enable the package by calling `.enable()`. You will receive a promise with the results of the verification process.
+:::tip
+A fully functional React example can be found [here](https://github.com/worldcoin/world-id-js/tree/main/example-react).
+:::
 
-```js
-document.addEventListener("DOMContentLoaded", async function () {
-  try {
-    const result = await worldID.enable();
-    console.log("World ID verified successfully:", result);
-  } catch (failure) {
-    console.warn("World ID verification failed:", failure);
-    // Re-activate here so your end user can try again
-  }
-});
+## Usage in Next.js apps
+
+If your app is built on Next.js, you should use the React widget, but it's critical to **disable SSR**.
+
+<!-- spell-checker: disable -->
+
+```tsx
+import { WidgetProps } from "@worldcoin/id";
+const WorldIDWidget = dynamic<WidgetProps>(
+  () => import("@worldcoin/id").then((mod) => mod.WorldIDWidget),
+  { ssr: false }
+);
+
+<WorldIDWidget
+  actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+  signal="my_signal"
+  enableTelemetry
+  onSuccess={(verificationResponse) => console.log(verificationResponse)}
+  onError={(error) => console.error(error)}
+/>;
 ```
+
+<!-- spell-checker: enable -->
+
+:::tip
+A fully functional Next.js example can be found [here](https://github.com/worldcoin/world-id-js/tree/main/example-nextjs).
+:::
+
+## Usage in vanilla JS apps
+
+1. Add a `div` to mount World ID, and later initialize. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account").
+
+   ```html
+   <div id="world-id-container"></div>
+   ```
+
+1. Initialize the widget.
+
+   <!-- spell-checker: disable -->
+
+   ```js
+   import worldID from "@worldcoin/id"; // If you installed the JS package as a module
+
+   worldID.init("world-id-container", {
+     enable_telemetry: true,
+     action_id: "wid_BPZsRJANxct2cZxVRyh80SFG", // obtain this from developer.worldcoin.org
+     signal: "your_signal",
+   });
+   ```
+
+   <!-- spell-checker: enable -->
+
+1. Enable the package by calling `.enable()`. You will receive a promise with the results of the verification process.
+
+   ```js
+   document.addEventListener("DOMContentLoaded", async function () {
+     try {
+       const result = await worldID.enable();
+       console.log("World ID verified successfully:", result);
+     } catch (failure) {
+       console.warn("World ID verification failed:", failure);
+       // Re-activate here so your end user can try again
+     }
+   });
+   ```
 
 :::tip
 We strongly recommend that on verification failure, you **call `.enable()` again** and listen for the verification process results once more. This will ensure your user can try again (otherwise the World ID widget will remain disabled).

@@ -9,7 +9,7 @@ title: Quick start
 
    > An action is something that a single human can perform only once.
 
-2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for in real life [IRL] verifications). **Take note of your action ID** (which looks something like <!-- spell-checker: disable -->`wid_GBkZ1KlVUdFTjeMXskrX`<!-- spell-checker: enable -->).
+2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for IRL verifications). **Take note of your action ID** (which looks something like <!-- spell-checker: disable -->`wid_GBkZ1KlVUdFTjeMXskrX`<!-- spell-checker: enable -->).
 
    :::tip
    If you want to test your integration and you haven't been verified by an orb, select the **Staging** environment. You'll be able to use the [Simulator](/docs/about/testing) instead.
@@ -29,41 +29,25 @@ If you selected the **cloud** engine, these instructions continue with details o
    yarn add @worldcoin/id
    ```
 
-4. Add a `div` to mount World ID, and later initialize. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account").
+4. Import and render the World ID widget. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account"). You can choose any signal you want, but we recommend reading [on signals](/docs/about/glossary#signal) to select an optimal signal.
 
-   ```html
-   <div id="world-id-container"></div>
-   ```
-
-   Now initialize World ID from your JS code. You can choose any signal you want, but we recommend reading [on signals](/docs/about/glossary#signal) to select an optimal signal.
+   :::tip
+   If you're not using React, check out the [JS intro](/docs/js/) section. We have a section for **Next.js** too!
+   :::
 
    <!-- spell-checker: disable -->
 
-   ```js
-   import worldID from "@worldcoin/id";
-   worldID.init("world-id-container", {
-     enable_telemetry: true,
-     action_id: "wid_staging_fMY8wNIw2AKLjcb7tVyI", // <- use the address from the Developer Portal
-     signal: "your_signal_here",
-   });
-   ```
+   ```jsx
+   import { WorldIDWidget } from "@worldcoin/id";
 
-   <!-- spell-checker: enable -->
-
-5. On document load, enable the widget and listen for verification results.
-
-   <!-- spell-checker: disable -->
-
-   ```js
-   document.addEventListener("DOMContentLoaded", async function () {
-     try {
-       const result = await worldID.enable(); // <- Pass this `result` to your backend or smart contract (see below)
-       console.log("World ID verified successfully!");
-     } catch (failure) {
-       console.warn("World ID verification failed:", failure);
-       // Re-activate here so your end user can try again
-     }
-   });
+   // Mount the component in your code at the place where you want to render the widget
+   <WorldIDWidget
+     actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+     signal="my_signal"
+     enableTelemetry
+     onSuccess={(verificationResponse) => console.log(verificationResponse)} // you'll actually want to pass the proof to the API or your smart contract
+     onError={(error) => console.error(error)}
+   />;
    ```
 
    <!-- spell-checker: enable -->
@@ -94,6 +78,8 @@ Cloud actions are verified by the Developer Portal. You can validate a user is a
 
    **Request body**
 
+   Parameters `merkle_root`, `nullifier_hash` & `proof` are obtained from the `verificationResponse` above.
+
    ```json
    {
      "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
@@ -106,15 +92,15 @@ Cloud actions are verified by the Developer Portal. You can validate a user is a
 
    <!-- spell-checker: enable -->
 
-**Response (200)**
+   **Response (200)**
 
-```json
-{
-  "success": true,
-  "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
-  "return_url": ""
-}
-```
+   ```json
+   {
+     "success": true,
+     "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
+     "return_url": ""
+   }
+   ```
 
 7. The user is a unique human! Execute your action on your backend (e.g. create an account).
 

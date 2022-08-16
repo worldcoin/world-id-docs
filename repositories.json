@@ -59,6 +59,18 @@
       "repository": "worldcoin/developer-portal",
       "sync_readme": false,
       "description": "The Worldcoin Developer Portal provides tools to interact with the Worldcoin SDK. Easiest way to get started with World ID."
+    },
+    {
+      "name": "World ID + Lens",
+      "repository": "worldcoin/world-id-lens",
+      "sync_readme": false,
+      "description": "Human verification for Lens Protocol with World ID."
+    },
+    {
+      "name": "World ID + Lens Dapp",
+      "repository": "worldcoin/world-id-lens-dapp",
+      "sync_readme": false,
+      "description": "Frontend used to verify Lens accounts. Smart contract: https://github.com/worldcoin/world-id-lens"
     }
   ]
 }

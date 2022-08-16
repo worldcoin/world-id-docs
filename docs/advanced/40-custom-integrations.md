@@ -42,19 +42,14 @@ Follow the [WalletConnect docs](https://docs.walletconnect.com/quick-start/dapps
 
 ```js
 import WalletConnect from "@walletconnect/client";
+import { buildQRData } from "@worldcoin/id";
 
 // Create a connector
 const connector = new WalletConnect({
   bridge: "https://bridge.walletconnect.org",
 });
 
-// Check if connection is already established
-if (!connector.connected) {
-  // create new session
-  await connector.createSession();
-  // display the URI below in the modal's QR code
-  console.log(connector.uri);
-}
+const url = buildQRData(connector); // Of course alternatively, you can simply copy this code from the JS widget
 ```
 
 :::warning

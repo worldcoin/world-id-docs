@@ -35,7 +35,7 @@ How you connect to the staging network to **verify proofs** depends on whether y
    <b>If your action is running on Cloud</b> (through the <Link href="https://developer.worldcoin.org">Developer Portal</Link>, you <b>don't have to do anything additional</b> to use the Staging network. When you create an action you select whether you want to run it in Staging or Production mode and the Developer Portal will do the proper validation automatically for you.
   </TabItem>
   <TabItem value="on-chain" label="⛓ On-chain actions" default>
-    If you are running your action on-chain, you do need to point your smart contract to the relevant World ID smart contract. Further, the Staging and Production smart contracts are deployed to different chains. Be sure to **check the Developer Portal for the most up-to-date information on which chain to use.**
+    If you are running your action on-chain, you do need to point your smart contract to the relevant World ID smart contract. Further, the Staging and Production smart contracts are deployed to different chains. Be sure to <b>check the Developer Portal for the most up-to-date information on which chain to use.</b>
 
 To use the <b>Staging network</b> follow these steps:
 

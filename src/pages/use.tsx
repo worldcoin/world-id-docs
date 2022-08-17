@@ -6,7 +6,11 @@ import Head from "@docusaurus/Head";
 import styles from "./use.module.scss";
 import Logo from "@site/static/img/logo.svg";
 import IconQuestionCircle from "@site/static/img/icon-question-circle.svg";
-import { AppProps, VerificationResponse } from "@worldcoin/id";
+import {
+  WidgetProps,
+  VerificationResponse,
+  WorldIDWidget,
+} from "@worldcoin/id";
 import Link from "@docusaurus/Link";
 import { useLocation } from "@docusaurus/router";
 import Tooltip from "react-simple-tooltip";
@@ -82,10 +86,10 @@ function _HostedWorldIDComponent(): JSX.Element {
           </p>
           {state === State.Ready && (
             <WorldIDComponent
-              action_id={queryParams.get("action_id")}
+              actionId={queryParams.get("action_id")}
               signal={queryParams.get("signal")}
-              app_name={queryParams.get("app_name")}
-              signal_description={queryParams.get("signal_description")}
+              appName={queryParams.get("app_name")}
+              signalDescription={queryParams.get("signal_description")}
               returnTo={new URL(queryParams.get("return_to"))}
             />
           )}
@@ -112,7 +116,8 @@ function _HostedWorldIDComponent(): JSX.Element {
   );
 }
 
-interface WorldIDComponentProps extends AppProps {
+interface WorldIDComponentProps
+  extends Omit<WidgetProps, "onSuccess" | "onError"> {
   returnTo: URL;
 }
 
@@ -122,26 +127,6 @@ function WorldIDComponent({
 }: WorldIDComponentProps): JSX.Element {
   const worldID = require("@worldcoin/id");
   const [proof, setProof] = useState(null as null | VerificationResponse);
-  const enableWorldID = async (): Promise<void> => {
-    try {
-      const result = await worldID.enable();
-      setProof(result);
-      console.info("World ID verified successfully!");
-    } catch (error) {
-      console.error(error);
-      enableWorldID().catch(console.error.bind(console));
-    }
-  };
-
-  useEffect(() => {
-    if (!worldID.isInitialized()) {
-      worldID.init("world-id-container", {
-        ...worldIDProps,
-        enable_telemetry: true,
-      });
-      enableWorldID();
-    }
-  }, []);
 
   const handleContinue = (): void => {
     const params = new URLSearchParams(
@@ -171,7 +156,11 @@ function WorldIDComponent({
           <IconQuestionCircle style={{ marginBottom: -6 }} />
         </Tooltip>
       </div>
-      <div id="world-id-container" />
+      <WorldIDWidget
+        {...worldIDProps}
+        enableTelemetry
+        onSuccess={(proof) => setProof(proof)}
+      />
       <div className={styles.btnContainer}>
         <button
           className={styles.btnContinue}

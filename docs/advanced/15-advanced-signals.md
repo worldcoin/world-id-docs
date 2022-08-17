@@ -10,7 +10,7 @@ Advanced signals are useful **mainly for web3 on-chain applications**. For Cloud
 
 ## Addresses & numbers
 
-Particularly **if your signal is an address or a `uint`, the JS widget will do the proper handling automatically**. This means it will treat the number/address as bytes and hash it directly. Strings conversely, are converted to bytes first before hashing. You can check out the `utils.worldIDHash` function in the JS widget (v0.6.0 onwards).
+Particularly **if your signal is an `address` or a `uint`, the JS widget will do the proper handling automatically**. This means it will treat the number/address as bytes and hash it directly. Strings conversely, are converted to bytes first before hashing. You can check out the `utils.worldIDHash` function in the JS widget (v0.6.0 onwards).
 
 :::info
 If you want to do your own hashing, we also expose two additional functions in the JS widget utilities to help you with encoding (if relevant) and hashing. `hashString` will convert the string to bytes and then hash it. `hashEncodedBytes` will only perform the hashing. If you use any of these functions you don't need to do any right shifting or additional hashing as explained below.

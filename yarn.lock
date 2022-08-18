@@ -2849,10 +2849,10 @@
     "@webassemblyjs/ast" "1.11.1"
     "@xtuc/long" "4.2.2"
 
-"@worldcoin/id@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@worldcoin/id/-/id-0.6.0.tgz#88d114ce1c5e3a0102b4b167ea9e94e374db6f14"
-  integrity sha512-+I+GzBAFz0uqhpL4ha4tsGC/3PVhTmsbMJLBCwmFoSMl3MwFE3/bWAZEUili8fa5OmgyLNQ/rTB+Eeq1JMQ1Iw==
+"@worldcoin/id@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@worldcoin/id/-/id-0.7.0.tgz#3c1eacb914b1463072b06db777bb1e59e4e31da9"
+  integrity sha512-FlpKYwUTGzA6gv+MOvFolOHtRzA/IoAsfKTRJTIlfkPwByDM26JwYV3HrCDvJofu0vHf4o1+qAROUXgzxT+zxQ==
   dependencies:
     "@ethersproject/bytes" "5.6.1"
     "@stitches/react" "1.2.8"

@@ -118,6 +118,20 @@ On-chain actions are verified by your own smart contract. You will simply call a
    make deploy
    ```
 
+:::caution
+To make things easier off-chain, the ZKP is actually encoded and packed so it looks like a single string. In reality, the ZKP is a `uint256[8]` array and your smart contract expects that array, not the encoded proof. See below for how to unpack your proof before sending it to your smart contract.
+:::
+
+**Unpacking the ZKP for smart contract verification:**
+
+```js
+import { defaultAbiCoder as abi } from "@ethers/utils";
+const unpackedProof = abi.decode(["uint256[8]"], proof)[0]; // `proof` comes directly from the JS widget
+// You can now pass your unpackedProof to your smart contract
+```
+
+You can also see a live example from Mesha Airdrop [here](https://github.com/worldcoin/world-id-example-airdrop-dapp/blob/main/src/App/App.tsx#L73).
+
 ## Testing your integration
 
 Last step is test your entire integration. Open the JS widget where you'll see a QR code (or "Open Worldcoin app" button if on mobile).

@@ -8,6 +8,18 @@ Advanced signals are useful **mainly for web3 on-chain applications**. For Cloud
 
 [Signals](/docs/about/glossary#signal) are a powerful security feature of the ZKPs World ID uses. Usually the signal is just a simple string message. Under the hood, this string is hashed and encoded so the Worldcoin app can generate a ZKP that can be shared with the World ID smart contracts. However sometimes a simple string is not enough. Given the limitation of string manipulation in smart contracts, we offer this option so your signal can become any arbitrary number of parameters.
 
+## Addresses & numbers
+
+Particularly **if your signal is an `address` or a `uint`, the JS widget will do the proper handling automatically**. This means it will treat the number/address as bytes and hash it directly. Strings conversely, are converted to bytes first before hashing. You can check out the `utils.worldIDHash` function in the JS widget (v0.6.0 onwards).
+
+:::info
+If you want to do your own hashing, we also expose two additional functions in the JS widget utilities to help you with encoding (if relevant) and hashing. `hashString` will convert the string to bytes and then hash it. `hashEncodedBytes` will only perform the hashing. If you use any of these functions you don't need to do any right shifting or additional hashing as explained below.
+:::
+
+:::tip
+The `hashEncodedBytes` in the JS widget is the exact equivalent of `hashToField` in a smart contract (eg. `abi.encodePacked(this).hashToField()`)
+:::
+
 ## Your own advanced signal
 
 Let's say you want to create an action that lets you vote on a proposal and indicate another address to receive an NFT that proves your vote. You should include both parameters (the vote, and the address) as part of the signal to prevent manipulation. Follow these steps:

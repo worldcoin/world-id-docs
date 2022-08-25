@@ -45,8 +45,8 @@ POST /api/v1/verify
 | `nullifier_hash`             | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                          | `string`  |
 | `merkle_root`                | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                          | `string`  |
 | `proof`                      | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                          | `string`  |
-| `advanced_use_raw_action_id` | Skip hasing and encoding action_id on the server-side. See [Advanced Signals](/docs/advanced/advanced-signals) for details. | `boolean` |
-| `advanced_use_raw_signal`    | Skip hasing and encoding signal on the server-side. See [Advanced Signals](/docs/advanced/advanced-signals) for details.    | `boolean` |
+| `advanced_use_raw_action_id` | Skip hashing and encoding action_id on the server-side. See [Advanced Signals](/docs/advanced/advanced-signals) for details. | `boolean` |
+| `advanced_use_raw_signal`    | Skip hashing and encoding signal on the server-side. See [Advanced Signals](/docs/advanced/advanced-signals) for details.    | `boolean` |
 
 **Response (200)**
 

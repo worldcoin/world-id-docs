@@ -38,13 +38,13 @@ POST /api/v1/verify
 
 <!-- spell-checker: enable -->
 
-| Parameter                    | Description                                                                                                                 | Type      |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------- |
-| `signal`                     | The signal you provided to the JS widget when verifying.                                                                    | `string`  |
-| `action_id`                  | The ID of the action you are verifying.                                                                                     | `string`  |
-| `nullifier_hash`             | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                          | `string`  |
-| `merkle_root`                | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                          | `string`  |
-| `proof`                      | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                          | `string`  |
+| Parameter                    | Description                                                                                                                  | Type      |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `signal`                     | The signal you provided to the JS widget when verifying.                                                                     | `string`  |
+| `action_id`                  | The ID of the action you are verifying.                                                                                      | `string`  |
+| `nullifier_hash`             | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                           | `string`  |
+| `merkle_root`                | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                           | `string`  |
+| `proof`                      | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                           | `string`  |
 | `advanced_use_raw_action_id` | Skip hashing and encoding action_id on the server-side. See [Advanced Signals](/docs/advanced/advanced-signals) for details. | `boolean` |
 | `advanced_use_raw_signal`    | Skip hashing and encoding signal on the server-side. See [Advanced Signals](/docs/advanced/advanced-signals) for details.    | `boolean` |
 

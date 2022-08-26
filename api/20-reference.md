@@ -31,22 +31,22 @@ POST /api/v1/verify
   "action_id": "wid_staging_eee20a5954e033deb983f48180ecac6c",
   "signal": "mySignal",
   "proof": "0x1aa8b8f3b2d2de5ff452c0e1a83e29d6bf46fb83ef35dc5957121ff3d3698a1119090fbeadf792c6f62dcd481f36819cd6d28380bd76dc30000449d6d81b87a60c5c9cecf97f25350063bfa9606419483ced7f78b450ff429c3e710b2575c62316daf97756236dcfcbb26351afc990874e5a0659995a4ac8e3eef5f721ac2b900136c3a152ef5c0b68e1786f797309e3bd97dc2183aab3b988437c61acc60d6f213fb1675a302c7ebd437d77bf36f0d5054a2eded3d4ec72ff9aa3fabea9609e18dbdffabd8012071c114e89df8209f36e5c9079b8ff237c7f3abe14076edf740058b5848efbd3d4b7ffb1fc7637311ea4e4511564a770bf189b7063d61d73df",
-  "advanced_use_raw_action_id": true,
-  "advanced_use_raw_signal": true
+  "advanced_use_raw_action_id": false,
+  "advanced_use_raw_signal": false
 }
 ```
 
 <!-- spell-checker: enable -->
 
-| Parameter                    | Description                                                                                                                  | Type      |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------- |
-| `signal`                     | The signal you provided to the JS widget when verifying.                                                                     | `string`  |
-| `action_id`                  | The ID of the action you are verifying.                                                                                      | `string`  |
-| `nullifier_hash`             | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                           | `string`  |
-| `merkle_root`                | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                           | `string`  |
-| `proof`                      | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                           | `string`  |
-| `advanced_use_raw_action_id` | Skip hashing and encoding action_id on the server-side. See [Advanced Signals](/docs/advanced/advanced-signals) for details. | `boolean` |
-| `advanced_use_raw_signal`    | Skip hashing and encoding signal on the server-side. See [Advanced Signals](/docs/advanced/advanced-signals) for details.    | `boolean` |
+| Parameter                    | Description                                                                                                                  | Type      | Required |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------- | -------- |
+| `signal`                     | The signal you provided to the JS widget when verifying.                                                                     | `string`  | **Yes**  |
+| `action_id`                  | The ID of the action you are verifying.                                                                                      | `string`  | **Yes**  |
+| `nullifier_hash`             | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                           | `string`  | **Yes**  |
+| `merkle_root`                | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                           | `string`  | **Yes**  |
+| `proof`                      | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details.                           | `string`  | **Yes**  |
+| `advanced_use_raw_action_id` | Skip hashing and encoding action_id on the server-side. See [Advanced Signals](/docs/advanced/advanced-signals) for details. | `boolean` | No       |
+| `advanced_use_raw_signal`    | Skip hashing and encoding signal on the server-side. See [Advanced Signals](/docs/advanced/advanced-signals) for details.    | `boolean` | No       |
 
 **Response (200)**
 

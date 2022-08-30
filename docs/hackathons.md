@@ -6,17 +6,23 @@ We are actively sponsoring hackathons to help developers get started with World 
 
 # Upcoming & current events
 
-### ETH Mexico 2022
+### ETHOnline 2022
 
-<img src="/img/eth-mexico-city.png" alt="ETH Mexico City logo" width="600px" />
-
-From August 19 to August 21, 2002 at PRIM in Mexico City. **🤑 $20,000 in Worldcoin prizes are up for grabs**. Visit the [official website](https://mexico.ethglobal.com/) to apply to hack. We will also host Worldcoin Café, a meetup, and much more! More details [here](/mexico).
+ETHGlobal's Flagship Hackathon! From September 2 to September 28, 2002. **🤑 $20,000 in Worldcoin prizes are up for grabs**. Visit the [official website](https://online.ethglobal.com/) to apply to hack.
 
 :::tip
-**Visit our [Event page](/mexico)** to get details on workshops, meetups, prizes, ... **Best place to get started!**
+**Visit our [Event page](/ethonline22)** to get details on workshops, resources, prizes, ... **Best place to get started!**
 :::
 
 # Past events
+
+### ETHMexico 2022
+
+<img src="/img/eth-mexico-city.png" alt="ETH Mexico City logo" width="600px" />
+
+From August 19 to August 21, 2002 at PRIM in Mexico City. **🤑 $20,000 in Worldcoin prizes were up for grabs**. Visit the [official website](https://mexico.ethglobal.com/).
+
+You can check out all the projects that built on top of World ID and the winners [here](https://showcase.ethglobal.com/ethmexico).
 
 ### ETHNewYork 2022
 

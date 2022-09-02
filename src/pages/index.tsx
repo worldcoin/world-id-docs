@@ -9,6 +9,7 @@ import {
   HomepageFeatures,
   HomepageUseCases,
 } from "@site/src/components/HomepageFeatures";
+import { CookieBanner } from "../components/CookieBanner";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -37,6 +38,7 @@ export default function Home(): JSX.Element {
       title="Docs"
       description="Prove a human is doing an action only once without revealing any personal data."
     >
+      <CookieBanner />
       <Head>
         <meta property="og:image" content="/img/og-image.png" />
       </Head>

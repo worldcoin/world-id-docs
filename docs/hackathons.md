@@ -8,7 +8,7 @@ We are actively sponsoring hackathons to help developers get started with World 
 
 ### ETHOnline 2022
 
-ETHGlobal's Flagship Hackathon! From September 2 to September 28, 2002. **🤑 $20,000 in Worldcoin prizes are up for grabs**. Visit the [official website](https://online.ethglobal.com/) to apply to hack.
+ETHGlobal's Flagship Hackathon! From September 2 to September 28, 2022. **🤑 $20,000 in Worldcoin prizes are up for grabs**. Visit the [official website](https://online.ethglobal.com/) to apply to hack.
 
 :::tip
 **Visit our [Event page](/ethonline22)** to get details on workshops, resources, prizes, ... **Best place to get started!**
@@ -20,7 +20,7 @@ ETHGlobal's Flagship Hackathon! From September 2 to September 28, 2002. **🤑 $
 
 <img src="/img/eth-mexico-city.png" alt="ETH Mexico City logo" width="600px" />
 
-From August 19 to August 21, 2002 at PRIM in Mexico City. **🤑 $20,000 in Worldcoin prizes were up for grabs**. Visit the [official website](https://mexico.ethglobal.com/).
+From August 19 to August 21, 2022 at PRIM in Mexico City. **🤑 $20,000 in Worldcoin prizes were up for grabs**. Visit the [official website](https://mexico.ethglobal.com/).
 
 You can check out all the projects that built on top of World ID and the winners [here](https://showcase.ethglobal.com/ethmexico).
 
@@ -28,7 +28,7 @@ You can check out all the projects that built on top of World ID and the winners
 
 <img src="/img/eth-new-york-logo.png" alt="ETHNewYork logo" width="600px" />
 
-From June 24 to June 26, 2002 at the Metropolitan Pavilion in NYC. **🤑 $20,000 in prizes were up for grabs**. Organized by ETH Global, visit the [official website](https://nyc.ethglobal.co/).
+From June 24 to June 26, 2022 at the Metropolitan Pavilion in NYC. **🤑 $20,000 in prizes were up for grabs**. Organized by ETH Global, visit the [official website](https://nyc.ethglobal.co/).
 
 You can check out all the projects that built on top of World ID and the winners [here](https://showcase.ethglobal.com/ethnewyork2022).
 

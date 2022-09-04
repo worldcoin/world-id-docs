@@ -22,6 +22,10 @@
     0px 10px 32px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .wrapper {
@@ -45,8 +49,10 @@
   display: grid;
   padding-top: 8px;
   padding-right: 24px;
+  padding-left: 12px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+  align-items: center;
 }
 
 .button {

@@ -27,7 +27,7 @@ function CookieListModal({ onClose }: { onClose: () => void }): JSX.Element {
 
 export function CookieBanner(): JSX.Element | null {
   const [isCookieBannerVisible, setIsCookieBannerVisible] = useState(false);
-  const [cookieListModalVisible, setCookieListModalVisible] = useState(true);
+  const [cookieListModalVisible, setCookieListModalVisible] = useState(false);
 
   useEffect(() => {
     if (!window.localStorage.getItem("cookieBanner")) {
@@ -44,12 +44,8 @@ export function CookieBanner(): JSX.Element | null {
           .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
       });
 
-      // Clear all localStorage data (except for `token`; absolutely necessary for app to work)
-      const token = window.localStorage.getItem("token");
+      // Clear all localStorage data
       window.localStorage.clear();
-      if (token) {
-        window.localStorage.setItem("token", token);
-      }
     }
 
     window.localStorage.setItem(
@@ -79,8 +75,7 @@ export function CookieBanner(): JSX.Element | null {
             </a>
           </h3>
           <span>
-            We use only two very non-optional cookies, and one optional cookie
-            for product-improvement analytics. Sg?
+            We use one optional cookie for product-improvement analytics. Sg?
             <a
               className={styles.link}
               onClick={() => setCookieListModalVisible(true)}

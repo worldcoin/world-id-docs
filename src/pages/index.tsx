@@ -9,7 +9,7 @@ import {
   HomepageFeatures,
   HomepageUseCases,
 } from "@site/src/components/HomepageFeatures";
-import { CookieBanner } from "../components/CookieBanner";
+import { CookieBanner } from "../components/CookieBanner/CookieBanner";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -32,7 +32,6 @@ function HomepageHeader() {
 }
 
 export default function Home(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
       title="Docs"

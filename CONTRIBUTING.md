@@ -25,6 +25,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/giovannidisiena"><img src="https://avatars.githubusercontent.com/u/22510773?v=4?s=75" width="75px;" alt=""/><br /><sub><b>Giovanni Di Siena</b></sub></a><br /><a href="#content-giovannidisiena" title="Content">🖋</a></td>
+    <td align="center"><a href="https://github.com/Bhakti087"><img src="https://avatars.githubusercontent.com/u/76544741?v=4?s=75" width="75px;" alt=""/><br /><sub><b>Bhakti</b></sub></a><br /><a href="#content-Bhakti087" title="Content">🖋</a></td>
   </tr>
 </table>
 

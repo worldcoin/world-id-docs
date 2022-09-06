@@ -83,7 +83,17 @@
       "contributions": [
         "content"
       ]
+    },
+    {
+      "login": "Bhakti087",
+      "name": "Bhakti",
+      "avatar_url": "https://avatars.githubusercontent.com/u/76544741?v=4",
+      "profile": "https://github.com/Bhakti087",
+      "contributions": [
+        "content"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }

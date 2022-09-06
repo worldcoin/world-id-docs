@@ -29,8 +29,8 @@ Sample airdrop app. Let users claim a free ERC-20 token airdrop but only once pe
 <Link href="https://github.com/worldcoin/world-id-example-airdrop-dapp">dapp source</Link>
 </td>
 <td>
-<div><b>Deployed example address (<Link to="https://mumbai.polygonscan.com/address/0x505Fd4741F00850024FBD3926ebECfB4c675A9fe">Mumbai Testnet</Link>)</b></div>
-<code>0x505Fd4741F00850024FBD3926ebECfB4c675A9fe</code>
+<div><b>Deployed smart contract (<Link to="https://mumbai.polygonscan.com/address/0x9573e4b5B032847aF3E07A960fDa9A04da24890c">Mumbai Testnet</Link>)</b></div>
+<code>0x9573e4b5B032847aF3E07A960fDa9A04da24890c</code>
 </td>
 </tr>
 </tbody>
@@ -57,6 +57,35 @@ Landing page <i>(coming soon)</i>
 </tbody>
 </table>
 
+### #petorbz
+
+#petorbz is a project where users can adopt a plush orb and they get an NFT as a certificate of adoption. A single person can only claim their pet orb once.
+
+:::tip
+Great example of how to issue NFTs where a single person can only claim it once!
+:::
+
+<div className="text--center">
+<Link href="https://petorbz.com"><img src="/img/petorbz-screenshot.png" alt="#petorbz screenshot" width="700" /></Link>
+</div>
+
+<table className="table--center margin-top--lg">
+<tbody>
+<tr>
+<td>
+<Link href="https://petorbz.com">Demo</Link>
+</td>
+<td>
+<Link href="https://github.com/worldcoin/world-id-petorbz">Source code</Link>
+</td>
+<td>
+<div><b>Deployed smart contract (<Link to="https://polygonscan.com/address/0x9230211f4678365beca1c243b336843ff62751fd">Polygon</Link>) - 🚀 Production</b></div>
+<code>0x9230211f4678365beca1c243b336843ff62751fd</code>
+</td>
+</tr>
+</tbody>
+</table>
+
 ### Hyperdrop
 
 A universal airdrop for humans only, every month. Distribute ERC-20 tokens evenly among humans.
@@ -73,10 +102,6 @@ Demo <i>(coming soon)</i>
 </tr>
 </tbody>
 </table>
-
-### Coming soon! Cubed voting
-
-Truly democratic voting on various topics. Each person gets only one vote.
 
 :::note
 **Showcase your own example!** Open a PR on [this repo](https://github.com/worldcoin/world-id-docs) and add your own example.

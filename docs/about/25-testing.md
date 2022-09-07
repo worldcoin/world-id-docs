@@ -42,7 +42,7 @@ To use the <b>Staging network</b> follow these steps:
    <ol>
       <li>Make sure to deploy your contract in the <Link href="https://docs.polygon.technology/docs/develop/network-details/network/">Polygon Mumbai-Testnet</Link>.</li>
       <li>Obtain the World ID contract address from your <Link href="https://developer.worldcoin.org">Developer Portal</Link> and point it in your smart contract. Check the <Link href="https://github.com/worldcoin/world-id-starter">starter kit</Link> for details.
-      <ul><li>Alternatively, you can query <code>staging.semaphore.wld.eth</code> to obtain the address of the World ID contract (you will have to this manually as there's no ENS on Polygon).</li></ul></li>
+      <ul><li>Alternatively, you can query <code>staging.semaphore.wld.eth</code> to obtain the address of the World ID contract (you will have to do this manually as there's no ENS on Polygon).</li></ul></li>
       <li>When interacting with your smart contract remember to connect your wallet to the <b>Polygon Mumbai-Testnet.</b></li>
    </ol>
 

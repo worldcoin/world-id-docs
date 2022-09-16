@@ -15,7 +15,11 @@ Here you will find information about all the methods and parameters that the JS 
 The `.init()` method is the main initialization method. It should be called to start the World ID package and render the World ID verification widget.
 
 <div className="text--center margin-bottom--lg">
-  <img src="/img/world-id-widget.svg" alt="Render of World ID widget" />
+  <img
+    src="/img/world-id-widget.png"
+    width="240"
+    alt="Render of World ID widget"
+  />
   <div className="text--muted">Render of World ID widget</div>
 </div>
 
@@ -65,9 +69,10 @@ The `.init()` method should only be called once in the lifecycle of your app. To
 
 ```js
 worldID.init(
-  "world-id-container", // This can be the HTML ID of an element or any HTML node. Please be sure the node is mounted in your DOM before you call `.init()`
+  "world-id-container", // this can be the HTML ID of an element or any HTML node. Please be sure the node is mounted in your DOM before you call `.init()`
   {
     enable_telemetry: true,
+    debug: true, // to aid with debugging, remove in production
     action_id: "wid_lshSNnaJfdt6Sohu6YAA",
     signal: "my-user-id-1",
     app_name: "My App",
@@ -94,57 +99,20 @@ When calling `.update()` you only need to include the parameters you wish to upd
 
 ```js
 worldID.update({
-  signal: "0x0000000000000000000000004976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41",
+  signal: "my_new_signal",
 });
 ```
 
-### .enable()
+### .getProps()
 
-The `.enable()` method makes the World ID widget available. It returns a promise with the results of the verification.
+Returns all the props for the widget.
 
-:::note
-The World ID widget will not be enabled until you call `.enable()`. Additionally, a valid `signal` parameter must always be present. If you didn't pass this parameter in `.init()`, you can always use `.update()`.
-:::
+**.getProps() => WidgetProps**
 
-**.enable() => Promise(successResult, errorResult)**
+**Example:**
 
 ```js
-worldID
-  .enable()
-  .then((successResult) => {
-    console.log("Verified successfully:", successResult);
-  })
-  .catch((errorResult) => console.warn("Verification failed:", errorResult));
-```
-
-The `.enable()` method will return a promise. The promise will be resolved or rejected depending on the outcome of the World ID verification. The promise will only be resolved/rejected when the user closes the World ID modal (i.e. retries within the same lifecycle will not result in the promise being terminated, until the user reaches a final state).
-
-If the process fails and you receive a promise rejection, the World ID widget will remain disabled until you call `.enable()` again. This is so you can properly listen for the new promise results.
-
-To understand the `successResult` and `errorResult` responses please check out the [Response](#response) section and [Error handling](/docs/js/error-handling) section respectively.
-
-### .isInitialized()
-
-Will return whether World ID has already been initialized. **Please be mindful this is a method, not a property.**
-
-**.isInitialized() => boolean**
-
-```js
-if (worldID.isInitialized()) {
-  // do something
-}
-```
-
-### .isEnabled()
-
-Will return whether World ID is initialized and enabled, i.e. ready to be used. **Please be mindful this is a method, not a property.**
-
-**.isEnabled() => boolean**
-
-```js
-if (worldID.isEnabled()) {
-  // do something
-}
+console.log(worldID.getProps().signal);
 ```
 
 ## Parameters
@@ -192,6 +160,26 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
+        <code>on_success</code>
+      </td>
+      <td>
+        <code>function</code>
+      </td>
+      <td>Yes</td>
+      <td>Function to trigger when verification is successful. Sends a single parameter of type <code>VerificationResponse</code> which contains the proof details.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>on_error</code>
+      </td>
+      <td>
+        <code>function</code>
+      </td>
+      <td>No</td>
+      <td>Triggered when verification fails and user did not retried. Sends a single parameter of type <code>VerificationErrorResponse</code> containing error details.</td>
+    </tr>
+    <tr>
+      <td>
         <code>enable_telemetry</code>
       </td>
       <td>
@@ -216,33 +204,33 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
-        <code>app_name</code>
+        <code>debug</code>
       </td>
       <td>
-        <code>string</code>
+        <code>boolean</code>
       </td>
       <td>No</td>
-      <td>
-        <b>
-          Not required if you registered your action in the Developer Portal
-        </b>
-        . The name of your app/project/company (shown to users in Worldcoin app).
-      </td>
+      <td>Will log verbose details to JS console to aid with debugging.</td>
     </tr>
     <tr>
       <td>
-        <code>signal_description</code>
+        <code>on_init_success</code>
       </td>
       <td>
-        <code>string</code>
+        <code>function</code>
       </td>
       <td>No</td>
+      <td>Triggered after the widget has been successfully initialized and mounted and all passed props are valid. Useful for debugging.</td>
+    </tr>
+    <tr>
       <td>
-        <b>
-          Not required if you registered your action in the Developer Portal
-        </b>
-        . The description of the specific action (shown to users in Worldcoin app).
+        <code>on_init_error</code>
       </td>
+      <td>
+        <code>function</code>
+      </td>
+      <td>No</td>
+      <td>Triggered if widget could not be initialized, usually due to incorrect parameters. Sends a <code>string</code> containing the error description.</td>
     </tr>
     <tr>
       <td>
@@ -284,6 +272,33 @@ The following parameters can be passed to both `.init()` and `.update()`.
         <Link to="/docs/advanced/advanced-signals">Advanced signals</Link>.
       </td>
     </tr>
+    <tr>
+      <td>
+        <code>app_name</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>No</td>
+      <td>
+        <b>⚠️ Deprecated! Use Dev Portal instead.</b> The name of your
+        app/project/company (shown to users in Worldcoin app).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>signal_description</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>No</td>
+      <td>
+        <b>⚠️ Deprecated! Use Dev Portal instead. </b>
+        The description of the specific action (shown to users in Worldcoin app).
+      </td>
+    </tr>
+
   </tbody>
 </table>
 

@@ -40,8 +40,9 @@ import { WorldIDWidget } from "@worldcoin/id";
   actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
   signal="my_signal"
   enableTelemetry
-  onSuccess={(verificationResponse) => console.log(verificationResponse)} // you'll actually want to pass the proof to the API or your smart contract
+  onSuccess={(verificationResponse) => console.log(verificationResponse)} // pass the proof to the API or your smart contract
   onError={(error) => console.error(error)}
+  debug={true} // to aid with debugging, remove in production
 />;
 ```
 
@@ -70,6 +71,7 @@ const WorldIDWidget = dynamic<WidgetProps>(
   enableTelemetry
   onSuccess={(verificationResponse) => console.log(verificationResponse)}
   onError={(error) => console.error(error)}
+  debug={true} // to aid with debugging, remove in production
 />;
 ```
 
@@ -92,38 +94,27 @@ A fully functional Next.js example can be found [here](https://github.com/worldc
    <!-- spell-checker: disable -->
 
    ```js
-   import worldID from "@worldcoin/id"; // If you installed the JS package as a module
+   import * as worldID from "@worldcoin/id"; // If you installed the JS package as a module
 
    worldID.init("world-id-container", {
+     debug: true, // to aid with debugging, remove in production
      enable_telemetry: true,
      action_id: "wid_BPZsRJANxct2cZxVRyh80SFG", // obtain this from developer.worldcoin.org
      signal: "your_signal",
+     on_success: (proof) => console.log(proof),
+     on_error: (error) => console.error(error),
    });
    ```
 
    <!-- spell-checker: enable -->
 
-1. Enable the package by calling `.enable()`. You will receive a promise with the results of the verification process.
-
-   ```js
-   document.addEventListener("DOMContentLoaded", async function () {
-     try {
-       const result = await worldID.enable();
-       console.log("World ID verified successfully:", result);
-     } catch (failure) {
-       console.warn("World ID verification failed:", failure);
-       // Re-activate here so your end user can try again
-     }
-   });
-   ```
-
-:::tip
-We strongly recommend that on verification failure, you **call `.enable()` again** and listen for the verification process results once more. This will ensure your user can try again (otherwise the World ID widget will remain disabled).
+:::note
+The widget will remain disabled until you pass a non-empty signal.
 :::
 
 Check out the [JS Reference](/docs/js/reference) for full details on how to use the JS package.
 
-:::note
+:::info
 The JS package is open source and accepts contributions! Head over to [GitHub](https://github.com/worldcoin/world-id-js) and submit a pull request.
 :::
 

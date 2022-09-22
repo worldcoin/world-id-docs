@@ -2,11 +2,23 @@
 title: Hackathons & workshops
 ---
 
-We are actively sponsoring hackathons to help developers get started with World ID. We'll also try to have a presence in those events (at least the ones IRL) so you can test the orb sign up experience if there are no Worldcoin orbs in your country. You can check out the events we're and will be participating at here.
+We are actively sponsoring hackathons to help developers get started with World ID. We'll also be at those events with 🔮 orbs for anyone who wants to sign up.
 
 # Upcoming & current events
 
+### ETHBogotá 2022
+
+<img src="/img/eth-bogota-22.png" alt="ETHBogota logo" width="600px" />
+
+Join us from October 7 to September 9, 2022 in the capital of Colombia, in these jam-packed weeks of crypto events. **🤑 $20,000 in Worldcoin prizes are up for grabs**. Visit the [official website](https://bogota.ethglobal.com/) to apply to hack.
+
+:::tip
+**Visit our [Event page](/ethbogota22)** to get details on workshops, resources, prizes, ... **Best place to get started!**
+:::
+
 ### ETHOnline 2022
+
+<img src="/img/eth-online-22.png" alt="ETHOnline logo" width="600px" />
 
 ETHGlobal's Flagship Hackathon! From September 2 to September 28, 2022. **🤑 $20,000 in Worldcoin prizes are up for grabs**. Visit the [official website](https://online.ethglobal.com/) to apply to hack.
 
@@ -16,9 +28,15 @@ ETHGlobal's Flagship Hackathon! From September 2 to September 28, 2022. **🤑 $
 
 # Past events
 
+### ETHSafari 2022
+
+<img src="/img/eth-safari-22.png" alt="ETHSafari logo" width="600px" />
+
+Our first hackathon in Africa! From September 5, 2022 to September 16, amazing projects were built on top of World ID, including a community-driven education platform that incentivizes learning in Africa. [Official website](https://ethsafari.xyz).
+
 ### ETHMexico 2022
 
-<img src="/img/eth-mexico-city.png" alt="ETH Mexico City logo" width="600px" />
+<img src="/img/eth-mexico-city.png" alt="ETHMexico City logo" width="600px" />
 
 From August 19 to August 21, 2022 at PRIM in Mexico City. **🤑 $20,000 in Worldcoin prizes were up for grabs**. Visit the [official website](https://mexico.ethglobal.com/).
 

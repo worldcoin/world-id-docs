@@ -13,7 +13,7 @@ We are actively sponsoring hackathons to help developers get started with World 
 Join us from October 7 to September 9, 2022 in the capital of Colombia, in these jam-packed weeks of crypto events. **🤑 $20,000 in Worldcoin prizes are up for grabs**. Visit the [official website](https://bogota.ethglobal.com/) to apply to hack.
 
 :::tip
-**Visit our [Event page](/ethbogota22)** to get details on workshops, resources, prizes, ... **Best place to get started!**
+**Visit our [Event page](/bogota22)** to get details on workshops, resources, prizes, ... **Best place to get started!**
 :::
 
 ### ETHOnline 2022

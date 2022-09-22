@@ -71,6 +71,7 @@ World ID prevents sybil attacks both on-chain and off-chain. Some use cases:
 - **Democratic voting**. Ensure one person equals one vote; e.g. governance, proposal voting, etc.
 - **Quadratic funding**. Funding where the number of contributors matter more than the sheer number of dollars provided (to democratize the process). Ensure a single person only funds a project once. An example of quadratic funding is [Gitcoin](https://gitcoin.co/blog/gitcoin-grants-quadratic-funding-for-the-world/).
 - **Person-bound NFTs**. Enables the possibility of blockchain-based records (e.g. university degrees, vaccination records, citizenship confirmation, ...). Without World ID you could transfer those NFTs to a third party which would make the records useless.
+- **Quadratic-Attention-Payments**. Enables people to vote on Advertisements Quadratically to ensure that advertisements with more appeal are shown at the top. TLDR ,a public BillBoard.
 
 :::note
 Spot an error in these docs? Our docs are open source too and contributions are welcome. Open a PR on [GitHub](https://github.com/worldcoin/world-id-docs).

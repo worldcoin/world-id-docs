@@ -1,4 +1,4 @@
-import { IconType } from 'components/common/Icon'
+import { IconType } from 'common/Icon'
 
 export type Article = {
   name: string

@@ -2,7 +2,7 @@
  * This script syncs the READMEs of all World ID repositories so all of them have the same contextual information.
  * The content from SHARED-README.md is added to all World ID repositories.
  */
-const fs = require("fs");
+import fs from "fs";
 
 const matchRegex =
   /<!-- WORLD-ID-SHARED-README-TAG:START - Do not remove or modify this section directly -->(\r\n|\r|\n|.)*<!-- WORLD-ID-SHARED-README-TAG:END -->/;

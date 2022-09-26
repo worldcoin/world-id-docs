@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  ul {
+    @apply list-disc pl-7;
+  }
+}

@@ -1,5 +1,3 @@
-import Link from "@docusaurus/Link";
-
 # Examples
 
 This section contains full end-to-end examples of smart contracts, dapps, Cloud apps and serverless apps for World ID.

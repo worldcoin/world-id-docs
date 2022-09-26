@@ -5,6 +5,7 @@ export const meta = {
 import Link from "next/link";
 import { DocsLayout } from "@/components/common/DocsLayout";
 import { Alert } from "@/components/common/Alert";
+import { Table, Td } from "@/components/common/Table";
 
 World ID is a way to anonymously verify someone is an actual human when performing an action, and that they have performed the action only once (without revealing anything about themselves). This happens through [Zero-knowledge proofs](/docs/advanced/zero-knowledge-proofs).
 
@@ -20,48 +21,54 @@ You can easily integrate World ID into your app and smart contract or backend. E
 
 {/* TODO: All the screenshots here need to be updated with the new UI */}
 
-<table>
+<Table className="table-auto">
   <tbody>
     <tr>
-      <td className="text--center">
+      <Td className="border dark:border-fdfdfe">
         <img
           src="/images/docs/world-id-widget.png"
           alt="Render of World ID widget"
         />
-      </td>
-      <td className="text--center">
+      </Td>
+
+      <Td className="text--center">
         <img
           src="/images/docs/world-id-js-modal.png"
           alt="Render of World ID widget"
           width="400"
         />
-      </td>
-      <td className="text--center">
+      </Td>
+
+      <Td className="text--center">
         <img
           src="/images/docs/world-id-verification-drawer.png"
           alt="Render of World ID widget"
           width="300"
         />
-      </td>
+      </Td>
     </tr>
+
     <tr>
-      <td>
+      <Td withBackground>
         The lightweight <Link href="/docs/js">JS widget</Link> is added to your
         dapp.
-      </td>
-      <td>
+      </Td>
+
+      <Td withBackground>
         <Link href="/docs/js">JS widget</Link> handles connection to Worldcoin
         app and provides instructions to the user.
-      </td>
-      <td>
+      </Td>
+
+      <Td withBackground>
         User verifies they are a unique human with a{" "}
         <Link href="/docs/advanced/zero-knowledge-proofs">ZKP</Link>.
-      </td>
+      </Td>
     </tr>
-  </tbody>
-</table>
 
-<Alert icon="warning" heading="FYI" type="caution">
+  </tbody>
+</Table>
+
+<Alert heading="FYI" type="caution">
   World ID is currently in **Beta** and some functionality might change. Please
   help us improve by sharing [feedback](/feedback) on your experience and any
   ideas for how to improve.
@@ -94,7 +101,7 @@ World ID prevents sybil attacks both on-chain and off-chain. Some use cases:
 - **Quadratic funding**. Funding where the number of contributors matter more than the sheer number of dollars provided (to democratize the process). Ensure a single person only funds a project once. An example of quadratic funding is [Gitcoin](https://gitcoin.co/blog/gitcoin-grants-quadratic-funding-for-the-world/).
 - **Person-bound NFTs**. Enables the possibility of blockchain-based records (e.g. university degrees, vaccination records, citizenship confirmation, ...). Without World ID you could transfer those NFTs to a third party which would make the records useless.
 
-<Alert icon="info" heading="Note" type="note">
+<Alert type="note">
   Spot an error in these docs? Our docs are open source too and contributions
   are welcome. Open a PR on
   [GitHub](https://github.com/worldcoin/world-id-docs).
@@ -103,5 +110,3 @@ World ID prevents sybil attacks both on-chain and off-chain. Some use cases:
 export default ({ children }) => (
   <DocsLayout title={meta.title}>{children}</DocsLayout>
 );
-
->

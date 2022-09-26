@@ -21,9 +21,28 @@ function MyApp({ Component, pageProps }: AppProps) {
     ),
 
     a: (props: { children?: ReactNode }) => (
-      <a className="underline cursor-pointer hover:opacity-70 transition">
+      <a className="cursor-pointer hover:opacity-70 transition text-4940e0 dark:text-8c8cf2">
         {props.children}
       </a>
+    ),
+
+    table: (props: { children?: ReactNode }) => (
+      <table className="bg-green-400">{props.children}</table>
+    ),
+
+    p: (props: { children?: ReactNode }) => (
+      <p className="font-medium">{props.children}</p>
+    ),
+
+    li: (props: { children?: ReactNode }) => (
+      <li className="font-medium">{props.children}</li>
+    ),
+
+    pre: (props: { children?: ReactNode }) => (
+      <pre className="max-w-[800px] overflow-x-auto">{props.children}</pre>
+    ),
+    code: (props: { children?: ReactNode }) => (
+      <code className="max-w-[800px] overflow-x-auto">{props.children}</code>
     ),
   };
 

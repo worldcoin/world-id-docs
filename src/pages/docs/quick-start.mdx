@@ -1,64 +1,73 @@
----
-sidebar_position: 5
-title: Quick start
----
+export const meta = {
+  title: "Quick start",
+};
+
+import { DocsLayout } from "@/components/common/DocsLayout";
+import { Alert } from "@/components/common/Alert";
 
 **The fastest way to get rolling with World ID is through the [Developer Portal](https://developer.worldcoin.org)!**
 
 1. Sign up to the [Developer Portal](https://developer.worldcoin.org) and create your first [action](/docs/about/protocol#what-are-actions).
 
-   > An action is something that a single human can perform only once.
+   - An action is something that a single human can perform only once.
 
-2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for IRL verifications). **Take note of your action ID** (which looks something like <!-- spell-checker: disable -->`wid_GBkZ1KlVUdFTjeMXskrX`<!-- spell-checker: enable -->).
+2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for IRL verifications). **Take note of your action ID** (which looks something like `wid_GBkZ1KlVUdFTjeMXskrX`).
 
-   :::tip
-   If you want to test your integration and you haven't been verified by an orb, select the **Staging** environment. You'll be able to use the [Simulator](/docs/about/testing) instead.
-   :::
+   <Alert type="tip">
+     If you want to test your integration and you haven't been verified by an
+     orb, select the **Staging** environment. You'll be able to use the
+     [Simulator](/docs/about/testing) instead.
+   </Alert>
 
-   <img src="/img/dev-portal-engine-selection.png" alt="Screenshot of Dev Portal: Engine selection" />
+   <img
+     src="/images/docs/dev-portal-engine-selection.png"
+     alt="Screenshot of Dev Portal: Engine selection"
+   />
 
-:::note
-If you selected the **cloud** engine, these instructions continue with details on the **API & JS widget** user interface option. If you want to use another user interface, please follow the deployment instructions on the **Development Portal**.
-:::
+<Alert type="note">
+  If you selected the **cloud** engine, these instructions continue with details
+  on the **API & JS widget** user interface option. If you want to use another
+  user interface, please follow the deployment instructions on the **Development
+  Portal**.
+</Alert>
 
-3. Install the [JS widget](/docs/js/) in your frontend app/dapp.
+3.  Install the [JS widget](/docs/js/) in your frontend app/dapp.
 
-   ```bash
-   npm install @worldcoin/id
-   # or
-   yarn add @worldcoin/id
-   ```
+    ```bash
+    npm install @worldcoin/id
+    # or
+    yarn add @worldcoin/id
+    ```
 
-4. Import and render the World ID widget. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account"). You can choose any signal you want, but we recommend reading [on signals](/docs/about/glossary#signal) to select an optimal signal.
+4.  Import and render the World ID widget. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account"). You can choose any signal you want, but we recommend reading [on signals](/docs/about/glossary#signal) to select an optimal signal.
 
-   :::tip
-   If you're not using React, check out the [JS intro](/docs/js/) section. We have a section for **Next.js** too!
-   :::
+    <Alert type="tip">
 
-   <!-- spell-checker: disable -->
+    If you're not using React, check out the [JS intro](/docs/js/) section. We have a section for **Next.js** too!
 
-   ```jsx
-   import { WorldIDWidget } from "@worldcoin/id";
+    </Alert>
 
-   // Mount the component in your code at the place where you want to render the widget
-   <WorldIDWidget
-     actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
-     signal="my_signal"
-     enableTelemetry
-     onSuccess={(verificationResponse) => console.log(verificationResponse)} // you'll actually want to pass the proof to the API or your smart contract
-     onError={(error) => console.error(error)}
-   />;
-   ```
+        ```jsx
+        import { WorldIDWidget } from "@worldcoin/id";
 
-   <!-- spell-checker: enable -->
+        // Mount the component in your code at the place where you want to render the widget
+        <WorldIDWidget
+          actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+          signal="my_signal"
+          enableTelemetry
+          onSuccess={(verificationResponse) => console.log(verificationResponse)} // you'll actually want to pass the proof to the API or your smart contract
+          onError={(error) => console.error(error)}
+        />;
+        ```
 
 ## Cloud verification
 
 **Continue here if you selected the cloud engine.** Go to [on-chain verification](#on-chain-verification) otherwise.
 
-:::info
-Cloud actions are verified by the Developer Portal. You can validate a user is a unique human with a simple API request or a JWT signature verification.
-:::
+<Alert type="info">
+  Cloud actions are verified by the Developer Portal. You can validate a user is
+  a unique human with a simple API request or a JWT signature verification.
+</Alert>
 
 6. Send the following API request to the Developer Portal's API. Please check the [API reference](/api/reference#verify) for details on anticipated error responses.
 
@@ -74,8 +83,6 @@ Cloud actions are verified by the Developer Portal. You can validate a user is a
    }
    ```
 
-   <!-- spell-checker: disable -->
-
    **Request body**
 
    Parameters `merkle_root`, `nullifier_hash` & `proof` are obtained from the `verificationResponse` above.
@@ -89,8 +96,6 @@ Cloud actions are verified by the Developer Portal. You can validate a user is a
      "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"
    }
    ```
-
-   <!-- spell-checker: enable -->
 
    **Response (200)**
 
@@ -106,9 +111,11 @@ Cloud actions are verified by the Developer Portal. You can validate a user is a
 
 ## On-chain verification
 
-:::info
-On-chain actions are verified by your own smart contract. You will simply call a `verifyProof` function on our World ID smart contract to verify the proof, and then execute the rest of your contract normally.
-:::
+<Alert type="info">
+  On-chain actions are verified by your own smart contract. You will simply call
+  a `verifyProof` function on our World ID smart contract to verify the proof,
+  and then execute the rest of your contract normally.
+</Alert>
 
 6. Clone our [starter kit](https://github.com/worldcoin/world-id-starter) (or [HardHat version](https://github.com/worldcoin/world-id-starter-hardhat) here).
 7. Update `src/Contract.sol` with your `action_id` & adjusting the signal if relevant. After the `verifyProof` call & `nullifierHashes` record, add your own smart contract code that should run after a user is verified (e.g. minting an NFT).
@@ -118,9 +125,12 @@ On-chain actions are verified by your own smart contract. You will simply call a
    make deploy
    ```
 
-:::caution
-To make things easier off-chain, the ZKP is actually encoded and packed so it looks like a single string. In reality, the ZKP is a `uint256[8]` array and your smart contract expects that array, not the encoded proof. See below for how to unpack your proof before sending it to your smart contract.
-:::
+<Alert type="caution">
+  To make things easier off-chain, the ZKP is actually encoded and packed so it
+  looks like a single string. In reality, the ZKP is a `uint256[8]` array and
+  your smart contract expects that array, not the encoded proof. See below for
+  how to unpack your proof before sending it to your smart contract.
+</Alert>
 
 **Unpacking the ZKP for smart contract verification:**
 
@@ -138,3 +148,7 @@ Last step is test your entire integration. Open the JS widget where you'll see a
 
 - If you created a **Production** action, use the [Worldcoin app](https://worldcoin.org/download) from the App Store or Google Play to scan the QR code.
 - If you created a **Staging** action, use the [Simulator](https://simulator.worldcoin.org) to scan the QR code.
+
+export default ({ children }) => (
+  <DocsLayout title={meta.title}>{children}</DocsLayout>
+);

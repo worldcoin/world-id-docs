@@ -22,7 +22,7 @@
     "@docusaurus/core": "^2.0.1",
     "@docusaurus/preset-classic": "^2.0.1",
     "@mdx-js/react": "^1.6.22",
-    "@worldcoin/id": "^0.7.0",
+    "@worldcoin/id": "^0.9.0-alpha.0",
     "clsx": "^1.1.1",
     "docusaurus-plugin-sass": "^0.2.2",
     "posthog-docusaurus": "^1.0.3",

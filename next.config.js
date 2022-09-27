@@ -1,7 +1,9 @@
+// cspell:ignore
 const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [],
+    // cspell:disable-next-line
     rehypePlugins: [],
     providerImportSource: "@mdx-js/react",
   },

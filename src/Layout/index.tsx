@@ -43,7 +43,7 @@ export const Layout = memo(function Layout(props: {
   return (
     <Fragment>
       <Head>
-        <title>{props.title} | World ID</title>
+        <title>{`${props.title} | World ID`}</title>
         {props.description && (
           <meta name="description" content={props.description} />
         )}

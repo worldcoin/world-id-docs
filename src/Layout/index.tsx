@@ -26,13 +26,13 @@ export const Layout = memo(function Layout(props: {
   description?: string
 }) {
   const router = useRouter()
-  const allLinks = navItems.flatMap((section) => section.articles)
-  const linkIndex = allLinks.findIndex((link) => link.href === router.pathname)
+  const allLinks = navItems.flatMap((section) => section.items)
+  const linkIndex = allLinks.findIndex((link) => link?.href === router.pathname)
   const previousPage = allLinks[linkIndex - 1]
   const nextPage = allLinks[linkIndex + 1]
 
   const section = navItems.find((section) =>
-    section.articles.find((article) => article.href === router.pathname)
+    section.items?.find((article) => article.href === router.pathname)
   )
 
   const mainRef = useRef<HTMLElement | null>(null)
@@ -120,7 +120,7 @@ export const Layout = memo(function Layout(props: {
                         )}
                       >
                         <span aria-hidden="true">&larr;</span>{' '}
-                        {previousPage.name}
+                        {previousPage.title}
                       </a>
                     </Link>
                   </dd>
@@ -146,7 +146,7 @@ export const Layout = memo(function Layout(props: {
                           styles.darkTextGradient
                         )}
                       >
-                        {nextPage.name} <span aria-hidden="true">&rarr;</span>
+                        {nextPage.title} <span aria-hidden="true">&rarr;</span>
                       </a>
                     </Link>
                   </dd>

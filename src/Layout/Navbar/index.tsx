@@ -13,9 +13,7 @@ export const Navbar = memo(function Navbar(props: {
       {props.items.map((item, id) => (
         <Section
           key={`${slugify(item.title)}-${id}`}
-          icon={item.icon}
-          title={item.title}
-          articles={item.articles}
+          {...item}
         />
       ))}
     </nav>

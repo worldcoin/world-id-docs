@@ -10,6 +10,7 @@ const iconNames = [
   'cpu',
   'github',
   'hand',
+  'logo-full',
   'logo',
   'menu',
   'question-circle',

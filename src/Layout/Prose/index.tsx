@@ -28,7 +28,9 @@ export function Prose({
         // hr
         'border-858494',
         // code
-        'prose-code:font-bold prose-code:font-rubik'
+        'prose-code:font-bold prose-code:font-rubik',
+        // strong
+        'prose-strong:text-6f7a85'
       )}
     >
       {children}

@@ -46,7 +46,8 @@
     {
       "name": "World ID #petorbz",
       "repository": "worldcoin/world-id-petorbz",
-      "sync_readme": true
+      "sync_readme": true,
+      "description": "World ID Example. Dapp, smart contract and landing page for #petorbz. Adopt a plush orb in person and receive an NFT certificate of adoption."
     },
     {
       "name": "World ID Discord Bot",

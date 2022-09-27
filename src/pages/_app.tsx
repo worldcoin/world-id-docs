@@ -1,85 +1,55 @@
 import 'styles/global.css'
-import type { AppProps } from 'next/app'
-import { MarkdocNextJsPageProps } from '@markdoc/next.js'
-import Head from 'next/head'
-import { Layout } from 'Layout'
-import { RenderableTreeNodes, Tag } from '@markdoc/markdoc'
-import { slugifyWithCounter } from '@sindresorhus/slugify'
-import { TOC } from 'common/types'
+import { MDXProvider } from '@mdx-js/react'
+import slugify from '@sindresorhus/slugify'
+import { ReactNode } from 'react'
+import { AppProps } from 'next/app'
 
-const collectHeadings = (content: RenderableTreeNodes | undefined) => {
-  const slugify = slugifyWithCounter()
+export default function MyApp(pageProps: AppProps) {
+  // FIXME: styles
+  const components = {
+    h2: (props: { children?: ReactNode }) => (
+      <h2 className="" id={slugify(props.children as string)}>
+        {props.children}
+      </h2>
+    ),
 
-  const isContentATag =
-    content && Array.isArray(content) && typeof content !== 'string'
+    h3: (props: { children?: ReactNode }) => (
+      <h3 id={slugify(props.children as string)}>{props.children}</h3>
+    ),
 
-  if (isContentATag) {
-    // @NOTE searching for h2 and h3 nodes
-    const headings = content.filter(
-      (node) =>
-        typeof node !== 'string' &&
-        node?.name &&
-        (node.name === 'h2' || node.name === 'h3')
-    ) as Array<Tag>
+    a: (props: { children?: ReactNode }) => (
+      <a className="">{props.children}</a>
+    ),
 
-    return headings.reduce((accumulator: TOC, node) => {
-      const nodes = accumulator
-      const containsString = node.children.every(
-        (child) => typeof child === 'string'
-      )
+    table: (props: { children?: ReactNode }) => (
+      <table className="">{props.children}</table>
+    ),
 
-      if (
-        node.name === 'h2' ||
-        (!nodes.at(-1) && node.name === 'h3' && containsString)
-      ) {
-        const id = slugify(node.children.join(' '))
-        node.attributes.id = id
+    tr: (props: { children?: ReactNode }) => (
+      <tr className="align-middle">{props.children}</tr>
+    ),
 
-        nodes.push({
-          id,
-          title: node.children.join(' '),
-          children: [],
-        })
-      }
+    p: (props: { children?: ReactNode }) => (
+      <p className="">{props.children}</p>
+    ),
 
-      if (node.name === 'h3' && nodes.at(-1) && containsString) {
-        const id = slugify(node.children.join(' '))
-        node.attributes.id = id
+    li: (props: { children?: ReactNode }) => (
+      <li className="">{props.children}</li>
+    ),
 
-        nodes.at(-1)?.children?.push({
-          id,
-          title: node.children.join(' '),
-        })
-      }
-
-      return nodes
-    }, [])
+    pre: (props: { children?: ReactNode }) => (
+      <pre className="">{props.children}</pre>
+    ),
+    code: (props: { children?: ReactNode }) => (
+      <code className="">{props.children}</code>
+    ),
   }
-
-  return []
-}
-
-export default function MyApp({
-  Component,
-  pageProps,
-}: Exclude<AppProps, 'pageProps'> & { pageProps: MarkdocNextJsPageProps }) {
-  const title = pageProps.markdoc?.frontmatter.title
-  const pageTitle =
-    pageProps.markdoc?.frontmatter.pageTitle ||
-    `${pageProps.markdoc?.frontmatter.title} - Docs`
-
-  const description = pageProps.markdoc?.frontmatter.description
-  const tableOfContents = collectHeadings(pageProps.markdoc?.content)
 
   return (
     <>
-      <Head>
-        <title>{pageTitle}</title>
-        {description && <meta name="description" content={description} />}
-      </Head>
-      <Layout title={title} tableOfContents={tableOfContents}>
-        <Component {...pageProps} />
-      </Layout>
+      <MDXProvider components={components}>
+        <pageProps.Component {...pageProps} />
+      </MDXProvider>
     </>
   )
 }

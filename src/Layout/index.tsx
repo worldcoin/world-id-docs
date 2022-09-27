@@ -1,20 +1,29 @@
-import { Fragment, memo, ReactNode, useMemo, useRef } from 'react'
+import {
+  Fragment,
+  JSXElementConstructor,
+  memo,
+  ReactElement,
+  useMemo,
+  useRef,
+} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { navItems } from './helpers/navigation'
 import { Hero } from './Hero'
-import { TOC } from 'common/types'
 import { Navbar } from './Navbar'
 import { Prose } from './Prose'
 import { Header } from './Header'
 import cn from 'classnames'
 import { TableOfContent } from './TableOfContent'
 import { styles } from 'common/helpers/styles'
+import { renderToString } from 'react-dom/server'
+import { collectHeadings } from 'common/helpers/collecting-headings'
+import Head from 'next/head'
 
 export const Layout = memo(function Layout(props: {
-  children: ReactNode
+  children: ReactElement<any, string | JSXElementConstructor<any>>
   title: string
-  tableOfContents: TOC
+  description?: string
 }) {
   const router = useRouter()
   const allLinks = navItems.flatMap((section) => section.articles)
@@ -29,9 +38,17 @@ export const Layout = memo(function Layout(props: {
   const mainRef = useRef<HTMLElement | null>(null)
 
   const isHomePage = useMemo(() => router.pathname === '/', [router.pathname])
+  const tableOfContents = collectHeadings(renderToString(props.children))
 
   return (
     <Fragment>
+      <Head>
+        <title>{props.title} | World ID</title>
+        {props.description && (
+          <meta name="description" content={props.description} />
+        )}
+      </Head>
+
       <div className="relative z-10">
         <Header navItems={navItems} />
 
@@ -79,9 +96,7 @@ export const Layout = memo(function Layout(props: {
                 </header>
               )}
 
-              <Prose>
-                {props.children}
-              </Prose>
+              <Prose>{props.children}</Prose>
             </article>
 
             <dl className="grid pt-8 mt-8 border-t gap-y-8 border-slate-200 dark:border-slate-800 lg:mt-16 lg:grid-cols-2 lg:pt-16">
@@ -141,7 +156,7 @@ export const Layout = memo(function Layout(props: {
           </main>
 
           <aside className="sticky hidden pl-16 top-20 gap-y-9 lg:grid">
-            <TableOfContent items={props.tableOfContents} />
+            <TableOfContent items={tableOfContents} />
           </aside>
         </div>
       </div>

@@ -19,7 +19,9 @@ export const TableOfContent = memo(function TableOfContent(props: {
     const io = new IntersectionObserver(handler, {
       rootMargin: '100px 0px -50% 0px',
     })
+
     const article = document.querySelector('article')
+
     if (!article) {
       return
     }

@@ -29,7 +29,7 @@ export const collectHeadings = (source: string): TOC => {
     }
 
     if (currentTag && currentTag === 'h3') {
-      nodes.at(-1)?.children?.push({
+      nodes[nodes.length - 1]?.children?.push({
         title: headingText,
         id: slugify(headingText),
       })

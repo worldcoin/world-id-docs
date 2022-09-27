@@ -4,7 +4,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { memo } from 'react'
 
-export const Navigation = memo(function Navigation(props: { items?: NavItems; className?: string }) {
+export const Navigation = memo(function Navigation(props: {
+  items?: NavItems
+  className?: string
+}) {
   let router = useRouter()
 
   if (!props.items?.length) {
@@ -18,24 +21,24 @@ export const Navigation = memo(function Navigation(props: { items?: NavItems; cl
           <li key={item.title}>
             <h2 className="font-semibold text-8e87ff">{item.title}</h2>
             <ul role="list" className="mt-2">
-              {item.articles.map((link) => (
-                <li key={link.href} className="relative">
-                  <Link href={link.href}>
-                    <a
-                      className={cn(
-                        'block w-full pl-3.5 border-l py-1',
-                        {
-                          'text-8e87ff dark:text-ffffff border-8e87ff':
+              {item.items?.map((link) =>
+                link?.href ? (
+                  <li key={link.href} className="relative">
+                    <Link href={link.href}>
+                      <a
+                        className={cn('block w-full border-l py-1 pl-3.5', {
+                          'border-8e87ff text-8e87ff dark:text-ffffff':
                             router.pathname === link.href,
-                          'text-9eafc0 border-9eafc0': router.pathname !== link.href,
-                        }
-                      )}
-                    >
-                      {link.name}
-                    </a>
-                  </Link>
-                </li>
-              ))}
+                          'border-9eafc0 text-9eafc0':
+                            router.pathname !== link.href,
+                        })}
+                      >
+                        {link.title}
+                      </a>
+                    </Link>
+                  </li>
+                ) : null
+              )}
             </ul>
           </li>
         ))}

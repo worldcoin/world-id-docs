@@ -19,7 +19,7 @@ The `.init()` method is the main initialization method. It should be called to s
   <div className="text--muted">Render of World ID widget</div>
 </div>
 
-<Callout title="caution">
+<Callout title="Caution" type="warning">
   The `.init()` method should only be called once in the lifecycle of your app.
   To update properties, please use `.update()` instead.
 </Callout>
@@ -83,7 +83,7 @@ worldID.init(
 
 The `.update()` method works similarly to `.init()` except it's used only to update the relevant parameters to run the World ID widget. The DOM element (`elementNodeOrID`) where World ID is mounted **cannot be changed**.
 
-<Callout title="tip">
+<Callout title="Tip">
   One common use case for `.update()` is if you want to render the World ID
   widget even if the user hasn't logged in to your dapp with their wallet. This
   will keep your UI consistent. Once the user logs in, you can use `.update()`

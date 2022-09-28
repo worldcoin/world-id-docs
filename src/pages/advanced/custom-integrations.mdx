@@ -20,7 +20,7 @@ Creating a custom integration involves the following process:
 5. Deploy your own smart contract that validates the ZKP and executes whatever action you want.
 6. Submit a regular ETH wallet transaction containing the ZKP params.
 
-<Callout title="note">
+<Callout title="Note">
   Support for regular non-crypto applications will be possible soon. Stay tuned
   for more details on how to integrate with your own backend instead of the
   blockchain.
@@ -28,7 +28,7 @@ Creating a custom integration involves the following process:
 
 ## Details
 
-<Callout title="tip">
+<Callout title="Tip">
   To test your integration or if you haven't gone to a Worldcoin orb you can
   test using the [Staging network](/about/testing). You can easily do this
   through the [Worldcoin Simulator](https://simulator.worldcoin.org).
@@ -60,7 +60,7 @@ const connector = new WalletConnect({
 const url = buildQRData(connector) // Of course alternatively, you can simply copy this code from the JS widget
 ```
 
-<Callout title="warning">
+<Callout title="Warning" type="warning">
   Avoid using the default WalletConnect modal. A large number of users will not
   be familiar with this pattern and will not know to connect their Worldcoin
   app.

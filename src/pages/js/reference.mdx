@@ -1,0 +1,350 @@
+import { Callout } from 'common/Callout'
+
+# JS Reference
+
+Here you will find information about all the methods and parameters that the JS package exposes.
+
+## Methods
+
+### .init()
+
+The `.init()` method is the main initialization method. It should be called to start the World ID package and render the World ID verification widget.
+
+<div className="text--center margin-bottom--lg">
+  <img
+    src="/images/docs/js/world-id-widget.png"
+    width="240"
+    alt="Render of World ID widget"
+  />
+  <div className="text--muted">Render of World ID widget</div>
+</div>
+
+<Callout title="caution">
+  The `.init()` method should only be called once in the lifecycle of your app.
+  To update properties, please use `.update()` instead.
+</Callout>
+
+**.init(elementNodeOrID, parameters) => void**
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>elementNodeOrID</td>
+      <td>
+        HTML ID of the element on where to mount the World ID widget{' '}
+        <strong>or</strong> HTML node of where to mount the element.
+      </td>
+      <td>
+        <code>world-id-container</code>
+        <br />
+        <br />
+        <pre>document.getElementsByClassName('world-id')[0]</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>parameters</td>
+      <td>
+        List of additional parameters. Please see [Parameters](#parameters) for
+        details. <code>action_id</code> is always required.
+      </td>
+      <td>See below for example.</td>
+    </tr>
+  </tbody>
+</table>
+
+**Example:**
+
+```js
+worldID.init(
+  'world-id-container', // this can be the HTML ID of an element or any HTML node. Please be sure the node is mounted in your DOM before you call `.init()`
+  {
+    enable_telemetry: true,
+    debug: true, // to aid with debugging, remove in production
+    action_id: 'wid_lshSNnaJfdt6Sohu6YAA',
+    signal: 'my-user-id-1',
+    app_name: 'My App',
+    signal_description: 'Receive a super cool airdrop!',
+  }
+)
+```
+
+### .update()
+
+The `.update()` method works similarly to `.init()` except it's used only to update the relevant parameters to run the World ID widget. The DOM element (`elementNodeOrID`) where World ID is mounted **cannot be changed**.
+
+<Callout title="tip">
+  One common use case for `.update()` is if you want to render the World ID
+  widget even if the user hasn't logged in to your dapp with their wallet. This
+  will keep your UI consistent. Once the user logs in, you can use `.update()`
+  to pass the wallet's address as `signal`.
+</Callout>
+
+**.update(parameters?) => void**
+
+When calling `.update()` you only need to include the parameters you wish to update. No need to include all original init parameters again.
+
+**Example:**
+
+```js
+worldID.update({
+  signal: 'my_new_signal',
+})
+```
+
+### .getProps()
+
+Returns all the props for the widget.
+
+**.getProps() => WidgetProps**
+
+**Example:**
+
+```js
+console.log(worldID.getProps().signal)
+```
+
+## Parameters
+
+The following parameters can be passed to both `.init()` and `.update()`.
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Required</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>action_id</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>Yes</td>
+      <td>
+        Unique identifier for the action being verified. This should be the
+        action ID obtained from the{" "}
+        [Developer Portal](https://developer.worldcoin.org). Read
+        more about the{" "}
+        [action ID](/about/glossary#action-id).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>signal</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>Not required, but widget won't be enabled until passed</td>
+      <td>
+        Read more about the [signal](/about/glossary#signal).
+        For web3 dApps, you will usually want to use your user's wallet address.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>on_success</code>
+      </td>
+      <td>
+        <code>function</code>
+      </td>
+      <td>Yes</td>
+      <td>Function to trigger when verification is successful. Sends a single parameter of type <code>VerificationResponse</code> which contains the proof details.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>on_error</code>
+      </td>
+      <td>
+        <code>function</code>
+      </td>
+      <td>No</td>
+      <td>Triggered when verification fails and user did not retried. Sends a single parameter of type <code>VerificationErrorResponse</code> containing error details.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>enable_telemetry</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>No</td>
+      <td>
+        Whether telemetry is enabled. We send very few events, with no PII to
+        help us improve the product. Read more in the{" "}
+        [Telemetry](/js/telemetry) section.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>theme</code>
+      </td>
+      <td>
+        <code>light</code> or <code>dark</code>
+      </td>
+      <td>No</td>
+      <td>The theme to apply to the widget's UI.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>debug</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>No</td>
+      <td>Will log verbose details to JS console to aid with debugging.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>on_init_success</code>
+      </td>
+      <td>
+        <code>function</code>
+      </td>
+      <td>No</td>
+      <td>Triggered after the widget has been successfully initialized and mounted and all passed props are valid. Useful for debugging.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>on_init_error</code>
+      </td>
+      <td>
+        <code>function</code>
+      </td>
+      <td>No</td>
+      <td>Triggered if widget could not be initialized, usually due to incorrect parameters. Sends a <code>string</code> containing the error description.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>disable_remote_fonts</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+      <td>No</td>
+      <td>
+        Disables loading remote fonts (from Google Fonts) for the widget and
+        uses the system's font instead (e.g. Roboto, San Francisco).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>advanced_use_raw_signal</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>No</td>
+      <td>
+        <b>Advanced!</b> Use this to hash and encode your own signal. Read more
+        on [Advanced signals](/advanced/advanced-signals).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>advanced_use_raw_action_id</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>No</td>
+      <td>
+        <b>Advanced!</b> Use this to hash and encode your own Action ID. Read
+        more on{" "}
+        [Advanced signals](/advanced/advanced-signals).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>app_name</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>No</td>
+      <td>
+        <b>⚠️ Deprecated! Use Dev Portal instead.</b> The name of your
+        app/project/company (shown to users in Worldcoin app).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>signal_description</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+      <td>No</td>
+      <td>
+        <b>⚠️ Deprecated! Use Dev Portal instead. </b>
+        The description of the specific action (shown to users in Worldcoin app).
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+## Response
+
+Upon successful completion of the World ID verification request, you will receive a response object in the respective Promise you subscribed to in the `.init()` method. The response object will contain the following attributes. **Normally, you will pass all these parameters to the transaction to be executed on-chain with your smart contract.**
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>merkle_root</code>
+      </td>
+      <td>
+        <code>string</code> (ABI-encoded)
+      </td>
+      <td>
+        This is the hash pointer to the root of the Merkle tree that proves
+        membership of the user's identity in the list of identities verified by
+        the Orb. Read more about the [Merkle
+        root](/about/glossary#merkle-root).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>nullifier_hash</code>
+      </td>
+      <td>
+        <code>string</code> (ABI-encoded)
+      </td>
+      <td>
+        The hash that proves uniqueness between a single person and an action.
+        Read more about the [nullifier
+        hash](/about/glossary#nullifier-hash).
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>proof</code>
+      </td>
+      <td>
+        <code>string</code> (ABI-encoded)
+      </td>
+      <td>The Zero-knowledge proof of the verification.</td>
+    </tr>
+  </tbody>
+</table>

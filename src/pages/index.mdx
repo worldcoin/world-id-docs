@@ -2,22 +2,22 @@ import { Callout } from 'common/Callout'
 
 # Getting started
 
-World ID is a way to anonymously verify someone is an actual human when performing an action, and that they have performed the action only once (without revealing anything about themselves). This happens through [Zero-knowledge proofs](/docs/advanced/zero-knowledge-proofs).
+World ID is a way to anonymously verify someone is an actual human when performing an action, and that they have performed the action only once (without revealing anything about themselves). This happens through [Zero-knowledge proofs](/advanced/zero-knowledge-proofs).
 
 You can easily integrate World ID into your app and smart contract or backend. End user can easily and anonymously verify they are a unique human through the [Worldcoin app](https://worldcoin.org/download).
 
 ![airdrop-render](/images/docs/introduction/mesha-airdrop-render.jpeg)
 
-{/* <!-- TODO: All the screenshots here need to be updated with the new UI --> */}
-
 <table>
   <tbody>
     <tr>
       <td className="align-middle">
-        ![Render of World ID widget](/images/docs/introduction/world-id-widget.png)
+        ![Render of World ID
+        widget](/images/docs/introduction/world-id-widget.png)
       </td>
       <td className="align-middle">
-        ![Render of World ID widget](/images/docs/introduction/world-id-js-modal.png)
+        ![Render of World ID
+        widget](/images/docs/introduction/world-id-js-modal.png)
       </td>
       <td className="align-middle">
         ![Render of World ID
@@ -25,14 +25,14 @@ You can easily integrate World ID into your app and smart contract or backend. E
       </td>
     </tr>
     <tr>
-      <td>The lightweight [JS widget](/docs/js) is added to your dapp.</td>
+      <td>The lightweight [JS widget](/js) is added to your dapp.</td>
       <td>
-        [JS widget](/docs/js) handles connection to Worldcoin app and provides
+        [JS widget](/js) handles connection to Worldcoin app and provides
         instructions to the user.
       </td>
       <td>
         User verifies they are a unique human with a{' '}
-        [ZKP](/docs/advanced/zero-knowledge-proofs).
+        [ZKP](/advanced/zero-knowledge-proofs).
       </td>
     </tr>
   </tbody>
@@ -50,19 +50,17 @@ In broad strokes, this is how World ID works.
 
 ![Render of World ID widget](/images/docs/introduction/how-it-works.png)
 
-1. End user verifies themself at a Worldcoin orb ([read more](https://worldcoin.org/how-the-launch-works)). User proves they are a unique human without requiring to store any PII (more on [Privacy](/docs/about/privacy)).
+1. End user verifies themself at a Worldcoin orb ([read more](https://worldcoin.org/how-the-launch-works)). User proves they are a unique human without requiring to store any PII (more on [Privacy](/about/privacy)).
 
-2. Project [integrates with World ID](/docs/quick-start).
+2. Project [integrates with World ID](/quick-start).
 
-3. Whenever performing a specific [action](/docs/about/protocol#what-are-actions), user proves they are a unique human by submitting a [Zero-knowledge proof](/docs/advanced/zero-knowledge-proofs) from the Worldcoin app.
+3. Whenever performing a specific [action](/about/protocol#what-are-actions), user proves they are a unique human by submitting a [Zero-knowledge proof](/docs/advanced/zero-knowledge-proofs) from the Worldcoin app.
 
-4. Project validates the [Zero-knowledge proof](/docs/advanced/zero-knowledge-proofs) and executes the action (e.g. token airdrop, NFT minting, account creation, ...).
+4. Project validates the [Zero-knowledge proof](/advanced/zero-knowledge-proofs) and executes the action (e.g. token airdrop, NFT minting, account creation, ...).
 
-Read more about how World ID works in the [Protocol](/docs/about/protocol) section.
+Read more about how World ID works in the [Protocol](/about/protocol) section.
 
 ## Use cases
-
-{/* <!-- TODO: Add use cases for Cloud apps --> */}
 
 World ID prevents sybil attacks both on-chain and off-chain. Some use cases:
 

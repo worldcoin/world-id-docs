@@ -4,22 +4,24 @@ import { Callout } from 'common/Callout'
 
 **The fastest way to get rolling with World ID is through the [Developer Portal](https://developer.worldcoin.org)!**
 
-1. Sign up to the [Developer Portal](https://developer.worldcoin.org) and create your first [action](/docs/about/protocol#what-are-actions).
+1. Sign up to the [Developer Portal](https://developer.worldcoin.org) and create your first [action](/about/protocol#what-are-actions).
 
    > An action is something that a single human can perform only once.
 
 2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for IRL verifications). **Take note of your action ID** (which looks something like `wid_GBkZ1KlVUdFTjeMXskrX`).
 
 {' '}
+
 <Callout title="Tip">
   If you want to test your integration and you haven't been verified by an orb,
   select the **Staging** environment. You'll be able to use the
-  [Simulator](/docs/about/testing) instead.
+  [Simulator](/about/testing) instead.
 </Callout>
 
-![/img/dev-portal-engine-selection.png](Screenshot of Dev Portal: Engine selection)
+![Screenshot of Dev Portal: Engine selection](/images/docs/quick-start/dev-portal-engine-selection.png)
 
 {' '}
+
 <Callout title="Tip">
   If you selected the **cloud** engine, these instructions continue with details
   on the **API & JS widget** user interface option. If you want to use another
@@ -27,7 +29,7 @@ import { Callout } from 'common/Callout'
   Portal**.
 </Callout>
 
-3. Install the [JS widget](/docs/js/) in your frontend app/dapp.
+3. Install the [JS widget](/js/) in your frontend app/dapp.
 
 ```bash
 npm install @worldcoin/id
@@ -35,11 +37,12 @@ npm install @worldcoin/id
 yarn add @worldcoin/id
 ```
 
-4. Import and render the World ID widget. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account"). You can choose any signal you want, but we recommend reading [on signals](/docs/about/glossary#signal) to select an optimal signal.
+4. Import and render the World ID widget. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account"). You can choose any signal you want, but we recommend reading [on signals](/about/glossary#signal) to select an optimal signal.
 
 {' '}
+
 <Callout title="Tip">
-  If you're not using React, check out the [JS intro](/docs/js/) section. We
+  If you're not using React, check out the [JS intro](/js/) section. We
   have a section for **Next.js** too!
 </Callout>
 
@@ -47,7 +50,7 @@ yarn add @worldcoin/id
 import { WorldIDWidget } from '@worldcoin/id'
 
 // Mount the component in your code at the place where you want to render the widget
-;<WorldIDWidget
+<WorldIDWidget
   actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
   signal="my_signal"
   enableTelemetry
@@ -61,7 +64,8 @@ import { WorldIDWidget } from '@worldcoin/id'
 **Continue here if you selected the cloud engine.** Go to [on-chain verification](#on-chain-verification) otherwise.
 
 <Callout title="Info">
-  Cloud actions are verified by the Developer Portal. You can validate a user is a unique human with a simple API request or a JWT signature verification.
+  Cloud actions are verified by the Developer Portal. You can validate a user is
+  a unique human with a simple API request or a JWT signature verification.
 </Callout>
 
 6. Send the following API request to the Developer Portal's API. Please check the [API reference](/api/reference#verify) for details on anticipated error responses.

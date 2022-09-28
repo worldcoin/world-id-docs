@@ -27,6 +27,8 @@ yarn add @worldcoin/id
 
 If your app is built on React, using the React widget is by far the easiest approach.
 
+{/* cSpell:disable */}
+
 ```tsx
 import { WorldIDWidget } from '@worldcoin/id'
 <WorldIDWidget
@@ -39,6 +41,8 @@ import { WorldIDWidget } from '@worldcoin/id'
 />
 ```
 
+{/* cSpell:enable */}
+
 <Callout title="tip">
   A fully functional React example can be found
   [here](https://github.com/worldcoin/world-id-js/tree/main/example-react).
@@ -48,12 +52,15 @@ import { WorldIDWidget } from '@worldcoin/id'
 
 If your app is built on Next.js, you should use the React widget, but it's critical to **disable SSR**.
 
+{/* cSpell:disable */}
+
 ```tsx
 import { WidgetProps } from '@worldcoin/id'
 const WorldIDWidget = dynamic<WidgetProps>(
   () => import('@worldcoin/id').then((mod) => mod.WorldIDWidget),
   { ssr: false }
 )
+
 
 <WorldIDWidget
   actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
@@ -64,6 +71,8 @@ const WorldIDWidget = dynamic<WidgetProps>(
   debug={true} // to aid with debugging, remove in production
 />
 ```
+
+{/* cSpell:enable */}
 
 <Callout title="tip">
   A fully functional Next.js example can be found
@@ -77,6 +86,8 @@ const WorldIDWidget = dynamic<WidgetProps>(
    ```html
    <div id="world-id-container"></div>
    ```
+
+{/* cSpell:disable */}
 
 1. Initialize the widget.
 
@@ -92,6 +103,8 @@ const WorldIDWidget = dynamic<WidgetProps>(
      on_error: (error) => console.error(error),
    })
    ```
+
+   {/* cSpell:enable */}
 
 <Callout title="note">
   The widget will remain disabled until you pass a non-empty signal.
@@ -163,9 +176,9 @@ https://id.worldcoin.org/use?action_id=0x32D59776E91fdb3F377755e12cEC05d9067c2B4
       </td>
       <td>Yes</td>
       <td>
-        Read more about the [signal](/about/glossary#signal). You will
-        usually want to use your user's wallet address as the signal if you're
-        using a crypto app.
+        Read more about the [signal](/about/glossary#signal). You will usually
+        want to use your user's wallet address as the signal if you're using a
+        crypto app.
       </td>
     </tr>
     <tr>

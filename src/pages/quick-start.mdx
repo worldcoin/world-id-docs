@@ -8,9 +8,7 @@ import { Callout } from 'common/Callout'
 
    > An action is something that a single human can perform only once.
 
-2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for IRL verifications). **Take note of your action ID** (which looks something like `wid_GBkZ1KlVUdFTjeMXskrX`).
-
-{' '}
+2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for IRL verifications). **Take note of your action ID** (which looks something like {/* cSpell:disable */}`wid_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}).
 
 <Callout title="Tip">
   If you want to test your integration and you haven't been verified by an orb,
@@ -42,9 +40,11 @@ yarn add @worldcoin/id
 {' '}
 
 <Callout title="Tip">
-  If you're not using React, check out the [JS intro](/js/) section. We
-  have a section for **Next.js** too!
+  If you're not using React, check out the [JS intro](/js/) section. We have a
+  section for **Next.js** too!
 </Callout>
+
+{/* cSpell:disable */}
 
 ```jsx
 import { WorldIDWidget } from '@worldcoin/id'
@@ -58,6 +58,8 @@ import { WorldIDWidget } from '@worldcoin/id'
   onError={(error) => console.error(error)}
 />
 ```
+
+{/* cSpell:enable */}
 
 ## Cloud verification
 

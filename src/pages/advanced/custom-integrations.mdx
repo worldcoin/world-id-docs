@@ -70,6 +70,8 @@ const url = buildQRData(connector) // Of course alternatively, you can simply co
 
 The Worldcoin app will automatically accept the connection request after the user scans the QR code with their app. Upon the connection being established, send the verification request as a JSON-RPC 2.0 message with the following structure.
 
+{/* cSpell:disable */}
+
 ```js
 const request = {
   id: 1000, // use a different ID every time
@@ -83,6 +85,8 @@ const request = {
   ],
 }
 ```
+
+{/* cSpell:enable */}
 
 **Example (partial, see #4 for complete snippet):**
 

@@ -8,7 +8,7 @@ import {
 } from 'react'
 
 export const CodeBlock = memo(function CodeBlock(props: {
-  children: ReactNode
+  children?: ReactNode
   className?: string
   language?: Language
   showLines?: boolean

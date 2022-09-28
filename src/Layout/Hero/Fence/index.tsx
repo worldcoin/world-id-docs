@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, ReactNode } from 'react'
 import { Language } from 'prism-react-renderer'
 import cn from 'classnames'
 import { styles } from 'common/helpers/styles'
@@ -6,7 +6,7 @@ import { Icon } from 'common/Icon'
 import { CodeBlock } from 'common/CodeBlock'
 
 export const Fence = memo(function Fence(props: {
-  children: string
+  children: ReactNode
   language: Language
 }) {
   return (
@@ -27,10 +27,20 @@ export const Fence = memo(function Fence(props: {
         )}
       />
 
-      <div className={cn('relative rounded-2xl overflow-hidden', styles.heroFenceShadow)}>
-        <div className={styles.fenceBorder}/>
+      <div
+        className={cn(
+          'relative overflow-hidden rounded-2xl',
+          styles.heroFenceShadow
+        )}
+      >
+        <div className={styles.fenceBorder} />
 
-        <div className={cn("p-6 space-y-6 bg-ebedef dark:bg-161b22", styles.fenceBorderInner)}>
+        <div
+          className={cn(
+            'space-y-6 bg-ebedef p-6 dark:bg-161b22',
+            styles.fenceBorderInner
+          )}
+        >
           <div className="flex gap-1 opacity-20 dark:opacity-100">
             <span className="w-3 h-3 border rounded-full border-363a45" />
             <span className="w-3 h-3 border rounded-full border-363a45" />
@@ -55,9 +65,11 @@ export const Fence = memo(function Fence(props: {
             </span>
           </div>
 
-          <CodeBlock language={props.language} showLines>
-            {props.children}
-          </CodeBlock>
+          <pre>
+            <CodeBlock language={props.language} showLines>
+              {props.children}
+            </CodeBlock>
+          </pre>
         </div>
       </div>
     </div>

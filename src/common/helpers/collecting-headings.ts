@@ -1,13 +1,15 @@
 import slugify from '@sindresorhus/slugify'
 import { TOC } from 'common/types'
-import { stripHtml } from 'string-strip-html'
 import { HTMLElement } from 'node-html-parser'
 
 export const collectHeadings = (html: HTMLElement): TOC => {
+  console.log(html
+    .querySelectorAll('h2,h3'));
+
   return html
     .querySelectorAll('h2,h3')
     .reduce<TOC>((result, node, nodeIndex) => {
-      if (node.tagName === 'h2') {
+      if (node.tagName === 'H2') {
         return [
           ...result,
           {
@@ -18,7 +20,7 @@ export const collectHeadings = (html: HTMLElement): TOC => {
         ]
       }
 
-      if (node.tagName === 'h3') {
+      if (node.tagName === 'H3') {
         return result.map((item, titleIndex) => ({
           ...item,
           children: [

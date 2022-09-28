@@ -21,7 +21,7 @@ import { TOC } from 'common/types'
 
 export const Layout = memo(function Layout(props: {
   children: ReactElement<any, string | JSXElementConstructor<any>>
-  title: string
+  title?: string
   description?: string
   tableOfContents: TOC
 }) {
@@ -40,7 +40,7 @@ export const Layout = memo(function Layout(props: {
   return (
     <Fragment>
       <Head>
-        <title>{`${props.title} | World ID`}</title>
+        <title>{`${props.title || 'Documentation'} | World ID`}</title>
         {props.description && (
           <meta name="description" content={props.description} />
         )}
@@ -65,8 +65,8 @@ export const Layout = memo(function Layout(props: {
             <Navbar items={navItems} />
           </aside>
 
-          <main ref={mainRef} className="lg:px-16">
-            <article className="max-w-full overflow-hidden">
+          <main ref={mainRef} className="max-w-full overflow-hidden lg:px-16">
+            <article>
               {(props.title || section) && (
                 <header className="mb-3">
                   {section && (

@@ -1,40 +1,40 @@
 import slugify from '@sindresorhus/slugify'
 import { TOC } from 'common/types'
 import { stripHtml } from 'string-strip-html'
+import { HTMLElement } from 'node-html-parser'
 
-export const collectHeadings = (source: string): TOC => {
-  const regex = /(<h2>(.*?)<\/h2>|<h3>(.*?)<\/h3>)/gm
-  const tags = source.match(regex)
+export const collectHeadings = (html: HTMLElement): TOC => {
+  return html
+    .querySelectorAll('h2,h3')
+    .reduce<TOC>((result, node, nodeIndex) => {
+      if (node.tagName === 'h2') {
+        return [
+          ...result,
+          {
+            id: slugify(node.textContent),
+            title: node.textContent,
+            children: [],
+          },
+        ]
+      }
 
-  if (!tags) {
-    return []
-  }
+      if (node.tagName === 'h3') {
+        return result.map((item, titleIndex) => ({
+          ...item,
+          children: [
+            ...(item.children || []),
+            ...(titleIndex === nodeIndex - 1
+              ? []
+              : [
+                  {
+                    id: slugify(node.textContent),
+                    title: node.textContent,
+                  },
+                ]),
+          ],
+        }))
+      }
 
-  return tags.reduce((accumulator: TOC, tag) => {
-    const nodes = accumulator
-    let currentTag: string | null = null
-
-    stripHtml(tag, {
-      cb: (a) => (currentTag = a.tag.name),
-    }).result
-
-    const headingText = stripHtml(tag).result
-
-    if (currentTag && currentTag === 'h2') {
-      nodes.push({
-        title: headingText,
-        id: slugify(headingText),
-        children: [],
-      })
-    }
-
-    if (currentTag && currentTag === 'h3') {
-      nodes[nodes.length - 1]?.children?.push({
-        title: headingText,
-        id: slugify(headingText),
-      })
-    }
-
-    return nodes
-  }, [])
+      return result
+    }, [])
 }

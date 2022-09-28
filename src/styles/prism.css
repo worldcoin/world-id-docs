@@ -22,7 +22,9 @@ code {
   @apply text-fb7e67;
 }
 
-.token.imports {
+.token.imports,
+.token.known-class-name,
+.token.class-name {
   @apply text-181b1f dark:text-ffffff;
 }
 

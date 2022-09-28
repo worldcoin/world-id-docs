@@ -1,21 +1,17 @@
-import { Language } from 'prism-react-renderer'
 import cn from 'classnames'
-import { CodeBlock } from 'common/CodeBlock'
 import { styles } from 'common/helpers/styles'
+import { ReactNode } from 'react'
 
 export function Fence(props: {
-  children: string
-  language: Language
-  showLines?: boolean
+  children?: ReactNode
+  className?: string
 }) {
   return (
-    <div className="relative">
+    <div className={cn('relative', props.className)}>
       <div className={styles.fenceBorder} />
-      <div className={cn(styles.fenceBorderInner, 'bg-ebedef dark:bg-161b22')}>
-        <CodeBlock language={props.language} showLines={props.showLines}>
-          {props.children}
-        </CodeBlock>
-      </div>
+      <pre className={cn('max-w-[calc(100vw_-_32px)] overflow-auto', styles.fenceBorderInner, 'bg-ebedef dark:bg-161b22')}>
+        {props.children}
+      </pre>
     </div>
   )
 }

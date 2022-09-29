@@ -2,9 +2,9 @@ import { Callout } from 'common/Callout'
 
 # Quick start
 
-**The fastest way to get rolling with World ID is through the <a href="https://developer.worldcoin.org" target="blank">Developer Portal</a>!**
+**The fastest way to get rolling with World ID is through the [Developer Portal](https://developer.worldcoin.org)!**
 
-1. Sign up to the <a href="https://developer.worldcoin.org/" target="blank">Developer Portal</a> and create your first <a href="https://id.worldcoin.org/docs/about/protocol#what-are-actions" target="_blank">action</a>.
+1. Sign up to the [Developer Portal](https://developer.worldcoin.org) and create your first [action](/about/protocol#what-are-actions).
 
    > An action is something that a single human can perform only once.
 
@@ -118,7 +118,7 @@ import { WorldIDWidget } from '@worldcoin/id'
   and then execute the rest of your contract normally.
 </Callout>
 
-6. Clone our <a href="https://github.com/worldcoin/world-id-starter" target="blank" rel="noopener noreferrer">starter kit</a> (or <a href="https://github.com/worldcoin/world-id-starter-hardhat" target="blank" rel="noopener noreferrer">HardHat version</a> here).
+6. Clone our [starter kit](https://github.com/worldcoin/world-id-starter) (or [HardHat version](https://github.com/worldcoin/world-id-starter-hardhat) here).
 7. Update `src/Contract.sol` with your `action_id` & adjusting the signal if relevant. After the `verifyProof` call & `nullifierHashes` record, add your own smart contract code that should run after a user is verified (e.g. minting an NFT).
 8. Deploy your contract. If the provided proof is valid, your contract will execute successfully. If the proof is invalid, the contract will revert execution.
    ```bash
@@ -141,11 +141,11 @@ const unpackedProof = abi.decode(['uint256[8]'], proof)[0] // `proof` comes dire
 // You can now pass your unpackedProof to your smart contract
 ```
 
-You can also see a live example from Mesha Airdrop <a href="https://github.com/worldcoin/world-id-example-airdrop-dapp/blob/main/src/App/App.tsx#L73" target="blank" rel="noopener noreferrer">here</a>.
+You can also see a live example from Mesha Airdrop [here](https://github.com/worldcoin/world-id-example-airdrop-dapp/blob/main/src/App/App.tsx#L73).
 
 ## Testing your integration
 
 Last step is test your entire integration. Open the JS widget where you'll see a QR code (or "Open Worldcoin app" button if on mobile).
 
-- If you created a **Production** action, use the <a href="https://worldcoin.org/download" target="blank">Worldcoin app</a> from the App Store or Google Play to scan the QR code.
-- If you created a **Staging** action, use the <a href="https://simulator.worldcoin.org" target="blank">Simulator</a> to scan the QR code.
+- If you created a **Production** action, use the [Worldcoin app](https://worldcoin.org/download) from the App Store or Google Play to scan the QR code.
+- If you created a **Staging** action, use the [Simulator](https://simulator.worldcoin.org) to scan the QR code.

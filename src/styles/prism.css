@@ -1,0 +1,49 @@
+pre[class*='language-'] {
+  color: theme('colors.slate.50');
+}
+
+code {
+  @apply font-roboto-mono;
+}
+
+.line-border {
+  @apply absolute top-0 w-px h-full left-8 bg-70868f;
+}
+
+.line.number {
+  @apply mr-8 select-none text-70868f;
+}
+
+.token.keyword,
+.token.module,
+.token.method,
+.token.function,
+.token.property-access {
+  @apply text-fb7e67;
+}
+
+.token.imports,
+.token.known-class-name,
+.token.class-name {
+  @apply text-181b1f dark:text-ffffff;
+}
+
+.token.punctuation,
+.token.operator {
+  @apply text-384361/50 dark:text-384361;
+}
+
+.token.plain,
+.token.literal-property,
+.token.property {
+  @apply text-b37af0;
+}
+
+.token.string,
+.token.number {
+  @apply text-98c379 dark:text-b37af0;
+}
+
+.token.comment {
+  @apply text-6f7a85;
+}

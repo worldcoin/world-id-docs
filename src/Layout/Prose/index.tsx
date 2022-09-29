@@ -24,7 +24,7 @@ export function Prose({
         // links
         'prose-a:text-ff6848 prose-a:[text-decoration:_none] prose-a:font-normal',
         // pre
-        'prose-pre:rounded-xl prose-pre:bg-transparent',
+        'prose-pre:rounded-xl prose-pre:bg-transparent prose-pre:bg-ebedef dark:prose-pre:bg-161b22',
         // hr
         'border-858494',
         // code

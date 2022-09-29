@@ -24,7 +24,8 @@ code {
 
 .token.imports,
 .token.known-class-name,
-.token.class-name {
+.token.class-name,
+.token.maybe-class-name {
   @apply text-181b1f dark:text-ffffff;
 }
 
@@ -35,7 +36,8 @@ code {
 
 .token.plain,
 .token.literal-property,
-.token.property {
+.token.property,
+.token.parameter {
   @apply text-b37af0;
 }
 

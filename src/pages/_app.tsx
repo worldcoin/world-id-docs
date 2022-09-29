@@ -11,6 +11,7 @@ import { findPageTitle } from 'common/helpers/find-page-title'
 import { findPageDescription } from 'common/helpers/find-page-description'
 import { Fence } from 'common/Fence'
 import { CodeBlock } from 'common/CodeBlock'
+import { Link } from 'common/Link'
 
 const components = {
   h2: (props: { children?: ReactNode }) => (
@@ -23,7 +24,8 @@ const components = {
     <h3 id={slugify(props.children as string)}>{props.children}</h3>
   ),
   pre: Fence,
-  code: CodeBlock
+  code: CodeBlock,
+  a: Link
 }
 
 export default function MyApp(pageProps: AppProps) {

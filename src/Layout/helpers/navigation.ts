@@ -15,10 +15,10 @@ export const navItems: NavItems = [
     icon: 'logo',
     title: 'About World ID',
     items: [
-      { title: 'JS Introduction', href: '/about/protocol' },
-      { title: 'JS Reference', href: '/about/glossary' },
-      { title: 'Error Handling', href: '/about/privacy' },
-      { title: 'Telemetry', href: '/about/testing' },
+      { title: 'Protocol Overview', href: '/about/protocol' },
+      { title: 'Glossary', href: '/about/glossary' },
+      { title: 'Privacy', href: '/about/privacy' },
+      { title: 'Testing', href: '/about/testing' },
     ],
   },
   {

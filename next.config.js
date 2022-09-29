@@ -1,19 +1,20 @@
 // cspell:ignore
-const withMDX = require("@next/mdx")({
+const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [],
     // cspell:disable-next-line
     rehypePlugins: [],
-    providerImportSource: "@mdx-js/react",
+    providerImportSource: '@mdx-js/react',
   },
-});
+})
 
+// TODO: Temporary redirect for old docs URLs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  pageExtensions: ["ts", "tsx", "md", "mdx"],
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   async redirects() {
     return [
       {
@@ -23,6 +24,6 @@ const nextConfig = {
       },
     ]
   },
-};
+}
 
-module.exports = withMDX(nextConfig);
+module.exports = withMDX(nextConfig)

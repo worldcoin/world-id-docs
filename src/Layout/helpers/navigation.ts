@@ -50,6 +50,6 @@ export const navItems: NavItems = [
   {
     icon: 'coin',
     title: 'Hackathons & workshops',
-    href: '/hackatons',
+    href: '/hackathons',
   },
 ]

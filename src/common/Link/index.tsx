@@ -10,10 +10,14 @@ export const Link = memo(function Link(props: {
     return null
   }
 
-  let isExternal = !props.href.startsWith(appUrl)
-  let is3rdParty = isExternal && !/https?:\/\/.*worldcoin\.org/.test(props.href)
+  let isExternal = false;
+  let is3rdParty = false;
 
-  console.log({ href: props.href, appUrl, isExternal, is3rdParty })
+  try {
+    const url = new URL(props.href)
+    isExternal = !url.hostname.startsWith(appUrl)
+    is3rdParty = isExternal && !/^.*worldcoin\.org$/.test(url.hostname)
+  } catch (err) {}
 
   return (
     <NextLink href={props.href}>

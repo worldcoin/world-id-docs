@@ -26,7 +26,7 @@ export const Callout = memo(function Callout(props: {
 
       <div
         className={cn(
-          'grid gap-6 rounded-2xl bg-ebedef p-6 dark:bg-161b22',
+          'grid gap-2 rounded-2xl p-6 dark:bg-161b22',
           styles.fenceBorderInner
         )}
       >

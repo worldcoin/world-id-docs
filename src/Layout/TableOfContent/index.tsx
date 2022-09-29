@@ -22,9 +22,7 @@ export const TableOfContent = memo(function TableOfContent(props: {
 
     const article = document.querySelector('article')
 
-    if (!article) {
-      return
-    }
+    if (!article) return
 
     const observableItems = Array.from(
       article.querySelectorAll('h1,h2,h3,h4,h5,h6')
@@ -36,6 +34,8 @@ export const TableOfContent = memo(function TableOfContent(props: {
       observableItems.map((item) => io.unobserve(item))
     }
   }, [])
+
+  if (!props.items.length) return null
 
   return (
     <Fragment>

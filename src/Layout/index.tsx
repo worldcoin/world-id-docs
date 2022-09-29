@@ -49,7 +49,7 @@ export const Layout = memo(function Layout(props: {
       <div className="relative z-10">
         <Header navItems={navItems} />
 
-        {isHomePage && <Hero className="mb-24" />}
+        {isHomePage && <Hero className="lg:mb-24 xl:mb-0" />}
 
         <div
           className={cn(
@@ -61,7 +61,7 @@ export const Layout = memo(function Layout(props: {
             }
           )}
         >
-          <aside className="sticky hidden pr-16 border-r top-20 border-858494/20 lg:block">
+          <aside className="sticky top-20 hidden border-r border-858494/20 pr-16 lg:block">
             <Navbar items={navItems} />
           </aside>
 
@@ -72,7 +72,7 @@ export const Layout = memo(function Layout(props: {
                   {section && (
                     <p
                       className={cn(
-                        'bg-9eafc0 font-sora text-16 font-medium',
+                        'bg-black/30 font-sora text-16 font-medium',
                         styles.darkTextGradient
                       )}
                     >
@@ -85,7 +85,7 @@ export const Layout = memo(function Layout(props: {
               <Prose>{props.children}</Prose>
             </article>
 
-            <dl className="grid pt-8 mt-8 border-t gap-y-8 border-slate-200 dark:border-slate-800 lg:mt-16 lg:grid-cols-2 lg:pt-16">
+            <dl className="mt-8 grid gap-y-8 border-t border-slate-200 pt-8 dark:border-slate-800 lg:mt-16 lg:grid-cols-2 lg:pt-16">
               {previousPage?.href && (
                 <div className="text-center lg:text-left">
                   <dt
@@ -98,16 +98,15 @@ export const Layout = memo(function Layout(props: {
                   </dt>
 
                   <dd className="mt-1">
-                    <Link href={previousPage.href}>
-                      <a
-                        className={cn(
-                          'bg-211c29 font-sora text-20 font-semibold',
-                          styles.darkTextGradient
-                        )}
-                      >
-                        <span aria-hidden="true">&larr;</span>{' '}
-                        {previousPage.title}
-                      </a>
+                    <Link
+                      href={previousPage.href}
+                      className={cn(
+                        'bg-211c29 font-sora text-20 font-semibold',
+                        styles.darkTextGradient
+                      )}
+                    >
+                      <span aria-hidden="true">&larr;</span>{' '}
+                      {previousPage.title}
                     </Link>
                   </dd>
                 </div>
@@ -125,15 +124,14 @@ export const Layout = memo(function Layout(props: {
                   </dt>
 
                   <dd className="mt-1">
-                    <Link href={nextPage.href}>
-                      <a
-                        className={cn(
-                          'bg-211c29 font-sora text-20 font-semibold',
-                          styles.darkTextGradient
-                        )}
-                      >
-                        {nextPage.title} <span aria-hidden="true">&rarr;</span>
-                      </a>
+                    <Link
+                      href={nextPage.href}
+                      className={cn(
+                        'bg-211c29 font-sora text-20 font-semibold',
+                        styles.darkTextGradient
+                      )}
+                    >
+                      {nextPage.title} <span aria-hidden="true">&rarr;</span>
                     </Link>
                   </dd>
                 </div>
@@ -141,7 +139,7 @@ export const Layout = memo(function Layout(props: {
             </dl>
           </main>
 
-          <aside className="sticky hidden pl-16 top-20 gap-y-9 lg:grid">
+          <aside className="sticky top-20 hidden gap-y-9 pl-16 lg:grid">
             <TableOfContent items={props.tableOfContents} />
           </aside>
         </div>

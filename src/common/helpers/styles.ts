@@ -1,9 +1,10 @@
 export const styles = {
-  screenPadding:
-    'px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-[calc((100vw-1440px)/2)]',
+  screenPadding: 'px-4 md:px-8 lg:px-16',
   gradient: 'bg-gradient-to-r from-fff0ed to-edecfc',
-  textGradient: 'text-transparent bg-clip-text bg-gradient-to-r from-fff0ed to-edecfc',
-  darkTextGradient: 'text-transparent bg-clip-text dark:bg-gradient-to-r from-fff0ed to-edecfc',
+  textGradient:
+    'text-transparent bg-clip-text bg-gradient-to-r from-fff0ed to-edecfc',
+  darkTextGradient:
+    'text-transparent bg-clip-text dark:bg-gradient-to-r from-fff0ed to-edecfc',
   headerButton:
     'p-1 border rounded-lg border-262f41/10 bg-1a2436/5 text-94a2b8 dark:border-262f41 dark:bg-1a2436',
   fenceBorder:

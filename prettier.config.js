@@ -1,5 +1,5 @@
 module.exports = {
-  singleQuote: true,
   semi: false,
+  singleQuote: true,
   plugins: [require('prettier-plugin-tailwindcss')],
 }

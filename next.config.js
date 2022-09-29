@@ -15,6 +15,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  experimental: {
+    newNextLinkBehavior: true,
+  },
   async redirects() {
     return [
       {

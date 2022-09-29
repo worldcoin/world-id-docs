@@ -24,17 +24,17 @@ export const Navigation = memo(function Navigation(props: {
               {item.items?.map((link) =>
                 link?.href ? (
                   <li key={link.href} className="relative">
-                    <Link href={link.href}>
-                      <a
-                        className={cn('block w-full border-l py-1 pl-3.5', {
-                          'border-8e87ff text-8e87ff dark:text-ffffff':
-                            router.pathname === link.href,
-                          'border-9eafc0 text-9eafc0':
-                            router.pathname !== link.href,
-                        })}
-                      >
-                        {link.title}
-                      </a>
+                    <Link
+                      href={link.href}
+                      className={cn('block w-full border-l py-1 pl-3.5', {
+                        'border-8e87ff text-8e87ff dark:text-ffffff':
+                          router.pathname === link.href,
+                        'border-9eafc0 text-9eafc0':
+                          router.pathname !== link.href,
+                      })}>
+
+                      {link.title}
+
                     </Link>
                   </li>
                 ) : null
@@ -44,5 +44,5 @@ export const Navigation = memo(function Navigation(props: {
         ))}
       </ul>
     </nav>
-  )
+  );
 })

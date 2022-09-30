@@ -34,7 +34,9 @@ export const Items = memo(function Items(props: {
           style={{ paddingLeft: `${(props.level || 0) * 24}px` }}
           key={item.id}
         >
-          <Link href={`#${item.id}`}>{item.title}</Link>
+          <Link className="truncate" href={`#${item.id}`}>
+            {item.title}
+          </Link>
 
           <Items
             items={item.children}

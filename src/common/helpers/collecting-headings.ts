@@ -3,9 +3,6 @@ import { TOC } from 'common/types'
 import { HTMLElement } from 'node-html-parser'
 
 export const collectHeadings = (html: HTMLElement): TOC => {
-  console.log(html
-    .querySelectorAll('h2,h3'));
-
   return html
     .querySelectorAll('h2,h3')
     .reduce<TOC>((result, node, nodeIndex) => {

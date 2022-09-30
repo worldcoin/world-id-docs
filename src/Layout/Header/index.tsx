@@ -8,9 +8,7 @@ import { ThemeSelector } from 'Layout/Header/ThemeSelector'
 import Link from 'next/link'
 import { memo, useEffect, useState } from 'react'
 
-export const Header = memo(function Header(props: {
-  navItems: NavItems
-}) {
+export const Header = memo(function Header(props: { navItems: NavItems }) {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -35,17 +33,17 @@ export const Header = memo(function Header(props: {
         }
       )}
     >
-      <div className="flex mr-6 lg:hidden">
+      <div className="mr-6 flex lg:hidden">
         <MobileMenu navItems={props.navItems} />
       </div>
 
-      <div className="relative flex items-center flex-grow basis-0">
+      <div className="relative flex flex-grow basis-0 items-center">
         <Link href="/" aria-label="Home page">
           <Logo className="hidden lg:block" />
         </Link>
       </div>
 
-      <div className="mr-6 -my-5 sm:mr-8 md:mr-0">
+      <div className="-my-5 mr-6 sm:mr-8 md:mr-0">
         <Search
           className={cn(
             'relative before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:transition-colors',
@@ -57,13 +55,18 @@ export const Header = memo(function Header(props: {
         />
       </div>
 
-      <div className="relative flex justify-end gap-6 basis-0 sm:gap-8 md:flex-grow">
+      <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:flex-grow">
         <ThemeSelector className="relative z-10" />
 
-        <Link href="https://github.com" className="group" aria-label="GitHub">
+        <Link
+          href="https://github.com/worldcoin/world-id-docs"
+          className="group"
+          target="_blank"
+          aria-label="GitHub"
+        >
           <Icon
             name="github"
-            className="w-6 h-6 text-181b1f dark:text-94a2b8"
+            className="h-6 w-6 text-181b1f dark:text-94a2b8"
           />
         </Link>
       </div>

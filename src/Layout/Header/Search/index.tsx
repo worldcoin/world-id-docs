@@ -78,7 +78,7 @@ export const Search = memo(function Search(props: { className?: string }) {
             hitComponent={(props: {
               hit: InternalDocSearchHit | StoredDocSearchHit
               children: ReactNode
-            }) => <Link href={props.hit.url}>{props.children}</Link>}
+            }) => <Link href={props.hit.url} legacyBehavior>{props.children}</Link>}
             navigator={{
               navigate({ itemUrl }) {
                 Router.push(itemUrl)
@@ -88,5 +88,5 @@ export const Search = memo(function Search(props: { className?: string }) {
           document.body
         )}
     </Fragment>
-  )
+  );
 })

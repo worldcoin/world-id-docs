@@ -7,7 +7,7 @@ code {
 }
 
 .line-border {
-  @apply absolute top-0 w-px h-full left-8 bg-70868f;
+  @apply absolute top-0 left-8 h-full w-px bg-70868f;
 }
 
 .line.number {

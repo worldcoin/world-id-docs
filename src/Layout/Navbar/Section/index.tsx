@@ -33,11 +33,11 @@ export const Section = memo(function Section(
         )}
 
         {props.href ? (
-          <Link href={props.href}>
-            <a className="font-semibold text-20">{props.title}</a>
+          <Link href={props.href} className="text-20 font-semibold">
+            {props.title}
           </Link>
         ) : (
-          <p className="font-semibold text-20">{props.title}</p>
+          <p className="text-20 font-semibold">{props.title}</p>
         )}
       </div>
 
@@ -47,30 +47,26 @@ export const Section = memo(function Section(
             <Link
               key={`${slugify(item.title)}-${id}`}
               href={item.href || '#!'}
-              className="pl-3 cursor-pointer"
+              className={cn(
+                'min-w-[100px] cursor-pointer select-none border-l-2 py-4 pl-3 transition-colors duration-300 hover:text-ffffff/70',
+                {
+                  'border-black/10 dark:border-858494/50': !isCurrent(
+                    item.href
+                  ),
+                  'border-8e87ff dark:border-ffffff': isCurrent(item.href),
+                }
+              )}
             >
-              <a
-                className={cn(
-                  'min-w-[100px] select-none border-l-2 py-4 transition-colors duration-300 hover:text-ffffff/70',
-                  {
-                    'border-9eafc0/50 dark:border-858494/50': !isCurrent(
-                      item.href
-                    ),
-                    'border-8e87ff dark:border-ffffff': isCurrent(item.href),
-                  }
-                )}
+              <span
+                className={cn('block truncate pl-6 pr-10', {
+                  'text-black/40 dark:text-70868f': !isCurrent(item.href),
+                  [`${cn('bg-8e87ff', styles.darkTextGradient)}`]: isCurrent(
+                    item.href
+                  ),
+                })}
               >
-                <span
-                  className={cn('block truncate pl-6 pr-10', {
-                    'text-9eafc0 dark:text-70868f': !isCurrent(item.href),
-                    [`${cn('bg-8e87ff', styles.darkTextGradient)}`]: isCurrent(
-                      item.href
-                    ),
-                  })}
-                >
-                  {item.title}
-                </span>
-              </a>
+                {item.title}
+              </span>
             </Link>
           ))}
         </div>

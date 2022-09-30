@@ -6,7 +6,7 @@ import { Icon, IconType } from '../Icon'
 
 export function QuickLinks(props: { children: ReactNode }) {
   return (
-    <div className="grid grid-cols-1 gap-6 my-12 not-prose sm:grid-cols-2">
+    <div className="not-prose my-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
       {props.children}
     </div>
   )
@@ -23,8 +23,8 @@ export function QuickLink(props: {
       <div className={styles.fenceBorder} />
 
       <div className={cn('h-full bg-ffffff', styles.fenceBorderInner)}>
-        <div className="relative grid content-between h-full p-4 justify-items-start bg-9eafc0/10 dark:bg-181b1f lg:p-8">
-          <span className="grid p-2 rounded-full bg-8e87ff dark:bg-transparent dark:p-0">
+        <div className="relative grid h-full content-between justify-items-start bg-9eafc0/10 p-4 dark:bg-181b1f lg:p-8">
+          <span className="grid rounded-full bg-8e87ff p-2 dark:bg-transparent dark:p-0">
             <Icon
               name={props.icon}
               className={cn('h-8 w-8', styles.gradient)}

@@ -77,7 +77,7 @@
       "name": "Worldcoin x POAP",
       "repository": "worldcoin/world-id-poap",
       "sync_readme": false,
-      "description": ""
+      "description": "Sybil-resistant POAP distribution!"
     }
   ]
 }

@@ -47,9 +47,8 @@ export const Section = memo(function Section(
             <Link
               key={`${slugify(item.title)}-${id}`}
               href={item.href || '#!'}
-              className="cursor-pointer pl-3"
               className={cn(
-                'min-w-[100px] select-none border-l-2 py-4 transition-colors duration-300 hover:text-ffffff/70',
+                'min-w-[100px] cursor-pointer select-none border-l-2 py-4 pl-3 transition-colors duration-300 hover:text-ffffff/70',
                 {
                   'border-black/10 dark:border-858494/50': !isCurrent(
                     item.href

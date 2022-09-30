@@ -59,7 +59,7 @@ export const Header = memo(function Header(props: { navItems: NavItems }) {
         <ThemeSelector className="relative z-10" />
 
         <Link
-          href="https://github.com/worldcoin/world-id-js"
+          href="https://github.com/worldcoin/world-id-docs"
           className="group"
           target="_blank"
           aria-label="GitHub"

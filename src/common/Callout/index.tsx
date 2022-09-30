@@ -47,7 +47,7 @@ export const Callout = memo(function Callout(props: {
           </p>
         </div>
 
-        <div className="prose mt-2.5">{props.children}</div>
+        <div className="">{props.children}</div>
       </div>
     </div>
   )

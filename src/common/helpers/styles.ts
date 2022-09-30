@@ -1,5 +1,6 @@
 export const styles = {
-  screenPadding: 'px-4 md:px-8 lg:px-16',
+  screenPadding:
+    'px-4 md:px-8 lg:px-8 xl:px-16 2xl:px-[calc((100vw-1540px)/2)]',
   gradient: 'bg-gradient-to-r from-fff0ed to-edecfc',
   textGradient:
     'text-transparent bg-clip-text bg-gradient-to-r from-fff0ed to-edecfc',

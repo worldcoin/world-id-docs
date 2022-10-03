@@ -3,7 +3,12 @@
   "enabled": true,
   "language": "en-US",
   "allowCompoundWords": true,
-  "dictionaries": ["typescript", "node", "npm", "html"],
+  "dictionaries": [
+    "typescript",
+    "node",
+    "npm",
+    "html"
+  ],
   "enabledLanguageIds": [
     "typescript",
     "typescriptreact",
@@ -24,7 +29,6 @@
     "horiz",
     "illu",
     "incentivizes",
-    "JWT",
     "JWK",
     "JWKs",
     "JWT",
@@ -33,6 +37,7 @@
     "merkle",
     "Mesha",
     "nullifer",
+    "Orbz",
     "petorbz",
     "POAP",
     "roboto",

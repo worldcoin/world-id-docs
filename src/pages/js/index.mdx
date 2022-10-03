@@ -31,7 +31,7 @@ If your app is built on React, using the React widget is by far the easiest appr
 
 ```tsx
 import { WorldIDWidget } from '@worldcoin/id'
-<WorldIDWidget
+;<WorldIDWidget
   actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
   signal="my_signal"
   enableTelemetry
@@ -144,9 +144,7 @@ https://id.worldcoin.org/use?action_id=0x32D59776E91fdb3F377755e12cEC05d9067c2B4
   </thead>
   <tbody>
     <tr>
-      <td>
-        <code>return_to</code>
-      </td>
+      <td>`return_to`</td>
       <td>Yes</td>
       <td>
         The URL to where the user will be redirected upon successful completion.
@@ -161,9 +159,7 @@ https://id.worldcoin.org/use?action_id=0x32D59776E91fdb3F377755e12cEC05d9067c2B4
       </td>
     </tr>
     <tr>
-      <td>
-        <code>action_id</code>
-      </td>
+      <td>`action_id`</td>
       <td>Yes</td>
       <td>
         Unique identifier for the action being verified. Read more about the{' '}
@@ -171,9 +167,7 @@ https://id.worldcoin.org/use?action_id=0x32D59776E91fdb3F377755e12cEC05d9067c2B4
       </td>
     </tr>
     <tr>
-      <td>
-        <code>signal</code>
-      </td>
+      <td>`signal`</td>
       <td>Yes</td>
       <td>
         Read more about the [signal](/about/glossary#signal). You will usually
@@ -182,9 +176,7 @@ https://id.worldcoin.org/use?action_id=0x32D59776E91fdb3F377755e12cEC05d9067c2B4
       </td>
     </tr>
     <tr>
-      <td>
-        <code>app_name</code>
-      </td>
+      <td>`app_name`</td>
       <td>No</td>
       <td>
         <b>Highly recommended!</b> The name of your app/project/company. This
@@ -193,9 +185,7 @@ https://id.worldcoin.org/use?action_id=0x32D59776E91fdb3F377755e12cEC05d9067c2B4
       </td>
     </tr>
     <tr>
-      <td>
-        <code>signal_description</code>
-      </td>
+      <td>`signal_description`</td>
       <td>No</td>
       <td>
         <b>Highly recommended!</b> The description of the specific action the

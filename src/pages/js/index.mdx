@@ -31,7 +31,8 @@ If your app is built on React, using the React widget is by far the easiest appr
 
 ```tsx
 import { WorldIDWidget } from '@worldcoin/id'
-;<WorldIDWidget
+
+<WorldIDWidget
   actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
   signal="my_signal"
   enableTelemetry
@@ -56,6 +57,7 @@ If your app is built on Next.js, you should use the React widget, but it's criti
 
 ```tsx
 import { WidgetProps } from '@worldcoin/id'
+
 const WorldIDWidget = dynamic<WidgetProps>(
   () => import('@worldcoin/id').then((mod) => mod.WorldIDWidget),
   { ssr: false }

@@ -38,9 +38,7 @@ The JS package may return any of the following error codes.
   </thead>
   <tbody>
     <tr>
-      <td>
-        <code>connection_failed</code>
-      </td>
+      <td>`connection_failed`</td>
       <td>Could not establish a connection to the WLD app.</td>
       <td>
         Ask the user to check their internet connection on both devices running
@@ -49,16 +47,12 @@ The JS package may return any of the following error codes.
       </td>
     </tr>
     <tr>
-      <td>
-        <code>verification_rejected</code>
-      </td>
+      <td>`verification_rejected`</td>
       <td>User rejected the World ID request in their WLD app.</td>
       <td>If this was a mistake, ask the user to go through the flow again.</td>
     </tr>
     <tr>
-      <td>
-        <code>already_signed</code>
-      </td>
+      <td>`already_signed`</td>
       <td>
         This person has already submitted a proof for the particular action.
       </td>
@@ -67,23 +61,17 @@ The JS package may return any of the following error codes.
       </td>
     </tr>
     <tr>
-      <td>
-        <code>invalid_action_id</code>
-      </td>
+      <td>`invalid_action_id`</td>
       <td>The action ID provided to the JS widget is not valid.</td>
       <td>Check the action ID. Make sure it's a valid string.</td>
     </tr>
     <tr>
-      <td>
-        <code>invalid_signal</code>
-      </td>
+      <td>`invalid_signal`</td>
       <td>The signal provided to the JS widget is not valid.</td>
       <td>Check the signal. Make sure it's a valid string or address.</td>
     </tr>
     <tr>
-      <td>
-        <code>unexpected_response</code>
-      </td>
+      <td>`unexpected_response`</td>
       <td>There was a problem with the response obtained from the WLD app.</td>
       <td>
         Check the JS console for further details, though in most cases these
@@ -91,9 +79,7 @@ The JS package may return any of the following error codes.
       </td>
     </tr>
     <tr>
-      <td>
-        <code>generic_error</code>
-      </td>
+      <td>`generic_error`</td>
       <td>An unhandled exception occurred.</td>
       <td>
         Check the JS console for further details, though in most cases these

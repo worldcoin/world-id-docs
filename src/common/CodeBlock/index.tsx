@@ -1,6 +1,6 @@
 import cn from 'classnames'
-import Highlight, { Language, defaultProps } from 'prism-react-renderer'
 import { Fragment, memo, ReactNode, useMemo } from 'react'
+import Highlight, { Language, defaultProps } from 'prism-react-renderer'
 
 export const CodeBlock = memo(function CodeBlock(props: {
   children?: ReactNode
@@ -11,21 +11,19 @@ export const CodeBlock = memo(function CodeBlock(props: {
   const language = useMemo(
     () =>
       (props.language ||
-        props.className?.match(/language-(.*)\s/)?.[1] ||
+        props.className?.match(/language-(.*)\b/)?.[1] ||
         'javascript') as Language,
     [props]
   )
 
-  if (!props.children) {
-    return null
-  }
+  if (!props.children) return null
 
   return (
     <Highlight
       {...defaultProps}
-      code={String(props.children).trimEnd()}
-      language={language}
       theme={undefined}
+      language={language}
+      code={String(props.children).trimEnd()}
     >
       {({ className, style, tokens, getTokenProps }) => (
         <code

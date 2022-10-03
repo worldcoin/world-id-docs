@@ -33,11 +33,11 @@ export const Section = memo(function Section(
         )}
 
         {props.href ? (
-          <Link href={props.href} className="text-20 font-semibold">
+          <Link href={props.href} className="truncate text-20 font-semibold">
             {props.title}
           </Link>
         ) : (
-          <p className="text-20 font-semibold">{props.title}</p>
+          <p className="truncate text-20 font-semibold">{props.title}</p>
         )}
       </div>
 

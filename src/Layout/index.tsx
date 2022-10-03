@@ -61,11 +61,14 @@ export const Layout = memo(function Layout(props: {
             }
           )}
         >
-          <aside className="sticky top-20 hidden border-r border-858494/20 pr-16 lg:block">
+          <aside className="sticky top-20 hidden border-r border-858494/20 lg:block lg:pr-4 2xl:pr-16">
             <Navbar items={navItems} />
           </aside>
 
-          <main ref={mainRef} className="max-w-full overflow-hidden lg:px-16">
+          <main
+            ref={mainRef}
+            className="max-w-full overflow-hidden lg:min-w-[650px] lg:px-8 2xl:px-16"
+          >
             <article>
               {(props.title || section) && (
                 <header className="mb-3">
@@ -139,7 +142,7 @@ export const Layout = memo(function Layout(props: {
             </dl>
           </main>
 
-          <aside className="sticky top-20 hidden gap-y-9 pl-16 lg:grid">
+          <aside className="sticky top-20 hidden gap-y-9 lg:grid lg:pl-8 2xl:pl-16">
             <TableOfContent items={props.tableOfContents} />
           </aside>
         </div>

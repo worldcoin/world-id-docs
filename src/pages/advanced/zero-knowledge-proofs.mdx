@@ -2,9 +2,31 @@ import { Callout } from 'common/Callout'
 
 # Zero-knowledge proofs
 
-<Callout title="Caution" type="warning">
-  This section is currently being developed and detailed information on
-  Zero-knowledge proofs will be added soon.
-</Callout>
 
-A Zero-knowledge proof is a cryptographic mechanism that lets someone prove they know a secret without revealing the secret.
+## Introduction 
+
+Zero-Knowledge Proofs is a cryptographic mechanism to prove a secret without revealing it to the verifier.
+This is possible through the use of complex math under the hood. Thanks to the cryptographers
+who worked on the moonmath for us . 
+
+A simple example is to cryptographically prove you are above 18 years of age .
+
+A Zk Proof should have the following 3 properties:
+- Completeness: If you are above 18 , verifier will be convinced with a high probability
+- Soundness: Very low probability of cheating 
+- Zero knowledge: Your exact age is not shared
+
+## How does WorldCoin makes use of Zero Knowledge Proofs?
+
+After the orb scans your Iris, your unique identity is added to the pool of Unique humans.
+Everytime you want to prove your identity, you can prove that you are a part of the pool , without revealing any 
+extra information.
+
+## Use Cases  
+
+- Proof of Personhood: WorldCoin
+- Scaling L1s: ZkEvm( Polygon,Zksync,Scroll)
+- Fund Mixers in public Blockchains: Tornado Cash
+
+
+

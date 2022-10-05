@@ -100,7 +100,7 @@ export default function Use() {
 
         <div
           className={cn(
-            'self-center justify-self-center lg:max-w-[400px]',
+            'self-center justify-self-center md:max-w-[600px] lg:max-w-[400px]',
             styles.screenPadding
           )}
         >

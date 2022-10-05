@@ -100,7 +100,7 @@ export default function Use() {
 
         <div
           className={cn(
-            'grid justify-items-center self-center',
+            'grid justify-items-center self-center py-10',
             styles.screenPadding
           )}
         >

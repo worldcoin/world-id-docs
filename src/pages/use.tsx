@@ -175,10 +175,25 @@ export default function Use() {
                 <a className={cn('bg-8e87ff', styles.darkTextGradient)}>
                   the docs
                 </a>
-              </Link>{' '}
+              </Link>&nbsp;
               for this hosted version of the World ID widget.
             </p>
           )}
+        </div>
+        <div className={cn('py-5 text-20', styles.screenPadding)}>
+          Learn more about&nbsp;
+          <Link href="/">
+            <a className={cn('bg-8e87ff', styles.darkTextGradient)}>World ID</a>
+          </Link>
+
+          &nbsp; and about&nbsp;
+
+          <Link href="https://worldcoin.org">
+            <a className={cn('bg-8e87ff', styles.darkTextGradient)}>
+              Worldcoin
+            </a>
+          </Link>
+          .
         </div>
       </div>
     </Fragment>

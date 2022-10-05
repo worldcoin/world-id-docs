@@ -100,88 +100,90 @@ export default function Use() {
 
         <div
           className={cn(
-            'self-center justify-self-center md:max-w-[600px] lg:max-w-[400px]',
+            'grid justify-items-center self-center',
             styles.screenPadding
           )}
         >
-          <div className={cn('relative')}>
-            <div className={styles.fenceBorder} />
+          <div className="relative max-w-[min(550px,_100vw)]">
+            <div className="relative">
+              <div className={styles.fenceBorder} />
 
-            <div
-              className={cn(
-                'relative grid justify-items-center gap-4 bg-ebedef p-8 text-center dark:bg-161b22',
-                styles.fenceBorderInner
-              )}
-            >
-              <h1 className="font-semibold font-sora text-30">
-                Welcome to World ID
-              </h1>
+              <div
+                className={cn(
+                  'relative grid justify-items-center gap-4 bg-ebedef p-8 text-center dark:bg-161b22',
+                  styles.fenceBorderInner
+                )}
+              >
+                <h1 className="font-semibold font-sora text-30">
+                  Welcome to World ID
+                </h1>
 
-              <p>Verify you are a unique human with World ID.</p>
+                <p>Verify you are a unique human with World ID.</p>
 
-              {state === State.Ready && (
-                <Fragment>
-                  <WorldIDWidget
-                    actionId={queryParams.action_id as string}
-                    signal={queryParams.signal as string}
-                    enableTelemetry
-                    onSuccess={handleSuccess}
-                    onError={handleError}
-                  />
+                {state === State.Ready && (
+                  <Fragment>
+                    <WorldIDWidget
+                      actionId={queryParams.action_id as string}
+                      signal={queryParams.signal as string}
+                      enableTelemetry
+                      onSuccess={handleSuccess}
+                      onError={handleError}
+                    />
 
-                  <button
-                    onClick={handleContinue}
-                    disabled={!proof}
-                    className={cn(
-                      'inline-block rounded-2xl bg-181b1f px-6 py-3 shadow-[0_0_16px] shadow-d2e7f7/25',
-                      'disabled:opacity-20 dark:bg-gradient-to-r dark:from-fff0ed dark:to-edecfc'
-                    )}
-                  >
-                    <span
+                    <button
+                      onClick={handleContinue}
+                      disabled={!proof}
                       className={cn(
-                        'text-16 font-medium dark:text-111f24',
-                        styles.textGradient
+                        'inline-block rounded-2xl bg-181b1f px-6 py-3 shadow-[0_0_16px] shadow-d2e7f7/25',
+                        'disabled:opacity-20 dark:bg-gradient-to-r dark:from-fff0ed dark:to-edecfc'
                       )}
                     >
-                      Continue
-                    </span>
-                  </button>
-                </Fragment>
-              )}
+                      <span
+                        className={cn(
+                          'text-16 font-medium dark:text-111f24',
+                          styles.textGradient
+                        )}
+                      >
+                        Continue
+                      </span>
+                    </button>
+                  </Fragment>
+                )}
 
-              {state === State.MissingParams && (
-                <div className="text-center">
-                  <p className="text-ff6848">
-                    It looks like some parameters are missing or invalid from
-                    this request. Please check your link and try again.
-                  </p>
-                </div>
-              )}
+                {state === State.MissingParams && (
+                  <div className="text-center">
+                    <p className="text-ff6848">
+                      It looks like some parameters are missing or invalid from
+                      this request. Please check your link and try again.
+                    </p>
+                  </div>
+                )}
 
-              {error && (
-                <div className="text-center">
-                  <p className="text-ff6848">
-                    Something doing wrong, check console for details
-                  </p>
-                </div>
-              )}
+                {error && (
+                  <div className="text-center">
+                    <p className="text-ff6848">
+                      Something doing wrong, check console for details
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          {state === State.MissingParams && (
-            <p className="mt-4 text-center">
-              If you&apos;re a developer, check&nbsp;
-              <Link href="/js#hosted-version">
-                <a className={cn('bg-8e87ff', styles.darkTextGradient)}>
-                  the docs
-                </a>
-              </Link>
-              &nbsp; for this hosted version of the World ID widget.
-            </p>
-          )}
+            {state === State.MissingParams && (
+              <p className="mt-4 text-center">
+                If you&apos;re a developer, check&nbsp;
+                <Link href="/js#hosted-version">
+                  <a className={cn('bg-8e87ff', styles.darkTextGradient)}>
+                    the docs
+                  </a>
+                </Link>
+                &nbsp; for this hosted version of the World ID widget.
+              </p>
+            )}
+          </div>
         </div>
 
-        <div className={cn('py-5 text-20', styles.screenPadding)}>
+        <div className={cn('p-4 text-20')}>
           Learn more about&nbsp;
           <Link href="/">
             <a className={cn('bg-8e87ff', styles.darkTextGradient)}>World ID</a>

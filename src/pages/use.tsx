@@ -171,27 +171,22 @@ export default function Use() {
           {state === State.MissingParams && (
             <p className="mt-4 text-center">
               If you&apos;re a developer, check&nbsp;
-
               <Link href="/js#hosted-version">
                 <a className={cn('bg-8e87ff', styles.darkTextGradient)}>
                   the docs
                 </a>
-              </Link>&nbsp;
-
-              for this hosted version of the World ID widget.
+              </Link>
+              &nbsp; for this hosted version of the World ID widget.
             </p>
           )}
         </div>
 
         <div className={cn('py-5 text-20', styles.screenPadding)}>
           Learn more about&nbsp;
-
           <Link href="/">
             <a className={cn('bg-8e87ff', styles.darkTextGradient)}>World ID</a>
           </Link>
-
           &nbsp; and about&nbsp;
-
           <Link href="https://worldcoin.org">
             <a className={cn('bg-8e87ff', styles.darkTextGradient)}>
               Worldcoin

@@ -93,6 +93,7 @@ module.exports = {
         20: ['calc(20 * 1rem / 16)', { lineHeight: '1.2' }],
         24: ['calc(24 * 1rem / 16)', { lineHeight: '1.3' }],
         26: ['calc(26 * 1rem / 16)', { lineHeight: '1.2' }],
+        30: ['calc(30 * 1rem / 16)', { lineHeight: '1.2' }],
         34: ['calc(34 * 1rem / 16)', { lineHeight: '1.2' }],
         44: ['calc(44 * 1rem / 16)', { lineHeight: '1.2' }],
       },

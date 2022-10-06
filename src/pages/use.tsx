@@ -186,13 +186,13 @@ export default function Use() {
         <div className={cn('p-4 text-20')}>
           Learn more about&nbsp;
           <Link href="/">
-            <a className={cn('bg-8e87ff', styles.darkTextGradient)}>World ID</a>
+            <span className={cn('bg-8e87ff', styles.darkTextGradient)}>World ID</span>
           </Link>
           &nbsp; and about&nbsp;
           <Link href="https://worldcoin.org">
-            <a className={cn('bg-8e87ff', styles.darkTextGradient)}>
+            <span className={cn('bg-8e87ff', styles.darkTextGradient)}>
               Worldcoin
-            </a>
+            </span>
           </Link>
           .
         </div>

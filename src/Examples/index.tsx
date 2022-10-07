@@ -4,8 +4,6 @@ import cn from 'classnames'
 import { styles } from 'common/helpers/styles'
 import slugify from '@sindresorhus/slugify'
 import { SystemThemes, ThemeContext } from 'common/contexts/ThemeContext'
-import { Layout } from 'Layout'
-import { TOC } from 'common/types'
 
 // @FIXME add proper links
 const examples = [
@@ -116,9 +114,7 @@ const ButtonText = memo(function ButtonText(props: {
   )
 })
 
-export const Examples = memo(function Examples(props: {
-  tableOfContents?: TOC
-}) {
+export const Examples = memo(function Examples() {
   const [filter, setFilter] = useState<Array<string>>([])
   const { currentTheme } = useContext(ThemeContext)
 
@@ -179,71 +175,69 @@ export const Examples = memo(function Examples(props: {
     [currentTheme]
   )
 
-  return !props.tableOfContents ? null : (
-    <Layout tableOfContents={props.tableOfContents ?? []}>
-      <div className="grid gap-y-16">
-        <div className="text-center font-sora text-34 font-semibold text-6f7a85">
-          <span
-            className={cn('text-181b1f', {
-              [styles.textGradient]: currentTheme === 'dark',
-            })}
-          >
-            Explore the potential of World ID
-          </span>{' '}
-          and inspire with app examples
-        </div>
+  return (
+    <div className="grid gap-y-16">
+      <div className="text-center font-sora text-34 font-semibold text-6f7a85">
+        <span
+          className={cn('text-181b1f', {
+            [styles.textGradient]: currentTheme === 'dark',
+          })}
+        >
+          Explore the potential of World ID
+        </span>{' '}
+        and inspire with app examples
+      </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <button
+          className={getButtonClassName(filter.length === 0)}
+          onClick={() => setFilter([])}
+        >
+          <ButtonText
+            currentTheme={currentTheme}
+            condition={filter.length === 0}
+          >
+            All Apps
+          </ButtonText>
+        </button>
+
+        {tags.map((tag, id) => (
           <button
-            className={getButtonClassName(filter.length === 0)}
-            onClick={() => setFilter([])}
+            onClick={() => toggleFilter(tag)}
+            className={getButtonClassName(isTagSelected(tag))}
+            key={`${slugify(tag)}-${id}`}
           >
             <ButtonText
               currentTheme={currentTheme}
-              condition={filter.length === 0}
+              condition={isTagSelected(tag)}
             >
-              All Apps
+              {tag}
             </ButtonText>
           </button>
-
-          {tags.map((tag, id) => (
-            <button
-              onClick={() => toggleFilter(tag)}
-              className={getButtonClassName(isTagSelected(tag))}
-              key={`${slugify(tag)}-${id}`}
-            >
-              <ButtonText
-                currentTheme={currentTheme}
-                condition={isTagSelected(tag)}
-              >
-                {tag}
-              </ButtonText>
-            </button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-          {examples.map((example, id) => {
-            if (
-              filter.length === 0 ||
-              example.tags.some((tag) => isTagSelected(tag))
-            ) {
-              return (
-                <Card
-                  key={`${slugify(example.title)}-${id}`}
-                  image={example.image}
-                  title={example.title}
-                  description={example.description}
-                  tags={example.tags}
-                  href={example.href}
-                />
-              )
-            }
-
-            return null
-          })}
-        </div>
+        ))}
       </div>
-    </Layout>
+
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+        {examples.map((example, id) => {
+          if (
+            filter.length === 0 ||
+            example.tags.some((tag) => isTagSelected(tag))
+          ) {
+            return (
+              <Card
+                key={`${slugify(example.title)}-${id}`}
+                image={example.image}
+                title={example.title}
+                description={example.description}
+                tags={example.tags}
+                href={example.href}
+              />
+            )
+          }
+
+          return null
+        })}
+      </div>
+    </div>
   )
 })

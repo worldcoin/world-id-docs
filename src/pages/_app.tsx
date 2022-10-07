@@ -54,7 +54,7 @@ export default function MyApp(pageProps: AppProps) {
           </Layout>
         )}
 
-        {!isMDX && <pageProps.Component />}
+        {!isMDX && <pageProps.Component tableOfContents={tableOfContents} />}
       </MDXProvider>
     </ThemeProvider>
   )

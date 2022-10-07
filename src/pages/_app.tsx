@@ -12,6 +12,8 @@ import { findPageDescription } from 'common/helpers/find-page-description'
 import { Fence } from 'common/Fence'
 import { CodeBlock } from 'common/CodeBlock'
 import { Link } from 'common/Link'
+import { ThemeProvider } from 'common/contexts/ThemeContext'
+import { useRouter } from 'next/router'
 
 const components = {
   h2: (props: { children?: ReactNode }) => (
@@ -29,6 +31,8 @@ const components = {
 }
 
 export default function MyApp(pageProps: AppProps) {
+  const router = useRouter()
+
   const pageContent = useMemo(
     () => <pageProps.Component {...pageProps} />,
     [pageProps]
@@ -38,12 +42,12 @@ export default function MyApp(pageProps: AppProps) {
   const tableOfContents = collectHeadings(pageHtml)
   const pageTitle = findPageTitle(pageHtml)
   const pageDescription = findPageDescription(pageHtml)
-  const isMDX = pageProps.Component.name === 'MDXContent'
+  const isUsePage = useMemo(() => router.pathname === '/use', [router.pathname])
 
   return (
-    <>
+    <ThemeProvider>
       <MDXProvider components={components}>
-        {isMDX && (
+        {!isUsePage && (
           <Layout
             title={pageTitle}
             description={pageDescription}
@@ -53,8 +57,8 @@ export default function MyApp(pageProps: AppProps) {
           </Layout>
         )}
 
-        {!isMDX && <pageProps.Component />}
+        {isUsePage && <pageProps.Component {...pageProps} />}
       </MDXProvider>
-    </>
+    </ThemeProvider>
   )
 }

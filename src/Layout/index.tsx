@@ -26,11 +26,7 @@ export const Layout = memo(function Layout(props: {
   tableOfContents: TOC
 }) {
   const router = useRouter()
-
-  const allLinks = navItems.flatMap((section) =>
-    section.items ? section.items : section
-  )
-
+  const allLinks = navItems.flatMap((section) => section.items)
   const linkIndex = allLinks.findIndex((link) => link?.href === router.pathname)
   const previousPage = allLinks[linkIndex - 1]
   const nextPage = allLinks[linkIndex + 1]

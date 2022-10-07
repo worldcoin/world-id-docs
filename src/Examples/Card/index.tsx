@@ -1,10 +1,11 @@
 import slugify from '@sindresorhus/slugify'
 import cn from 'classnames'
+import { ThemeContext } from 'common/contexts/ThemeContext'
 import { GradientBorderContainer } from 'common/GradientBorderContainer'
 import { styles } from 'common/helpers/styles'
 import { Link } from 'common/Link'
 import Image from 'next/image'
-import { memo } from 'react'
+import { memo, useContext } from 'react'
 import scrollbarStyles from './scrollbar-styles.module.css'
 
 export const Card = memo(function Card(props: {
@@ -14,9 +15,16 @@ export const Card = memo(function Card(props: {
   tags: Array<string>
   href: string
 }) {
+  const { currentTheme } = useContext(ThemeContext)
+
   return (
     <Link href={props.href} className="">
-      <GradientBorderContainer className="grid grid-cols-1 gap-x-4 gap-y-3 self-stretch bg-181b1f p-1.5 sm:grid-cols-fr/auto lg:grid-cols-1">
+      <GradientBorderContainer
+        className={cn(
+          'grid grid-cols-1 gap-x-4 gap-y-3 self-stretch p-1.5 sm:grid-cols-fr/auto lg:grid-cols-1',
+          'bg-[#f5f7f9] dark:bg-181b1f'
+        )}
+      >
         <div className="relative min-h-[180px] sm:min-w-[324px] lg:h-[180px] lg:min-w-[unset]">
           <Image src={props.image} alt="#" layout="fill" objectFit="cover" />
         </div>
@@ -36,8 +44,12 @@ export const Card = memo(function Card(props: {
             {props.tags.map((tag, id) => (
               <span
                 className={cn(
-                  'whitespace-nowrap rounded-full border border-ffffff/10 bg-161b22 py-2 px-3 text-center font-medium',
-                  styles.textGradient
+                  'whitespace-nowrap rounded-full border  py-2 px-3 text-center font-medium',
+                  {
+                    [`border-ffffff/10 bg-161b22 ${styles.textGradient}`]:
+                      currentTheme === 'dark',
+                  },
+                  { 'text-211c29 bg-9eafc0/10': currentTheme === 'light' }
                 )}
                 key={`${slugify(tag)}-${id}`}
               >

@@ -1,8 +1,9 @@
-import { memo, useCallback, useState } from 'react'
+import { memo, useCallback, useContext, useState } from 'react'
 import { Card } from './Card'
 import cn from 'classnames'
 import { styles } from 'common/helpers/styles'
 import slugify from '@sindresorhus/slugify'
+import { SystemThemes, ThemeContext } from 'common/contexts/ThemeContext'
 
 // @FIXME add proper links
 const examples = [
@@ -38,7 +39,7 @@ const examples = [
     image: '/images/examples/bot.svg',
     title: 'World ID Discord Bot',
     description:
-      'The Discord bot lets you quickly improve your community\'s quality by identifying accounts which belong to real humans. Weed out spam accounts, and increase the engagement quality.',
+      "The Discord bot lets you quickly improve your community's quality by identifying accounts which belong to real humans. Weed out spam accounts, and increase the engagement quality.",
     tags: ['cloud', 'api', 'custom user interface'],
   },
 
@@ -93,13 +94,19 @@ const tags = examples.reduce((accumulator: Array<string>, example) => {
 
 const ButtonText = memo(function ButtonText(props: {
   condition: boolean
+  currentTheme: SystemThemes | null
   children: string
 }) {
   return (
     <span
       className={cn(
         'font-rubik text-14 font-medium leading-none',
-        props.condition ? 'text-211c29' : styles.textGradient
+        { 'text-f4f4f4 dark:text-211c29': props.condition },
+        {
+          [styles.textGradient]:
+            !props.condition && props.currentTheme === 'dark',
+        },
+        { 'text-211c29/50': !props.condition && props.currentTheme === 'light' }
       )}
     >
       {props.children}
@@ -109,6 +116,7 @@ const ButtonText = memo(function ButtonText(props: {
 
 export const Examples = memo(function Examples() {
   const [filter, setFilter] = useState<Array<string>>([])
+  const { currentTheme } = useContext(ThemeContext)
 
   const isTagSelected = useCallback(
     (tag: string) => {
@@ -140,21 +148,41 @@ export const Examples = memo(function Examples() {
     [filter, isTagSelected]
   )
 
-  const getButtonClassName = useCallback((condition: boolean) => {
-    return cn(
-      'rounded-2xl border px-6 py-3 leading-none',
-      { [`${styles.gradient} border-transparent`]: condition },
-      {
-        'border-ffffff/10 bg-gradient-to-br from-e6cfcf/10 to-cde0ec/10 shadow-[0px_0px_16px] shadow-d2e7f7/10':
-          !condition,
-      }
-    )
-  }, [])
+  const getButtonClassName = useCallback(
+    (condition: boolean) => {
+      return cn(
+        'rounded-2xl border px-6 py-3 leading-none',
+        {
+          [`${styles.gradient} border-transparent`]:
+            condition && currentTheme === 'dark',
+        },
+        {
+          'bg-211c29 border-transparent': condition && currentTheme === 'light',
+        },
+
+        {
+          'border-ffffff/10 bg-gradient-to-br  shadow-[0px_0px_16px] shadow-d2e7f7/10':
+            !condition,
+        },
+        {
+          'from-e6cfcf/10 to-cde0ec/10': !condition && currentTheme === 'dark',
+        },
+        {
+          'from-e6cfcf/30 to-cde0ec/30': !condition && currentTheme === 'light',
+        }
+      )
+    },
+    [currentTheme]
+  )
 
   return (
     <div className="grid gap-y-16">
       <div className="text-center font-sora text-34 font-semibold text-6f7a85">
-        <span className={cn(styles.textGradient)}>
+        <span
+          className={cn('text-181b1f', {
+            [styles.textGradient]: currentTheme === 'dark',
+          })}
+        >
           Explore the potential of World ID
         </span>{' '}
         and inspire with app examples
@@ -165,7 +193,12 @@ export const Examples = memo(function Examples() {
           className={getButtonClassName(filter.length === 0)}
           onClick={() => setFilter([])}
         >
-          <ButtonText condition={filter.length === 0}>All Apps</ButtonText>
+          <ButtonText
+            currentTheme={currentTheme}
+            condition={filter.length === 0}
+          >
+            All Apps
+          </ButtonText>
         </button>
 
         {tags.map((tag, id) => (
@@ -174,7 +207,12 @@ export const Examples = memo(function Examples() {
             className={getButtonClassName(isTagSelected(tag))}
             key={`${slugify(tag)}-${id}`}
           >
-            <ButtonText condition={isTagSelected(tag)}>{tag}</ButtonText>
+            <ButtonText
+              currentTheme={currentTheme}
+              condition={isTagSelected(tag)}
+            >
+              {tag}
+            </ButtonText>
           </button>
         ))}
       </div>

@@ -12,6 +12,7 @@ import { findPageDescription } from 'common/helpers/find-page-description'
 import { Fence } from 'common/Fence'
 import { CodeBlock } from 'common/CodeBlock'
 import { Link } from 'common/Link'
+import { ThemeProvider } from 'common/contexts/ThemeContext'
 
 const components = {
   h2: (props: { children?: ReactNode }) => (
@@ -25,7 +26,7 @@ const components = {
   ),
   pre: Fence,
   code: CodeBlock,
-  a: Link
+  a: Link,
 }
 
 export default function MyApp(pageProps: AppProps) {
@@ -40,7 +41,7 @@ export default function MyApp(pageProps: AppProps) {
   const pageDescription = findPageDescription(pageHtml)
 
   return (
-    <>
+    <ThemeProvider>
       <MDXProvider components={components}>
         <Layout
           title={pageTitle}
@@ -50,6 +51,6 @@ export default function MyApp(pageProps: AppProps) {
           {pageContent}
         </Layout>
       </MDXProvider>
-    </>
+    </ThemeProvider>
   )
 }

@@ -41,6 +41,9 @@ export default function MyApp(pageProps: AppProps) {
   const pageDescription = findPageDescription(pageHtml)
   const isMDX = pageProps.Component.name === 'MDXContent'
 
+  console.log('isMDX: ', isMDX)
+  console.log(pageProps)
+
   return (
     <ThemeProvider>
       <MDXProvider components={components}>

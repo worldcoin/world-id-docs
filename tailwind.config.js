@@ -73,6 +73,7 @@ module.exports = {
           '#e6cfcf',
           '#ebedef',
           '#edecfc',
+          '#f4f4f4',
           '#fb7e67',
           '#ff4880',
           '#ff6848',
@@ -84,7 +85,7 @@ module.exports = {
       fontFamily: {
         sora: ['Sora', 'sans-serif'],
         rubik: ['Rubik', 'sans-serif'],
-        'roboto-mono': ['Roboto Mono', 'monospace']
+        'roboto-mono': ['Roboto Mono', 'monospace'],
       },
 
       fontSize: {

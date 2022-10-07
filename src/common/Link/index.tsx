@@ -4,6 +4,7 @@ import NextLink from 'next/link'
 export const Link = memo(function Link(props: {
   href?: string
   children?: ReactNode
+  className?: string
 }) {
   const [isMounted, setIsMounted] = useState(false)
   const isExternal = useMemo(() => props.href?.startsWith('http'), [props.href])
@@ -20,12 +21,17 @@ export const Link = memo(function Link(props: {
     <Fragment>
       {isMounted && !isExternal && (
         <NextLink href={props.href}>
-          <a>{props.children}</a>
+          <span className={props.className}>{props.children}</span>
         </NextLink>
       )}
 
       {isMounted && isExternal && (
-        <a href={props.href} target="_blank" rel="noopener noreferrer">
+        <a
+          className={props.className}
+          href={props.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {props.children}
         </a>
       )}

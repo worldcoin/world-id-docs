@@ -12,11 +12,6 @@ export const navItems: NavItems = [
     ],
   },
   {
-    icon: 'cpu',
-    title: 'Examples',
-    href: "/examples",
-  },
-  {
     icon: 'logo',
     title: 'About World ID',
     items: [

@@ -12,7 +12,6 @@ import { findPageDescription } from 'common/helpers/find-page-description'
 import { Fence } from 'common/Fence'
 import { CodeBlock } from 'common/CodeBlock'
 import { Link } from 'common/Link'
-import { ThemeProvider } from 'common/contexts/ThemeContext'
 
 const components = {
   h2: (props: { children?: ReactNode }) => (
@@ -42,7 +41,7 @@ export default function MyApp(pageProps: AppProps) {
   const isMDX = pageProps.Component.name === 'MDXContent'
 
   return (
-    <ThemeProvider>
+    <>
       <MDXProvider components={components}>
         {isMDX && (
           <Layout
@@ -56,6 +55,6 @@ export default function MyApp(pageProps: AppProps) {
 
         {!isMDX && <pageProps.Component />}
       </MDXProvider>
-    </ThemeProvider>
+    </>
   )
 }

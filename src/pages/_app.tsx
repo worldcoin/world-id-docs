@@ -34,22 +34,27 @@ export default function MyApp(pageProps: AppProps) {
     () => <pageProps.Component {...pageProps} />,
     [pageProps]
   )
-  const pageHtml = parse(renderToString(pageContent))
 
+  const pageHtml = parse(renderToString(pageContent))
   const tableOfContents = collectHeadings(pageHtml)
   const pageTitle = findPageTitle(pageHtml)
   const pageDescription = findPageDescription(pageHtml)
+  const isMDX = pageProps.Component.name === 'MDXContent'
 
   return (
     <ThemeProvider>
       <MDXProvider components={components}>
-        <Layout
-          title={pageTitle}
-          description={pageDescription}
-          tableOfContents={tableOfContents}
-        >
-          {pageContent}
-        </Layout>
+        {isMDX && (
+          <Layout
+            title={pageTitle}
+            description={pageDescription}
+            tableOfContents={tableOfContents}
+          >
+            {pageContent}
+          </Layout>
+        )}
+
+        {!isMDX && <pageProps.Component />}
       </MDXProvider>
     </ThemeProvider>
   )

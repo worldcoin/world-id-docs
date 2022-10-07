@@ -32,7 +32,7 @@ export function Hero(props: { className?: string }) {
 
         <p className="text-26 text-black/60 dark:text-white/60">
           Anonymously verify your users are real humans, and ensure they can
-          only perform action once.
+          only perform an action once.
         </p>
 
         <div className="flex gap-4">

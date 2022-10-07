@@ -42,7 +42,7 @@ The `.init()` method is the main initialization method. It should be called to s
         <strong>or</strong> HTML node of where to mount the element.
       </td>
       <td>
-        <code>world-id-container</code>
+        `world-id-cont`code>
         <br />
         <br />
         <pre>document.getElementsByClassName('world-id')[0]</pre>
@@ -52,7 +52,7 @@ The `.init()` method is the main initialization method. It should be called to s
       <td>parameters</td>
       <td>
         List of additional parameters. Please see [Parameters](#parameters) for
-        details. <code>action_id</code> is always required.
+        details. `action_id` is always required.
       </td>
       <td>See below for example.</td>
     </tr>
@@ -130,10 +130,10 @@ The following parameters can be passed to both `.init()` and `.update()`.
   <tbody>
     <tr>
       <td>
-        <code>action_id</code>
+        `action_id`
       </td>
       <td>
-        <code>string</code>
+        `string`
       </td>
       <td>Yes</td>
       <td>
@@ -146,10 +146,10 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
-        <code>signal</code>
+        `signal`
       </td>
       <td>
-        <code>string</code>
+        `string`
       </td>
       <td>Not required, but widget won't be enabled until passed</td>
       <td>
@@ -159,30 +159,30 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
-        <code>on_success</code>
+        `on_success`
       </td>
       <td>
-        <code>function</code>
+        `function`
       </td>
       <td>Yes</td>
-      <td>Function to trigger when verification is successful. Sends a single parameter of type <code>VerificationResponse</code> which contains the proof details.</td>
+      <td>Function to trigger when verification is successful. Sends a single parameter of type `VerificationResponse` which contains the proof details.</td>
     </tr>
     <tr>
       <td>
-        <code>on_error</code>
+        `on_error`
       </td>
       <td>
-        <code>function</code>
+        `function`
       </td>
       <td>No</td>
-      <td>Triggered when verification fails and user did not retried. Sends a single parameter of type <code>VerificationErrorResponse</code> containing error details.</td>
+      <td>Triggered when verification fails and user did not retried. Sends a single parameter of type `VerificationErrorResponse` containing error details.</td>
     </tr>
     <tr>
       <td>
-        <code>enable_telemetry</code>
+        `enable_telemetry`
       </td>
       <td>
-        <code>boolean</code>
+        `boolean`
       </td>
       <td>No</td>
       <td>
@@ -193,50 +193,50 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
-        <code>theme</code>
+        `theme`
       </td>
       <td>
-        <code>light</code> or <code>dark</code>
+        `light` or `dark`
       </td>
       <td>No</td>
       <td>The theme to apply to the widget's UI.</td>
     </tr>
     <tr>
       <td>
-        <code>debug</code>
+        `debug`
       </td>
       <td>
-        <code>boolean</code>
+        `boolean`
       </td>
       <td>No</td>
       <td>Will log verbose details to JS console to aid with debugging.</td>
     </tr>
     <tr>
       <td>
-        <code>on_init_success</code>
+        `on_init_success`
       </td>
       <td>
-        <code>function</code>
+        `function`
       </td>
       <td>No</td>
       <td>Triggered after the widget has been successfully initialized and mounted and all passed props are valid. Useful for debugging.</td>
     </tr>
     <tr>
       <td>
-        <code>on_init_error</code>
+        `on_init_error`
       </td>
       <td>
-        <code>function</code>
+        `function`
       </td>
       <td>No</td>
-      <td>Triggered if widget could not be initialized, usually due to incorrect parameters. Sends a <code>string</code> containing the error description.</td>
+      <td>Triggered if widget could not be initialized, usually due to incorrect parameters. Sends a `string` containing the error description.</td>
     </tr>
     <tr>
       <td>
-        <code>disable_remote_fonts</code>
+        `disable_remote_fonts`
       </td>
       <td>
-        <code>boolean</code>
+        `boolean`
       </td>
       <td>No</td>
       <td>
@@ -246,10 +246,10 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
-        <code>advanced_use_raw_signal</code>
+        `advanced_use_raw_signal`
       </td>
       <td>
-        <code>string</code>
+        `string`
       </td>
       <td>No</td>
       <td>
@@ -259,10 +259,10 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
-        <code>advanced_use_raw_action_id</code>
+        `advanced_use_raw_action_id`
       </td>
       <td>
-        <code>string</code>
+        `string`
       </td>
       <td>No</td>
       <td>
@@ -273,10 +273,10 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
-        <code>app_name</code>
+        `app_name`
       </td>
       <td>
-        <code>string</code>
+        `string`
       </td>
       <td>No</td>
       <td>
@@ -286,10 +286,10 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
-        <code>signal_description</code>
+        `signal_description`
       </td>
       <td>
-        <code>string</code>
+        `string`
       </td>
       <td>No</td>
       <td>
@@ -315,12 +315,8 @@ Upon successful completion of the World ID verification request, you will receiv
   </thead>
   <tbody>
     <tr>
-      <td>
-        <code>merkle_root</code>
-      </td>
-      <td>
-        <code>string</code> (ABI-encoded)
-      </td>
+      <td>`merkle_root`</td>
+      <td>`string` (ABI-encoded)</td>
       <td>
         This is the hash pointer to the root of the Merkle tree that proves
         membership of the user's identity in the list of identities verified by
@@ -328,24 +324,16 @@ Upon successful completion of the World ID verification request, you will receiv
       </td>
     </tr>
     <tr>
-      <td>
-        <code>nullifier_hash</code>
-      </td>
-      <td>
-        <code>string</code> (ABI-encoded)
-      </td>
+      <td>`nullifier_hash`</td>
+      <td>`string` (ABI-encoded)</td>
       <td>
         The hash that proves uniqueness between a single person and an action.
         Read more about the [nullifier hash](/about/glossary#nullifier-hash).
       </td>
     </tr>
     <tr>
-      <td>
-        <code>proof</code>
-      </td>
-      <td>
-        <code>string</code> (ABI-encoded)
-      </td>
+      <td>`proof`</td>
+      <td>`string` (ABI-encoded)</td>
       <td>The Zero-knowledge proof of the verification.</td>
     </tr>
   </tbody>

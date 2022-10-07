@@ -27,7 +27,10 @@ export const CodeBlock = memo(function CodeBlock(props: {
     >
       {({ className, style, tokens, getTokenProps }) => (
         <code
-          className={cn('relative !font-roboto-mono', className)}
+          className={cn(
+            'relative !font-roboto-mono before:!content-none after:!content-none',
+            className
+          )}
           style={style}
         >
           {props.showLines && <span className="line-border" />}
@@ -43,12 +46,14 @@ export const CodeBlock = memo(function CodeBlock(props: {
               )}
 
               {line
-                .filter((token) => !token.empty)
+                .filter((token) => {
+                  return !token.empty
+                })
                 .map((token, tokenIndex) => (
                   <span key={tokenIndex} {...getTokenProps({ token })} />
                 ))}
 
-              {'\n'}
+              {tokens.length > 1 && '\n'}
             </Fragment>
           ))}
         </code>

@@ -6,75 +6,75 @@ import slugify from '@sindresorhus/slugify'
 
 // @FIXME add proper links
 const examples = [
-  {
-    href: '/',
-    image: '/images/examples/quantum.svg',
-    title: 'Quantum Vote',
-    description:
-      'Human-only voting. Anonymously prove you are a unique human voting only once on a poll. Completely protected from bots.',
-    tags: ['cloud', 'api', 'custom user interface'],
-  },
+  // {
+  //   href: '/',
+  //   image: '/images/examples/quantum.svg',
+  //   title: 'Quantum Vote',
+  //   description:
+  //     'Human-only voting. Anonymously prove you are a unique human voting only once on a poll. Completely protected from bots.',
+  //   tags: ['cloud', 'api', 'custom user interface'],
+  // },
 
   {
-    href: '/',
+    href: 'https://poap.worldcoin.org',
     image: '/images/examples/poap.png',
     title: 'Human-only POAP dispenser',
     description:
-      'Human-only voting. Anonymously prove you are a unique human voting only once on a poll. Completely protected from bots.',
+      'Make sure POAPs are truly unique and can only be claimed once by each person.',
     tags: ['smart contract', 'on-chain', 'web3'],
   },
 
   {
-    href: '/',
+    href: 'https://human.withlens.app',
     image: '/images/examples/lens.svg',
     title: 'Worldcoin Meets Lens',
     description:
-      'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you are a unique human doing something only...',
+      'Verify your Lens profile belongs to a unique human. No bots, reduce spam. Enables apps built on Lens to quickly identify who is a real person.',
     tags: ['custom user interface', 'smart contract'],
   },
 
   {
-    href: '/',
+    href: 'https://github.com/worldcoin/world-id-discord-bot',
     image: '/images/examples/bot.svg',
-    title: 'World ID Bot',
+    title: 'World ID Discord Bot',
     description:
-      'World ID is a decentralized protocol to verify unique humanness. This is done through completely private iris imaging with a device...',
+      'The Discord bot lets you quickly improve your community\'s quality by identifying accounts which belong to real humans. Weed out spam accounts, and increase the engagement quality.',
     tags: ['cloud', 'api', 'custom user interface'],
   },
 
   {
-    href: '/',
+    href: 'https://github.com/worldcoin/hyperdrop-contracts',
     image: '/images/examples/hyperdrop.svg',
     title: 'Hyperdrop',
     description:
-      'Share tokens equitably with any verified human on the planet. With Hyperdrop you can airdrop any number of ERC-20 tokens to humans...',
+      'Share tokens equitably with any verified human on the planet. With Hyperdrop you can airdrop ERC-20 tokens to all humans who have verified with World ID.',
     tags: ['custom user interface', 'smart contract'],
   },
 
   {
-    href: '/',
-    image: '/images/examples/pet-orbs.png',
-    title: 'Pet Orbz',
+    href: 'https://petorbz.com',
+    image: '/images/examples/petorbz.png',
+    title: '#petorbz',
     description:
-      'They love to cuddle, and will protect you from sybil attacks. Five hundred of them are visiting ETHMexico and need a loving home.',
+      'They love to cuddle, and will protect you from sybil attacks. Adopt yours at the next Worldcoin event and receive a certificate of adoption (only one per person of course)',
     tags: ['cloud', 'api', 'custom user interface'],
   },
 
-  {
-    href: '/',
-    image: '/images/examples/gitcoin.png',
-    title: 'Gitcoin Passport',
-    description:
-      'Grow a decentralized identity record with various credentials about you. Through the network of sources about your personhood...',
-    tags: ['custom user interface', 'smart contract'],
-  },
+  // {
+  //   href: '/',
+  //   image: '/images/examples/gitcoin.png',
+  //   title: 'Gitcoin Passport',
+  //   description:
+  //     'Grow a decentralized identity record with various credentials about you. Through the network of sources about your personhood...',
+  //   tags: ['custom user interface', 'smart contract'],
+  // },
 
   {
-    href: '/',
+    href: 'https://example.id.worldcoin.org',
     image: '/images/examples/mesha.svg',
     title: 'Mesha',
     description:
-      'Mesha is a mock client app about airdrops to showcase how World ID works.',
+      'Mesha is a mock client app that lets you airdrop tokens where a single person can only claim them once.',
     tags: ['cloud', 'api', 'custom user interface'],
   },
 ]

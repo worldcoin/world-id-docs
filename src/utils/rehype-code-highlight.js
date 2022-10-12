@@ -4,15 +4,28 @@ import { toString } from 'hast-util-to-string'
 import { codeToHast } from 'shiki-renderer-hast'
 
 const plugin = () => async (tree) => {
-  const highlighter = await shiki.getHighlighter({ theme: 'material-default' })
+  const highlighter = await shiki.getHighlighter({
+    themes: ['material-default', 'material-lighter'],
+  })
 
   visit(tree, 'element', (node, _, parent) => {
     if (!parent || parent.tagName !== 'pre' || node.tagName !== 'code') return
 
-    const code = codeToHast(highlighter, toString(node), getLanguage(node))
+    const darkCode = codeToHast(
+      highlighter,
+      toString(node),
+      getLanguage(node),
+      'material-default'
+    )
+    const lightCode = codeToHast(
+      highlighter,
+      toString(node),
+      getLanguage(node),
+      'material-lighter'
+    )
 
-    parent.children = code.children
-    parent.properties = code.properties
+    parent.children = darkCode.children
+    parent.properties = darkCode.properties
   })
 }
 

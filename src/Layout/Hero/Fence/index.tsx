@@ -66,7 +66,7 @@ export const Fence = memo(function Fence(props: {
           </div>
 
           <pre>
-            <CodeBlock showLines>{props.children as string}</CodeBlock>
+            <CodeBlock>{props.children as string}</CodeBlock>
           </pre>
         </div>
       </div>

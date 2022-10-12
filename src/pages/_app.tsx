@@ -30,7 +30,7 @@ const components = {
   a: Link,
 }
 
-export default function MyApp(pageProps: AppProps) {
+export default function MyApp(pageProps: AppProps<{ heroCodeBlock?: string }>) {
   const router = useRouter()
 
   const pageContent = useMemo(
@@ -52,6 +52,7 @@ export default function MyApp(pageProps: AppProps) {
             title={pageTitle}
             description={pageDescription}
             tableOfContents={tableOfContents}
+            heroCode={pageProps?.pageProps?.heroCodeBlock}
           >
             {pageContent}
           </Layout>

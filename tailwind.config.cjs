@@ -23,7 +23,7 @@ const mirrorHexColors = (colors) =>
 
 module.exports = {
   darkMode: ['class', '[data-theme="dark"]'],
-  content: ['./src/**/*.{ts,tsx}'],
+  content: ['./src/**/*.{ts,tsx,mdx}'],
 
   theme: {
     extend: {
@@ -41,6 +41,7 @@ module.exports = {
       },
 
       colors: {
+        transparent: 'transparent',
         ...mirrorHexColors([
           '#000000',
           '#111f24',

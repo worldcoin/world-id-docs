@@ -1,10 +1,11 @@
-// cspell:ignore
-const withMDX = require('@next/mdx')({
+import nextMdx from '@next/mdx'
+import rehypeHighlight from './src/utils/rehype-code-highlight.js'
+
+const withMDX = nextMdx({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [],
-    // cspell:disable-next-line
-    rehypePlugins: [],
+    rehypePlugins: [rehypeHighlight],
     providerImportSource: '@mdx-js/react',
   },
 })
@@ -29,4 +30,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withMDX(nextConfig)
+export default withMDX(nextConfig)

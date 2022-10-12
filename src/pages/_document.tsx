@@ -1,5 +1,4 @@
 import { Head, Html, Main, NextScript } from 'next/document'
-import { useEffect } from 'react'
 
 export default function Document() {
   return (

@@ -3,7 +3,7 @@ import { Language } from 'prism-react-renderer'
 import cn from 'classnames'
 import { styles } from 'common/helpers/styles'
 import { Icon } from 'common/Icon'
-import { CodeBlock } from 'common/CodeBlock'
+import CodeBlock from 'common/CodeBlock'
 
 export const Fence = memo(function Fence(props: {
   children: ReactNode
@@ -42,9 +42,9 @@ export const Fence = memo(function Fence(props: {
           )}
         >
           <div className="flex gap-1 opacity-20 dark:opacity-100">
-            <span className="w-3 h-3 border rounded-full border-363a45" />
-            <span className="w-3 h-3 border rounded-full border-363a45" />
-            <span className="w-3 h-3 border rounded-full border-363a45" />
+            <span className="h-3 w-3 rounded-full border border-363a45" />
+            <span className="h-3 w-3 rounded-full border border-363a45" />
+            <span className="h-3 w-3 rounded-full border border-363a45" />
           </div>
 
           {/* FIXME: maybe need pass real tabs */}
@@ -55,20 +55,18 @@ export const Fence = memo(function Fence(props: {
                 'rounded-full dark:text-d8e1bd'
               )}
             >
-              <span className="relative block px-3 py-2 rounded-full bg-181b1f dark:bg-363a45">
+              <span className="relative block rounded-full bg-181b1f px-3 py-2 dark:bg-363a45">
                 world-id.ts
               </span>
             </span>
 
-            <span className="px-3 py-2 rounded-full text-70868f">
+            <span className="rounded-full px-3 py-2 text-70868f">
               package.json
             </span>
           </div>
 
           <pre>
-            <CodeBlock language={props.language} showLines>
-              {props.children}
-            </CodeBlock>
+            <CodeBlock showLines>{props.children as string}</CodeBlock>
           </pre>
         </div>
       </div>

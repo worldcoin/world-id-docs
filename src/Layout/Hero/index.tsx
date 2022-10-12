@@ -3,15 +3,9 @@ import cn from 'classnames'
 import { Fence } from 'Layout/Hero/Fence'
 import Link from 'next/link'
 import { Icon } from 'common/Icon'
-import { CodeBlock } from 'common/CodeBlock'
+import parse from 'html-react-parser'
 
-const code = `import worldID from “@worldcoin/id”;
-
-worldID.init(“worldid-container”,{
-  action_id: “wid_staging_fMy8wNIw2AKLjcb7tVyI”,
-});`
-
-export function Hero(props: { className?: string }) {
+export function Hero(props: { className?: string; heroCode?: string }) {
   return (
     <div
       className={cn(
@@ -71,7 +65,7 @@ export function Hero(props: { className?: string }) {
       </div>
 
       <div className="hidden justify-self-center md:block">
-        <Fence language="javascript">{code}</Fence>
+        <Fence language="typescript">{parse(props.heroCode as string)}</Fence>
       </div>
     </div>
   )

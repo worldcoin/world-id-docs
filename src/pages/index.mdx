@@ -74,3 +74,18 @@ World ID prevents sybil attacks both on-chain and off-chain. Some use cases:
   are welcome. Open a PR on
   [GitHub](https://github.com/worldcoin/world-id-docs).
 </Callout>
+
+export const getStaticProps = async () => {
+  const shiki = await import('shiki').then(m => m.getHighlighter({ theme: 'nord' }))
+
+    return {
+        props: {
+            heroCodeBlock: shiki.codeToHtml(`import worldID from "@worldcoin/id";
+
+worldID.init("worldid-container",{
+\taction_id: "wid_staging_fMy8wNIw2AKLjcb7tVyI",
+});`, { lang: 'typescript' }).replace('class="shiki"', 'class="shiki !bg-transparent"'),
+},
+}
+
+}

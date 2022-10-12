@@ -22,6 +22,7 @@ import { TOC } from 'common/types'
 export const Layout = memo(function Layout(props: {
   children: ReactElement<any, string | JSXElementConstructor<any>>
   title?: string
+  heroCode?: string
   description?: string
   tableOfContents: TOC
 }) {
@@ -53,7 +54,9 @@ export const Layout = memo(function Layout(props: {
       <div className="relative z-10">
         <Header navItems={navItems} />
 
-        {isHomePage && <Hero className="lg:mb-24 xl:mb-0" />}
+        {isHomePage && (
+          <Hero heroCode={props.heroCode} className="lg:mb-24 xl:mb-0" />
+        )}
 
         <div
           className={cn(

@@ -12,6 +12,17 @@ export const navItems: NavItems = [
     ],
   },
   {
+    icon: 'code',
+    title: 'Api',
+    items: [
+      { title: 'Introduction', href: '/api' },
+      { title: 'Authentication', href: '/api/authentication' },
+      { title: 'Api Reference', href: '/api/reference' },
+      { title: 'Error Handling', href: '/api/error-handling' },
+      { title: 'Internal Endpoints', href: '/api/internal-endpoints' },
+    ]
+  },
+  {
     icon: 'cpu',
     title: 'Examples',
     href: "/examples",
@@ -56,5 +67,5 @@ export const navItems: NavItems = [
     icon: 'coin',
     title: 'Hackathons & workshops',
     href: '/hackathons',
-  },
+  }
 ]

@@ -36,13 +36,42 @@ POST /api/v1/verify
 
 {/* spell-checker: enable */}
 
-| Parameter        | Description                                                                                        | Type     |
-| ---------------- | -------------------------------------------------------------------------------------------------- | -------- |
-| `signal`         | The signal you provided to the JS widget when verifying.                                           | `string` |
-| `action_id`      | The ID of the action you are verifying.                                                            | `string` |
-| `nullifier_hash` | As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details. | `string` |
-| `merkle_root`    | As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details. | `string` |
-| `proof`          | As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details. | `string` |
+<table>
+    <thead>
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>`signal`</td>
+            <td>The signal you provided to the JS widget when verifying.</td>
+            <td>`string`</td>
+        </tr>
+        <tr>
+            <td>`action_id`</td>
+            <td>The ID of the action you are verifying.</td>
+            <td>`string`</td>
+        </tr>
+        <tr>
+            <td>`nullifier_hash`</td>
+            <td>As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details.</td>
+            <td>`string`</td>
+        </tr>
+        <tr>
+            <td>`merkle_root`</td>
+            <td>As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details.</td>
+            <td>`string`</td>
+        </tr>
+        <tr>
+            <td>`proof`</td>
+            <td>As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details.</td>
+            <td>`string`</td>
+        </tr>
+    </tbody>
+</table>
 
 **Response (200)**
 

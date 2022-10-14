@@ -5,10 +5,10 @@ import Link from 'next/link'
 import { Icon } from 'common/Icon'
 import { CodeBlock } from 'common/CodeBlock'
 
-const code = `import worldID from “@worldcoin/id”;
+const code = `import worldID from "@worldcoin/id";
 
-worldID.init(“worldid-container”,{
-  action_id: “wid_staging_fMy8wNIw2AKLjcb7tVyI”,
+worldID.init("worldid-container",{
+  action_id: "wid_staging_fMy8wNIw2AKLjcb7tVyI",
 });`
 
 export function Hero(props: { className?: string }) {

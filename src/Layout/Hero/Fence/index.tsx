@@ -6,8 +6,6 @@ import { Icon } from 'common/Icon'
 import { CodeBlock } from 'common/CodeBlock'
 import { Tab } from './Tab'
 
-
-
 export const Fence = memo(function Fence(props: {
   tabs: Array<{name: string, language: Language, code: string}>
 }) {

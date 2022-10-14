@@ -22,7 +22,12 @@ const nextConfig = {
     return [
       {
         source: '/docs/:slug*',
-        destination: '/:slug*', // Matched parameters can be used in the destination
+        destination: '/:slug*',
+        permanent: true,
+      },
+      {
+        source: '/api/:slug*',
+        destination: '/api-docs/:slug*',
         permanent: true,
       },
     ]

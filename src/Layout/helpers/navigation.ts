@@ -15,11 +15,11 @@ export const navItems: NavItems = [
     icon: 'code',
     title: 'Api',
     items: [
-      { title: 'Introduction', href: '/api' },
-      { title: 'Authentication', href: '/api/authentication' },
-      { title: 'Api Reference', href: '/api/reference' },
-      { title: 'Error Handling', href: '/api/error-handling' },
-      { title: 'Internal Endpoints', href: '/api/internal-endpoints' },
+      { title: 'Introduction', href: '/api-docs' },
+      { title: 'Authentication', href: '/api-docs/authentication' },
+      { title: 'Api Reference', href: '/api-docs/reference' },
+      { title: 'Error Handling', href: '/api-docs/error-handling' },
+      { title: 'Internal Endpoints', href: '/api-docs/internal-endpoints' },
     ]
   },
   {

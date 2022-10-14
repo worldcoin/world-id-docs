@@ -1,10 +1,12 @@
+import { Callout } from 'common/Callout'
+
 # API Reference
 
 ## REST endpoints
 
 ### /verify
 
-Enables you to verify a World ID proof for a **Cloud action.** To ensure [human-uniqueness](/docs/about/protocol#proof-of-uniqueness), a single person can only verify once for every action. If you send a proof for the same user twice, an error will be returned.
+Enables you to verify a World ID proof for a **Cloud action.** To ensure [human-uniqueness](/about/protocol#proof-of-uniqueness), a single person can only verify once for every action. If you send a proof for the same user twice, an error will be returned.
 
 ```
 POST /api/v1/verify
@@ -38,9 +40,9 @@ POST /api/v1/verify
 | ---------------- | -------------------------------------------------------------------------------------------------- | -------- |
 | `signal`         | The signal you provided to the JS widget when verifying.                                           | `string` |
 | `action_id`      | The ID of the action you are verifying.                                                            | `string` |
-| `nullifier_hash` | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details. | `string` |
-| `merkle_root`    | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details. | `string` |
-| `proof`          | As verbatim provided by the JS widget. See [JS response](/docs/js/reference#response) for details. | `string` |
+| `nullifier_hash` | As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details. | `string` |
+| `merkle_root`    | As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details. | `string` |
+| `proof`          | As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details. | `string` |
 
 **Response (200)**
 

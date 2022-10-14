@@ -19,7 +19,7 @@ export function Hero(props: { className?: string }) {
         props.className
       )}
     >
-      <div className="grid place-items-start content-start gap-6">
+      <div className="grid content-start gap-6 place-items-start">
         <h1
           className={cn(
             'font-sora text-44 font-semibold',
@@ -60,7 +60,7 @@ export function Hero(props: { className?: string }) {
               'dark:from-e6cfcf/10 dark:to-cde0ec/10 dark:text-d7dae1'
             )}
           >
-            <span className="text-16 font-medium">View on GitHub</span>
+            <span className="font-medium text-16">View on GitHub</span>
             <Icon
               name="github"
               className="text-[color-inherit] h-[18px] w-[18px]"

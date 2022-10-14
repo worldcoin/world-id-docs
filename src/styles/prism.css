@@ -6,14 +6,6 @@ code {
   @apply font-roboto-mono;
 }
 
-.line-border {
-  @apply absolute top-0 w-px h-full left-8 bg-70868f;
-}
-
-.line.number {
-  @apply mr-8 select-none text-70868f;
-}
-
 .token.keyword,
 .token.module,
 .token.method,

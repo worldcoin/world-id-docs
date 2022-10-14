@@ -26,7 +26,7 @@ export const CodeBlock = memo(function CodeBlock(props: {
       code={String(props.children).trimEnd()}
     >
       {({ className, style, tokens, getTokenProps }) => (
-        <div className='grid grid-cols-[auto,auto] gap-5'>
+        <div className='grid grid-cols-[auto,auto] gap-5 justify-start'>
           {props.showLines && (
             <div className="top-0 left-0 grid h-full pr-5 border-r select-none border-70868f">
               {tokens.map((_, lineIndex) => (

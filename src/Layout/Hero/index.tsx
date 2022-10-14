@@ -3,12 +3,26 @@ import cn from 'classnames'
 import { Fence } from 'Layout/Hero/Fence'
 import Link from 'next/link'
 import { Icon } from 'common/Icon'
+import { Language } from 'prism-react-renderer'
 
-const code = `import worldID from "@worldcoin/id";
+const tabs: Array<{ name: string; language: Language; code: string }> = [
+  {
+    name: 'world-id.ts',
+    language: 'javascript',
+    code: `import worldID from "@worldcoin/id";
 
 worldID.init("worldid-container",{
   action_id: "wid_staging_fMy8wNIw2AKLjcb7tVyI",
-});`
+});`,
+  },
+  {
+    name: 'package.json',
+    language: 'bash',
+    code: `npm install @worldcoin/id
+# or
+yarn add @worldcoin/id`,
+  },
+]
 
 export function Hero(props: { className?: string }) {
   return (
@@ -70,7 +84,7 @@ export function Hero(props: { className?: string }) {
       </div>
 
       <div className="hidden justify-self-center md:block">
-        <Fence language="javascript">{code}</Fence>
+        <Fence tabs={tabs} />
       </div>
     </div>
   )

@@ -39,3 +39,7 @@ next-env.d.ts
 /.vscode
 /.idea
 /.history
+
+# next-sitemap
+public/robots.txt
+public/sitemap*.xml

@@ -3,6 +3,7 @@ import { CSSProperties, memo } from 'react'
 import styles from './icon.module.css'
 
 const iconNames = [
+  'attention',
   'book',
   'close',
   'code',
@@ -10,11 +11,14 @@ const iconNames = [
   'cpu',
   'github',
   'hand',
+  'info',
+  'lightning',
   'logo-full',
   'logo',
   'menu',
-  'question-circle',
+  'question',
   'search',
+  'speaker',
   'theme-dark',
   'theme-light',
   'theme-system',

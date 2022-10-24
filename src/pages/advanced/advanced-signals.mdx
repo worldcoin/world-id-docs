@@ -2,7 +2,7 @@ import { Callout } from 'common/Callout'
 
 # Advanced signals
 
-<Callout title="Tip">
+<Callout type="tip">
   Advanced signals are useful **mainly for web3 on-chain applications**. For
   Cloud-based applications it's easier to do some simple encoding yourself. For
   instance, if you want to include a User ID and Team ID as the signal, you
@@ -16,7 +16,7 @@ import { Callout } from 'common/Callout'
 
 Particularly **if your signal is an `address` or a `uint`, the JS widget will do the proper handling automatically**. This means it will treat the number/address as bytes and hash it directly. Strings conversely, are converted to bytes first before hashing. You can check out the `utils.worldIDHash` function in the JS widget (v0.6.0 onwards).
 
-<Callout title="Info">
+<Callout type="info">
   If you want to do your own hashing, we also expose two additional functions in
   the JS widget utilities to help you with encoding (if relevant) and hashing.
   `hashString` will convert the string to bytes and then hash it.
@@ -25,7 +25,7 @@ Particularly **if your signal is an `address` or a `uint`, the JS widget will do
   explained below.
 </Callout>
 
-<Callout title="Tip">
+<Callout type="tip">
   The `hashEncodedBytes` in the JS widget is the exact equivalent of
   `hashToField` in a smart contract (eg. `abi.encodePacked(this).hashToField()`)
 </Callout>

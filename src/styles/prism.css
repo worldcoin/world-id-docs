@@ -28,7 +28,8 @@ code {
 
 .token.plain,
 .token.property,
-.token.parameter {
+.token.parameter,
+.token.boolean {
   @apply text-b37af0;
 }
 

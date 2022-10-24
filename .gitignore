@@ -36,6 +36,7 @@ yarn-error.log*
 next-env.d.ts
 
 # editors
-/.vscode
+/.vscode/*
+!/.vscode/extensions.json
 /.idea
 /.history

@@ -53,10 +53,13 @@ module.exports = {
           '#22262c',
           '#262f41',
           '#2c393e',
+          '#2e2936',
           '#363a45',
           '#384361',
           '#576469',
+          '#596673',
           '#6047ec',
+          '#64b483',
           '#6f7a85',
           '#70868f',
           '#858494',
@@ -73,8 +76,10 @@ module.exports = {
           '#e6cfcf',
           '#ebedef',
           '#edecfc',
+          '#f4f4f4',
           '#fb7e67',
           '#ff4880',
+          '#ff5a76',
           '#ff6848',
           '#fff0ed',
           '#ffffff',
@@ -84,7 +89,7 @@ module.exports = {
       fontFamily: {
         sora: ['Sora', 'sans-serif'],
         rubik: ['Rubik', 'sans-serif'],
-        'roboto-mono': ['Roboto Mono', 'monospace']
+        'roboto-mono': ['Roboto Mono', 'monospace'],
       },
 
       fontSize: {
@@ -93,6 +98,7 @@ module.exports = {
         20: ['calc(20 * 1rem / 16)', { lineHeight: '1.2' }],
         24: ['calc(24 * 1rem / 16)', { lineHeight: '1.3' }],
         26: ['calc(26 * 1rem / 16)', { lineHeight: '1.2' }],
+        30: ['calc(30 * 1rem / 16)', { lineHeight: '1.2' }],
         34: ['calc(34 * 1rem / 16)', { lineHeight: '1.2' }],
         44: ['calc(44 * 1rem / 16)', { lineHeight: '1.2' }],
       },

@@ -19,7 +19,7 @@ The `.init()` method is the main initialization method. It should be called to s
   <div className="text--muted">Render of World ID widget</div>
 </div>
 
-<Callout title="Caution" type="warning">
+<Callout type="caution">
   The `.init()` method should only be called once in the lifecycle of your app.
   To update properties, please use `.update()` instead.
 </Callout>
@@ -42,10 +42,11 @@ The `.init()` method is the main initialization method. It should be called to s
         <strong>or</strong> HTML node of where to mount the element.
       </td>
       <td>
-        `world-id-cont`code>
-        <br />
-        <br />
-        <pre>document.getElementsByClassName('world-id')[0]</pre>
+        `world-id-container`
+
+        ```js
+          document.getElementsByClassName('world-id')[0]
+        ```
       </td>
     </tr>
     <tr>
@@ -83,7 +84,7 @@ worldID.init(
 
 The `.update()` method works similarly to `.init()` except it's used only to update the relevant parameters to run the World ID widget. The DOM element (`elementNodeOrID`) where World ID is mounted **cannot be changed**.
 
-<Callout title="Tip">
+<Callout type="tip">
   One common use case for `.update()` is if you want to render the World ID
   widget even if the user hasn't logged in to your dapp with their wallet. This
   will keep your UI consistent. Once the user logs in, you can use `.update()`
@@ -267,8 +268,7 @@ The following parameters can be passed to both `.init()` and `.update()`.
       <td>No</td>
       <td>
         <b>Advanced!</b> Use this to hash and encode your own Action ID. Read
-        more on{" "}
-        [Advanced signals](/advanced/advanced-signals).
+        more on [Advanced signals](/advanced/advanced-signals).
       </td>
     </tr>
     <tr>

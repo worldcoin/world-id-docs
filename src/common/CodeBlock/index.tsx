@@ -26,37 +26,40 @@ export const CodeBlock = memo(function CodeBlock(props: {
       code={String(props.children).trimEnd()}
     >
       {({ className, style, tokens, getTokenProps }) => (
-        <code
-          className={cn(
-            'relative !font-roboto-mono before:!content-none after:!content-none',
-            className
-          )}
-          style={style}
+        <div
+          className={cn('grid grid-cols-[auto,auto] justify-start gap-5', {
+            contents: !props.showLines,
+          })}
         >
-          {props.showLines && <span className="line-border" />}
+          {props.showLines && (
+            <div className="top-0 left-0 grid h-full select-none border-r border-70868f pr-5">
+              {tokens.map((_, lineIndex) => (
+                <span className="text-70868f" key={lineIndex}>
+                  {(lineIndex + 1).toString().padStart(2, '0')}
+                </span>
+              ))}
+            </div>
+          )}
 
-          {tokens.map((line, lineIndex) => (
-            <Fragment key={lineIndex}>
-              {props.showLines && (
-                <Fragment>
-                  <span className="line number">
-                    {(lineIndex + 1).toString().padStart(2, '0')}
-                  </span>
-                </Fragment>
-              )}
+          <code
+            className={cn('relative !font-roboto-mono', className)}
+            style={style}
+          >
+            {tokens.map((line, lineIndex) => (
+              <Fragment key={lineIndex}>
+                {line
+                  .filter((token) => {
+                    return !token.empty
+                  })
+                  .map((token, tokenIndex) => (
+                    <span key={tokenIndex} {...getTokenProps({ token })} />
+                  ))}
 
-              {line
-                .filter((token) => {
-                  return !token.empty
-                })
-                .map((token, tokenIndex) => (
-                  <span key={tokenIndex} {...getTokenProps({ token })} />
-                ))}
-
-              {tokens.length > 1 && '\n'}
-            </Fragment>
-          ))}
-        </code>
+                {tokens.length > 1 && '\n'}
+              </Fragment>
+            ))}
+          </code>
+        </div>
       )}
     </Highlight>
   )

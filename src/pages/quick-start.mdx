@@ -10,7 +10,7 @@ import { Callout } from 'common/Callout'
 
 2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for IRL verifications). **Take note of your action ID** (which looks something like {/* cSpell:disable */}`wid_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}).
 
-<Callout title="Tip">
+<Callout type="tip">
   If you want to test your integration and you haven't been verified by an orb,
   select the **Staging** environment. You'll be able to use the
   [Simulator](/about/testing) instead.
@@ -20,7 +20,7 @@ import { Callout } from 'common/Callout'
 
 {' '}
 
-<Callout title="Tip">
+<Callout type="tip">
   If you selected the **cloud** engine, these instructions continue with details
   on the **API & JS widget** user interface option. If you want to use another
   user interface, please follow the deployment instructions on the **Development
@@ -39,7 +39,7 @@ yarn add @worldcoin/id
 
 {' '}
 
-<Callout title="Tip">
+<Callout type="tip">
   If you're not using React, check out the [JS intro](/js/) section. We have a
   section for **Next.js** too!
 </Callout>
@@ -65,7 +65,7 @@ import { WorldIDWidget } from '@worldcoin/id'
 
 **Continue here if you selected the cloud engine.** Go to [on-chain verification](#on-chain-verification) otherwise.
 
-<Callout title="Info">
+<Callout type="info">
   Cloud actions are verified by the Developer Portal. You can validate a user is
   a unique human with a simple API request or a JWT signature verification.
 </Callout>
@@ -112,7 +112,7 @@ import { WorldIDWidget } from '@worldcoin/id'
 
 ## On-chain verification
 
-<Callout title="Info">
+<Callout type="info">
   On-chain actions are verified by your own smart contract. You will simply call
   a `verifyProof` function on our World ID smart contract to verify the proof,
   and then execute the rest of your contract normally.
@@ -126,7 +126,7 @@ import { WorldIDWidget } from '@worldcoin/id'
    make deploy
    ```
 
-<Callout title="Caution" type="warning">
+<Callout type="caution">
   To make things easier off-chain, the ZKP is actually encoded and packed so it
   looks like a single string. In reality, the ZKP is a `uint256[8]` array and
   your smart contract expects that array, not the encoded proof. See below for

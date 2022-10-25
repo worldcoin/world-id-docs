@@ -40,3 +40,7 @@ next-env.d.ts
 !/.vscode/extensions.json
 /.idea
 /.history
+
+# next-sitemap
+public/robots.txt
+public/sitemap*.xml

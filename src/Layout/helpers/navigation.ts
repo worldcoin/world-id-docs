@@ -7,25 +7,14 @@ export const navItems: NavItems = [
     icon: 'hand',
     title: 'Introduction',
     items: [
-      { title: 'Getting started', href: '/' },
-      { title: 'Quick start', href: '/quick-start' },
+      { title: 'Getting Started', href: '/' },
+      { title: 'Quick Start', href: '/quick-start' },
     ],
-  },
-  {
-    icon: 'code',
-    title: 'Api',
-    items: [
-      { title: 'Introduction', href: '/api-docs' },
-      { title: 'Authentication', href: '/api-docs/authentication' },
-      { title: 'Api Reference', href: '/api-docs/reference' },
-      { title: 'Error Handling', href: '/api-docs/error-handling' },
-      { title: 'Internal Endpoints', href: '/api-docs/internal-endpoints' },
-    ]
   },
   {
     icon: 'cpu',
     title: 'Examples',
-    href: "/examples",
+    href: '/examples',
   },
   {
     icon: 'logo',
@@ -56,16 +45,27 @@ export const navItems: NavItems = [
         title: 'Zero-knowledge proofs',
         href: '/advanced/zero-knowledge-proofs',
       },
-      { title: 'Advanced signals', href: '/advanced/advanced-signals' },
-      { title: 'Verified actions', href: '/advanced/verified-actions' },
-      { title: 'Custom integrations', href: '/advanced/custom-integrations' },
+      { title: 'Advanced Signals', href: '/advanced/advanced-signals' },
+      { title: 'Verified Actions', href: '/advanced/verified-actions' },
+      { title: 'Custom Integrations', href: '/advanced/custom-integrations' },
       { title: 'Roadmap', href: '/advanced/roadmap' },
-      { title: 'Protocol internals', href: '/advanced/protocol-internals' },
+      { title: 'Protocol Internals', href: '/advanced/protocol-internals' },
+    ],
+  },
+  {
+    icon: 'code',
+    title: 'API',
+    items: [
+      { title: 'Introduction', href: '/api-docs' },
+      { title: 'Authentication', href: '/api-docs/authentication' },
+      { title: 'API Reference', href: '/api-docs/reference' },
+      { title: 'Error Handling', href: '/api-docs/error-handling' },
+      { title: 'Internal Endpoints', href: '/api-docs/internal-endpoints' },
     ],
   },
   {
     icon: 'coin',
-    title: 'Hackathons & workshops',
+    title: 'Hackathons & Workshops',
     href: '/hackathons',
-  }
+  },
 ]

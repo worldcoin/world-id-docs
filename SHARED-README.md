@@ -41,9 +41,9 @@ Regardless of how you landed here, the easiest way to get started with World ID 
 <a href="https://developer.worldcoin.org">
   <p align="center">
     <picture align="center">
-      <source media="(prefers-color-scheme: dark)" srcset="./public/images/shared-readme/get-started-dark.png" />
-      <source media="(prefers-color-scheme: light)" srcset="./public/images/shared-readme/get-started-light.png" />
-      <img height="50px" />
+      <source media="(prefers-color-scheme: dark)" srcset="./public/images/shared-readme/get-started-dark.png" height="80px" />
+      <source media="(prefers-color-scheme: light)" srcset="./public/images/shared-readme/get-started-light.png" height="50px" />
+      <img />
     </picture>
   </p>
 </a>

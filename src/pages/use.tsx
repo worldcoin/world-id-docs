@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import cn from 'classnames'
 import { styles } from 'common/helpers/styles'
-import { Header } from 'Layout/Header'
+import { Header } from 'common/Header'
 import Link from 'next/link'
 const WorldIDWidget = dynamic<WidgetProps>(
   () => import('@worldcoin/id').then((mod) => mod.WorldIDWidget),
@@ -114,7 +114,7 @@ export default function Use() {
                   styles.fenceBorderInner
                 )}
               >
-                <h1 className="font-semibold font-sora text-30">
+                <h1 className="font-sora text-30 font-semibold">
                   Welcome to World ID
                 </h1>
 
@@ -186,7 +186,9 @@ export default function Use() {
         <div className={cn('p-4 text-20')}>
           Learn more about&nbsp;
           <Link href="/">
-            <span className={cn('bg-8e87ff', styles.darkTextGradient)}>World ID</span>
+            <span className={cn('bg-8e87ff', styles.darkTextGradient)}>
+              World ID
+            </span>
           </Link>
           &nbsp; and about&nbsp;
           <Link href="https://worldcoin.org">

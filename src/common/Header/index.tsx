@@ -1,10 +1,10 @@
 import cn from 'classnames'
 import { Icon } from 'common/Icon'
 import { NavItems } from 'Layout/helpers/navigation'
-import { Logo } from 'Layout/Header/Logo'
+import { Logo } from './Logo'
 import { MobileMenu } from './MobileMenu'
-import { Search } from 'Layout/Header/Search'
-import { ThemeSelector } from 'Layout/Header/ThemeSelector'
+import { SearchBar, SearchButton } from 'common/Search'
+import { ThemeSelector } from './ThemeSelector'
 import Link from 'next/link'
 import { memo, useEffect, useState } from 'react'
 
@@ -12,6 +12,7 @@ export const Header = memo(function Header(props: {
   navItems?: NavItems
   disableNav?: boolean
   disableSearch?: boolean
+  disableThemeSelector?: boolean
 }) {
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -51,20 +52,28 @@ export const Header = memo(function Header(props: {
 
       {!props.disableSearch && (
         <div className="mr-6 -my-5 sm:mr-8 md:mr-0">
-          <Search
-            className={cn(
-              'relative before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:transition-colors',
-              {
-                'lg:before:bg-transparent': !isScrolled,
-                'lg:before:bg-ffffff lg:before:dark:bg-191c20': isScrolled,
-              }
-            )}
-          />
+          <div className="hidden md:block">
+            <SearchBar
+              className={cn(
+                'before:transition-colorss relative before:absolute before:inset-0 before:-z-10 before:rounded-[inherit]',
+                {
+                  'lg:before:bg-transparent': !isScrolled,
+                  'lg:before:bg-ffffff lg:before:dark:bg-191c20': isScrolled,
+                }
+              )}
+            />
+          </div>
+
+          <div className="md:hidden">
+            <SearchButton />
+          </div>
         </div>
       )}
 
       <div className="relative flex justify-end gap-6 basis-0 sm:gap-8 md:flex-grow">
-        <ThemeSelector className="relative z-10" />
+        {!props.disableThemeSelector && (
+          <ThemeSelector className="relative z-10" />
+        )}
 
         <Link
           href="https://github.com/worldcoin/world-id-docs"

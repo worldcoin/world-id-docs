@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import { Header } from 'common/Header'
 import Image from 'next/image'
-import notFoundImage from '/public/images/404.svg'
+import notFoundImage from 'public/images/404.svg'
 import { styles } from 'common/helpers/styles'
 import { SearchBar } from 'common/Search'
 

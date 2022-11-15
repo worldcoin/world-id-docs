@@ -39,23 +39,23 @@ export const Header = memo(function Header(props: {
       )}
     >
       {!props.disableNav && props.navItems && (
-        <div className="flex mr-6 lg:hidden">
+        <div className="mr-6 flex lg:hidden">
           <MobileMenu navItems={props.navItems} />
         </div>
       )}
 
-      <div className="relative flex items-center flex-grow basis-0">
+      <div className="relative flex flex-grow basis-0 items-center">
         <Link href="/" aria-label="Home page">
           <Logo className={cn({ 'hidden lg:block': !props.disableNav })} />
         </Link>
       </div>
 
       {!props.disableSearch && (
-        <div className="mr-6 -my-5 sm:mr-8 md:mr-0">
+        <div className="-my-5 mr-6 sm:mr-8 md:mr-0">
           <div className="hidden md:block">
             <SearchBar
               className={cn(
-                'before:transition-colorss relative before:absolute before:inset-0 before:-z-10 before:rounded-[inherit]',
+                'relative before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:transition-colors',
                 {
                   'lg:before:bg-transparent': !isScrolled,
                   'lg:before:bg-ffffff lg:before:dark:bg-191c20': isScrolled,
@@ -70,7 +70,7 @@ export const Header = memo(function Header(props: {
         </div>
       )}
 
-      <div className="relative flex justify-end gap-6 basis-0 sm:gap-8 md:flex-grow">
+      <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:flex-grow">
         {!props.disableThemeSelector && (
           <ThemeSelector className="relative z-10" />
         )}
@@ -83,7 +83,7 @@ export const Header = memo(function Header(props: {
         >
           <Icon
             name="github"
-            className="w-6 h-6 text-181b1f dark:text-94a2b8"
+            className="h-6 w-6 text-181b1f dark:text-94a2b8"
           />
         </Link>
       </div>

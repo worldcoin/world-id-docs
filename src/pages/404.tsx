@@ -1,7 +1,6 @@
 import cn from 'classnames'
 import { Header } from 'common/Header'
 import Image from 'next/image'
-import notFoundImage from 'public/images/404.svg'
 import { styles } from 'common/helpers/styles'
 import { SearchBar } from 'common/Search'
 
@@ -11,7 +10,12 @@ export default function PageNotFound() {
       <Header disableThemeSelector disableSearch />
 
       <div className="absolute top-[calc(100vh/12)] max-w-full px-10 opacity-50 md:top-auto md:-right-8 md:bottom-20 md:opacity-100">
-        <Image src={notFoundImage} alt="Not found" />
+        <Image
+          src="/images/404.svg"
+          alt="Not found"
+          width={1000}
+          height={580}
+        />
       </div>
 
       <div

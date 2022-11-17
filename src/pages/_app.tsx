@@ -16,7 +16,7 @@ import { ThemeProvider } from 'common/contexts/ThemeContext'
 import { useRouter } from 'next/router'
 import { MDXComponents } from 'mdx/types'
 
-const components:MDXComponents = {
+const components: MDXComponents = {
   h2: (props: { children?: ReactNode }) => (
     <h2 className="" id={slugify(props.children as string)}>
       {props.children}
@@ -30,7 +30,7 @@ const components:MDXComponents = {
     return (
       <Fence>
         {/* @ts-ignore */}
-        <CodeBlock {...props.children.props}/>
+        <CodeBlock {...props.children.props} />
       </Fence>
     )
   },
@@ -54,12 +54,16 @@ export default function MyApp(pageProps: AppProps) {
   const tableOfContents = collectHeadings(pageHtml)
   const pageTitle = findPageTitle(pageHtml)
   const pageDescription = findPageDescription(pageHtml)
-  const isUsePage = useMemo(() => router.pathname === '/use', [router.pathname])
+
+  const isDefaultLayoutPage = useMemo(
+    () => !['/use', '/404'].includes(router.pathname),
+    [router.pathname]
+  )
 
   return (
     <ThemeProvider>
       <MDXProvider components={components}>
-        {!isUsePage && (
+        {isDefaultLayoutPage && (
           <Layout
             title={pageTitle}
             description={pageDescription}
@@ -69,7 +73,7 @@ export default function MyApp(pageProps: AppProps) {
           </Layout>
         )}
 
-        {isUsePage && <pageProps.Component {...pageProps} />}
+        {!isDefaultLayoutPage && pageContent}
       </MDXProvider>
     </ThemeProvider>
   )

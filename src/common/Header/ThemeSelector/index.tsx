@@ -19,8 +19,8 @@ export const ThemeSelector = memo(function ThemeSelector(props: {
     >
       <Listbox.Label className="sr-only">Theme</Listbox.Label>
       <Listbox.Button className={styles.headerButton}>
-        <LightIcon className="hidden [[data-theme=light]_&]:block" />
-        <DarkIcon className="hidden [[data-theme=dark]_&]:block" />
+        <LightIcon className="light:block hidden" />
+        <DarkIcon className="hidden dark:block" />
       </Listbox.Button>
       <Listbox.Options
         className={cn(

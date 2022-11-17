@@ -26,19 +26,19 @@ export const CodeBlock = memo(function CodeBlock(props: {
       code={String(props.children).trimEnd()}
     >
       {({ className, style, tokens, getTokenProps }) => (
-        <div
+        <span
           className={cn('grid grid-cols-[auto,auto] justify-start gap-5', {
             contents: !props.showLines,
           })}
         >
           {props.showLines && (
-            <div className="top-0 left-0 grid h-full select-none border-r border-70868f pr-5">
+            <span className="top-0 left-0 grid h-full select-none border-r border-70868f pr-5">
               {tokens.map((_, lineIndex) => (
                 <span className="text-70868f" key={lineIndex}>
                   {(lineIndex + 1).toString().padStart(2, '0')}
                 </span>
               ))}
-            </div>
+            </span>
           )}
 
           <code
@@ -59,7 +59,7 @@ export const CodeBlock = memo(function CodeBlock(props: {
               </Fragment>
             ))}
           </code>
-        </div>
+        </span>
       )}
     </Highlight>
   )

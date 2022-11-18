@@ -1,4 +1,5 @@
 import { Callout } from 'common/Callout'
+import {GradientBorderContainer} from 'common/GradientBorderContainer'
 
 # Custom integrations
 
@@ -38,13 +39,18 @@ Creating a custom integration involves the following process:
 
 Follow the [WalletConnect docs](https://docs.walletconnect.com/quick-start/dapps/client) to connect your app to the Worldcoin app. We strongly recommend you use the same UI/UX patterns used in the JS package.
 
-<div className="text--center">
+<GradientBorderContainer defaultBackground className="w-full flex justify-center not-prose p-6">
   <img
-    src="/images/docs/advanced/world-id-js-modal.png"
+    src="/images/docs/introduction/widget-modal-light.svg"
     alt="Screenshot for World ID modal"
-    width="500px"
+    className="block dark:hidden"
   />
-</div>
+  <img
+    src="/images/docs/introduction/widget-modal-dark.svg"
+    alt="Screenshot for World ID modal"
+    className="hidden dark:block"
+  />
+</GradientBorderContainer>
 
 **Example:**
 

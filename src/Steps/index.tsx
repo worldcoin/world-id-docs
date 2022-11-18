@@ -20,7 +20,7 @@ export const Steps = memo(function Steps(props: {
           {props.stepBackground && (
             <GradientBorderContainer
               defaultBackground
-              className="w-full p-4 text-center"
+              className="w-full p-4 text-center flex items-center"
             >
               {step}
             </GradientBorderContainer>

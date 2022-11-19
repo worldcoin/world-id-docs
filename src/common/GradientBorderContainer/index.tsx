@@ -6,12 +6,19 @@ export const GradientBorderContainer = memo(
   function GradientBorderContainer(props: {
     className?: string
     children: ReactNode
+    defaultBackground?: boolean
   }) {
     return (
       <div className="relative flex h-full">
         <div className={styles.fenceBorder} />
 
-        <div className={cn(styles.fenceBorderInner, props.className)}>
+        <div
+          className={cn(
+            styles.fenceBorderInner,
+            props.defaultBackground && styles.background,
+            props.className
+          )}
+        >
           {props.children}
         </div>
       </div>

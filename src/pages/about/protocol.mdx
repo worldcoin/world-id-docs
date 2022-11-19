@@ -1,16 +1,27 @@
+import { GradientBorderContainer } from 'common/GradientBorderContainer'
+import { Component } from 'Component'
+
 # Protocol Overview
 
 ## How it works
 
 The following diagram outlines the technical flow for a World ID transaction. Find more details on each component in the [Components](#components) section.
 
-<div className="text--center">
+<GradientBorderContainer
+  defaultBackground
+  className="not-prose flex w-full justify-center p-6"
+>
   <img
-    src="/images/docs/about/main-flowchart.png"
+    src="/images/docs/about/main-flowchart-dark.svg"
     alt="World ID Flowchart"
-    width="600"
+    className="hidden dark:block"
   />
-</div>
+  <img
+    src="/images/docs/about/main-flowchart-light.svg"
+    alt="World ID Flowchart"
+    className="block dark:hidden"
+  />
+</GradientBorderContainer>
 
 When a user executes a World ID transaction they assert and prove two things:
 
@@ -25,20 +36,36 @@ An action is something that a single human can perform only once. For example: r
 
 The protocol relies on a [Semaphore](https://github.com/appliedzkp/semaphore) instance and zero-knowledge proofs, which allow a user to prove their membership to a set (in this case the set of verified identities) without revealing who they are. The Orb performs multiple real-time checks to ensure the person in front is a human that has not been seen before. Advanced details found on [Proof of personhood](/advanced/proof-of-personhood).
 
-<div className="text--center">
-  <img src="/images/docs/about/orb.webp" alt="Picture of a Worldcoin orb" />
-</div>
+<GradientBorderContainer
+  defaultBackground
+  className="not-prose flex w-full justify-center bg-ebedef py-12 dark:bg-181b1f"
+>
+  <img
+    src="/images/docs/about/orb.png"
+    alt="Picture of a Worldcoin orb"
+    style={{ maxWidth: 253 }}
+  />
+</GradientBorderContainer>
 
 ## Proof of uniqueness
 
 Given that we don't know anything about the person who's proving their membership to the set, a critical piece of the protocol is making sure a person can only prove their membership in a particular context only once. For instance, if you're doing an airdrop, you want to make sure a single person can only claim the airdrop once. We do this through actions. A user can only submit a proof for an action once. To define each action, we use [action IDs](/about/glossary#action-id) which is an arbitrary string that the verifying party crafts and provides. **A single user will always output the same [nullifier hash](/docs/about/glossary#nullifier-hash) for the same action ID.**
 
-<div className="text--center">
+<GradientBorderContainer
+  defaultBackground
+  className="not-prose flex w-full justify-center p-6"
+>
   <img
-    src="/images/docs/about/proof-of-uniqueness.svg"
+    src="/images/docs/about/proof-of-uniqueness-dark.svg"
     alt="When an existing proof for an action ID and the same identity is found, proof of uniqueness fails"
+    className="hidden dark:block"
   />
-</div>
+  <img
+    src="/images/docs/about/proof-of-uniqueness-light.svg"
+    alt="When an existing proof for an action ID and the same identity is found, proof of uniqueness fails"
+    className="block dark:hidden"
+  />
+</GradientBorderContainer>
 
 **Example:**
 Alice is an end user who has verified at a Worldcoin orb. MeshaApp is a dapp with a new token that wants to airdrop a piece but only once per person.
@@ -52,7 +79,41 @@ Alice is an end user who has verified at a Worldcoin orb. MeshaApp is a dapp wit
 
 ## Components
 
-<img src="/images/docs/about/components.png" alt="" />
+<div
+  className="grid justify-center gap-6"
+  style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(0,255px))' }}
+>
+  <Component
+    darkImage="/images/docs/about/smart-contracts-dark.svg"
+    lightImage="/images/docs/about/smart-contracts-light.svg"
+    title="Smart contracts"
+  />
+  <Component
+    darkImage="/images/docs/about/sequencer-dark.svg"
+    lightImage="/images/docs/about/sequencer-light.svg"
+    title="Sequencer"
+  />
+  <Component
+    darkImage="/images/docs/about/world-id-backend-dark.svg"
+    lightImage="/images/docs/about/world-id-backend-light.svg"
+    title="World ID backend"
+  />
+  <Component
+    darkImage="/images/docs/about/the-orb-dark.svg"
+    lightImage="/images/docs/about/the-orb-light.svg"
+    title="The Orb"
+  />
+  <Component
+    darkImage="/images/docs/about/worldcoin-app-dark.svg"
+    lightImage="/images/docs/about/worldcoin-app-light.svg"
+    title="Worldcoin app"
+  />
+  <Component
+    darkImage="/images/docs/about/frontend-dark.svg"
+    lightImage="/images/docs/about/frontend-light.svg"
+    title="Frontend (JS package)"
+  />
+</div>
 
 <table>
   <thead>
@@ -84,7 +145,7 @@ Alice is an end user who has verified at a Worldcoin orb. MeshaApp is a dapp wit
       </td>
     </tr>
     <tr>
-      <td>[/docs/js](JS package)</td>
+      <td>[JS package](/docs/js)</td>
       <td>
         Worldcoin (
         <a href="https://github.com/worldcoin/world-id-js" target="_blank">

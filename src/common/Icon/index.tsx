@@ -3,6 +3,7 @@ import { CSSProperties, memo } from 'react'
 import styles from './icon.module.css'
 
 const iconNames = [
+  'arrow-right',
   'attention',
   'book',
   'close',

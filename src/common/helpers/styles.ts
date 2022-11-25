@@ -14,4 +14,5 @@ export const styles = {
   heroFenceShadow: 'shadow-[0px_4px_48px_rgba(210,_231,_247,_0.12)]',
   heroFenceTabBorder:
     'relative overflow-hidden p-px before:absolute before:inset-0 before:bg-[length:200%] before:bg-[image:linear-gradient(35deg,_#EAD1CA,_rgba(222,_209,_204,_0.13)_25%,_#CBD1CF_66%,_rgba(181,_208,_231,_0.06))]',
+  background: 'bg-ebedef dark:bg-161b22',
 }

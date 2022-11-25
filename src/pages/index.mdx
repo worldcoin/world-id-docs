@@ -1,4 +1,6 @@
 import { Callout } from 'common/Callout'
+import { GradientBorderContainer } from 'common/GradientBorderContainer'
+import { Steps } from 'Steps'
 
 # Getting started
 
@@ -8,35 +10,61 @@ You can easily integrate World ID in your app and smart contract or backend. End
 
 ![airdrop-render](/images/docs/introduction/mesha-airdrop-render.jpeg)
 
-<table>
-  <tbody>
-    <tr>
-      <td className="align-middle">
-        ![Render of World ID
-        widget](/images/docs/introduction/world-id-widget.png)
-      </td>
-      <td className="align-middle">
-        ![Render of World ID
-        widget](/images/docs/introduction/world-id-js-modal.png)
-      </td>
-      <td className="align-middle">
-        ![Render of World ID
-        widget](/images/docs/introduction/world-id-verification-drawer.png)
-      </td>
-    </tr>
-    <tr>
-      <td>The lightweight [JS widget](/js) is added to your dapp.</td>
-      <td>
-        [JS widget](/js) handles connection to Worldcoin app and provides
-        instructions to the user.
-      </td>
-      <td>
+<div className="grid gap-y-4">
+  <GradientBorderContainer defaultBackground className="w-full p-6">
+    <Steps
+      steps={[
+        <div className="align-middle">
+          <img
+            src="/images/docs/introduction/widget-light.png"
+            className="block dark:hidden"
+          />
+          <img
+            src="/images/docs/introduction/widget-dark.svg"
+            className="hidden dark:block"
+          />
+        </div>,
+        <div className="align-middle">
+          <img
+            src="/images/docs/introduction/widget-modal-light.svg"
+            className="block dark:hidden"
+          />
+          <img
+            src="/images/docs/introduction/widget-modal-dark.svg"
+            className="hidden dark:block"
+          />
+        </div>,
+        <div className="align-middle">
+          <img
+            src="/images/docs/introduction/simulator-verify-light.png"
+            className="block dark:hidden"
+          />
+          <img
+            src="/images/docs/introduction/simulator-verify-dark.svg"
+            className="hidden dark:block"
+          />
+        </div>,
+      ]}
+    />
+  </GradientBorderContainer>
+
+  <Steps
+    stepBackground
+    steps={[
+      <span>
+        The lightweight <a href="/js">JS widget</a> is added to your dapp.
+      </span>,
+      <span>
+        <a href="/js">JS widget</a> handles connection to Worldcoin app and
+        provides instructions to the user.
+      </span>,
+      <span>
         User verifies they are a unique human with a{' '}
-        [ZKP](/advanced/zero-knowledge-proofs).
-      </td>
-    </tr>
-  </tbody>
-</table>
+        <a href="/advanced/zero-knowledge-proofs">ZKP</a>.
+      </span>,
+    ]}
+  />
+</div>
 
 <Callout title="FYI">
   World ID is currently in **Beta** and some functionality might change. Please
@@ -48,7 +76,16 @@ You can easily integrate World ID in your app and smart contract or backend. End
 
 In broad strokes, this is how World ID works.
 
-![Render of World ID widget](/images/docs/introduction/how-it-works.png)
+<img
+  src="/images/docs/introduction/how-it-works-light.svg"
+  className="block dark:hidden"
+  alt="Render of World ID widget"
+/>
+<img
+  src="/images/docs/introduction/how-it-works-dark.svg"
+  className="hidden dark:block"
+  alt="Render of World ID widget"
+/>
 
 1. End user verifies themself at a Worldcoin orb ([read more](https://worldcoin.org/how-the-launch-works)). User proves they are a unique human without requiring to store any PII (more on [Privacy](/about/privacy)).
 
@@ -71,5 +108,6 @@ World ID prevents sybil attacks both on-chain and off-chain. Some use cases:
 
 <Callout>
   Spot an error in these docs? Our docs are open source too and contributions
-  are welcome. Open a PR on ```code``` [GitHub](https://github.com/worldcoin/world-id-docs).
+  are welcome. Open a PR on `code`
+  [GitHub](https://github.com/worldcoin/world-id-docs).
 </Callout>

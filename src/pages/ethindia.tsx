@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 
-// FIXME: Temporary redirect for ETHSanFrancisco hackathon
+// FIXME: Temporary redirect for ETHIndia
 export default function Redirect(): JSX.Element {
   useEffect(() => {
     setTimeout(
       () =>
         (window.location.href =
-          'https://worldcoin.notion.site/Worldcoin-ETHSanFrancisco-2ec56711d9464b7b8c26e764928d92cf'),
+          'https://worldcoin.notion.site/Worldcoin-ETHIndia-031ba46df623412a9df1552337bcaa57'),
       1000
     )
   }, [])
@@ -14,13 +14,12 @@ export default function Redirect(): JSX.Element {
     <div
       style={{
         display: 'flex',
-        background: '#fafafa',
-        height: '100vh',
+        height: 'calc(100vh - 200px)',
         alignItems: 'center',
         justifyContent: 'center',
-        color: '#777e91',
         fontSize: '2em',
       }}
+      className="text-777e91 dark:text-white"
     >
       🌐 Redirecting you....
     </div>

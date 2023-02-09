@@ -15,6 +15,7 @@ import { Link } from 'common/Link'
 import { ThemeProvider } from 'common/contexts/ThemeContext'
 import { useRouter } from 'next/router'
 import { MDXComponents } from 'mdx/types'
+import Script from 'next/script'
 
 const components: MDXComponents = {
   h2: (props: { children?: ReactNode }) => (
@@ -62,6 +63,7 @@ export default function MyApp(pageProps: AppProps) {
 
   return (
     <ThemeProvider>
+      <Script src="https://unpkg.com/clippy-widget" strategy="lazyOnload" />
       <MDXProvider components={components}>
         {isDefaultLayoutPage && (
           <Layout

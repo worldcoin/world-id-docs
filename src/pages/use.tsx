@@ -4,7 +4,6 @@ import React, {
   useEffect,
   useMemo,
   useState,
-  MouseEventHandler,
 } from 'react'
 import { IDKitWidget, ISuccessResult } from '@worldcoin/idkit'
 import { useRouter } from 'next/router'
@@ -16,7 +15,7 @@ import Link from 'next/link'
 
 const validateUrl = (candidate: string | null): boolean => {
   try {
-    const url = new URL(candidate as string)
+    // const url = new URL(candidate as string)
     // if (url.protocol !== 'https:') {
     //   console.error('Provided `returnTo` must always be over https.')
     //   return false

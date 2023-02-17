@@ -53,19 +53,13 @@ export const Layout = memo(function Layout(props: {
       <div className="relative z-10">
         <Header navItems={navItems} />
 
-        {isHomePage && <Hero className="lg:mb-24 xl:mb-0" />}
-
         <div
           className={cn(
             styles.screenPadding,
-            'grid items-start lg:grid-cols-auto/fr/auto',
-            {
-              'py-12 lg:py-36': !isHomePage,
-              'pb-16 lg:pb-72': isHomePage,
-            }
+            'grid items-start lg:grid-cols-auto/fr/auto py-11',
           )}
         >
-          <aside className="sticky top-20 hidden border-r border-858494/20 lg:block lg:pr-4 2xl:pr-16">
+          <aside className="sticky top-20 hidden lg:block lg:pr-4 2xl:pr-16">
             <Navbar items={navItems} />
           </aside>
 
@@ -74,6 +68,8 @@ export const Layout = memo(function Layout(props: {
             className="max-w-full overflow-hidden lg:min-w-[650px] lg:px-8 2xl:px-16"
           >
             <article>
+              {isHomePage && <Hero />}
+
               {(props.title || section) && (
                 <header className="mb-3">
                   {section && (

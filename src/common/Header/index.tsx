@@ -30,12 +30,7 @@ export const Header = memo(function Header(props: {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 flex flex-wrap items-center justify-between border-b px-4 py-5 transition duration-500 sm:px-6 lg:px-8',
-        {
-          'border-b-transparent backdrop-blur-none': !isScrolled,
-          'bg-ffffff/15 border-b border-2c393e/5 backdrop-blur-md dark:border-b-ffffff/5 dark:bg-191c20/20':
-            isScrolled,
-        }
+        'sticky top-0 z-50 flex flex-wrap items-center justify-between border-b px-4 py-5 transition duration-500 sm:px-6 lg:px-8 backdrop-blur-md border-b border-161718/10 dark:border-b-3c424b',
       )}
     >
       {!props.disableNav && props.navItems && (

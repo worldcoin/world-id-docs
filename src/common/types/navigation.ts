@@ -6,10 +6,12 @@ export type Item = {
 } & (
   | {
       href?: never
+      external?: never
       items: Array<Item>
     }
   | {
       href: string
+      external?: boolean
       items?: never
     }
 )

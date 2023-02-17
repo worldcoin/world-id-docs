@@ -25,6 +25,42 @@ yarn add @worldcoin/id`,
 ]
 
 export function Hero(props: { className?: string }) {
+
+  return (
+    <div className="mb-12 pb-12 border-b border-b-f3f4f5">
+      <h1
+        className={cn(
+          'font-sora text-5xl font-bold leading-none uppercase tracking-wide',
+          'text-191c20 dark:text-white',
+        )}
+      >
+        Sybil resistance, finally.
+      </h1>
+      <p className="lg:max-w-[580px] mt-3 text-24 text-3c424b dark:text-f3f4f5">
+        Anonymously verify your users are real humans, and ensure they can
+        only perform action once.
+      </p>
+      <div className="my-8 flex">
+        <Link
+          href="https://github.com/worldcoin/world-id-js"
+          target="_blank"
+          className={cn(
+            'flex items-center gap-2 rounded-lg bg-fbfbfc dark:bg-191c20 border border-f3f4f5 dark:border-3c424b px-4 h-11 text-181b1f dark:text-ffffff',
+          )}
+        >
+          <Icon
+              name="github"
+              className="h-4 w-4"
+          />
+          <span className="font-medium text-14 uppercase tracking-wide leading-[1px]">View on GitHub</span>
+        </Link>
+      </div>
+      <div className="hidden justify-self-center md:block">
+        <Fence tabs={tabs} />
+      </div>
+    </div>
+  )
+
   return (
     <div
       className={cn(

@@ -16,6 +16,7 @@ const iconNames = [
   'lightning',
   'logo-full',
   'logo',
+  'maximize',
   'menu',
   'question',
   'search',

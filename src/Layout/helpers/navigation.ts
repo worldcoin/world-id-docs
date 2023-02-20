@@ -14,7 +14,15 @@ export const navItems: NavItems = [
   {
     icon: 'cpu',
     title: 'Examples',
-    href: '/examples',
+    items: [
+      { title: 'All Examples', href: '/examples' },
+      { title: 'Human-only POAP dispenser', href: 'https://poap.worldcoin.org/', external: true },
+      { title: 'Worldcoin Meets Lens', href: 'https://human.withlens.app/', external: true },
+      { title: 'World ID Discord Bot', href: 'https://github.com/worldcoin/world-id-discord-bot', external: true },
+      { title: 'Hyperdrop', href: 'https://github.com/worldcoin/hyperdrop-contracts', external: true },
+      { title: 'Pet Orbz', href: 'https://petorbz.com/', external: true },
+      { title: 'Mesha', href: 'https://example.id.worldcoin.org/', external: true },
+    ],
   },
   {
     icon: 'logo',

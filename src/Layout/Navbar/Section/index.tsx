@@ -5,7 +5,6 @@ import slugify from '@sindresorhus/slugify'
 import { Item as NavItem } from 'common/types/navigation'
 import { useRouter } from 'next/router'
 import cn from 'classnames'
-import { styles } from 'common/helpers/styles'
 
 export const Section = memo(function Section(
   props: NavItem & { className?: string }
@@ -20,52 +19,44 @@ export const Section = memo(function Section(
   return (
     <div className={props.className}>
       <div
-        className={cn(
-          'grid grid-cols-auto/fr items-center gap-x-4 bg-8e87ff py-4 pl-0.5',
-          styles.darkTextGradient
-        )}
+        className="uppercase tracking-wide text-14 text-191c20 dark:text-ffffff font-medium leading-4"
       >
-        {props.icon && (
-          <Icon
-            name={props.icon}
-            className="h-6 w-6 bg-[color:inherit] bg-[image:inherit]"
-          />
-        )}
-
         {props.href ? (
-          <Link href={props.href} className="truncate text-20 font-semibold">
+          <Link href={props.href} className="truncate">
             {props.title}
           </Link>
         ) : (
-          <p className="truncate text-20 font-semibold">{props.title}</p>
+          <p className="truncate">{props.title}</p>
         )}
       </div>
 
       {props.items?.length && (
-        <div className="grid pl-3">
+        <div className="mt-2 grid text-16 leading-5">
           {props.items.map((item, id) => (
             <Link
               key={`${slugify(item.title)}-${id}`}
               href={item.href || '#!'}
               className={cn(
-                'min-w-[100px] cursor-pointer select-none border-l-2 py-4 pl-3 transition-colors duration-300 hover:text-ffffff/70',
+                'relative min-w-[260px] cursor-pointer select-none py-2 pl-5 transition-colors duration-300',
+                'before:absolute before:top-1/2 before:left-0 before:w-1 before:h-1 before:rounded-full before:bg-current before:-translate-y-1/2',
                 {
-                  'border-black/10 dark:border-858494/50': !isCurrent(
-                    item.href
-                  ),
-                  'border-8e87ff dark:border-ffffff': isCurrent(item.href),
+                  'text-9ba3ae hover:text-9ba3ae/70 dark:text-9ba3ae dark:hover:text-9ba3ae/70': !isCurrent(item.href),
+                  'text-182d96 hover:text-182d96 dark:text-4940e0 dark:hover:text-4940e0': isCurrent(item.href),
                 }
               )}
             >
-              <span
-                className={cn('block truncate pl-6 pr-10', {
-                  'text-black/40 dark:text-70868f': !isCurrent(item.href),
-                  [`${cn('bg-8e87ff', styles.darkTextGradient)}`]: isCurrent(
-                    item.href
-                  ),
-                })}
-              >
-                {item.title}
+              <span className="flex items-center gap-x-2">
+                <span
+                  className={cn('block truncate')}
+                >
+                  {item.title}
+                </span>
+                {item.external && (
+                  <Icon
+                    name="maximize"
+                    className="w-3 h-3"
+                  />
+                )}
               </span>
             </Link>
           ))}

@@ -30,12 +30,8 @@ export const Header = memo(function Header(props: {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 flex flex-wrap items-center justify-between border-b px-4 py-5 transition duration-500 sm:px-6 lg:px-8',
-        {
-          'border-b-transparent backdrop-blur-none': !isScrolled,
-          'bg-ffffff/15 border-b border-2c393e/5 backdrop-blur-md dark:border-b-ffffff/5 dark:bg-191c20/20':
-            isScrolled,
-        }
+        'sticky top-0 z-50 flex flex-wrap items-center justify-between px-4 py-5 sm:px-6 lg:px-8',
+          'backdrop-blur-md border-b bg-ffffff/25 border-161718/10 dark:bg-000000/25 dark:border-b-3c424b',
       )}
     >
       {!props.disableNav && props.navItems && (
@@ -53,15 +49,7 @@ export const Header = memo(function Header(props: {
       {!props.disableSearch && (
         <div className="-my-5 mr-6 sm:mr-8 md:mr-0">
           <div className="hidden md:block">
-            <SearchBar
-              className={cn(
-                'relative before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:transition-colors',
-                {
-                  'lg:before:bg-transparent': !isScrolled,
-                  'lg:before:bg-ffffff lg:before:dark:bg-191c20': isScrolled,
-                }
-              )}
-            />
+            <SearchBar />
           </div>
 
           <div className="md:hidden">
@@ -71,6 +59,22 @@ export const Header = memo(function Header(props: {
       )}
 
       <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:flex-grow">
+        <a
+          className="flex items-center gap-x-1 text-191c20 dark:text-ffffff text-14 leading-[1px]"
+          href="https://developer.worldcoin.org/"
+        >
+          Developer Portal
+          <Icon name="maximize-rounded" className="h-4 w-4" />
+        </a>
+
+        <a
+          className="flex items-center gap-x-1 text-191c20 dark:text-ffffff text-14 leading-[1px]"
+          href="https://developer.worldcoin.org/" // FIXME: change link
+        >
+          ✨ Feedback
+          <Icon name="maximize-rounded" className="h-4 w-4" />
+        </a>
+
         {!props.disableThemeSelector && (
           <ThemeSelector className="relative z-10" />
         )}

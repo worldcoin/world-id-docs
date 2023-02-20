@@ -12,56 +12,17 @@ export const Fence = memo(function Fence(props: {
   const [currentTab, setCurrentTab] = useState(props.tabs[0])
 
   return (
-    <div className="relative min-w-[550px]">
-      <Icon
-        path="/images/hero-fence-frame.svg"
-        className={cn(
-          'absolute top-[-26px] right-[-16px] h-[181px] w-[332px] bg-contain bg-left-top bg-no-repeat',
-          'bg-[image:linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)),_url(/images/iridescent.jpg)] dark:bg-[url(/images/iridescent.jpg)]'
-        )}
-      />
-
-      <Icon
-        path="/images/hero-fence-frame.svg"
-        className={cn(
-          'absolute bottom-[-26px] left-[-16px] h-[181px] w-[332px] rotate-180 bg-contain bg-left-top bg-no-repeat',
-          'bg-[image:linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)),_url(/images/iridescent.jpg)] dark:bg-[url(/images/iridescent.jpg)]'
-        )}
-      />
-
-      <div
-        className={cn(
-          'relative overflow-hidden rounded-2xl',
-          styles.heroFenceShadow
-        )}
-      >
-        <div className={styles.fenceBorder} />
-
-        <div
-          className={cn(
-            'space-y-6 bg-ebedef p-6 dark:bg-161b22',
-            styles.fenceBorderInner
-          )}
-        >
-          <div className="flex gap-1 opacity-20 dark:opacity-100">
-            <span className="w-3 h-3 border rounded-full border-363a45" />
-            <span className="w-3 h-3 border rounded-full border-363a45" />
-            <span className="w-3 h-3 border rounded-full border-363a45" />
-          </div>
-
-          <div className="flex items-center gap-2 font-roboto-mono text-14">
-            {props.tabs.map((tab, tabIndex) => (
-              <Tab key={tabIndex} isActive={tab === currentTab} onSelect={() => setCurrentTab(tab)}>{tab.name}</Tab>
-            ))}
-          </div>
-
-          <pre>
-            <CodeBlock language={currentTab.language} showLines>
-              {currentTab.code}
-            </CodeBlock>
-          </pre>
-        </div>
+    <div className="dark:bg-191c20 rounded-lg shadow-1px shadow-eeeef7 dark:shadow-252526">
+      <div className="flex items-center gap-6 px-5 pt-3 bg-fbfbfc dark:bg-3c424b rounded-t-lg">
+        {props.tabs.map((tab, tabIndex) => (
+            <Tab key={tabIndex} isActive={tab === currentTab} onSelect={() => setCurrentTab(tab)}>{tab.name}</Tab>
+        ))}
       </div>
+      <pre className="px-5 py-6">
+        <CodeBlock language={currentTab.language} showLines>
+          {currentTab.code}
+        </CodeBlock>
+      </pre>
     </div>
   )
 })

@@ -27,6 +27,9 @@ module.exports = {
 
   theme: {
     extend: {
+      boxShadow: {
+        '1px': '0 0 0 1px transparent'
+      },
       gridTemplateColumns: {
         'fr/auto': '1fr auto',
         'auto/fr': 'auto 1fr',
@@ -53,6 +56,7 @@ module.exports = {
           '#1a2436',
           '#211c29',
           '#22262c',
+          '#252526',
           '#262f41',
           '#2c393e',
           '#2e2936',
@@ -75,12 +79,14 @@ module.exports = {
           '#b37af0',
           '#cde0ec',
           '#d2e7f7',
+          '#d5dee8',
           '#d7dae1',
           '#d8e1bd',
           '#e5c07b',
           '#e6cfcf',
           '#ebedef',
           '#edecfc',
+          '#eeeef7',
           '#f3f4f5',
           '#f4f4f4',
           '#fb7e67',

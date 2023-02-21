@@ -1,6 +1,6 @@
 import { Callout } from 'common/Callout'
 
-# Testing
+# Simulator
 
 <Callout type="tip">
   Access the Worldcoin simulator at
@@ -30,8 +30,9 @@ How you connect to the staging network to **verify proofs** depends on whether y
 
 ### Verifying proofs
 
-{/* FIXME: add tabs component */}
-{/* <Tabs>
+{/_ FIXME: add tabs component _/}
+{/\* <Tabs>
+
   <TabItem value="cloud" label="☁️ Cloud actions">
    <b>If your action is running on Cloud</b> (through the [Developer Portal](https://developer.worldcoin.org), you <b>don't have to do anything additional</b> to use the Staging network. When you create an action you select whether you want to run it in Staging or Production mode and the Developer Portal will do the proper validation automatically for you.
   </TabItem>
@@ -39,8 +40,6 @@ How you connect to the staging network to **verify proofs** depends on whether y
     If you are running your action on-chain, you do need to point your smart contract to the relevant World ID smart contract. Further, the Staging and Production smart contracts are deployed to different chains. Be sure to <b>check the Developer Portal for the most up-to-date information on which chain to use.</b>
 
 To use the <b>Staging network</b> follow these steps:
-
-{' '}
 
 <ol>
   <li>
@@ -65,8 +64,6 @@ To use the <b>Staging network</b> follow these steps:
     the <b>Polygon Mumbai-Testnet.</b>
   </li>
 </ol>
-
-{' '}
 
 <details>
   <summary>How to to connect your wallet to Polygon Mumbai-Testnet</summary>
@@ -125,7 +122,7 @@ When you generate an identity with an external wallet, we use your wallet to gen
 
 ## Advanced
 
-<Callout type="caution">
+<Callout type="danger">
   The information in this section is currently intended only for internal use by
   the Core Team.
 </Callout>

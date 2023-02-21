@@ -4,59 +4,36 @@ export type NavItems = Array<Item>
 
 export const navItems: NavItems = [
   {
-    icon: 'hand',
     title: 'Introduction',
     items: [
-      { title: 'Getting Started', href: '/' },
+      { title: 'Home', href: '/' },
       { title: 'Quick Start', href: '/quick-start' },
+      { title: 'Try It Out', href: '/try' },
     ],
   },
   {
-    icon: 'cpu',
-    title: 'Examples',
+    title: 'World ID',
     items: [
-      { title: 'All Examples', href: '/examples' },
-      { title: 'Human-only POAP dispenser', href: 'https://poap.worldcoin.org/', external: true },
-      { title: 'Worldcoin Meets Lens', href: 'https://human.withlens.app/', external: true },
-      { title: 'World ID Discord Bot', href: 'https://github.com/worldcoin/world-id-discord-bot', external: true },
-      { title: 'Hyperdrop', href: 'https://github.com/worldcoin/hyperdrop-contracts', external: true },
-      { title: 'Pet Orbz', href: 'https://petorbz.com/', external: true },
-      { title: 'Mesha', href: 'https://example.id.worldcoin.org/', external: true },
+      { title: 'Overview', href: '/id' },
+      { title: 'The Protocol', href: '/id/protocol' },
+      { title: 'Simulator', href: '/id/simulator' },
     ],
   },
   {
-    icon: 'logo',
-    title: 'About World ID',
+    title: 'IDKit',
     items: [
-      { title: 'Protocol Overview', href: '/about/protocol' },
-      { title: 'Glossary', href: '/about/glossary' },
-      { title: 'Privacy', href: '/about/privacy' },
-      { title: 'Testing', href: '/about/testing' },
+      { title: 'Introduction', href: '/idkit' },
+      { title: 'Reference', href: '/idkit/reference' },
     ],
   },
   {
-    icon: 'book',
-    title: 'JS Widget',
-    items: [
-      { title: 'JS Introduction', href: '/js' },
-      { title: 'JS Reference', href: '/js/reference' },
-      { title: 'Error Handling', href: '/js/error-handling' },
-      { title: 'Telemetry', href: '/js/telemetry' },
-    ],
-  },
-  {
-    icon: 'code',
     title: 'Advanced',
     items: [
-      { title: 'Proof of Personhood', href: '/advanced/proof-of-personhood' },
+      { title: 'On-Chain', href: '/advanced/on-chain' },
       {
-        title: 'Zero-knowledge proofs',
-        href: '/advanced/zero-knowledge-proofs',
+        title: 'Privacy',
+        href: '/advanced/privacy',
       },
-      { title: 'Advanced Signals', href: '/advanced/advanced-signals' },
-      { title: 'Verified Actions', href: '/advanced/verified-actions' },
-      { title: 'Custom Integrations', href: '/advanced/custom-integrations' },
-      { title: 'Roadmap', href: '/advanced/roadmap' },
       { title: 'Protocol Internals', href: '/advanced/protocol-internals' },
     ],
   },
@@ -64,16 +41,10 @@ export const navItems: NavItems = [
     icon: 'code',
     title: 'API',
     items: [
-      { title: 'Introduction', href: '/api-docs' },
-      { title: 'Authentication', href: '/api-docs/authentication' },
-      { title: 'API Reference', href: '/api-docs/reference' },
-      { title: 'Error Handling', href: '/api-docs/error-handling' },
-      { title: 'Internal Endpoints', href: '/api-docs/internal-endpoints' },
+      { title: 'Introduction', href: '/api' },
+      { title: 'API Reference', href: '/api/reference' },
+      { title: 'Error Handling', href: '/api/errors' },
+      { title: 'Internal Endpoints', href: '/api/internal-endpoints' },
     ],
-  },
-  {
-    icon: 'coin',
-    title: 'Hackathons & Workshops',
-    href: '/hackathons',
   },
 ]

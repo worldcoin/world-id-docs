@@ -7,8 +7,8 @@
 @font-face {
   font-display: block;
   font-family: 'GT America';
-  src: url('/fonts/gt-america-standard-bold-webfont.woff2') format('woff2'),
-  url('/fonts/gt-america-standard-bold-webfont.woff') format('woff');
+  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-bold-webfont.woff2') format('woff2'),
+  url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-bold-webfont.woff') format('woff');
   font-weight: 700;
   font-style: normal;
 }
@@ -16,8 +16,8 @@
 @font-face {
   font-display: block;
   font-family: 'GT America';
-  src: url('/fonts/gt-america-standard-medium-webfont.woff2') format('woff2'),
-  url('/fonts/gt-america-standard-medium-webfont.woff') format('woff');
+  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-medium-webfont.woff2') format('woff2'),
+  url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-medium-webfont.woff') format('woff');
   font-weight: 500;
   font-style: normal;
 }
@@ -25,8 +25,8 @@
 @font-face {
   font-display: block;
   font-family: 'GT America';
-  src: url('/fonts/gt-america-standard-regular-webfont.woff2') format('woff2'),
-  url('/fonts/gt-america-standard-regular-webfont.woff') format('woff');
+  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-webfont.woff2') format('woff2'),
+  url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-webfont.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
@@ -34,8 +34,8 @@
 @font-face {
   font-display: block;
   font-family: 'GT America';
-  src: url('/fonts/gt-america-standard-regular-italic-webfont.woff2') format('woff2'),
-  url('/fonts/gt-america-standard-regular-italic-webfont.woff') format('woff');
+  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-italic-webfont.woff2') format('woff2'),
+  url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-italic-webfont.woff') format('woff');
   font-weight: 400;
   font-style: italic;
 }

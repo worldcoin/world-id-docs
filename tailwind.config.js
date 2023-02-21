@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+const colorVariable = require('@mertasan/tailwindcss-variables/colorVariable')
 
+/** @type {import('tailwindcss').Config} */
 const mirrorHexColors = (colors) =>
   Object.fromEntries(
     colors.map((color, index) => {
@@ -22,10 +23,42 @@ const mirrorHexColors = (colors) =>
   )
 
 module.exports = {
-  darkMode: ['class', '[data-theme="dark"]'],
+  darkMode: 'class',
   content: ['./src/**/*.{ts,tsx}'],
 
   theme: {
+    variables: {
+      DEFAULT: {
+        colors: {
+          surface: {
+            DEFAULT: '#ffffff',
+          },
+          typography: {
+            DEFAULT: '#191c20',
+            900: '#191c20',
+            700: '#3c424b',
+            500: '#657080',
+            400: '#9ba3ae',
+          }
+        }
+      }
+    },
+    darkVariables: {
+      DEFAULT: {
+        colors: {
+          surface: {
+            DEFAULT: '#000000',
+          },
+          typography: {
+            DEFAULT: '#ffffff',
+            900: '#ffffff',
+            700: '#f3f4f5',
+            500: '#f9fafb',
+            400: '#9ba3ae',
+          }
+        }
+      }
+    },
     extend: {
       boxShadow: {
         '1px': '0 0 0 1px transparent'
@@ -44,6 +77,16 @@ module.exports = {
       },
 
       colors: {
+        surface: {
+          DEFAULT: colorVariable('var(--colors-surface)'),
+        },
+        typography: {
+          DEFAULT: colorVariable('var(--colors-typography)'),
+          900: colorVariable('var(--colors-typography-900)'),
+          700: colorVariable('var(--colors-typography-700)'),
+          500: colorVariable('var(--colors-typography-500)'),
+          400: colorVariable('var(--colors-typography-400)'),
+        },
         ...mirrorHexColors([
           '#000000',
           '#111f24',
@@ -74,7 +117,6 @@ module.exports = {
           '#8e87ff',
           '#94a2b8',
           '#98c379',
-          '#9ba3ae',
           '#9eafc0',
           '#b37af0',
           '#cde0ec',
@@ -103,6 +145,7 @@ module.exports = {
       fontFamily: {
         sora: ['Sora', 'sans-serif'],
         rubik: ['Rubik', 'sans-serif'],
+        default: ['gt_america', 'Rubik', 'sans-serif'],
         'roboto-mono': ['Roboto Mono', 'monospace'],
       },
 
@@ -118,5 +161,11 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@mertasan/tailwindcss-variables')({
+      colorVariables: true,
+      darkToRoot: false,
+    }),
+  ],
 }

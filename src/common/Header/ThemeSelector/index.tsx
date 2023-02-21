@@ -1,4 +1,4 @@
-import { Fragment, memo, useContext } from 'react'
+import {Fragment, memo, useContext} from 'react'
 import { Listbox } from '@headlessui/react'
 import cn from 'classnames'
 import { styles } from 'common/helpers/styles'
@@ -19,7 +19,7 @@ export const ThemeSelector = memo(function ThemeSelector(props: {
     >
       <Listbox.Label className="sr-only">Theme</Listbox.Label>
       <Listbox.Button className={styles.headerButton}>
-        <LightIcon className="light:block hidden" />
+        <LightIcon className="block dark:hidden" />
         <DarkIcon className="hidden dark:block" />
       </Listbox.Button>
       <Listbox.Options

@@ -19,7 +19,7 @@ export default function Document() {
         />
       </Head>
 
-      <body className="bg-ffffff dark:bg-000000">
+      <body>
         <Main />
         <NextScript />
       </body>

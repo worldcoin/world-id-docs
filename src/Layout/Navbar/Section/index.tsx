@@ -19,7 +19,7 @@ export const Section = memo(function Section(
   return (
     <div className={props.className}>
       <div
-        className="uppercase tracking-wide text-14 text-191c20 dark:text-ffffff font-medium leading-4"
+        className="uppercase tracking-wide text-14 font-medium leading-4"
       >
         {props.href ? (
           <Link href={props.href} className="truncate">
@@ -40,7 +40,7 @@ export const Section = memo(function Section(
                 'relative min-w-[260px] cursor-pointer select-none py-2 pl-5 transition-colors duration-300',
                 'before:absolute before:top-1/2 before:left-0 before:w-1 before:h-1 before:rounded-full before:bg-current before:-translate-y-1/2',
                 {
-                  'text-9ba3ae hover:text-9ba3ae/70 dark:text-9ba3ae dark:hover:text-9ba3ae/70': !isCurrent(item.href),
+                  'text-typography-400 hover:text-typography-400/70': !isCurrent(item.href),
                   'text-182d96 hover:text-182d96 dark:text-4940e0 dark:hover:text-4940e0': isCurrent(item.href),
                 }
               )}

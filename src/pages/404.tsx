@@ -6,7 +6,7 @@ import { SearchBar } from 'common/Search'
 
 export default function PageNotFound() {
   return (
-    <div className="min-h-screen bg-191c20" data-theme="dark">
+    <div className="dark min-h-screen bg-191c20">
       <Header disableThemeSelector disableSearch />
 
       <div className="absolute top-[calc(100vh/12)] max-w-full px-10 opacity-50 md:top-auto md:-right-8 md:bottom-20 md:opacity-100">

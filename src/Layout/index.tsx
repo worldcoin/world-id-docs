@@ -73,12 +73,7 @@ export const Layout = memo(function Layout(props: {
               {(props.title || section) && (
                 <header className="mb-3">
                   {section && (
-                    <p
-                      className={cn(
-                        'bg-black/30 font-sora text-16 font-medium',
-                        styles.darkTextGradient
-                      )}
-                    >
+                    <p className="text-14 text-typography-400 uppercase tracking-wide">
                       {section.title}
                     </p>
                   )}

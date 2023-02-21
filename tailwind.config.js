@@ -145,7 +145,7 @@ module.exports = {
       fontFamily: {
         sora: ['Sora', 'sans-serif'],
         rubik: ['Rubik', 'sans-serif'],
-        default: ['gt_america', 'Rubik', 'sans-serif'],
+        default: ['GT America', 'Rubik', 'sans-serif'],
         'roboto-mono': ['Roboto Mono', 'monospace'],
       },
 

@@ -46,7 +46,7 @@ export default function Use() {
 
   useEffect(() => {
     if (
-      queryParams.action_id &&
+      queryParams.app_id &&
       queryParams.signal &&
       validateUrl(queryParams.return_to as string)
     ) {
@@ -60,13 +60,13 @@ export default function Use() {
     (response: ISuccessResult) => {
       // convert all items from response.proof_payload to string
       const proofPayload: Record<string, string> = {}
-      Object.entries(response.proof_payload).forEach(([key, value]) => {
+      Object.entries(response).forEach(([key, value]) => {
         proofPayload[key] = value.toString()
       })
       console.log(response, proofPayload)
 
       const params = new URLSearchParams({
-        signal_type: response.signal_type,
+        credential_type: response.credential_type,
         nullifier_hash: response.nullifier_hash,
         ...proofPayload,
       })
@@ -111,7 +111,8 @@ export default function Use() {
                 {state === State.Ready && (
                   <Fragment>
                     <IDKitWidget
-                      actionId={queryParams.action_id as string}
+                      app_id={queryParams.app_id as string}
+                      action={queryParams.action as string}
                       signal={queryParams.signal as string}
                       enableTelemetry
                       handleVerify={handleSuccess}

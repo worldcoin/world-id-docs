@@ -114,6 +114,7 @@ export default function Use() {
                       app_id={queryParams.app_id as string}
                       action={queryParams.action as string}
                       signal={queryParams.signal as string}
+                      action_description={queryParams.action_description?.toString()}
                       enableTelemetry
                       handleVerify={handleSuccess}
                     >

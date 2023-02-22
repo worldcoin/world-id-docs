@@ -111,12 +111,12 @@ export default function Use() {
                 {state === State.Ready && (
                   <Fragment>
                     <IDKitWidget
+                      enableTelemetry
+                      onSuccess={handleSuccess}
                       app_id={queryParams.app_id as string}
                       action={queryParams.action as string}
                       signal={queryParams.signal as string}
                       action_description={queryParams.action_description?.toString()}
-                      enableTelemetry
-                      handleVerify={handleSuccess}
                     >
                       {({ open }) => (
                         <button

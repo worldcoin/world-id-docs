@@ -1,16 +1,13 @@
 import cn from 'classnames'
-import { styles } from 'common/helpers/styles'
 import { ReactNode } from 'react'
 
 export function Fence(props: { children?: ReactNode; className?: string }) {
   return (
-    <div className={cn('relative', props.className)}>
-      <div className={styles.fenceBorder} />
+    <div className={cn('relative border border-neutral-200 dark:border-neutral-500 rounded-lg', props.className)}>
       <pre
         className={cn(
-          'max-w-[calc(100vw_-_32px)] overflow-auto',
-          styles.fenceBorderInner,
-          'bg-ebedef dark:bg-161b22',
+          'max-w-[calc(100vw_-_32px)] m-0 overflow-auto',
+          '',
         )}
       >
         {props.children}

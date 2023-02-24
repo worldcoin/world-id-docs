@@ -27,7 +27,7 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        '1px': '0 0 0 1px transparent'
+        '1px': '0 0 0 1px transparent',
       },
       gridTemplateColumns: {
         'fr/auto': '1fr auto',
@@ -71,6 +71,10 @@ module.exports = {
             700: '#ff5a76',
           },
         },
+        snippet: {
+          orange: '#cf5834',
+          orangedark: '#eb643b',
+        },
         ...mirrorHexColors([
           '#000000',
           '#111f24',
@@ -110,12 +114,14 @@ module.exports = {
           '#d8e1bd',
           '#e5c07b',
           '#e6cfcf',
+          '#eaf0f6',
           '#ebedef',
           '#edecfc',
           '#eeeef7',
           '#f3f4f5',
           '#f4f4f4',
           '#f5fdf6',
+          '#f8fafc',
           '#fb7e67',
           '#fbfbfc',
           '#fd684a',
@@ -132,7 +138,7 @@ module.exports = {
       fontFamily: {
         sora: ['Sora', 'sans-serif'],
         rubik: ['Rubik', 'sans-serif'],
-        default: ['GT America', 'Rubik', 'sans-serif'],
+        default: ['"GT America"', 'Rubik', 'sans-serif'],
         'roboto-mono': ['Roboto Mono', 'monospace'],
       },
 

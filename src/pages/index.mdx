@@ -9,45 +9,43 @@ You can easily integrate World ID in your app and smart contract or backend. End
 ![airdrop-render](/images/docs/introduction/mesha-airdrop-render.jpeg)
 
 <div className="grid gap-y-4">
-  <GradientBorderContainer defaultBackground className="w-full p-6">
-    <Steps
-      steps={[
-        <div className="align-middle">
-          <img
-            src="/images/docs/introduction/widget-light.png"
-            className="block dark:hidden"
-          />
-          <img
-            src="/images/docs/introduction/widget-dark.svg"
-            className="hidden dark:block"
-          />
-        </div>,
-        <div className="align-middle">
-          <img
-            src="/images/docs/introduction/widget-modal-light.svg"
-            className="block dark:hidden"
-          />
-          <img
-            src="/images/docs/introduction/widget-modal-dark.svg"
-            className="hidden dark:block"
-          />
-        </div>,
-        <div className="align-middle">
-          <img
-            src="/images/docs/introduction/simulator-verify-light.png"
-            className="block dark:hidden"
-          />
-          <img
-            src="/images/docs/introduction/simulator-verify-dark.svg"
-            className="hidden dark:block"
-          />
-        </div>,
-      ]}
-    />
-  </GradientBorderContainer>
+  <Steps
+    steps={[
+      <div className="align-middle">
+        <img
+          src="/images/docs/introduction/widget-light.png"
+          className="block dark:hidden"
+        />
+        <img
+          src="/images/docs/introduction/widget-dark.svg"
+          className="hidden dark:block"
+        />
+      </div>,
+      <div className="align-middle">
+        <img
+          src="/images/docs/introduction/widget-modal-light.svg"
+          className="block dark:hidden"
+        />
+        <img
+          src="/images/docs/introduction/widget-modal-dark.svg"
+          className="hidden dark:block"
+        />
+      </div>,
+      <div className="align-middle">
+        <img
+          src="/images/docs/introduction/simulator-verify-light.png"
+          className="block dark:hidden"
+        />
+        <img
+          src="/images/docs/introduction/simulator-verify-dark.svg"
+          className="hidden dark:block"
+        />
+      </div>,
+    ]}
+  />
 
   <Steps
-    stepBackground
+    borders
     steps={[
       <span>
         The lightweight <a href="/js">JS widget</a> is added to your dapp.

@@ -38,7 +38,7 @@ code {
 .token.parameter,
 .token.boolean,
 .token.tag {
-  @apply text-b37af0;
+  @apply text-snippet-orange dark:text-snippet-orangedark;
 }
 
 .token.literal-property {

@@ -1,4 +1,3 @@
-import { styles } from 'common/helpers/styles'
 import cn from 'classnames'
 import { Fence } from 'Layout/Hero/Fence'
 import Link from 'next/link'
@@ -27,7 +26,7 @@ yarn add @worldcoin/id`,
 export function Hero(props: { className?: string }) {
 
   return (
-    <div className="mb-12 pb-12 border-b border-b-f3f4f5">
+    <div className="mb-12 pb-12 border-b border-b-neutral-100 dark:border-b-neutral-700">
       <h1
         className={cn(
           'text-5xl font-bold leading-none uppercase tracking-wide',

@@ -32,7 +32,11 @@ export function Prose({
         // code
         'prose-code:font-rubik prose-code:font-bold prose-code:before:content-none prose-code:after:content-none',
         // strong
-        'prose-strong:text-6f7a85'
+        'prose-strong:text-6f7a85',
+        // table
+        'prose-table:border-separate prose-table:border-spacing-0 prose-table:border prose-table:border-neutral-100 dark:prose-table:border-neutral-700 prose-table:rounded-lg',
+        'prose-th:leading-5 prose-th:px-6 prose-th:py-4',
+        'prose-td:px-6 prose-td:py-4 prose-td:border-t prose-td:border-neutral-100 dark:prose-td:border-neutral-700',
       )}
     >
       {children}

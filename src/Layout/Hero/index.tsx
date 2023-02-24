@@ -35,7 +35,7 @@ export function Hero(props: { className?: string }) {
       >
         Sybil resistance, finally.
       </h1>
-      <p className="lg:max-w-[580px] mt-3 text-24 text-typography-700">
+      <p className="lg:max-w-[580px] mt-3 text-24 text-neutral-700 dark:text-neutral-100">
         Anonymously verify your users are real humans, and ensure they can
         only perform action once.
       </p>

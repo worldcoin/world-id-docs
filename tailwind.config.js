@@ -113,6 +113,7 @@ module.exports = {
           '#d7dae1',
           '#d8e1bd',
           '#e5c07b',
+          '#e5f9e7',
           '#e6cfcf',
           '#eaf0f6',
           '#ebedef',
@@ -154,7 +155,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/typography')],
 }

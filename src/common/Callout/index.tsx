@@ -19,9 +19,9 @@ export const Callout = memo(function Callout(props: {
 
   return (
     <div
-      className={cn('grid grid-cols-auto/fr gap-6 p-6 rounded-xl my-6', {
-        'bg-neutral-50 dark:bg-neutral-100/20': type === 'note',
-        'bg-f5fdf6/50 dark:bg-accents-success-700/20': type === 'tip',
+      className={cn('my-6 grid grid-cols-auto/fr gap-6 rounded-xl p-6', {
+        'bg-neutral-100 dark:bg-neutral-100/20': type === 'note',
+        'bg-e5f9e7 dark:bg-accents-success-700/20': type === 'tip',
         'bg-edecfc dark:bg-primary-700/20': type === 'info',
         'bg-fff9e5 dark:bg-ffb11b/20': type === 'caution',
         'bg-fff0ed dark:bg-ff6848/20': type === 'danger',
@@ -29,7 +29,7 @@ export const Callout = memo(function Callout(props: {
     >
       <Icon
         name={icon}
-        className={cn('h-5 w-5 mt-0.5', {
+        className={cn('mt-0.5 h-5 w-5', {
           'text-neutral-300': type === 'note',
           'text-accents-success-700': type === 'tip',
           'text-accents-info-700': type === 'info',
@@ -39,7 +39,9 @@ export const Callout = memo(function Callout(props: {
       />
 
       <div
-        className={cn('text-16 text-neutral-900 dark:text-neutral-0 leading-6 [&>*]:mb-0 [&_*]:inline')}
+        className={cn(
+          'text-16 leading-6 text-neutral-900 dark:text-neutral-0 [&>*]:mb-0 [&_*]:inline'
+        )}
       >
         {props.children}
       </div>

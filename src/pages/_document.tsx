@@ -19,7 +19,7 @@ export default function Document() {
         />
       </Head>
 
-      <body>
+      <body className="font-default text-neutral-900 dark:text-neutral-0 bg-neutral-0 dark:bg-neutral-900">
         <Main />
         <NextScript />
       </body>

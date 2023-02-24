@@ -41,11 +41,8 @@
 }
 
 @layer base {
-  html {
-    @apply font-default text-typography;
-  }
 
   body {
-    @apply relative overflow-x-hidden bg-surface;
+    @apply relative overflow-x-hidden;
   }
 }

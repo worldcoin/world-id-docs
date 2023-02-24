@@ -1,4 +1,3 @@
-import { styles } from 'common/helpers/styles'
 import cn from 'classnames'
 import { Fence } from 'Layout/Hero/Fence'
 import Link from 'next/link'
@@ -27,7 +26,7 @@ yarn add @worldcoin/id`,
 export function Hero(props: { className?: string }) {
 
   return (
-    <div className="mb-12 pb-12 border-b border-b-f3f4f5">
+    <div className="mb-12 pb-12 border-b border-b-neutral-100 dark:border-b-neutral-700">
       <h1
         className={cn(
           'text-5xl font-bold leading-none uppercase tracking-wide',
@@ -35,7 +34,7 @@ export function Hero(props: { className?: string }) {
       >
         Sybil resistance, finally.
       </h1>
-      <p className="lg:max-w-[580px] mt-3 text-24 text-typography-700">
+      <p className="lg:max-w-[580px] mt-3 text-24 text-neutral-700 dark:text-neutral-100">
         Anonymously verify your users are real humans, and ensure they can
         only perform action once.
       </p>

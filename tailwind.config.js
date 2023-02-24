@@ -1,5 +1,3 @@
-const colorVariable = require('@mertasan/tailwindcss-variables/colorVariable')
-
 /** @type {import('tailwindcss').Config} */
 const mirrorHexColors = (colors) =>
   Object.fromEntries(
@@ -27,41 +25,9 @@ module.exports = {
   content: ['./src/**/*.{ts,tsx}'],
 
   theme: {
-    variables: {
-      DEFAULT: {
-        colors: {
-          surface: {
-            DEFAULT: '#ffffff',
-          },
-          typography: {
-            DEFAULT: '#191c20',
-            900: '#191c20',
-            700: '#3c424b',
-            500: '#657080',
-            400: '#9ba3ae',
-          }
-        }
-      }
-    },
-    darkVariables: {
-      DEFAULT: {
-        colors: {
-          surface: {
-            DEFAULT: '#000000',
-          },
-          typography: {
-            DEFAULT: '#ffffff',
-            900: '#ffffff',
-            700: '#f3f4f5',
-            500: '#f9fafb',
-            400: '#9ba3ae',
-          }
-        }
-      }
-    },
     extend: {
       boxShadow: {
-        '1px': '0 0 0 1px transparent'
+        '1px': '0 0 0 1px transparent',
       },
       gridTemplateColumns: {
         'fr/auto': '1fr auto',
@@ -77,15 +43,37 @@ module.exports = {
       },
 
       colors: {
-        surface: {
-          DEFAULT: colorVariable('var(--colors-surface)'),
+        neutral: {
+          900: '#191c20',
+          700: '#3c424b',
+          500: '#657080',
+          400: '#9ba3ae',
+          300: '#d6d9dd',
+          200: '#ebecef',
+          100: '#f3f4f5',
+          50: '#f9fafb',
+          0: '#ffffff',
         },
-        typography: {
-          DEFAULT: colorVariable('var(--colors-typography)'),
-          900: colorVariable('var(--colors-typography-900)'),
-          700: colorVariable('var(--colors-typography-700)'),
-          500: colorVariable('var(--colors-typography-500)'),
-          400: colorVariable('var(--colors-typography-400)'),
+        primary: {
+          700: '#4940e0',
+        },
+        accents: {
+          info: {
+            700: '#506dff',
+          },
+          success: {
+            700: '#00c313',
+          },
+          warning: {
+            700: '#ffb11b',
+          },
+          error: {
+            700: '#ff5a76',
+          },
+        },
+        snippet: {
+          orange: '#cf5834',
+          orangedark: '#eb643b',
         },
         ...mirrorHexColors([
           '#000000',
@@ -125,19 +113,25 @@ module.exports = {
           '#d7dae1',
           '#d8e1bd',
           '#e5c07b',
+          '#e5f9e7',
           '#e6cfcf',
+          '#eaf0f6',
           '#ebedef',
           '#edecfc',
           '#eeeef7',
           '#f3f4f5',
           '#f4f4f4',
+          '#f5fdf6',
+          '#f8fafc',
           '#fb7e67',
           '#fbfbfc',
           '#fd684a',
           '#ff4880',
           '#ff5a76',
           '#ff6848',
+          '#ffb11b',
           '#fff0ed',
+          '#fff9e5',
           '#ffffff',
         ]),
       },
@@ -145,7 +139,7 @@ module.exports = {
       fontFamily: {
         sora: ['Sora', 'sans-serif'],
         rubik: ['Rubik', 'sans-serif'],
-        default: ['GT America', 'Rubik', 'sans-serif'],
+        default: ['"GT America"', 'Rubik', 'sans-serif'],
         'roboto-mono': ['Roboto Mono', 'monospace'],
       },
 
@@ -161,11 +155,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('@mertasan/tailwindcss-variables')({
-      colorVariables: true,
-      darkToRoot: false,
-    }),
-  ],
+  plugins: [require('@tailwindcss/typography')],
 }

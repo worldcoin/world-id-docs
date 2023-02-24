@@ -1,8 +1,5 @@
 import { memo, useState } from 'react'
 import { Language } from 'prism-react-renderer'
-import cn from 'classnames'
-import { styles } from 'common/helpers/styles'
-import { Icon } from 'common/Icon'
 import { CodeBlock } from 'common/CodeBlock'
 import { Tab } from './Tab'
 

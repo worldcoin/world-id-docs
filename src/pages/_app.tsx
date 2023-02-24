@@ -35,7 +35,7 @@ const components: MDXComponents = {
     )
   },
   code: (props) => (
-    <span className="rounded-md border border-black/10 bg-ebedef p-0.5 px-1 dark:border-ffffff/10 dark:bg-161b22">
+    <span className="p-0.5 px-1 rounded bg-f8fafc dark:bg-transparent outline outline-1 outline-eaf0f6 dark:outline-neutral-400">
       <CodeBlock {...props} />
     </span>
   ),

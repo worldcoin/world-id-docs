@@ -41,8 +41,15 @@
 }
 
 @layer base {
-
   body {
     @apply relative overflow-x-hidden;
   }
+}
+
+.prose .pre ~ h3 {
+  @apply font-mono text-16 bg-fbfbfc font-normal my-0 px-6 py-4 rounded-t-lg border border-neutral-200 border-b-0;
+}
+
+.prose h3 + .pre {
+  @apply !rounded-t-none;
 }

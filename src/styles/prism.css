@@ -1,52 +1,65 @@
 pre[class*='language-'] {
-  color: theme('colors.slate.50');
+  co.lor: theme('colors.slate.50');
 }
+
 
 code {
   @apply font-roboto-mono;
 }
 
-.token.keyword,
-.token.module,
-.token.method,
-.token.function,
-.token.property-access,
-.token.tag.function,
-.token.tag.property-access {
-  @apply text-fb7e67;
-}
-
+.language-jsx .token.language-javascript.class-name,
+pre code .token.plain,
 .token.imports,
 .token.known-class-name,
 .token.class-name,
 .token.maybe-class-name,
-.token.tag.class-name {
-  @apply text-181b1f dark:text-ffffff;
-}
-
+.token.tag.class-name,
 .token.punctuation,
 .token.operator,
 .token.comment,
 .token.tag.puncruation,
 .token.tag.operator,
 .token.tag.comment {
-  @apply text-6f7a85;
+  @apply text-191c20 dark:text-ffffff;
 }
 
+.language-jsx .token.language-javascript.property-access,
+.token.keyword,
+.token.module,
+.token.method,
+.token.function,
+.token.property-access,
+.token.function,
+.token.property-access,
 .token.plain,
 .token.property,
 .token.parameter,
-.token.boolean,
-.token.tag {
+.token.boolean {
   @apply text-snippet-orange dark:text-snippet-orangedark;
 }
 
+.token.number,
+.token.tag.attr-value,
+.token.string,
 .token.literal-property {
-  @apply text-2e2936 dark:text-ffffff;
+  @apply text-266ab5 dark:text-ffffff;
 }
 
-.token.string,
-.token.number,
-.token.tag.attr-value {
-  @apply text-98c379;
+.token.constant,
+.language-jsx .token.arrow.operator,
+.language-jsx .token.comment {
+  @apply text-neutral-400;
+}
+
+
+.language-jsx .token.string,
+.language-jsx .token.attr-value,
+.language-json .token.string {
+  @apply text-25b14c
+}
+
+.language-jsx .token.attr-name,
+.language-jsx .token.language-javascript,
+.language-json .token.property {
+  @apply text-9763cf;
 }

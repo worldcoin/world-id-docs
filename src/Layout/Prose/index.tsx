@@ -30,7 +30,7 @@ export function Prose({
         // images
         'prose-img:rounded-xl',
         // code
-        'prose-code:font-rubik prose-code:font-bold prose-code:before:content-none prose-code:after:content-none',
+        'prose-code:font-rubik prose-code:font-normal prose-code:before:content-none prose-code:after:content-none',
         // strong
         'prose-strong:text-6f7a85',
         // table

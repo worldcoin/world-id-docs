@@ -2,7 +2,6 @@ pre[class*='language-'] {
   co.lor: theme('colors.slate.50');
 }
 
-
 code {
   @apply font-roboto-mono;
 }
@@ -50,7 +49,6 @@ pre code .token.plain,
 .language-jsx .token.comment {
   @apply text-neutral-400;
 }
-
 
 .language-jsx .token.string,
 .language-jsx .token.attr-value,

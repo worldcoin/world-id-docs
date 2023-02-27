@@ -6,22 +6,21 @@ code {
   @apply font-roboto-mono;
 }
 
+.language-html .tag,
+.language-tsx .token.language-javascript.class-name,
 .language-jsx .token.language-javascript.class-name,
 pre code .token.plain,
 .token.imports,
 .token.known-class-name,
 .token.class-name,
 .token.maybe-class-name,
-.token.tag.class-name,
 .token.punctuation,
 .token.operator,
-.token.comment,
-.token.tag.puncruation,
-.token.tag.operator,
-.token.tag.comment {
+.token.comment {
   @apply text-191c20 dark:text-ffffff;
 }
 
+.language-tsx .token.language-javascript.property-access
 .language-jsx .token.language-javascript.property-access,
 .token.keyword,
 .token.module,
@@ -45,17 +44,29 @@ pre code .token.plain,
 }
 
 .token.constant,
+.language-html .token.arrow.operator,
+.language-html .token.comment,
+.language-tsx .token.arrow.operator,
+.language-tsx .token.comment,
 .language-jsx .token.arrow.operator,
 .language-jsx .token.comment {
   @apply text-neutral-400;
 }
 
+.language-html .token.string,
+.language-html .token.attr-value,
+.language-tsx .token.string,
+.language-tsx .token.attr-value,
 .language-jsx .token.string,
 .language-jsx .token.attr-value,
 .language-json .token.string {
   @apply text-25b14c
 }
 
+.language-html .token.attr-name,
+.language-html .token.language-javascript,
+.language-tsx .token.attr-name,
+.language-tsx .token.language-javascript,
 .language-jsx .token.attr-name,
 .language-jsx .token.language-javascript,
 .language-json .token.property {

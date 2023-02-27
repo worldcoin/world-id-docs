@@ -1,6 +1,6 @@
 import cn from 'classnames'
-import { Icon, IconType } from 'common/Icon'
 import { memo, ReactNode, useMemo } from 'react'
+import Image from 'next/future/image'
 
 export const Callout = memo(function Callout(props: {
   type?: 'note' | 'tip' | 'info' | 'caution' | 'danger'
@@ -14,8 +14,8 @@ export const Callout = memo(function Callout(props: {
     tip: 'speaker',
     info: 'question',
     caution: 'attention',
-    danger: 'lightning',
-  }[type] as IconType
+    danger: 'danger',
+  }[type]
 
   return (
     <div
@@ -27,15 +27,12 @@ export const Callout = memo(function Callout(props: {
         'bg-fff0ed dark:bg-ff6848/20': type === 'danger',
       })}
     >
-      <Icon
-        name={icon}
-        className={cn('mt-0.5 h-5 w-5', {
-          'text-neutral-300': type === 'note',
-          'text-accents-success-700': type === 'tip',
-          'text-accents-info-700': type === 'info',
-          'text-accents-warning-700': type === 'caution',
-          'text-accents-error-700': type === 'danger',
-        })}
+      <Image
+        src={`/icons/${icon}.svg`}
+        alt=""
+        width={20}
+        height={20}
+        className="!my-0 !rounded-none"
       />
 
       <div

@@ -1,5 +1,5 @@
 pre[class*='language-'] {
-  co.lor: theme('colors.slate.50');
+  color: theme('colors.slate.50');
 }
 
 code {

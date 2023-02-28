@@ -7,8 +7,10 @@
 @font-face {
   font-display: block;
   font-family: 'GT America';
-  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-bold-webfont.woff2') format('woff2'),
-  url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-bold-webfont.woff') format('woff');
+  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-bold-webfont.woff2')
+      format('woff2'),
+    url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-bold-webfont.woff')
+      format('woff');
   font-weight: 700;
   font-style: normal;
 }
@@ -16,8 +18,10 @@
 @font-face {
   font-display: block;
   font-family: 'GT America';
-  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-medium-webfont.woff2') format('woff2'),
-  url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-medium-webfont.woff') format('woff');
+  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-medium-webfont.woff2')
+      format('woff2'),
+    url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-medium-webfont.woff')
+      format('woff');
   font-weight: 500;
   font-style: normal;
 }
@@ -25,8 +29,10 @@
 @font-face {
   font-display: block;
   font-family: 'GT America';
-  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-webfont.woff2') format('woff2'),
-  url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-webfont.woff') format('woff');
+  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-webfont.woff2')
+      format('woff2'),
+    url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-webfont.woff')
+      format('woff');
   font-weight: 400;
   font-style: normal;
 }
@@ -34,15 +40,25 @@
 @font-face {
   font-display: block;
   font-family: 'GT America';
-  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-italic-webfont.woff2') format('woff2'),
-  url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-italic-webfont.woff') format('woff');
+  src: url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-italic-webfont.woff2')
+      format('woff2'),
+    url('https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-regular-italic-webfont.woff')
+      format('woff');
   font-weight: 400;
   font-style: italic;
 }
 
 @layer base {
-
   body {
     @apply relative overflow-x-hidden;
   }
+}
+
+/** NOTE: codeblock heading */
+.pre ~ h3:not(.pre + h3) {
+  @apply my-0 rounded-t-lg border border-b-0 border-neutral-200 bg-fbfbfc px-6 py-4 font-mono text-16 font-normal;
+}
+
+h3 + .pre {
+  @apply !rounded-t-none;
 }

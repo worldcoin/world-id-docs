@@ -1,25 +1,9 @@
 import { Head, Html, Main, NextScript } from 'next/document'
-import { useEffect } from 'react'
 
 export default function Document() {
   return (
     <Html className="antialiased [font-feature-settings:'ss01']" lang="en">
-      <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="true"
-        />
-
-        <link
-          href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Sora:wght@400;500;600&family=Roboto+Mono&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-
-      <body className="font-default text-neutral-900 dark:text-neutral-0 bg-neutral-0 dark:bg-neutral-900">
+      <body className="bg-neutral-0 font-default text-neutral-900 dark:bg-neutral-900 dark:text-neutral-0">
         <Main />
         <NextScript />
       </body>

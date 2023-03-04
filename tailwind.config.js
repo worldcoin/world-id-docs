@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 /** @type {import('tailwindcss').Config} */
 const mirrorHexColors = (colors) =>
   Object.fromEntries(
@@ -140,9 +142,7 @@ module.exports = {
       },
 
       fontFamily: {
-        sora: ['Sora', 'sans-serif'],
-        rubik: ['Rubik', 'sans-serif'],
-        default: ['"GT America"', 'Rubik', 'sans-serif'],
+        default: ['"GT America"', ...defaultTheme.fontFamily.sans],
         'roboto-mono': ['Roboto Mono', 'monospace'],
       },
 

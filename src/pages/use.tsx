@@ -114,9 +114,7 @@ export default function Use() {
                   styles.fenceBorderInner
                 )}
               >
-                <h1 className="font-sora text-30 font-semibold">
-                  Welcome to World ID
-                </h1>
+                <h1 className="text-30 font-semibold">Welcome to World ID</h1>
 
                 <p>Verify you are a unique human with World ID.</p>
 

@@ -4,11 +4,45 @@ Documentation of certain protocol elements, intended for **internal use only.**
 
 ## Universal link
 
-The universal link is used so that the Worldcoin mobile app (iOS & Android) can recognize a World ID request and handle it correctly. The structure of the universal link is documented here. The source of truth function for this can be found [on GitHub](https://github.com/worldcoin/world-id-js/blob/master/id/src/utils.ts#L131), `buildQRData` function.
+The universal link is used so that the Worldcoin mobile app (iOS & Android) can recognize a World ID request and handle it correctly. The structure of the universal link is documented here. The source of truth function for this can be found [on GitHub](https://github.com/worldcoin/idkit-js/blob/dc4a3fe33d3d9f77ef700bc3493a4b8ce2a897fd/idkit/src/lib/qr.ts#L4), `buildQRData` function.
 
 - The universal link base is: `https://worldcoin.org/verify`.
-- The following parameters must be passed as query string attributes (**all required**)
-  - `t` contains the connector's handshake topic (from WalletConnect)
-  - `k` contains the connector's key (from WalletConnect)
-  - `b` contains the bridge's URL (with protocol) and must be properly URL encoded (from WalletConnect)
-  - `v` contains the version of WalletConnect used. **Currently only WalletConnect v1 is supported.**
+  - There is one **required** query string, `w`, which contains the [WalletConnect URI](https://docs.walletconnect.com/2.0/javascript/sign/wallet-usage#uri)
+  - There is one **optional** query string, `r`, which contains a return URL for mobile app verifications
+
+According to guidance from the WalletConnect team, only v2 URIs are supported.
+
+## OpenID Connect
+
+World ID supports the OIDC and OAuth 2.0 protocols, for traditional applications looking to integrate a privacy-first authentication method.
+
+### Setup
+
+Before OIDC authentication can take place, developers must register their applications with Worldcoin. There are two ways to accomplish this:
+
+1. Create a new application on the [Developer Portal](https://developer.worldcoin.org)
+2. Use the `/register` endpoint, request details can be [found here](TODO)
+
+After registration is complete, you will have a valid `app_id` that will be needed for every other step in the authentication process. This value is analogous to `client_id` from the [OIDC specification](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
+
+### Flows
+
+World ID supports the [authorization code](https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth) and [implicit](https://openid.net/specs/openid-connect-core-1_0.html#ImplicitFlowAuth) flows from the OIDC spec. Applications can use either one of these flows to authenticate users.
+
+_Generally_, applications should implement the authorization code flow, as it is more secure than the implicit flow. Applications without backend servers (that may be runing purely client-side) are more suited to implicit authentication.
+
+### Claims
+
+Within the ID token returned by the World ID provider, a minimal number of [OIDC claims](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) are set. This is due to the privacy-focused nature of the protocol. The set claims are:
+
+- `iss`: The issuer of the token, always "https://id.worldcoin.org"
+- `sub`: The unique user identifier that this token authenticates, set as the `nullifier_hash`
+- `aud`: The identifier of the requesting application, set as `app_id` from the developer portal or `register` endpoint
+- `jti`: A unique identifer for this ID token, only used once
+- `iat`: The timestamp of the token issuance
+- `exp`: The timestamp of the token's expiration
+- `alg`: The algorithm used to sign the ID token, only RS256 is supported
+- `scope`: The scopes requested by the application. Must always contain `openid`, and optionally `profile` and `email`
+- `https://worldcoin.org/beta`: A custom claim for describing the user's verification level. **Subject to change**
+  - `likely_human`: "strong" or "weak", corresponding to whether the user has been verified by an Orb
+  - `credential_type`: "orb" or "phone", corresponding to the highest level of verification completed by the user

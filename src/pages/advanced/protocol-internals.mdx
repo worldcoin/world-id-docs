@@ -1,8 +1,8 @@
-# Protocol internals
+# Protocol Internals
 
 Documentation of certain protocol elements, intended for **internal use only.**
 
-## Universal link
+## Universal Link
 
 The universal link is used so that the Worldcoin mobile app (iOS & Android) can recognize a World ID request and handle it correctly. The structure of the universal link is documented here. The source of truth function for this can be found [on GitHub](https://github.com/worldcoin/idkit-js/blob/dc4a3fe33d3d9f77ef700bc3493a4b8ce2a897fd/idkit/src/lib/qr.ts#L4), `buildQRData` function.
 
@@ -12,18 +12,19 @@ The universal link is used so that the Worldcoin mobile app (iOS & Android) can 
 
 According to guidance from the WalletConnect team, only v2 URIs are supported.
 
+## External Nullifier
+
+World ID actions (whether for Sign In, custom, or anonymous actions) are identified by their [external nullifier](TODO). This value is derived from the `app_id` and stringified action passed by IDKit to the World app. Our implementation can be [found here](https://github.com/worldcoin/idkit-js/blob/dc4a3fe33d3d9f77ef700bc3493a4b8ce2a897fd/idkit/src/lib/hashing.ts#L94).
+
+When performing a request to the `/precheck` endpoint, it may be more convinent to calculate this value in-flight. The following is a simple script to accomplish this:
+
+```js
+TODO
+```
+
 ## OpenID Connect
 
 World ID supports the OIDC and OAuth 2.0 protocols, for traditional applications looking to integrate a privacy-first authentication method.
-
-### Setup
-
-Before OIDC authentication can take place, developers must register their applications with Worldcoin. There are two ways to accomplish this:
-
-1. Create a new application on the [Developer Portal](https://developer.worldcoin.org)
-2. Use the `/register` endpoint, request details can be [found here](TODO)
-
-After registration is complete, you will have a valid `app_id` that will be needed for every other step in the authentication process. This value is analogous to `client_id` from the [OIDC specification](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
 
 ### Flows
 

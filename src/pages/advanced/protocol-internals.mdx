@@ -4,7 +4,7 @@ Documentation of certain protocol elements, intended for **internal use only.**
 
 ## Universal Link
 
-The universal link is used so that the Worldcoin mobile app (iOS & Android) can recognize a World ID request and handle it correctly. The structure of the universal link is documented here. The source of truth function for this can be found [on GitHub](https://github.com/worldcoin/idkit-js/blob/dc4a3fe33d3d9f77ef700bc3493a4b8ce2a897fd/idkit/src/lib/qr.ts#L4), `buildQRData` function.
+The universal link is used so that the World App can recognize a World ID request and handle it correctly. As more clients are built, the universal link will be extended to other wallets. The structure of the universal link is documented here. The source of truth function for this can be found [on GitHub](https://github.com/worldcoin/idkit-js/blob/dc4a3fe33d3d9f77ef700bc3493a4b8ce2a897fd/idkit/src/lib/qr.ts#L4), `buildQRData` function.
 
 - The universal link base is: `https://worldcoin.org/verify`.
   - There is one **required** query string, `w`, which contains the [WalletConnect URI](https://docs.walletconnect.com/2.0/javascript/sign/wallet-usage#uri)

@@ -22,17 +22,7 @@ When performing a request to the `/precheck` endpoint, it may be more convinent 
 TODO
 ```
 
-## OpenID Connect
-
-World ID supports the OIDC and OAuth 2.0 protocols, for traditional applications looking to integrate a privacy-first authentication method.
-
-### Flows
-
-World ID supports the [authorization code](https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth) and [implicit](https://openid.net/specs/openid-connect-core-1_0.html#ImplicitFlowAuth) flows from the OIDC spec. Applications can use either one of these flows to authenticate users.
-
-_Generally_, applications should implement the authorization code flow, as it is more secure than the implicit flow. Applications without backend servers (that may be runing purely client-side) are more suited to implicit authentication.
-
-### Claims
+## OpenID Connect Claims
 
 Within the ID token returned by the World ID provider, a minimal number of [OIDC claims](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) are set. This is due to the privacy-focused nature of the protocol. The set claims are:
 

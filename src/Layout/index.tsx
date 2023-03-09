@@ -56,7 +56,7 @@ export const Layout = memo(function Layout(props: {
         <div
           className={cn(
             styles.screenPadding,
-            'grid items-start lg:grid-cols-auto/fr/auto py-11',
+            'grid items-start py-11 lg:grid-cols-auto/fr/auto'
           )}
         >
           <aside className="sticky top-20 hidden lg:block lg:pr-4 2xl:pr-16">
@@ -73,7 +73,7 @@ export const Layout = memo(function Layout(props: {
               {(props.title || section) && (
                 <header className="mb-3">
                   {section && (
-                    <p className="text-14 text-neutral-400 uppercase tracking-wide">
+                    <p className="text-14 uppercase tracking-wide text-neutral-400">
                       {section.title}
                     </p>
                   )}
@@ -99,7 +99,7 @@ export const Layout = memo(function Layout(props: {
                     <Link
                       href={previousPage.href}
                       className={cn(
-                        'bg-211c29 font-sora text-20 font-semibold',
+                        'bg-211c29 text-20 font-semibold',
                         styles.darkTextGradient
                       )}
                     >
@@ -125,7 +125,7 @@ export const Layout = memo(function Layout(props: {
                     <Link
                       href={nextPage.href}
                       className={cn(
-                        'bg-211c29 font-sora text-20 font-semibold',
+                        'bg-211c29 text-20 font-semibold',
                         styles.darkTextGradient
                       )}
                     >

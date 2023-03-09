@@ -7,17 +7,12 @@
     },
     {
       "source": "/protocol",
-      "destination": "/about/protocol",
+      "destination": "/id/protocol",
       "permanent": true
     },
     {
       "source": "/test",
-      "destination": "/about/testing",
-      "permanent": true
-    },
-    {
-      "source": "/docs/about/test-network",
-      "destination": "/about/testing",
+      "destination": "/id/simulator",
       "permanent": true
     }
   ]

@@ -100,7 +100,7 @@ const ButtonText = memo(function ButtonText(props: {
   return (
     <span
       className={cn(
-        'font-rubik text-14 font-medium leading-none',
+        'text-14 font-medium leading-none',
         { 'text-f4f4f4 dark:text-211c29': props.condition },
         {
           [styles.textGradient]:
@@ -177,7 +177,7 @@ export const Examples = memo(function Examples() {
 
   return (
     <div className="grid gap-y-16">
-      <div className="text-center font-sora text-34 font-semibold text-6f7a85">
+      <div className="text-center text-34 font-semibold text-6f7a85">
         <span
           className={cn('text-181b1f', {
             [styles.textGradient]: currentTheme === 'dark',

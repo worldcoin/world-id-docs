@@ -25,7 +25,7 @@ export default function PageNotFound() {
         )}
       >
         <div className="space-y-4 text-center md:w-min md:space-y-6 md:text-left">
-          <h1 className="block bg-[url(/images/iridescent.jpg)] bg-clip-text font-sora text-24 font-semibold text-transparent md:whitespace-nowrap md:text-44">
+          <h1 className="block bg-[url(/images/iridescent.jpg)] bg-clip-text text-24 font-semibold text-transparent md:whitespace-nowrap md:text-44">
             Sorry, this page can’t be found
           </h1>
 

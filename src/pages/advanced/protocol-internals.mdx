@@ -27,7 +27,7 @@ TODO
 Within the ID token returned by the World ID provider, a minimal number of [OIDC claims](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) are set. This is due to the privacy-focused nature of the protocol. The set claims are:
 
 - `iss`: The issuer of the token, always "https://id.worldcoin.org"
-- `sub`: The unique user identifier that this token authenticates, set as the `nullifier_hash`
+- `sub`: The unique user identifier for the specific application (this is the `nullifier_hash` from the World ID ZKP) 
 - `aud`: The identifier of the requesting application, set as `app_id` from the developer portal or `register` endpoint
 - `jti`: A unique identifer for this ID token, only used once
 - `iat`: The timestamp of the token issuance

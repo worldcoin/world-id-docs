@@ -9,18 +9,18 @@ To better serve all classes of applications, World ID can now be used as an Open
 Before OIDC authentication can take place, developers must register their applications with Worldcoin. This is a one-time action. There are two ways to accomplish this:
 
 1. Create a new application on the [Developer Portal](https://developer.worldcoin.org)
-2. Use the `/register` endpoint, request body details can be [found here](TODO)
+2. Use the `/register` endpoint, request body details can be [found here](#/register)
 
 During registration, you will need to provide the following values:
 
-- `redirect_uris`: Required, list of approved websites the user can be redirected to after successful authentication
-- `client_name`: Optional, the name of the application that's displayed to users
-- `logo_url`: Optional, the logo of the application that's displayed to users
-- `application_type`: Optional, one of "web" or "mobile". Defaults to "web"
-- `grant_types`: Optional, the type of flows this application will use. Can include "authorization_code", "implicit", or "hybrid". Defaults to "authorization_code"
-- `response_type`: Optional, the response type expected by the application. Can include any of "code", "token", or "id_token". Defaults to "code"
+- `redirect_uris`: **Required**, list of approved websites the user can be redirected to after successful authentication
+- `client_name`: **Optional**, the name of the application that's displayed to users
+- `logo_url`: **Optional**, the logo of the application that's displayed to users
+- `application_type`: **Optional**, one of "web" or "mobile". Defaults to "web"
+- `grant_types`: **Optional**, the type of flows this application will use. Can include "authorization_code", "implicit", or "hybrid". Defaults to "authorization_code"
+- `response_type`: **Optional**, the response type expected by the application. Can include any of "code", "token", or "id_token". Defaults to "code"
 
-After registration is complete, you will have a valid `app_id` that will be needed for every other step in the authentication process. This value is analogous to `client_id` from the [OIDC specification](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
+After registration is complete, you will have a valid `app_id` that will be needed for every other step in the authentication process. This value is equivelent to `client_id` from the [OIDC specification](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
 
 ## Flows
 
@@ -30,31 +30,42 @@ _Generally_, applications should implement the authorization code flow, as it is
 
 ## Authentication
 
-All attempts at authentication begin with a request to the `/authorize` endpoint. Request details can be [found here](TODO).
+All attempts at authentication begin with a request to the `/authorize` endpoint. Request details can be [found here](#/authorize).
 
-When using the native Sign In with World ID page, much of the process is handled for you. You can begin the authentication cycle by redirecting your users to:
+### Hosted SIWI
 
-`https://id.worldcoin.org/login?client_id={app_id}&response_type={code|token|id_token}&redirect_uri={encoded redirect URL}&state={state value}&nonce={nonce value}`
+When using the native Sign In with World ID page, much of the OIDC process is handled for you. You can begin the authentication cycle by redirecting your users to:
+
+`https://id.worldcoin.org/login?client_id={app_id}&response_type={code|token|id_token}&redirect_uri={encoded_redirect_url}&state={state_value}&nonce={nonce_value}`
 
 Example values could be:
 
 - `client_id`: "app_123456", obtained from registration step
 - `response_type`: "code%20id_token", valid response types from OIDC spec
 - `redirect_uri`: "https%3A%2F%2Fapp.example.com%2Flogin", must be on the approved redirect URI list from registration
-- `state`: "session_123", unique value used to track user session
-- `nonce`: "1678318593", random value to verify id_token's authenticity
+- `state`: "session_123", unique value used to track a user's session
+- `nonce`: "1234567890", random value to verify id_token's authenticity
 
 The user will then authenticate with their World ID via the World app. The app generates a Zero-Knowledge proof proving that the user has verified their phone number or in-person with an Orb. This proof can be verified by calling the [`/verify` endpoint](TODO). Once successfully authorized, the user is redirected back to your application.
 
 The redirect URL will contain a number of values, depending on the flow you are using.
 
-### Authorization Code Flow
+### Redirect Responses
 
-If using the default, authorization code flow, the redirect URL will contain the following params:
+If using the default authorization code flow, the redirect URL will contain the following params:
 
-- `code`: An authorization code that can be
+- `code`: An authorization code that can be exchanged for an ID token
+- `state`: The optional state value passed to the `/authorize` endpoint
 
-If you received a response containing an _authorization code_, you must exchange it for an ID token on the `/token` endpoint. Request details can be [seen here](TODO).
+If you received a response containing an _authorization code_, you must exchange it for an ID token on the `/token` endpoint. Request details can be [seen here](#/token).
+
+If using implicit flow, the redirect URL will contain the following params:
+
+- `id_token`: A signed JWT identifying the user, and any requested scope information
+
+### Custom Sign In
+
+Since all technologies associated with World ID are open source, you can implement your own hosted version of IDKit to redirect your users to. Advanced API details for this implementation can be found below.
 
 ## OIDC Endpoints
 

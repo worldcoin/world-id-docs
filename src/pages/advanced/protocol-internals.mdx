@@ -35,5 +35,5 @@ Within the ID token returned by the World ID provider, a minimal number of [OIDC
 - `alg`: The algorithm used to sign the ID token, only RS256 is supported
 - `scope`: The scopes requested by the application. Must always contain `openid`, and optionally `profile` and `email`
 - `https://worldcoin.org/beta`: Describes claims specific to World ID. **Subject to change**
-  - `likely_human`: "strong" or "weak", corresponding to whether the user has been verified by an Orb
+  - `likely_human`: "strong" or "weak", corresponding to whether the user has strong sybil protection or likelihood of being human. Biometrically verified users have a `strong` value.
   - `credential_type`: "orb" or "phone", corresponding to the highest level of verification completed by the user

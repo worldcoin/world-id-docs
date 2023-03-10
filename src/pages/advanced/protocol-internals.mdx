@@ -16,7 +16,7 @@ According to guidance from the WalletConnect team, only v2 URIs are supported.
 
 World ID actions (whether for Sign In or anonymous actions) are identified by their [external nullifier](TODO). This value is derived from the `app_id` and stringified action passed by IDKit to the World app. Our implementation can be [found here](https://github.com/worldcoin/idkit-js/blob/main/idkit/src/lib/hashing.ts#L94).
 
-When performing a request to the `/precheck` endpoint, you must pass the valid external nullifier for the given `app_id` and `action`. You can accomplish this with the `generateExternalNullifier` function from IDKit:
+Generally you won't need to generate the external nullifier yourself. IDKit will handle this automatically, but for custom integrations it's helpful to keep this in mind. When performing a request to the `/precheck` endpoint, you must pass the valid external nullifier for the given `app_id` and `action`. You can accomplish this with the `generateExternalNullifier` function from IDKit:
 
 ```js
 import { IDKitInternal } from '@worldcoin/idkit'

@@ -6,17 +6,20 @@ The World ID protocol provides developers flexibility in the types of actions th
 - Allow user's to vote in a poll, but only vote per user
 - Share an invitation to join a platform, limited to five total invites
 
+To demonstrate the power of actions, take the voting example. Imagine you are building a website to host polls for a local organization, but you'd like votes to be anonymous. By using a new action for each vote, you can enforce that users only vote once in each ballot, while also ensuring that there is no way to correlate a user's cast ballots across votes.
+
 ## Configuration
 
 Anonymous actions can either be configured via the developer portal, or on-the-fly as the user is verifying via the World app. Either approach provides the same featureset.
 
 ### Developer Portal
 
-Once your application is registered in the developer portal, you may add additional actions to it by navigating to the "Anonymous Actions" page:
+Once your application is registered in the developer portal, you may add additional actions to it. You must provide the following values:
 
-![TODO]
+- **Action**: The stringified action to be taken by the user
+- **Max Verifications**: The number of times a user can take this action. A value of `0` indicates that unlimited verifications can take place.
 
-Once selected, click the "Create New" button and fill out the necessary fields. The "Description" field is shown to your user in the World app as they sign with their World ID, alongside your application logo. Make sure to fully describe the exact action the user is taking.
+The "Description" field is shown to your user in the World app as they sign with their World ID, alongside your application logo. Make sure to fully describe the exact action the user is taking.
 
 You can also specify the number of times a user can complete an action, or allow an unlimited amount of verifications to take place.
 
@@ -45,4 +48,7 @@ return (
 )
 ```
 
-{/* TODO: Add examples? */}
+<Callout type="note">
+  To perform dynamic on-chain actions, please reference the [on-chain
+  section](/advanced/on-chain) of the documentation.
+</Callout>

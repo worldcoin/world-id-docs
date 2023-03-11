@@ -1,33 +1,64 @@
 import { Callout } from 'common/Callout'
 
-# Quick start
+# Quick Start
 
-**The fastest way to get rolling with World ID is through the [Developer Portal](https://developer.worldcoin.org)!**
+Fastest way to integrate and use World ID. The instructions below apply to both Sign in with World ID and Anonymous Actions.
 
-1. Sign up to the [Developer Portal](https://developer.worldcoin.org) and create your first [action](/about/protocol#what-are-actions).
+1. Sign up to the [Developer Portal](https://developer.worldcoin.org).
 
-   > An action is something that a single human can perform only once.
+2. Create your first app and configure it (initial config cannot be changed, but you can always create more apps):
 
-2. Select whether you want to run this action [on-chain](#on-chain-verification) or [cloud-based](#cloud-verification). In essence, if your mission-critical functionality is performed by a smart contract, select **on-chain**. Select **cloud** otherwise (including for IRL verifications). **Take note of your action ID** (which looks something like {/* cSpell:disable */}`wid_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}).
+- Select the environment to use, staging or production. If you are trying things out, select staging. If you are ready to go live, select production.
+- Select whether you want to run this action cloud-based or on-chain.
 
-<Callout type="tip">
-  If you want to test your integration and you haven't been verified by an orb,
-  select the **Staging** environment. You'll be able to use the
-  [Simulator](/about/testing) instead.
+<Callout type="info">
+  Most use cases use the **cloud** engine. Select **on-chain only** if you are
+  using a **smart contract** to verify a user's World ID.
 </Callout>
 
-![Screenshot of Dev Portal: Engine selection](/images/docs/quick-start/dev-portal-engine-selection.png)
+You'll need your app ID (also called client ID) later. It looks something like {/* cSpell:disable */}`app_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}.
 
-{' '}
+## Sign in with World ID
+
+The default way of using World ID is an authentication mechanism. If you already have an OIDC-compatible authentication engine, you can connect as follows:
 
 <Callout type="tip">
-  If you selected the **cloud** engine, these instructions continue with details
-  on the **API & JS widget** user interface option. If you want to use another
-  user interface, please follow the deployment instructions on the **Development
-  Portal**.
+  Typical OIDC-compatible authentication engines include
+  [Auth0](https://auth0.com/), [Okta](https://okta.com/), [AWS
+  Cognito](https://aws.amazon.com/cognito/), [CloudFlare
+  Access](https://www.cloudflare.com/products/zero-trust/access/),
+  [OneLogin](https://www.onelogin.com/) and many more. Most languages and
+  frameworks have simple open source packages for this too. A few examples: For
+  [Next.JS](https://next-auth.js.org/), for
+  [Django](https://github.com/python-social-auth/social-app-django), for
+  [Go](https://github.com/coreos/go-oidc).
 </Callout>
 
-3. Install the [JS widget](/js/) in your frontend app/dapp.
+3. Configure your OIDC authentication engine to use World ID as an Identity Provider (IdP), you will need the following information:
+
+- **Discovery endpoint**: `https://id.worldcoin.org/.well-known/openid-configuration` (if supported by your OIDC client engine, this will set everything automatically, continue below otherwise)
+
+#### Required inputs
+
+- **Client ID**: your app id from the Developer Portal (e.g. `app_GBkZ1KlVUdFTjeMXskrX`).
+- **Client secret**: app secret, obtained from the "Sign In" tab in the Developer Portal (e.g. `sk_6f07e1566ee4b765fe23d8c8`).
+- **Authorize endpoint**: `https://id.worldcoin.org/authorize`
+- **Response type**: depends on how you want to authenticate, follow the recommendations of your engine. We recommend auth code flow for server-side apps and implicit flow for client-side apps
+  - Supported response types: `code` (authorization flow), `id_token` (implicit flow), `token`, or a combination of them (hybrid flow).
+
+#### Optional inputs
+
+- **(Optional for implicit flow). Token endpoint**: `https://id.worldcoin.org/token`
+- **(Optional). User info endpoint**: `https://id.worldcoin.org/userinfo`
+- **(Optional). Introspect endpoint**: `https://id.worldcoin.org/introspect`
+
+This will use the default World ID login page. If you instead want to build your own authentication page, check out the [Sign In](/id/sign-in) docs.
+
+4. Once you have configured this, you can start the authentication flow from your app or authentication engine.
+
+## Anonymous Actions
+
+5. Install the [JS widget](/js/) in your frontend app/dapp.
 
 ```bash
 npm install @worldcoin/id
@@ -52,7 +83,7 @@ yarn add @worldcoin/id
 import { WorldIDWidget } from '@worldcoin/id'
 
 // Mount the component in your code at the place where you want to render the widget
-<WorldIDWidget
+;<WorldIDWidget
   actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
   signal="my_signal"
   enableTelemetry

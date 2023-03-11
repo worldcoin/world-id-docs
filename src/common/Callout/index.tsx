@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import { memo, ReactNode, useMemo } from 'react'
-import Image from 'next/future/image'
+import Image from 'next/image'
 
 export const Callout = memo(function Callout(props: {
   type?: 'note' | 'tip' | 'info' | 'caution' | 'danger'

@@ -40,7 +40,7 @@ The default way of using World ID is an authentication mechanism. If you already
 
 #### Required inputs
 
-- **Client ID**: your app id from the Developer Portal (e.g. `app_GBkZ1KlVUdFTjeMXskrX`).
+- **Client ID**: your app id from the Developer Portal (e.g. {/* cSpell:disable */}`app_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}).
 - **Client secret**: app secret, obtained from the "Sign In" tab in the Developer Portal (e.g. `sk_6f07e1566ee4b765fe23d8c8`).
 - **Authorize endpoint**: `https://id.worldcoin.org/authorize`
 - **Response type**: depends on how you want to authenticate, follow the recommendations of your engine. We recommend auth code flow for server-side apps and implicit flow for client-side apps
@@ -63,8 +63,8 @@ Anonymous Actions unlock a set of other use cases beyond verifying accounts (whi
 <Callout type="note">
   For example, you can verify a person is claiming a particular promotional
   campaign just once. If you later have a new promotional campaign, users from
-  campaign 1 will always be unliked from users from campaign 2, providing higher
-  privacy.
+  campaign 1 will always be delinked from users from campaign 2, providing
+  higher privacy.
 </Callout>
 
 3. Create an action for your app in the Developer Portal. Each action has a unique identifier which you set (e.g. `vote_1`).
@@ -141,6 +141,8 @@ POST https://developer.worldcoin.org/api/v1/verify/{app_id}
 
 Parameters `merkle_root`, `nullifier_hash`, `proof` & `credential_type` are obtained from `onSuccess` above.
 
+{/* cSpell:disable */}
+
 ```json
 {
   "app_id": "app_GBkZ1KlVUdFTjeMXskrX",
@@ -152,6 +154,8 @@ Parameters `merkle_root`, `nullifier_hash`, `proof` & `credential_type` are obta
   "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"
 }
 ```
+
+{/* cSpell:enable */}
 
 **Response (200)**
 

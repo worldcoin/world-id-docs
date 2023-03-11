@@ -55,10 +55,10 @@
 }
 
 /** NOTE: codeblock heading */
-.pre ~ h3:not(.pre + h3) {
-  @apply my-0 rounded-t-lg border border-b-0 border-neutral-200 bg-fbfbfc px-6 py-4 font-mono text-16 font-normal;
+.pre ~ h5:not(.pre + h5) {
+  @apply my-0 rounded-t-lg border border-b-0 border-neutral-200 bg-fbfbfc px-6 py-4 font-mono text-sm font-normal;
 }
 
-h3 + .pre {
+h5 + .pre {
   @apply !rounded-t-none;
 }

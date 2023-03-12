@@ -9,7 +9,7 @@ import { Callout } from 'common/Callout'
 Enables you to verify a World ID proof for a **Cloud action.** To ensure [human-uniqueness](/about/protocol#proof-of-uniqueness), a single person can only verify once for every action. If you send a proof for the same user twice, an error will be returned.
 
 ```
-POST /api/v1/verify
+POST /api/v1/verify/{app_id}
 ```
 
 **Headers**
@@ -26,51 +26,54 @@ POST /api/v1/verify
 
 ```json
 {
-  "merkle_root": "0x2264a66d162d7893e12ea8e3c072c51e785bc085ad655f64c10c1a61e00f0bc2",
   "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
-  "action_id": "wid_staging_eee20a5954e033deb983f48180ecac6c",
-  "signal": "mySignal",
+  "merkle_root": "0x2264a66d162d7893e12ea8e3c072c51e785bc085ad655f64c10c1a61e00f0bc2",
   "proof": "0x1aa8b8f3b2d2de5ff452c0e1a83e29d6bf46fb83ef35dc5957121ff3d3698a1119090fbeadf792c6f62dcd481f36819cd6d28380bd76dc30000449d6d81b87a60c5c9cecf97f25350063bfa9606419483ced7f78b450ff429c3e710b2575c62316daf97756236dcfcbb26351afc990874e5a0659995a4ac8e3eef5f721ac2b900136c3a152ef5c0b68e1786f797309e3bd97dc2183aab3b988437c61acc60d6f213fb1675a302c7ebd437d77bf36f0d5054a2eded3d4ec72ff9aa3fabea9609e18dbdffabd8012071c114e89df8209f36e5c9079b8ff237c7f3abe14076edf740058b5848efbd3d4b7ffb1fc7637311ea4e4511564a770bf189b7063d61d73df"
+  "credential_type": "orb"
 }
 ```
 
 {/* spell-checker: enable */}
 
 <table>
-    <thead>
-        <tr>
-            <th>Parameter</th>
-            <th>Description</th>
-            <th>Type</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>`signal`</td>
-            <td>The signal you provided to the JS widget when verifying.</td>
-            <td>`string`</td>
-        </tr>
-        <tr>
-            <td>`action_id`</td>
-            <td>The ID of the action you are verifying.</td>
-            <td>`string`</td>
-        </tr>
-        <tr>
-            <td>`nullifier_hash`</td>
-            <td>As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details.</td>
-            <td>`string`</td>
-        </tr>
-        <tr>
-            <td>`merkle_root`</td>
-            <td>As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details.</td>
-            <td>`string`</td>
-        </tr>
-        <tr>
-            <td>`proof`</td>
-            <td>As verbatim provided by the JS widget. See [JS response](/js-docs/reference#response) for details.</td>
-            <td>`string`</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`nullifier_hash`</td>
+      <td>
+        As verbatim provided by the JS widget. See [JS
+        response](/js-docs/reference#response) for details.
+      </td>
+      <td>`string`</td>
+    </tr>
+    <tr>
+      <td>`merkle_root`</td>
+      <td>
+        As verbatim provided by the JS widget. See [JS
+        response](/js-docs/reference#response) for details.
+      </td>
+      <td>`string`</td>
+    </tr>
+    <tr>
+      <td>`proof`</td>
+      <td>
+        As verbatim provided by the JS widget. See [JS
+        response](/js-docs/reference#response) for details.
+      </td>
+      <td>`string`</td>
+    </tr>
+    <tr>
+      <td>`credential_type`</td>
+      <td>Credential type you want to use to verify.</td>
+      <td>`orb | phone`</td>
+    </tr>
+  </tbody>
 </table>
 
 **Response (200)**
@@ -78,12 +81,11 @@ POST /api/v1/verify
 ```json
 {
   "success": true,
+  "action": "my_action"
   "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
-  "return_url": ""
+  "created_at": "2023-02-18T11:20:39.530041+00:00"
 }
 ```
-
-- The parameter `return_url` will only be sent for actions running on a hosted page where the user should be redirected.
 
 **Response (400)**
 
@@ -91,9 +93,9 @@ Error response sent when input parameters or proof are invalid. Some other error
 
 ```json
 {
-  "code": "invalid_proof",
-  "detail": "The provided proof is invalid and it cannot be verified. Please check all inputs and try again.",
-  "attribute": null
+  "code": "invalid",
+  "detail": "Invalid credential type.",
+  "attribute": "credential_type"
 }
 ```
 
@@ -102,25 +104,25 @@ Error response sent when input parameters or proof are invalid. Some other error
 ```json
 {
   "code": "already_verified",
-  "detail": "This user has already verified for this action.",
+  "detail": "This person has already verified for this action.",
   "attribute": null
 }
 ```
 
-### /precheck/\{id}
+### /precheck/\{app_id}
 
-Enables fetching information about a particular action to determine eligibility for verification. This endpoint is also used by the hosted page, Kiosk and Worldcoin mobile apps to show metadata about the action being verified.
+Enables fetching information about a particular app to determine eligibility for verification. This endpoint is also used by the hosted page, Kiosk and Worldcoin mobile apps to show metadata about the action being verified.
 
 <Callout title="tip">
-Bear in mind this endpoint will only return information for active actions.
+  Bear in mind this endpoint will only return information for active actions.
 </Callout>
 
 <Callout title="note">
-This endpoint requires no authentication, but is rate limited.
+  This endpoint requires no authentication, but is rate limited.
 </Callout>
 
 ```
-POST /api/v1/precheck/{id}
+POST /api/v1/precheck/{app_id}
 ```
 
 **Headers**
@@ -134,24 +136,36 @@ POST /api/v1/precheck/{id}
 **Request**
 
 ```json
-{}
+{
+  "action": "my_custom_action",
+  "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
+  "external_nullifier": "0x00949dd9a8c5b600304d010ce3a3cf012352070ae4b77504e17af77ee894cda"
+}
 ```
 
 **Response (200)**
 
 ```json
 {
-  "id": "wid_fd607652ad9c8b70930463e70c2fc504",
-  "public_description": "Receive a bunch of tokens from my awesome airdrop!",
-  "name": "My Awesome Airdrop",
-  "is_staging": false,
-  "team": {
-    "app_name": "Mesha Airdrop",
-    "is_verified": false,
-    "verified_app_logo": "",
-    "__typename": "team"
-  },
-  "__typename": "action"
+	"id": "app_staging_4cfd049031b0da1e8b62084b09a9f430",
+	"is_staging": true,
+	"is_verified": false,
+	"logo_url": "",
+	"name": "Default App",
+	"verified_app_logo": "",
+	"engine": "cloud",
+	"__typename": "app",
+	"sign_in_with_world_id": true,
+	"can_user_verify": "yes",
+	"action": {
+		"external_nullifier": "0x00949dd9a8c5b600304d010ce3a3cf012352070ae4b77504e17af77ee894cda",
+		"name": "My action",
+		"action": "my_custom_action",
+		"description": "My action",
+		"max_verifications": 0,
+		"max_accounts_per_user": 1,
+		"__typename": "action"
+	}
 }
 ```
 
@@ -162,7 +176,7 @@ POST /api/v1/precheck/{id}
 ```json
 {
   "code": "not_found",
-  "detail": "We couldn't find an action with this ID. Action may be no longer active.",
+  "detail": "We couldn't find an app with this ID. Action may be inactive.",
   "attribute": null
 }
 ```
@@ -172,7 +186,7 @@ POST /api/v1/precheck/{id}
 This endpoint lets you retrieve the JWKs (public keys) used to verify the signature on JSON web tokens that authenticate a verification request from the Developer Portal. This verification method is only used if you are using the **Hosted page user interface.**
 
 ```
-POST /api/v1/jwks
+GET /api/v1/jwks
 ```
 
 **Headers**
@@ -233,16 +247,15 @@ POST /v1/graphql
 
 Some example of GraphQL queries can be found below,
 
-#### Listing actions
+#### Listing apps
 
 **Request**
 
 ```graphql
-query MyActions {
-  action {
+query MyApps {
+  app {
     id
     name
-    status
   }
 }
 ```
@@ -252,12 +265,12 @@ query MyActions {
 **Request**
 
 ```graphql
-query ActionNullifiers {
+query ActionNullifiers($action_id: String) {
   action(where: { id: { _eq: $action_id }, status: { _eq: "active" } }) {
     id
-    is_staging
-    engine
-    return_url
+    status
+    max_accounts_per_user
+    max_verifications
     nullifiers {
       nullifier_hash
     }

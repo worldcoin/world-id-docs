@@ -30,7 +30,7 @@ During registration, you will need to provide the following values:
   work on production apps.
 </Callout>
 
-After registration is complete, you will have a valid `app_id` that will be needed for every other step in the authentication process. This value is equivelent to `client_id` from the [OIDC specification](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
+After registration is complete, you will have a valid `app_id` that will be needed for every other step in the authentication process. This value is equivalent to `client_id` from the [OIDC specification](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
 
 ## Flows
 
@@ -50,11 +50,15 @@ When using the native Sign In with World ID page, much of the OIDC process is ha
 
 Example values could be:
 
+{/* cSpell:disable */}
+
 - `client_id`: "app_123456", obtained from registration step
 - `response_type`: "code%20id_token", valid response types from OIDC spec
 - `redirect_uri`: "https%3A%2F%2Fapp.example.com%2Flogin", must be on the approved redirect URI list from registration
 - `state`: "session_123", unique value used to track a user's session
 - `nonce`: "1234567890", random value to verify id_token's authenticity
+
+{/* cSpell:enable */}
 
 The user will then authenticate with their World ID via the World app. Once successfully authorized, the user is redirected back to your application. The redirect URL will contain a number of values, depending on the flow you are using.
 
@@ -77,6 +81,8 @@ If using implicit flow, the redirect URL will contain the following params:
 
 To verify an ID token, fetch the public key from the `/jwks` endpoint. You can read more about this process at the [Auth0 blog](https://auth0.com/blog/navigating-rs256-and-jwks/) or [JWT.io](https://jwt.io/), but one example method could be:
 
+{/* cSpell:disable */}
+
 ```ts
 import * as jose from 'jose'
 
@@ -93,6 +99,8 @@ const verifyJwt = (token: string) => {
 
 verifyJwt('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...')
 ```
+
+{/* cSpell:enable */}
 
 ### Custom Sign In
 
@@ -243,6 +251,8 @@ Exchanges an authorization code for an `id_token` for the given user.
 POST https://id.worldcoin.org/token
 ```
 
+{/* cSpell:disable */}
+
 **Headers**
 
 ```json
@@ -270,6 +280,8 @@ code=23e5edda0f731dfdddace390&grant_type=authorization_code
 }
 ```
 
+{/* cSpell:enable */}
+
 **Common Errors**
 `method_not_allowed`: HTTP method is not allowed. Only POST and OPTIONS may be used
 `invalid_content_type`: The provided content type is invalid, only `application/x-www-form-urlencoded` is supported
@@ -286,6 +298,8 @@ Validates the given access token is active for the user.
 POST https://id.worldcoin.org/introspect
 ```
 
+{/* cSpell:disable */}
+
 **Headers**
 
 ```json
@@ -294,6 +308,8 @@ POST https://id.worldcoin.org/introspect
   "Content-Type": "application/x-www-form-urlencoded"
 }
 ```
+
+{/* cSpell:enable */}
 
 <Callout type="info">
   For introspect, [Basic
@@ -309,6 +325,8 @@ POST https://id.worldcoin.org/introspect
 token=eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3MDNkNTNjMStN...
 ```
 
+{/* cSpell:disable */}
+
 **Response**
 
 ```json
@@ -319,6 +337,8 @@ token=eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3MDNkNT
   "sub": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535"
 }
 ```
+
+{/* cSpell:enable */}
 
 **Common Errors**
 `method_not_allowed`: HTTP method is not allowed. Only POST may be used
@@ -334,6 +354,8 @@ Retrieves all user information, based on the approved scopes, with the given acc
 ```
 POST https://id.worldcoin.org/userinfo
 ```
+
+{/* cSpell:disable */}
 
 **Headers**
 
@@ -358,6 +380,8 @@ POST https://id.worldcoin.org/userinfo
   "family_name": "User"
 }
 ```
+
+{/* cSpell:enable */}
 
 **Common Errors**
 `method_not_allowed`: HTTP method is not allowed. Only GET, POST, and OPTIONS may be used

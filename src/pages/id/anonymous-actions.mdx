@@ -10,6 +10,8 @@ The World ID protocol provides developers flexibility in the types of actions th
 
 To demonstrate the power of actions, take the voting example. Imagine you are building a website to host polls for a local organization, but you'd like votes to be anonymous. By using a new action for each vote, you can enforce that users only vote once in each ballot, while also ensuring that there is no way to correlate a user's cast ballots across votes.
 
+![A diagram showcasing an application taking advantage of anonymous actions](/images/docs/id/anonymous-actions.png)
+
 ## Configuration
 
 Anonymous actions can either be configured via the developer portal, or on-the-fly through [IDKit](/js). Either approach provides the same feature set. Creating actions on the Developer Portal is generally recommended, but setting on-the-fly is best for dynamic contexts. For example, this feature is used in [Discord Bouncer](https://discordbouncer.com) to generate an action for each Discord server that installs the bot, because we don't know all the servers in advance.

@@ -10,7 +10,7 @@ export const Tab = memo(function Tab(props: {
     <span
       onClick={props.onSelect}
       className={cn(
-        'text-md m-2 rounded-lg border-2 border-gray-100 py-2 px-6 font-semibold hover:cursor-pointer hover:border-black',
+        'text-md mr-3 rounded-lg border-2 border-gray-100 py-2 px-6 font-semibold hover:cursor-pointer hover:border-black',
         { 'bg-black text-white': props.isActive },
         { 'bg-white text-black': !props.isActive }
       )}

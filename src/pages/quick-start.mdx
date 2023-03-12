@@ -67,14 +67,14 @@ Anonymous Actions unlock a set of other use cases beyond verifying accounts (whi
   higher privacy.
 </Callout>
 
-3. Create an action for your app in the Developer Portal. Each action has a unique identifier which you set (e.g. `vote_1`).
+1. Create an action for your app in the Developer Portal. Each action has a unique identifier which you set (e.g. `vote_1`).
 
 <Callout type="note">
   An action scopes uniqueness for users, which means users will always have the
   same ID (nullifier hash) for each action.
 </Callout>
 
-4. Install the [JS widget](/js/) in your frontend.
+2. Install the [JS widget](/js/) in your frontend.
 
 ##### Install IDKit
 
@@ -83,7 +83,7 @@ yarn add @worldcoin/idkit
 # or use your preferred package manager
 ```
 
-5. Import and render IDKit. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on proposal").
+3. Import and render IDKit. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on proposal").
 
 <Callout type="tip">
   The section below contains the example code for a React app. Check out the [JS
@@ -118,7 +118,7 @@ import { WorldIDWidget } from '@worldcoin/id'
 
 More configuration options can be found in the [JS reference](/js/reference). We generally recommend looking at the `handleVerify` method for better UX.
 
-6. Verify your action by sending the zero knowledge proof to the **Developer Portal API**. Please check the [API reference](/api/reference#verify) for details on anticipated error responses.
+4. Verify your action by sending the zero knowledge proof to the **Developer Portal API**. Please check the [API reference](/api/reference#verify) for details on anticipated error responses.
 
 <Callout type="info">
   If you want to verify proofs on-chain, check out the

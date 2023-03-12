@@ -4,6 +4,8 @@ To better serve all classes of applications, World ID can now be used as an Open
 
 ![TODO]
 
+If your app already supports OIDC, simply add our [discovery document](/.well-known/openid-configuration) as an authentication option. You can read more about our implementation under the [`/authorize`](#/authorize) and [`/token`](#/token) headings.
+
 ## Registration
 
 Before OIDC authentication can take place, developers must register their applications with Worldcoin. This is a one-time action. There are two ways to accomplish this:
@@ -127,6 +129,9 @@ GET https://id.worldcoin.org/.well-known/openid-configuration
 }
 ```
 
+**Common Errors**
+`method_not_allowed`: HTTP method is not allowed. Only GET and OPTIONS may be used
+
 ### /register
 
 Registers a new application for use with Sign In with World ID.
@@ -175,6 +180,11 @@ POST https://id.worldcoin.org/register
 }
 ```
 
+**Common Errors**
+`method_not_allowed`: HTTP method is not allowed. Only POST and OPTIONS may be used
+`required`: A necessary attribute was not set. Required attributes are: `redirect_uris`
+`invalid_redirect_uri`: The provided redirect URI is invalid, either HTTPS was not used or the URL was malformed
+
 ### /authorize
 
 Generates credentials (as defined in `response_type`) for user authentication.
@@ -215,6 +225,14 @@ POST https://id.worldcoin.org/authorize
 }
 ```
 
+**Common Errors**
+`method_not_allowed`: HTTP method is not allowed. Only POST and OPTIONS may be used
+`required`: A necessary attribute was not set. Required attributes are: `proof`, `nullifier_hash`, `merkle_root`, `credential_type`, and `app_id`
+`invalid - credential_type`: The provided credential type is invalid, only `orb` and `phone` are supported
+`invalid - response_type`: The provided response type is invalid, may use any combination of `code`, `token`, and `id_token`
+`error - app_id`: There was an error fetching the given `app_id`, try checking the value
+`invalid_proof`: The returned identity proof was invalid, please wait before trying again
+
 ### /token
 
 Exchanges an authorization code for an `id_token` for the given user.
@@ -249,6 +267,14 @@ code=23e5edda0f731dfdddace390&grant_type=authorization_code
   "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3MD..."
 }
 ```
+
+**Common Errors**
+`method_not_allowed`: HTTP method is not allowed. Only POST and OPTIONS may be used
+`invalid_content_type`: The provided content type is invalid, only `application/x-www-form-urlencoded` is supported
+`unauthenticated`: The provided authorization token is invalid, try checking your credentials
+`invalid_grant_type`: The provided grant type is invalid, only `authorization_code` is supported
+`required`: A necessary attribute was not set. Required attributes are: `code`
+`invalid_grant`: The authorization code was invalid, and may be expired. Try generating a new code via `/authorize`
 
 ### /introspect
 
@@ -292,6 +318,13 @@ token=eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3MDNkNT
 }
 ```
 
+**Common Errors**
+`method_not_allowed`: HTTP method is not allowed. Only POST may be used
+`invalid_content_type`: The provided content type is invalid, only `application/x-www-form-urlencoded` is supported
+`required`: A necessary attribute was not set. Required attributes are: `token`
+`unauthenticated`: The authorization header is missing, please pass the Bearer authorization token
+`invalid_token`: The authorization token was invalid, and may be expired. Try generating a new token via `/token`
+
 ### /userinfo
 
 Retrieves all user information, based on the approved scopes, with the given access token.
@@ -323,3 +356,8 @@ POST https://id.worldcoin.org/userinfo
   "family_name": "User"
 }
 ```
+
+**Common Errors**
+`method_not_allowed`: HTTP method is not allowed. Only GET, POST, and OPTIONS may be used
+`unauthenticated`: The authorization header is missing, please pass the Bearer authorization token
+`invalid_token`: The authorization token was invalid, and may be expired. Try generating a new token via `/token`

@@ -3328,10 +3328,10 @@ node-fetch@^2.6.7:
   dependencies:
     whatwg-url "^5.0.0"
 
-node-html-parser@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.npmjs.org/node-html-parser/-/node-html-parser-6.1.1.tgz"
-  integrity sha512-eYYblUeoMg0nR6cYGM4GRb1XncNa9FXEftuKAU1qyMIr6rXVtNyUKduvzZtkqFqSHVByq2lLjC7WO8tz7VDmnA==
+node-html-parser@^6.1.4:
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-6.1.5.tgz#c819dceb13a10a7642ff92f94f870b4f77968097"
+  integrity sha512-fAaM511feX++/Chnhe475a0NHD8M7AxDInsqQpz6x63GRF7xYNdS8Vo5dKsIVPgsOvG7eioRRTZQnWBrhDHBSg==
   dependencies:
     css-select "^5.1.0"
     he "1.2.0"

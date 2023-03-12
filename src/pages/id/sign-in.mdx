@@ -1,8 +1,10 @@
+import { Callout } from 'common/Callout'
+
 # Sign In with World ID
 
 To better serve all classes of applications, World ID can now be used as an OpenID Connect Provider (Identity Provider, IdP, OP). We support many of the same integrations that developers are already familiar with (Auth0, Cloudflare, etc.). The following diagram outlines the general authentication flow for an integrating app:
 
-![TODO]
+![A diagram showcasing the main authentication flow](/images/docs/id/sign-in.png)
 
 If your app already supports OIDC, simply add our [discovery document](/.well-known/openid-configuration) as an authentication option. You can read more about our implementation under the [`/authorize`](#/authorize) and [`/token`](#/token) headings.
 
@@ -26,7 +28,7 @@ During registration, you will need to provide the following values:
   All redirect URIs must be over HTTPS, and contain no port numbers or URL
   fragments. `localhost` can be used on staging apps for testing, but will not
   work on production apps.
-</Callout>{' '}
+</Callout>
 
 After registration is complete, you will have a valid `app_id` that will be needed for every other step in the authentication process. This value is equivelent to `client_id` from the [OIDC specification](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
 

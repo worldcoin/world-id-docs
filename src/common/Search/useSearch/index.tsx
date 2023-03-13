@@ -15,8 +15,8 @@ const docSearchConfig = {
 }
 
 export const useSearch = () => {
-  let [isOpen, setIsOpen] = useState<boolean>(false)
-  let [modifierKey, setModifierKey] = useState<string>()
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [modifierKey, setModifierKey] = useState<string>()
 
   const router = useRouter()
 

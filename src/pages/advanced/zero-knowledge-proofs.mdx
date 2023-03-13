@@ -1,0 +1,23 @@
+import { Callout } from 'common/Callout'
+
+# Zero-knowledge proofs
+
+A zero-knowledge proof is a cryptographic mechanism to prove you know a secret without revealing the secret. This is possible through the use of complex math under the hood. Thanks to the cryptographers who worked on the moonmath for us.
+
+A simple example of a ZKP is that you can cryptographically prove you are above 18 years of age without revealing your date of birth, actual age or any other information.
+
+A ZKP should have the following properties:
+
+- Completeness: If you are above 18, verifier will be convinced with a high probability.
+- Soundness: Very low probability of cheating.
+- Zero knowledge: Your exact age is not shared.
+
+## How does World ID use ZKPs?
+
+After the orb verifies you are a unique human, your identity commitment is added to a public list of verified humans. Everytime you want to prove you are a unique person, your Worldcoin app generates a ZKP that proves you know the secret to **an** identity commitment, without revealing which one. Holistically, World ID ZKPs prove these three things:
+
+- Membership: "I'm a member of this group". You prove you are a member of the verified identities list.
+- One-shot: "I haven't done this before _in this context_". This is achieved through [nullifiers](/about/glossary#nullifier-hash). Nullifiers are random numbers, unique to each user for each context (i.e. for each action ID).
+- Signal: "I want to include this message". This allows the user to add extra data to the request. It could be a receiver address when claiming an airdrop, or a vote when participating in governance. This mitigates an attack where an attacker could intercept a transaction with a proof and change the vote.
+
+If you want to learn more about ZKPs, we recommend these resources: [https://github.com/ingonyama-zk/ingopedia](https://github.com/ingonyama-zk/ingopedia).

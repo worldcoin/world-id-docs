@@ -35,6 +35,10 @@ export const navItems: NavItems = [
         title: 'Privacy',
         href: '/advanced/privacy',
       },
+      {
+        title: 'Zero-Knowledge Proofs',
+        href: '/advanced/zero-knowledge-proofs',
+      },
       { title: 'Protocol Internals', href: '/advanced/protocol-internals' },
     ],
   },

@@ -18,9 +18,7 @@ export const Section = memo(function Section(
 
   return (
     <div className={props.className}>
-      <div
-        className="uppercase tracking-wide text-14 font-medium leading-4"
-      >
+      <div className="text-14 font-medium uppercase leading-4 tracking-wide">
         {props.href ? (
           <Link href={props.href} className="truncate">
             {props.title}
@@ -37,26 +35,20 @@ export const Section = memo(function Section(
               key={`${slugify(item.title)}-${id}`}
               href={item.href || '#!'}
               className={cn(
-                'relative min-w-[260px] cursor-pointer select-none py-2 px-4 rounded-lg transition-colors duration-300',
+                'relative min-w-[260px] cursor-pointer select-none rounded-lg py-2 px-4 transition-colors duration-300',
                 //'before:absolute before:top-1/2 before:left-0 before:w-1 before:h-1 before:rounded-full before:bg-current before:-translate-y-1/2',
                 {
-                  'text-neutral-400 dark:text-neutral-500 hover:text-neutral-500 hover:dark:text-neutral-400 hover:bg-neutral-50 hover:dark:bg-neutral-700/40': !isCurrent(item.href),
-                  'text-neutral-0 dark:text-000000 bg-neutral-900 dark:bg-neutral-0': isCurrent(item.href),
+                  'text-neutral-400 hover:bg-neutral-50 hover:text-neutral-500':
+                    !isCurrent(item.href),
+                  'bg-neutral-900 font-medium text-neutral-0': isCurrent(
+                    item.href
+                  ),
                 }
               )}
             >
               <span className="flex items-center gap-x-2">
-                <span
-                  className={cn('block truncate')}
-                >
-                  {item.title}
-                </span>
-                {item.external && (
-                  <Icon
-                    name="maximize"
-                    className="w-3 h-3"
-                  />
-                )}
+                <span className={cn('block truncate')}>{item.title}</span>
+                {item.external && <Icon name="maximize" className="h-3 w-3" />}
               </span>
             </Link>
           ))}

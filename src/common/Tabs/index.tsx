@@ -16,21 +16,23 @@ export const Tabs = memo(function Tabs(props: { children: ReactNode }) {
 
   return (
     <div className="p-2">
-      {React.Children.map(
-        props.children as ReactElement<PropsWithChildren<TabItemProps>>,
-        (child, index) => {
-          return (
-            child && (
-              <Tab
-                key={index}
-                label={child.props.label}
-                isActive={currentTab === index}
-                onSelect={() => setCurrentTab(index)}
-              />
+      <div className="flex flex-col md:flex-row">
+        {React.Children.map(
+          props.children as ReactElement<PropsWithChildren<TabItemProps>>,
+          (child, index) => {
+            return (
+              child && (
+                <Tab
+                  key={index}
+                  label={child.props.label}
+                  isActive={currentTab === index}
+                  onSelect={() => setCurrentTab(index)}
+                />
+              )
             )
-          )
-        }
-      )}
+          }
+        )}
+      </div>
       {React.Children.map(props.children, (child, index) => {
         return React.cloneElement(child as React.ReactElement<any>, {
           isActive: currentTab === index,

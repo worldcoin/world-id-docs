@@ -101,7 +101,7 @@ const ButtonText = memo(function ButtonText(props: {
     <span
       className={cn(
         'text-14 font-medium leading-none',
-        { 'text-f4f4f4 dark:text-211c29': props.condition },
+        { 'text-f4f4f4': props.condition },
         {
           [styles.textGradient]:
             !props.condition && props.currentTheme === 'dark',

@@ -22,7 +22,7 @@ export const Card = memo(function Card(props: {
       <GradientBorderContainer
         className={cn(
           'grid grid-cols-1 gap-x-4 gap-y-3 self-stretch p-1.5 sm:grid-cols-fr/auto lg:grid-cols-1',
-          'bg-[#f5f7f9] dark:bg-181b1f'
+          'bg-[#f5f7f9]'
         )}
       >
         <div className="relative min-h-[180px] sm:min-w-[324px] lg:h-[180px] lg:min-w-[unset]">
@@ -49,7 +49,7 @@ export const Card = memo(function Card(props: {
                     [`border-ffffff/10 bg-161b22 ${styles.textGradient}`]:
                       currentTheme === 'dark',
                   },
-                  { 'text-211c29 bg-9eafc0/10': currentTheme === 'light' }
+                  { 'bg-9eafc0/10 text-211c29': currentTheme === 'light' }
                 )}
                 key={`${slugify(tag)}-${id}`}
               >

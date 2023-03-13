@@ -15,7 +15,7 @@ We provide a [Foundry starter kit](https://github.com/worldcoin/world-id-starter
 
 ## Calling verifyProof
 
-<Callout type="caution">
+<Callout type="note">
   The `verifyProof` function is meant to be called by your smart contract. If
   you just want to verify a proof from your backend, you should use the [/verify
   method of the API](/api) instead.
@@ -101,7 +101,7 @@ Then, in your smart contract, you `abi.encodePacked` the action and [call `hashT
 uint256 action = abi.encodePacked(abi.encodePacked(appId).hashToField(), proposalId).hashToField();
 ```
 
-<Callout type="info">
+<Callout type="note">
   To put together the two examples below, an application that lets users vote on
   governance proposals anonymously (but only lets them vote once) would add the
   proposal id to the action and the contents of the vote to the signal.

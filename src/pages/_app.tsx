@@ -14,6 +14,7 @@ import { Link } from 'common/Link'
 import { ThemeProvider } from 'common/contexts/ThemeContext'
 import { useRouter } from 'next/router'
 import { MDXComponents } from 'mdx/types'
+import Clippy from 'clippy-widget'
 
 const components: MDXComponents = {
   h2: (props: { children?: ReactNode }) => (
@@ -53,6 +54,7 @@ export default function MyApp(pageProps: AppProps) {
 
   return (
     <MDXProvider components={components}>
+      <Clippy theme="light" />
       {isDefaultLayoutPage && (
         <Layout
           title={pageTitle}

@@ -1,17 +1,19 @@
 import { Callout } from 'common/Callout'
 
-# JS Introduction
+# IDKit
 
-The World ID Javascript integration is the simplest way to start using World ID. The JS package currently supports **web applications** and requires only a few lines of code.
+The IDKit Javascript widget is the simplest way to start using World ID. The JS package currently supports **web applications** and requires only a few lines of code.
+
+Check out the [JS Reference](/js/reference) for full details on how to configure and use IDKit.
 
 ## Installation
 
 The JS package can be included in your project either as a module (which supports tree shaking to reduce bundle size) or you can add the script directly to your website.
 
 ```bash
-npm install @worldcoin/id
+npm install @worldcoin/idkit
 # or
-yarn add @worldcoin/id
+yarn add @worldcoin/idkit
 ```
 
 **Alternatively**, to add the script directly in your HTML, just add this tag to your `<head>`.
@@ -19,7 +21,7 @@ yarn add @worldcoin/id
 ```html
 <script
   type="text/javascript"
-  src="//unpkg.com/@worldcoin/id/dist/world-id.js"
+  src="//unpkg.com/@worldcoin/idkit/build/idkit-js.js"
 ></script>
 ```
 
@@ -30,16 +32,14 @@ If your app is built on React, using the React widget is by far the easiest appr
 {/* cSpell:disable */}
 
 ```tsx focus=1,4:11
-import { WorldIDWidget } from '@worldcoin/id'
+import { IDKitWidget } from '@worldcoin/idkit'
 
 return (
-  <WorldIDWidget
-    actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
-    signal="my_signal"
+  <IDKitWidget
+    app_id="app_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+    action="my_action"
     enableTelemetry
-    onSuccess={(verificationResponse) => console.log(verificationResponse)} // pass the proof to the API or your smart contract
-    onError={(error) => console.error(error)}
-    debug={true} // to aid with debugging, remove in production
+    onSuccess={(result) => console.log(result)} // pass the proof to the API or your smart contract
   />
 )
 ```
@@ -48,7 +48,7 @@ return (
 
 <Callout type="tip">
   A fully functional React example can be found
-  [here](https://github.com/worldcoin/world-id-js/tree/main/example-react).
+  [here](https://github.com/worldcoin/idkit-js/tree/main/example-react).
 </Callout>
 
 ## Usage in Next.js apps
@@ -57,30 +57,27 @@ If your app is built on Next.js, you should use the React widget, but it's criti
 
 {/* cSpell:disable */}
 
-```tsx
-import { WidgetProps } from '@worldcoin/id'
-
-const WorldIDWidget = dynamic<WidgetProps>(
-  () => import('@worldcoin/id').then((mod) => mod.WorldIDWidget),
+```tsx focus=1:4,7:12
+const IDKitWidget = dynamic(
+  () => import('@worldcoin/idkit').then((mod) => mod.IDKitWidget),
   { ssr: false }
 )
 
-
-<WorldIDWidget
-  actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
-  signal="my_signal"
-  enableTelemetry
-  onSuccess={(verificationResponse) => console.log(verificationResponse)}
-  onError={(error) => console.error(error)}
-  debug={true} // to aid with debugging, remove in production
-/>
+return (
+  <IDKitWidget
+    app_id="app_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+    action="my_signal"
+    enableTelemetry
+    onSuccess={(result) => console.log(result)}
+  />
+)
 ```
 
 {/* cSpell:enable */}
 
 <Callout type="tip">
   A fully functional Next.js example can be found
-  [here](https://github.com/worldcoin/world-id-js/tree/main/example-nextjs).
+  [here](https://github.com/worldcoin/idkit-js/tree/main/example-nextjs).
 </Callout>
 
 ## Usage in vanilla JS apps
@@ -88,7 +85,7 @@ const WorldIDWidget = dynamic<WidgetProps>(
 1. Add a `div` to mount World ID, and later initialize. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account").
 
    ```html
-   <div id="world-id-container"></div>
+   <div id="idkit-container"></div>
    ```
 
 {/* cSpell:disable */}
@@ -96,114 +93,23 @@ const WorldIDWidget = dynamic<WidgetProps>(
 1. Initialize the widget.
 
    ```js
-   import * as worldID from '@worldcoin/id' // If you installed the JS package as a module
+   import * as idkit from '@worldcoin/idkit' // If you installed the JS package as a module
 
-   worldID.init('world-id-container', {
-     debug: true, // to aid with debugging, remove in production
+   idkit.init('idkit-container', {
      enable_telemetry: true,
-     action_id: 'wid_BPZsRJANxct2cZxVRyh80SFG', // obtain this from developer.worldcoin.org
-     signal: 'your_signal',
-     on_success: (proof) => console.log(proof),
-     on_error: (error) => console.error(error),
+     app_id: 'app_BPZsRJANxct2cZxVRyh80SFG', // obtain this from developer.worldcoin.org
+     action: 'your_signal',
+     onSuccess: (result) => console.log(result),
+   })
+
+   document.getElementById('trigger-button').addEventListener('click', () => {
+     idkit.open()
    })
    ```
 
    {/* cSpell:enable */}
 
-<Callout>
-  The widget will remain disabled until you pass a non-empty signal.
-</Callout>
-
-Check out the [JS Reference](/js/reference) for full details on how to use the JS package.
-
 <Callout type="note">
-  The JS package is open source and accepts contributions! Head over to
-  [GitHub](https://github.com/worldcoin/world-id-js) and submit a pull request.
+  IDKit is open source and accepts contributions! Head over to
+  [GitHub](https://github.com/worldcoin/idkit-js) and submit a pull request.
 </Callout>
-
-## Hosted version
-
-To make it easier to use World ID, we have a hosted version of the frontend side of World ID (basically just mounting the World ID widget). This page can be particularly helpful for off-chain use cases as you can receive the World ID verification without needing to add the widget to your own page. The hosted World ID widget can be found at: `https://id.worldcoin.org/use`.
-
-The way it works is:
-
-1. You send the required parameters for the World ID verification and a return URL via query string.
-2. After the user completes the verification process, you receive the proof results via query string to the return URL you specified.
-
-#### Input parameters
-
-Here's an example of your request could look like. **Remember to URL encode all parameters!**
-
-```html
-https://id.worldcoin.org/use?action_id=0x32D59776E91fdb3F377755e12cEC05d9067c2B4F&signal=0x0000000000000000000000000000000000000000&return_to=https%3A%2F%2Fmyapp.worldcoin.org
-```
-
-<table>
-  <thead>
-    <tr>
-      <th>Parameter</th>
-      <th>Required</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>`return_to`</td>
-      <td>Yes</td>
-      <td>
-        The URL to where the user will be redirected upon successful completion.
-        All the response attributes will be included as query string parameters.
-        Please make sure your URL:
-        <ul>
-          <li>Does not contain any query string or hash parameters itself</li>
-          <li>Is served over HTTPs</li>
-          <li>Is from a domain the user can recognize and trust</li>
-          <li>Is URL encoded</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>`action_id`</td>
-      <td>Yes</td>
-      <td>
-        Unique identifier for the action being verified. Read more about the{' '}
-        [action ID](/about/glossary#action-id).
-      </td>
-    </tr>
-    <tr>
-      <td>`signal`</td>
-      <td>Yes</td>
-      <td>
-        Read more about the [signal](/about/glossary#signal). You will usually
-        want to use your user's wallet address as the signal if you're using a
-        crypto app.
-      </td>
-    </tr>
-    <tr>
-      <td>`app_name`</td>
-      <td>No</td>
-      <td>
-        <b>Highly recommended!</b> The name of your app/project/company. This
-        will be shown to the users in the WLD app, unless you have a [Verified
-        action](/advanced/verified-actions).
-      </td>
-    </tr>
-    <tr>
-      <td>`signal_description`</td>
-      <td>No</td>
-      <td>
-        <b>Highly recommended!</b> The description of the specific action the
-        user is verifying. This will be shown to the users in the WLD app,
-        unless you have a [Verified action](/advanced/verified-actions).
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-#### Response
-
-The ZKP and related parameters which the World ID verification outputs will be sent to you via query string parameters to your return URL. The parameters that will be sent are the same which the World ID widget sends ([docs here](/js/reference#response)). Below is an example of a response to the return URL `https://myapp.worldcoin.org`
-
-```html
-https://myapp.worldcoin.org/?merkle_root=0x2a92313324532131530395d13b8a0e230149fa9bf8feb677ecea7749937083f6&nullifier_hash=0x2de0cf609355bb58ca267bc495a9603bd2e00ef2afda676b2927c4be533a5923&proof=0x2a2d8fdf047570e92dc37816849dadd87827e3b555828cdc84c2d42c8e4f6bb6102328fa1936b1ababde362faa03d23654a3b0187ba4f0fed55abd0d11cf1b8a0bdf6b8c683f8b610f93014e40aa245c1578f1e558db3ff99ec78f19c6493fb22dd14ae3b30cff03e5ccddf8f390739cb3e9dc7fd5a09115f26671b7d42dfd981e2c63484361883100b35c1f0b3f405bc4134284c2a7fdfb0b338e8554c5c7ca034a903497cea8e5c1e325ecd801e006be2de521112a39cbab6f389e3eecee37056d3e46bca9e704f8faaa52dba47c83e5cd7d4b9b6ca6b8d6fa03939bb0483c2065d6bd6502bea669daaee2ebf46d70170800a834e571661f87ef01512fabe0
-```

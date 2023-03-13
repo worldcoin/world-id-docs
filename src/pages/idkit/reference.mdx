@@ -2,122 +2,11 @@ import { Callout } from 'common/Callout'
 
 # JS Reference
 
-Here you will find information about all the methods and parameters that the JS package exposes.
-
-## Methods
-
-### .init()
-
-The `.init()` method is the main initialization method. It should be called to start the World ID package and render the World ID verification widget.
-
-<div className="text--center margin-bottom--lg">
-  <img
-    src="/images/docs/js/world-id-widget.png"
-    width="240"
-    alt="Render of World ID widget"
-  />
-  <div className="text--muted">Render of World ID widget</div>
-</div>
-
-<Callout type="caution">
-  The `.init()` method should only be called once in the lifecycle of your app.
-  To update properties, please use `.update()` instead.
-</Callout>
-
-**.init(elementNodeOrID, parameters) => void**
-
-<table>
-  <thead>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-      <th>Example</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>elementNodeOrID</td>
-      <td>
-        HTML ID of the element on where to mount the World ID widget{' '}
-        <strong>or</strong> HTML node of where to mount the element.
-      </td>
-      <td>
-        `world-id-container`
-
-        ```js
-          document.getElementsByClassName('world-id')[0]
-        ```
-      </td>
-    </tr>
-    <tr>
-      <td>parameters</td>
-      <td>
-        List of additional parameters. Please see [Parameters](#parameters) for
-        details. `action_id` is always required.
-      </td>
-      <td>See below for example.</td>
-    </tr>
-  </tbody>
-</table>
-
-**Example:**
-
-{/* cSpell:disable */}
-
-```js
-worldID.init(
-  'world-id-container', // this can be the HTML ID of an element or any HTML node. Please be sure the node is mounted in your DOM before you call `.init()`
-  {
-    enable_telemetry: true,
-    debug: true, // to aid with debugging, remove in production
-    action_id: 'wid_lshSNnaJfdt6Sohu6YAA',
-    signal: 'my-user-id-1',
-    app_name: 'My App',
-    signal_description: 'Receive a super cool airdrop!',
-  }
-)
-```
-
-{/* cSpell:enable */}
-
-### .update()
-
-The `.update()` method works similarly to `.init()` except it's used only to update the relevant parameters to run the World ID widget. The DOM element (`elementNodeOrID`) where World ID is mounted **cannot be changed**.
-
-<Callout type="tip">
-  One common use case for `.update()` is if you want to render the World ID
-  widget even if the user hasn't logged in to your dapp with their wallet. This
-  will keep your UI consistent. Once the user logs in, you can use `.update()`
-  to pass the wallet's address as `signal`.
-</Callout>
-
-**.update(parameters?) => void**
-
-When calling `.update()` you only need to include the parameters you wish to update. No need to include all original init parameters again.
-
-**Example:**
-
-```js
-worldID.update({
-  signal: 'my_new_signal',
-})
-```
-
-### .getProps()
-
-Returns all the props for the widget.
-
-**.getProps() => WidgetProps**
-
-**Example:**
-
-```js
-console.log(worldID.getProps().signal)
-```
+Here you will find information about all the configuration options and parameters that IDKit supports.
 
 ## Parameters
 
-The following parameters can be passed to both `.init()` and `.update()`.
+The following parameters can be passed as props to the `IDKitWidget` component.
 
 <table>
   <thead>
@@ -131,56 +20,53 @@ The following parameters can be passed to both `.init()` and `.update()`.
   <tbody>
     <tr>
       <td>
-        `action_id`
+        `app_id`
       </td>
       <td>
         `string`
       </td>
       <td>Yes</td>
       <td>
-        Unique identifier for the action being verified. This should be the
+        Unique identifier for the app verifying the action. This should be the
         action ID obtained from the{" "}
-        [Developer Portal](https://developer.worldcoin.org). Read
-        more about the{" "}
-        [action ID](/about/glossary#action-id).
+        [Developer Portal](https://developer.worldcoin.org).
       </td>
     </tr>
     <tr>
       <td>
-        `signal`
+        `action`
       </td>
       <td>
         `string`
       </td>
-      <td>Not required, but widget won't be enabled until passed</td>
+      <td>Required</td>
       <td>
-        Read more about the [signal](/about/glossary#signal).
-        For web3 dApps, you will usually want to use your user's wallet address.
+        Identifier for the action the user is performing. Should be left blank for [Sign in with Worldcoin](/id/sign-in).
       </td>
     </tr>
     <tr>
       <td>
-        `on_success`
+        `onSuccess`
       </td>
       <td>
         `function`
       </td>
       <td>Yes</td>
-      <td>Function to trigger when verification is successful. Sends a single parameter of type `VerificationResponse` which contains the proof details.</td>
+      <td>Function to trigger when verification is successful. Sends a single parameter of type `IResultResponse` which contains the proof details.</td>
     </tr>
     <tr>
       <td>
-        `on_error`
+        `handleVerify`
       </td>
       <td>
         `function`
       </td>
       <td>No</td>
-      <td>Triggered when verification fails and user did not retried. Sends a single parameter of type `VerificationErrorResponse` containing error details.</td>
+      <td>Called after the proof is returned from the World App, but before showing the success screen. Throwing in this screen will show the user a custom error. Used to perform additional validation when needed.</td>
     </tr>
     <tr>
       <td>
-        `enable_telemetry`
+        `enableTelemetry`
       </td>
       <td>
         `boolean`
@@ -204,84 +90,15 @@ The following parameters can be passed to both `.init()` and `.update()`.
     </tr>
     <tr>
       <td>
-        `debug`
-      </td>
-      <td>
-        `boolean`
-      </td>
-      <td>No</td>
-      <td>Will log verbose details to JS console to aid with debugging.</td>
-    </tr>
-    <tr>
-      <td>
-        `on_init_success`
-      </td>
-      <td>
-        `function`
-      </td>
-      <td>No</td>
-      <td>Triggered after the widget has been successfully initialized and mounted and all passed props are valid. Useful for debugging.</td>
-    </tr>
-    <tr>
-      <td>
-        `on_init_error`
-      </td>
-      <td>
-        `function`
-      </td>
-      <td>No</td>
-      <td>Triggered if widget could not be initialized, usually due to incorrect parameters. Sends a `string` containing the error description.</td>
-    </tr>
-    <tr>
-      <td>
-        `disable_remote_fonts`
-      </td>
-      <td>
-        `boolean`
-      </td>
-      <td>No</td>
-      <td>
-        Disables loading remote fonts (from Google Fonts) for the widget and
-        uses the system's font instead (e.g. Roboto, San Francisco).
-      </td>
-    </tr>
-    <tr>
-      <td>
-        `advanced_use_raw_signal`
+        `signal`
       </td>
       <td>
         `string`
       </td>
       <td>No</td>
       <td>
-        <b>Advanced!</b> Use this to hash and encode your own signal. Read more
-        on [Advanced signals](/advanced/advanced-signals).
-      </td>
-    </tr>
-    <tr>
-      <td>
-        `advanced_use_raw_action_id`
-      </td>
-      <td>
-        `string`
-      </td>
-      <td>No</td>
-      <td>
-        <b>Advanced!</b> Use this to hash and encode your own Action ID. Read
-        more on [Advanced signals](/advanced/advanced-signals).
-      </td>
-    </tr>
-    <tr>
-      <td>
-        `app_name`
-      </td>
-      <td>
-        `string`
-      </td>
-      <td>No</td>
-      <td>
-        <b>⚠️ Deprecated! Use Dev Portal instead.</b> The name of your
-        app/project/company (shown to users in Worldcoin app).
+        For use when validating proofs on-chain. Read more
+        on [the On-chain section](/advanced/on-chain).
       </td>
     </tr>
     <tr>
@@ -294,16 +111,79 @@ The following parameters can be passed to both `.init()` and `.update()`.
       <td>No</td>
       <td>
         <b>⚠️ Deprecated! Use Dev Portal instead. </b>
-        The description of the specific action (shown to users in Worldcoin app).
+        The description of the specific action (shown to users in World app).
       </td>
     </tr>
 
   </tbody>
 </table>
 
+## Components
+
+### `IDKitWidget`
+
+The `IDKitWidget` component is the main component that renders the World ID widget. It should be mounted in your React app and passed the relevant parameters. Accepts a function as a child that receives a `open` function to open the widget.
+
+### `SignInWithWorldcoin`
+
+The `SignInWithWorldcoin` component is a wrapper around the `IDKitWidget` component that renders the World ID widget with the correct parameters for [Sign in with Worldcoin](/id/sign-in).
+
+## Hooks
+
+### `useIDKit`
+
+The `useIDKit` hook allows you to programmatically open the IDKit widget without mounting any buttons on screen. Note that you still need to mount the component for this to work.
+
+```jsx focus=1,3,6,11
+import { useIDKit } from '@worldcoin/idkit'
+
+const { open, setOpen } = useIDKit()
+
+useEffect(() => {
+  setOpen(true)
+}, [])
+
+return (
+  <div>
+    <IDKitWidget app_id="..." action="..." />
+  </div>
+)
+```
+
+## Methods
+
+### .init()
+
+The `.init()` method is the main initialization method used for vanilla JS apps. It should be called to start up IDKit and configure the widget.
+
+**.init(parameters) => void**
+
+**Example:**
+
+{/* cSpell:disable */}
+
+```js
+idkit.init({
+  action: 'my_action',
+  app_id: 'app_lshSNnaJfdt6Sohu6YAA',
+})
+```
+
+{/* cSpell:enable */}
+
+### .open()
+
+The `.open()` method is used to open the widget. It should be called after the `.init()` method.
+
+**Example:**
+
+```js
+worldID.open()
+```
+
 ## Response
 
-Upon successful completion of the World ID verification request, you will receive a response object in the respective Promise you subscribed to in the `.init()` method. The response object will contain the following attributes. **Normally, you will pass all these parameters to the transaction to be executed on-chain with your smart contract.**
+Upon successful completion of the World ID flow, you will receive a response object. The response object will contain the following attributes. **Normally, you will forward these parameters to your backend or smart contract for verification.**
 
 <table>
   <thead>
@@ -335,6 +215,11 @@ Upon successful completion of the World ID verification request, you will receiv
       <td>`proof`</td>
       <td>`string` (ABI-encoded)</td>
       <td>The Zero-knowledge proof of the verification.</td>
+    </tr>
+    <tr>
+      <td>`credential_type`</td>
+      <td>`string`</td>
+      <td>`orb` or `phone`</td>
     </tr>
   </tbody>
 </table>

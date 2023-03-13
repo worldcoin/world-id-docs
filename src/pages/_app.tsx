@@ -24,7 +24,15 @@ const components: MDXComponents = {
   ),
 
   h3: (props: { children?: ReactNode }) => (
-    <h3 id={slugify(props.children as string)}>{props.children}</h3>
+    <h3
+      id={slugify(
+        (Array.isArray(props.children) ? props.children : [props.children])
+          .map((c) => c)
+          .join(' ')
+      )}
+    >
+      {props.children}
+    </h3>
   ),
   code: (props) => (
     <span className="rounded bg-white/40 p-0.5 px-1 outline outline-1 outline-black/10">

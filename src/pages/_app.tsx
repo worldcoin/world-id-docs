@@ -10,7 +10,6 @@ import parse from 'node-html-parser'
 import { findPageTitle } from 'common/helpers/find-page-title'
 import { findPageDescription } from 'common/helpers/find-page-description'
 import { Fence } from 'common/Fence'
-import { CodeBlock } from 'common/CodeBlock'
 import { Link } from 'common/Link'
 import { ThemeProvider } from 'common/contexts/ThemeContext'
 import { useRouter } from 'next/router'
@@ -26,17 +25,9 @@ const components: MDXComponents = {
   h3: (props: { children?: ReactNode }) => (
     <h3 id={slugify(props.children as string)}>{props.children}</h3>
   ),
-  pre: (props) => {
-    return (
-      <Fence>
-        {/* @ts-ignore */}
-        <CodeBlock {...props.children.props} />
-      </Fence>
-    )
-  },
   code: (props) => (
-    <span className="p-0.5 px-1 rounded bg-f8fafc dark:bg-transparent outline outline-1 outline-eaf0f6 dark:outline-neutral-400">
-      <CodeBlock {...props} />
+    <span className="rounded bg-white/40 p-0.5 px-1 outline outline-1 outline-black/10">
+      <code {...props} />
     </span>
   ),
   a: Link,
@@ -61,20 +52,18 @@ export default function MyApp(pageProps: AppProps) {
   )
 
   return (
-    <ThemeProvider>
-      <MDXProvider components={components}>
-        {isDefaultLayoutPage && (
-          <Layout
-            title={pageTitle}
-            description={pageDescription}
-            tableOfContents={tableOfContents}
-          >
-            {pageContent}
-          </Layout>
-        )}
+    <MDXProvider components={components}>
+      {isDefaultLayoutPage && (
+        <Layout
+          title={pageTitle}
+          description={pageDescription}
+          tableOfContents={tableOfContents}
+        >
+          {pageContent}
+        </Layout>
+      )}
 
-        {!isDefaultLayoutPage && pageContent}
-      </MDXProvider>
-    </ThemeProvider>
+      {!isDefaultLayoutPage && pageContent}
+    </MDXProvider>
   )
 }

@@ -13,12 +13,12 @@ export const Steps = memo(function Steps(props: {
           {index !== 0 && (
             <Icon
               name="arrow-right"
-              className="h-6 w-6 justify-self-center text-000000 dark:text-neutral-500 rotate-90 lg:rotate-0"
+              className="h-6 w-6 rotate-90 justify-self-center text-000000 lg:rotate-0"
             />
           )}
           <div
             className={cn('flex justify-center', {
-              'p-4 border border-neutral-100 dark:border-neutral-700 rounded-xl': props.borders,
+              'rounded-xl border border-neutral-100 p-4': props.borders,
             })}
           >
             {step}

@@ -2,8 +2,10 @@ import { Callout } from 'common/Callout'
 
 # Internal Endpoints
 
-<Callout title="caution" type="warning">
-These endpoints are intended only for **internal use**, and should generally **not be used by developers**. They are documented here to assist with development.
+<Callout title="caution" type="caution">
+  These endpoints are intended only for **internal use**, and should generally
+  **not be used by developers**. They are documented here to assist with
+  development.
 </Callout>
 
 ## App endpoints
@@ -13,7 +15,7 @@ The following endpoints are intended to be used only be the app's frontend. If y
 ### /login
 
 <Callout title="note">
-This endpoint requires no authentication, but is rate limited.
+  This endpoint requires no authentication, but is rate limited.
 </Callout>
 
 ```
@@ -62,7 +64,7 @@ POST /api/v1/login
 ### /signup
 
 <Callout title="note">
-This endpoint requires no authentication, but is rate limited.
+  This endpoint requires no authentication, but is rate limited.
 </Callout>
 
 ```
@@ -115,7 +117,8 @@ POST /api/v1/signup
 ## Management endpoints
 
 <Callout title="info">
-These endpoints can only be called from the Hasura backend and they require a special token which is only shared between the two.
+  These endpoints can only be called from the Hasura backend and they require a
+  special token which is only shared between the two.
 </Callout>
 
 ### /\_ens

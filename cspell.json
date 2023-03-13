@@ -45,11 +45,14 @@
     "roboto",
     "signup",
     "sindresorhus",
+    "stefanzweifel",
     "testid",
     "WalletConnect",
     "webp",
     "Worldcoin",
     "worldid",
-    "ZKPs"
+    "wagmi",
+    "shiki",
+    "nord"
   ]
 }

@@ -6,7 +6,7 @@ World ID proofs can be verified on-chain thanks to our use of [zero-knowledge pr
 
 We provide a [Foundry starter kit](https://github.com/worldcoin/world-id-starter) and a [Hardhat starter kit](https://github.com/worldcoin/world-id-starter-hardhat) to help you get started with World ID. We strongly recommend using one of these starter kits to get started with World ID.
 
-<Callout type="warning">
+<Callout type="caution">
   Note that calling the `verifyProof` function by itself does not provide
   sybil-resistance, or prevent proof reuse, it just verifies that the proof is
   valid. To prevent sybil attacks, see the [sybil-resistance
@@ -15,7 +15,7 @@ We provide a [Foundry starter kit](https://github.com/worldcoin/world-id-starter
 
 ## Calling verifyProof
 
-<Callout type="warning">
+<Callout type="caution">
   The `verifyProof` function is meant to be called by your smart contract. If
   you just want to verify a proof from your backend, you should use the [/verify
   method of the API](/api) instead.

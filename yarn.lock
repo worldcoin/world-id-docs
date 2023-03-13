@@ -1812,10 +1812,10 @@
     "@walletconnect/window-getters" "^1.0.1"
     tslib "1.14.1"
 
-"@worldcoin/idkit@^0.4.3":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@worldcoin/idkit/-/idkit-0.4.3.tgz#c6b3a2c46be3c4a1d1384475fc65034db2822b1e"
-  integrity sha512-U6ThwMKWLxxe4StdzwBfx9Cb/MFLPEdMCjiNPnjM65zCoVq/g21i5P0paiW2AkiK2OtpmYlGD0u+zgFN7z3BAg==
+"@worldcoin/idkit@^0.4.6":
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/@worldcoin/idkit/-/idkit-0.4.6.tgz#3c752bf7c5896c50186338623870bd118550a779"
+  integrity sha512-EhMebKWEZsh6r7W/secdfRb9j7+Kb3Ma3PusqmVWosjdYCcz8N1+N1RG7ihBPYnGFjr4TochHRIjntXqHmESWA==
   dependencies:
     "@ethersproject/bytes" "^5.7.0"
     "@ethersproject/solidity" "^5.7.0"
@@ -1832,15 +1832,12 @@
     "@walletconnect/types" "^2.2.0"
     "@walletconnect/utils" "^2.2.1"
     copy-to-clipboard "^3.3.3"
-    country-telephone-data "^0.6.3"
     framer-motion "^7.6.7"
     js-sha3 "^0.8.0"
-    phone "^3.1.30"
     posthog-js-lite "2.0.0"
     qr-code-styling-new "^1.6.1"
     qrcode "^1.5.1"
     react-countdown "^2.3.4"
-    react-country-flag "^3.0.2"
     react-frame-component "^5.2.3"
     react-shadow "^19.0.3"
     zustand "^4.3.3"
@@ -2374,11 +2371,6 @@ cosmiconfig@^7.0.1:
     parse-json "^5.0.0"
     path-type "^4.0.0"
     yaml "^1.10.0"
-
-country-telephone-data@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/country-telephone-data/-/country-telephone-data-0.6.3.tgz#02828e76ce8c32af8dd60b8e478e5b3deaad3542"
-  integrity sha512-3tQLA0vec+NDVlcaHhXGqILq/oQRsv4fRi4EedCfJqUuJUjQGdcSPM8r2IJIT2kZ5yWbiOCkXMgy7YTo8FNS2w==
 
 create-require@^1.1.0:
   version "1.1.1"
@@ -4789,11 +4781,6 @@ periscopic@^3.0.0:
     estree-walker "^3.0.0"
     is-reference "^3.0.0"
 
-phone@^3.1.30:
-  version "3.1.35"
-  resolved "https://registry.yarnpkg.com/phone/-/phone-3.1.35.tgz#31d35fd6a70aae8f5594371817dfa7c6e3b85973"
-  integrity sha512-OEF2yXxJ2kTzMECk+ymbAmbYuucBNIMeYcqsiZD5Kz2QrRAP2BOEuerqalaC/chkAHLH3MXWKRK3qu07AvlRuQ==
-
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.0.0.tgz"
@@ -5056,11 +5043,6 @@ react-countdown@^2.3.4:
   integrity sha512-K26ENYEesMfPxhRRtm1r+Pf70SErrvW3g4CArLi/x6MPFjgfDFYePT4UghEj8p2nI0cqVV7/JjDgjyr//U60Og==
   dependencies:
     prop-types "^15.7.2"
-
-react-country-flag@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/react-country-flag/-/react-country-flag-3.0.2.tgz#54c37abe2c87251e95b0f40bb4c09b000f4669e7"
-  integrity sha512-JPaz+q3QD0/nZtHBKj5x3O7r/SgSG9kxbymdaIU0RqlDAcorJIe4KV0DFhWIdKh69q5cPVkIVERcMYGZdvXgAA==
 
 react-dom@18.2.0:
   version "18.2.0"

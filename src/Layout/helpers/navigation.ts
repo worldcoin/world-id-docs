@@ -17,7 +17,7 @@ export const navItems: NavItems = [
       { title: 'Overview', href: '/id' },
       { title: 'Sign in', href: '/id/sign-in' },
       { title: 'The Protocol', href: '/id/protocol' },
-      { title: 'Simulator', href: '/id/simulator' },
+      { title: 'Testing', href: '/id/testing' },
     ],
   },
   {

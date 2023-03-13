@@ -29,7 +29,9 @@ POST /api/v1/verify/{app_id}
   "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
   "merkle_root": "0x2264a66d162d7893e12ea8e3c072c51e785bc085ad655f64c10c1a61e00f0bc2",
   "proof": "0x1aa8b8f3b2d2de5ff452c0e1a83e29d6bf46fb83ef35dc5957121ff3d3698a1119090fb...",
-  "credential_type": "orb"
+  "credential_type": "orb",
+  "action": "my_action",
+  "signal": "my_signal"
 }
 ```
 
@@ -45,32 +47,38 @@ POST /api/v1/verify/{app_id}
   </thead>
   <tbody>
     <tr>
+      <td>`action`</td>
+      <td>Same action identifier as passed to IDKit.</td>
+      <td>`string`</td>
+    </tr>
+    <tr>
+      <td>`signal`</td>
+      <td>Same signal as passed to IDKit.</td>
+      <td>`string`</td>
+    </tr>
+    <tr>
       <td>`nullifier_hash`</td>
       <td>
-        As verbatim provided by the JS widget. See [JS
-        response](/js-docs/reference#response) for details.
+        As verbatim provided by the IDKit. See [IDKit response](/idkit/reference#response) for details.
       </td>
       <td>`string`</td>
     </tr>
     <tr>
       <td>`merkle_root`</td>
       <td>
-        As verbatim provided by the JS widget. See [JS
-        response](/js-docs/reference#response) for details.
+        As verbatim provided by the JS widget. See [IDKit response](/idkit/reference#response) for details.
       </td>
       <td>`string`</td>
     </tr>
     <tr>
       <td>`proof`</td>
       <td>
-        As verbatim provided by the JS widget. See [JS
-        response](/js-docs/reference#response) for details.
-      </td>
+        As verbatim provided by the JS widget. See [IDKit response](/idkit/reference#response) for details.
       <td>`string`</td>
     </tr>
     <tr>
       <td>`credential_type`</td>
-      <td>Credential type you want to use to verify.</td>
+      <td>Credential type used for the verification. Obtained from [IDKit response](/idkit/reference#response).</td>
       <td>`orb | phone`</td>
     </tr>
   </tbody>

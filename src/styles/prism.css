@@ -6,10 +6,11 @@ code {
   @apply font-roboto-mono;
 }
 
-.language-html .tag,
-.language-tsx .token.language-javascript.class-name,
-.language-jsx .token.language-javascript.class-name,
 pre code .token.plain,
+.language-html .tag,
+.language-jsx .tag,
+.language-tsx .tag,
+.token.plain-text,
 .token.variable,
 .token.imports,
 .token.known-class-name,
@@ -21,10 +22,8 @@ pre code .token.plain,
   @apply text-191c20 dark:text-ffffff;
 }
 
-.language-tsx
-  .token.language-javascript.property-access
-  .language-jsx
-  .token.language-javascript.property-access,
+.language-jsx .token.language-javascript.function.property-access,
+.language-tsx .token.language-javascript.function.property-access,
 .token.keyword,
 .token.module,
 .token.method,
@@ -67,6 +66,11 @@ pre code .token.plain,
   @apply text-25b14c;
 }
 
+.language-tsx .class-name,
+.language-jsx .class-name {
+  @apply text-9763cf/80;
+}
+
 .language-graphql .token.property-query,
 .language-graphql .token.object,
 .language-html .token.attr-name,
@@ -77,4 +81,9 @@ pre code .token.plain,
 .language-jsx .token.language-javascript,
 .language-json .token.property {
   @apply text-9763cf;
+}
+
+.language-jsx .console,
+.language-tsx .console {
+  @apply !text-191c20 dark:text-ffffff;
 }

@@ -107,7 +107,7 @@ uint256 action = abi.encodePacked(abi.encodePacked(appId).hashToField(), proposa
   proposal id to the action and the contents of the vote to the signal.
 </Callout>
 
-# Sybil-resistance
+## Sybil-resistance
 
 While the World ID protocol makes it very easy to make your contracts sybil-resistant, this takes a little more than just calling the `verifyProof` function. To make your contract sybil-resistant, you'll need to do the following:
 
@@ -146,3 +146,9 @@ function verifyAndExecute(
     // Finally, execute your logic here, for example issue a token, NFT, etc...
 }
 ```
+
+## Network support
+
+The World ID protocol currently lives in the Polygon network, and the verifier contract is deployed at `semaphore.wld.eth` on Polygon mainnet and `staging.semaphore.wld.eth` on Polygon Mumbai testnet.
+
+We will very soon be launching the World ID protocol on Ethereum mainnet and Optimism, and will update this documentation accordingly.

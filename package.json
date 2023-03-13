@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": "18"
+    "node": ">=18"
   },
   "scripts": {
     "dev": "next dev",
@@ -16,6 +16,7 @@
     "spellcheck": "cspell **/*.{js,ts,tsx,md,mdx,json}"
   },
   "dependencies": {
+    "@code-hike/mdx": "^0.8.1-next.0",
     "@docsearch/react": "^3.3.3",
     "@headlessui/react": "^1.7.13",
     "@mdx-js/loader": "^2.3.0",
@@ -29,7 +30,6 @@
     "next": "^13.2.4",
     "next-sitemap": "^4.0.5",
     "node-html-parser": "^6.1.5",
-    "prism-react-renderer": "^1.3.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "string-strip-html": "^13.2.0"

@@ -1,6 +1,6 @@
+@import '@code-hike/mdx/dist/index.css';
 @import 'tailwindcss/base';
 @import './docsearch.css';
-@import './prism.css';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
@@ -61,4 +61,8 @@
 
 h5 + .pre {
   @apply !rounded-t-none;
+}
+
+.ch-codeblock {
+  @apply rounded-lg border shadow-none dark:border-neutral-800;
 }

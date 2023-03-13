@@ -25,6 +25,21 @@ const nextConfig = {
         destination: '/:slug*',
         permanent: true,
       },
+      {
+        source: '/protocol',
+        destination: '/id/protocol',
+        permanent: true,
+      },
+      {
+        source: '/test',
+        destination: '/id/testing',
+        permanent: true,
+      },
+      {
+        source: '/simulator',
+        destination: '/id/testing',
+        permanent: true,
+      },
     ]
   },
   async rewrites() {
@@ -34,7 +49,7 @@ const nextConfig = {
         destination: '/api-docs/:slug*',
       },
     ]
-  }
+  },
 }
 
 module.exports = withMDX(nextConfig)

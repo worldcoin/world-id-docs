@@ -15,6 +15,7 @@ import { Link } from 'common/Link'
 import { ThemeProvider } from 'common/contexts/ThemeContext'
 import { useRouter } from 'next/router'
 import { MDXComponents } from 'mdx/types'
+import 'styles/cookiepro.css'
 
 const components: MDXComponents = {
   h2: (props: { children?: ReactNode }) => (

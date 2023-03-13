@@ -44,6 +44,10 @@ module.exports = {
         'auto/auto/fr': 'auto auto 1fr',
       },
 
+      spacing: {
+        4.5: 'calc(4.5 * 1rem / 4)',
+      },
+
       colors: {
         neutral: {
           900: '#191c20',
@@ -79,6 +83,7 @@ module.exports = {
         },
         ...mirrorHexColors([
           '#000000',
+          '#010101',
           '#111f24',
           '#161718',
           '#161b22',
@@ -111,6 +116,7 @@ module.exports = {
           '#9763cf',
           '#98c379',
           '#9eafc0',
+          "#afafaf",
           '#b37af0',
           '#cde0ec',
           '#d2e7f7',
@@ -124,6 +130,7 @@ module.exports = {
           '#ebedef',
           '#edecfc',
           '#eeeef7',
+          "#f2f4f7",
           '#f3f4f5',
           '#f4f4f4',
           '#f5fdf6',
@@ -147,6 +154,7 @@ module.exports = {
       },
 
       fontSize: {
+        12: ['calc(12 * 1rem / 16)', { lineHeight: '1' }],
         14: ['calc(14 * 1rem / 16)', { lineHeight: '1' }],
         16: ['calc(16 * 1rem / 16)', { lineHeight: '1.2' }],
         20: ['calc(20 * 1rem / 16)', { lineHeight: '1.2' }],

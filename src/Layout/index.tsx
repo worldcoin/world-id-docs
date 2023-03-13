@@ -137,7 +137,7 @@ export const Layout = memo(function Layout(props: {
             </dl>
           </main>
 
-          <aside className="sticky top-20 hidden gap-y-6 lg:grid lg:pl-8 2xl:pl-16">
+          <aside className="sticky top-20 hidden gap-y-4 lg:grid lg:pl-8 2xl:pl-16">
             <TableOfContent items={props.tableOfContents} />
           </aside>
         </div>

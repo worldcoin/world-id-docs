@@ -19,7 +19,7 @@ export const Section = memo(function Section(
   return (
     <div className={props.className}>
       <div
-        className="uppercase tracking-wide text-14 font-medium leading-4"
+        className="ml-4 uppercase tracking-wide text-14 font-medium leading-4"
       >
         {props.href ? (
           <Link href={props.href} className="truncate">
@@ -31,7 +31,7 @@ export const Section = memo(function Section(
       </div>
 
       {props.items?.length && (
-        <div className="mt-2 grid text-16 leading-5">
+        <div className="mt-4 grid text-16 leading-5">
           {props.items.map((item, id) => (
             <Link
               key={`${slugify(item.title)}-${id}`}
@@ -40,7 +40,7 @@ export const Section = memo(function Section(
                 'relative min-w-[260px] cursor-pointer select-none py-2 px-4 rounded-lg transition-colors duration-300',
                 //'before:absolute before:top-1/2 before:left-0 before:w-1 before:h-1 before:rounded-full before:bg-current before:-translate-y-1/2',
                 {
-                  'text-neutral-400 dark:text-neutral-500 hover:text-neutral-500 hover:dark:text-neutral-400 hover:bg-neutral-50 hover:dark:bg-neutral-700/40': !isCurrent(item.href),
+                  'text-neutral-400 dark:text-neutral-500 hover:text-neutral-500 hover:dark:text-neutral-400 hover:bg-neutral-100 hover:dark:bg-neutral-700/40': !isCurrent(item.href),
                   'text-neutral-0 dark:text-000000 bg-neutral-900 dark:bg-neutral-0': isCurrent(item.href),
                 }
               )}

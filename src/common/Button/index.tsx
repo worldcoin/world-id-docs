@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import Link from 'next/link'
+import { HTMLAttributes } from 'react'
 
 type Props = {
   variant: keyof typeof styles
@@ -19,7 +20,7 @@ export function Button({
   className,
   href,
   ...props
-}: Props) {
+}: Props & HTMLAttributes<HTMLElement>) {
   className = cn(styles[variant], className)
 
   return href ? (

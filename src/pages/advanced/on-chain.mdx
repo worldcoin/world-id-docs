@@ -4,7 +4,7 @@ import { Callout } from 'common/Callout'
 
 World ID proofs can be verified on-chain thanks to our use of [zero-knowledge proofs](/advanced/protocol-internals). To verify a World ID proof, your smart contract will embed a call to the `verifyProof` method of the World ID contract, and then execute the rest of is logic as usual.
 
-We provide starter kits for both [Foundry](https://github.com/worldcoin/world-id-starter) and [Hardhat](https://github.com/worldcoin/world-id-starter-hardhat) to help you get started with World ID. We strongly recommend using one of these starter kits to get started with World ID.
+We provide a [Foundry starter kit](https://github.com/worldcoin/world-id-starter) and a [Hardhat starter kit](https://github.com/worldcoin/world-id-starter-hardhat) to help you get started with World ID. We strongly recommend using one of these starter kits to get started with World ID.
 
 <Callout type="warning">
   Note that calling the `verifyProof` function by itself does not provide
@@ -44,7 +44,7 @@ The `verifyProof` method reverts if the proof is invalid, meaning you can just c
 
 Signals can be used to validate that a transaction has not been tampered with. By including other parameters your smart contract expects in the signal, you can ensure that the proof verification is only successful if those other parameters haven't been tampered with.
 
-For example, a smart contract performing an airdrop might include the receiver address in the signal, while a contract allowing users to vote on a governance proposal might include the proposal ID and the vote.
+For example, a smart contract performing an airdrop might include the receiver address in the signal, while a contract allowing users to vote on a governance proposal might include the vote.
 
 To get started, you'll need to pass the signal to the IDKit widget. You can do this with the `signal` prop:
 
@@ -100,6 +100,12 @@ Then, in your smart contract, you `abi.encodePacked` the action and [call `hashT
 // we recommend memoizing the appId part on the constructor to save gas
 uint256 action = abi.encodePacked(abi.encodePacked(appId).hashToField(), proposalId).hashToField();
 ```
+
+<Callout type="info">
+  To put together the two examples below, an application that lets users vote on
+  governance proposals anonymously (but only lets them vote once) would add the
+  proposal id to the action and the contents of the vote to the signal.
+</Callout>
 
 # Sybil-resistance
 

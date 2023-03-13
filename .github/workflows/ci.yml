@@ -8,13 +8,13 @@ jobs:
     name: Typecheck
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Set up Node 16
+      - name: Set up Node 18
         uses: actions/setup-node@v3
         with:
-          node-version: 16
-          cache: "yarn"
+          node-version: 18
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -22,18 +22,18 @@ jobs:
       - name: Typecheck
         run: |
           yarn typecheck
-  
+
   spellcheck:
     name: Spellcheck
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Set up Node 16
+      - name: Set up Node 18
         uses: actions/setup-node@v3
         with:
-          node-version: 16
-          cache: "yarn"
+          node-version: 18
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -48,11 +48,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Node 16
+      - name: Set up Node 18
         uses: actions/setup-node@v3
         with:
-          node-version: 16
-          cache: "yarn"
+          node-version: 18
+          cache: 'yarn'
 
       - name: Install dependencies
         if: steps.node-modules-cache.outputs.cache-hit != 'true'

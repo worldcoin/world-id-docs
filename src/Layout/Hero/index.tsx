@@ -1,5 +1,4 @@
 import cn from 'classnames'
-import { Fence } from 'Layout/Hero/Fence'
 import Link from 'next/link'
 import { Icon } from 'common/Icon'
 

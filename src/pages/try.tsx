@@ -9,7 +9,7 @@ const Try = (): JSX.Element => {
   return (
     <div>
       <h1>Try It Out</h1>
-      <IDKitWidget app_id={process.env.NEXT_PUBLIC_IDKIT_APP!} action="">
+      <IDKitWidget app_id={process.env.NEXT_PUBLIC_IDKIT_APP!} action="try_it_out">
         {({ open }) => (
           <Button variant="secondary" onClick={open}>
             Open widget

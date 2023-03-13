@@ -9,10 +9,7 @@ export const SearchButton = memo(function SearchButton(props: {
 
   return (
     <Fragment>
-      <button
-        onClick={onOpen}
-        className="rounded-lg border border-262f41 bg-1a2436 p-1 text-94a2b8"
-      >
+      <button onClick={onOpen} className="rounded-lg border p-1.5 text-94a2b8">
         <Icon name="search" className="h-4 w-4" />
       </button>
       {modal}

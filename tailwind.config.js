@@ -1,6 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
-/** @type {import('tailwindcss').Config} */
 const mirrorHexColors = (colors) =>
   Object.fromEntries(
     colors.map((color, index) => {
@@ -22,9 +21,10 @@ const mirrorHexColors = (colors) =>
     })
   )
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: ['./src/**/*.{ts,tsx}'],
+  content: ['./src/**/*.{ts,tsx,mdx}'],
 
   theme: {
     extend: {
@@ -36,6 +36,9 @@ module.exports = {
         'auto/fr': 'auto 1fr',
         'auto/fr/auto': 'auto 1fr auto',
         'auto/auto/fr': 'auto auto 1fr',
+      },
+      dropShadow: {
+        hyper: '0px 10px 30px rgba(155, 163, 174, 0.4)',
       },
       gridTemplateRows: {
         'fr/auto': '1fr auto',

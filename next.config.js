@@ -1,8 +1,11 @@
+const { remarkCodeHike } = require('@code-hike/mdx')
+const theme = require('shiki/themes/min-light.json')
+
 // cspell:ignore
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [[remarkCodeHike, { theme }]],
     // cspell:disable-next-line
     rehypePlugins: [],
     providerImportSource: '@mdx-js/react',

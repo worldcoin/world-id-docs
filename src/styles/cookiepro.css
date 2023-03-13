@@ -4,7 +4,7 @@ html {
   }
 
   & #onetrust-consent-sdk {
-    @apply !font-sans;
+    @apply !font-default;
 
     & button {
       @apply !normal-case focus:!outline-none;
@@ -47,7 +47,7 @@ html {
               @apply m-0;
 
               & #onetrust-policy-text {
-                @apply !text-010101 !my-0 !ml-0 !mr-7 !font-sans !text-14 !leading-normal lg:!mr-16;
+                @apply !text-010101 !my-0 !ml-0 !mr-7 !text-14 !leading-normal lg:!mr-16 !font-default;
               }
             }
           }
@@ -59,7 +59,7 @@ html {
               @apply !mt-0 !flex !w-full !flex-col sm:!flex-row sm:justify-between;
 
               & #onetrust-pc-btn-handler.cookie-setting-link {
-                @apply text-010101 !text-12 !mx-0 !mb-0 !mt-6 !min-w-0 bg-transparent !p-0 !text-center font-normal !leading-normal !outline-none transition-colors duration-200 hover:text-opacity-80 sm:!mt-0 sm:!text-left;
+                @apply text-010101 !text-12 !mx-0 !mb-0 !mt-6 !min-w-0 bg-transparent !p-0 !text-center font-normal !leading-normal !outline-none transition-colors duration-200 hover:text-opacity-80 sm:!mt-0 sm:!text-left !font-default;
               }
 
               & #onetrust-accept-btn-handler,
@@ -102,14 +102,14 @@ html {
 
       & #ot-category-title,
       #ot-pc-title {
-        @apply !text-010101 !m-0 !p-0 !font-sans !text-16 !font-medium !leading-normal;
+        @apply !text-010101 !m-0 !p-0 !font-default !text-16 !font-medium !leading-normal;
       }
 
       & #ot-pc-content {
         @apply !top-4 !bottom-[70px] !m-0 !w-auto pt-0 !pl-4 pr-[6px];
 
         & #ot-pc-desc {
-          @apply !text-010101 !mb-0 pt-4 !font-sans !text-14 !leading-normal;
+          @apply !text-010101 !mb-0 pt-4 !font-default !text-14 !leading-normal;
         }
 
         & #accept-recommended-btn-handler {
@@ -134,11 +134,11 @@ html {
               @apply grid-cols-auto/fr/auto !grid;
 
               & .ot-cat-header {
-                @apply !text-010101 !text-12 !min-h-0 w-full !font-sans !font-medium;
+                @apply !text-010101 !text-12 !min-h-0 w-full !font-default !font-medium;
               }
 
               & .ot-always-active {
-                @apply !text-12 !font-sans !font-medium !text-4940e0;
+                @apply !text-12 !font-default !font-medium !text-4940e0;
               }
 
               & .ot-tgl {
@@ -161,7 +161,7 @@ html {
             }
 
             & .ot-acc-txt p {
-              @apply !text-010101 !text-12 !font-sans !leading-normal;
+              @apply !text-010101 !text-12 !font-default !leading-normal;
             }
           }
         }

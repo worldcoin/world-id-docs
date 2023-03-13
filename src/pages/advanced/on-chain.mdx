@@ -107,7 +107,6 @@ While the World ID protocol makes it very easy to make your contracts sybil-resi
 
 - Store the `nullifierHash` of each user that has successfully verified a proof.
 - When a user attempts to verify a proof, check that the `nullifierHash` is not already in the list of used `nullifierHash`es.
-- After a user has successfully verified a proof, add their `nullifierHash` to the list of used `nullifierHash`es.
 
 Here's an example function doing the above. You can also use the [World ID starter kits](#on-chain) to get started with sybil-resistance.
 

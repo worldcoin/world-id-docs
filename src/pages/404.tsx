@@ -5,7 +5,7 @@ import { styles } from 'common/helpers/styles'
 export default function PageNotFound() {
   return (
     <div className="dark min-h-screen bg-191c20">
-      <Header disableThemeSelector disableSearch />
+      <Header disableSearch />
 
       <div
         className={cn(

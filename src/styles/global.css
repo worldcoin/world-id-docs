@@ -64,5 +64,5 @@ h5 + .pre {
 }
 
 .ch-codeblock {
-  @apply rounded-lg border shadow-none dark:border-neutral-800;
+  @apply rounded-lg border shadow-none;
 }

@@ -39,7 +39,7 @@ export const TableOfContent = memo(function TableOfContent(props: {
 
   return (
     <Fragment>
-      <span className="uppercase tracking-wide text-14 text-191c20 dark:text-ffffff font-medium leading-4">
+      <span className="text-14 font-medium uppercase leading-4 tracking-wide text-191c20">
         On this page
       </span>
 

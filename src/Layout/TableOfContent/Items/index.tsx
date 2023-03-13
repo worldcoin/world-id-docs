@@ -28,7 +28,7 @@ export const Items = memo(function Items(props: {
       {props.items.map((item) => (
         <div
           className={cn('grid gap-y-6', {
-            'text-black/40 dark:text-70868f': !isActive(item),
+            'text-black/40': !isActive(item),
             [`${cn('bg-8e87ff', styles.darkTextGradient)}`]: isActive(item),
           })}
           style={{ paddingLeft: `${(props.level || 0) * 24}px` }}

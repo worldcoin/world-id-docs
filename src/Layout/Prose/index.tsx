@@ -22,7 +22,7 @@ export function Prose({
         // lead
         'prose-lead:text-slate-500',
         // links
-        'prose-a:font-normal prose-a:text-indigo-500 prose-a:[text-decoration:_none]',
+        'prose-a:font-normal prose-a:text-indigo-500 prose-a:[text-decoration:_none] hover:prose-a:underline',
         // pre
         'prose-pre:rounded-lg prose-pre:bg-transparent',
         // hr

@@ -86,11 +86,15 @@ export const Layout = memo(function Layout(props: {
             <dl className="mt-8 grid gap-y-8 border-t border-slate-200 pt-8 lg:mt-16 lg:grid-cols-2 lg:pt-16">
               {previousPage?.href && (
                 <div className="text-center lg:text-left">
-                  <dt className={cn('text-14 font-medium text-neutral-500')}>
+                  <dt
+                    className={cn(
+                      'text-left text-14 font-medium text-neutral-500'
+                    )}
+                  >
                     Previous
                   </dt>
 
-                  <dd className="mt-1">
+                  <dd className="mt-1 text-left">
                     <Link
                       href={previousPage.href}
                       className={cn(
@@ -107,15 +111,15 @@ export const Layout = memo(function Layout(props: {
 
               {nextPage?.href && (
                 <div className="col-start-2 text-center lg:ml-auto lg:text-right">
-                  <dt className={cn('text-14 font-medium text-neutral-500')}>
+                  <dt className="text-right text-14 font-medium text-neutral-500">
                     Next
                   </dt>
 
-                  <dd className="mt-1">
+                  <dd className="mt-1 text-right">
                     <Link
                       href={nextPage.href}
                       className={cn(
-                        'bg-211c29 text-20 font-semibold',
+                        'bg-211c29 text-right text-20 font-semibold',
                         styles.darkTextGradient
                       )}
                     >

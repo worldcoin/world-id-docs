@@ -26,7 +26,7 @@ const components: MDXComponents = {
     <h3 id={slugify(props.children as string)}>{props.children}</h3>
   ),
   code: (props) => (
-    <span className="rounded bg-f8fafc p-0.5 px-1 outline outline-1 outline-eaf0f6">
+    <span className="rounded bg-white/40 p-0.5 px-1 outline outline-1 outline-black/10">
       <code {...props} />
     </span>
   ),

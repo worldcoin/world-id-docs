@@ -29,7 +29,7 @@ export const Items = memo(function Items(props: {
         <div
           className={cn('grid gap-y-6', {
             'text-black/40': !isActive(item),
-            [`${cn('bg-8e87ff', styles.darkTextGradient)}`]: isActive(item),
+            [`${cn('font-medium text-neutral-700')}`]: isActive(item),
           })}
           style={{ paddingLeft: `${(props.level || 0) * 24}px` }}
           key={item.id}

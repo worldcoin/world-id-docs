@@ -1,6 +1,4 @@
 import cn from 'classnames'
-import Link from 'next/link'
-import { Icon } from 'common/Icon'
 
 export function Hero(props: { className?: string }) {
   return (

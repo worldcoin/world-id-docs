@@ -39,7 +39,7 @@ export const Header = memo(function Header(props: {
           </div>
         )}
         {!props.disableSearch && (
-          <div className="md:hidden">
+          <div className="hidden">
             <SearchButton />
           </div>
         )}
@@ -53,7 +53,7 @@ export const Header = memo(function Header(props: {
 
       {!props.disableSearch && (
         <div className="-my-5 mr-6 sm:mr-8 md:mr-0">
-          <div className="hidden md:block">
+          <div className="hidden">
             <SearchBar />
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { Callout } from 'common/Callout'
 
-# Sign In with World ID
+# Sign In with Worldcoin
 
 To better serve all classes of applications, World ID can now be used as an OpenID Connect Provider (Identity Provider, IdP, OP). We support many of the same integrations that developers are already familiar with (Auth0, Cloudflare, etc.). The following diagram outlines the general authentication flow for an integrating app:
 
@@ -40,23 +40,23 @@ _Generally_, applications should implement the authorization code flow, as it is
 
 ## Authentication
 
-All attempts at authentication begin with a request to the `/authorize` endpoint. Request details can be [found here](#/authorize).
+Authentication begins with a request to the `/authorize` endpoint. Request details can be [found below](#/authorize).
 
-### Hosted Sign In with World ID
+When using the native Sign In with Worldcoin page, most of the OIDC process is handled for you. You can begin the authentication cycle by redirecting your users to:
 
-When using the native Sign In with World ID page, much of the OIDC process is handled for you. You can begin the authentication cycle by redirecting your users to:
-
-`https://id.worldcoin.org/authorize?client_id={app_id}&response_type={code|token|id_token}&redirect_uri={encoded_redirect_url}&state={state_value}&nonce={nonce_value}`
+```
+https://id.worldcoin.org/authorize?client_id={app_id}&response_type={code|token|id_token}&redirect_uri={encoded_redirect_url}&state={state_value}&nonce={nonce_value}
+```
 
 Example values could be:
 
 {/* cSpell:disable */}
 
-- `client_id`: "app_123456", obtained from registration step
-- `response_type`: "code%20id_token", valid response types from OIDC spec
-- `redirect_uri`: "https%3A%2F%2Fapp.example.com%2Flogin", must be on the approved redirect URI list from registration
-- `state`: "session_123", unique value used to track a user's session
-- `nonce`: "1234567890", random value to verify id_token's authenticity
+- `client_id`: obtained from the Developer Portal or `/register` endpoint (example: `app_lshSNnaJfdt6Sohu6YAA`).
+- `response_type`: response type as specified in OIDC spec, remember to URL encode (example: `code%20id_token`).
+- `redirect_uri`: where the user is redirected upon successful authentication. Must be on the approved redirect URI list which can always be updated in the Developer Portal (example: `https%3A%2F%2Fapp.example.com%2Flogin`).
+- `state`: unique value used to track a user's session (example: `session_102030405060708090`).
+- `nonce`: random value to prevent replay attacks (example: `z-dkEmoy_ujfk7B8uTiQpp`).
 
 {/* cSpell:enable */}
 
@@ -87,11 +87,13 @@ To verify an ID token, fetch the public key from the `/jwks` endpoint. You can r
 import * as jose from 'jose'
 
 const verifyJwt = (token: string) => {
-  const JWKS = jose.createRemoteJWKSet(new URL('https://id.worldcoin.org/jwks'))
+  const JWKS = jose.createRemoteJWKSet(
+    new URL('https://id.worldcoin.org/jwks.json')
+  )
 
   const { payload, header } = await jose.jwtVerify(token, JWKS, {
     issuer: 'https://id.worldcoin.org',
-    audience: 'https://app.example.com',
+    aud: 'app_lshSNnaJfdt6Sohu6YAA',
   })
 
   return payload

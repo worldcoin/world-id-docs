@@ -44,7 +44,7 @@ Within the ID token returned by the World ID provider, a minimal number of [OIDC
 - `iat`: The timestamp of the token issuance
 - `exp`: The timestamp of the token's expiration
 - `alg`: The algorithm used to sign the ID token, only RS256 is supported
-- `scope`: The scopes requested by the application. Must always contain `openid`. The `profile` and `email` scopes are also supported for compatibility, but use should be avoided
+- `scope`: The scopes requested by the application. Must always contain `openid`. The `profile` and `email` scopes are also supported for compatibility, but use should be avoided.
 - `https://worldcoin.org/beta`: Describes claims specific to World ID. **Subject to change**
-  - `likely_human`: "strong" or "weak", corresponding to whether the user has strong sybil protection or likelihood of being human. Biometrically verified users have a `strong` value
-  - `credential_type`: `orb` or `phone`, represents the credential the user to authenticate. In general, for Sign in with World ID, the highest credential available to the user will be used
+  - `likely_human`: "strong" or "weak", corresponding to whether the user has strong sybil protection or likelihood of being human. Biometrically verified users have a `strong` value.
+  - `credential_type`: `orb` or `phone`, represents the credential the user to authenticate. In general, for Sign in with Worldcoin, the highest credential available to the user will be used.

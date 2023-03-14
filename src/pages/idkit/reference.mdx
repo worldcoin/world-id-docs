@@ -39,7 +39,7 @@ The following parameters can be passed as props to the `IDKitWidget` component.
       <td>
         `string`
       </td>
-      <td>Required</td>
+      <td>Yes</td>
       <td>
         Identifier for the action the user is performing. Should be left blank for [Sign in with Worldcoin](/id/sign-in).
       </td>
@@ -73,9 +73,8 @@ The following parameters can be passed as props to the `IDKitWidget` component.
       </td>
       <td>No</td>
       <td>
-        Whether telemetry is enabled. We send very few events, with no PII to
-        help us improve the product. Read more in the{" "}
-        [Telemetry](/js/telemetry) section.
+        Whether opt-in telemetry is enabled. Very few events are sent, with no PII to
+        help improve the project.
       </td>
     </tr>
     <tr>
@@ -110,8 +109,7 @@ The following parameters can be passed as props to the `IDKitWidget` component.
       </td>
       <td>No</td>
       <td>
-        <b>⚠️ Deprecated! Use Dev Portal instead. </b>
-        The description of the specific action (shown to users in World app).
+        The description of the specific action (shown to users in World App). **Only recommended for actions created on-the-fly.**
       </td>
     </tr>
 
@@ -178,12 +176,12 @@ The `.open()` method is used to open the widget. It should be called after the `
 **Example:**
 
 ```js
-worldID.open()
+idkit.open()
 ```
 
 ## Response
 
-Upon successful completion of the World ID flow, you will receive a response object. The response object will contain the following attributes. **Normally, you will forward these parameters to your backend or smart contract for verification.**
+Upon successful completion of the World ID flow, you will receive a response object. This response object of type `IResultResponse` has the following attributes. **Normally, you will forward these parameters to your backend or smart contract for verification.**
 
 <table>
   <thead>
@@ -200,15 +198,15 @@ Upon successful completion of the World ID flow, you will receive a response obj
       <td>
         This is the hash pointer to the root of the Merkle tree that proves
         membership of the user's identity in the list of identities verified by
-        the Orb. Read more about the [Merkle root](/about/glossary#merkle-root).
+        the Orb.
       </td>
     </tr>
     <tr>
       <td>`nullifier_hash`</td>
       <td>`string` (ABI-encoded)</td>
       <td>
-        The hash that proves uniqueness between a single person and an action.
-        Read more about the [nullifier hash](/about/glossary#nullifier-hash).
+        Essentially the user's unique identifier for your app (and specific
+        action if using Anonymous actions).
       </td>
     </tr>
     <tr>

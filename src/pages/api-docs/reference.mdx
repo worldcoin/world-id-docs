@@ -4,7 +4,11 @@ import { Callout } from 'common/Callout'
 
 ## REST endpoints
 
-### /verify
+### /verify/\{app_id}
+
+<Callout type="tip">
+  This endpoint requires no authentication, but is rate limited.
+</Callout>
 
 Enables you to verify a World ID proof for a **Cloud action.** To ensure [human-uniqueness](/about/protocol#proof-of-uniqueness), a single person can only verify once for every action. If you send a proof for the same user twice, an error will be returned.
 
@@ -59,28 +63,30 @@ POST /api/v1/verify/{app_id}
     <tr>
       <td>`nullifier_hash`</td>
       <td>
-        As verbatim provided by the IDKit. See [IDKit response](/idkit/reference#response) for details.
+        As provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
       </td>
       <td>`string`</td>
     </tr>
     <tr>
       <td>`merkle_root`</td>
       <td>
-        As verbatim provided by the JS widget. See [IDKit response](/idkit/reference#response) for details.
+        As provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
       </td>
       <td>`string`</td>
     </tr>
     <tr>
       <td>`proof`</td>
       <td>
-        As verbatim provided by the JS widget. See [IDKit response](/idkit/reference#response) for details.
+        As provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+      </td>
       <td>`string`</td>
     </tr>
     <tr>
       <td>`credential_type`</td>
-      <td>Credential type used for the verification. Obtained from [IDKit response](/idkit/reference#response).</td>
+      <td>As provided by IDKit. See [IDKit response](/idkit/reference#response) for details.</td>
       <td>`orb | phone`</td>
     </tr>
+
   </tbody>
 </table>
 
@@ -97,7 +103,31 @@ POST /api/v1/verify/{app_id}
 
 **Response (400)**
 
-Error response sent when input parameters or proof are invalid. Some other error responses may be sent, please check the response body for details.
+Error response when proof is invalid.
+
+```json
+{
+  "code": "invalid_proof",
+  "detail": "The provided proof is invalid and it cannot be verified. Please check all inputs and try again.",
+  "attribute": null
+}
+```
+
+**Response (400)**
+
+Error response when the user's credential is not properly verified. Can also happen if the provided ZKP is for a different credential than the one specified or if the verification network is incorrect.
+
+```json
+{
+  "code": "invalid_merkle_root",
+  "detail": "The provided Merkle root is invalid. User appears to be unverified.",
+  "attribute": null
+}
+```
+
+**Response (400)**
+
+When an invalid credential type is passed
 
 ```json
 {
@@ -109,6 +139,8 @@ Error response sent when input parameters or proof are invalid. Some other error
 
 **Response (400)**
 
+When the user has exceeded the maximum number of verifications allowed for the proof.
+
 ```json
 {
   "code": "already_verified",
@@ -119,13 +151,13 @@ Error response sent when input parameters or proof are invalid. Some other error
 
 ### /precheck/\{app_id}
 
-Enables fetching information about a particular app to determine eligibility for verification. This endpoint is also used by the hosted page, Kiosk and Worldcoin mobile apps to show metadata about the action being verified.
+Enables fetching information about a particular app to determine eligibility for verification. This endpoint is also used by the kiosk and World mobile app to show metadata about the action being verified.
 
-<Callout title="tip">
+<Callout type="note">
   Bear in mind this endpoint will only return information for active actions.
 </Callout>
 
-<Callout title="note">
+<Callout type="tip">
   This endpoint requires no authentication, but is rate limited.
 </Callout>
 
@@ -147,7 +179,7 @@ POST /api/v1/precheck/{app_id}
 {
   "action": "my_custom_action",
   "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
-  "external_nullifier": "0x00949dd9a8c5b600304d010ce3a3cf012352070ae4b77504e17af77ee894cda"
+  "external_nullifier": "0x00949dd9a8c5b600304d010ce3a3cf012352070ae4b77504e17af77ee894cda" // can be obtained from IDKit or Developer Portal
 }
 ```
 
@@ -177,9 +209,7 @@ POST /api/v1/precheck/{app_id}
 }
 ```
 
-- The `verified_app_logo` will contain an absolute URL to the location of the logo for this app.
-
-**Response (400)**
+**Response (404)**
 
 ```json
 {
@@ -243,7 +273,7 @@ POST /v1/graphql
 }
 ```
 
-- The `Authorization` header should be set as detailed in the [Authentication](authentication) section.
+- The `Authorization` header should be set as detailed in the [Authentication](/api#authentication) section.
 
 **Request**
 

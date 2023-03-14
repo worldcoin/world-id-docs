@@ -15,8 +15,9 @@ export const navItems: NavItems = [
     title: 'World ID',
     items: [
       { title: 'Overview', href: '/id' },
-      { title: 'Sign in', href: '/id/sign-in' },
-      { title: 'The Protocol', href: '/id/protocol' },
+      { title: 'Sign In', href: '/id/sign-in' },
+      { title: 'Anonymous Actions', href: '/id/anonymous-actions' },
+      // TODO: { title: 'The Protocol', href: '/id/protocol' },
       { title: 'Testing', href: '/id/testing' },
     ],
   },
@@ -25,6 +26,7 @@ export const navItems: NavItems = [
     items: [
       { title: 'Introduction', href: '/idkit' },
       { title: 'Reference', href: '/idkit/reference' },
+      // TODO { title: 'Error Handling', href: '/idkit/errors' },
     ],
   },
   {

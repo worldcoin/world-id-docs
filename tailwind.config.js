@@ -67,9 +67,11 @@ module.exports = {
             700: '#506dff',
           },
           success: {
+            200: '#e5f9e7',
             700: '#00c313',
           },
           warning: {
+            200: '#fff9e5',
             700: '#ffb11b',
           },
           error: {

@@ -12,7 +12,6 @@ const withMDX = require('@next/mdx')({
   },
 })
 
-// TODO: Temporary redirect for old docs URLs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -24,24 +23,29 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/docs/:slug*',
-        destination: '/:slug*',
-        permanent: true,
-      },
-      {
         source: '/protocol',
         destination: '/id/protocol',
-        permanent: true,
+        permanent: false,
       },
       {
         source: '/test',
         destination: '/id/testing',
-        permanent: true,
+        permanent: false,
       },
       {
         source: '/simulator',
         destination: '/id/testing',
-        permanent: true,
+        permanent: false,
+      },
+      {
+        source: '/privacy',
+        destination: '/advanced/privacy',
+        permanent: false,
+      },
+      {
+        source: '/zkp',
+        destination: '/advanced/zero-knowledge-proofs',
+        permanent: false,
       },
       {
         source: '/waitlist',

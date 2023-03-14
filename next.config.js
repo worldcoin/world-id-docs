@@ -43,6 +43,11 @@ const nextConfig = {
         destination: '/id/testing',
         permanent: true,
       },
+      {
+        source: '/waitlist',
+        destination: 'https://toolsforhumanity.typeform.com/sdk-waitlist',
+        permanent: true,
+      },
     ]
   },
   async rewrites() {

@@ -1,10 +1,13 @@
 import { Callout } from 'common/Callout'
+import { Fence } from 'common/Fence'
 
 # Sign In with Worldcoin
 
 To better serve all classes of applications, World ID can now be used as an OpenID Connect Provider (Identity Provider, IdP, OP). We support many of the same integrations that developers are already familiar with (Auth0, Cloudflare, etc.). The following diagram outlines the general authentication flow for an integrating app:
 
-![A diagram showcasing the main authentication flow](/images/docs/id/sign-in.png)
+<Fence className="bg-fbfbfc">
+  ![A diagram showcasing the main authentication flow](/images/docs/id/sign-in.svg)
+</Fence>
 
 If your app already supports OIDC, simply add our [discovery document](/.well-known/openid-configuration) as an authentication option. You can read more about our implementation under the [`/authorize`](#/authorize) and [`/token`](#/token) headings.
 

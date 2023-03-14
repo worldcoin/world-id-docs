@@ -1,4 +1,5 @@
 import { Callout } from 'common/Callout'
+import { Fence } from 'common/Fence'
 
 # Anonymous Actions
 
@@ -10,7 +11,9 @@ The World ID protocol provides developers flexibility in the types of actions th
 
 To demonstrate the power of actions, take the voting example. Imagine you are building a website to host polls for a local organization, but you'd like votes to be anonymous. By using a new action for each vote, you can enforce that users only vote once in each ballot, while also ensuring that there is no way to correlate a user's cast ballots across votes.
 
-![A diagram showcasing an application taking advantage of anonymous actions](/images/docs/id/anonymous-actions.png)
+<Fence className="bg-fbfbfc">
+  ![A diagram showcasing an application taking advantage of anonymous actions](/images/docs/id/anonymous-actions.svg)
+</Fence>
 
 ## Configuration
 

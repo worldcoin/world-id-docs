@@ -2,49 +2,24 @@ import { Callout } from 'common/Callout'
 import { GradientBorderContainer } from 'common/GradientBorderContainer'
 import { Steps } from 'Steps'
 
-World ID is a way to anonymously verify someone is an actual person performing an action, and that they have performed that action only once (without revealing anything about themselves). This happens through [Zero-knowledge proofs](/advanced/zero-knowledge-proofs).
+World ID is a digital passport that lets a user prove they are a unique and real person while remaining anonymous. This happens through [Zero-knowledge Proofs](/advanced/zero-knowledge-proofs) and other privacy-preserving cryptographic mechanisms.
 
-You can easily integrate World ID in your app and smart contract or backend. End user can easily and anonymously verify they are a unique human through the [Worldcoin app](https://worldcoin.org/download).
+You can easily integrate World ID in your app and smart contract or backend. World ID holders can easily and anonymously verify they are a unique human through a compatible identity wallet, like the [World App](https://worldcoin.org/download).
 
-![worldcoin-lens](/images/docs/introduction/worldcoin-lens.png)
+![Person using Sign In with Worldcoin](/images/docs/introduction/worldcoin-sign-in.jpg)
 
 <div className="grid gap-y-4">
-  <Steps
-    steps={[
-      <div className="align-middle">
-        <img
-          src="/images/docs/introduction/widget-light.jpg"
-          className="block"
-        />
-      </div>,
-      <div className="align-middle">
-        <img
-          src="/images/docs/introduction/drawer.jpg"
-          className="block"
-        />
-      </div>,
-      <div className="align-middle">
-        <img
-          src="/images/docs/introduction/drawer-verified.jpg"
-          className="block"
-        />
-      </div>,
-    ]}
-  />
-
   <Steps
     borders
     steps={[
       <span>
-        The lightweight <a href="/idkit">JS widget</a> is added to your dapp.
+        You integrate <a href="/id/sign-in">Sign in with Worldcoin</a> or{' '}
+        <a href="/idkit">IDKit JS</a> in your app.
       </span>,
+      <span>App connects to user's wallet and sends verification request</span>,
       <span>
-        <a href="/idkit">JS widget</a> handles connection to Worldcoin app and
-        provides instructions to the user.
-      </span>,
-      <span>
-        User verifies they are a unique human with a{' '}
-        <a href="/advanced/zero-knowledge-proofs">ZKP</a>.
+        User verifies with a <a href="/advanced/zero-knowledge-proofs">ZKP</a>,
+        using their World ID credentials.
       </span>,
     ]}
   />
@@ -52,60 +27,30 @@ You can easily integrate World ID in your app and smart contract or backend. End
 
 <Callout title="FYI">
   World ID is currently in **Beta** and some functionality might change. Please
-  help us improve by sharing [feedback](/feedback) on your experience and any
-  ideas for how to improve.
+  help us improve by sharing [feedback](https://discord.gg/worldcoin). Join the
+  waitlist SDK [here](/waitlist).
 </Callout>
 
 ## How it works
 
 In broad strokes, this is how World ID works.
 
-<img
-  src="/images/docs/introduction/how-it-works-light.svg"
-  className="block"
-  alt="Render of World ID widget"
-/>
+1. User gets their World ID in a compatible wallet (e.g. the [World App](https://worldcoin.org/download)).
 
-1. End user verifies themself at a Worldcoin orb ([read more](https://worldcoin.org/how-the-launch-works)). User proves they are a unique human without requiring to store any PII (more on [Privacy](/about/privacy)).
+2. User receives credentials in their World ID. The flagship credential is biometric verification, currently available by using the [Orb](https://github.com/worldcoin/orb-hardware). The user can also verify their phone number to obtain the respective credential.
 
-2. Project [integrates with World ID](/quick-start).
+3. Project [integrates with World ID](/quick-start).
 
-3. Whenever performing a specific [action](/about/protocol#what-are-actions), user proves they are a unique human by submitting a [Zero-knowledge proof](/docs/advanced/zero-knowledge-proofs) from the Worldcoin app.
+4. User connects their World ID to authenticate, and optionally prove they are a unique human doing something only once. The user's wallet will generate a [Zero-Knowledge Proof](/advanced/zero-knowledge-proofs) to accomplish this.
 
-4. Project validates the [Zero-knowledge proof](/advanced/zero-knowledge-proofs) and executes the action (e.g. token airdrop, NFT minting, account creation, ...).
-
-Read more about how World ID works in the [Protocol](/about/protocol) section.
+5. Project verifies the [Zero-knowledge Proof](/advanced/zero-knowledge-proofs), either by using the [API](/api) or by verifying [on-chain](/advanced/on-chain).
 
 ## Use cases
 
-World ID prevents sybil attacks both on-chain and off-chain. Some use cases:
-
-<img
-  src="/images/docs/introduction/use-cases.svg"
-  className="block"
-  alt="Use-cases for World ID"
-/>
-
-<div className="sr-only">
-
-- **Receiving airdrops**. Reward early users of your project without abuse
-  from bots, users creating multiple accounts, etc. For example, democratic
-  airdrops like [Worldcoin](https://worldcoin.org).
-- **Democratic voting**.
-  Ensure one person equals one vote; e.g. governance, proposal voting, etc.
-- **Quadratic funding**. Funding where the number of contributors matter more
-  than the sheer number of dollars provided (to democratize the process). Ensure
-  a single person only funds a project once. An example of quadratic funding is
-  [Gitcoin](https://gitcoin.co/blog/gitcoin-grants-quadratic-funding-for-the-world/).
-- **Person-bound NFTs**. Enables the possibility of blockchain-based records
-  (e.g. university degrees, vaccination records, citizenship confirmation, ...).
-  Without World ID you could transfer those NFTs to a third party which would
-  make the records useless.
-
-</div>
+World ID unlocks a vast number of applications and use cases. You can find a list of community-curated ideas here.
 
 <Callout>
-  Spot an error in these docs? Our docs are open source too and contributions
-  are welcome. Open a PR on
+  Spot an error in these docs? Worldcoin docs are open source (same as the
+  protocol) too and contributions are highly welcomed. Open a PR in
   [GitHub](https://github.com/worldcoin/world-id-docs).
 </Callout>

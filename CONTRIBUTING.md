@@ -31,6 +31,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://supernovahs-com.vercel.app/"><img src="https://avatars.githubusercontent.com/u/91280922?v=4?s=75" width="75px;" alt="Supernovahs.eth"/><br /><sub><b>Supernovahs.eth</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=supernovahs" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/mmqxyz"><img src="https://avatars.githubusercontent.com/u/127844428?v=4?s=75" width="75px;" alt="mmqxyz"/><br /><sub><b>mmqxyz</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=mmqxyz" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lucemans"><img src="https://avatars.githubusercontent.com/u/10339043?v=4?s=75" width="75px;" alt="Luc"/><br /><sub><b>Luc</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=lucemans" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://maxpetretta.com"><img src="https://avatars.githubusercontent.com/u/19291506?v=4?s=75" width="75px;" alt="Max Petretta"/><br /><sub><b>Max Petretta</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=maxpetretta" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

@@ -1,20 +1,17 @@
-import { Callout } from 'common/Callout'
-import { Tabs, TabItem } from 'common/Tabs'
-
 # Testing
 
 To develop and test with World ID, you can set up **staging** apps. Staging apps use the protocol's staging network. This network is intended to aid with development, and it provides more flexibility to create new identities, issue credentials and try different edge cases.
 
 The staging network uses a separate infrastructure and has the following key characteristics:
 
-- Identities and credentials are managed in the [Simulator](https://simulator.worldcoin.org). The Simulator is used instead of the World App or other clients.
-- Proofs can be verified in the Developer Portal (all endpoints are the same as production).
-- For on-chain verifications, the World ID smart contract is deployed to the Polygon Mumbai-Testnet.
+-   Identities and credentials are managed in the [Simulator](https://simulator.worldcoin.org). The Simulator is used instead of the World App or other clients.
+-   Proofs can be verified in the Developer Portal (all endpoints are the same as production).
+-   For on-chain verifications, the World ID smart contract is deployed to the Polygon Mumbai-Testnet.
 
-<Callout type="note">
-  Access the Worldcoin simulator at [https://simulator.worldcoin.org][simulator]
-  to generate test identities and credentials.
-</Callout>
+<Note>
+	Access the Worldcoin simulator at [https://simulator.worldcoin.org][simulator] to generate test identities and
+	credentials.
+</Note>
 
 ## Using the Staging network
 
@@ -34,26 +31,24 @@ Using the staging network as an _end user_ is simple, just go to the [Simulator]
     If you are running your action on-chain, you do need to point your smart contract to the relevant staging World ID smart contract. Further, the Staging and Production smart contracts are deployed to different chains. Follow these guidelines:
 
 <ol>
-  <li>
-    Make sure to deploy your contract in the [Polygon
-    Mumbai-Testnet](https://docs.polygon.technology/docs/develop/network-details/network/).
-  </li>
-  <li>
-    Obtain the World ID contract address from ENS. The smart contract with the
-    staging Orb credential can be found at: `staging.semaphore.wld.eth` and
-    point it in your smart contract. Check the [smart contract starter
-    kit](https://github.com/worldcoin/world-id-starter) for details.
-    <ul>
-      <li>
-        You will have to do the address resolving manually or with a deploy
-        script as there's no ENS on Polygon yet.
-      </li>
-    </ul>
-  </li>
-  <li>
-    When interacting with your smart contract remember to connect your wallet to
-    the <b>Polygon Mumbai-Testnet.</b>
-  </li>
+	<li>
+		Make sure to deploy your contract in the [Polygon
+		Mumbai-Testnet](https://docs.polygon.technology/docs/develop/network-details/network/).
+	</li>
+	<li>
+		Obtain the World ID contract address from ENS. The smart contract with the staging Orb credential can be found
+		at: `staging.semaphore.wld.eth` and point it in your smart contract. Check the [smart contract starter
+		kit](https://github.com/worldcoin/world-id-starter) for details.
+		<ul>
+			<li>
+				You will have to do the address resolving manually or with a deploy script as there's no ENS on Polygon
+				yet.
+			</li>
+		</ul>
+	</li>
+	<li>
+		When interacting with your smart contract remember to connect your wallet to the <b>Polygon Mumbai-Testnet.</b>
+	</li>
 </ol>
 
   </TabItem>
@@ -65,27 +60,23 @@ When you use the simulator you are required to generate or load a World ID ident
 
 When you generate an identity with an external wallet, we use a signature from your wallet to generate the seed entropy for your identity. This means, if you ever use the same wallet again on the simulator, the same World ID identity will be generated, which can help with persistence and working across devices. **Your wallet's private key is never exposed to the simulator.**
 
-<Callout type="tip">
-  If you don't have a verified World ID yet, the staging network is a great way
-  to try things out. test.
-</Callout>
+<Note>If you don't have a verified World ID yet, the staging network is a great way to try things out.</Note>
 
 ## Advanced
 
-<Callout type="danger">
-  The information in this section is currently intended only for **internal**
-  use by core contributors.
-</Callout>
+<Note type="danger">
+	The information in this section is currently intended only for **internal** use by core contributors.
+</Note>
 
 The **staging sequencer** (used to submit _verified identities_ to the staging Semaphore contract and obtain Merkle proof information) uses a `Basic` authorization token, and can be found at:
 
-- `https://signup.stage-crypto.worldcoin.dev` for Orb credentials
-- `https://phone-signup.stage-crypto.worldcoin.dev` for phone credentials
+-   `https://signup.stage-crypto.worldcoin.dev` for Orb credentials
+-   `https://phone-signup.stage-crypto.worldcoin.dev` for phone credentials
 
 The **staging World ID smart contract** (also called the _Staging Semaphore instance_) is hosted on the **Polygon Mumbai-Testnet network** and the contract address can be found at:
 
-- `staging.semaphore.wld.eth` for Orb credentials
-- `staging.phone.wld.eth` for phone credentials
+-   `staging.semaphore.wld.eth` for Orb credentials
+-   `staging.phone.wld.eth` for phone credentials
 
 Always do an ENS lookup for the most up-to-date information.
 

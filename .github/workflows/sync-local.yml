@@ -1,39 +1,58 @@
 name: Repositories sync
 
 on:
-  pull_request:
-    paths:
-      - 'SHARED-README.md'
-      - 'repositories.json'
-      - 'sync.ts'
+    pull_request:
+        paths:
+            - 'SHARED-README.md'
+            - 'repositories.json'
+            - 'sync.ts'
 
 jobs:
+    sync-local-repository:
+        name: Sync local README & repositories
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v2
 
-  sync-local-repository:
-    name: Sync local README & repositories
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
+            - name: Set up Node 18
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
 
-      - name: Set up Node 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'yarn'
-      
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      
-      - name: Sync local README
-        run: npx ts-node sync.ts local
+                        - uses: pnpm/action-setup@v2
+              name: Install pnpm
+              id: pnpm-install
+              with:
+                  version: 7
+                  run_install: false
 
-      - name: Sync repository descriptions
-        run: npx ts-node sync.ts descriptions
+            - name: Get pnpm store directory
+              id: pnpm-cache
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - name: Commit changes to repository
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: sync shared README content
-          commit_options: '--no-verify --signoff'
-          file_pattern: README.md repositories.json
-          commit_author: GitHub Actions <actions@github.com>
+            - uses: actions/cache@v3
+              name: Setup pnpm cache
+              with:
+                  path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Sync local README
+              run: npx ts-node sync.ts local
+
+            - name: Sync repository descriptions
+              run: npx ts-node sync.ts descriptions
+
+            - name: Commit changes to repository
+              uses: stefanzweifel/git-auto-commit-action@v4
+              with:
+                  commit_message: sync shared README content
+                  commit_options: '--no-verify --signoff'
+                  file_pattern: README.md repositories.json
+                  commit_author: GitHub Actions <actions@github.com>

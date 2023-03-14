@@ -1,63 +1,83 @@
 name: CI
 
 on:
-  - pull_request
+    - pull_request
 
 jobs:
-  typecheck:
-    name: Typecheck
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
+    typecheck:
+        name: Typecheck
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v3
 
-      - name: Set up Node 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'yarn'
+            - name: Set up Node 18
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+            - uses: pnpm/action-setup@v2
+              name: Install pnpm
+              id: pnpm-install
+              with:
+                  version: 7
+                  run_install: false
 
-      - name: Typecheck
-        run: |
-          yarn typecheck
+            - name: Get pnpm store directory
+              id: pnpm-cache
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-  spellcheck:
-    name: Spellcheck
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
+            - uses: actions/cache@v3
+              name: Setup pnpm cache
+              with:
+                  path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
 
-      - name: Set up Node 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'yarn'
+            - name: Install dependencies
+              run: pnpm install
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+            - name: Typecheck
+              run: |
+                  pnpm typecheck
 
-      - name: Spellcheck
-        run: |
-          yarn spellcheck
+    test-build:
+        name: Test production build
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v2
 
-  test-build:
-    name: Test production build
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
+            - name: Set up Node 18
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
 
-      - name: Set up Node 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'yarn'
+            - uses: pnpm/action-setup@v2
+              name: Install pnpm
+              id: pnpm-install
+              with:
+                  version: 7
+                  run_install: false
 
-      - name: Install dependencies
-        if: steps.node-modules-cache.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
+            - name: Get pnpm store directory
+              id: pnpm-cache
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - name: Build
-        run: |
-          yarn build
+            - uses: actions/cache@v3
+              name: Setup pnpm cache
+              with:
+                  path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Build
+              run: |
+                  pnpm build

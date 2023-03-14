@@ -1,317 +1,307 @@
-import { Callout } from 'common/Callout'
-
 # API Reference
 
-## REST endpoints
+## Verify Proof {{ tag: "POST", label: "/v1/verify/{app_id}" }}
 
-### /verify/\{app_id}
-
-<Callout type="tip">
-  This endpoint requires no authentication, but is rate limited.
-</Callout>
+<Row><Col>
 
 Enables you to verify a World ID proof for a **Cloud action.** To ensure [human-uniqueness](/about/protocol#proof-of-uniqueness), a single person can only verify once for every action. If you send a proof for the same user twice, an error will be returned.
 
-```
-POST /api/v1/verify/{app_id}
+### Required attributes
+
+    <Properties>
+      <Property name="action" type="string">
+        Same action identifier as passed to IDKit.
+      </Property>
+      <Property name="action" type="string">
+        Same signal as passed to IDKit.
+      </Property>
+      <Property name="nullifier_hash" type="string">
+        The ZKP's nullifier hash, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+      </Property>
+      <Property name="proof" type="string">
+        The zero-knowledge proof, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+      </Property>
+      <Property name="merkle_root" type="string">
+        The ZKP's Merkle root, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+      </Property>
+      <Property name="credential_type" type="string">
+        The credential type, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+      </Property>
+    </Properties>
+
+### Possible Responses
+
+-   `200 OK` - The proof was successfully verified.
+-   `400 Bad Request` - The proof was invalid or the user has already verified for this action.
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/api/v1/verify/{app_id}">
+
+```bash {{ title: "cURL" }}
+curl -X POST "https://id.worldcoin.org/api/v1/verify/{app_id}" \
+    -H "Content-Type: application/json" \
+    -d '{
+        "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
+        "merkle_root": "0x2264a66d162d7893e12ea8e3c072c51e785bc085ad655f64c10c1a61e00f0bc2",
+        "proof": "0x1aa8b8f3b2d2de5ff452c0e1a83e29d6bf46fb83ef35dc5957121ff3d3698a1119090fb...",
+        "credential_type": "orb",
+        "action": "my_action",
+        "signal": "my_signal"
+    }'
 ```
 
-**Headers**
+```js
+fetch(apiUrl, {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		nullifier_hash: '0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8',
+		merkle_root: '0x2264a66d162d7893e12ea8e3c072c51e785bc085ad655f64c10c1a61e00f0bc2',
+		proof: '0x1aa8b8f3b2d2de5ff452c0e1a83e29d6bf46fb83ef35dc5957121ff3d3698a1119090fb...',
+		credential_type: 'orb',
+		action: 'my_action',
+		signal: 'my_signal',
+	}),
+})
+```
 
-```json
+</CodeGroup>
+
+<CodeGroup title="Response">
+
+```json {{ title: "200 OK" }}
 {
-  "Content-Type": "application/json"
+	"success": true,
+	"action": "my_action",
+	"nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
+	"created_at": "2023-02-18T11:20:39.530041+00:00"
 }
 ```
 
-**Request**
-
-{/* spell-checker: disable */}
-
-```json
+```json {{ title: "400 Invalid Proof" }}
 {
-  "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
-  "merkle_root": "0x2264a66d162d7893e12ea8e3c072c51e785bc085ad655f64c10c1a61e00f0bc2",
-  "proof": "0x1aa8b8f3b2d2de5ff452c0e1a83e29d6bf46fb83ef35dc5957121ff3d3698a1119090fb...",
-  "credential_type": "orb",
-  "action": "my_action",
-  "signal": "my_signal"
+	"code": "invalid_proof",
+	"detail": "The provided proof is invalid and it cannot be verified. Please check all inputs and try again.",
+	"attribute": null
 }
 ```
 
-{/* spell-checker: enable */}
-
-<table>
-  <thead>
-    <tr>
-      <th>Parameter</th>
-      <th>Description</th>
-      <th>Type</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>`action`</td>
-      <td>Same action identifier as passed to IDKit.</td>
-      <td>`string`</td>
-    </tr>
-    <tr>
-      <td>`signal`</td>
-      <td>Same signal as passed to IDKit.</td>
-      <td>`string`</td>
-    </tr>
-    <tr>
-      <td>`nullifier_hash`</td>
-      <td>
-        As provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
-      </td>
-      <td>`string`</td>
-    </tr>
-    <tr>
-      <td>`merkle_root`</td>
-      <td>
-        As provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
-      </td>
-      <td>`string`</td>
-    </tr>
-    <tr>
-      <td>`proof`</td>
-      <td>
-        As provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
-      </td>
-      <td>`string`</td>
-    </tr>
-    <tr>
-      <td>`credential_type`</td>
-      <td>As provided by IDKit. See [IDKit response](/idkit/reference#response) for details.</td>
-      <td>`orb | phone`</td>
-    </tr>
-
-  </tbody>
-</table>
-
-**Response (200)**
-
-```json
+```json {{ title: "400 Invalid Merkle Root" }}
 {
-  "success": true,
-  "action": "my_action",
-  "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
-  "created_at": "2023-02-18T11:20:39.530041+00:00"
+	"code": "invalid_merkle_root",
+	"detail": "The provided Merkle root is invalid. User appears to be unverified.",
+	"attribute": null
 }
 ```
 
-**Response (400)**
-
-Error response when proof is invalid.
-
-```json
+```json {{ title: "400 Invalid Credential Type" }}
 {
-  "code": "invalid_proof",
-  "detail": "The provided proof is invalid and it cannot be verified. Please check all inputs and try again.",
-  "attribute": null
+	"code": "invalid",
+	"detail": "Invalid credential type.",
+	"attribute": "credential_type"
 }
 ```
 
-**Response (400)**
-
-Error response when the user's credential is not properly verified. Can also happen if the provided ZKP is for a different credential than the one specified or if the verification network is incorrect.
-
-```json
+````json {{ title: "400 User Exceeded Maximum Verifications" }}
 {
-  "code": "invalid_merkle_root",
-  "detail": "The provided Merkle root is invalid. User appears to be unverified.",
-  "attribute": null
+    "code": "exceeded_max_verifications",
+    "detail": "This user has exceeded the maximum number of verifications allowed for this proof.",
+    "attribute": null
+}
+
+```json {{ title: "400 User Already Verified" }}
+{
+    "code": "already_verified",
+    "detail": "This person has already verified for this action.",
+    "attribute": null
+}
+````
+
+</CodeGroup>
+
+</Col></Row>
+
+## Get Action Metadata {{ tag: "GET", label: "/v1/precheck/{app_id}" }}
+
+<Row><Col>
+
+Enables fetching information about a particular app to determine eligibility for verification. This endpoint is also used by the kiosk and World mobile app to show metadata about the action being verified. This endpoint will only return information for active actions.
+
+<Properties>
+	<Property name="action" type="string">
+		The action to check. This is the same action that was passed to IDKit.
+	</Property>
+	<Property name="nullifier_hash" type="string">
+		The ZKP's nullifier hash, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+	</Property>
+	<Property name="external_nullifier" type="string">
+		The ZKP's external nullifier.
+	</Property>
+</Properties>
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="GET" label="/api/v1/precheck/{app_id}">
+
+```bash {{ title: "cURL" }}
+curl -X POST "https://id.worldcoin.org/api/v1/precheck/{app_id}" \
+     -H "Content-Type: application/json" \
+     -d '{
+             "action": "my_custom_action",
+             "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
+             "external_nullifier": "0x00949dd9a8c5b600304d010ce3a3cf012352070ae4b77504e17af77ee894cda"
+         }'
+```
+
+```js
+fetch(`https://id.worldcoin.org/api/v1/precheck/${appId}`, {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		action: 'my_custom_action',
+		nullifier_hash: '0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8',
+		external_nullifier: '0x00949dd9a8c5b600304d010ce3a3cf012352070ae4b77504e17af77ee894cda',
+	}),
+})
+```
+
+</CodeGroup>
+<CodeGroup title="Response">
+
+```json {{ title: "200 OK" }}
+{
+	"id": "app_staging_4cfd049031b0da1e8b62084b09a9f430",
+	"is_staging": true,
+	"is_verified": false,
+	"logo_url": "",
+	"name": "Default App",
+	"verified_app_logo": "",
+	"engine": "cloud",
+	"__typename": "app",
+	"sign_in_with_world_id": true,
+	"can_user_verify": "yes",
+	"action": {
+		"external_nullifier": "0x00949dd9a8c5b600304d010ce3a3cf012352070ae4b77504e17af77ee894cda",
+		"name": "My action",
+		"action": "my_custom_action",
+		"description": "My action",
+		"max_verifications": 0,
+		"max_accounts_per_user": 1,
+		"__typename": "action"
+	}
 }
 ```
 
-**Response (400)**
-
-When an invalid credential type is passed
-
-```json
+```json {{ title: "404 Not Found" }}
 {
-  "code": "invalid",
-  "detail": "Invalid credential type.",
-  "attribute": "credential_type"
+	"code": "not_found",
+	"detail": "We couldn't find an app with this ID. Action may be inactive.",
+	"attribute": null
 }
 ```
 
-**Response (400)**
+</CodeGroup>
+</Col></Row>
 
-When the user has exceeded the maximum number of verifications allowed for the proof.
+## Get JWK Keys {{ tag: "GET", label: "/v1/jwks" }}
 
-```json
-{
-  "code": "already_verified",
-  "detail": "This person has already verified for this action.",
-  "attribute": null
-}
-```
-
-### /precheck/\{app_id}
-
-Enables fetching information about a particular app to determine eligibility for verification. This endpoint is also used by the kiosk and World mobile app to show metadata about the action being verified.
-
-<Callout type="note">
-  Bear in mind this endpoint will only return information for active actions.
-</Callout>
-
-<Callout type="tip">
-  This endpoint requires no authentication, but is rate limited.
-</Callout>
-
-```
-POST /api/v1/precheck/{app_id}
-```
-
-**Headers**
-
-```json
-{
-  "Content-Type": "application/json"
-}
-```
-
-**Request**
-
-```json
-{
-  "action": "my_custom_action",
-  "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
-  "external_nullifier": "0x00949dd9a8c5b600304d010ce3a3cf012352070ae4b77504e17af77ee894cda" // can be obtained from IDKit or Developer Portal
-}
-```
-
-**Response (200)**
-
-```json
-{
-  "id": "app_staging_4cfd049031b0da1e8b62084b09a9f430",
-  "is_staging": true,
-  "is_verified": false,
-  "logo_url": "",
-  "name": "Default App",
-  "verified_app_logo": "",
-  "engine": "cloud",
-  "__typename": "app",
-  "sign_in_with_world_id": true,
-  "can_user_verify": "yes",
-  "action": {
-    "external_nullifier": "0x00949dd9a8c5b600304d010ce3a3cf012352070ae4b77504e17af77ee894cda",
-    "name": "My action",
-    "action": "my_custom_action",
-    "description": "My action",
-    "max_verifications": 0,
-    "max_accounts_per_user": 1,
-    "__typename": "action"
-  }
-}
-```
-
-**Response (404)**
-
-```json
-{
-  "code": "not_found",
-  "detail": "We couldn't find an app with this ID. Action may be inactive.",
-  "attribute": null
-}
-```
-
-### /jwks
+<Row><Col>
 
 This endpoint lets you retrieve the JWKs (public keys) used to verify the signature on JSON web tokens that authenticate a verification request from the Developer Portal. This verification method is only used if you are using the **Hosted page user interface.**
 
-```
-GET /api/v1/jwks
+</Col><Col sticky>
+
+<CodeGroup>
+
+```bash {{ title: "cURL" }}
+curl https://developer.worldcoin.org/api/v1/jwks
 ```
 
-**Headers**
+```js
+fetch('https://developer.worldcoin.org/api/v1/jwks')
+```
 
-```json
+</CodeGroup>
+
+```json {{ title: "Response" }}
 {
-  "Content-Type": "application/json"
+	"keys": [
+		{
+			"e": "AQAB",
+			"n": "09ETz2k4_9IbDBYK_Tcr6DzbDdJPeqIgvoeUvXNVjNU8mYzFbhdqh8jRH80FwtuoFqyw5oyuG9ILHxfGaG_SeutPWSxBsqulXhxTnTAx2i8HtF0i2toMuvsEtiAjQ3hD4_w2xInBVOO98WAGcNA_UgWAG2DlWpe2km_V5bv3iKteCsSTZtzT3RjEO6FeOlVr8rmx9EGwWITdPIvrEXm_3REFqvDOnQvLu2-Au8m1V3U_6404m4RV_wlWGPnhHfG57VTkkqjgrnFKGUDniG-VMJs-WFX4VIQRvy2z1A5nQsmYpobK_clGyV0D0i5P1A_lmWGDEXBLSjEW9zH_o0d2DQ",
+			"kty": "RSA",
+			"kid": "jwk_8934bcc47ec5b86dd490cc2a46f18a5e"
+		}
+	]
 }
 ```
 
-{/* spell-checker: disable */}
+</Col></Row>
 
-**Response (200)**
+## GraphQL {{ tag: "POST", label: "/v1/graphql" }}
 
-```json
-{
-  "keys": [
-    {
-      "e": "AQAB",
-      "n": "09ETz2k4_9IbDBYK_Tcr6DzbDdJPeqIgvoeUvXNVjNU8mYzFbhdqh8jRH80FwtuoFqyw5oyuG9ILHxfGaG_SeutPWSxBsqulXhxTnTAx2i8HtF0i2toMuvsEtiAjQ3hD4_w2xInBVOO98WAGcNA_UgWAG2DlWpe2km_V5bv3iKteCsSTZtzT3RjEO6FeOlVr8rmx9EGwWITdPIvrEXm_3REFqvDOnQvLu2-Au8m1V3U_6404m4RV_wlWGPnhHfG57VTkkqjgrnFKGUDniG-VMJs-WFX4VIQRvy2z1A5nQsmYpobK_clGyV0D0i5P1A_lmWGDEXBLSjEW9zH_o0d2DQ",
-      "kty": "RSA",
-      "kid": "jwk_8934bcc47ec5b86dd490cc2a46f18a5e"
-    }
-  ]
-}
-```
-
-{/* spell-checker: enable */}
-
-## GraphQL endpoint
+<Row><Col>
 
 Interaction with the Developer Portal API is mostly done through a GraphQL endpoint, which enables retrieving information and interacting with any of the API objects. You can read more about [queries](https://hasura.io/docs/latest/graphql/core/api-reference/graphql-api/query/) and [mutations](https://hasura.io/docs/latest/graphql/core/api-reference/graphql-api/mutation/) for GraphQL to help you construct your query.
 
-The GraphQL endpoint can be accessed at the endpoint below
+<CodeGroup title="Example Queries">
 
-```
-POST /v1/graphql
-```
-
-**Headers**
-
-```json
-{
-  "Content-Type": "application/json",
-  "Authorization": ""
-}
-```
-
-- The `Authorization` header should be set as detailed in the [Authentication](/api#authentication) section.
-
-**Request**
-
-```json
-{
-  "query": "<your_GraphQL_query_or_mutation_here>"
-}
-```
-
-Some example of GraphQL queries can be found below,
-
-#### Listing apps
-
-**Request**
-
-```graphql
+```graphql {{ title: "Listing apps" }}
 query MyApps {
-  app {
-    id
-    name
-  }
+	app {
+		id
+		name
+	}
 }
 ```
 
-#### Listing nullifiers for action
-
-**Request**
-
-```graphql
+```graphql {{ title: "Listing nullifiers for action" }}
 query ActionNullifiers($action_id: String) {
-  action(where: { id: { _eq: $action_id }, status: { _eq: "active" } }) {
-    id
-    status
-    max_accounts_per_user
-    max_verifications
-    nullifiers {
-      nullifier_hash
-    }
-  }
+	action(where: { id: { _eq: $action_id }, status: { _eq: "active" } }) {
+		id
+		status
+		max_accounts_per_user
+		max_verifications
+		nullifiers {
+			nullifier_hash
+		}
+	}
 }
 ```
+
+</CodeGroup>
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/api/v1/graphql">
+
+```bash {{ title: "cURL" }}
+curl -X POST "https://id.worldcoin.org/v1/graphql" \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer $WORLD_ID_TOKEN" \
+     -d '{
+           "query": "YOUR_GRAPHQL_QUERY_HERE"
+         }'
+```
+
+```js
+fetch('https://id.worldcoin.org/v1/graphql', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+		Authorization: `Bearer ${WORLD_ID_TOKEN}`,
+	},
+	body: JSON.stringify({
+		query: 'YOUR_GRAPHQL_QUERY_HERE',
+	}),
+})
+```
+
+</CodeGroup>
+
+</Col></Row>

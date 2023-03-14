@@ -1,202 +1,246 @@
-import { Callout } from 'common/Callout'
-
 # Internal Endpoints
 
-<Callout title="caution" type="caution">
-  These endpoints are intended only for **internal use**, and should generally
-  **not be used by developers**. They are documented here to assist with
-  development.
-</Callout>
+<Note title="caution" type="warning">
+	These endpoints are intended only for **internal use**, and should generally **not be used by developers**. They are
+	documented here to assist with development.
+</Note>
 
 ## App endpoints
 
 The following endpoints are intended to be used only by the app's frontend. If you're looking to connect to the API, check out the [Authentication](/api/authentication) page.
 
-### /login
+## Login {{ tag: "POST", label: "/v1/login" }}
 
-<Callout title="note">
-  This endpoint requires no authentication, but is rate limited.
-</Callout>
+<Row><Col>
 
+This endpoint is used to authenticate a user and obtain a JWT token. The token is used to authenticate all other requests.
+
+### Required attributes
+
+<Properties>
+	<Property name="email" type="string">
+		The user's email address.
+	</Property>
+	<Property name="password" type="string">
+		The user's password.
+	</Property>
+</Properties>
+
+</Col><Col sticky>
+
+<CodeGroup>
+
+```bash {{ title: "cURL" }}
+curl -X POST 'https://id.worldcoin.org/api/v1/login' \
+    -H 'Content-Type: application/json' \
+    -d '{
+        "email": "alice@worldidbot.com",
+        "password": "12345678"
+    }'
 ```
-POST /api/v1/login
+
+```js
+fetch('https://id.worldcoin.org/api/v1/login', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		email: 'alice@worldidbot.com',
+		password: '12345678',
+	}),
+})
 ```
 
-**Headers**
+</CodeGroup>
 
-```json
+<CodeGroup>
+
+```json {{ title: "200 OK" }}
 {
-  "Content-Type": "application/json"
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNTE2MjM5MDIyfQ.HThTAuYC6RyvZgF5h2cJCVEUQZ9g8Y18Tf-IU2gaYBc"
 }
 ```
 
-**Request**
-
-```json
+```json {{ title: "400 Bad Request" }}
 {
-  "email": "alice@worldidbot.com",
-  "password": "12345678"
+	"code": "invalid_credentials",
+	"detail": "Invalid email or password.",
+	"attribute": null
 }
 ```
 
-**Response (200)**
+</CodeGroup>
 
-{/* spell-checker: disable */}
+</Col></Row>
 
-```json
+## Register {{ tag: "POST", label: "/v1/signup" }}
+
+<Row><Col>
+
+This endpoint is used to register a new user. The user will receive an email with a verification link. The user must click the link to verify their email address.
+
+### Required attributes
+
+<Properties>
+	<Property name="email" type="string">
+		The user's email address.
+	</Property>
+	<Property name="password" type="string">
+		The user's password. Must be at least 8 characters long.
+	</Property>
+	<Property name="name" type="string">
+		The user's name.
+	</Property>
+	<Property name="team_name" type="string">
+		The name of the team the user is registering for.
+	</Property>
+</Properties>
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/api/v1/signup">
+
+```bash {{ title: "cURL" }}
+curl -X POST "https://example.com/api/v1/signup" \
+     -H "Content-Type: application/json" \
+     -d '{
+         "email": "bob@worldidbot.com",
+         "password": "987654321",
+         "name": "Bob",
+         "team_name": "The Bob Project"
+     }'
+```
+
+```js
+fetch('https://id.worldcoin.org/api/v1/signup', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		email: 'bob@worldidbot.com',
+		password: '987654321',
+		name: 'Bob',
+		team_name: 'The Bob Project',
+	}),
+})
+```
+
+</CodeGroup>
+
+<CodeGroup title="Response">
+
+```json {{ title: "201 Created" }}
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNTE2MjM5MDIyfQ.HThTAuYC6RyvZgF5h2cJCVEUQZ9g8Y18Tf-IU2gaYBc"
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNTE2MjM5MDIyfQ.HThTAuYC6RyvZgF5h2cJCVEUQZ9g8Y18Tf-IU2gaYBc"
 }
 ```
 
-{/* spell-checker: enable */}
-
-**Response (400)**
-
-```json
+```json {{ title: "400 Bad Request" }}
 {
-  "code": "invalid_credentials",
-  "detail": "Invalid email or password.",
-  "attribute": null
+	"code": "already_registered",
+	"detail": "This email address is already registered.",
+	"attribute": "email"
 }
 ```
 
-### /signup
+</CodeGroup>
 
-<Callout title="note">
-  This endpoint requires no authentication, but is rate limited.
-</Callout>
-
-```
-POST /api/v1/signup
-```
-
-**Headers**
-
-```json{
-  "Content-Type": "application/json"
-}
-```
-
-**Request**
-
-```json
-{
-  "email": "bob@worldidbot.com",
-  "password": "987654321",
-  "name": "Bob",
-  "team_name": "The Bob Project"
-}
-```
-
-- All attributes are required.
-- Password should be at least 8 characters.
-
-**Response (201)**
-
-{/* spell-checker: disable */}
-
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNTE2MjM5MDIyfQ.HThTAuYC6RyvZgF5h2cJCVEUQZ9g8Y18Tf-IU2gaYBc"
-}
-```
-
-{/* spell-checker: enable */}
-
-**Response (400)**
-
-```json
-{
-  "code": "already_registered",
-  "detail": "This email address is already registered.",
-  "attribute": "email"
-}
-```
+</Col></Row>
 
 ## Management endpoints
 
-<Callout title="info">
-  These endpoints can only be called from the Hasura backend and they require a
-  special token which is only shared between the two.
-</Callout>
+<Note>
+	These endpoints can only be called from the Hasura backend and they require a special token which is only shared
+	between the two.
+</Note>
 
-### /\_ens
+## ENS Lookup {{ tag: "POST", label: "/_ens" }}
+
+<Row><Col>
 
 Fetches the Semaphore contract addresses from an ENS lookup and caches them locally.
 
-```
-POST /api/_ens
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/api/_ens">
+
+```bash {{ title: "cURL" }}
+curl -X POST "<host>/api/_ens" \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer <secret>"
+
 ```
 
-**Headers**
+```js
+fetch('/api/_ens', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+		Authorization: 'Bearer <secret>',
+	},
+})
+```
 
-```json
+</CodeGroup>
+
+<CodeGroup title="Response">
+
+```json {{ title: "200 OK" }}
 {
-  "Content-Type": "application/json",
-  "Authorization": "Bearer <secret>"
+	"success": true
 }
 ```
 
-**Request**
-
-```json
-{}
-```
-
-**Response (200)**
-
-```json
+```json {{ title: "500 Server Error" }}
 {
-  "success": true
+	"success": false,
+	"error": "Production address (0x) or staging address (0x) not found."
 }
 ```
 
-**Response (500)**
+</CodeGroup>
 
-```json
-{
-  "success": false,
-  "error": "Production address (0x) or staging address (0x) not found."
-}
-```
+</Col></Row>
 
-### /\_jwk-gen
+## JWK Generation {{ tag: "POST", label: "/_jwk-gen" }}
+
+<Row><Col>
 
 Generates a new JWK to use for signing verification JWTs. Old keys are not rotated automatically, they can still be used until they reach their expiration date. Expiration date may be updated directly through Hasura's portal.
 
-```
-POST /api/_jwk-gen
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/api/_jwk-gen">
+
+```bash {{ title: "cURL" }}
+curl -X POST "https://id.worldcoin.org/api/_jwk-gen" \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer <secret>"
 ```
 
-**Headers**
+```js
+fetch('https://id.worldcoin.org/api/_jwk-gen', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+		Authorization: 'Bearer <secret>',
+	},
+})
+```
 
-```json
+</CodeGroup>
+
+```json { "title": "Response" }
 {
-  "Content-Type": "application/json",
-  "Authorization": "Bearer <secret>"
+	"success": true,
+	"jwk": {
+		"id": "jwk_4bce24487b429dff79c8cfee38483308",
+		"expires_at": "2023-06-14T06:29:35.794+00:00",
+		"__typename": "jwks"
+	}
 }
 ```
 
-**Request**
-
-```json
-{}
-```
-
-**Response (201)**
-
-{/* spell-checker: disable */}
-
-```json
-{
-  "success": true,
-  "jwk": {
-    "id": "jwk_4bce24487b429dff79c8cfee38483308",
-    "expires_at": "2023-06-14T06:29:35.794+00:00",
-    "__typename": "jwks"
-  }
-}
-```
-
-{/* spell-checker: enable */}
+</Col></Row>

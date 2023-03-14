@@ -1,13 +1,8 @@
-import { Callout } from 'common/Callout'
-import { Fence } from 'common/Fence'
-
 # Sign In with Worldcoin
 
 To better serve all classes of applications, World ID can now be used as an OpenID Connect Provider (Identity Provider, IdP, OP). We support many of the same integrations that developers are already familiar with (Auth0, Cloudflare, etc.). The following diagram outlines the general authentication flow for an integrating app:
 
-<Fence className="bg-fbfbfc">
-  ![A diagram showcasing the main authentication flow](/images/docs/id/sign-in.svg)
-</Fence>
+<Fence className="bg-gray-50">![A diagram showcasing the main authentication flow](/images/docs/id/sign-in.svg)</Fence>
 
 If your app already supports OIDC, simply add our [discovery document](/.well-known/openid-configuration) as an authentication option. You can read more about our implementation under the [`/authorize`](#/authorize) and [`/token`](#/token) headings.
 
@@ -20,18 +15,17 @@ Before OIDC authentication can take place, developers must register their applic
 
 During registration, you will need to provide the following values:
 
-- `redirect_uris`: **Required**, list of approved websites the user can be redirected to after successful authentication.
-- `client_name`: **Optional**, the name of the application that's displayed to users
-- `logo_url`: **Optional**, the logo of the application that's displayed to users
-- `application_type`: **Optional**, one of "web" or "mobile". Defaults to "web"
-- `grant_types`: **Optional**, the type of flows this application will use. Can include "authorization_code", "implicit", or "hybrid". Defaults to "authorization_code"
-- `response_type`: **Optional**, the response type expected by the application. Can include any of "code", "token", or "id_token". Defaults to "code"
+-   `redirect_uris`: **Required**, list of approved websites the user can be redirected to after successful authentication.
+-   `client_name`: **Optional**, the name of the application that's displayed to users
+-   `logo_url`: **Optional**, the logo of the application that's displayed to users
+-   `application_type`: **Optional**, one of "web" or "mobile". Defaults to "web"
+-   `grant_types`: **Optional**, the type of flows this application will use. Can include "authorization_code", "implicit", or "hybrid". Defaults to "authorization_code"
+-   `response_type`: **Optional**, the response type expected by the application. Can include any of "code", "token", or "id_token". Defaults to "code"
 
-<Callout type="note">
-  All redirect URIs must be over HTTPS, and contain no port numbers or URL
-  fragments. `localhost` can be used on staging apps for testing, but will not
-  work on production apps.
-</Callout>
+<Note>
+	All redirect URIs must be over HTTPS, and contain no port numbers or URL fragments. `localhost` can be used on
+	staging apps for testing, but will not work on production apps.
+</Note>
 
 After registration is complete, you will have a valid `app_id` that will be needed for every other step in the authentication process. This value is equivalent to `client_id` from the [OIDC specification](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
 
@@ -55,11 +49,11 @@ Example values could be:
 
 {/* cSpell:disable */}
 
-- `client_id`: obtained from the Developer Portal or `/register` endpoint (example: `app_lshSNnaJfdt6Sohu6YAA`).
-- `response_type`: response type as specified in OIDC spec, remember to URL encode (example: `code%20id_token`).
-- `redirect_uri`: where the user is redirected upon successful authentication. Must be on the approved redirect URI list which can always be updated in the Developer Portal (example: `https%3A%2F%2Fapp.example.com%2Flogin`).
-- `state`: unique value used to track a user's session (example: `session_102030405060708090`).
-- `nonce`: random value to prevent replay attacks (example: `z-dkEmoy_ujfk7B8uTiQpp`).
+-   `client_id`: obtained from the Developer Portal or `/register` endpoint (example: `app_lshSNnaJfdt6Sohu6YAA`).
+-   `response_type`: response type as specified in OIDC spec, remember to URL encode (example: `code%20id_token`).
+-   `redirect_uri`: where the user is redirected upon successful authentication. Must be on the approved redirect URI list which can always be updated in the Developer Portal (example: `https%3A%2F%2Fapp.example.com%2Flogin`).
+-   `state`: unique value used to track a user's session (example: `session_102030405060708090`).
+-   `nonce`: random value to prevent replay attacks (example: `z-dkEmoy_ujfk7B8uTiQpp`).
 
 {/* cSpell:enable */}
 
@@ -69,18 +63,16 @@ The user will then authenticate with their World ID via the World app. Once succ
 
 If using the default authorization code flow, the redirect URL will contain the following params:
 
-- `code`: An authorization code that can be exchanged for an ID token
-- `state`: The optional state value passed to the `/authorize` endpoint
+-   `code`: An authorization code that can be exchanged for an ID token
+-   `state`: The optional state value passed to the `/authorize` endpoint
 
 If you received a response containing an _authorization code_, you must exchange it for an ID token on the `/token` endpoint. Request details can be [seen here](#/token).
 
 If using implicit flow, the redirect URL will contain the following params:
 
-- `id_token`: A signed JWT identifying the user, and any requested scope information
+-   `id_token`: A signed JWT identifying the user, and any requested scope information
 
-<Callout type="caution">
-  ID tokens must always be verified, and should not be blindly accepted!
-</Callout>
+<Note type="caution">ID tokens must always be verified, and should not be blindly accepted!</Note>
 
 To verify an ID token, fetch the public key from the `/jwks` endpoint. You can read more about this process at the [Auth0 blog](https://auth0.com/blog/navigating-rs256-and-jwks/) or [JWT.io](https://jwt.io/), but one example method could be:
 
@@ -90,16 +82,14 @@ To verify an ID token, fetch the public key from the `/jwks` endpoint. You can r
 import * as jose from 'jose'
 
 const verifyJwt = (token: string) => {
-  const JWKS = jose.createRemoteJWKSet(
-    new URL('https://id.worldcoin.org/jwks.json')
-  )
+	const JWKS = jose.createRemoteJWKSet(new URL('https://id.worldcoin.org/jwks.json'))
 
-  const { payload, header } = await jose.jwtVerify(token, JWKS, {
-    issuer: 'https://id.worldcoin.org',
-    aud: 'app_lshSNnaJfdt6Sohu6YAA',
-  })
+	const { payload, header } = await jose.jwtVerify(token, JWKS, {
+		issuer: 'https://id.worldcoin.org',
+		aud: 'app_lshSNnaJfdt6Sohu6YAA',
+	})
 
-  return payload
+	return payload
 }
 
 verifyJwt('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...')
@@ -111,284 +101,412 @@ verifyJwt('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...')
 
 Since all technologies associated with World ID are open source, you can implement your own hosted version of IDKit to redirect your users to. Advanced API details for this implementation can be found below.
 
-## OIDC Endpoints
+## OpenID Connect discovery {{ tag: 'GET', label: '/.well-known/openid-configuration' }}
 
-### /.well-known/openid-configuration
+<Row>
+  <Col>
+    Fetches the OpenID Connect discovery document.
 
-Fetches the OpenID Connect discovery document.
+    ### Common Errors
 
-```
-GET https://id.worldcoin.org/.well-known/openid-configuration
-```
+    - `method_not_allowed`: HTTP method is not allowed. Only GET and OPTIONS may be used
 
-**Response**
+  </Col>
+  <Col sticky>
 
-```json
-{
-  "issuer": "https://id.worldcoin.org",
-  "authorization_endpoint": "https://id.worldcoin.org/authorize",
-  "token_endpoint": "https://id.worldcoin.org/token",
-  "userinfo_endpoint": "https://id.worldcoin.org/userinfo",
-  "registration_endpoint": "https://id.worldcoin.org/register",
-  "jwks_uri": "https://id.worldcoin.org/jwks",
-  "scopes_supported": ["openid", "email", "profile"],
-  "response_types_supported": [
-    "code",
-    "id_token",
-    "id_token token",
-    "code id_token"
-  ],
-  "grant_types_supported": ["authorization_code", "implicit"],
-  "subject_types_supported": ["pairwise"],
-  "id_token_signing_alg_values_supported": ["RSA"]
-}
-```
+    <CodeGroup title="Request" tag="GET" label="/.well-known/openid-configuration">
 
-**Common Errors**
-`method_not_allowed`: HTTP method is not allowed. Only GET and OPTIONS may be used
+    ```bash {{ title: 'cURL' }}
+    curl https://id.worldcoin.org/.well-known/openid-configuration
+    ```
 
-### /register
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+        "issuer": "https://id.worldcoin.org",
+        "authorization_endpoint": "https://id.worldcoin.org/authorize",
+        "token_endpoint": "https://id.worldcoin.org/token",
+        "userinfo_endpoint": "https://id.worldcoin.org/userinfo",
+        "registration_endpoint": "https://id.worldcoin.org/register",
+        "jwks_uri": "https://id.worldcoin.org/jwks",
+        "scopes_supported": ["openid", "email", "profile"],
+        "response_types_supported": ["code", "id_token", "id_token token", "code id_token"],
+        "grant_types_supported": ["authorization_code", "implicit"],
+        "subject_types_supported": ["pairwise"],
+        "id_token_signing_alg_values_supported": ["RSA"]
+    }
+    ```
+
+  </Col>
+</Row>
+
+## Register App {{ tag: 'POST', label: '/register' }}
+
+<Row>
+  <Col>
 
 Registers a new application for use with Sign In with World ID.
 
-```
-POST https://id.worldcoin.org/register
+### Required attributes
+
+    <Properties>
+      <Property name="redirect_uris" type="string">
+        URLs the user will be redirected to after authentication. Must be HTTPS, and can always be updated in the Developer Portal.
+      </Property>
+    </Properties>
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="client_name" type="string">
+        Name of the application. This is displayed to the user during authentication.
+      </Property>
+      <Property name="logo_uri" type="string">
+        URL to the application's logo. This is displayed to the user during authentication.
+      </Property>
+      <Property name="application_type" type="string">
+        Type of application. Can be either `web` or `mobile`. Defaults to `web`.
+      </Property>
+      <Property name="grant_types" type="string">
+        Grant types the application is allowed to use. Can be either `authorization_code`, `implicit`, `hybrid`. Defaults to `authorization_code`.
+      </Property>
+    </Properties>
+
+### Common Errors
+
+-   `method_not_allowed`: HTTP method is not allowed. Only POST and OPTIONS may be used
+-   `required`: A necessary attribute was not set. Required attributes are: `redirect_uris`
+-   `invalid_redirect_uri`: The provided redirect URI is invalid, either HTTPS was not used or the URL was malformed
+
+</Col>
+<Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/register">
+
+    ```bash {{ title: 'cURL' }}
+    curl -X POST https://id.worldcoin.org/register \
+        -H "Content-Type: application/json" \
+        -d '{
+            "client_name": "Example Application",
+            "logo_uri": "https://app.example.com/logo.svg",
+            "redirect_uris": ["https://app.example.com/callback", "https://app.example.com/redirect"],
+            "application_type": "web",
+            "grant_types": "authorization_code",
+            "response_types": "code"
+        }'
+    ```
+
+    ```js
+    fetch('https://id.worldcoin.org/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            client_name: 'Example Application',
+            logo_uri: 'https://app.example.com/logo.svg',
+            redirect_uris: [
+                'https://app.example.com/callback',
+                'https://app.example.com/redirect'
+            ],
+            application_type: 'web',
+            grant_types: 'authorization_code',
+            response_types: 'code'
+        })
+    })
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+        "application_type": "web",
+        "client_id": "app_staging_7550e829082fc558e112e0620c1c7a59",
+        "client_id_issued_at": "2023-03-09T00:58:52.5011+00:00",
+        "client_name": "Example Application",
+        "client_secret": "sk_6a2ff697607b77d641fbb10101b7636f3e6c750f2aac3652",
+        "client_secret_expires_at": 0,
+        "grant_types": "authorization_code",
+        "logo_uri": "https://app.example.com/logo.svg",
+        "response_types": "code"
+    }
+    ```
+
+  </Col>
+</Row>
+
+## Generate Credentials {{ tag: 'POST', label: '/authorize' }}
+
+<Row><Col>
+
+Generate credentials from a World ID zero-knowledge proof (for use with [IDKit](/idkit)).
+
+### Required attributes
+
+    <Properties>
+      <Property name="app_id" type="string">
+        The application ID of the application requesting credentials.
+      </Property>
+      <Property name="response_type" type="string">
+        The type of response to return. Can be any combination of `code`, `token`, and `id_token`.
+      </Property>
+      <Property name="scope" type="string">
+        Comma-separated list of scopes to request. Only `openid` is supported, but `profile` and `email` are available for legacy reasons.
+      </Property>
+      <Property name="nonce" type="string">
+        A random string used to prevent replay attacks.
+      </Property>
+      <Property name="nullifier_hash" type="string">
+        The ZKP's nullifier hash, as returned by [IDKit](/idkit).
+      </Property>
+      <Property name="proof" type="string">
+        The zero-knowledge proof, as returned by [IDKit](/idkit).
+      </Property>
+      <Property name="merkle_root" type="string">
+        The ZKP's Merkle root, as returned by [IDKit](/idkit).
+      </Property>
+      <Property name="credential_type" type="string">
+        The type of credential this proof is for. Can be either `orb` or `phone`.
+      </Property>
+    </Properties>
+
+### Common Errors
+
+-   `method_not_allowed`: HTTP method is not allowed. Only POST and OPTIONS may be used
+-   `required`: A necessary attribute was not set. Required attributes are: `proof`, `nullifier_hash`, `merkle_root`, `credential_type`, and `app_id`
+-   `invalid - credential_type`: The provided credential type is invalid, only `orb` and `phone` are supported
+-   `invalid - response_type`: The provided response type is invalid, may use any combination of `code`, `token`, and `id_token`
+-   `error - app_id`: There was an error fetching the given `app_id`, try checking the value
+-   `invalid_proof`: The returned identity proof was invalid, please wait before trying again
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/authorize">
+```shell {{ title: 'cURL' }}
+curl -X POST https://id.worldcoin.org/authorize \
+  -H "Content-Type: application/json" \
+  -d '{
+    "app_id": "app_staging_7550e829082fc558e112e0620c1c7a59",
+    "response_type": "code id_token",
+    "scope": "openid email profile",
+    "nonce": "1234567890",
+    "nullifier_hash": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535",
+    "proof": "0x051df7bb69be13ca1f6406e39c02bf5c8ddf710bd91aba675bf70e28f188e1092b5659...",
+    "merkle_root": "0x09c2cc6add86f7f38a8f5b1ce0046c7d28bd54588054f37f9904561453aaab51",
+    "credential_type": "orb"
+  }'
 ```
 
-**Headers**
+```js
+fetch('https://id.worldcoin.org/authorize', {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		app_id: 'app_staging_7550e829082fc558e112e0620c1c7a59',
+		response_type: 'code id_token',
+		scope: 'openid email profile',
+		nonce: '1234567890',
+		nullifier_hash: '0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535',
+		proof: '0x051df7bb69be13ca1f6406e39c02bf5c8ddf710bd91aba675bf70e28f188e1092b5659...',
+		merkle_root: '0x09c2cc6add86f7f38a8f5b1ce0046c7d28bd54588054f37f9904561453aaab51',
+		credential_type: 'orb',
+	}),
+})
+```
 
-```json
+</CodeGroup>
+
+```json {{ title: 'Response' }}
 {
-  "Content-Type": "application/json"
+	"code": "23e5edda0f731dfdddace390",
+	"id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3..."
 }
 ```
 
-**Request**
+</Col></Row>
 
-```json
-{
-  "client_name": "Example Application",
-  "logo_uri": "https://app.example.com/logo.svg",
-  "redirect_uris": [
-    "https://app.example.com/callback",
-    "https://app.example.com/redirect"
-  ],
-  "application_type": "web",
-  "grant_types": "authorization_code",
-  "response_types": "code"
-}
-```
+## Exchange Code {{ tag: 'POST', label: '/token' }}
 
-**Response**
-
-```json
-{
-  "application_type": "web",
-  "client_id": "app_staging_7550e829082fc558e112e0620c1c7a59",
-  "client_id_issued_at": "2023-03-09T00:58:52.5011+00:00",
-  "client_name": "Example Application",
-  "client_secret": "sk_6a2ff697607b77d641fbb10101b7636f3e6c750f2aac3652",
-  "client_secret_expires_at": 0,
-  "grant_types": "authorization_code",
-  "logo_uri": "https://app.example.com/logo.svg",
-  "response_types": "code"
-}
-```
-
-**Common Errors**
-`method_not_allowed`: HTTP method is not allowed. Only POST and OPTIONS may be used
-`required`: A necessary attribute was not set. Required attributes are: `redirect_uris`
-`invalid_redirect_uri`: The provided redirect URI is invalid, either HTTPS was not used or the URL was malformed
-
-### /authorize
-
-Generates credentials (as defined in `response_type`) for user authentication.
-
-```
-POST https://id.worldcoin.org/authorize
-```
-
-**Headers**
-
-```json
-{
-  "Content-Type": "application/json"
-}
-```
-
-**Request**
-
-```json
-{
-  "app_id": "app_staging_7550e829082fc558e112e0620c1c7a59",
-  "response_type": "code id_token",
-  "scope": "openid email profile",
-  "nonce": "1234567890",
-  "nullifier_hash": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535",
-  "proof": "0x051df7bb69be13ca1f6406e39c02bf5c8ddf710bd91aba675bf70e28f188e1092b5659...",
-  "merkle_root": "0x09c2cc6add86f7f38a8f5b1ce0046c7d28bd54588054f37f9904561453aaab51",
-  "credential_type": "orb"
-}
-```
-
-**Response**
-
-```json
-{
-  "code": "23e5edda0f731dfdddace390",
-  "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3..."
-}
-```
-
-**Common Errors**
-`method_not_allowed`: HTTP method is not allowed. Only POST and OPTIONS may be used
-`required`: A necessary attribute was not set. Required attributes are: `proof`, `nullifier_hash`, `merkle_root`, `credential_type`, and `app_id`
-`invalid - credential_type`: The provided credential type is invalid, only `orb` and `phone` are supported
-`invalid - response_type`: The provided response type is invalid, may use any combination of `code`, `token`, and `id_token`
-`error - app_id`: There was an error fetching the given `app_id`, try checking the value
-`invalid_proof`: The returned identity proof was invalid, please wait before trying again
-
-### /token
+<Row>
+  <Col>
 
 Exchanges an authorization code for an `id_token` for the given user.
 
+### Required attributes
+
+    <Properties>
+      <Property name="code" type="string">
+        The authorization code to exchange.
+      </Property>
+      <Property name="grant_type" type="string">
+        The type of grant to exchange. Must be `authorization_code`.
+      </Property>
+    </Properties>
+
+### Common Errors
+
+-   `method_not_allowed`: HTTP method is not allowed. Only POST and OPTIONS may be used
+-   `invalid_content_type`: The provided content type is invalid, only `application/x-www-form-urlencoded` is supported
+-   `unauthenticated`: The provided authorization token is invalid, try checking your credentials
+-   `invalid_grant_type`: The provided grant type is invalid, only `authorization_code` is supported
+-   `required`: A necessary attribute was not set. Required attributes are: `code`
+-   `invalid_grant`: The authorization code was invalid, and may be expired. Try generating a new code via `/authorize`
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/token">
+```shell {{ title: 'cURL' }}
+curl -X POST https://id.worldcoin.org/token \
+     -H "Authorization: Basic YXBwX3N0YWdpbmdfNzU1MGU4MjkwODJmYzU1OGUxMTJlMDYyMGMxYzdhNT..." \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -d "code=23e5edda0f731dfdddace390&grant_type=authorization_code"
 ```
-POST https://id.worldcoin.org/token
+
+```js
+const data = new URLSearchParams()
+data.append('code', '23e5edda0f731dfdddace390')
+data.append('grant_type', 'authorization_code')
+
+fetch('https://id.worldcoin.org/token', {
+	method: 'POST',
+	headers: {
+		Authorization: `Basic ${btoa(`${client_id}:${client_secret}`)}`,
+		'Content-Type': 'application/x-www-form-urlencoded',
+	},
+	body: data,
+})
 ```
 
-{/* cSpell:disable */}
+</CodeGroup>
 
-**Headers**
-
-```json
+```json {{ title: "Response" }}
 {
-  "Authorization": "Basic YXBwX3N0YWdpbmdfNzU1MGU4MjkwODJmYzU1OGUxMTJlMDYyMGMxYzdhNT...",
-  "Content-Type": "application/x-www-form-urlencoded"
+	"access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOG...",
+	"token_type": "Bearer",
+	"expires_in": 3600,
+	"scope": "openid",
+	"id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3MD..."
 }
 ```
 
-**Request**
+</Col></Row>
 
-```
-code=23e5edda0f731dfdddace390&grant_type=authorization_code
-```
+## Introspect {{ tag: 'POST', label: '/introspect' }}
 
-**Response**
-
-```json
-{
-  "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOG...",
-  "token_type": "Bearer",
-  "expires_in": 3600,
-  "scope": "openid",
-  "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3MD..."
-}
-```
-
-{/* cSpell:enable */}
-
-**Common Errors**
-`method_not_allowed`: HTTP method is not allowed. Only POST and OPTIONS may be used
-`invalid_content_type`: The provided content type is invalid, only `application/x-www-form-urlencoded` is supported
-`unauthenticated`: The provided authorization token is invalid, try checking your credentials
-`invalid_grant_type`: The provided grant type is invalid, only `authorization_code` is supported
-`required`: A necessary attribute was not set. Required attributes are: `code`
-`invalid_grant`: The authorization code was invalid, and may be expired. Try generating a new code via `/authorize`
-
-### /introspect
+<Row><Col>
 
 Validates the given access token is active for the user.
 
+<Note>
+	For introspect, [Basic
+	Authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme) is
+	used. The `Authorization` header contains the word "Basic ", followed by a base64 encoding of the
+	"client_id:client_secret" values returned from the `/register` endpoint.
+</Note>
+
+### Required attributes
+
+    <Properties>
+      <Property name="token" type="string">
+        The access token to validate.
+      </Property>
+    </Properties>
+
+### Common Errors
+
+-   `method_not_allowed`: HTTP method is not allowed. Only POST may be used
+-   `invalid_content_type`: The provided content type is invalid, only `application/x-www-form-urlencoded` is supported
+-   `required`: A necessary attribute was not set. Required attributes are: `token`
+-   `unauthenticated`: The authorization header is missing, please pass the Bearer authorization token
+-   `invalid_token`: The authorization token was invalid, and may be expired. Try generating a new token via `/token`
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/introspect">
+```shell {{ title: 'cURL' }}
+curl -X POST https://id.worldcoin.org/introspect \
+  -H "Authorization: Basic YXBwX3N0YWdpbmdfNzU1MGU4MjkwODJmYzU1OGUxMTJlMDYyMGMxYzdhNT..." \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  --data-urlencode "token=eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3MDNkNTNjMStN..."
 ```
-POST https://id.worldcoin.org/introspect
+
+```js
+fetch('https://id.worldcoin.org/introspect', {
+	method: 'POST',
+	headers: {
+		Authorization: `Basic ${btoa(`${client_id}:${client_secret}`)}`,
+		'Content-Type': 'application/x-www-form-urlencoded',
+	},
+	body: new URLSearchParams({ token }),
+})
 ```
 
-{/* cSpell:disable */}
+</CodeGroup>
 
-**Headers**
-
-```json
+```json {{ title: "Response" }}
 {
-  "Authorization": "Basic YXBwX3N0YWdpbmdfNzU1MGU4MjkwODJmYzU1OGUxMTJlMDYyMGMxYzdhNT...",
-  "Content-Type": "application/x-www-form-urlencoded"
+	"active": true,
+	"client_id": "app_staging_7550e829082fc558e112e0620c1c7a59",
+	"exp": 1678330528,
+	"sub": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535"
 }
 ```
 
-{/* cSpell:enable */}
+</Col></Row>
 
-<Callout type="note">
-  For introspect, [Basic
-  Authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme)
-  is used. The `Authorization` header contains the word "Basic ", followed by a
-  base64 encoding of the "client_id:client_secret" values returned from the
-  `/register` endpoint.
-</Callout>
+## Get User Info {{ tag: 'POST', label: '/userinfo' }}
 
-**Request**
-
-```
-token=eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3MDNkNTNjMStN...
-```
-
-{/* cSpell:disable */}
-
-**Response**
-
-```json
-{
-  "active": true,
-  "client_id": "app_staging_7550e829082fc558e112e0620c1c7a59",
-  "exp": 1678330528,
-  "sub": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535"
-}
-```
-
-{/* cSpell:enable */}
-
-**Common Errors**
-`method_not_allowed`: HTTP method is not allowed. Only POST may be used
-`invalid_content_type`: The provided content type is invalid, only `application/x-www-form-urlencoded` is supported
-`required`: A necessary attribute was not set. Required attributes are: `token`
-`unauthenticated`: The authorization header is missing, please pass the Bearer authorization token
-`invalid_token`: The authorization token was invalid, and may be expired. Try generating a new token via `/token`
-
-### /userinfo
+<Row><Col>
 
 Retrieves all user information, based on the approved scopes, with the given access token.
 
+<Note>
+	For userinfo, [Bearer
+	Authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#bearer_authentication_scheme) is
+	used. The `Authorization` header contains the word "Bearer ", followed by the access token returned from the
+	`/token` endpoint.
+</Note>
+
+### Common Errors
+
+-   `method_not_allowed`: HTTP method is not allowed. Only GET, POST, and OPTIONS may be used
+-   `unauthenticated`: The authorization header is missing, please pass the Bearer authorization token
+-   `invalid_token`: The authorization token was invalid, and may be expired. Try generating a new token via `/token`
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/userinfo">
+```shell {{ title: 'cURL' }}
+curl -X POST https://id.worldcoin.org/userinfo \
+-H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlN..."
 ```
-POST https://id.worldcoin.org/userinfo
+
+```js
+fetch('https://id.worldcoin.org/userinfo', {
+	method: 'POST',
+	headers: {
+		Authorization: `Bearer ${access_token}`,
+	},
+})
 ```
 
-{/* cSpell:disable */}
+</CodeGroup>
 
-**Headers**
-
-```json
+```json {{ title: "Response" }}
 {
-  "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlN..."
+	"sub": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535",
+	"https://id.worldcoin.org/beta": {
+		"likely_human": "strong",
+		"credential_type": "orb"
+	},
+	"email": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535@id.worldcoin.org",
+	"name": "World ID User",
+	"given_name": "World ID",
+	"family_name": "User"
 }
 ```
 
-**Response**
-
-```json
-{
-  "sub": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535",
-  "https://id.worldcoin.org/beta": {
-    "likely_human": "strong",
-    "credential_type": "orb"
-  },
-  "email": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535@id.worldcoin.org",
-  "name": "World ID User",
-  "given_name": "World ID",
-  "family_name": "User"
-}
-```
-
-{/* cSpell:enable */}
-
-**Common Errors**
-`method_not_allowed`: HTTP method is not allowed. Only GET, POST, and OPTIONS may be used
-`unauthenticated`: The authorization header is missing, please pass the Bearer authorization token
-`invalid_token`: The authorization token was invalid, and may be expired. Try generating a new token via `/token`
+</Col></Row>

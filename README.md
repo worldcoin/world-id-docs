@@ -138,25 +138,25 @@ We have comprehensive docs for World ID at https://id.worldcoin.org/docs.
 
 To develop locally and contribute to our docs, you can simply follow these instructions after cloning the repo.
 
-- Activate required Node version (16.x)
+-   Activate required Node version (16.x)
 
-  ```
-  nvm use # only if you are using nvm
-  ```
+    ```
+    nvm use # only if you are using nvm
+    ```
 
-- Install dependencies
-  ```bash
-  yarn install
-  ```
-- Run locally
-  ```bash
-  yarn start
-  ```
-- Open browser at `http://localhost:3000`
-- To build the production bundle you can simply run.
-  ```bash
-  yarn build
-  ```
+-   Install dependencies
+    ```bash
+    yarn install
+    ```
+-   Run locally
+    ```bash
+    yarn start
+    ```
+-   Open browser at `http://localhost:3000`
+-   To build the production bundle you can simply run.
+    ```bash
+    yarn build
+    ```
 
 ## ✨ Contributors
 

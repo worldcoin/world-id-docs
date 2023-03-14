@@ -1,12 +1,14 @@
 # Overview
 
-World ID is a privacy-preserving, proof-of-personhood protocol. It allows verified users to _trustlessly prove_ that they are a unique human, and optionally perform a given action once. This is accomplished with a combination of blockchain technology and zero-knowledge proofs.
+World ID is a privacy-first identity protocol that brings global proof of personhood to the internet. It allows verified users to prove they are a unique person, and optionally prove they are performing a given action only once. This is accomplished with a combination of blockchain technology and [Zero-knowledge Proofs](/advanced/zero-knowledge-proofs).
 
 ## How does it work?
 
-World ID begins within the World app. When a user verifies at an Orb (or via phone), a _secret identity_ is generated on-device, where it is securely stored. Additionally, a public _identity commitment_ is published to the Ethereum blockchain, which acts at the source of truth for the protocol. These two values are used as inputs to each World ID verification, specifically as part of the [zero knowledge proof](/advanced/zero-knowledge-proofs).
+A user's World ID lives in their device, and only in their device. The user installs a compatible identity wallet (such as [World App](https://worldcoin.org/download)). A unique and random private key is generated on-device, where it is securely stored. Identity wallets may incorporate their own recovery mechanisms, however Protocol-level recovery is being implemented soon.
 
-The World app generates a zero knowledge proof for every verification a user makes. Verifications cannot be correlated across applications or actions, which means that the user's privacy is ensured by cryptography.
+From the user's private key, a public _identity commitment_ is generated and published on-chain (currently Polygon), which acts at the source of truth for the protocol. An identity commitment is analogous to a public key in an asymmetric key-pair, or a wallet address, but in the World ID protocol this value is not broadly shared.The private key is used as input to each World ID verification, specifically as part of the [ZKP](/advanced/zero-knowledge-proofs).
+
+The user's wallet (e.g. World App) generates a ZKP for every verification a user makes. Verifications cannot be linked across applications or actions, which means that the user's privacy is cryptographically protected.
 
 ![TODO]
 

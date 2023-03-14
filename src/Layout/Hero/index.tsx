@@ -8,11 +8,10 @@ export function Hero(props: { className?: string }) {
           'text-5xl font-bold uppercase leading-none tracking-wide'
         )}
       >
-        Sybil resistance, finally.
+        World ID
       </h1>
       <p className="mt-3 text-24 text-neutral-700 lg:max-w-[580px]">
-        Anonymously verify your users are real humans, and ensure they can only
-        perform action once.
+        The protocol to bring global proof of personhood to the internet.
       </p>
     </div>
   )

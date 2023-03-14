@@ -16,7 +16,9 @@ export const Layout: FC<
 	const currentSection = useMemo(
 		() =>
 			navigation.find(section =>
-				section.links.some(link => link.href == router.pathname.replace('/api-docs', '/api'))
+				section.links.some(
+					link => router.pathname != '/' && link.href == router.pathname.replace('/api-docs', '/api')
+				)
 			),
 		[router.pathname]
 	)

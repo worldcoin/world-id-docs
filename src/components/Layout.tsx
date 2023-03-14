@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 import { Prose } from '@/components/Prose'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
-import { FC, PropsWithChildren } from 'react'
-import { Navigation } from '@/components/Navigation'
+import { FC, PropsWithChildren, useMemo } from 'react'
+import { navigation, Navigation } from '@/components/Navigation'
 import { Section, SectionProvider } from '@/components/SectionProvider'
 
 export const Layout: FC<
@@ -11,6 +12,15 @@ export const Layout: FC<
 		sections?: Section[]
 	}>
 > = ({ children, sections = [] }) => {
+	const router = useRouter()
+	const currentSection = useMemo(
+		() =>
+			navigation.find(section =>
+				section.links.some(link => link.href == router.pathname.replace('/api-docs', '/api'))
+			),
+		[router.pathname]
+	)
+
 	return (
 		<SectionProvider sections={sections}>
 			<Header />
@@ -25,7 +35,12 @@ export const Layout: FC<
 				</motion.header>
 				<div className="relative px-4 pt-14 sm:px-6 lg:px-8">
 					<main className="pb-16">
-						<Prose as="article">{children}</Prose>
+						<Prose as="article">
+							{currentSection && (
+								<p className="uppercase tracking-wide text-neutral-400 mb-1">{currentSection.title}</p>
+							)}
+							{children}
+						</Prose>
 					</main>
 					<Footer />
 				</div>

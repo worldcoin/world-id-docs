@@ -3,10 +3,10 @@ import Link from 'next/link'
 import { Button } from './Button'
 import Logo from '@/components/Logo'
 import GitHubIcon from './icons/GitHubIcon'
-import { FC, forwardRef, PropsWithChildren } from 'react'
 import { useMobileNavigationStore } from '@/components/MobileNavigation'
 import { motion, MotionStyle, useScroll, useTransform } from 'framer-motion'
 import { MobileNavigation, useIsInsideMobileNavigation } from '@/components/MobileNavigation'
+import { FC, forwardRef, ForwardRefExoticComponent, PropsWithChildren, RefObject } from 'react'
 
 const TopLevelNavItem: FC<
 	PropsWithChildren<{
@@ -25,7 +25,7 @@ const TopLevelNavItem: FC<
 	</li>
 )
 
-export const Header: FC<{ className?: string }> = ({ className }) => {
+export const Header: ForwardRefExoticComponent<{ className?: string }> = forwardRef(({ className }, ref) => {
 	let { isOpen: mobileNavIsOpen } = useMobileNavigationStore()
 	let isInsideMobileNavigation = useIsInsideMobileNavigation()
 
@@ -35,6 +35,7 @@ export const Header: FC<{ className?: string }> = ({ className }) => {
 
 	return (
 		<motion.div
+			ref={ref as RefObject<HTMLDivElement>}
 			className={clsx(
 				className,
 				'sticky inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6',
@@ -85,4 +86,5 @@ export const Header: FC<{ className?: string }> = ({ className }) => {
 			</div>
 		</motion.div>
 	)
-}
+})
+Header.displayName = 'Header'

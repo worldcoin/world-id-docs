@@ -1,9 +1,6 @@
 import { Button } from 'common/Button'
-import dynamic from 'next/dynamic'
-const IDKitWidget = dynamic(
-  () => import('@worldcoin/idkit').then((mod) => mod.IDKitWidget),
-  { ssr: false }
-)
+import { IDKitWidget } from '@worldcoin/idkit'
+import { memo, Suspense } from 'react'
 
 const Try = (): JSX.Element => {
   return (
@@ -22,15 +19,17 @@ const Try = (): JSX.Element => {
         </a>
         , you can try it out by yourself below.
       </p>
-      <IDKitWidget app_id={process.env.NEXT_PUBLIC_IDKIT_APP!} action="">
-        {({ open }) => (
-          <Button variant="secondary" onClick={open}>
-            Open widget
-          </Button>
-        )}
-      </IDKitWidget>
+      <Suspense>
+        <IDKitWidget app_id={process.env.NEXT_PUBLIC_IDKIT_APP!} action="">
+          {({ open }) => (
+            <Button variant="secondary" onClick={open}>
+              Open widget
+            </Button>
+          )}
+        </IDKitWidget>
+      </Suspense>
     </div>
   )
 }
 
-export default Try
+export default memo(Try)

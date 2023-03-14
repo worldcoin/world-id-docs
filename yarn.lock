@@ -5314,6 +5314,11 @@ react-shadow@^20.0.0:
     humps "^2.0.1"
     react-use "^17.0.0"
 
+react-sticky-box@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-sticky-box/-/react-sticky-box-2.0.0.tgz#db3d19f700f2c2fb8405da6973cadd9b74ceea91"
+  integrity sha512-xTy/46lG6GlfdkGL7DoevLj+p3lqjvULZvGkN36/2oM8FrijvFq/zzfAtK0ZSnDxM9Ct6KOr5ZVuejVdDFqEcw==
+
 react-style-singleton@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-style-singleton/-/react-style-singleton-2.2.1.tgz#f99e420492b2d8f34d38308ff660b60d0b1205b4"

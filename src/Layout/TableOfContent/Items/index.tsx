@@ -1,5 +1,4 @@
 import cn from 'classnames'
-import { styles } from 'common/helpers/styles'
 import { TOC, TOCHeading } from 'common/types'
 import Link from 'next/link'
 import { Fragment, memo, useCallback } from 'react'
@@ -27,15 +26,20 @@ export const Items = memo(function Items(props: {
     <Fragment>
       {props.items.map((item) => (
         <div
-          className={cn('grid gap-y-6', {
-            'text-black/40': !isActive(item),
-            [`${cn('font-medium text-neutral-700')}`]: isActive(item),
-          })}
-          style={{ paddingLeft: `${(props.level || 0) * 24}px` }}
+          className="grid transition-colors duration-300"
           key={item.id}
         >
-          <Link className="truncate" href={`#${item.id}`}>
-            {item.title}
+          <Link
+            className={cn("px-4 py-2 rounded-lg truncate leading-5 transition-colors duration-300", {
+                "text-neutral-400 dark:text-neutral-500 hover:text-neutral-500 hover:dark:text-neutral-400 hover:bg-neutral-50 hover:dark:bg-neutral-700/40": !isActive(item),
+            })}
+            href={`#${item.id}`}
+          >
+            <span
+              style={{ paddingLeft: `${(props.level || 0) * 24}px` }}
+            >
+              {item.title}
+            </span>
           </Link>
 
           <Items

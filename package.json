@@ -34,6 +34,7 @@
     "node-html-parser": "^6.1.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-sticky-box": "^2.0.0",
     "string-strip-html": "^13.2.0"
   },
   "devDependencies": {

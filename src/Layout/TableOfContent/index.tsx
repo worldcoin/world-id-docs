@@ -39,11 +39,11 @@ export const TableOfContent = memo(function TableOfContent(props: {
 
   return (
     <Fragment>
-      <span className="text-14 font-medium uppercase leading-4 tracking-wide text-191c20">
+      <span className="ml-4 text-14 font-medium uppercase leading-4 tracking-wide text-191c20">
         On this page
       </span>
 
-      <nav className="grid gap-y-6">
+      <nav className="grid">
         <Items items={props.items} activeItem={activeItem} />
       </nav>
     </Fragment>

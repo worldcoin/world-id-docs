@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 const mirrorHexColors = (colors) =>
   Object.fromEntries(
@@ -21,17 +21,24 @@ const mirrorHexColors = (colors) =>
     })
   )
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ['class', '[data-theme="dark"]'],
-  content: ['./src/**/*.{ts,tsx}'],
+  darkMode: 'class',
+  content: ['./src/**/*.{ts,tsx,mdx}'],
 
   theme: {
     extend: {
+      boxShadow: {
+        '1px': '0 0 0 1px transparent',
+      },
       gridTemplateColumns: {
         'fr/auto': '1fr auto',
         'auto/fr': 'auto 1fr',
         'auto/fr/auto': 'auto 1fr auto',
         'auto/auto/fr': 'auto auto 1fr',
+      },
+      dropShadow: {
+        hyper: '0px 10px 30px rgba(155, 163, 174, 0.4)',
       },
       gridTemplateRows: {
         'fr/auto': '1fr auto',
@@ -41,21 +48,59 @@ module.exports = {
       },
 
       colors: {
+        neutral: {
+          900: '#191c20',
+          700: '#3c424b',
+          500: '#657080',
+          400: '#9ba3ae',
+          300: '#d6d9dd',
+          200: '#ebecef',
+          100: '#f3f4f5',
+          50: '#f9fafb',
+          0: '#ffffff',
+        },
+        primary: {
+          700: '#4940e0',
+        },
+        accents: {
+          info: {
+            700: '#506dff',
+          },
+          success: {
+            700: '#00c313',
+          },
+          warning: {
+            700: '#ffb11b',
+          },
+          error: {
+            700: '#ff5a76',
+          },
+        },
+        snippet: {
+          orange: '#cf5834',
+          orangedark: '#eb643b',
+        },
         ...mirrorHexColors([
           '#000000',
           '#111f24',
+          '#161718',
           '#161b22',
           '#181b1f',
+          '#182d96',
           '#191c20',
           '#19272c',
           '#1a2436',
           '#211c29',
           '#22262c',
+          '#252526',
+          '#25b14c',
           '#262f41',
+          '#266ab5',
           '#2c393e',
           '#2e2936',
           '#363a45',
           '#384361',
+          '#3c424b',
           '#4940e0',
           '#576469',
           '#596673',
@@ -66,31 +111,41 @@ module.exports = {
           '#858494',
           '#8e87ff',
           '#94a2b8',
+          '#9763cf',
           '#98c379',
           '#9eafc0',
           '#b37af0',
           '#cde0ec',
           '#d2e7f7',
+          '#d5dee8',
           '#d7dae1',
           '#d8e1bd',
           '#e5c07b',
+          '#e5f9e7',
           '#e6cfcf',
+          '#eaf0f6',
           '#ebedef',
           '#edecfc',
+          '#eeeef7',
+          '#f3f4f5',
           '#f4f4f4',
+          '#f5fdf6',
+          '#f8fafc',
           '#fb7e67',
+          '#fbfbfc',
           '#fd684a',
           '#ff4880',
           '#ff5a76',
           '#ff6848',
+          '#ffb11b',
           '#fff0ed',
+          '#fff9e5',
           '#ffffff',
         ]),
       },
 
       fontFamily: {
-        sora: ['Sora', 'sans-serif'],
-        rubik: ['Rubik', 'sans-serif'],
+        default: ['"GT America"', ...defaultTheme.fontFamily.sans],
         'roboto-mono': ['Roboto Mono', 'monospace'],
       },
 

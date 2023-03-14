@@ -1,14 +1,50 @@
-# Protocol internals
+# Protocol Internals
 
 Documentation of certain protocol elements, intended for **internal use only.**
 
-## Universal link
+## Universal Link
 
-The universal link is used so that the Worldcoin mobile app (iOS & Android) can recognize a World ID request and handle it correctly. The structure of the universal link is documented here. The source of truth function for this can be found [on GitHub](https://github.com/worldcoin/world-id-js/blob/master/id/src/utils.ts#L131), `buildQRData` function.
+The universal link is used so that the World App can recognize a World ID request and handle it correctly. As more clients are built, the universal link will be extended to other wallets. The structure of the universal link is documented here. The source of truth function for this can be found [on GitHub](https://github.com/worldcoin/idkit-js/blob/main/idkit/src/lib/qr.ts#L4), `buildQRData` function.
 
 - The universal link base is: `https://worldcoin.org/verify`.
-- The following parameters must be passed as query string attributes (**all required**)
-  - `t` contains the connector's handshake topic (from WalletConnect)
-  - `k` contains the connector's key (from WalletConnect)
-  - `b` contains the bridge's URL (with protocol) and must be properly URL encoded (from WalletConnect)
-  - `v` contains the version of WalletConnect used. **Currently only WalletConnect v1 is supported.**
+  - There is one **required** query string, `w`, which contains the [WalletConnect URI](https://docs.walletconnect.com/2.0/javascript/sign/wallet-usage#uri)
+  - There is one **optional** query string, `r`, which contains a return URL for mobile app verifications
+
+According to guidance from the WalletConnect team, only v2 URIs are supported.
+
+## External Nullifier
+
+Within [Semaphore](https://semaphore.appliedzkp.org/), the [zero knowledge](/advanced/zero-knowledge-proofs) protocol that World ID is based on, the external nullifier is a public 32-byte value that scopes the uniqueness of verifications. It is one of two inputs in the ZK circuit, the other being the secret identity nullifier. These two values are hashed to produce the nullifier hash, which identifies the user.
+
+World ID actions (whether for Sign In or anonymous actions) are identified by their external nullifiers. This value is derived from the `app_id` and stringified action passed by IDKit to the World app. Our implementation can be [found here](https://github.com/worldcoin/idkit-js/blob/main/idkit/src/lib/hashing.ts#L94).
+
+Generally you won't need to generate the external nullifier yourself. IDKit will handle this automatically, but for custom integrations it's helpful to keep this in mind. When performing a request to the `/precheck` endpoint, you must pass the valid external nullifier for the given `app_id` and `action`. You can accomplish this with the `generateExternalNullifier` function from IDKit:
+
+```js
+import { IDKitInternal } from '@worldcoin/idkit'
+
+const getExternalNullifier = (app_id: string, action: string) => {
+  return IDKitInternal.generateExternalNullifier(app_id, action).digest
+}
+
+getExternalNullifier(
+  'app_staging_7550e829082fc558e112e0620c1c7a59',
+  'test action'
+)
+```
+
+## OpenID Connect Claims
+
+Within the ID token returned by the World ID provider, a minimal number of [OIDC claims](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) are set. This is due to the privacy-focused nature of the protocol. The set claims are:
+
+- `iss`: The issuer of the token, always "https://id.worldcoin.org"
+- `sub`: The unique user identifier for the specific application (this is the `nullifier_hash` from the World ID ZKP)
+- `aud`: The identifier of the requesting application. This is always the `app_id` from the Developer Portal or `/register` endpoint
+- `jti`: A unique identifier for this ID token, only used once
+- `iat`: The timestamp of the token issuance
+- `exp`: The timestamp of the token's expiration
+- `alg`: The algorithm used to sign the ID token, only RS256 is supported
+- `scope`: The scopes requested by the application. Must always contain `openid`. The `profile` and `email` scopes are also supported for compatibility, but use should be avoided.
+- `https://worldcoin.org/beta`: Describes claims specific to World ID. **Subject to change**
+  - `likely_human`: "strong" or "weak", corresponding to whether the user has strong sybil protection or likelihood of being human. Biometrically verified users have a `strong` value.
+  - `credential_type`: `orb` or `phone`, represents the credential the user to authenticate. In general, for Sign in with Worldcoin, the highest credential available to the user will be used.

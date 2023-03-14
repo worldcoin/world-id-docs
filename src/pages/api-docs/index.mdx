@@ -1,3 +1,35 @@
+import { Callout } from 'common/Callout'
+
 # API Introduction
 
-This section is coming soon.
+The Worldcoin Developer Portal offers an API to enable easy verification of World IDs and relevant credentials.
+
+## Base URL
+
+```
+https://developer.worldcoin.org
+```
+
+## Authentication
+
+The main proof verification endpoints require no authentication and are only rate limited (see `/precheck/{app_id}` and `/verify/{app_id}` endpoints for details).
+
+Other endpoints do require authentication and there is two mechanisms available.
+
+- Login token. Intended only for using the frontend of the Developer Portal. These tokens are short-lived and require personal interaction through Sign in with Worldcoin.
+- API keys.
+
+### API Keys
+
+<Callout type="danger">
+  API Keys are currently in Alpha. To get an API key contact a Worldcoin core
+  contributor.
+</Callout>
+
+- API keys are intended for use by third-party applications and for server-to-server communication. They are long-lived and can be revoked at any time.
+- API keys are scoped to a team and have full permissions for any actions as any user of the Developer Portal.
+- Once you have an API key, use it as the value of the `Authorization` header in your requests. For example:
+
+```
+Authorization: Bearer <API_KEY>
+```

@@ -2,60 +2,44 @@ import { Callout } from 'common/Callout'
 import { GradientBorderContainer } from 'common/GradientBorderContainer'
 import { Steps } from 'Steps'
 
-# Getting started
-
 World ID is a way to anonymously verify someone is an actual person performing an action, and that they have performed that action only once (without revealing anything about themselves). This happens through [Zero-knowledge proofs](/advanced/zero-knowledge-proofs).
 
 You can easily integrate World ID in your app and smart contract or backend. End user can easily and anonymously verify they are a unique human through the [Worldcoin app](https://worldcoin.org/download).
 
-![airdrop-render](/images/docs/introduction/mesha-airdrop-render.jpeg)
+![worldcoin-lens](/images/docs/introduction/worldcoin-lens.png)
 
 <div className="grid gap-y-4">
-  <GradientBorderContainer defaultBackground className="w-full p-6">
-    <Steps
-      steps={[
-        <div className="align-middle">
-          <img
-            src="/images/docs/introduction/widget-light.png"
-            className="block dark:hidden"
-          />
-          <img
-            src="/images/docs/introduction/widget-dark.svg"
-            className="hidden dark:block"
-          />
-        </div>,
-        <div className="align-middle">
-          <img
-            src="/images/docs/introduction/widget-modal-light.svg"
-            className="block dark:hidden"
-          />
-          <img
-            src="/images/docs/introduction/widget-modal-dark.svg"
-            className="hidden dark:block"
-          />
-        </div>,
-        <div className="align-middle">
-          <img
-            src="/images/docs/introduction/simulator-verify-light.png"
-            className="block dark:hidden"
-          />
-          <img
-            src="/images/docs/introduction/simulator-verify-dark.svg"
-            className="hidden dark:block"
-          />
-        </div>,
-      ]}
-    />
-  </GradientBorderContainer>
+  <Steps
+    steps={[
+      <div className="align-middle">
+        <img
+          src="/images/docs/introduction/widget-light.jpg"
+          className="block"
+        />
+      </div>,
+      <div className="align-middle">
+        <img
+          src="/images/docs/introduction/drawer.jpg"
+          className="block"
+        />
+      </div>,
+      <div className="align-middle">
+        <img
+          src="/images/docs/introduction/drawer-verified.jpg"
+          className="block"
+        />
+      </div>,
+    ]}
+  />
 
   <Steps
-    stepBackground
+    borders
     steps={[
       <span>
-        The lightweight <a href="/js">JS widget</a> is added to your dapp.
+        The lightweight <a href="/idkit">JS widget</a> is added to your dapp.
       </span>,
       <span>
-        <a href="/js">JS widget</a> handles connection to Worldcoin app and
+        <a href="/idkit">JS widget</a> handles connection to Worldcoin app and
         provides instructions to the user.
       </span>,
       <span>
@@ -78,12 +62,7 @@ In broad strokes, this is how World ID works.
 
 <img
   src="/images/docs/introduction/how-it-works-light.svg"
-  className="block dark:hidden"
-  alt="Render of World ID widget"
-/>
-<img
-  src="/images/docs/introduction/how-it-works-dark.svg"
-  className="hidden dark:block"
+  className="block"
   alt="Render of World ID widget"
 />
 
@@ -101,13 +80,32 @@ Read more about how World ID works in the [Protocol](/about/protocol) section.
 
 World ID prevents sybil attacks both on-chain and off-chain. Some use cases:
 
-- **Receiving airdrops**. Reward early users of your project without abuse from bots, users creating multiple accounts, etc. For example, democratic airdrops like [Worldcoin](https://worldcoin.org).
-- **Democratic voting**. Ensure one person equals one vote; e.g. governance, proposal voting, etc.
-- **Quadratic funding**. Funding where the number of contributors matter more than the sheer number of dollars provided (to democratize the process). Ensure a single person only funds a project once. An example of quadratic funding is [Gitcoin](https://gitcoin.co/blog/gitcoin-grants-quadratic-funding-for-the-world/).
-- **Person-bound NFTs**. Enables the possibility of blockchain-based records (e.g. university degrees, vaccination records, citizenship confirmation, ...). Without World ID you could transfer those NFTs to a third party which would make the records useless.
+<img
+  src="/images/docs/introduction/use-cases.svg"
+  className="block"
+  alt="Use-cases for World ID"
+/>
+
+<div className="sr-only">
+
+- **Receiving airdrops**. Reward early users of your project without abuse
+  from bots, users creating multiple accounts, etc. For example, democratic
+  airdrops like [Worldcoin](https://worldcoin.org).
+- **Democratic voting**.
+  Ensure one person equals one vote; e.g. governance, proposal voting, etc.
+- **Quadratic funding**. Funding where the number of contributors matter more
+  than the sheer number of dollars provided (to democratize the process). Ensure
+  a single person only funds a project once. An example of quadratic funding is
+  [Gitcoin](https://gitcoin.co/blog/gitcoin-grants-quadratic-funding-for-the-world/).
+- **Person-bound NFTs**. Enables the possibility of blockchain-based records
+  (e.g. university degrees, vaccination records, citizenship confirmation, ...).
+  Without World ID you could transfer those NFTs to a third party which would
+  make the records useless.
+
+</div>
 
 <Callout>
   Spot an error in these docs? Our docs are open source too and contributions
-  are welcome. Open a PR on `code`
+  are welcome. Open a PR on
   [GitHub](https://github.com/worldcoin/world-id-docs).
 </Callout>

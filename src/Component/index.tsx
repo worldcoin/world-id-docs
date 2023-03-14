@@ -8,8 +8,11 @@ export const Component = memo(function Component(props: {
   title: string
 }) {
   return (
-    <GradientBorderContainer defaultBackground className="not-prose grid gap-y-2.5 w-full p-6">
-      <div className="hidden min-w-[206px] justify-self-center dark:block">
+    <GradientBorderContainer
+      defaultBackground
+      className="not-prose grid w-full gap-y-2.5 p-6"
+    >
+      <div className="hidden min-w-[206px] justify-self-center">
         <Image
           src={props.darkImage}
           alt="When an existing proof for an action ID and the same identity is found, proof of uniqueness fails"
@@ -18,7 +21,7 @@ export const Component = memo(function Component(props: {
           height={206}
         />
       </div>
-      <div className="block min-w-[206px] justify-self-center dark:hidden">
+      <div className="block min-w-[206px] justify-self-center">
         <Image
           src={props.lightImage}
           alt="When an existing proof for an action ID and the same identity is found, proof of uniqueness fails"

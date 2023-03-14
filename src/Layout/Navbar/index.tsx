@@ -9,7 +9,7 @@ export const Navbar = memo(function Navbar(props: {
   items: NavItems
 }) {
   return (
-    <nav className={cn('grid gap-y-16', props.className)}>
+    <nav className={cn('grid gap-y-6', props.className)}>
       {props.items.map((item, id) => (
         <Section
           key={`${slugify(item.title)}-${id}`}

@@ -1,7 +1,6 @@
 import React, { Fragment, memo } from 'react'
 import { Icon } from 'common/Icon'
 import cn from 'classnames'
-import { styles } from 'common/helpers/styles'
 import { useSearch } from './../'
 
 export const SearchBar = memo(function SearchBar(props: {
@@ -14,18 +13,18 @@ export const SearchBar = memo(function SearchBar(props: {
       <button
         type="button"
         className={cn(
-          styles.headerButton,
-          'group flex w-80 items-center rounded-xl border px-4 py-3 text-14 transition-colors lg:w-96',
-          'border-2c393e/10 bg-19272c/5 text-576469 dark:border-2c393e dark:bg-22262c',
-          'hover:border-2c393e/[15%] hover:bg-19272c/10 hover:dark:border-363a45 hover:dark:bg-262f41',
+          'group flex w-80 items-center rounded-lg border px-4 py-3 text-14 transition-colors lg:w-96',
+          'border-161718/10 bg-neutral-0 hover:border-161718/20',
           props.className
         )}
         onClick={onOpen}
       >
-        <Icon className="flex-none w-4 h-4" name="search" />
-        <span className="block ml-2">Search docs</span>
+        <Icon className="h-4 w-4 flex-none" name="search" />
+        <span className="ml-4 block leading-[1px] text-neutral-400">
+          Search docs
+        </span>
         {modifierKey && (
-          <kbd className="block ml-auto font-medium">
+          <kbd className="ml-auto block font-medium leading-[1px]">
             <kbd className="font-sans">{modifierKey}</kbd>
             <kbd className="font-sans">K</kbd>
           </kbd>

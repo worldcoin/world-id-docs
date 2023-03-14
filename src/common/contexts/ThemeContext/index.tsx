@@ -121,8 +121,12 @@ export const ThemeProvider = memo(function ThemeProvider(props: {
       return
     }
 
-    document.documentElement.dataset['theme'] =
-      preferedTheme === 'system' ? systemTheme : preferedTheme
+    const theme = preferedTheme === 'system' ? systemTheme : preferedTheme
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
   }, [systemTheme, preferedTheme])
 
   const changePreferedTheme = useCallback((value: Themes) => {

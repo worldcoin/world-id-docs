@@ -1,0 +1,115 @@
+import { Callout } from 'common/Callout'
+
+# IDKit
+
+The IDKit Javascript widget is the simplest way to start using World ID. The JS package currently supports **web applications** and requires only a few lines of code.
+
+Check out the [JS Reference](/idkit/reference) for full details on how to configure and use IDKit.
+
+## Installation
+
+The JS package can be included in your project either as a module (which supports tree shaking to reduce bundle size) or you can add the script directly to your website.
+
+```bash
+npm install @worldcoin/idkit
+# or
+yarn add @worldcoin/idkit
+```
+
+**Alternatively**, to add the script directly in your HTML, just add this tag to your `<head>`.
+
+```html
+<script
+  type="text/javascript"
+  src="//unpkg.com/@worldcoin/idkit/build/idkit-js.js"
+></script>
+```
+
+## Usage in React apps
+
+If your app is built on React, using the React widget is by far the easiest approach.
+
+{/* cSpell:disable */}
+
+```tsx focus=1,4:11
+import { IDKitWidget } from '@worldcoin/idkit'
+
+return (
+  <IDKitWidget
+    app_id="app_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+    action="my_action"
+    enableTelemetry
+    onSuccess={(result) => console.log(result)} // pass the proof to the API or your smart contract
+  />
+)
+```
+
+{/* cSpell:enable */}
+
+<Callout type="tip">
+  A fully functional React example can be found
+  [here](https://github.com/worldcoin/idkit-js/tree/main/example-react).
+</Callout>
+
+## Usage in Next.js apps
+
+If your app is built on Next.js, you should use the React widget, but it's critical to **disable SSR**.
+
+{/* cSpell:disable */}
+
+```tsx focus=1:4,7:12
+const IDKitWidget = dynamic(
+  () => import('@worldcoin/idkit').then((mod) => mod.IDKitWidget),
+  { ssr: false }
+)
+
+return (
+  <IDKitWidget
+    app_id="app_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+    action="my_signal"
+    enableTelemetry
+    onSuccess={(result) => console.log(result)}
+  />
+)
+```
+
+{/* cSpell:enable */}
+
+<Callout type="tip">
+  A fully functional Next.js example can be found
+  [here](https://github.com/worldcoin/idkit-js/tree/main/example-nextjs).
+</Callout>
+
+## Usage in vanilla JS apps
+
+1. Add a `div` to mount World ID, and later initialize. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Create account").
+
+   ```html
+   <div id="idkit-container"></div>
+   ```
+
+{/* cSpell:disable */}
+
+1. Initialize the widget.
+
+   ```js
+   import * as idkit from '@worldcoin/idkit' // If you installed the JS package as a module
+
+   idkit.init('idkit-container', {
+     enable_telemetry: true,
+     app_id: 'app_BPZsRJANxct2cZxVRyh80SFG', // obtain this from developer.worldcoin.org
+     action: 'your_signal',
+     onSuccess: (result) => console.log(result),
+   })
+
+   document.getElementById('trigger-button').addEventListener('click', () => {
+     idkit.open()
+   })
+   ```
+
+   {/* cSpell:enable */}
+
+<Callout type="note">
+  IDKit is open source and accepts contributions! Head over to
+  [GitHub](https://github.com/worldcoin/idkit-js) and submit a pull request.
+</Callout>

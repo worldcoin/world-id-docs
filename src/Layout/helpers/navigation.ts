@@ -4,51 +4,41 @@ export type NavItems = Array<Item>
 
 export const navItems: NavItems = [
   {
-    icon: 'hand',
     title: 'Introduction',
     items: [
-      { title: 'Getting Started', href: '/' },
+      { title: 'Home', href: '/' },
       { title: 'Quick Start', href: '/quick-start' },
+      { title: 'Try It Out', href: '/try' },
     ],
   },
   {
-    icon: 'cpu',
-    title: 'Examples',
-    href: '/examples',
-  },
-  {
-    icon: 'logo',
-    title: 'About World ID',
+    title: 'World ID',
     items: [
-      { title: 'Protocol Overview', href: '/about/protocol' },
-      { title: 'Glossary', href: '/about/glossary' },
-      { title: 'Privacy', href: '/about/privacy' },
-      { title: 'Testing', href: '/about/testing' },
+      { title: 'Overview', href: '/id' },
+      { title: 'Sign in', href: '/id/sign-in' },
+      { title: 'The Protocol', href: '/id/protocol' },
+      { title: 'Testing', href: '/id/testing' },
     ],
   },
   {
-    icon: 'book',
-    title: 'JS Widget',
+    title: 'IDKit',
     items: [
-      { title: 'JS Introduction', href: '/js' },
-      { title: 'JS Reference', href: '/js/reference' },
-      { title: 'Error Handling', href: '/js/error-handling' },
-      { title: 'Telemetry', href: '/js/telemetry' },
+      { title: 'Introduction', href: '/idkit' },
+      { title: 'Reference', href: '/idkit/reference' },
     ],
   },
   {
-    icon: 'code',
     title: 'Advanced',
     items: [
-      { title: 'Proof of Personhood', href: '/advanced/proof-of-personhood' },
+      { title: 'On-Chain', href: '/advanced/on-chain' },
       {
-        title: 'Zero-knowledge proofs',
+        title: 'Privacy',
+        href: '/advanced/privacy',
+      },
+      {
+        title: 'Zero-Knowledge Proofs',
         href: '/advanced/zero-knowledge-proofs',
       },
-      { title: 'Advanced Signals', href: '/advanced/advanced-signals' },
-      { title: 'Verified Actions', href: '/advanced/verified-actions' },
-      { title: 'Custom Integrations', href: '/advanced/custom-integrations' },
-      { title: 'Roadmap', href: '/advanced/roadmap' },
       { title: 'Protocol Internals', href: '/advanced/protocol-internals' },
     ],
   },
@@ -56,16 +46,10 @@ export const navItems: NavItems = [
     icon: 'code',
     title: 'API',
     items: [
-      { title: 'Introduction', href: '/api-docs' },
-      { title: 'Authentication', href: '/api-docs/authentication' },
-      { title: 'API Reference', href: '/api-docs/reference' },
-      { title: 'Error Handling', href: '/api-docs/error-handling' },
-      { title: 'Internal Endpoints', href: '/api-docs/internal-endpoints' },
+      { title: 'Introduction', href: '/api' },
+      { title: 'API Reference', href: '/api/reference' },
+      // TODO { title: 'Error Handling', href: '/api/errors' },
+      { title: 'Internal Endpoints', href: '/api/internal-endpoints' },
     ],
-  },
-  {
-    icon: 'coin',
-    title: 'Hackathons & Workshops',
-    href: '/hackathons',
   },
 ]

@@ -23,8 +23,8 @@ export function QuickLink(props: {
       <div className={styles.fenceBorder} />
 
       <div className={cn('h-full bg-ffffff', styles.fenceBorderInner)}>
-        <div className="relative grid h-full content-between justify-items-start bg-9eafc0/10 p-4 dark:bg-181b1f lg:p-8">
-          <span className="grid rounded-full bg-8e87ff p-2 dark:bg-transparent dark:p-0">
+        <div className="relative grid h-full content-between justify-items-start bg-9eafc0/10 p-4 lg:p-8">
+          <span className="grid rounded-full bg-8e87ff p-2">
             <Icon
               name={props.icon}
               className={cn('h-8 w-8', styles.gradient)}

@@ -1,8 +1,11 @@
+const { remarkCodeHike } = require('@code-hike/mdx')
+const theme = require('shiki/themes/min-light.json')
+
 // cspell:ignore
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [[remarkCodeHike, { theme }]],
     // cspell:disable-next-line
     rehypePlugins: [],
     providerImportSource: '@mdx-js/react',
@@ -26,9 +29,32 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/protocol',
+        destination: '/id/protocol',
+        permanent: true,
+      },
+      {
+        source: '/test',
+        destination: '/id/testing',
+        permanent: true,
+      },
+      {
+        source: '/simulator',
+        destination: '/id/testing',
+        permanent: true,
+      },
+      {
+        source: '/waitlist',
+        destination: 'https://toolsforhumanity.typeform.com/sdk-waitlist',
+        permanent: true,
+      },
+    ]
+  },
+  async rewrites() {
+    return [
+      {
         source: '/api/:slug*',
         destination: '/api-docs/:slug*',
-        permanent: true,
       },
     ]
   },

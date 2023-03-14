@@ -1,6 +1,15 @@
-import { Callout } from 'common/Callout'
-import { GradientBorderContainer } from 'common/GradientBorderContainer'
-import { Steps } from 'Steps'
+export const sections = [
+	{ title: 'How it Works', id: 'how-it-works' },
+	{ title: 'Use Cases', id: 'use-cases' },
+]
+
+# World ID {{ className: 'uppercase text-5xl' }}
+
+The protocol to bring global proof of personhood to the internet. {{ className: 'text-2xl' }}
+
+<hr className="my-10" />
+
+## Introduction {{ className: 'mt-0 uppercase text-sm text-neutral-400 font-normal', anchor: false }}
 
 World ID is a digital passport that lets a user prove they are a unique and real person while remaining anonymous. This happens through [Zero-knowledge Proofs](/advanced/zero-knowledge-proofs) and other privacy-preserving cryptographic mechanisms.
 
@@ -9,27 +18,25 @@ You can easily integrate World ID in your app and smart contract or backend. Wor
 ![Person using Sign In with Worldcoin](/images/docs/introduction/worldcoin-sign-in.jpg)
 
 <div className="grid gap-y-4">
-  <Steps
-    borders
-    steps={[
-      <span>
-        You integrate <a href="/id/sign-in">Sign in with Worldcoin</a> or{' '}
-        <a href="/idkit">IDKit JS</a>.
-      </span>,
-      <span>App connects to user's wallet and sends verification request</span>,
-      <span>
-        User verifies with a <a href="/advanced/zero-knowledge-proofs">ZKP</a>,
-        using their World ID credentials.
-      </span>,
-    ]}
-  />
+	<Steps
+		borders
+		steps={[
+			<span>
+				You integrate <a href="/id/sign-in">Sign in with Worldcoin</a> or <a href="/idkit">IDKit JS</a>.
+			</span>,
+			<span>App connects to user's wallet and sends verification request</span>,
+			<span>
+				User verifies with a <a href="/advanced/zero-knowledge-proofs">ZKP</a>, using their World ID
+				credentials.
+			</span>,
+		]}
+	/>
 </div>
 
-<Callout title="FYI">
-  World ID is currently in **Beta** and some functionality might change. Please
-  help us improve by sharing [feedback](https://discord.gg/worldcoin). Join the
-  waitlist SDK [here](/waitlist).
-</Callout>
+<Note title="FYI">
+	World ID is currently in **Beta** and some functionality might change. Please help us improve by sharing
+	[feedback](https://discord.gg/worldcoin). Join the waitlist SDK [here](/waitlist).
+</Note>
 
 ## How it works
 
@@ -49,8 +56,7 @@ In broad strokes, this is how World ID works.
 
 World ID unlocks a vast number of applications and use cases. You can find a list of community-curated ideas [here](/use-cases).
 
-<Callout>
-  Spot an error in these docs? Worldcoin docs are open source (same as the
-  protocol) too and contributions are highly welcomed. Open a PR in
-  [GitHub](https://github.com/worldcoin/world-id-docs).
-</Callout>
+<Note>
+	Spot an error in these docs? Worldcoin docs are open source (same as the protocol) too and contributions are highly
+	welcomed. Open a PR in [GitHub](https://github.com/worldcoin/world-id-docs).
+</Note>

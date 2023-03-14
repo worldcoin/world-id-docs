@@ -2,8 +2,8 @@ Contributions to this repository are welcomed! If you're looking to contribute t
 
 A few notes to keep in mind on our writing style:
 
-- All content should be written in American English.
-- Titles should use [Title Case](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case).
+-   All content should be written in American English.
+-   Titles should use [Title Case](https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case).
 
 ## ✨ Contributors
 
@@ -32,9 +32,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/mmqxyz"><img src="https://avatars.githubusercontent.com/u/127844428?v=4?s=75" width="75px;" alt="mmqxyz"/><br /><sub><b>mmqxyz</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=mmqxyz" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lucemans"><img src="https://avatars.githubusercontent.com/u/10339043?v=4?s=75" width="75px;" alt="Luc"/><br /><sub><b>Luc</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=lucemans" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://maxpetretta.com"><img src="https://avatars.githubusercontent.com/u/19291506?v=4?s=75" width="75px;" alt="Max Petretta"/><br /><sub><b>Max Petretta</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=maxpetretta" title="Code">💻</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/denis-ottofeller"><img src="https://avatars.githubusercontent.com/u/102026658?v=4?s=75" width="75px;" alt="Denis Bushaev"/><br /><sub><b>Denis Bushaev</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=denis-ottofeller" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

@@ -1,18 +1,15 @@
-import { Callout } from 'common/Callout'
-import { Fence } from 'common/Fence'
-
 # Anonymous Actions
 
 The World ID protocol provides developers flexibility in the types of actions they would like to verify. In addition to sign in, developers can create _anonymous actions_ to verify any arbitrary action a user might take in their applications. Some examples include:
 
-- Claiming a one-time discount for a purchase
-- Allowing user's to vote in a poll, but only vote per user
-- Sharing an invitation to join a platform, limited to five total invites
+-   Claiming a one-time discount for a purchase
+-   Allowing user's to vote in a poll, but only vote per user
+-   Sharing an invitation to join a platform, limited to five total invites
 
 To demonstrate the power of actions, take the voting example. Imagine you are building a website to host polls for a local organization, but you'd like votes to be anonymous. By using a new action for each vote, you can enforce that users only vote once in each ballot, while also ensuring that there is no way to correlate a user's cast ballots across votes.
 
-<Fence className="bg-fbfbfc">
-  ![A diagram showcasing an application taking advantage of anonymous actions](/images/docs/id/anonymous-actions.svg)
+<Fence className="bg-gray-100">
+	![A diagram showcasing an application taking advantage of anonymous actions](/images/docs/id/anonymous-actions.svg)
 </Fence>
 
 ## Configuration
@@ -23,8 +20,8 @@ Anonymous actions can either be configured via the developer portal, or on-the-f
 
 Once your application is registered in the developer portal, you may add additional actions to it. You must provide the following values:
 
-- **Action**: The stringified action to be taken by the user
-- **Max Verifications**: The number of times a user can take this action. A value of `0` indicates that unlimited verifications can take place.
+-   **Action**: The stringified action to be taken by the user
+-   **Max Verifications**: The number of times a user can take this action. A value of `0` indicates that unlimited verifications can take place.
 
 The "Description" field is shown to your user in the World app as they sign with their World ID, alongside your application logo. Make sure to fully describe the exact action the user is taking.
 
@@ -39,23 +36,22 @@ To accommodate dynamic content, actions can also be created on-the-fly as a user
 As an example, a custom action version of IDKit may look like:
 
 ```jsx
-const getUserChoice = (userId) => {
-  const choice = userChoices['userId']
-  return choice
+const getUserChoice = userId => {
+	const choice = userChoices['userId']
+	return choice
 }
 
 return (
-  <IDKitWidget
-    app_id="app_staging_7550e829082fc558e112e0620c1c7a59"
-    action={userId + getUserChoice(userId)}
-    signal=""
-    onSuccess={onSuccess}
-    handleVerify={handleProof}
-  />
+	<IDKitWidget
+		onSuccess={onSuccess}
+		handleVerify={handleProof}
+		action={getUserChoice(userId)}
+		app_id="app_staging_7550e829082fc558e112e0620c1c7a59"
+	/>
 )
 ```
 
-<Callout type="note">
-  To perform dynamic on-chain actions, please reference the [on-chain
-  section](/advanced/on-chain) of the documentation.
-</Callout>
+<Note>
+	To perform dynamic on-chain actions, please reference the [on-chain section](/advanced/on-chain) of the
+	documentation.
+</Note>

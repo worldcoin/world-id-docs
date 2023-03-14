@@ -1,6 +1,3 @@
-import { Callout } from 'common/Callout'
-import { Tabs, TabItem } from 'common/Tabs'
-
 # Quick Start
 
 Fastest way to integrate and use World ID. Find instructions below for both **Sign in with Worldcoin** and **Anonymous Actions**.
@@ -9,13 +6,13 @@ Fastest way to integrate and use World ID. Find instructions below for both **Si
 
 2. Create your first app and configure it (initial config cannot be changed, but you can always create more apps):
 
-- Select the environment to use, staging or production. If you are trying things out, select staging. If you are ready to go live, select production.
-- Select whether you want this action to be cloud-based or on-chain.
+-   Select the environment to use, staging or production. If you are trying things out, select staging. If you are ready to go live, select production.
+-   Select whether you want this action to be cloud-based or on-chain.
 
-<Callout type="note">
-  Most use cases use the **cloud** engine. Select **on-chain only** if you are
-  using a **smart contract** to verify a user's World ID.
-</Callout>
+<Note>
+	Most use cases use the **cloud** engine. Select **on-chain only** if you are using a **smart contract** to verify a
+	user's World ID.
+</Note>
 
 You'll need your app ID (also called client ID) later. It looks something like {/* cSpell:disable */}`app_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}.
 
@@ -23,7 +20,7 @@ You'll need your app ID (also called client ID) later. It looks something like {
   <TabItem label="Sign in with Worldcoin">
     The default way of using World ID is an authentication mechanism. If you already have an OIDC-compatible authentication engine, you can connect as follows:
 
-    <Callout type="tip">
+    <Note>
       Typical OIDC-compatible authentication engines include
       [Auth0](https://auth0.com/), [Okta](https://okta.com/), [AWS
       Cognito](https://aws.amazon.com/cognito/), [CloudFlare
@@ -33,7 +30,7 @@ You'll need your app ID (also called client ID) later. It looks something like {
       [Next.JS](https://next-auth.js.org/), for
       [Django](https://github.com/python-social-auth/social-app-django), for
       [Go](https://github.com/coreos/go-oidc).
-    </Callout>
+    </Note>
 
     3. Configure your OIDC authentication engine to use World ID as an Identity Provider (IdP), you will need the following information:
 
@@ -62,47 +59,43 @@ You'll need your app ID (also called client ID) later. It looks something like {
   <TabItem label="Anonymous Actions">
     Anonymous Actions unlock a set of other use cases beyond verifying accounts (which is enabled by Sign In with World ID). With Anonymous Actions, you can verify a person is doing something only once, for a particular context.
 
-    <Callout type="note">
+    <Note>
       For example, you can verify a person is claiming a particular promotional
       campaign just once. If you later have a new promotional campaign, users from
       campaign 1 will always be delinked from users from campaign 2, providing
       higher privacy.
-    </Callout>
+    </Note>
 
     3. Create an action for your app in the Developer Portal. Each action has a unique identifier which you set (e.g. `vote_1`).
 
-    <Callout type="note">
+    <Note>
       An action scopes uniqueness for users, which means users will always have the
       same ID (nullifier hash) for each action.
-    </Callout>
+    </Note>
 
     4. Install [IDKit](/idkit) in your frontend.
 
-    ##### Install IDKit
+    <CodeGroup title="Install IDKit">
 
-    ```bash
-    yarn add @worldcoin/idkit
-    # or use your preferred package manager
+    ```bash {{ title: "npm" }}
+    npm install @worldcoin/idkit
     ```
+
+    ```bash {{ title: "yarn" }}
+    yarn add @worldcoin/idkit
+    ```
+
+    ```bash {{ title: "pnpm" }}
+    pnpm add @worldcoin/idkit
+    ```
+
+    </CodeGroup>
 
     5.  Import and render IDKit. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on proposal").
 
-    <Callout type="tip">
-      The section below contains the example code for a React app. Check out
-      [IDKit Reference](/idkit/reference) for how to use in vanilla JS.
-    </Callout>
-
-    ##### Import IDKit widget
-
-    ```jsx
-    import { WorldIDWidget } from '@worldcoin/id'
-    ```
-
-    ##### Mount the widget
-
-    {/* cSpell:disable */}
-
     ```tsx
+    import { WorldIDWidget } from '@worldcoin/id'
+
     <IDKitWidget
       app_id="app_GBkZ1KlVUdFTjeMXskrX" // obtained from the Developer Portal
       action="vote_1" // this is your action identifier from the Developer Portal (can also be created on the fly)
@@ -116,52 +109,32 @@ You'll need your app ID (also called client ID) later. It looks something like {
     </IDKitWidget>
     ```
 
-    {/* cSpell:enable */}
-
     More configuration options can be found in the [IDKit reference](/idkit/reference). We generally recommend looking at the `handleVerify` method for better UX.
 
     6. Verify your action by sending the zero knowledge proof to the **Developer Portal API**. Please check the [API reference](/api/reference#verify) for details on anticipated error responses.
 
-    <Callout type="note">
+    <Note>
       If you want to verify proofs on-chain, check out the
       [on-chain](/advanced/on-chain) section.
-    </Callout>
+    </Note>
 
-    ```
-    POST https://developer.worldcoin.org/api/v1/verify/{app_id}
-    ```
+    <CodeGroup title="API Verification" tag="POST" label="/api/v1/verify/app_GBkZ1KlVUdFTjeMXskrX">
 
-    **Headers**
-
-    ```json
+    ```json {{ title: "Request" }}
     {
-      "Content-Type": "application/json"
-    }
-    ```
-
-    **Request body**
-
-    Parameters `merkle_root`, `nullifier_hash`, `proof` & `credential_type` are obtained from `onSuccess` above.
-
-    {/* cSpell:disable */}
-
-    ```json
-    {
-      "app_id": "app_GBkZ1KlVUdFTjeMXskrX",
-      "signal": "user_value",
-      "action": "vote_1",
-      "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
-      "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
-      "credential_type": "orb",
-      "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"
+        "action": "vote_1",
+        "signal": "user_value",
+        "credential_type": "orb",
+        "app_id": "app_GBkZ1KlVUdFTjeMXskrX",
+        "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
+        "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
+        "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"
     }
     ```
 
     {/* cSpell:enable */}
 
-    **Response (200)**
-
-    ```json
+    ```json {{ title: 'Response' }}
     {
       "success": true,
       "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
@@ -169,6 +142,7 @@ You'll need your app ID (also called client ID) later. It looks something like {
       "created_at": "2023-01-01T12:12:12.000Z"
     }
     ```
+    </CodeGroup>
 
     7. The user is a unique human! Execute your action on your backend (e.g. claim the user promotion).
 
@@ -179,5 +153,5 @@ You'll need your app ID (also called client ID) later. It looks something like {
 
 Last step is test your entire integration. Open the widget where you'll see a QR code (or "Open Worldcoin app" button if on mobile).
 
-- If you created a **Production** action, use the [World App](https://worldcoin.org/download) from the App Store or Google Play to scan the QR code.
-- If you created a **Staging** action, use the [Simulator](https://simulator.worldcoin.org) to scan the QR code.
+-   If you created a **Production** action, use the [World App](https://worldcoin.org/download) from the App Store or Google Play to scan the QR code.
+-   If you created a **Staging** action, use the [Simulator](https://simulator.worldcoin.org) to scan the QR code.

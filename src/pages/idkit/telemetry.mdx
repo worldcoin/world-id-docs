@@ -2,32 +2,32 @@
 
 The Javascript package comes bundled with optional **opt-in** telemetry. Receiving these telemetry events from the package helps us understand how the product is being used so we can improve it. Additionally, any bugs that are found are automatically detected so we can proactively work on fixing them.
 
-- We **don't capture any PII**, neither from the developer, nor end users. Not even the IP address. It's all anonymous analytics.
-- When a telemetry event is received, we use the IP address to obtain a rough location (country, state/province, city) using the [MaxMind](https://github.com/maxmind) database through [PostHog][posthog], the IP address is immediately discarded and not stored anywhere.
-- We don't store anything on the device running the World ID widget. **No cookies, no local storage, nothing.**
-- **We don't do fingerprinting** or any other mechanism to attempt to identify users cross-browser or cross-device.
-- All telemetry events are captured using [PostHog](https://github.com/posthog/posthog), an open-source product analytics library. We'll likely be looking into moving to our own self-hosted PostHog version in the future.
+-   We **don't capture any PII**, neither from the developer, nor end users. Not even the IP address. It's all anonymous analytics.
+-   When a telemetry event is received, we use the IP address to obtain a rough location (country, state/province, city) using the [MaxMind](https://github.com/maxmind) database through [PostHog][posthog], the IP address is immediately discarded and not stored anywhere.
+-   We don't store anything on the device running the World ID widget. **No cookies, no local storage, nothing.**
+-   **We don't do fingerprinting** or any other mechanism to attempt to identify users cross-browser or cross-device.
+-   All telemetry events are captured using [PostHog](https://github.com/posthog/posthog), an open-source product analytics library. We'll likely be looking into moving to our own self-hosted PostHog version in the future.
 
 ### Events captured
 
 Here are the events we capture:
 
-- `wid loaded`. When the widget is loaded.
-- `wid opened`. When the user clicks on the World ID widget and the modal shows up.
-- `wid connection established`. When the connection to the user's WLD app is established. We include the number of seconds it took from the previous step.
-- `wid verification success`. When the complete World ID process is successful.
-- `wid verification failed`. When the complete World ID process fails. We include the `errorCode` here too.
-- `$exception`. When an unhandled exception occurs in the package. We include the error message and the stack trace.
+-   `wid loaded`. When the widget is loaded.
+-   `wid opened`. When the user clicks on the World ID widget and the modal shows up.
+-   `wid connection established`. When the connection to the user's WLD app is established. We include the number of seconds it took from the previous step.
+-   `wid verification success`. When the complete World ID process is successful.
+-   `wid verification failed`. When the complete World ID process fails. We include the `errorCode` here too.
+-   `$exception`. When an unhandled exception occurs in the package. We include the error message and the stack trace.
 
 ### Attributes captured
 
 For each event, we capture the following information:
 
-- Estimate city location (from IP address). IP address is discarded.
-- Screen size.
-- World ID package version.
-- Device information from `User-Agent` (e.g. browser, OS, ...).
-- Current URL.
-- Referrer header.
+-   Estimate city location (from IP address). IP address is discarded.
+-   Screen size.
+-   World ID package version.
+-   Device information from `User-Agent` (e.g. browser, OS, ...).
+-   Current URL.
+-   Referrer header.
 
 [posthog]: https://github.com/posthog/posthog

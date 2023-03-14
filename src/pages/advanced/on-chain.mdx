@@ -1,18 +1,14 @@
-import { Callout } from 'common/Callout'
-import { Tag } from 'common/Tag'
-
 # On-Chain
 
 World ID proofs can be fully verified on-chain. After all, the source of truth for the decentralized protocol is on-chain. To verify a World ID proof, your smart contract will embed a call to the `verifyProof` method of the World ID contract, and then execute the rest of its logic as usual.
 
 We provide a [Foundry starter kit](https://github.com/worldcoin/world-id-starter) and a [Hardhat starter kit](https://github.com/worldcoin/world-id-starter-hardhat) to help you get started with World ID. We strongly recommend using one of these starter kits to get started with World ID.
 
-<Callout type="caution">
-  Note that calling the `verifyProof` function by itself does not provide
-  sybil-resistance, or prevent proof reuse, it just verifies that the proof is
-  valid. To prevent sybil attacks, see the [sybil-resistance
-  section](#sybil-resistance) below.
-</Callout>
+<Note type="warning">
+	Note that calling the `verifyProof` function by itself does not provide sybil-resistance, or prevent proof reuse, it
+	just verifies that the proof is valid. To prevent sybil attacks, see the [sybil-resistance
+	section](#sybil-resistance) below.
+</Note>
 
 ## Supported Chains
 
@@ -54,20 +50,19 @@ We provide a [Foundry starter kit](https://github.com/worldcoin/world-id-starter
 
 ## Calling verifyProof
 
-<Callout type="note">
-  The `verifyProof` function is meant to be called by your smart contract. If
-  you just want to verify a proof from your backend, you should use the [/verify
-  method of the API](/api) instead.
-</Callout>
+<Note>
+	The `verifyProof` function is meant to be called by your smart contract. If you just want to verify a proof from
+	your backend, you should use the [/verify method of the API](/api) instead.
+</Note>
 
 The `verifyProof` method takes the following arguments:
 
-- `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should just be passed as-is.
-- `groupId` - This should always be `1` for World ID.
-- `signal` - The signal to verify. See the [signal section](#custom-signals) below.
-- `nullifierHash` - Anonymous user ID. This is obtained from the IDKit widget, and should just be passed as-is.
-- `action` - The action to verify. See the [action section](#custom-actions) below.
-- `proof` - The proof to verify. This is obtained from the IDKit widget, and should be unpacked into a `uint256[8]` before being passed to the method.
+-   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should just be passed as-is.
+-   `groupId` - This should always be `1` for World ID.
+-   `signal` - The signal to verify. See the [signal section](#custom-signals) below.
+-   `nullifierHash` - Anonymous user ID. This is obtained from the IDKit widget, and should just be passed as-is.
+-   `action` - The action to verify. See the [action section](#custom-actions) below.
+-   `proof` - The proof to verify. This is obtained from the IDKit widget, and should be unpacked into a `uint256[8]` before being passed to the method.
 
 The `proof` argument is returned from IDKit as a string, but depending how you're calling your smart contract (when using `ethers.js` or `wagmi`, for example), you might be required to unpack it into a `uint256[8]` before passing it to the `verifyProof` method. To unpack it, use the following code:
 
@@ -91,12 +86,12 @@ To get started, you'll need to pass the signal to the IDKit widget. You can do t
 import { solidityEncode } from '@worldcoin/idkit'
 
 return (
-  <IDKitWidget
-    // ...
-    signal={solidityEncode(['address'], [receiverAddress])}
-  >
-    {/* ... */}
-  </IDKitWidget>
+	<IDKitWidget
+		// ...
+		signal={solidityEncode(['address'], [receiverAddress])}
+	>
+		{/* ... */}
+	</IDKitWidget>
 )
 ```
 
@@ -120,16 +115,13 @@ uint256 action = abi.encodePacked(appId).hashToField();
 
 If you want to use a custom action, you can pass it to the IDKit widget with the `action` prop:
 
-```tsx focus=1,6
+```tsx focus=1,4,6
 import { solidityEncode } from '@worldcoin/idkit'
 
 return (
-  <IDKitWidget
-    app_id={appId}
-    action={solidityEncode(['uint256'], [proposalId])}
-  >
-    {/* ... */}
-  </IDKitWidget>
+	<IDKitWidget app_id={appId} action={solidityEncode(['uint256'], [proposalId])}>
+		{/* ... */}
+	</IDKitWidget>
 )
 ```
 
@@ -140,18 +132,17 @@ Then, in your smart contract, you `abi.encodePacked` the action and [call `hashT
 uint256 action = abi.encodePacked(abi.encodePacked(appId).hashToField(), proposalId).hashToField();
 ```
 
-<Callout type="note">
-  To put together the two examples below, an application that lets users vote on
-  governance proposals anonymously (but only lets them vote once) would add the
-  proposal id to the action and the contents of the vote to the signal.
-</Callout>
+<Note>
+	To put together the two examples below, an application that lets users vote on governance proposals anonymously (but
+	only lets them vote once) would add the proposal id to the action and the contents of the vote to the signal.
+</Note>
 
 ## Sybil-resistance
 
 While the World ID protocol makes it very easy to make your contracts sybil-resistant, this takes a little more than just calling the `verifyProof` function. To make your contract sybil-resistant, you'll need to do the following:
 
-- Store the `nullifierHash` of each user that has successfully verified a proof.
-- When a user attempts to verify a proof, check that the `nullifierHash` is not already in the list of used `nullifierHash`es.
+-   Store the `nullifierHash` of each user that has successfully verified a proof.
+-   When a user attempts to verify a proof, check that the `nullifierHash` is not already in the list of used `nullifierHash`es.
 
 Here's an example function doing the above. You can also use the [World ID starter kits](#on-chain) to get started with sybil-resistance.
 

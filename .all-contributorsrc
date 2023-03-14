@@ -128,21 +128,12 @@
       "contributions": [
         "doc"
       ]
-    },
-    {
+     },
+     {
       "login": "maxpetretta",
       "name": "Max Petretta",
       "avatar_url": "https://avatars.githubusercontent.com/u/19291506?v=4",
       "profile": "https://maxpetretta.com",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "denis-ottofeller",
-      "name": "Denis Bushaev",
-      "avatar_url": "https://avatars.githubusercontent.com/u/102026658?v=4",
-      "profile": "https://github.com/denis-ottofeller",
       "contributions": [
         "code"
       ]

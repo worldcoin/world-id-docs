@@ -48,7 +48,7 @@ export const navItems: NavItems = [
     items: [
       { title: 'Introduction', href: '/api' },
       { title: 'API Reference', href: '/api/reference' },
-      { title: 'Error Handling', href: '/api/errors' },
+      // TODO { title: 'Error Handling', href: '/api/errors' },
       { title: 'Internal Endpoints', href: '/api/internal-endpoints' },
     ],
   },

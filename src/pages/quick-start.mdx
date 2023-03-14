@@ -1,4 +1,5 @@
 import { Callout } from 'common/Callout'
+import { Tabs, TabItem } from 'common/Tabs'
 
 # Quick Start
 
@@ -18,157 +19,161 @@ Fastest way to integrate and use World ID. Find instructions below for both **Si
 
 You'll need your app ID (also called client ID) later. It looks something like {/* cSpell:disable */}`app_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}.
 
-## Sign in with Worldcoin
+<Tabs>
+  <TabItem label="Sign in with Worldcoin">
+    The default way of using World ID is an authentication mechanism. If you already have an OIDC-compatible authentication engine, you can connect as follows:
 
-The default way of using World ID is an authentication mechanism. If you already have an OIDC-compatible authentication engine, you can connect as follows:
+    <Callout type="tip">
+      Typical OIDC-compatible authentication engines include
+      [Auth0](https://auth0.com/), [Okta](https://okta.com/), [AWS
+      Cognito](https://aws.amazon.com/cognito/), [CloudFlare
+      Access](https://www.cloudflare.com/products/zero-trust/access/),
+      [OneLogin](https://www.onelogin.com/) and many more. Most languages and
+      frameworks have simple open source packages for this too. A few examples: For
+      [Next.JS](https://next-auth.js.org/), for
+      [Django](https://github.com/python-social-auth/social-app-django), for
+      [Go](https://github.com/coreos/go-oidc).
+    </Callout>
 
-<Callout type="tip">
-  Typical OIDC-compatible authentication engines include
-  [Auth0](https://auth0.com/), [Okta](https://okta.com/), [AWS
-  Cognito](https://aws.amazon.com/cognito/), [CloudFlare
-  Access](https://www.cloudflare.com/products/zero-trust/access/),
-  [OneLogin](https://www.onelogin.com/) and many more. Most languages and
-  frameworks have simple open source packages for this too. A few examples: For
-  [Next.JS](https://next-auth.js.org/), for
-  [Django](https://github.com/python-social-auth/social-app-django), for
-  [Go](https://github.com/coreos/go-oidc).
-</Callout>
+    3. Configure your OIDC authentication engine to use World ID as an Identity Provider (IdP), you will need the following information:
 
-3. Configure your OIDC authentication engine to use World ID as an Identity Provider (IdP), you will need the following information:
+    - **Discovery endpoint**: `https://id.worldcoin.org/.well-known/openid-configuration` (if supported by your OIDC client engine, this will set everything automatically, continue below otherwise)
 
-- **Discovery endpoint**: `https://id.worldcoin.org/.well-known/openid-configuration` (if supported by your OIDC client engine, this will set everything automatically, continue below otherwise)
+    #### Required inputs
 
-#### Required inputs
+    - **Client ID**: your app id from the Developer Portal (e.g. {/* cSpell:disable */}`app_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}).
+    - **Client secret**: app secret, obtained from the "Sign In" tab in the Developer Portal (e.g. `sk_6f07e1566ee4b765fe23d8c8`).
+    - **Authorize endpoint**: `https://id.worldcoin.org/authorize`
+    - **Response type**: depends on how you want to authenticate, follow the recommendations of your engine. We recommend auth code flow for server-side apps and implicit flow for client-side apps
+    - Supported response types: `code` (authorization flow), `id_token` (implicit flow), `token`, or a combination of them (hybrid flow).
 
-- **Client ID**: your app id from the Developer Portal (e.g. {/* cSpell:disable */}`app_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}).
-- **Client secret**: app secret, obtained from the "Sign In" tab in the Developer Portal (e.g. `sk_6f07e1566ee4b765fe23d8c8`).
-- **Authorize endpoint**: `https://id.worldcoin.org/authorize`
-- **Response type**: depends on how you want to authenticate, follow the recommendations of your engine. We recommend auth code flow for server-side apps and implicit flow for client-side apps
-  - Supported response types: `code` (authorization flow), `id_token` (implicit flow), `token`, or a combination of them (hybrid flow).
+    #### Optional inputs
 
-#### Optional inputs
+    - **(Optional for implicit flow). Token endpoint**: `https://id.worldcoin.org/token`
+    - **(Optional). User info endpoint**: `https://id.worldcoin.org/userinfo`
+    - **(Optional). Introspect endpoint**: `https://id.worldcoin.org/introspect`
 
-- **(Optional for implicit flow). Token endpoint**: `https://id.worldcoin.org/token`
-- **(Optional). User info endpoint**: `https://id.worldcoin.org/userinfo`
-- **(Optional). Introspect endpoint**: `https://id.worldcoin.org/introspect`
+    This will use the default World ID login page. If you instead want to build your own authentication page, check out the [Sign In](/id/sign-in) docs.
 
-This will use the default World ID login page. If you instead want to build your own authentication page, check out the [Sign In](/id/sign-in) docs.
+    4. Once you have configured this, you can start the authentication flow from your app or authentication engine.
 
-4. Once you have configured this, you can start the authentication flow from your app or authentication engine.
+  </TabItem>
 
-## Anonymous Actions
+  <TabItem label="Anonymous Actions">
+    Anonymous Actions unlock a set of other use cases beyond verifying accounts (which is enabled by Sign In with World ID). With Anonymous Actions, you can verify a person is doing something only once, for a particular context.
 
-Anonymous Actions unlock a set of other use cases beyond verifying accounts (which is enabled by Sign In with World ID). With Anonymous Actions, you can verify a person is doing something only once, for a particular context.
+    <Callout type="note">
+      For example, you can verify a person is claiming a particular promotional
+      campaign just once. If you later have a new promotional campaign, users from
+      campaign 1 will always be delinked from users from campaign 2, providing
+      higher privacy.
+    </Callout>
 
-<Callout type="note">
-  For example, you can verify a person is claiming a particular promotional
-  campaign just once. If you later have a new promotional campaign, users from
-  campaign 1 will always be delinked from users from campaign 2, providing
-  higher privacy.
-</Callout>
+    3. Create an action for your app in the Developer Portal. Each action has a unique identifier which you set (e.g. `vote_1`).
 
-3. Create an action for your app in the Developer Portal. Each action has a unique identifier which you set (e.g. `vote_1`).
+    <Callout type="note">
+      An action scopes uniqueness for users, which means users will always have the
+      same ID (nullifier hash) for each action.
+    </Callout>
 
-<Callout type="note">
-  An action scopes uniqueness for users, which means users will always have the
-  same ID (nullifier hash) for each action.
-</Callout>
+    4. Install [IDKit](/idkit) in your frontend.
 
-4. Install [IDKit](/idkit) in your frontend.
+    ##### Install IDKit
 
-##### Install IDKit
+    ```bash
+    yarn add @worldcoin/idkit
+    # or use your preferred package manager
+    ```
 
-```bash
-yarn add @worldcoin/idkit
-# or use your preferred package manager
-```
+    5.  Import and render IDKit. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on proposal").
 
-5. Import and render IDKit. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on proposal").
+    <Callout type="tip">
+      The section below contains the example code for a React app. Check out
+      [IDKit Reference](/idkit/reference) for how to use in vanilla JS.
+    </Callout>
 
-<Callout type="tip">
-  The section below contains the example code for a React app. Check out [IDKit
-  Reference](/idkit/reference) for how to use in vanilla JS.
-</Callout>
+    ##### Import IDKit widget
 
-##### Import IDKit widget
+    ```jsx
+    import { WorldIDWidget } from '@worldcoin/id'
+    ```
 
-```jsx
-import { WorldIDWidget } from '@worldcoin/id'
-```
+    ##### Mount the widget
 
-##### Mount the widget
+    {/* cSpell:disable */}
 
-{/* cSpell:disable */}
+    ```tsx
+    <IDKitWidget
+      app_id="app_GBkZ1KlVUdFTjeMXskrX" // obtained from the Developer Portal
+      action="vote_1" // this is your action identifier from the Developer Portal (can also be created on the fly)
+      signal="user_value" // any arbitrary value the user is committing to, e.g. for a voting app this could be the vote
+      onSuccess={onSuccess}
+      credential_types={['orb', 'phone']} // the credentials you want to accept
+      walletConnectProjectId="get_this_from_walletconnect_portal" // optional, obtain from WalletConnect Portal
+      enableTelemetry
+    >
+      {({ open }) => <button onClick={open}>Verify</button>}
+    </IDKitWidget>
+    ```
 
-```tsx
-<IDKitWidget
-  app_id="app_GBkZ1KlVUdFTjeMXskrX" // obtained from the Developer Portal
-  action="vote_1" // this is your action identifier from the Developer Portal (can also be created on the fly)
-  signal="user_value" // any arbitrary value the user is committing to, e.g. for a voting app this could be the vote
-  onSuccess={onSuccess}
-  credential_types={['orb', 'phone']} // the credentials you want to accept
-  walletConnectProjectId="get_this_from_walletconnect_portal" // optional, obtain from WalletConnect Portal
-  enableTelemetry
->
-  {({ open }) => <button onClick={open}>Verify</button>}
-</IDKitWidget>
-```
+    {/* cSpell:enable */}
 
-{/* cSpell:enable */}
+    More configuration options can be found in the [IDKit reference](/idkit/reference). We generally recommend looking at the `handleVerify` method for better UX.
 
-More configuration options can be found in the [IDKit reference](/idkit/reference). We generally recommend looking at the `handleVerify` method for better UX.
+    6. Verify your action by sending the zero knowledge proof to the **Developer Portal API**. Please check the [API reference](/api/reference#verify) for details on anticipated error responses.
 
-6. Verify your action by sending the zero knowledge proof to the **Developer Portal API**. Please check the [API reference](/api/reference#verify) for details on anticipated error responses.
+    <Callout type="note">
+      If you want to verify proofs on-chain, check out the
+      [on-chain](/advanced/on-chain) section.
+    </Callout>
 
-<Callout type="note">
-  If you want to verify proofs on-chain, check out the
-  [on-chain](/advanced/on-chain) section.
-</Callout>
+    ```
+    POST https://developer.worldcoin.org/api/v1/verify/{app_id}
+    ```
 
-```
-POST https://developer.worldcoin.org/api/v1/verify/{app_id}
-```
+    **Headers**
 
-**Headers**
+    ```json
+    {
+      "Content-Type": "application/json"
+    }
+    ```
 
-```json
-{
-  "Content-Type": "application/json"
-}
-```
+    **Request body**
 
-**Request body**
+    Parameters `merkle_root`, `nullifier_hash`, `proof` & `credential_type` are obtained from `onSuccess` above.
 
-Parameters `merkle_root`, `nullifier_hash`, `proof` & `credential_type` are obtained from `onSuccess` above.
+    {/* cSpell:disable */}
 
-{/* cSpell:disable */}
+    ```json
+    {
+      "app_id": "app_GBkZ1KlVUdFTjeMXskrX",
+      "signal": "user_value",
+      "action": "vote_1",
+      "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
+      "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
+      "credential_type": "orb",
+      "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"
+    }
+    ```
 
-```json
-{
-  "app_id": "app_GBkZ1KlVUdFTjeMXskrX",
-  "signal": "user_value",
-  "action": "vote_1",
-  "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
-  "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
-  "credential_type": "orb",
-  "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"
-}
-```
+    {/* cSpell:enable */}
 
-{/* cSpell:enable */}
+    **Response (200)**
 
-**Response (200)**
+    ```json
+    {
+      "success": true,
+      "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
+      "action": "vote_1",
+      "created_at": "2023-01-01T12:12:12.000Z"
+    }
+    ```
 
-```json
-{
-  "success": true,
-  "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
-  "action": "vote_1",
-  "created_at": "2023-01-01T12:12:12.000Z"
-}
-```
+    7. The user is a unique human! Execute your action on your backend (e.g. claim the user promotion).
 
-7. The user is a unique human! Execute your action on your backend (e.g. claim the user promotion).
+  </TabItem>
+</Tabs>
 
 ## Testing your integration
 

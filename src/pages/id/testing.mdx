@@ -1,6 +1,5 @@
 import { Callout } from 'common/Callout'
-import { Tabs } from 'common/Tabs'
-import { TabItem } from 'common/Tabs/TabItem'
+import { Tabs, TabItem } from 'common/Tabs'
 
 # Testing
 
@@ -28,10 +27,10 @@ Using the staging network as an _end user_ is simple, just go to the [Simulator]
 ### Verifying proofs
 
 <Tabs>
-  <TabItem value="cloud" label="☁️ Cloud actions">
+  <TabItem value="cloud" label="Cloud verification" default>
    <b>If your action is running on Cloud</b>, you <b>don't have to do anything different</b> when using the staging network. When you create an action you select whether you want to run it in staging or production mode and the Developer Portal will do the proper validation automatically for you.
   </TabItem>
-  <TabItem value="on-chain" label="⛓ On-chain actions" default>
+  <TabItem value="on-chain" label="On-chain verification">
     If you are running your action on-chain, you do need to point your smart contract to the relevant staging World ID smart contract. Further, the Staging and Production smart contracts are deployed to different chains. Follow these guidelines:
 
 <ol>

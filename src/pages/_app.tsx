@@ -56,7 +56,7 @@ export default function MyApp(pageProps: AppProps) {
   const pageDescription = findPageDescription(pageHtml)
 
   const isDefaultLayoutPage = useMemo(
-    () => !['/use'].includes(router.pathname),
+    () => !([] as Array<string>).includes(router.pathname),
     [router.pathname]
   )
 

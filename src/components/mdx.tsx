@@ -1,33 +1,24 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import { Fragment, ReactNode } from 'react'
 import { Heading } from '@/components/Heading'
+import { FC, Fragment, PropsWithChildren, ReactNode } from 'react'
 export { Button } from '@/components/Button'
+import InfoIcon from './icons/InfoIcon'
 import Tabs, { TabItem, Tab } from './Tabs'
+import DangerIcon from './icons/DangerIcon'
 export { CodeGroup, Code as code, Pre as pre } from '@/components/Code'
 
 export { Tabs, TabItem, Tab, Link as a }
-export const h2 = props => <Heading level={2} {...props} />
+export const h2: FC<
+	PropsWithChildren<{
+		id: string
+		tag?: 'get' | 'post' | 'put' | 'delete'
+		label?: string
+		anchor?: boolean
+	}>
+> = props => <Heading level={2} {...props} />
 
-const InfoIcon = props => (
-	<svg viewBox="0 0 16 16" aria-hidden="true" {...props}>
-		<circle cx="8" cy="8" r="8" strokeWidth="0" />
-		<path fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6.75 7.75h1.5v3.5" />
-		<circle cx="8" cy="4" r=".5" fill="none" />
-	</svg>
-)
-
-const DangerIcon = props => (
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
-		<path
-			fillRule="evenodd"
-			d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
-			clipRule="evenodd"
-		/>
-	</svg>
-)
-
-export const Note = ({ children, type = 'info' }) => (
+export const Note: FC<PropsWithChildren<{ type?: 'info' | 'danger' | 'warning' }>> = ({ children, type = 'info' }) => (
 	<div
 		className={clsx(
 			type == 'info' && 'border-gray-500/20 bg-gray-50/50 text-gray-700',
@@ -43,17 +34,17 @@ export const Note = ({ children, type = 'info' }) => (
 	</div>
 )
 
-export const Row = ({ children }) => (
+export const Row: FC<PropsWithChildren<{}>> = ({ children }) => (
 	<div className="grid grid-cols-1 items-start gap-x-16 gap-y-10 xl:max-w-none xl:grid-cols-2">{children}</div>
 )
 
-export const Col = ({ children, sticky = false }) => (
+export const Col: FC<PropsWithChildren<{ sticky?: boolean }>> = ({ children, sticky = false }) => (
 	<div className={clsx('[&>:first-child]:mt-0 [&>:last-child]:mb-0', sticky && 'xl:sticky xl:top-24')}>
 		{children}
 	</div>
 )
 
-export const Properties = ({ children }) => (
+export const Properties: FC<PropsWithChildren<{}>> = ({ children }) => (
 	<div className="my-6">
 		<ul
 			role="list"
@@ -64,7 +55,12 @@ export const Properties = ({ children }) => (
 	</div>
 )
 
-export const Property = ({ name, type, children }) => (
+export const Property: FC<
+	PropsWithChildren<{
+		name: string
+		type: string
+	}>
+> = ({ name, type, children }) => (
 	<li className="m-0 px-0 py-4 first:pt-0 last:pb-0">
 		<dl className="m-0 flex flex-wrap items-center gap-x-3 gap-y-2">
 			<dt className="sr-only">Name</dt>
@@ -79,7 +75,7 @@ export const Property = ({ name, type, children }) => (
 	</li>
 )
 
-export const Steps = (props: { steps: Array<ReactNode>; borders?: boolean }) => (
+export const Steps: FC<{ steps: Array<ReactNode>; borders?: boolean }> = props => (
 	<div className="grid items-center gap-2 lg:grid-flow-col">
 		{props.steps.map((step, index) => (
 			<Fragment key={index}>
@@ -107,11 +103,15 @@ export const Steps = (props: { steps: Array<ReactNode>; borders?: boolean }) => 
 	</div>
 )
 
-export const Tag = ({ children }: { children: ReactNode }) => (
+export const Tag: FC<PropsWithChildren<{}>> = ({ children }) => (
 	<span className="rounded-md bg-accents-warning-200 px-2 py-1 font-bold text-accents-warning-700">{children}</span>
 )
 
-export const Fence = (props: { children?: ReactNode; className?: string }) => (
+export const Fence: FC<
+	PropsWithChildren<{
+		className?: string
+	}>
+> = (props: { children?: ReactNode; className?: string }) => (
 	<div
 		className={clsx(
 			'pre relative rounded-lg border border-neutral-200 flex items-center justify-center',

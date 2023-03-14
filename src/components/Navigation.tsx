@@ -1,20 +1,25 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import { useRef } from 'react'
 import { Tag } from '@/components/Tag'
 import { useRouter } from 'next/router'
 import { remToPx } from '@/lib/remToPx'
 import { Button } from '@/components/Button'
+import { FC, PropsWithChildren, useRef } from 'react'
 import { useSectionStore } from '@/components/SectionProvider'
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion'
 import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
 
-function useInitialValue(value, condition = true) {
-	let initialValue = useRef(value).current
+const useInitialValue = <T,>(value: T, condition = true): T => {
+	let initialValue = useRef<T>(value).current
 	return condition ? initialValue : value
 }
 
-function TopLevelNavItem({ href, children, target }) {
+const TopLevelNavItem: FC<
+	PropsWithChildren<{
+		href: string
+		target?: string
+	}>
+> = ({ href, children, target }) => {
 	return (
 		<li className="md:hidden">
 			<Link
@@ -28,7 +33,14 @@ function TopLevelNavItem({ href, children, target }) {
 	)
 }
 
-function NavLink({ href, tag, active, isAnchorLink = false, children }) {
+const NavLink: FC<
+	PropsWithChildren<{
+		href: string
+		tag?: 'get' | 'post' | 'put' | 'delete'
+		active?: boolean
+		isAnchorLink?: boolean
+	}>
+> = ({ href, tag, active, isAnchorLink = false, children }) => {
 	return (
 		<Link
 			href={href}
@@ -43,7 +55,7 @@ function NavLink({ href, tag, active, isAnchorLink = false, children }) {
 		>
 			<span className="truncate">{children}</span>
 			{tag && (
-				<Tag variant="small" color="zinc">
+				<Tag variant="medium" color="zinc">
 					{tag}
 				</Tag>
 			)}
@@ -51,7 +63,10 @@ function NavLink({ href, tag, active, isAnchorLink = false, children }) {
 	)
 }
 
-function VisibleSectionHighlight({ group, pathname }) {
+const VisibleSectionHighlight: FC<{
+	group: { title: string; links: { href: string }[] }
+	pathname: string
+}> = ({ group, pathname }) => {
 	let [sections, visibleSections] = useInitialValue(
 		[useSectionStore(s => s.sections), useSectionStore(s => s.visibleSections)],
 		useIsInsideMobileNavigation()
@@ -78,7 +93,10 @@ function VisibleSectionHighlight({ group, pathname }) {
 	)
 }
 
-function ActivePageMarker({ group, pathname }) {
+const ActivePageMarker: FC<{
+	pathname: string
+	group: { title: string; links: { href: string }[] }
+}> = ({ group, pathname }) => {
 	let itemHeight = remToPx(2)
 	let offset = remToPx(0.25)
 	let activePageIndex = group.links.findIndex(link => link.href === pathname)
@@ -96,7 +114,10 @@ function ActivePageMarker({ group, pathname }) {
 	)
 }
 
-function NavigationGroup({ group, className }) {
+const NavigationGroup: FC<{
+	group: { title: string; links: { href: string; title: string }[] }
+	className?: string
+}> = ({ group, className }) => {
 	// If this is the mobile navigation then we always render the initial
 	// state, so that the state does not change during the close animation.
 	// The state will still update when we re-open (re-render) the navigation.
@@ -203,9 +224,11 @@ export const navigation = [
 			{ title: 'Internal Endpoints', href: '/api/internal-endpoints' },
 		],
 	},
-]
+] as const
 
-export function Navigation(props) {
+export const Navigation: FC<{
+	className?: string
+}> = props => {
 	return (
 		<nav {...props}>
 			<ul role="list">
@@ -214,6 +237,7 @@ export function Navigation(props) {
 					Join the waitlist
 				</TopLevelNavItem>
 				{navigation.map((group, groupIndex) => (
+					// @ts-ignore
 					<NavigationGroup key={group.title} group={group} className={groupIndex === 0 && 'md:mt-0'} />
 				))}
 				<li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">

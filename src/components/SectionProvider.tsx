@@ -1,9 +1,41 @@
-import { createStore, useStore } from 'zustand'
-import { createContext, useContext, useEffect, useLayoutEffect, useState } from 'react'
+import { createStore, StoreApi, useStore } from 'zustand'
+import {
+	createContext,
+	FC,
+	PropsWithChildren,
+	RefObject,
+	useContext,
+	useEffect,
+	useLayoutEffect,
+	useState,
+} from 'react'
 
 import { remToPx } from '@/lib/remToPx'
 
-function createSectionStore(sections) {
+export type Section = {
+	id: string
+	tag: 'get' | 'post' | 'put' | 'delete'
+	title: string
+	headingRef?: RefObject<HTMLHeadingElement>
+	offsetRem?: number
+}
+
+export type SectionStore = {
+	sections: Section[]
+	visibleSections: string[]
+	setVisibleSections: (visibleSections: string[]) => void
+	registerHeading: ({
+		id,
+		ref,
+		offsetRem,
+	}: {
+		id: string
+		ref: RefObject<HTMLHeadingElement>
+		offsetRem: number
+	}) => void
+}
+
+const createSectionStore = (sections: Section[]): StoreApi<SectionStore> => {
 	return createStore(set => ({
 		sections,
 		visibleSections: [],
@@ -27,7 +59,7 @@ function createSectionStore(sections) {
 	}))
 }
 
-function useVisibleSections(sectionStore) {
+const useVisibleSections = (sectionStore: StoreApi<SectionStore>) => {
 	let setVisibleSections = useStore(sectionStore, s => s.setVisibleSections)
 	let sections = useStore(sectionStore, s => s.sections)
 
@@ -39,6 +71,7 @@ function useVisibleSections(sectionStore) {
 			for (let sectionIndex = 0; sectionIndex < sections.length; sectionIndex++) {
 				let { id, headingRef, offsetRem } = sections[sectionIndex]
 				let offset = remToPx(offsetRem)
+				// @ts-ignore
 				let top = headingRef?.current?.getBoundingClientRect()?.top + scrollY
 
 				if (sectionIndex === 0 && top - offset > scrollY) {
@@ -75,11 +108,15 @@ function useVisibleSections(sectionStore) {
 	}, [setVisibleSections, sections])
 }
 
-const SectionStoreContext = createContext()
+const SectionStoreContext = createContext<StoreApi<SectionStore> | null>(null)
 
 const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
-export function SectionProvider({ sections, children }) {
+export const SectionProvider: FC<
+	PropsWithChildren<{
+		sections: Section[]
+	}>
+> = ({ sections, children }) => {
 	let [sectionStore] = useState(() => createSectionStore(sections))
 
 	useVisibleSections(sectionStore)
@@ -91,7 +128,8 @@ export function SectionProvider({ sections, children }) {
 	return <SectionStoreContext.Provider value={sectionStore}>{children}</SectionStoreContext.Provider>
 }
 
-export function useSectionStore(selector) {
+export const useSectionStore = <T,>(selector: (state: SectionStore) => T): T => {
 	let store = useContext(SectionStoreContext)
-	return useStore(store, selector)
+
+	return useStore(store!, selector)
 }

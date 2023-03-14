@@ -2,10 +2,15 @@ import { motion } from 'framer-motion'
 import { Prose } from '@/components/Prose'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
+import { FC, PropsWithChildren } from 'react'
 import { Navigation } from '@/components/Navigation'
-import { SectionProvider } from '@/components/SectionProvider'
+import { Section, SectionProvider } from '@/components/SectionProvider'
 
-export function Layout({ children, sections = [] }) {
+export const Layout: FC<
+	PropsWithChildren<{
+		sections?: Section[]
+	}>
+> = ({ children, sections = [] }) => {
 	return (
 		<SectionProvider sections={sections}>
 			<Header />

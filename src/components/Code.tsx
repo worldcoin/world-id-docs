@@ -1,8 +1,9 @@
 import clsx from 'clsx'
-import { useMemo } from 'react'
 import { create } from 'zustand'
 import { Tag } from '@/components/Tag'
 import { Tab } from '@headlessui/react'
+import ClipboardIcon from './icons/ClipboardIcon'
+import { FC, PropsWithChildren, ReactElement, useMemo } from 'react'
 import { Children, createContext, useContext, useEffect, useRef, useState } from 'react'
 
 const languageNames = {
@@ -14,29 +15,13 @@ const languageNames = {
 	python: 'Python',
 	ruby: 'Ruby',
 	go: 'Go',
-}
+} as const
 
-const getPanelTitle = ({ title, language }: { title?: string; language?: string }) => {
+const getPanelTitle = ({ title, language }: { title?: string; language: keyof typeof languageNames }): string => {
 	return title ?? languageNames[language] ?? 'Code'
 }
 
-function ClipboardIcon(props) {
-	return (
-		<svg viewBox="0 0 20 20" aria-hidden="true" {...props}>
-			<path
-				strokeWidth="0"
-				d="M5.5 13.5v-5a2 2 0 0 1 2-2l.447-.894A2 2 0 0 1 9.737 4.5h.527a2 2 0 0 1 1.789 1.106l.447.894a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2Z"
-			/>
-			<path
-				fill="none"
-				strokeLinejoin="round"
-				d="M12.5 6.5a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2m5 0-.447-.894a2 2 0 0 0-1.79-1.106h-.527a2 2 0 0 0-1.789 1.106L7.5 6.5m5 0-1 1h-3l-1-1"
-			/>
-		</svg>
-	)
-}
-
-function CopyButton({ code }) {
+const CopyButton: FC<{ code: string }> = ({ code }) => {
 	let [copyCount, setCopyCount] = useState(0)
 	let copied = copyCount > 0
 
@@ -87,7 +72,10 @@ function CopyButton({ code }) {
 	)
 }
 
-function CodePanelHeader({ tag, label }) {
+const CodePanelHeader: FC<{
+	tag?: 'get' | 'post' | 'put' | 'delete'
+	label?: string
+}> = ({ tag, label }) => {
 	if (!tag && !label) {
 		return null
 	}
@@ -96,7 +84,7 @@ function CodePanelHeader({ tag, label }) {
 		<div className="flex h-9 items-center gap-2 border-y border-t-transparent border-b-white/7.5 bg-zinc-900 bg-white/2.5 px-4 dark:border-b-white/5 dark:bg-white/1">
 			{tag && (
 				<div className="dark flex">
-					<Tag variant="small">{tag}</Tag>
+					<Tag variant="medium">{tag}</Tag>
 				</div>
 			)}
 			{tag && label && <span className="h-0.5 w-0.5 rounded-full bg-zinc-500" />}
@@ -105,7 +93,14 @@ function CodePanelHeader({ tag, label }) {
 	)
 }
 
-const CodePanel = ({ tag, label, code, meta, children }) => {
+const CodePanel: FC<
+	PropsWithChildren<{
+		tag?: string
+		label?: string
+		code?: string
+		meta?: string
+	}>
+> = ({ tag, label, code, meta, children }) => {
 	const preRef = useRef<HTMLPreElement>(null)
 	let child = Children.only(children)
 	const focus = useMemo<number[]>(() => {
@@ -124,11 +119,11 @@ const CodePanel = ({ tag, label, code, meta, children }) => {
 				}
 			}
 			return acc
-		}, [])
+		}, [] as number[])
 	}, [meta])
 
 	useEffect(() => {
-		if (focus.length === 0) return
+		if (focus.length === 0 || !preRef.current) return
 		;[...preRef.current.children[0].children]
 			.filter((_, i) => !focus.includes(i))
 			.map(node => node.classList.add('opacity-40'))
@@ -136,18 +131,25 @@ const CodePanel = ({ tag, label, code, meta, children }) => {
 
 	return (
 		<div className="group dark:bg-white/2.5">
-			<CodePanelHeader tag={child.props.tag ?? tag} label={child.props.label ?? label} />
+			<CodePanelHeader
+				tag={(child as ReactElement).props.tag ?? tag}
+				label={(child as ReactElement).props.label ?? label}
+			/>
 			<div className="relative">
 				<pre className="overflow-x-auto p-4 text-xs text-white" ref={preRef}>
 					{children}
 				</pre>
-				<CopyButton code={child.props.code ?? code} />
+				<CopyButton code={(child as ReactElement).props.code ?? code} />
 			</div>
 		</div>
 	)
 }
 
-function CodeGroupHeader({ title, children, selectedIndex }) {
+const CodeGroupHeader: FC<PropsWithChildren<{ title?: string; selectedIndex?: number }>> = ({
+	title,
+	children,
+	selectedIndex,
+}) => {
 	let hasTabs = Children.count(children) > 1
 
 	if (!title && !hasTabs) {
@@ -168,7 +170,7 @@ function CodeGroupHeader({ title, children, selectedIndex }) {
 									: 'border-transparent text-zinc-400 hover:text-zinc-300'
 							)}
 						>
-							{getPanelTitle(child.props)}
+							{getPanelTitle((child as ReactElement).props)}
 						</Tab>
 					))}
 				</Tab.List>
@@ -177,7 +179,7 @@ function CodeGroupHeader({ title, children, selectedIndex }) {
 	)
 }
 
-function CodeGroupPanels({ children, ...props }) {
+const CodeGroupPanels: FC<PropsWithChildren<{}>> = ({ children, ...props }) => {
 	let hasTabs = Children.count(children) > 1
 
 	if (hasTabs) {
@@ -195,24 +197,26 @@ function CodeGroupPanels({ children, ...props }) {
 	return <CodePanel {...props}>{children}</CodePanel>
 }
 
-function usePreventLayoutShift() {
-	let positionRef = useRef()
-	let rafRef = useRef()
+const usePreventLayoutShift = () => {
+	let positionRef = useRef<HTMLDivElement>()
+	let rafRef = useRef<number>()
 
 	useEffect(() => {
-		return () => {
-			window.cancelAnimationFrame(rafRef.current)
-		}
+		return () => window.cancelAnimationFrame(rafRef.current!)
 	}, [])
 
 	return {
 		positionRef,
-		preventLayoutShift(callback) {
+		preventLayoutShift(callback: () => void) {
+			if (!positionRef.current) return
+
 			let initialTop = positionRef.current.getBoundingClientRect().top
 
 			callback()
 
 			rafRef.current = window.requestAnimationFrame(() => {
+				if (!positionRef.current) return
+
 				let newTop = positionRef.current.getBoundingClientRect().top
 				window.scrollBy(0, newTop - initialTop)
 			})
@@ -220,7 +224,12 @@ function usePreventLayoutShift() {
 	}
 }
 
-const usePreferredLanguageStore = create(set => ({
+type PreferredLanguageStore = {
+	preferredLanguages: string[]
+	addPreferredLanguage: (language: string) => void
+}
+
+const usePreferredLanguageStore = create<PreferredLanguageStore>()(set => ({
 	preferredLanguages: [],
 	addPreferredLanguage: language =>
 		set(state => ({
@@ -231,7 +240,7 @@ const usePreferredLanguageStore = create(set => ({
 		})),
 }))
 
-function useTabGroupProps(availableLanguages) {
+const useTabGroupProps = (availableLanguages: string[]) => {
 	let { preferredLanguages, addPreferredLanguage } = usePreferredLanguageStore()
 	let [selectedIndex, setSelectedIndex] = useState(0)
 	let activeLanguage = [...availableLanguages].sort(
@@ -249,7 +258,7 @@ function useTabGroupProps(availableLanguages) {
 		as: 'div',
 		ref: positionRef,
 		selectedIndex,
-		onChange: newSelectedIndex => {
+		onChange: (newSelectedIndex: number) => {
 			preventLayoutShift(() => addPreferredLanguage(availableLanguages[newSelectedIndex]))
 		},
 	}
@@ -257,9 +266,9 @@ function useTabGroupProps(availableLanguages) {
 
 const CodeGroupContext = createContext(false)
 
-export function CodeGroup({ children, title, ...props }) {
-	let languages = Children.map(children, child => getPanelTitle(child.props))
-	let tabGroupProps = useTabGroupProps(languages)
+export const CodeGroup: FC<PropsWithChildren<{ title?: string }>> = ({ children, title, ...props }) => {
+	let languages = Children.map(children, child => getPanelTitle((child as ReactElement).props))
+	let tabGroupProps = useTabGroupProps(languages as string[])
 	let hasTabs = Children.count(children) > 1
 	let Container = hasTabs ? Tab.Group : 'div'
 	let containerProps = hasTabs ? tabGroupProps : {}
@@ -269,6 +278,7 @@ export function CodeGroup({ children, title, ...props }) {
 		<CodeGroupContext.Provider value={true}>
 			<Container
 				{...containerProps}
+				// @ts-ignore
 				className="not-prose my-6 overflow-hidden rounded-2xl bg-zinc-900 shadow-md dark:ring-1 dark:ring-white/10"
 			>
 				<CodeGroupHeader title={title} {...headerProps}>
@@ -280,22 +290,19 @@ export function CodeGroup({ children, title, ...props }) {
 	)
 }
 
-export function Code({ children, ...props }) {
+export const Code: FC<PropsWithChildren<{}>> = ({ children, ...props }) => {
 	let isGrouped = useContext(CodeGroupContext)
 
 	if (isGrouped) {
-		return <code {...props} dangerouslySetInnerHTML={{ __html: children }} />
+		return <code {...props} dangerouslySetInnerHTML={{ __html: children as string }} />
 	}
 
 	return <code {...props}>{children}</code>
 }
 
-export function Pre({ children, ...props }) {
+export const Pre: FC<PropsWithChildren<{ title?: string }>> = ({ children, ...props }) => {
 	let isGrouped = useContext(CodeGroupContext)
 
-	if (isGrouped) {
-		return children
-	}
-
+	if (isGrouped) return <>{children}</>
 	return <CodeGroup {...props}>{children}</CodeGroup>
 }

@@ -1,40 +1,30 @@
 import { create } from 'zustand'
+import XIcon from './icons/XIcon'
 import { motion } from 'framer-motion'
+import MenuIcon from './icons/MenuIcon'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import { Dialog, Transition } from '@headlessui/react'
 import { createContext, Fragment, useContext } from 'react'
 
-function MenuIcon(props) {
-	return (
-		<svg viewBox="0 0 10 9" fill="none" strokeLinecap="round" aria-hidden="true" {...props}>
-			<path d="M.5 1h9M.5 8h9M.5 4.5h9" />
-		</svg>
-	)
-}
-
-function XIcon(props) {
-	return (
-		<svg viewBox="0 0 10 9" fill="none" strokeLinecap="round" aria-hidden="true" {...props}>
-			<path d="m1.5 1 7 7M8.5 1l-7 7" />
-		</svg>
-	)
-}
-
 const IsInsideMobileNavigationContext = createContext(false)
+export const useIsInsideMobileNavigation = () => useContext(IsInsideMobileNavigationContext)
 
-export function useIsInsideMobileNavigation() {
-	return useContext(IsInsideMobileNavigationContext)
+type MobileNavigationStore = {
+	isOpen: boolean
+	open: () => void
+	close: () => void
+	toggle: () => void
 }
 
-export const useMobileNavigationStore = create(set => ({
+export const useMobileNavigationStore = create<MobileNavigationStore>()(set => ({
 	isOpen: false,
 	open: () => set({ isOpen: true }),
 	close: () => set({ isOpen: false }),
 	toggle: () => set(state => ({ isOpen: !state.isOpen })),
 }))
 
-export function MobileNavigation() {
+export const MobileNavigation = () => {
 	let isInsideMobileNavigation = useIsInsideMobileNavigation()
 	let { isOpen, toggle, close } = useMobileNavigationStore()
 	let ToggleIcon = isOpen ? XIcon : MenuIcon

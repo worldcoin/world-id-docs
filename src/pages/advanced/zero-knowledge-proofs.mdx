@@ -14,7 +14,7 @@ A ZKP should have the following properties:
 
 ## How does World ID use ZKPs?
 
-After the orb verifies you are a unique human, your identity commitment is added to a public list of verified humans. Everytime you want to prove you are a unique person, your Worldcoin app generates a ZKP that proves you know the secret to **an** identity commitment, without revealing which one. Holistically, World ID ZKPs prove these three things:
+After the orb verifies you are a unique human, your identity commitment is added to a public list of verified humans. Everytime you want to prove you are a unique person, your World app generates a ZKP that proves you know the secret to **an** identity commitment, without revealing which one. Holistically, World ID ZKPs prove these three things:
 
 - Membership: "I'm a member of this group". You prove you are a member of the verified identities list.
 - One-shot: "I haven't done this before _in this context_". This is achieved through [nullifiers](/about/glossary#nullifier-hash). Nullifiers are random numbers, unique to each user for each context (i.e. for each action ID).

@@ -1,3 +1,0 @@
-# The Protocol
-
-Coming soon.

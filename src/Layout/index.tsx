@@ -18,6 +18,7 @@ import { TableOfContent } from './TableOfContent'
 import { styles } from 'common/helpers/styles'
 import Head from 'next/head'
 import { TOC } from 'common/types'
+import StickyBox from "react-sticky-box";
 
 export const Layout = memo(function Layout(props: {
   children: ReactElement<any, string | JSXElementConstructor<any>>
@@ -59,9 +60,11 @@ export const Layout = memo(function Layout(props: {
             'grid items-start py-11 lg:grid-cols-auto/fr/auto'
           )}
         >
-          <aside className="sticky top-20 hidden lg:block lg:pr-4 2xl:pr-16">
-            <Navbar items={navItems} />
-          </aside>
+          <StickyBox offsetTop={65+16} offsetBottom={20}>
+            <aside className="hidden lg:block lg:pr-4 2xl:pr-16">
+              <Navbar items={navItems} />
+            </aside>
+          </StickyBox>
 
           <main
             ref={mainRef}
@@ -131,9 +134,12 @@ export const Layout = memo(function Layout(props: {
             </dl>
           </main>
 
-          <aside className="sticky top-20 hidden gap-y-6 lg:grid lg:pl-8 2xl:pl-16">
-            <TableOfContent items={props.tableOfContents} />
-          </aside>
+          <StickyBox offsetTop={65+16} offsetBottom={20}>
+            <aside className="hidden gap-y-4 lg:grid lg:pl-8 2xl:pl-16">
+              <TableOfContent items={props.tableOfContents} />
+            </aside>
+          </StickyBox>
+
         </div>
       </div>
     </Fragment>

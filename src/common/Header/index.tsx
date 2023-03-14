@@ -62,7 +62,19 @@ export const Header = memo(function Header(props: {
       <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:flex-grow">
         <a
           className="flex items-center gap-x-1 whitespace-nowrap text-14 leading-[1px] text-191c20"
+          href="/waitlist"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Join the Waitlist
+          <Icon name="maximize-rounded" className="h-4 w-4" />
+        </a>
+
+        <a
+          className="flex items-center gap-x-1 whitespace-nowrap text-14 leading-[1px] text-191c20"
           href="https://developer.worldcoin.org/"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Developer Portal
           <Icon name="maximize-rounded" className="h-4 w-4" />

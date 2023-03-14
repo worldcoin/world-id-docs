@@ -1,5 +1,5 @@
 import 'styles/global.css'
-import { MDXProvider } from '@mdx-js/react'
+import { MDXProvider, useMDXComponents } from '@mdx-js/react'
 import slugify from '@sindresorhus/slugify'
 import { ReactNode, useMemo } from 'react'
 import { AppProps } from 'next/app'
@@ -17,23 +17,12 @@ import { MDXComponents } from 'mdx/types'
 import Clippy from 'clippy-widget'
 
 const components: MDXComponents = {
-  h2: (props: { children?: ReactNode }) => (
-    <h2 className="" id={slugify(props.children as string)}>
-      {props.children}
-    </h2>
-  ),
-
-  h3: (props: { children?: ReactNode }) => (
-    <h3
-      id={slugify(
-        (Array.isArray(props.children) ? props.children : [props.children])
-          .map((c) => c)
-          .join(' ')
-      )}
-    >
-      {props.children}
-    </h3>
-  ),
+  h2: (props: { children?: ReactNode }) => {
+    return <h2 {...props}/>
+  },
+  h3: (props: { children?: ReactNode }) => {
+    return <h3 {...props}/>
+  },
   code: (props) => (
     <span className="rounded bg-white/40 p-0.5 px-1 outline outline-1 outline-black/10">
       <code {...props} />

@@ -1,13 +1,17 @@
-const { remarkCodeHike } = require('@code-hike/mdx')
-const theme = require('shiki/themes/min-light.json')
+import createMDX from "@next/mdx";
+import { remarkCodeHike } from '@code-hike/mdx'
+import rehypeSlug from "rehype-slug";
+//import theme from 'shiki/themes/min-light.json' // not working
 
-/** @type {import('@next/mdx')} */
-const withMDX = require('@next/mdx')({
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const theme = require("shiki/themes/min-light.json");
+
+const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [[remarkCodeHike, { theme }]],
-    // cspell:disable-next-line
-    rehypePlugins: [],
+    rehypePlugins: [rehypeSlug],
     providerImportSource: '@mdx-js/react',
   },
 })
@@ -80,4 +84,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withMDX(nextConfig)
+export default withMDX(nextConfig)

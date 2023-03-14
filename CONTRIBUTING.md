@@ -33,6 +33,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lucemans"><img src="https://avatars.githubusercontent.com/u/10339043?v=4?s=75" width="75px;" alt="Luc"/><br /><sub><b>Luc</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=lucemans" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://maxpetretta.com"><img src="https://avatars.githubusercontent.com/u/19291506?v=4?s=75" width="75px;" alt="Max Petretta"/><br /><sub><b>Max Petretta</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=maxpetretta" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/denis-ottofeller"><img src="https://avatars.githubusercontent.com/u/102026658?v=4?s=75" width="75px;" alt="Denis Bushaev"/><br /><sub><b>Denis Bushaev</b></sub></a><br /><a href="https://github.com/worldcoin/world-id-docs/commits?author=denis-ottofeller" title="Code">💻</a></td>
+    </tr>
   </tbody>
 </table>
 

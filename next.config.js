@@ -1,7 +1,7 @@
 const { remarkCodeHike } = require('@code-hike/mdx')
 const theme = require('shiki/themes/min-light.json')
 
-// cspell:ignore
+/** @type {import('@next/mdx')} */
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
@@ -22,6 +22,16 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      {
+        source: '/js',
+        destination: '/idkit',
+        permanent: true,
+      },
+      {
+        source: '/js/:slug',
+        destination: '/idkit/:slug',
+        permanent: true,
+      },
       {
         source: '/protocol',
         destination: '/id/protocol',
@@ -51,6 +61,12 @@ const nextConfig = {
         source: '/waitlist',
         destination: 'https://toolsforhumanity.typeform.com/sdk-waitlist',
         permanent: true,
+      },
+      {
+        source: '/use-cases',
+        destination:
+          'https://worldcoin.notion.site/World-ID-df11c0d2a42b4890a1e9e8d15b9f550f',
+        permanent: false,
       },
     ]
   },

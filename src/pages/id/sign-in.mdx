@@ -76,8 +76,6 @@ If using implicit flow, the redirect URL will contain the following params:
 
 To verify an ID token, fetch the public key from the `/jwks` endpoint. You can read more about this process at the [Auth0 blog](https://auth0.com/blog/navigating-rs256-and-jwks/) or [JWT.io](https://jwt.io/), but one example method could be:
 
-{/* cSpell:disable */}
-
 ```ts
 import * as jose from 'jose'
 
@@ -92,10 +90,8 @@ const verifyJwt = (token: string) => {
 	return payload
 }
 
-verifyJwt('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...')
+verifyJwt('eyJhbGciOiJSUzI1NiIsInR5cCI6Ikp.eyAs.XVCJ9...')
 ```
-
-{/* cSpell:enable */}
 
 ### Custom Sign In
 
@@ -258,13 +254,13 @@ Generate credentials from a World ID zero-knowledge proof (for use with [IDKit](
         A random string used to prevent replay attacks.
       </Property>
       <Property name="nullifier_hash" type="string">
-        The ZKP's nullifier hash, as returned by [IDKit](/idkit).
+        The unique user identifier (also the `sub`). Unique for each app. As returned by [IDKit](/idkit).
       </Property>
       <Property name="proof" type="string">
-        The zero-knowledge proof, as returned by [IDKit](/idkit).
+        The Zero-Knowledge proof (ZKP), as returned by [IDKit](/idkit).
       </Property>
       <Property name="merkle_root" type="string">
-        The ZKP's Merkle root, as returned by [IDKit](/idkit).
+        Part of the ZKP, as returned by [IDKit](/idkit).
       </Property>
       <Property name="credential_type" type="string">
         The type of credential this proof is for. Can be either `orb` or `phone`.
@@ -357,13 +353,17 @@ Exchanges an authorization code for an `id_token` for the given user.
 
 </Col><Col sticky>
 
+{/* cSpell:disable */}
+
 <CodeGroup title="Request" tag="POST" label="/token">
 ```shell {{ title: 'cURL' }}
 curl -X POST https://id.worldcoin.org/token \
-     -H "Authorization: Basic YXBwX3N0YWdpbmdfNzU1MGU4MjkwODJmYzU1OGUxMTJlMDYyMGMxYzdhNT..." \
+     -H "Authorization: Basic YXBwXzU1MGU4MjkwODJmYzU1OGUxMTJlMDYyMGMxYzdhNT..." \
      -H "Content-Type: application/x-www-form-urlencoded" \
      -d "code=23e5edda0f731dfdddace390&grant_type=authorization_code"
 ```
+
+{/* cSpell:enable */}
 
 ```js
 const data = new URLSearchParams()
@@ -384,11 +384,11 @@ fetch('https://id.worldcoin.org/token', {
 
 ```json {{ title: "Response" }}
 {
-	"access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOG...",
+	"access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a1.ey8yZmVi.ZjY3MDc3N2UyY2NlNzY5YzUxOG...",
 	"token_type": "Bearer",
 	"expires_in": 3600,
 	"scope": "openid",
-	"id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3MD..."
+	"id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a1.ey8yZmVi.ZjY3MDc3N2UyY2NlNzY5YzUxOG..."
 }
 ```
 
@@ -425,13 +425,17 @@ Validates the given access token is active for the user.
 
 </Col><Col sticky>
 
+{/* cSpell:disable */}
+
 <CodeGroup title="Request" tag="POST" label="/introspect">
 ```shell {{ title: 'cURL' }}
 curl -X POST https://id.worldcoin.org/introspect \
-  -H "Authorization: Basic YXBwX3N0YWdpbmdfNzU1MGU4MjkwODJmYzU1OGUxMTJlMDYyMGMxYzdhNT..." \
+  -H "Authorization: Basic YXBwXzU1MGU4MjkwODJmYzU1OGUxMTJlMDYyMGMxYzdhNT..." \
   -H "Content-Type: application/x-www-form-urlencoded" \
   --data-urlencode "token=eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlNzY5YzUxOGM3MDNkNTNjMStN..."
 ```
+
+{/* cSpell:enable */}
 
 ```js
 fetch('https://id.worldcoin.org/introspect', {
@@ -481,7 +485,7 @@ Retrieves all user information, based on the approved scopes, with the given acc
 <CodeGroup title="Request" tag="POST" label="/userinfo">
 ```shell {{ title: 'cURL' }}
 curl -X POST https://id.worldcoin.org/userinfo \
--H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3a18yZmViZjY3MDc3N2UyY2NlN..."
+-H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZ.eyCI6I.mp3a18yZmViZjY3MDc3N2UyY2NlN..."
 ```
 
 ```js

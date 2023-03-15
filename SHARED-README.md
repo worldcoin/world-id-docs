@@ -88,13 +88,6 @@ Want to see World ID in action? We have a bunch of [Examples](https://id.worldco
       <img />
     </picture>
   </a>
-  <a href="https://example.id.worldcoin.org/">
-    <picture align="center">
-      <source media="(prefers-color-scheme: dark)" srcset="./public/images/shared-readme/examples/mesha-dark.png" width="230px" />
-      <source media="(prefers-color-scheme: light)" srcset="./public/images/shared-readme/examples/mesha-light.png" width="230px" />
-      <img />
-    </picture>
-  </a>
 </div>
 
 ## 📄 Documentation

@@ -7,7 +7,8 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"typecheck": "tsc"
+		"typecheck": "tsc",
+		"spellcheck": "cspell **/*.{js,ts,tsx,md,mdx,json}"
 	},
 	"browserslist": "defaults, not ie <= 11",
 	"dependencies": {
@@ -43,6 +44,7 @@
 		"@types/node": "^18.15.3",
 		"@types/react": "^18.0.28",
 		"@types/react-dom": "^18.0.11",
+		"cspell": "^6.29.3",
 		"eslint": "8.26.0",
 		"eslint-config-next": "13.0.2",
 		"prettier": "^2.7.1",

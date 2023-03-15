@@ -97,7 +97,7 @@ You'll need your app ID (also called client ID) later. It looks something like {
     import { WorldIDWidget } from '@worldcoin/id'
 
     <IDKitWidget
-      app_id="app_GBkZ1KlVUdFTjeMXskrX" // obtained from the Developer Portal
+      app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // obtained from the Developer Portal
       action="vote_1" // this is your action identifier from the Developer Portal (can also be created on the fly)
       signal="user_value" // any arbitrary value the user is committing to, e.g. for a voting app this could be the vote
       onSuccess={onSuccess}
@@ -118,14 +118,13 @@ You'll need your app ID (also called client ID) later. It looks something like {
       [on-chain](/advanced/on-chain) section.
     </Note>
 
-    <CodeGroup title="API Verification" tag="POST" label="/api/v1/verify/app_GBkZ1KlVUdFTjeMXskrX">
+    <CodeGroup title="API Verification" tag="POST" label="/api/v1/verify/app_GBkZ1KlVUdFTjeMXKlVUdFT">
 
     ```json {{ title: "Request" }}
     {
         "action": "vote_1",
         "signal": "user_value",
         "credential_type": "orb",
-        "app_id": "app_GBkZ1KlVUdFTjeMXskrX",
         "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
         "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
         "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"

@@ -23,8 +23,8 @@ const SearchResult: FC<{ result: References[0]; resultIndex: number }> = ({ resu
 		value={result.path}
 		className={({ active }) =>
 			clsx(
-				'group block cursor-default px-4 py-3',
-				active && 'bg-zinc-50 dark:bg-zinc-800/50',
+				active && 'bg-zinc-50',
+				'group block px-4 py-3 hover:bg-zinc-50 cursor-pointer',
 				resultIndex > 0 && 'border-t border-zinc-100 dark:border-zinc-800'
 			)
 		}
@@ -90,8 +90,8 @@ const SearchResults: FC<{ hasSearched: boolean; isLoading: boolean; query: strin
 
 const SearchInput = forwardRef<
 	HTMLInputElement,
-	{ isLoading: boolean; query: string; onChange: (value: string) => void }
->(({ isLoading, query, onChange }, inputRef) => {
+	{ isLoading: boolean; query: string; onChange: (value: string) => void; reset: () => void }
+>(({ isLoading, query, onChange, reset }, inputRef) => {
 	return (
 		<div className="group relative flex h-12">
 			<SearchIcon className="pointer-events-none absolute left-3 top-0 h-full w-5 stroke-zinc-500" />
@@ -103,7 +103,7 @@ const SearchInput = forwardRef<
 				)}
 				value={query}
 				onKeyDown={(event: ReactKeyboardEvent<HTMLInputElement>) => {
-					if (event.key === 'Escape') onChange('')
+					if (event.key === 'Escape') reset()
 				}}
 				onChange={event => onChange(event.target.value)}
 			/>
@@ -137,7 +137,12 @@ const SearchDialog: FC<{ open: boolean; setOpen: (open: boolean) => void; classN
 		setLoading(true)
 		search(debouncedQuery).then(results => {
 			setLoading(false)
-			setResults(results)
+			setResults(
+				results.filter(
+					(item, i, arr) =>
+						arr.findIndex(t => (t.title || t.page_title) === (item.title || t.page_title)) === i
+				)
+			)
 			setHasSearched(true)
 		})
 	}, [debouncedQuery])
@@ -206,7 +211,7 @@ const SearchDialog: FC<{ open: boolean; setOpen: (open: boolean) => void; classN
 					>
 						<Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
 							<Combobox onChange={(path: string) => void router.push(path)}>
-								<SearchInput query={query} onChange={setQuery} isLoading={isLoading} />
+								<SearchInput query={query} onChange={setQuery} isLoading={isLoading} reset={reset} />
 
 								<SearchResults
 									query={query}

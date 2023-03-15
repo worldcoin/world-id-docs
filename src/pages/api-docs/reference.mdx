@@ -16,13 +16,13 @@ Enables you to verify a World ID proof for a **Cloud action.** To ensure [human-
         Same signal as passed to IDKit.
       </Property>
       <Property name="nullifier_hash" type="string">
-        The ZKP's nullifier hash, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+        The unique user identifier (called the nullifier hash in the ZKP), as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
       </Property>
       <Property name="proof" type="string">
         The zero-knowledge proof, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
       </Property>
       <Property name="merkle_root" type="string">
-        The ZKP's Merkle root, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+        Part of the ZKP, the hash of the Merkle root that proves membership to the set of credentials. As provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
       </Property>
       <Property name="credential_type" type="string">
         The credential type, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
@@ -228,6 +228,8 @@ fetch('https://developer.worldcoin.org/api/v1/jwks')
 
 </CodeGroup>
 
+{/* cSpell:disable */}
+
 ```json {{ title: "Response" }}
 {
 	"keys": [
@@ -240,6 +242,8 @@ fetch('https://developer.worldcoin.org/api/v1/jwks')
 	]
 }
 ```
+
+{/* cSpell:enable */}
 
 </Col></Row>
 

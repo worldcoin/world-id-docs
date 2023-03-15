@@ -49,6 +49,7 @@
 		"eslint-config-next": "13.0.2",
 		"prettier": "^2.7.1",
 		"prettier-plugin-sort-imports-desc": "^1.0.0",
-		"prettier-plugin-tailwindcss": "^0.1.13"
+		"prettier-plugin-tailwindcss": "^0.1.13",
+		"ts-node": "^10.9.1"
 	}
 }

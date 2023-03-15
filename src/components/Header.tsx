@@ -12,13 +12,17 @@ const TopLevelNavItem: FC<
 	PropsWithChildren<{
 		href: string
 		target?: string
+		className?: string
 	}>
-> = ({ href, children, target }) => (
+> = ({ href, children, target, className }) => (
 	<li>
 		<Link
 			href={href}
 			target={target}
-			className="text-sm leading-5 text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+			className={clsx(
+				'text-sm leading-5 text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white',
+				className
+			)}
 		>
 			{children}
 		</Link>
@@ -70,11 +74,15 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 			</div>
 			<div className="flex items-center gap-5">
 				<nav className="hidden md:block">
-					<ul role="list" className="flex items-center gap-8">
-						<TopLevelNavItem href="https://docs.worldcoin.org/waitlist" target="_blank">
+					<ul role="list" className="flex items-center gap-4">
+						<TopLevelNavItem
+							className="bg-gray-100 hover:bg-gray-100/50 py-[7px] px-4 rounded-lg border border-gray-200"
+							href="https://docs.worldcoin.org/waitlist"
+							target="_blank"
+						>
 							Join the Waitlist
 						</TopLevelNavItem>
-						<Button href="https://developer.worldcoin.org" target="_blank">
+						<Button className="rounded-lg" href="https://developer.worldcoin.org" target="_blank">
 							Developer Portal
 						</Button>
 					</ul>

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import Link from 'next/link'
+import { Link } from '@/components/Link'
 import ArrowIcon from './icons/ArrowIcon'
 import type { AllHTMLAttributes, FC, PropsWithChildren } from 'react'
 

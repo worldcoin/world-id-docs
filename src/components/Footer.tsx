@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { Link } from '@/components/Link'
 import GitHubIcon from './icons/GitHubIcon'
 import { Button } from '@/components/Button'
 import TwitterIcon from './icons/TwitterIcon'

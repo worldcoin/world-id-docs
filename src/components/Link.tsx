@@ -10,12 +10,7 @@ export const Link: FC<PropsWithChildren<Omit<HTMLProps<HTMLAnchorElement>, 'ref'
 	return (
 		<>
 			{external && (
-				<a
-					target={props.target ?? '_blank'}
-					rel={props.rel ?? 'noreferrer'}
-					href={props.href ?? '!#'}
-					{...props}
-				>
+				<a target={props.target ?? '_blank'} href={props.href ?? '!#'} {...props}>
 					{props.children}
 				</a>
 			)}

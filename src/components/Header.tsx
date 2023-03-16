@@ -79,7 +79,7 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 					<ul role="list" className="flex items-center gap-4">
 						<TopLevelNavItem
 							className="bg-gray-100 hover:bg-gray-100/50 py-[7px] px-4 rounded-lg border border-gray-200"
-							href="https://toolsforhumanity.typeform.com/sdk-waitlist"
+							href={`${process.env.NEXT_PUBLIC_APP_URL}/waitlist`}
 							target="_blank"
 						>
 							Join the Waitlist

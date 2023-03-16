@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import Link from 'next/link'
+import { Link } from '@/components/Link'
 import { Heading } from '@/components/Heading'
 import { FC, Fragment, PropsWithChildren, ReactNode } from 'react'
 export { Button } from '@/components/Button'

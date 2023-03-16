@@ -1,7 +1,7 @@
 import clsx from 'clsx'
-import Link from 'next/link'
 import { Button } from './Button'
 import Logo from '@/components/Logo'
+import { Link } from '@/components/Link'
 import GitHubIcon from './icons/GitHubIcon'
 import { MobileSearch, Search } from './Search'
 import { useMobileNavigationStore } from '@/components/MobileNavigation'
@@ -79,7 +79,7 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 					<ul role="list" className="flex items-center gap-4">
 						<TopLevelNavItem
 							className="bg-gray-100 hover:bg-gray-100/50 py-[7px] px-4 rounded-lg border border-gray-200"
-							href="https://docs.worldcoin.org/waitlist"
+							href="https://toolsforhumanity.typeform.com/sdk-waitlist"
 							target="_blank"
 						>
 							Join the Waitlist

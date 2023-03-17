@@ -1,5 +1,11 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+const gridTemplates = {
+	'1fr/auto': '1fr auto',
+	'auto/1fr': 'auto 1fr',
+	'auto/1fr/auto': 'auto 1fr auto',
+}
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ['./{src,mdx}/**/*.{js,mjs,jsx,mdx,tsx,ts}'],
@@ -23,8 +29,16 @@ module.exports = {
 		},
 		typography: require('./typography'),
 		extend: {
+			gridTemplateColumns: gridTemplates,
+			gridTemplateRows: gridTemplates,
 			colors: {
 				primary: '#4940E0',
+				gray: {
+					25: '#FBFBFC',
+					100: '#F3F4F5',
+					500: '#657080',
+					900: '#191C20',
+				},
 			},
 			boxShadow: {
 				glow: '0 0 4px rgb(0 0 0 / 0.1)',

@@ -1,8 +1,8 @@
 import 'focus-visible'
-import { FC } from 'react'
 import Head from 'next/head'
 import '@/styles/styles.css'
 import Clippy from 'clippy-widget'
+import { FC, useMemo } from 'react'
 import { AppProps } from 'next/app'
 import { MDXProvider } from '@mdx-js/react'
 import { Layout } from '@/components/Layout'
@@ -20,14 +20,15 @@ Router.events.on('hashChangeStart', onRouteChange)
 const App: FC<AppProps> = ({ Component, pageProps }) => {
 	let router = useRouter()
 
+	const title = useMemo(() => {
+		if (router.pathname === '/' || !pageProps.title) return 'Worldcoin Docs'
+		return `${pageProps.title} | Worldcoin Docs`
+	}, [pageProps.title, router.pathname])
+
 	return (
 		<>
 			<Head>
-				{router.pathname === '/' ? (
-					<title>Worldcoin Docs</title>
-				) : (
-					<title>{`${pageProps.title} - Worldcoin Docs`}</title>
-				)}
+				<title>{title}</title>
 				<meta name="description" content={pageProps.description} />
 
 				<link rel="manifest" href="/favicon/site.webmanifest" />

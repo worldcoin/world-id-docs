@@ -21,8 +21,8 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 	let router = useRouter()
 
 	const title = useMemo(() => {
-		if (router.pathname === '/' || !pageProps.title) return 'World ID'
-		return `${pageProps.title} - World ID`
+		if (router.pathname === '/' || !pageProps.title) return 'Worldcoin Docs'
+		return `${pageProps.title} | Worldcoin Docs`
 	}, [pageProps.title, router.pathname])
 
 	return (

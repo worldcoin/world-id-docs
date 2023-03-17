@@ -4,8 +4,8 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
-		"postbuild": "next-sitemap",
+		"build": "next build && pnpm sitemap",
+		"sitemap": "next-sitemap",
 		"start": "next start",
 		"lint": "next lint",
 		"typecheck": "tsc",

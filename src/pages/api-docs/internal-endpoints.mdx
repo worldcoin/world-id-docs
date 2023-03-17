@@ -31,7 +31,7 @@ This endpoint is used to authenticate a user and obtain a JWT token. The token i
 <CodeGroup>
 
 ```bash {{ title: "cURL" }}
-curl -X POST 'https://id.worldcoin.org/api/v1/login' \
+curl -X POST '/api/v1/login' \
     -H 'Content-Type: application/json' \
     -d '{
         "email": "alice@worldidbot.com",
@@ -40,7 +40,7 @@ curl -X POST 'https://id.worldcoin.org/api/v1/login' \
 ```
 
 ```js
-fetch('https://id.worldcoin.org/api/v1/login', {
+fetch('/api/v1/login', {
 	method: 'POST',
 	headers: {
 		'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ This endpoint is used to register a new user. The user will receive an email wit
 <CodeGroup title="Request" tag="POST" label="/api/v1/signup">
 
 ```bash {{ title: "cURL" }}
-curl -X POST "https://example.com/api/v1/signup" \
+curl -X POST "/api/v1/signup" \
      -H "Content-Type: application/json" \
      -d '{
          "email": "bob@worldidbot.com",
@@ -113,7 +113,7 @@ curl -X POST "https://example.com/api/v1/signup" \
 ```
 
 ```js
-fetch('https://id.worldcoin.org/api/v1/signup', {
+fetch('/api/v1/signup', {
 	method: 'POST',
 	headers: {
 		'Content-Type': 'application/json',
@@ -171,7 +171,7 @@ Fetches the Semaphore contract addresses from an ENS lookup and caches them loca
 <CodeGroup title="Request" tag="POST" label="/api/_ens">
 
 ```bash {{ title: "cURL" }}
-curl -X POST "<host>/api/_ens" \
+curl -X POST "/api/_ens" \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer <secret>"
 
@@ -219,13 +219,13 @@ Generates a new JWK to use for signing verification JWTs. Old keys are not rotat
 <CodeGroup title="Request" tag="POST" label="/api/_jwk-gen">
 
 ```bash {{ title: "cURL" }}
-curl -X POST "https://id.worldcoin.org/api/_jwk-gen" \
+curl -X POST "/api/_jwk-gen" \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer <secret>"
 ```
 
 ```js
-fetch('https://id.worldcoin.org/api/_jwk-gen', {
+fetch('/api/_jwk-gen', {
 	method: 'POST',
 	headers: {
 		'Content-Type': 'application/json',

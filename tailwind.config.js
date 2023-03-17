@@ -33,6 +33,12 @@ module.exports = {
 			gridTemplateRows: gridTemplates,
 			colors: {
 				primary: '#4940E0',
+				gray: {
+					25: '#FBFBFC',
+					100: '#F3F4F5',
+					500: '#657080',
+					900: '#191C20',
+				},
 			},
 			boxShadow: {
 				glow: '0 0 4px rgb(0 0 0 / 0.1)',

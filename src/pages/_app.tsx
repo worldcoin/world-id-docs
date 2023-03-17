@@ -23,7 +23,11 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 	return (
 		<>
 			<Head>
-				{router.pathname === '/' ? <title>World ID</title> : <title>{`${pageProps.title} - World ID`}</title>}
+				{router.pathname === '/' ? (
+					<title>Worldcoin Docs</title>
+				) : (
+					<title>{`${pageProps.title} - Worldcoin Docs`}</title>
+				)}
 				<meta name="description" content={pageProps.description} />
 
 				<link rel="manifest" href="/favicon/site.webmanifest" />

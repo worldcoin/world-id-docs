@@ -10,23 +10,19 @@ html {
 			@apply !normal-case focus:!outline-none;
 		}
 
-		& .onetrust-pc-dark-filter {
-			@apply !hidden;
-		}
-
 		& #onetrust-banner-sdk.otFlat {
 			@apply top-0 !max-h-full;
 		}
 
 		/* Dialog modal styles */
 		& #onetrust-banner-sdk {
-			@apply bg-black/50 focus:!outline-none;
+			@apply pointer-events-none bg-transparent focus:!outline-none;
 
 			& > div {
-				@apply bg-white fixed left-[unset] right-0 bottom-0 rounded-md sm:mx-6 sm:mb-6 lg:!max-w-xl;
+				@apply pointer-events-auto fixed left-0 right-0 bottom-0 bg-black;
 
 				& #onetrust-close-btn-container {
-					@apply !right-0 !top-0 h-11 w-11 !transform-none;
+					@apply hidden;
 
 					& .onetrust-close-btn-handler {
 						@apply !right-0 !top-0;
@@ -34,11 +30,11 @@ html {
 				}
 
 				& .ot-sdk-container {
-					@apply !px-0 after:!content-none;
+					@apply !w-full !px-0 after:!content-none;
 				}
 
 				& .ot-sdk-row {
-					@apply py-4.5 !grid justify-items-center gap-y-6 !p-4 px-4 after:!content-none sm:gap-y-8;
+					@apply !grid justify-items-center gap-y-6 !p-5 px-4 py-4.5 after:!content-none sm:gap-y-8 lg:grid-cols-1fr/auto;
 
 					& #onetrust-group-container {
 						@apply !m-0 !w-full;
@@ -47,24 +43,24 @@ html {
 							@apply m-0;
 
 							& #onetrust-policy-text {
-								@apply !text-black !text-sm !my-0 !ml-0 !mr-7 !font-sans !leading-normal lg:!mr-16;
+								@apply !font-sans !text-base !my-0 !ml-0 !mr-7 !leading-normal text-white xl:!mr-44;
 							}
 						}
 					}
 
 					& #onetrust-button-group-parent {
-						@apply !static !m-0 !w-full !transform-none !px-0;
+						@apply !static !m-0 !flex !w-full !transform-none !items-center !px-0;
 
 						& #onetrust-button-group {
-							@apply !mt-0 !flex !w-full !flex-col sm:!flex-row sm:justify-between;
+							@apply !m-0 !flex !w-full !flex-col gap-2 sm:!w-auto sm:!flex-row lg:justify-between;
 
 							& #onetrust-pc-btn-handler.cookie-setting-link {
-								@apply text-black !text-2xs !mx-0 !mb-0 !mt-6 !min-w-0 bg-transparent !p-0 !text-center font-normal !leading-normal !outline-none transition-colors duration-200 hover:text-opacity-80 sm:!mt-0 sm:!text-left;
+								@apply !text-sm !mx-0 !mb-0 !mt-0 !min-w-0 bg-transparent !py-3 !px-4 !text-center font-normal !leading-normal text-white !outline-none transition-colors duration-200 hover:text-opacity-80 sm:!text-left;
 							}
 
 							& #onetrust-accept-btn-handler,
 							& #onetrust-reject-all-handler {
-								@apply !bg-black !text-2xs text-white -order-1 !m-0 !h-auto !rounded-full !border-none !py-3 !px-4 !font-normal !leading-3 !tracking-normal !transition-colors !duration-200 hover:!bg-opacity-80 hover:!opacity-100 sm:order-none;
+								@apply !text-sm -order-1 !m-0 !h-auto !rounded-lg !border-none !bg-white !py-3 !px-4 !font-normal !leading-3 !tracking-normal text-black !transition-colors !duration-200 hover:!bg-opacity-80 hover:!opacity-100 sm:order-none;
 							}
 						}
 					}
@@ -74,7 +70,7 @@ html {
 
 		/* Main modal styles */
 		& #onetrust-pc-sdk {
-			@apply top-[unset] bottom-0 m-0 h-[590px] max-h-[95%] !w-full !min-w-0 max-w-full !rounded-lg sm:bottom-6 sm:right-6 sm:left-6 sm:max-w-[calc(100%_-_24px_*_2)] lg:left-[unset] lg:!max-w-xl;
+			@apply top-1/2 m-auto h-[590px] !w-full !min-w-0 max-w-[590px] -translate-y-1/2 !rounded-lg;
 
 			& .ot-plus-minus {
 				& span {
@@ -102,18 +98,18 @@ html {
 
 			& #ot-category-title,
 			#ot-pc-title {
-				@apply !text-black !text-base !m-0 !p-0 !font-sans !font-medium !leading-normal;
+				@apply !font-sans !text-base !m-0 !p-0 !font-medium !leading-normal !text-black;
 			}
 
 			& #ot-pc-content {
 				@apply !top-4 !bottom-[70px] !m-0 !w-auto pt-0 !pl-4 pr-[6px];
 
 				& #ot-pc-desc {
-					@apply !text-black !text-sm !mb-0 pt-4 !font-sans !leading-normal;
+					@apply !font-sans !text-sm !mb-0 pt-4 !leading-normal !text-black;
 				}
 
 				& #accept-recommended-btn-handler {
-					@apply !text-2xs !bg-black !text-white !mt-6 !mb-8 !mr-0 !h-auto max-w-none !rounded-full !border-0 !py-3 !px-4 !font-normal !leading-3 !tracking-normal !transition-all hover:!opacity-80;
+					@apply !text-2xs !mt-6 !mb-8 !mr-0 !h-auto max-w-none !rounded-lg !border-none !bg-black !py-3 !px-4 !font-normal !leading-3 !tracking-normal !text-white !transition-all hover:!opacity-80;
 				}
 
 				& .ot-sdk-row {
@@ -131,14 +127,14 @@ html {
 						@apply border-gray-100 !rounded-none !border-[0.5px];
 
 						& .ot-acc-hdr {
-							@apply grid-cols-auto/1fr/auto !grid;
+							@apply !grid grid-cols-auto/1fr/auto;
 
 							& .ot-cat-header {
-								@apply !text-black !text-2xs !min-h-0 w-full !font-sans !font-medium;
+								@apply !font-sans !text-2xs !min-h-0 w-full !font-medium !text-black;
 							}
 
 							& .ot-always-active {
-								@apply !text-2xs !text-primary !font-sans !font-medium;
+								@apply !font-sans !text-2xs !font-medium !text-primary;
 							}
 
 							& .ot-tgl {
@@ -155,13 +151,13 @@ html {
 								}
 
 								& input:checked + .ot-switch .ot-switch-nob {
-									@apply bg-black !rounded-full border-transparent !p-0;
+									@apply !rounded-full border-transparent bg-black !p-0;
 								}
 							}
 						}
 
 						& .ot-acc-txt p {
-							@apply !text-black !text-2xs !font-sans !leading-normal;
+							@apply !font-sans !text-2xs !leading-normal !text-black;
 						}
 					}
 				}
@@ -169,10 +165,10 @@ html {
 
 			& .ot-pc-footer {
 				& .ot-btn-container {
-					@apply py-4.5 !px-4;
+					@apply !px-4 py-4.5;
 
 					& .save-preference-btn-handler {
-						@apply !text-2xs !bg-black !text-white !m-0 !h-auto !rounded-full !border-none !py-3 !px-4 !font-normal !leading-3 !tracking-normal !transition-colors !duration-200 hover:!bg-opacity-80 hover:!opacity-100;
+						@apply !text-2xs !m-0 !h-auto !rounded-lg !border-none !bg-black !py-3 !px-4 !font-normal !leading-3 !tracking-normal !text-white !transition-colors !duration-200 hover:!bg-opacity-80 hover:!opacity-100;
 					}
 				}
 

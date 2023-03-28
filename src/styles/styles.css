@@ -1,3 +1,5 @@
+@import './cookiepro.css';
+
 :root {
 	--shiki-color-text: theme('colors.white');
 	--shiki-token-constant: theme('colors.emerald.300');

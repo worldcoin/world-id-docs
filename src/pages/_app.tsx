@@ -9,6 +9,8 @@ import { Layout } from '@/components/Layout'
 import { Router, useRouter } from 'next/router'
 import * as mdxComponents from '@/components/mdx'
 import { useMobileNavigationStore } from '@/components/MobileNavigation'
+import posthog from 'posthog-js'
+import { usePostHog } from '@/lib/use-posthog'
 
 function onRouteChange() {
 	useMobileNavigationStore.getState().close()
@@ -17,7 +19,18 @@ function onRouteChange() {
 Router.events.on('routeChangeStart', onRouteChange)
 Router.events.on('hashChangeStart', onRouteChange)
 
+if (typeof window !== 'undefined') {
+	posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+		api_host: 'https://app.posthog.com',
+		// Disable in development
+		loaded: (posthog) => {
+			if (process.env.NODE_ENV === 'development') posthog.opt_out_capturing()
+		}
+	})
+}
+
 const App: FC<AppProps> = ({ Component, pageProps }) => {
+	usePostHog()
 	let router = useRouter()
 
 	const title = useMemo(() => {

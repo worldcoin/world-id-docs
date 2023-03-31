@@ -1,6 +1,16 @@
 <img src="/public/images/shared-readme/readme-header.png" alt="" />
 
-# Worldcoin Technical Docs
+<a href="https://worldcoin.org">
+  <p>
+    <picture>
+      <source media="(prefers-color-scheme: light)" srcset="worldcoin-logo.svg" height="48" />
+      <source media="(prefers-color-scheme: dark)" srcset="worldcoin-logo-white.svg" height="48" />
+      <img />
+    </picture>
+  </p>
+</a>
+
+# Worldcoin Documentation
 
 This repository contains the technical documentation for the Worldcoin SDK and the World ID Protocol.
 
@@ -13,19 +23,11 @@ World ID is the privacy-first identity protocol that brings global proof of pers
 
 World ID lets you seamlessly integrate authentication into your app that verifies accounts belong to real persons through [Sign in with Worldcoin](https://docs.worldcoin.org/id/sign-in). For additional flexibility and cases where you need extreme privacy, [Anonymous Actions](https://docs.worldcoin.org/id/anonymous-actions) lets you verify users in a way that cannot be tracked across verifications.
 
+Follow the [Quick Start](https://docs.worldcoin.org/quick-start) for the fastest way to get started.
+
 ## 📄 Documentation
 
-All the technical docs for the Wordcoin SDK, World ID Protocol, examples, guides can be found at https://docs.worldcoin.org/.
-
-<a href="https://worldcoin.org">
-  <p align="center">
-    <picture align="center">
-      <source media="(prefers-color-scheme: light)" srcset="worldcoin-logo.svg" height="48" />
-      <source media="(prefers-color-scheme: dark)" srcset="worldcoin-logo-white.svg" height="48" />
-      <img />
-    </picture>
-  </p>
-</a>
+All the technical docs for the Wordcoin SDK, World ID Protocol, examples, guides can be found at https://docs.worldcoin.org/
 
 <!-- WORLD-ID-SHARED-README-TAG:END -->
 

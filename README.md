@@ -52,10 +52,10 @@ To develop locally and contribute to these docs, you can follow these steps afte
 Thanks to all [the contributors](CONTRIBUTING.md) who have made the Worldcoin SDK possible!
 
 <a href="https://worldcoin.org">
-  <p align="center" style="margin-top: 48px;">
+  <p align="center" style="margin-top: 48px;"> Powered by
     <picture align="center">
-      <source media="(prefers-color-scheme: light)" srcset="worldcoin-logo.svg" height="48" />
-      <source media="(prefers-color-scheme: dark)" srcset="worldcoin-logo-white.svg" height="48" />
+      <source media="(prefers-color-scheme: light)" srcset="worldcoin-logo.svg" height="24" />
+      <source media="(prefers-color-scheme: dark)" srcset="worldcoin-logo-white.svg" height="24" />
       <img />
     </picture>
   </p>

@@ -29,7 +29,7 @@
       "name": "World ID Docs",
       "repository": "worldcoin/world-id-docs",
       "sync_readme": false,
-      "description": "Developer documentation for Worldcoin SDK and World ID."
+      "description": "Developer documentation for the Worldcoin SDK and World ID."
     },
     {
       "name": "World ID Airdrop",
@@ -40,8 +40,7 @@
     {
       "name": "World ID Airdrop Dapp",
       "repository": "worldcoin/world-id-example-airdrop-dapp",
-      "sync_readme": false,
-      "description": "Dapp example for airdropping ERC-20 tokens using World ID, preserving privacy for the claimers with zero-knowledge proofs. Smart contract example: https://github.com/worldcoin/world-id-example-airdrop"
+      "sync_readme": false
     },
     {
       "name": "World ID #petorbz",

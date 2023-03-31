@@ -4,7 +4,7 @@
     {
       "name": "IDKit",
       "repository": "worldcoin/idkit-js",
-      "sync_readme": false,
+      "sync_readme": true,
       "description": "Javascript toolkit to interact with the World ID protocol. Building the Identity SDK."
     },
     {
@@ -34,7 +34,7 @@
     {
       "name": "World ID #petorbz",
       "repository": "worldcoin/world-id-petorbz",
-      "sync_readme": true,
+      "sync_readme": false,
       "description": "World ID Example. Dapp, smart contract and landing page for #petorbz. Adopt a plush orb in person and receive an NFT certificate of adoption."
     },
     {

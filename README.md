@@ -17,16 +17,15 @@ World ID lets you seamlessly integrate authentication into your app that verifie
 
 All the technical docs for the Wordcoin SDK, World ID Protocol, examples, guides can be found at https://docs.worldcoin.org/.
 
-<div dir="row" align="center">
-  <a href="https://worldcoin.org">
-    <p align="center">
-      <picture align="center">
-        <source media="(prefers-color-scheme: dark)" srcset="worldcoin-logo.svg" />
-         <source media="(prefers-color-scheme: light)" srcset="worldcoin-logo-white.svg" />
-      </picture>
-    </p>
-  </a>
-</div>
+<a href="https://worldcoin.org">
+  <p align="center">
+    <picture align="center">
+      <source media="(prefers-color-scheme: dark)" srcset="worldcoin-logo.svg" />
+      <source media="(prefers-color-scheme: light)" srcset="worldcoin-logo-white.svg" />
+      <img />
+    </picture>
+  </p>
+</a>
 
 <!-- WORLD-ID-SHARED-README-TAG:END -->
 

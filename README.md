@@ -1,4 +1,4 @@
-<img src="worldcoin-logo.svg" alt="Worldcoin Logo" width="300" />
+<img src="/public/images/shared-readme/readme-header.png" alt="" />
 
 # Worldcoin Technical Docs
 
@@ -18,6 +18,8 @@ World ID lets you seamlessly integrate authentication into your app that verifie
 ## 📄 Documentation
 
 All the technical docs for the Wordcoin SDK, World ID Protocol, examples, guides can be found at https://docs.worldcoin.org/.
+
+<img align="center" src="worldcoin-logo.png" alt="" height="40" />
 
 <!-- WORLD-ID-SHARED-README-TAG:END -->
 

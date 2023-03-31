@@ -3,7 +3,7 @@ name: Repositories sync
 on:
     pull_request:
         paths:
-            - 'SHARED-README.md'
+            # - 'SHARED-README.md'
             - 'repositories.json'
             - 'sync.ts'
 

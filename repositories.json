@@ -1,82 +1,71 @@
 {
-  "description": "This file contains a list of all World ID repositories. Descriptions are automatically pulled from GitHub.",
-  "list": [
-    {
-      "name": "World ID JS",
-      "repository": "worldcoin/world-id-js",
-      "sync_readme": true,
-      "description": "Integrate World ID into your app/DApp with the World ID JS widget."
-    },
-    {
-      "name": "World ID Starter Kit - Foundry",
-      "repository": "worldcoin/world-id-starter",
-      "sync_readme": true,
-      "description": "Quick start. Starter kit with Foundry to deploy your own smart contract that verifies unique-humanness with World ID."
-    },
-    {
-      "name": "World ID Starter Kit - Hardhat",
-      "repository": "worldcoin/world-id-starter-hardhat",
-      "sync_readme": true,
-      "description": "Quick start. Starter kit with Hardhat to deploy your own smart contract that verifies unique-humanness with World ID."
-    },
-    {
-      "name": "Worldcoin Simulator",
-      "repository": "worldcoin/simulator",
-      "sync_readme": true,
-      "description": "Web simulator of the Worldcoin app to test the World ID protocol on the staging network."
-    },
-    {
-      "name": "World ID Docs",
-      "repository": "worldcoin/world-id-docs",
-      "sync_readme": false,
-      "description": "Developer documentation for the Worldcoin SDK and World ID."
-    },
-    {
-      "name": "World ID Airdrop",
-      "repository": "worldcoin/world-id-example-airdrop",
-      "sync_readme": true,
-      "description": "World ID Example. Create an airdrop of ERC-20 tokens that can only be claimed once by a single human. Completely privacy preserving."
-    },
-    {
-      "name": "World ID Airdrop Dapp",
-      "repository": "worldcoin/world-id-example-airdrop-dapp",
-      "sync_readme": false
-    },
-    {
-      "name": "World ID #petorbz",
-      "repository": "worldcoin/world-id-petorbz",
-      "sync_readme": true,
-      "description": "World ID Example. Dapp, smart contract and landing page for #petorbz. Adopt a plush orb in person and receive an NFT certificate of adoption."
-    },
-    {
-      "name": "World ID Discord Bot",
-      "repository": "worldcoin/world-id-discord-bot",
-      "sync_readme": true,
-      "description": "Improve your Discord server by verifying unique people with World ID."
-    },
-    {
-      "name": "Worldcoin Developer Portal",
-      "repository": "worldcoin/developer-portal",
-      "sync_readme": true,
-      "description": "The Worldcoin Developer Portal provides tools to interact with the Worldcoin SDK. Easiest way to get started with World ID."
-    },
-    {
-      "name": "World ID x Lens",
-      "repository": "worldcoin/world-id-lens",
-      "sync_readme": false,
-      "description": "Human verification for Lens Protocol with World ID."
-    },
-    {
-      "name": "World ID x Lens Dapp",
-      "repository": "worldcoin/world-id-lens-dapp",
-      "sync_readme": false,
-      "description": "Frontend used to verify Lens accounts. Smart contract: https://github.com/worldcoin/world-id-lens"
-    },
-    {
-      "name": "Worldcoin x POAP",
-      "repository": "worldcoin/world-id-poap",
-      "sync_readme": false,
-      "description": "Sybil-resistant POAP distribution!"
-    }
-  ]
+	"description": "This file contains a list of all World ID repositories. Descriptions are automatically pulled from GitHub.",
+	"list": [
+		{
+			"name": "IDKit",
+			"repository": "worldcoin/idkit-js",
+			"sync_readme": false,
+			"description": "Javascript toolkit to interact with the World ID protocol. Building the Identity SDK."
+		},
+		{
+			"name": "World ID Starter Kit - Foundry",
+			"repository": "worldcoin/world-id-starter",
+			"sync_readme": true,
+			"description": "Quick start. Starter kit with Foundry to deploy your own smart contract that verifies unique-humanness with World ID."
+		},
+		{
+			"name": "World ID Starter Kit - Hardhat",
+			"repository": "worldcoin/world-id-starter-hardhat",
+			"sync_readme": true,
+			"description": "Quick start. Starter kit with Hardhat to deploy your own smart contract that verifies unique-humanness with World ID."
+		},
+		{
+			"name": "Worldcoin Simulator",
+			"repository": "worldcoin/simulator",
+			"sync_readme": true,
+			"description": "Web simulator of the Worldcoin app to test the World ID protocol on the staging network."
+		},
+		{
+			"name": "Worldcoin Docs",
+			"repository": "worldcoin/world-id-docs",
+			"sync_readme": false,
+			"description": "Developer documentation for the Worldcoin SDK and World ID."
+		},
+		{
+			"name": "World ID #petorbz",
+			"repository": "worldcoin/world-id-petorbz",
+			"sync_readme": true,
+			"description": "World ID Example. Dapp, smart contract and landing page for #petorbz. Adopt a plush orb in person and receive an NFT certificate of adoption."
+		},
+		{
+			"name": "Discord Bouncer",
+			"repository": "worldcoin/discord-bouncer",
+			"sync_readme": false,
+			"description": "Improve your Discord server by verifying unique people with World ID."
+		},
+		{
+			"name": "Worldcoin Developer Portal",
+			"repository": "worldcoin/developer-portal",
+			"sync_readme": true,
+			"description": "The Worldcoin Developer Portal provides tools to interact with the Worldcoin SDK. Easiest way to get started with World ID."
+		},
+		{
+			"name": "World ID x Lens",
+			"repository": "worldcoin/world-id-lens",
+			"sync_readme": false,
+			"description": "Human verification for Lens Protocol with World ID."
+		},
+		{
+			"name": "World ID x Lens Dapp",
+			"repository": "worldcoin/world-id-lens-dapp",
+			"sync_readme": false,
+			"description": "Frontend used to verify Lens accounts. Smart contract: https://github.com/worldcoin/world-id-lens"
+		},
+		{
+			"name": "Worldcoin x POAP",
+			"repository": "worldcoin/world-id-poap",
+			"sync_readme": false,
+			"description": "Sybil-resistant POAP distribution!"
+		}
+	]
 }

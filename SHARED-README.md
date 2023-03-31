@@ -4,7 +4,7 @@
 
 World ID is a protocol that lets you **prove a human is doing an action only once without revealing any personal data**. Stop bots, stop abuse.
 
-World ID uses a device called the [Orb](https://worldcoin.org/how-the-launch-works) which takes a picture align="center" of a person's iris to verify they are a unique and alive human. The protocol uses [Zero-knowledge proofs](https://id.worldcoin.org/zkp) so no traceable information is ever public.
+World ID uses a device called the [Orb](https://worldcoin.org/how-the-launch-works) which takes a picture align="center" of a person's iris to verify they are a unique and alive human. The protocol uses [Zero-knowledge proofs](https://docs.worldcoin.org/advanced/zero-knowledge-proofs) so no traceable information is ever public.
 
 World ID is meant for on-chain web3 apps, traditional cloud applications, and even IRL verifications.
 
@@ -50,7 +50,7 @@ Regardless of how you landed here, the easiest way to get started with World ID 
 
 ### World ID Demos
 
-Want to see World ID in action? We have a bunch of [Examples](https://id.worldcoin.org/examples).
+Want to see World ID in action? Here's a few demos:
 
 <div dir="row" align="center">
   <a href="https://poap.worldcoin.org/">
@@ -67,7 +67,7 @@ Want to see World ID in action? We have a bunch of [Examples](https://id.worldco
       <img />
     </picture>
   </a>
-  <a href="https://github.com/worldcoin/world-id-discord-bot">
+  <a href="https://github.com/worldcoin/discord-bouncer">
     <picture align="center">
       <source media="(prefers-color-scheme: dark)" srcset="./public/images/shared-readme/examples/discord-bot-dark.png" width="230px" />
       <source media="(prefers-color-scheme: light)" srcset="./public/images/shared-readme/examples/discord-bot-light.png" width="230px" />
@@ -92,9 +92,9 @@ Want to see World ID in action? We have a bunch of [Examples](https://id.worldco
 
 ## 📄 Documentation
 
-We have comprehensive docs for World ID at https://id.worldcoin.org/docs.
+We have comprehensive docs for World ID at https://docs.worldcoin.org/.
 
-<a href="https://id.worldcoin.org/docs">
+<a href="https://docs.worldcoin.org/">
   <p align="center">
     <picture align="center">
       <source media="(prefers-color-scheme: dark)" srcset="./public/images/shared-readme/visit-documentation-dark.png" height="80px" />

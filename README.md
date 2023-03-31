@@ -20,8 +20,8 @@ All the technical docs for the Wordcoin SDK, World ID Protocol, examples, guides
 <a href="https://worldcoin.org">
   <p align="center">
     <picture align="center">
-      <source media="(prefers-color-scheme: dark)" srcset="worldcoin-logo.svg" />
-      <source media="(prefers-color-scheme: light)" srcset="worldcoin-logo-white.svg" />
+      <source media="(prefers-color-scheme: dark)" srcset="worldcoin-logo.svg" width="139" width="24" />
+      <source media="(prefers-color-scheme: light)" srcset="worldcoin-logo-white.svg" width="139" width="24" />
       <img />
     </picture>
   </p>

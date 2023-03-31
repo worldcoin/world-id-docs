@@ -10,4 +10,4 @@ World ID lets you seamlessly integrate authentication into your app that verifie
 
 All the technical docs for the Wordcoin SDK, World ID Protocol, examples, guides can be found at https://docs.worldcoin.org/.
 
-<img align="center" src="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/worldcoin-logo.png" alt="" height="40" />
+<img align="center" src="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/worldcoin-logo.png" alt="Powered by Worldcoin" />

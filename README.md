@@ -1,13 +1,5 @@
-<img src="/public/images/shared-readme/readme-header.png" alt="" />
-
-<a href="https://worldcoin.org">
-  <p>
-    <picture>
-      <source media="(prefers-color-scheme: light)" srcset="worldcoin-logo.svg" height="48" />
-      <source media="(prefers-color-scheme: dark)" srcset="worldcoin-logo-white.svg" height="48" />
-      <img />
-    </picture>
-  </p>
+<a href="https://worldcoin.org/world-id">
+  <img src="/public/images/shared-readme/readme-header.png" alt="" />
 </a>
 
 # Worldcoin Documentation
@@ -58,3 +50,13 @@ To develop locally and contribute to these docs, you can follow these steps afte
 ## ✨ Contributors
 
 Thanks to all [the contributors](CONTRIBUTING.md) who have made the Worldcoin SDK possible!
+
+<a href="https://worldcoin.org">
+  <p align="center" style="margin-top: 48px;">
+    <picture align="center">
+      <source media="(prefers-color-scheme: light)" srcset="worldcoin-logo.svg" height="48" />
+      <source media="(prefers-color-scheme: dark)" srcset="worldcoin-logo-white.svg" height="48" />
+      <img />
+    </picture>
+  </p>
+</a>

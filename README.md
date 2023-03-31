@@ -51,12 +51,12 @@ To develop locally and contribute to these docs, you can follow these steps afte
 
 Thanks to all [the contributors](CONTRIBUTING.md) who have made the Worldcoin SDK possible!
 
-<a href="https://worldcoin.org">
-  <p align="center" style="margin-top: 48px;"> Powered by
-    <picture align="center">
+<p align="right"> Powered by
+  <a href="https://worldcoin.org">
+    <picture align="right">
       <source media="(prefers-color-scheme: light)" srcset="worldcoin-logo.svg" height="24" />
       <source media="(prefers-color-scheme: dark)" srcset="worldcoin-logo-white.svg" height="24" />
       <img />
     </picture>
-  </p>
-</a>
+  </a>
+</p>

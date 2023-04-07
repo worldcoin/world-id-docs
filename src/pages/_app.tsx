@@ -1,16 +1,17 @@
 import 'focus-visible'
 import Head from 'next/head'
 import '@/styles/styles.css'
+import posthog from 'posthog-js'
 import Clippy from 'clippy-widget'
 import { FC, useMemo } from 'react'
 import { AppProps } from 'next/app'
+import { Sora } from 'next/font/google'
 import { MDXProvider } from '@mdx-js/react'
 import { Layout } from '@/components/Layout'
+import { usePostHog } from '@/lib/use-posthog'
 import { Router, useRouter } from 'next/router'
 import * as mdxComponents from '@/components/mdx'
 import { useMobileNavigationStore } from '@/components/MobileNavigation'
-import posthog from 'posthog-js'
-import { usePostHog } from '@/lib/use-posthog'
 
 function onRouteChange() {
 	useMobileNavigationStore.getState().close()
@@ -19,13 +20,19 @@ function onRouteChange() {
 Router.events.on('routeChangeStart', onRouteChange)
 Router.events.on('hashChangeStart', onRouteChange)
 
+const sora = Sora({
+	subsets: ['latin'],
+	style: ['normal'],
+	weight: ['400', '600', '700'],
+})
+
 if (typeof window !== 'undefined') {
 	posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
 		api_host: 'https://app.posthog.com',
 		// Disable in development
-		loaded: (posthog) => {
+		loaded: posthog => {
 			if (process.env.NODE_ENV === 'development') posthog.opt_out_capturing()
-		}
+		},
 	})
 }
 
@@ -57,6 +64,12 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 					<Component {...pageProps} />
 				</Layout>
 			</MDXProvider>
+
+			<style jsx global>{`
+				:root {
+					--font-sora: ${sora.style.fontFamily};
+				}
+			`}</style>
 		</>
 	)
 }

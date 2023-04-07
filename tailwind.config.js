@@ -44,8 +44,16 @@ module.exports = {
 				gray: {
 					25: '#FBFBFC',
 					100: '#F3F4F5',
+					200: '#EBECEF',
+					400: '#9BA3AE',
 					500: '#657080',
 					900: '#191C20',
+				},
+
+				accents: {
+					info: {
+						700: '#506DFF',
+					},
 				},
 			},
 
@@ -62,6 +70,7 @@ module.exports = {
 
 			fontFamily: {
 				sans: ['"GT America"', ...defaultTheme.fontFamily.sans],
+				sora: ['var(--font-sora)', ...defaultTheme.fontFamily.sans],
 			},
 
 			opacity: {

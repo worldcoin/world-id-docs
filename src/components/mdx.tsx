@@ -7,6 +7,7 @@ import InfoIcon from './icons/InfoIcon'
 import Tabs, { TabItem, Tab } from './Tabs'
 import DangerIcon from './icons/DangerIcon'
 export { CodeGroup, Code as code, Pre as pre } from '@/components/Code'
+export { ExamplesList } from '@/components/ExamplesList'
 
 export { Tabs, TabItem, Tab, Link as a }
 export const h2: FC<

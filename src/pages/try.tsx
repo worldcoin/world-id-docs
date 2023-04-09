@@ -88,13 +88,13 @@ const Section = ({
 }: {
 	heading: string
 	description: string
-	steps: Array<string>
+	steps?: Array<string>
 }): JSX.Element => {
 	return (
 		<div>
 			<h2>{heading}</h2>
 			<p className="max-w-[684px] text-gray-500 min-w-0">{description}</p>
-			<List steps={steps} />
+			{steps && <List steps={steps} />}
 		</div>
 	)
 }
@@ -298,17 +298,12 @@ const Try = (): JSX.Element => {
 
 			<div>
 				<Section
-					heading="Sign in with World ID"
-					description="Try authentication with World ID using the OpenID Connector (OIDC) standard. Easily integrate with existing SSO systems (like Okta, OneLogin, Azure AD, and many more)"
-					steps={[
-						'Choose between Staging or Production, this will enable the “Continue with Worldcoin”.',
-						'Tap on “Continue with Worldcoin”.',
-						'Follow the steps in “Continue with Worldcoin” flow.',
-					]}
+					heading="Sign in with Worldcoin"
+					description="Try authentication with World ID using the OpenID Connector (OIDC) standard. You can easily integrate with existing SSO systems (like Okta, OneLogin, Azure AD, and many more) or roll out your own authentication."
 				/>
 
 				<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
-					Step 1. • configure action
+					Step 1 • action configuration
 				</div>
 
 				<div className="grid md:grid-cols-2 gap-y-4 gap-x-6 mt-4">
@@ -338,20 +333,24 @@ const Try = (): JSX.Element => {
 			</div>
 
 			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8 mb-4">
-				Step 2. • this is what your users see
+				Step 2 • this is what your users see
 			</div>
 
 			<Widget
 				valid={true}
 				environment={watch('signInEnvironment')}
-				app_id={process.env.NEXT_PUBLIC_IDKIT_APP!}
+				app_id={
+					watch('signInEnvironment') === 'production'
+						? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!
+						: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
+				}
 				id="sign-in"
 			/>
 
 			<hr className="text-gray-100" />
 
 			<Section
-				heading="Testing your integration"
+				heading="Anonymous Actions"
 				description={`Last step is test your entire integration. Open the JS widget where you'll see a QR code (or "Open Worldcoin app" button if on mobile).`}
 				steps={[
 					'Choose between Staging or Production, this will enable the “Continue with Worldcoin”.',
@@ -364,7 +363,7 @@ const Try = (): JSX.Element => {
 			/>
 
 			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
-				Step 1. • Choose Staging or Production
+				Step 1 • Choose Staging or Production
 			</div>
 
 			<div className="grid md:grid-cols-2 gap-y-4 gap-x-6 mt-4">
@@ -393,7 +392,7 @@ const Try = (): JSX.Element => {
 			</Link>
 
 			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
-				Step 2. • configure action
+				Step 2 • configure action
 			</div>
 
 			<div className="grid lg:grid-cols-2 gap-8">
@@ -464,7 +463,7 @@ const Try = (): JSX.Element => {
 			</div>
 
 			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
-				Step 3. • this is what your users see
+				Step 3 • this is what your users see
 			</div>
 
 			<Widget

@@ -45,7 +45,11 @@ export const ExamplesList: FC<Props> = (props) => {
   return (
     <div>
 
-      <div className="flex flex-wrap items-center justify-start gap-x-3 gap-y-2 mb-10">
+      <Button className="px-6 py-4.5 !font-bold leading-3 uppercase rounded-xl">
+        Add your app
+      </Button>
+
+      <div className="flex flex-wrap items-center justify-start gap-x-3 gap-y-2 mt-12 mb-10">
         <Tag
           selected={filter.length === 0}
           onClick={() => setFilter([])}
@@ -80,7 +84,9 @@ export const ExamplesList: FC<Props> = (props) => {
                 githubUrl={example.githubUrl}
                 description={example.description}
                 tags={example.tags}
+                bookmark={example.bookmark}
                 worldcoin={example.worldcoin}
+                onToggleFilter={toggleFilter}
               />
             )
           }
@@ -99,8 +105,8 @@ const Tag = (props: {
   return (
     <button
       className={cn('px-4 py-2 font-medium text-base leading-5 border rounded-lg', {
-        'border-gray-100': !props.selected,
-        'text-white bg-gray-900 border-transparent': props.selected,
+        'border-gray-100 hover:bg-gray-100/60': !props.selected,
+        'text-white bg-gray-900 border-transparent hover:bg-zinc-700': props.selected,
       })}
       onClick={props.onClick}
     >
@@ -110,20 +116,32 @@ const Tag = (props: {
 }
 
 const Item = (props: {
-  image: string
+  image: {
+    sm: string
+    lg?: string
+  }
   title: string
   subtitle: string
   description: string
   tags: string[]
   url: string
   githubUrl: string
+  bookmark?: boolean
   worldcoin?: boolean
+  onToggleFilter: (tag: string) => void
 }) => {
   return (
-    <div className="p-6 border border-gray-100 rounded-lg">
+    <div className="relative p-6 border border-gray-100 rounded-lg">
+      {props.bookmark && (
+        <div className="absolute top-0 right-[50px]">
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0H12V14.0557C12 14.9591 11.0592 15.5546 10.2426 15.1681L6.70526 13.4936C6.25883 13.2823 5.74117 13.2823 5.29474 13.4936L1.75736 15.1681C0.940837 15.5546 0 14.9591 0 14.0557V0Z" fill="#4940E0"/>
+          </svg>
+        </div>
+      )}
       <div className="flex gap-x-4">
         <div className="relative h-[80px] w-[80px]">
-          <Image className="m-0" src={props.image} alt={props.title} layout="fill" objectFit="cover" />
+          <Image className="m-0" src={props.image.sm} alt={props.title} layout="fill" objectFit="cover" />
         </div>
         <div className="relative grow flex flex-col">
           {props.worldcoin && (
@@ -140,7 +158,7 @@ const Item = (props: {
             </div>
           )}
           <div className="flex flex-col gap-y-1.5">
-            <div className="font-bold text-16 leading-4">
+            <div className="font-bold text-base leading-4">
               {props.title}
             </div>
             <div className="text-14 text-gray-500 leading-3">
@@ -187,12 +205,12 @@ const Item = (props: {
           </div>
         </div>
       </div>
-      <div className="mt-4 text-14 text-gray-500 leading-5">
+      <div className="mt-4 text-14 text-gray-500 leading-5 line-clamp-2">
         {props.description}
       </div>
       <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-14 text-primary leading-5 cursor-pointer">
         {props.tags.map((tag, i) => (
-          <div key={i}>{tag}</div>
+          <div key={i} onClick={() => props.onToggleFilter(tag)}>{tag}</div>
         ))}
       </div>
     </div>
@@ -204,10 +222,12 @@ const examples = [
   {
     url: 'https://human.withlens.app',
     githubUrl: '#', // FIXME: add github url
-    image: '/images/examples/lens.svg',
+    image: {
+      sm: '/images/examples/lens.svg',
+    },
     title: 'Worldcoin Meets Lens',
     subtitle: 'human.withlens.app',
-    description: 'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you...',
+    description: 'Verify your Lens profile belongs to a unique human. No bots, reduce spam. Enables apps built on Lens to quickly identify who is a real person.',
     tags: ['On-chain verification', 'Cloud', 'API', 'Community'],
     worldcoin: true,
   },
@@ -215,33 +235,92 @@ const examples = [
   {
     url: 'https://moonpay.com',
     githubUrl: '#', // FIXME: add github url
-    image: '/images/examples/moonpay.svg',
+    image: {
+      sm: '/images/examples/moonpay.svg',
+    },
     title: 'Moon Pay',
     subtitle: 'moonpay.com',
     description: 'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you...',
     tags: ['On-ramp', 'Community'],
+    bookmark: true,
   },
 
   {
     url: 'https://poap.worldcoin.org',
     githubUrl: '#', // FIXME: add github url
-    image: '/images/examples/poap.svg',
+    image: {
+      sm: '/images/examples/poap.svg',
+    },
     title: 'POAP dispenser',
     subtitle: 'poap.worldcoin.org',
     description: 'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you...',
     tags: ['Cloud', 'Community'],
+    bookmark: true,
     worldcoin: true,
   },
 
   {
     url: 'https://petorbz.com',
     githubUrl: '#', // FIXME: add github url
-    image: '/images/examples/petorbz.svg',
+    image: {
+      sm: '/images/examples/petorbz.svg',
+    },
     title: 'Pet Orbz',
     subtitle: 'petorbz.com',
     description: 'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you...',
     tags: ['On-chain verification', 'Cloud', 'API', 'Community', 'DeFi', 'Smart contract'],
     worldcoin: true,
+  },
+
+  {
+    url: 'https://worldcoin.org',
+    githubUrl: 'https://github.com/worldcoin/hyperdrop-contracts',
+    image: {
+      sm: '/images/examples/hyperdrop.svg',
+    },
+    title: 'Hyperdrop',
+    subtitle: 'worldcoin.org',
+    description: 'Share tokens equitably with any verified human on the planet. With Hyperdrop you can airdrop ERC-20 tokens to all humans who have verified with World ID.',
+    tags: ['On-chain verification', 'Cloud', 'API', 'Community'],
+    worldcoin: true,
+  },
+
+  {
+    url: 'https://example.id.worldcoin.org',
+    githubUrl: '#',
+    image: {
+      sm: '/images/examples/mesha.svg',
+    },
+    title: 'Mesha',
+    subtitle: 'worldcoin.org',
+    description: 'Mesha is a mock client app that lets you airdrop tokens where a single person can only claim them once.',
+    tags: ['Smart contract'],
+    worldcoin: true,
+  },
+
+  {
+    url: 'https://synthetix.io',
+    githubUrl: '#',
+    image: {
+      sm: '/images/examples/synthetix.svg',
+    },
+    title: 'Synthetix',
+    subtitle: 'synthetix.io',
+    description: 'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you...',
+    tags: ['DeFi', 'Cloud', 'API'],
+  },
+
+  {
+    url: 'https://qx.app',
+    githubUrl: '#',
+    image: {
+      sm: '/images/examples/quix.svg',
+    },
+    title: 'Quix',
+    subtitle: 'qx.app',
+    description: 'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you...',
+    tags: ['NFT'],
+    bookmark: true,
   },
 
 ]

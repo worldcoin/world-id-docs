@@ -137,7 +137,7 @@ const Widget = ({
 	)
 
 	return (
-		<div className="border border-gray-200 rounded-lg relative">
+		<div className="border border-gray-200 rounded-lg relative overflow-hidden">
 			<div className="border-b border-gray-200 bg-gray-25 px-6 py-4 leading-none">
 				<span className="font-mono m-0 p-0">Try it out</span>
 			</div>

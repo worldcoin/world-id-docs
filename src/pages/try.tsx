@@ -240,14 +240,14 @@ const Try = (): JSX.Element => {
 		signInEnvironment: Environment
 		testingEnvironment: Environment
 		action: string
-		maxVerifications: 0 | 1 | 2 | 3
+		// maxVerifications: 0 | 1 | 2 | 3 FIXME: Enable when dynamic maxVerifications is supported
 		credentialTypes: Array<CredentialType>
 	}>({
 		mode: 'onChange',
 		defaultValues: {
 			signInEnvironment: 'production',
 			testingEnvironment: 'production',
-			maxVerifications: 1,
+			// maxVerifications: 1, FIXME: Enable when dynamic maxVerifications is supported
 			credentialTypes: [],
 		},
 	})
@@ -329,10 +329,15 @@ const Try = (): JSX.Element => {
 					/>
 				</div>
 
-				<Link className="flex items-center gap-x-1 mt-3.5" href="https://simulator.worldcoin.org/">
-					<span>Open Simulator</span>
-					<RedirectIcon />
-				</Link>
+				<div className="flex justify-start items-start">
+					<Link
+						className="flex items-center gap-x-1 mt-3 leading-none text-gray-300 hover:text-primary transition-colors"
+						href="https://simulator.worldcoin.org/"
+					>
+						<span>Open Simulator</span>
+						<RedirectIcon />
+					</Link>
+				</div>
 			</div>
 
 			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8 mb-4">
@@ -392,10 +397,15 @@ const Try = (): JSX.Element => {
 				/>
 			</div>
 
-			<Link className="flex items-center gap-x-1 mt-3.5" href="https://simulator.worldcoin.org/">
-				<span>Open Simulator</span>
-				<RedirectIcon />
-			</Link>
+			<div className="flex justify-start items-start">
+				<Link
+					className="flex items-center gap-x-1 mt-3 leading-none text-gray-300 hover:text-primary transition-colors"
+					href="https://simulator.worldcoin.org/"
+				>
+					<span>Open Simulator</span>
+					<RedirectIcon />
+				</Link>
+			</div>
 
 			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
 				Step 2 • configure action
@@ -413,7 +423,8 @@ const Try = (): JSX.Element => {
 					/>
 				</div>
 
-				<div className="grid gap-y-2">
+				{/* FIXME: Coming soon! */}
+				{/* <div className="grid gap-y-2">
 					<span className="font-medium">Max number of verifications per person</span>
 
 					<div className="grid grid-cols-4 gap-x-3">
@@ -445,7 +456,7 @@ const Try = (): JSX.Element => {
 							register={register('maxVerifications')}
 						/>
 					</div>
-				</div>
+				</div> */}
 
 				<div className="grid gap-y-2">
 					<span className="font-medium">Accepted credentials</span>

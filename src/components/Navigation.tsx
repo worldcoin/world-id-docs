@@ -195,6 +195,7 @@ export const navigation = [
 		title: 'World ID',
 		links: [
 			{ title: 'Overview', href: '/id' },
+			{ title: 'Proof of Personhood', href: '/id/proof-of-personhood' },
 			{ title: 'Sign In', href: '/id/sign-in' },
 			{ title: 'Anonymous Actions', href: '/id/anonymous-actions' },
 			{ title: 'Testing', href: '/id/testing' },

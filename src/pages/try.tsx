@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { Link } from '@/components/Link'
+import { GetServerSideProps } from 'next'
 import SunIcon from '@/components/icons/SunIcon'
 import MoonIcon from '@/components/icons/MoonIcon'
 import LogoIcon from '@/components/icons/LogoIcon'
@@ -277,7 +278,7 @@ const Try = (): JSX.Element => {
 		}
 
 		const baseUrl = new URL('https://id.worldcoin.org/authorize')
-		baseUrl.searchParams.append('redirect_uri', 'https://id.worldcoin.org/')
+		baseUrl.searchParams.append('redirect_uri', `${process.env.NEXT_PUBLIC_APP_URL}/try-callback`)
 		baseUrl.searchParams.append('response_type', 'token')
 
 		baseUrl.searchParams.append(

@@ -45,6 +45,16 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 		return `${pageProps.title} | Worldcoin Docs`
 	}, [pageProps.title, router.pathname])
 
+	const pagesWithoutLayout = useMemo(() => ['/try-callback'], [])
+
+	const hasLayout = useMemo(() => {
+		if (pagesWithoutLayout.includes(router.pathname)) {
+			return false
+		}
+
+		return true
+	}, [pagesWithoutLayout, router.pathname])
+
 	return (
 		<>
 			<Head>
@@ -60,9 +70,13 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 			{process.env.NODE_ENV === 'production' && <Clippy theme="light" />}
 			{/* @ts-ignore */}
 			<MDXProvider components={mdxComponents}>
-				<Layout {...pageProps}>
-					<Component {...pageProps} />
-				</Layout>
+				{hasLayout && (
+					<Layout {...pageProps}>
+						<Component {...pageProps} />
+					</Layout>
+				)}
+
+				{!hasLayout && <Component {...pageProps} />}
 			</MDXProvider>
 
 			<style jsx global>{`

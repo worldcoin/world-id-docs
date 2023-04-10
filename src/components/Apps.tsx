@@ -2,6 +2,7 @@ import {AllHTMLAttributes, FC, PropsWithChildren, useCallback, useState} from "r
 import Image from 'next/image'
 import {Button} from "@/components/Button";
 import cn from "clsx";
+import GitHubIcon from "@/components/icons/GitHubIcon";
 
 type Props = PropsWithChildren<
   {
@@ -9,7 +10,7 @@ type Props = PropsWithChildren<
   } & AllHTMLAttributes<HTMLElement>
 >
 
-export const ExamplesList: FC<Props> = (props) => {
+export const Apps: FC<Props> = (props) => {
   const [filter, setFilter] = useState<Array<string>>([])
 
   const isTagSelected = useCallback(
@@ -43,13 +44,24 @@ export const ExamplesList: FC<Props> = (props) => {
   )
 
   return (
-    <div>
+    <div className="relative">
+
+      <Image className="absolute top-[-220px] right-[-180px] m-0" src="/images/docs/apps/illustration.svg" alt="" width={468} height={474} />
 
       <Button className="px-6 py-4.5 !font-bold leading-3 uppercase rounded-xl">
         Add your app
       </Button>
 
-      <div className="flex flex-wrap items-center justify-start gap-x-3 gap-y-2 mt-12 mb-10">
+      <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <Card
+          app={apps[4]}
+        />
+        <Card
+          app={apps[7]}
+        />
+      </div>
+
+      <div className="flex flex-wrap items-center justify-start gap-x-3 gap-y-2 mt-10 mb-10">
         <Tag
           selected={filter.length === 0}
           onClick={() => setFilter([])}
@@ -69,7 +81,7 @@ export const ExamplesList: FC<Props> = (props) => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {examples.map((example, id) => {
+        {apps.map((example, id) => {
           if (
             filter.length === 0 ||
             example.tags.some((tag) => isTagSelected(tag))
@@ -97,6 +109,49 @@ export const ExamplesList: FC<Props> = (props) => {
   )
 }
 
+const Card = (props: {
+  app: typeof apps[0]
+}) => {
+  return (
+    <div className="rounded-lg shadow-card">
+      <div className="relative aspect-card">
+        <Image className="absolute inset-0 m-0" src={props.app.image.lg} alt={props.app.title} layout="fill" />
+      </div>
+      <div className="flex items-center gap-x-6 px-6 py-7">
+        <div className="grow">
+          <div className="font-bold text-base leading-4">
+            {props.app.title}
+          </div>
+          <div className="mt-1 text-base text-gray-500 leading-4">
+            {props.app.subtitle}
+          </div>
+        </div>
+        <div className="flex gap-x-2">
+          <div className="flex items-center justify-center w-9 h-9 bg-gray-900 rounded-full">
+            <GitHubIcon className="w-5 h-5 invert"/>
+          </div>
+          <div className="flex items-center justify-center w-9 h-9 bg-gray-100 rounded-full">
+            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clipPath="url(#clip0_20199_55312)">
+                <path d="M12.562 8.41602L10.5163 10.4616C10.1356 10.8422 9.51521 10.8422 9.13457 10.4616L7.08887 8.41769" stroke="#191C20" strokeWidth="1.30608" strokeMiterlimit="10" strokeLinecap="round"/>
+                <path d="M9.82471 12.6457V11.6078C9.82471 11.3178 9.94041 11.0394 10.145 10.8349L12.5445 8.43555" stroke="#191C20" strokeWidth="1.30608" strokeMiterlimit="10" strokeLinecap="round"/>
+                <path d="M9.80914 12.6415V11.6036C9.80914 11.3136 9.69344 11.0352 9.48887 10.8307L7.08936 8.42969" stroke="#191C20" strokeWidth="1.30608" strokeMiterlimit="10" strokeLinecap="round"/>
+                <path d="M9.82653 8.51811C10.4766 8.51811 11.0037 7.99114 11.0037 7.34109C11.0037 6.69104 10.4766 6.16406 9.82653 6.16406C9.17643 6.16406 8.64941 6.69104 8.64941 7.34109C8.64941 7.99114 9.17643 8.51811 9.82653 8.51811Z" fill="#191C20"/>
+              </g>
+              <path d="M6.98565 3.32617H5.56595C4.31143 3.32617 3.29443 4.3431 3.29443 5.59754V7.01714M12.6644 16.3865H14.0841C15.3387 16.3865 16.3557 15.3696 16.3557 14.1151V12.6955M16.3557 7.01714V5.59754C16.3557 4.3431 15.3387 3.32617 14.0841 3.32617L12.6644 3.32617M3.29443 12.6955L3.29443 14.1151C3.29443 15.3696 4.31143 16.3865 5.56595 16.3865H6.98565" stroke="#191C20" strokeWidth="1.30608" strokeLinecap="round"/>
+              <defs>
+                <clipPath id="clip0_20199_55312">
+                  <rect width="6.81455" height="7.14934" fill="white" transform="translate(6.41699 6.16406)"/>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const Tag = (props: {
   selected: boolean
   onClick: () => void
@@ -118,7 +173,7 @@ const Tag = (props: {
 const Item = (props: {
   image: {
     sm: string
-    lg?: string
+    lg: string
   }
   title: string
   subtitle: string
@@ -171,23 +226,7 @@ const Item = (props: {
               className="items-center h-8 px-4 gap-x-1 no-underline !rounded-lg"
               href={props.githubUrl}
             >
-              <svg className="block" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clipPath="url(#clip0_20268_58446)">
-                  <path fillRule="evenodd" clipRule="evenodd" d="M7.99617 0.400391C6.10882 0.40137 4.28335 1.06979 2.84619 2.28612C1.40903 3.50245 0.45388 5.18739 0.151536 7.03964C-0.150807 8.8919 0.219366 10.7907 1.19587 12.3965C2.17238 14.0023 3.69154 15.2104 5.48171 15.8047C5.87665 15.878 6.02541 15.6333 6.02541 15.4252C6.02541 15.217 6.01751 14.6136 6.01487 13.954C3.80321 14.4317 3.33586 13.0207 3.33586 13.0207C2.97515 12.1045 2.45383 11.8637 2.45383 11.8637C1.7324 11.3741 2.50781 11.3833 2.50781 11.3833C3.3069 11.4396 3.72686 12.1987 3.72686 12.1987C4.43512 13.4068 5.58702 13.0574 6.03989 12.8532C6.11098 12.3414 6.31767 11.9932 6.54541 11.7956C4.77871 11.5967 2.92249 10.9186 2.92249 7.88987C2.91154 7.10437 3.20471 6.34475 3.74134 5.76816C3.65972 5.56921 3.3872 4.76555 3.81901 3.67393C3.81901 3.67393 4.48646 3.46189 6.00567 4.48413C7.30874 4.12984 8.68359 4.12984 9.98666 4.48413C11.5046 3.46189 12.1707 3.67393 12.1707 3.67393C12.6038 4.76293 12.3313 5.56659 12.2497 5.76816C12.788 6.34484 13.0818 7.10579 13.0698 7.89249C13.0698 10.9278 11.2097 11.5967 9.44033 11.7917C9.72468 12.0377 9.97877 12.5181 9.97877 13.2563C9.97877 14.3139 9.96955 15.1647 9.96955 15.4252C9.96955 15.6359 10.113 15.882 10.5159 15.8047C12.3063 15.2103 13.8256 14.002 14.8021 12.3959C15.7785 10.7898 16.1485 8.89078 15.8458 7.03835C15.5432 5.18593 14.5875 3.50098 13.1499 2.28485C11.7123 1.06873 9.88637 0.400749 7.99879 0.400391H7.99617Z" fill="white"/>
-                  <path d="M3.05705 11.7477C3.03994 11.787 2.97675 11.7988 2.9254 11.7713C2.87406 11.7438 2.83589 11.6927 2.85432 11.6522C2.87275 11.6116 2.93462 11.6011 2.98596 11.6286C3.03731 11.6561 3.0768 11.7084 3.05705 11.7477Z" fill="white"/>
-                  <path d="M3.38344 12.1062C3.35617 12.1199 3.32498 12.1237 3.2952 12.117C3.26543 12.1103 3.23891 12.0935 3.2202 12.0695C3.16885 12.0146 3.15832 11.9387 3.19781 11.9046C3.2373 11.8706 3.3084 11.8863 3.35974 11.9413C3.41108 11.9962 3.42293 12.0722 3.38344 12.1062Z" fill="white"/>
-                  <path d="M3.69263 12.5604C3.64392 12.5944 3.56097 12.5604 3.5149 12.4923C3.50216 12.4801 3.49203 12.4655 3.4851 12.4493C3.47818 12.4331 3.47461 12.4157 3.47461 12.3981C3.47461 12.3805 3.47818 12.3631 3.4851 12.3469C3.49203 12.3307 3.50216 12.316 3.5149 12.3038C3.56361 12.2711 3.64655 12.3038 3.69263 12.3706C3.7387 12.4373 3.74002 12.5263 3.69263 12.5604Z" fill="white"/>
-                  <path d="M4.11555 12.9982C4.07211 13.0466 3.98391 13.0335 3.9115 12.9681C3.83909 12.9026 3.82198 12.8136 3.86542 12.7665C3.90886 12.7194 3.99707 12.7325 4.0721 12.7966C4.14714 12.8608 4.16163 12.9511 4.11555 12.9982Z" fill="white"/>
-                  <path d="M4.71424 13.2614C4.69449 13.3229 4.60497 13.3504 4.51545 13.3242C4.42593 13.298 4.36669 13.2247 4.3838 13.1619C4.40092 13.0991 4.49176 13.0703 4.58259 13.0991C4.67343 13.1279 4.73135 13.1973 4.71424 13.2614Z" fill="white"/>
-                  <path d="M5.36538 13.3027C5.36538 13.3668 5.29166 13.4218 5.19687 13.4231C5.10209 13.4244 5.02441 13.3721 5.02441 13.3079C5.02441 13.2438 5.09813 13.1888 5.19292 13.1875C5.2877 13.1862 5.36538 13.2373 5.36538 13.3027Z" fill="white"/>
-                  <path d="M5.97053 13.2017C5.98238 13.2658 5.91655 13.3326 5.82177 13.3483C5.72698 13.364 5.64404 13.326 5.63219 13.2632C5.62035 13.2004 5.6888 13.1323 5.78096 13.1153C5.87311 13.0983 5.95868 13.1376 5.97053 13.2017Z" fill="white"/>
-                </g>
-                <defs>
-                  <clipPath id="clip0_20268_58446">
-                    <rect width="16" height="15.9989" fill="white"/>
-                  </clipPath>
-                </defs>
-              </svg>
+              <GitHubIcon className="w-4 h-4 invert"/>
               <div className="font-medium text-14 leading-[1px]">
                 GITHUB
               </div>
@@ -217,13 +256,14 @@ const Item = (props: {
   )
 }
 
-const examples = [
+const apps = [
 
   {
     url: 'https://human.withlens.app',
     githubUrl: '#', // FIXME: add github url
     image: {
       sm: '/images/examples/lens.svg',
+      lg: '',
     },
     title: 'Worldcoin Meets Lens',
     subtitle: 'human.withlens.app',
@@ -237,6 +277,7 @@ const examples = [
     githubUrl: '#', // FIXME: add github url
     image: {
       sm: '/images/examples/moonpay.svg',
+      lg: '',
     },
     title: 'Moon Pay',
     subtitle: 'moonpay.com',
@@ -250,6 +291,7 @@ const examples = [
     githubUrl: '#', // FIXME: add github url
     image: {
       sm: '/images/examples/poap.svg',
+      lg: '',
     },
     title: 'POAP dispenser',
     subtitle: 'poap.worldcoin.org',
@@ -264,6 +306,7 @@ const examples = [
     githubUrl: '#', // FIXME: add github url
     image: {
       sm: '/images/examples/petorbz.svg',
+      lg: '',
     },
     title: 'Pet Orbz',
     subtitle: 'petorbz.com',
@@ -277,6 +320,7 @@ const examples = [
     githubUrl: 'https://github.com/worldcoin/hyperdrop-contracts',
     image: {
       sm: '/images/examples/hyperdrop.svg',
+      lg: '/images/examples/hyperdrop-lg.svg',
     },
     title: 'Hyperdrop',
     subtitle: 'worldcoin.org',
@@ -290,6 +334,7 @@ const examples = [
     githubUrl: '#',
     image: {
       sm: '/images/examples/mesha.svg',
+      lg: '',
     },
     title: 'Mesha',
     subtitle: 'worldcoin.org',
@@ -303,6 +348,7 @@ const examples = [
     githubUrl: '#',
     image: {
       sm: '/images/examples/synthetix.svg',
+      lg: '',
     },
     title: 'Synthetix',
     subtitle: 'synthetix.io',
@@ -315,6 +361,7 @@ const examples = [
     githubUrl: '#',
     image: {
       sm: '/images/examples/quix.svg',
+      lg: '/images/examples/quix-lg.svg',
     },
     title: 'Quix',
     subtitle: 'qx.app',
@@ -325,7 +372,7 @@ const examples = [
 
 ]
 
-const tags = examples.reduce((accumulator: Array<string>, example) => {
+const tags = apps.reduce((accumulator: Array<string>, example) => {
   if (accumulator.length === 0) {
     return example.tags.sort()
   }

@@ -7,9 +7,9 @@ import ChartIcon from '@/components/icons/CharIcon'
 import CheckIcon from '@/components/icons/CheckIcon'
 import RocketIcon from '@/components/icons/RocketIcon'
 import RedirectIcon from '@/components/icons/RedirectIcon'
-import { CredentialType, IDKitWidget } from '@worldcoin/idkit'
-import { useForm, UseFormRegisterReturn } from 'react-hook-form'
 import { memo, ReactNode, Suspense, useMemo, useState } from 'react'
+import { useForm, UseFormRegisterReturn, useWatch } from 'react-hook-form'
+import { CredentialType, IDKitWidget, WidgetProps } from '@worldcoin/idkit'
 
 type Environment = 'staging' | 'production'
 
@@ -99,24 +99,22 @@ const Section = ({
 	)
 }
 
-// ANCHOR: Widget wrapper
-const Widget = ({
+// ANCHOR: Wrapper with style examples
+const ExamplesWrapper = ({
 	id,
-	action,
-	app_id,
-	environment,
 	valid,
-	credentialTypes,
+	children,
 }: {
 	id: string
-	action?: string
-	app_id: string
-	environment?: Environment
 	valid: boolean
-	credentialTypes?: Array<CredentialType>
+	children: (params: {
+		theme: WidgetProps['theme']
+		variants: Record<string, boolean | undefined>[] | string[]
+		styleOption: number
+	}) => ReactNode
 }): JSX.Element => {
 	const [selected, setSelected] = useState(0)
-	const [theme, setTheme] = useState<'light' | 'dark'>('light')
+	const [theme, setTheme] = useState<WidgetProps['theme']>('light')
 
 	const variants = useMemo(
 		() => [
@@ -150,34 +148,7 @@ const Widget = ({
 					{ 'opacity-50 pointer-events-none select-none cursor-not-allowed': !valid }
 				)}
 			>
-				<Suspense>
-					<IDKitWidget credential_types={credentialTypes} theme={theme} app_id={app_id} action={action ?? ''}>
-						{({ open }) => (
-							<div className="relative">
-								<button
-									onClick={open}
-									className={clsx('flex items-center gap-x-4 transition-all', variants[selected])}
-									disabled={!valid}
-								>
-									<LogoIcon />
-									<span className="text-base leading-normal font-sora font-semibold">
-										Continue with Worldcoin
-									</span>
-								</button>
-
-								{environment && environment === 'staging' && (
-									<Link
-										className="flex justify-center items-center gap-x-1 mt-3.5 absolute -bottom-8 inset-x-0"
-										href="https://simulator.worldcoin.org/"
-									>
-										<span>Scan with Simulator</span>
-										<RedirectIcon />
-									</Link>
-								)}
-							</div>
-						)}
-					</IDKitWidget>
-				</Suspense>
+				{children({ theme, styleOption: selected, variants })}
 			</div>
 
 			<div
@@ -264,6 +235,7 @@ const Try = (): JSX.Element => {
 		register,
 		watch,
 		formState: { errors, dirtyFields },
+		control,
 	} = useForm<{
 		signInEnvironment: Environment
 		testingEnvironment: Environment
@@ -280,6 +252,16 @@ const Try = (): JSX.Element => {
 		},
 	})
 
+	const signInEnvironment = useWatch({
+		control,
+		name: 'signInEnvironment',
+	})
+
+	const testingEnvironment = useWatch({
+		control,
+		name: 'testingEnvironment',
+	})
+
 	const isTestingWidgetValid = useMemo(
 		() =>
 			!errors.action &&
@@ -288,6 +270,27 @@ const Try = (): JSX.Element => {
 			Boolean(dirtyFields.credentialTypes),
 		[dirtyFields.action, dirtyFields.credentialTypes, errors.action, errors.credentialTypes]
 	)
+
+	const authLink = useMemo(() => {
+		if (!process.env.NEXT_PUBLIC_TRY_IT_OUT_APP || !process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP) {
+			return null
+		}
+
+		const baseUrl = new URL('https://id.worldcoin.org/authorize')
+		baseUrl.searchParams.append('redirect_uri', 'https://id.worldcoin.org/')
+		baseUrl.searchParams.append('response_type', 'token')
+
+		baseUrl.searchParams.append(
+			'client_id',
+			signInEnvironment === 'production'
+				? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!
+				: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
+		)
+
+		baseUrl.searchParams.append('state', 'session_102030405060708091')
+		baseUrl.searchParams.append('nonce', 'z-dkEmoy_ujfk7B8uTiQppp')
+		return baseUrl.toString()
+	}, [signInEnvironment])
 
 	return (
 		<div>
@@ -336,16 +339,19 @@ const Try = (): JSX.Element => {
 				Step 2 • this is what your users see
 			</div>
 
-			<Widget
-				valid={true}
-				environment={watch('signInEnvironment')}
-				app_id={
-					watch('signInEnvironment') === 'production'
-						? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!
-						: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
-				}
-				id="sign-in"
-			/>
+			<ExamplesWrapper id="sign-in" valid={true}>
+				{({ variants, styleOption }) => (
+					<Link
+						href={authLink ?? '#'}
+						className={clsx('flex items-center gap-x-4 transition-all no-underline', variants[styleOption])}
+					>
+						<LogoIcon />
+						<span className="text-base leading-normal font-sora font-semibold">
+							Continue with Worldcoin
+						</span>
+					</Link>
+				)}
+			</ExamplesWrapper>
 
 			<hr className="text-gray-100" />
 
@@ -466,13 +472,50 @@ const Try = (): JSX.Element => {
 				Step 3 • this is what your users see
 			</div>
 
-			<Widget
-				environment={watch('testingEnvironment')}
-				app_id={process.env.NEXT_PUBLIC_IDKIT_APP!}
-				action={watch('action')}
-				id="testing"
-				valid={isTestingWidgetValid}
-			/>
+			<ExamplesWrapper id="testing" valid={isTestingWidgetValid}>
+				{({ theme, styleOption, variants }) => (
+					<Suspense>
+						<IDKitWidget
+							credential_types={watch('credentialTypes') ?? []}
+							theme={theme}
+							app_id={
+								testingEnvironment === 'production'
+									? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!
+									: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
+							}
+							action={watch('action') ?? ''}
+						>
+							{({ open }) => (
+								<div className="relative">
+									<button
+										onClick={open}
+										className={clsx(
+											'flex items-center gap-x-4 transition-all',
+											variants[styleOption]
+										)}
+										disabled={!isTestingWidgetValid}
+									>
+										<LogoIcon />
+										<span className="text-base leading-normal font-sora font-semibold">
+											Continue with Worldcoin
+										</span>
+									</button>
+
+									{watch('testingEnvironment') && watch('testingEnvironment') === 'staging' && (
+										<Link
+											className="flex justify-center items-center gap-x-1 mt-3.5 absolute -bottom-8 inset-x-0"
+											href="https://simulator.worldcoin.org/"
+										>
+											<span>Scan with Simulator</span>
+											<RedirectIcon />
+										</Link>
+									)}
+								</div>
+							)}
+						</IDKitWidget>
+					</Suspense>
+				)}
+			</ExamplesWrapper>
 		</div>
 	)
 }

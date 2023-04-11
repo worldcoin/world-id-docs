@@ -8,6 +8,7 @@ export const UseCasesListItem = (props: {
   title: string
   description: string
   items: string[]
+  linkHref: string
 }) => {
   return (
     <div className="py-4 pr-4">
@@ -24,7 +25,7 @@ export const UseCasesListItem = (props: {
           </defs>
         </svg>
       </div>
-      <h3 className="m-0 mt-4 text-lg" style={{ color:props.color }}>{props.title}</h3>
+      <h3 className="m-0 mt-4 font-medium text-lg" style={{ color:props.color }}>{props.title}</h3>
       <p className="m-0 mt-2 font-medium text-sm leading-5">{props.description}</p>
       <ul className="flex flex-col gap-y-1 m-0 mt-5 p-0 list-none">
         {props.items.map((item, index) => (
@@ -33,7 +34,10 @@ export const UseCasesListItem = (props: {
           </li>
         ))}
       </ul>
-      <Link className="inline-flex items-center gap-x-1 mt-5 text-accents-info-700 no-underline hover:text-accents-info-700/80">
+      <Link
+        className="inline-flex items-center gap-x-1 mt-5 text-accents-info-700 no-underline hover:text-accents-info-700/80"
+        href={props.linkHref}
+      >
         Show me more <DirectionRightIcon className="w-4 h-4"/>
       </Link>
     </div>

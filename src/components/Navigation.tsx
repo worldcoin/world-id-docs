@@ -189,6 +189,7 @@ export const navigation = [
 			{ title: 'Home', href: '/' },
 			{ title: 'Quick Start', href: '/quick-start' },
 			{ title: 'Try it Out', href: '/try' },
+			{ title: 'Use Cases', href: '/use-cases' },
 		],
 	},
 	{

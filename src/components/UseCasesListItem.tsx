@@ -1,10 +1,10 @@
-import { ReactNode } from 'react'
 import { Link } from '@/components/Link'
+import Image from 'next/image'
 import DirectionRightIcon from '@/components/icons/DirectionRightIcon'
 
 export const UseCasesListItem = (props: {
   color: string
-  icon: ReactNode
+  image: string
   title: string
   description: string
   items: string[]
@@ -12,11 +12,10 @@ export const UseCasesListItem = (props: {
 }) => {
   return (
     <div className="py-4 pr-4">
-      <div className="relative">
+      <div className="relative inline-flex">
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="48" rx="16" fill={props.color}/>
           <rect opacity="0.5" width="48" height="48" rx="16" fill="url(#paint0_radial_20252_65810)"/>
-          {props.icon}
           <defs>
             <radialGradient id="paint0_radial_20252_65810" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1.74834 -9.52632) rotate(55.0103) scale(70.2178 69.915)">
               <stop stopColor="white"/>
@@ -24,6 +23,9 @@ export const UseCasesListItem = (props: {
             </radialGradient>
           </defs>
         </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Image width={24} height={24} src={props.image} alt={props.title}/>
+        </div>
       </div>
       <h3 className="m-0 mt-4 font-medium text-lg" style={{ color:props.color }}>{props.title}</h3>
       <p className="m-0 mt-2 font-medium text-sm leading-5">{props.description}</p>

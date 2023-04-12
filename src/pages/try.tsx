@@ -120,16 +120,16 @@ const ExamplesWrapper = ({
 	const variants = useMemo(
 		() => [
 			{
-				'bg-gray-900 border border-gray-900 py-3.5 px-6 rounded-xl text-white': theme === 'light',
-				'bg-white border border-gray-900 py-3.5 px-6 rounded-xl text-gray-900': theme === 'dark',
+				'bg-white border border-gray-200 text-gray-900 h-[50px] px-6 rounded-xl': theme === 'light',
+				'bg-gray-900 border border-gray-900 h-[50px] px-6 rounded-xl text-white': theme === 'dark',
 			},
 			{
-				'bg-white border border-gray-200 text-gray-900 py-3.5 px-6 rounded-xl': theme === 'light',
-				'bg-gray-900 border border-white/30 text-white py-3.5 px-6 rounded-xl': theme === 'dark',
+				'bg-white border border-gray-200 text-gray-900 h-[50px] px-6 rounded-[25px]': theme === 'light',
+				'bg-gray-900 border border-white/30 text-white h-[50px] px-6 rounded-[25px]': theme === 'dark',
 			},
 			{
-				'bg-white border border-gray-200 text-gray-900 py-3.5 px-6 rounded-full': theme === 'light',
-				'bg-gray-900 border border-white/30 text-white py-3.5 px-6 rounded-full': theme === 'dark',
+				'bg-white border border-gray-200 text-gray-900 h-[50px] px-6 rounded-[0px]': theme === 'light',
+				'bg-gray-900 border border-white/30 text-white h-[50px] px-6 rounded-[0px]': theme === 'dark',
 			},
 		],
 		[theme]
@@ -142,12 +142,9 @@ const ExamplesWrapper = ({
 			</div>
 
 			<div
-				className={clsx(
-					'flex justify-center py-24 md:py-16 transition-colors',
-					{ 'bg-gray-900': theme === 'dark' },
-					{ 'bg-white': theme === 'light' },
-					{ 'opacity-50 pointer-events-none select-none cursor-not-allowed': !valid }
-				)}
+				className={clsx('flex justify-center py-24 md:py-16 transition-colors', {
+					'opacity-50 pointer-events-none select-none cursor-not-allowed': !valid,
+				})}
 			>
 				{children({ theme, styleOption: selected, variants })}
 			</div>
@@ -171,9 +168,9 @@ const ExamplesWrapper = ({
 					<button type="button" onClick={() => setTheme('dark')}>
 						<MoonIcon
 							className={clsx(
-								'transition-all',
-								{ 'text-gray-900/40 hover:text-gray-900': theme === 'light' },
-								{ 'text-gray-300 hover:text-gray-300/70': theme === 'dark' }
+								'transition-all ',
+								{ 'text-gray-900 hover:text-gray-900/70': theme === 'dark' },
+								{ 'text-gray-300/40 hover:text-gray-300': theme === 'light' }
 							)}
 						/>
 					</button>
@@ -186,10 +183,8 @@ const ExamplesWrapper = ({
 							className={clsx(
 								'w-4.5 h-4.5 flex justify-center items-center text-2xs rounded-full transition-all hover:opacity-70',
 								{
-									'bg-gray-900 text-white': index === selected && theme === 'light',
-									'bg-gray-100': index !== selected && theme === 'light',
-									'bg-white text-gray-900': index === selected && theme === 'dark',
-									'bg-white/30': index !== selected && theme === 'dark',
+									'bg-gray-900 text-white': index === selected,
+									'bg-gray-100': index !== selected,
 								}
 							)}
 							onClick={() => setSelected(index)}

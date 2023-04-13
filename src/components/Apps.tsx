@@ -56,8 +56,8 @@ export const Apps: FC<Props> = props => {
 			<div className="pt-4" />
 
 			<div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
-				<Card app={apps[4]} />
-				<Card app={apps[7]} />
+				<Card app={apps[0]} />
+				<Card app={apps[1]} />
 			</div>
 
 			<div className="flex flex-wrap items-center justify-start gap-x-3 gap-y-2 mt-10 mb-10">
@@ -305,117 +305,71 @@ const Item = (props: {
 const apps = [
 	{
 		url: 'https://human.withlens.app',
-		githubUrl: '#', // FIXME: add github url
+		githubUrl: 'https://github.com/worldcoin/world-id-lens',
 		image: {
-			sm: '/images/examples/lens.svg',
-			lg: '',
+			sm: '/images/apps/lens.svg',
+			lg: '/images/apps/lens-lg.svg',
 		},
-		title: 'Worldcoin Meets Lens',
+		title: 'Lens x Worldcoin',
 		subtitle: 'human.withlens.app',
 		description:
-			'Verify your Lens profile belongs to a unique human. No bots, reduce spam. Enables apps built on Lens to quickly identify who is a real person.',
-		tags: ['On-chain verification', 'Cloud', 'API', 'Community'],
-		worldcoin: true,
+			'The decentralized social network. Verify a Lens profile belongs to real person. No bots, reduce spam.',
+		tags: ['On-chain', 'Integration', 'Social'],
+		bookmark: false,
 	},
 
 	{
-		url: 'https://moonpay.com',
-		githubUrl: '#', // FIXME: add github url
+		url: 'https://discordbouncer.com',
+		githubUrl: 'https://github.com/worldcoin/discord-bouncer',
 		image: {
-			sm: '/images/examples/moonpay.svg',
-			lg: '',
+			sm: '/images/apps/discord.svg',
+			lg: '/images/apps/discord-lg.svg',
 		},
-		title: 'Moon Pay',
-		subtitle: 'moonpay.com',
-		description: 'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you...',
-		tags: ['On-ramp', 'Community'],
-		bookmark: true,
+		title: 'Discord Bouncer',
+		subtitle: 'discordbouncer.com',
+		description: 'Prevent spam and increase the quality of the community by verifying humans.',
+		tags: ['App', 'Integration', 'API'],
 	},
 
 	{
 		url: 'https://poap.worldcoin.org',
-		githubUrl: '#', // FIXME: add github url
+		githubUrl: 'https://github.com/worldcoin/world-id-poap',
 		image: {
-			sm: '/images/examples/poap.svg',
+			sm: '/images/apps/poap.svg',
 			lg: '',
 		},
-		title: 'POAP dispenser',
+		title: 'POAP x Worldcoin',
 		subtitle: 'poap.worldcoin.org',
-		description: 'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you...',
-		tags: ['Cloud', 'Community'],
-		bookmark: true,
-		worldcoin: true,
+		description: 'The bookmarks of your life. Issue POAPs to humans only. One person, one POAP.',
+		tags: ['On-Chain', 'Integration'],
 	},
 
 	{
 		url: 'https://petorbz.com',
-		githubUrl: '#', // FIXME: add github url
+		githubUrl: 'https://github.com/worldcoin/world-id-petorbz',
 		image: {
-			sm: '/images/examples/petorbz.svg',
+			sm: '/images/apps/petorbz.svg',
 			lg: '',
 		},
 		title: 'Pet Orbz',
 		subtitle: 'petorbz.com',
-		description: 'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you...',
-		tags: ['On-chain verification', 'Cloud', 'API', 'Community', 'DeFi', 'Smart contract'],
-		worldcoin: true,
+		description: 'Claim a single #petorbz NFT once. Only one NFT per person, verified on-chain.',
+		tags: ['On-chain', 'App'],
 	},
 
 	{
 		url: 'https://worldcoin.org',
-		githubUrl: 'https://github.com/worldcoin/hyperdrop-contracts',
+		githubUrl: 'https://github.com/worldcoin/world-id-example-airdrop',
 		image: {
-			sm: '/images/examples/hyperdrop.svg',
-			lg: '/images/examples/hyperdrop-lg.svg',
-		},
-		title: 'Hyperdrop',
-		subtitle: 'worldcoin.org',
-		description:
-			'Share tokens equitably with any verified human on the planet. With Hyperdrop you can airdrop ERC-20 tokens to all humans who have verified with World ID.',
-		tags: ['On-chain verification', 'Cloud', 'API', 'Community'],
-		worldcoin: true,
-	},
-
-	{
-		url: 'https://example.id.worldcoin.org',
-		githubUrl: '#',
-		image: {
-			sm: '/images/examples/mesha.svg',
+			sm: '/images/apps/hyperdrop.svg',
 			lg: '',
 		},
-		title: 'Mesha',
+		title: 'Worldcoin Airdrop',
 		subtitle: 'worldcoin.org',
 		description:
-			'Mesha is a mock client app that lets you airdrop tokens where a single person can only claim them once.',
-		tags: ['Smart contract'],
-		worldcoin: true,
-	},
-
-	{
-		url: 'https://synthetix.io',
-		githubUrl: '#',
-		image: {
-			sm: '/images/examples/synthetix.svg',
-			lg: '',
-		},
-		title: 'Synthetix',
-		subtitle: 'synthetix.io',
-		description: 'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you...',
-		tags: ['DeFi', 'Cloud', 'API'],
-	},
-
-	{
-		url: 'https://qx.app',
-		githubUrl: '#',
-		image: {
-			sm: '/images/examples/quix.svg',
-			lg: '/images/examples/quix-lg.svg',
-		},
-		title: 'Quix',
-		subtitle: 'qx.app',
-		description: 'Verify your Lens profile belongs to a unique human. World ID can anonymously prove you...',
-		tags: ['NFT'],
-		bookmark: true,
+			'The first token to be globally and freely distributed to people, just for being a unique individual.',
+		tags: ['On-chain', 'App'],
+		worldcoin: false,
 	},
 ]
 

@@ -53,7 +53,7 @@ export const UseCasesListItem = (props: {
 				className="inline-flex items-center gap-x-1 mt-5 text-accents-info-700 no-underline hover:text-accents-info-700/80"
 				href={props.linkHref}
 			>
-				Show me more <DirectionRightIcon className="w-4 h-4" />
+				Learn more <DirectionRightIcon className="w-4 h-4" />
 			</Link>
 		</div>
 	)

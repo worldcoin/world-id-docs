@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Link } from '@/components/Link'
 import RedirectIcon from './icons/RedirectIcon'
 import { UseCasesListItem } from '@/components/UseCasesListItem'
+import { SoonUseCases } from '@/components/SoonUseCases'
 
 // ANCHOR: LinkCard component for the links in the bottom of the page
 const LinkCard: FC<{ href: string; heading: string; description: string }> = ({ href, heading, description }) => {
@@ -83,20 +84,21 @@ export const UseCasesList: FC<{}> = () => {
 					linkHref="/use-cases/social-media"
 				/>
 
-				<UseCasesListItem
-					color="#9D50FF"
-					image="/images/docs/use-cases/icons/defi-and-fintech.svg"
-					title="DeFi and Fintech"
-					description="Bring seamless compliance, privacy-preserving AML, enhanced fraud prevention, decentralized credit scores and even negative reputation."
-					items={[
-						'Undercollateralized lending & credit',
-						'Credit card chargeback protection',
-						'Zero-knowledge compliance with nationality, age and sanctions',
-						'Private transaction mixer with daily amount limits and ZK compliance for AML',
-						'Private decentralized credit score',
-					]}
-					linkHref="/use-cases/defi-and-fintech"
-				/>
+				{/* TODO: uncomment after the use case is ready  */}
+				{/*<UseCasesListItem*/}
+				{/*	color="#9D50FF"*/}
+				{/*	image="/images/docs/use-cases/icons/defi-and-fintech.svg"*/}
+				{/*	title="DeFi and Fintech"*/}
+				{/*	description="Bring seamless compliance, privacy-preserving AML, enhanced fraud prevention, decentralized credit scores and even negative reputation."*/}
+				{/*	items={[*/}
+				{/*		'Undercollateralized lending & credit',*/}
+				{/*		'Credit card chargeback protection',*/}
+				{/*		'Zero-knowledge compliance with nationality, age and sanctions',*/}
+				{/*		'Private transaction mixer with daily amount limits and ZK compliance for AML',*/}
+				{/*		'Private decentralized credit score',*/}
+				{/*	]}*/}
+				{/*	linkHref="/use-cases/defi-and-fintech"*/}
+				{/*/>*/}
 
 				<UseCasesListItem
 					color="#00C313"
@@ -111,70 +113,77 @@ export const UseCasesList: FC<{}> = () => {
 					linkHref="/use-cases/wealth-distribution"
 				/>
 
-				<UseCasesListItem
-					color="#FFB11B"
-					image="/images/docs/use-cases/icons/token-airdrops.svg"
-					title="Token Airdrops"
-					description="Airdrop tokens or other goods in a fair and transparent manner. Prevent spam or farming. Reward your real users."
-					items={[
-						'One person one share crypto airdrops',
-						'Crypto airdrops with quadratic rewards / caps per person',
-						'Quests and learn-to-earn distributions',
-					]}
-					linkHref="/use-cases/token-airdrops"
-				/>
+				{/* TODO: uncomment after the use case is ready  */}
+				{/*<UseCasesListItem*/}
+				{/*	color="#FFB11B"*/}
+				{/*	image="/images/docs/use-cases/icons/token-airdrops.svg"*/}
+				{/*	title="Token Airdrops"*/}
+				{/*	description="Airdrop tokens or other goods in a fair and transparent manner. Prevent spam or farming. Reward your real users."*/}
+				{/*	items={[*/}
+				{/*		'One person one share crypto airdrops',*/}
+				{/*		'Crypto airdrops with quadratic rewards / caps per person',*/}
+				{/*		'Quests and learn-to-earn distributions',*/}
+				{/*	]}*/}
+				{/*	linkHref="/use-cases/token-airdrops"*/}
+				{/*/>*/}
 
-				<UseCasesListItem
-					color="#FF5A76"
-					image="/images/docs/use-cases/icons/nfts.svg"
-					title="NFTs"
-					description="Bring soul-bound tokens to life by enabling NFTs that are actually associated with a person, and prevent NFT farming."
-					items={[
-						'One person one PFP avatar collection',
-						'Soulbound NFTs you can transfer between addresses of the same person',
-						'POAP integration',
-					]}
-					linkHref="/use-cases/nfts"
-				/>
+				{/* TODO: uncomment after the use case is ready  */}
+				{/*<UseCasesListItem*/}
+				{/*	color="#FF5A76"*/}
+				{/*	image="/images/docs/use-cases/icons/nfts.svg"*/}
+				{/*	title="NFTs"*/}
+				{/*	description="Bring soul-bound tokens to life by enabling NFTs that are actually associated with a person, and prevent NFT farming."*/}
+				{/*	items={[*/}
+				{/*		'One person one PFP avatar collection',*/}
+				{/*		'Soulbound NFTs you can transfer between addresses of the same person',*/}
+				{/*		'POAP integration',*/}
+				{/*	]}*/}
+				{/*	linkHref="/use-cases/nfts"*/}
+				{/*/>*/}
 
-				<UseCasesListItem
-					color="#C4554D"
-					image="/images/docs/use-cases/icons/customer-incentives.svg"
-					title="Customer Incentives"
-					description="Build customer loyalty and acquire new customers efficiently. Ensure beneficiaries are real people while preserving their privacy."
-					items={[
-						'Abuse resistant coupons and loyalty programs for retail businesses',
-						'One-time software free trials',
-						'Fraud-proof referral programs',
-						'Fee subsidies with per-person limits',
-					]}
-					linkHref="/use-cases/customer-incentives"
-				/>
+				{/* TODO: uncomment after the use case is ready  */}
+				{/*<UseCasesListItem*/}
+				{/*	color="#C4554D"*/}
+				{/*	image="/images/docs/use-cases/icons/customer-incentives.svg"*/}
+				{/*	title="Customer Incentives"*/}
+				{/*	description="Build customer loyalty and acquire new customers efficiently. Ensure beneficiaries are real people while preserving their privacy."*/}
+				{/*	items={[*/}
+				{/*		'Abuse resistant coupons and loyalty programs for retail businesses',*/}
+				{/*		'One-time software free trials',*/}
+				{/*		'Fraud-proof referral programs',*/}
+				{/*		'Fee subsidies with per-person limits',*/}
+				{/*	]}*/}
+				{/*	linkHref="/use-cases/customer-incentives"*/}
+				{/*/>*/}
 
-				<UseCasesListItem
-					color="#39B8A8"
-					image="/images/docs/use-cases/icons/marketplaces.svg"
-					title="Marketplaces"
-					description="Enhance marketplaces with a new level of trust and transparency. Real reviews that others can trust."
-					items={[
-						'Fake review and transaction prevention',
-						'True merchant & customer ratings',
-						'One person one item purchase',
-					]}
-					linkHref="/use-cases/marketplaces"
-				/>
+				{/* TODO: uncomment after the use case is ready  */}
+				{/*<UseCasesListItem*/}
+				{/*	color="#39B8A8"*/}
+				{/*	image="/images/docs/use-cases/icons/marketplaces.svg"*/}
+				{/*	title="Marketplaces"*/}
+				{/*	description="Enhance marketplaces with a new level of trust and transparency. Real reviews that others can trust."*/}
+				{/*	items={[*/}
+				{/*		'Fake review and transaction prevention',*/}
+				{/*		'True merchant & customer ratings',*/}
+				{/*		'One person one item purchase',*/}
+				{/*	]}*/}
+				{/*	linkHref="/use-cases/marketplaces"*/}
+				{/*/>*/}
 
-				<UseCasesListItem
-					color="#8A67AB"
-					image="/images/docs/use-cases/icons/events.svg"
-					title="Events"
-					description="We've all missed a ticket to our favorite event because they magically disappeared in 5 minutes. With World ID only people, not bots, not scalpers can buy tickets."
-					items={['Ticket scalper protection', 'Private age verification', 'Free bandwidth capped WiFi']}
-					linkHref="/use-cases/events"
-				/>
+				{/* TODO: uncomment after the use case is ready  */}
+				{/*<UseCasesListItem*/}
+				{/*	color="#8A67AB"*/}
+				{/*	image="/images/docs/use-cases/icons/events.svg"*/}
+				{/*	title="Events"*/}
+				{/*	description="We've all missed a ticket to our favorite event because they magically disappeared in 5 minutes. With World ID only people, not bots, not scalpers can buy tickets."*/}
+				{/*	items={['Ticket scalper protection', 'Private age verification', 'Free bandwidth capped WiFi']}*/}
+				{/*	linkHref="/use-cases/events"*/}
+				{/*/>*/}
 			</div>
 
-			<h2 className="m-0 mt-12 font-bold text-xl text-black text-center">Join the Worldcoin builder community</h2>
+			<SoonUseCases/>
+
+			<h2 className="m-0 mt-16 font-bold text-xl text-black text-center">Join the Worldcoin builder community</h2>
 			<div className="mt-6 grid md:grid-cols-3 gap-y-6 items-center justify-center">
 				<div className="flex flex-col items-center w-[250px]">
 					<div className="font-bold text-black text-[64px] leading-[64px]">5.4m</div>

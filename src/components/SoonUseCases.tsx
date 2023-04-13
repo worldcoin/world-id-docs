@@ -1,32 +1,18 @@
+// TODO: temporary component, remove when use cases are ready
 import clsx from 'clsx'
 import Image from 'next/image'
-import { Link } from '@/components/Link'
-import { CSSProperties, FC } from 'react'
+import { FC } from 'react'
 
 //ANCHOR: Single explore use cases link component
-const UseCaseLink: FC<{ image: string; title: string; color: string; href: string, disabled?: boolean, }> = ({
+const Item: FC<{ image: string; title: string; }> = ({
 	image,
 	title,
-	color,
-	href,
-	disabled,
 }) => {
 	return (
-		<Link
-			href={href}
-			className={clsx(
-				'grid grid-cols-auto/1fr gap-y-1 gap-x-4 !no-underline transition-color', {
-					'text-gray-400 hover:!text-[--hoverColor]': !disabled,
-					'text-gray-300 cursor-default': disabled,
-			})}
-			style={
-				{
-					'--hoverColor': color,
-				} as CSSProperties
-			}
-			onClick={!disabled ? undefined : event => event.preventDefault()}
+		<div
+			className="grid grid-cols-auto/1fr gap-x-4 text-gray-300 !no-underline transition-color"
 		>
-			<div className="relative inline-flex row-span-2 self-center">
+			<div className="relative inline-flex self-center">
 				<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<rect width="48" height="48" rx="16" fill="currentColor" />
 					<rect opacity="0.5" width="48" height="48" rx="16" fill="url(#paint0_radial_20252_65810)" />
@@ -49,87 +35,65 @@ const UseCaseLink: FC<{ image: string; title: string; color: string; href: strin
 				</div>
 			</div>
 
-			<h4 className="m-0 font-medium text-lg text-gray-900 !no-underline self-end">{title}</h4>
-			{!disabled && (
-				<span className="m-0 text-2xs leading-[1.33] text-primary !no-underline self-start">Show me more</span>
-			)}
-		</Link>
+			<h4 className="m-0 font-medium text-lg text-gray-900 !no-underline self-center">{title}</h4>
+		</div>
 	)
 }
 
-export const ExploreUseCases: FC<{ className?: string }> = ({ className }) => {
+export const SoonUseCases: FC<{ className?: string }> = ({ className }) => {
 	return (
-		<div className={clsx('grid gap-y-4', className)}>
-			<h3 className="uppercase text-2xs m-0 font-medium text-gray-500">Explore other World ID uses cases</h3>
+		<div className={clsx('mt-10 grid gap-y-4', className)}>
+			<h3 className="flex items-center uppercase text-2xs m-0 font-medium text-gray-500">
+				World id use cases
+				<div className="ml-2 inline flex items-center normal-case h-4 px-1 font-normal text-3xs text-white bg-gray-400 rounded">
+					Coming soon
+				</div>
+			</h3>
 
 			<div className="grid justify-center content-start md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-4">
-				<UseCaseLink
-					color="#9D50FF"
+				<Item
 					image="/images/docs/use-cases/icons/defi-and-fintech.svg"
 					title="DeFi and Fintech"
-					href="/use-cases/defi-and-fintech"
-					disabled
 				/>
 
-				<UseCaseLink
-					color="#4940E0"
+				<Item
 					image="/images/docs/use-cases/icons/voting-platforms.svg"
 					title="Voting"
-					href="/use-cases/voting"
 				/>
 
-				<UseCaseLink
-					color="#487CA5"
+				<Item
 					image="/images/docs/use-cases/icons/social-media.svg"
 					title="Social Media"
-					href="/use-cases/social-media"
 				/>
 
-				<UseCaseLink
-					color="#00C313"
+				<Item
 					image="/images/docs/use-cases/icons/wealth-distribution.svg"
 					title="Wealth Distribution"
-					href="/use-cases/wealth-distribution"
 				/>
 
-				<UseCaseLink
-					color="#FFB11B"
+				<Item
 					image="/images/docs/use-cases/icons/token-airdrops.svg"
 					title="Token Airdrops"
-					href="/use-cases/token-airdrops"
-					disabled
 				/>
 
-				<UseCaseLink
-					color="#FF5A76"
+				<Item
 					image="/images/docs/use-cases/icons/nfts.svg"
 					title="NFTs"
-					href="/use-cases/nfts"
-					disabled
 				/>
 
-				<UseCaseLink
-					color="#C4554D"
+				<Item
 					image="/images/docs/use-cases/icons/customer-incentives.svg"
 					title="Customer Incentives"
-					href="/use-cases/customer-incentives"
-					disabled
 				/>
 
-				<UseCaseLink
-					color="#39B8A8"
+				<Item
 					image="/images/docs/use-cases/icons/marketplaces.svg"
 					title="Marketplaces"
-					href="/use-cases/marketplaces"
-					disabled
 				/>
 
-				<UseCaseLink
-					color="#8A67AB"
+				<Item
 					image="/images/docs/use-cases/icons/events.svg"
 					title="Events"
-					href="/use-cases/events"
-					disabled
 				/>
 			</div>
 		</div>

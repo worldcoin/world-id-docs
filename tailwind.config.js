@@ -13,6 +13,7 @@ module.exports = {
 
 	theme: {
 		fontSize: {
+			'3xs': ['0.625rem', { lineHeight: '1rem' }],
 			'2xs': ['0.75rem', { lineHeight: '1.25rem' }],
 			xs: ['0.8125rem', { lineHeight: '1.5rem' }],
 			sm: ['0.875rem', { lineHeight: '1.5rem' }],
@@ -54,6 +55,7 @@ module.exports = {
 					50: '#F9FAFB',
 					100: '#F3F4F5',
 					200: '#EBECEF',
+					300: '#D6D9DD',
 					400: '#9BA3AE',
 					500: '#657080',
 					900: '#191C20',

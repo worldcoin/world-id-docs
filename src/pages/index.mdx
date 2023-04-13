@@ -11,7 +11,7 @@ The protocol to bring global proof of personhood to the internet. {{ className: 
 
 ## Introduction {{ className: 'mt-0 uppercase text-sm text-neutral-400 font-normal', anchor: false }}
 
-World ID is a digital passport that lets a user prove they are a unique and real person while remaining anonymous. This happens through [Zero-knowledge Proofs](/advanced/zero-knowledge-proofs) and other privacy-preserving cryptographic mechanisms.
+World ID is a digital passport that lets a user prove they are a unique and real person while remaining anonymous. This happens through [zero-knowledge proofs](/advanced/zero-knowledge-proofs) (ZKP) and other privacy-preserving cryptographic mechanisms.
 
 You can easily integrate World ID in your app and smart contract or backend. World ID holders can easily and anonymously verify they are a unique human through a compatible identity wallet, like the [World App](https://worldcoin.org/download).
 
@@ -24,7 +24,7 @@ You can easily integrate World ID in your app and smart contract or backend. Wor
 			<span>
 				You integrate <a href="/id/sign-in">Sign in with Worldcoin</a> or <a href="/idkit">IDKit JS</a>.
 			</span>,
-			<span>App connects to user's wallet and sends verification request</span>,
+			<span>Your app connects to the user's wallet and requests verification</span>,
 			<span>
 				User verifies with a <a href="/advanced/zero-knowledge-proofs">ZKP</a>, using their World ID
 				credentials.
@@ -35,7 +35,7 @@ You can easily integrate World ID in your app and smart contract or backend. Wor
 
 <Note title="FYI">
 	World ID is currently in **Beta** and some functionality might change. Please help us improve by sharing
-	[feedback](https://discord.gg/worldcoin). Join the waitlist SDK [here](https://docs.worldcoin.org/waitlist).
+	[feedback](https://discord.gg/worldcoin). Join the waitlist for the SDK [here](https://docs.worldcoin.org/waitlist).
 </Note>
 
 ## How it works
@@ -44,13 +44,13 @@ In broad strokes, this is how World ID works.
 
 1. User gets their World ID in a compatible wallet (e.g. the [World App](https://worldcoin.org/download)).
 
-2. User receives credentials in their World ID. The flagship credential is biometric verification, currently available by using the [Orb](https://github.com/worldcoin/orb-hardware). The user can also verify their phone number to obtain the respective credential.
+2. User receives credentials in their World ID. The flagship credential is biometric verification, currently available by using the [Orb](https://worldcoin.org/blog/engineering/opening-orb-look-inside-worldcoin-biometric-imaging-device). The user can also verify their phone number to obtain the respective credential.
 
 3. Project [integrates with World ID](/quick-start).
 
-4. User connects their World ID to authenticate, and optionally prove they are a unique human doing something only once. The user's wallet will generate a [Zero-Knowledge Proof](/advanced/zero-knowledge-proofs) to accomplish this.
+4. User connects their World ID to authenticate, and optionally prove they are a unique human doing something only once. The user's wallet will generate a [ZKP](/advanced/zero-knowledge-proofs) to accomplish this.
 
-5. Project verifies the [Zero-knowledge Proof](/advanced/zero-knowledge-proofs), either by using the [API](/api) or by verifying [on-chain](/advanced/on-chain).
+5. Project verifies the [ZKP](/advanced/zero-knowledge-proofs), either by using the [API](/api) or by verifying it [on-chain](/advanced/on-chain).
 
 ## Use cases
 

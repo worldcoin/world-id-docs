@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC, PropsWithChildren } from 'react'
+import { FC } from 'react'
 
 const variantStyles = {
 	medium: 'rounded-lg px-1.5 ring-1 ring-inset',
@@ -48,7 +48,7 @@ export const Tag: FC<{
 	return (
 		<span
 			className={clsx(
-				'font-mono text-[0.625rem] font-semibold leading-6',
+				'font-mono text-[0.625rem] font-semibold leading-6 inline-block',
 				variantStyles[variant],
 				// @ts-ignore
 				colorStyles[color][variant]

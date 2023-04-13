@@ -57,21 +57,6 @@ export const SoonUseCases: FC<{ className?: string }> = ({ className }) => {
 				/>
 
 				<Item
-					image="/images/docs/use-cases/icons/voting-platforms.svg"
-					title="Voting"
-				/>
-
-				<Item
-					image="/images/docs/use-cases/icons/social-media.svg"
-					title="Social Media"
-				/>
-
-				<Item
-					image="/images/docs/use-cases/icons/wealth-distribution.svg"
-					title="Wealth Distribution"
-				/>
-
-				<Item
 					image="/images/docs/use-cases/icons/token-airdrops.svg"
 					title="Token Airdrops"
 				/>

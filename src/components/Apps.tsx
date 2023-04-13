@@ -310,7 +310,7 @@ const apps = [
 			sm: '/images/apps/lens.svg',
 			lg: '/images/apps/lens-lg.svg',
 		},
-		title: 'Lens x Worldcoin',
+		title: 'Lens',
 		subtitle: 'human.withlens.app',
 		description:
 			'The decentralized social network. Verify a Lens profile belongs to real person. No bots, reduce spam.',
@@ -338,7 +338,7 @@ const apps = [
 			sm: '/images/apps/poap.svg',
 			lg: '',
 		},
-		title: 'POAP x Worldcoin',
+		title: 'POAP',
 		subtitle: 'poap.worldcoin.org',
 		description: 'The bookmarks of your life. Issue POAPs to humans only. One person, one POAP.',
 		tags: ['On-Chain', 'Integration'],

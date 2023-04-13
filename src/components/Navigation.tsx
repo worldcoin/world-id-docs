@@ -189,6 +189,7 @@ export const navigation = [
 			{ title: 'Home', href: '/' },
 			{ title: 'Quick Start', href: '/quick-start' },
 			{ title: 'Try it Out', href: '/try' },
+			{ title: 'Apps & Integrations', href: '/apps' },
 		],
 	},
 	{
@@ -233,10 +234,6 @@ export const Navigation: FC<{
 	return (
 		<nav {...props}>
 			<ul role="list">
-				<TopLevelNavItem href="/">Docs</TopLevelNavItem>
-				<TopLevelNavItem href="https://docs.worldcoin.org/waitlist" target="_blank">
-					Join the waitlist
-				</TopLevelNavItem>
 				{navigation.map((group, groupIndex) => (
 					// @ts-ignore
 					<NavigationGroup key={group.title} group={group} className={groupIndex === 0 && 'md:mt-0'} />

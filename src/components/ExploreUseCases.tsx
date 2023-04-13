@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import Image from 'next/image'
-import { CSSProperties, FC } from 'react'
 import { Link } from '@/components/Link'
+import { CSSProperties, FC } from 'react'
 
 //ANCHOR: Single explore use cases link component
 const UseCaseLink: FC<{ image: string; title: string; color: string; href: string }> = ({
@@ -13,12 +13,15 @@ const UseCaseLink: FC<{ image: string; title: string; color: string; href: strin
 	return (
 		<Link
 			href={href}
-			className={clsx("grid grid-cols-auto/1fr gap-y-1 gap-x-4 !no-underline transition-color",
+			className={clsx(
+				'grid grid-cols-auto/1fr gap-y-1 gap-x-4 !no-underline transition-color',
 				`text-gray-400 hover:!text-[--hoverColor]`
 			)}
-			style={{
-				'--hoverColor': color,
-			} as CSSProperties}
+			style={
+				{
+					'--hoverColor': color,
+				} as CSSProperties
+			}
 		>
 			<div className="relative inline-flex row-span-2 self-center">
 				<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,8 +68,8 @@ export const ExploreUseCases: FC<{ className?: string }> = ({ className }) => {
 				<UseCaseLink
 					color="#4940E0"
 					image="/images/docs/use-cases/icons/voting-platforms.svg"
-					title="Voting platforms"
-					href="/use-cases/voting-platforms"
+					title="Voting"
+					href="/use-cases/voting"
 				/>
 
 				<UseCaseLink

@@ -23,7 +23,6 @@ export const UseCasesList: FC<{}> = () => {
 	return (
 		<div>
 			<div className="flex flex-col items-center">
-				<Image src="/images/docs/use-cases/illustration.svg" width={68} height={72} alt="Verified at Orb" />
 				<div className="mt-12 font-medium text-sm text-[#007fd3] leading-4 uppercase">
 					World ID USE CASES & IDEAS
 				</div>
@@ -36,15 +35,15 @@ export const UseCasesList: FC<{}> = () => {
 				<div className="mt-6 flex items-center gap-x-2">
 					<Link
 						className="px-4 py-3 bg-gray-900 text-white leading-4 no-underline rounded-[10px] hover:bg-gray-900/80"
-						href="" // FIXME: Add link
+						href="/quick-start"
 					>
-						Start building
+						Start Building
 					</Link>
 					<Link
 						className="px-5 py-3 bg-gray-200 text-gray-900 leading-4 no-underline rounded-[10px] hover:bg-gray-200/80"
-						href="" // FIXME: Add link
+						href="/apps"
 					>
-						Explore examples
+						Explore Apps
 					</Link>
 				</div>
 			</div>
@@ -55,25 +54,10 @@ export const UseCasesList: FC<{}> = () => {
 
 			<div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2">
 				<UseCasesListItem
-					color="#9D50FF"
-					image="/images/docs/use-cases/icons/defi-and-fintech.svg"
-					title="DeFi and Fintech"
-					description="Particularly relying on global proof of personhood, can be used to build a truly democratic, one person one vote, system as well as novel voting systems centered around unique humans."
-					items={[
-						'Undercollateralized lending & credit',
-						'Credit card chargeback protection',
-						'Zero-knowledge compliance with nationality, age and sanctions',
-						'Private transaction mixer with daily amount limits and ZK compliance for MLP',
-						'Private decentralized credit score',
-					]}
-					linkHref="/use-cases/defi-and-fintech"
-				/>
-
-				<UseCasesListItem
 					color="#4940E0"
 					image="/images/docs/use-cases/icons/voting-platforms.svg"
-					title="Voting platforms"
-					description="Using World ID’s proof of personhood, a system could be built to ensure aid from NGOs, non-profits, government programs, etc. is distributed equitably to recipients."
+					title="Voting"
+					description="Using World ID, and particularly relying on global proof of personhood, can be used to build a truly democratic, one person one vote, system as well as novel voting systems."
 					items={[
 						'Deduplication in government elections',
 						'Novel DAO governance including quadratic, and conviction voting',
@@ -81,35 +65,48 @@ export const UseCasesList: FC<{}> = () => {
 						'Snapshot integration',
 						'Change.org integration',
 					]}
-					linkHref="/use-cases/voting-platforms"
+					linkHref="/use-cases/voting"
 				/>
 
 				<UseCasesListItem
 					color="#487CA5"
 					image="/images/docs/use-cases/icons/social-media.svg"
 					title="Social Media"
-					description="Using World ID’s proof of personhood, a system could be built to ensure aid from NGOs, non-profits, government programs, etc. is distributed equitably to recipients."
+					description="Social networks where humans, not bots, engage. With World ID and progressive proof of personhood social networks can be enhanced and several abuse problems solved."
+					items={[
+						'Bot protection for posting, views, likes',
+						'Filter posts, comments, replies, and notifications to verified accounts',
+						'Community moderation tools',
+						'Content attribution to prevent deep fakes & misinformation',
+						'Discord, Twitter, Lens, and Farcaster integrations',
+					]}
+					linkHref="/use-cases/social-media"
+				/>
+
+				<UseCasesListItem
+					color="#9D50FF"
+					image="/images/docs/use-cases/icons/defi-and-fintech.svg"
+					title="DeFi and Fintech"
+					description="Bring seamless compliance, privacy-preserving AML, enhanced fraud prevention, decentralized credit scores and even negative reputation."
 					items={[
 						'Undercollateralized lending & credit',
 						'Credit card chargeback protection',
 						'Zero-knowledge compliance with nationality, age and sanctions',
-						'Private transaction mixer with daily amount limits and ZK compliance for MLP',
+						'Private transaction mixer with daily amount limits and ZK compliance for AML',
 						'Private decentralized credit score',
 					]}
-					linkHref="/use-cases/social-media"
+					linkHref="/use-cases/defi-and-fintech"
 				/>
 
 				<UseCasesListItem
 					color="#00C313"
 					image="/images/docs/use-cases/icons/wealth-distribution.svg"
 					title="Wealth Distribution"
-					description="Particularly relying on global proof of personhood, can be used to build a truly democratic, one person one vote, system as well as novel voting systems centered around unique humans."
+					description="Using World ID’s proof of personhood, a system could be built to ensure aid from NGOs, non-profits, government programs, etc. is distributed equitably to recipients."
 					items={[
-						'Deduplication in government elections',
-						'Novel DAO governance including quadratic, and conviction voting',
-						'Anonymous online polls platform',
-						'Snapshot integration',
-						'Change.org integration',
+						'Government welfare programs',
+						'Non-profit and refugee aid distribution',
+						'Privately or publicly funded Universal Basic Income',
 					]}
 					linkHref="/use-cases/wealth-distribution"
 				/>
@@ -118,13 +115,11 @@ export const UseCasesList: FC<{}> = () => {
 					color="#FFB11B"
 					image="/images/docs/use-cases/icons/token-airdrops.svg"
 					title="Token Airdrops"
-					description="Particularly relying on global proof of personhood, can be used to build a truly democratic, one person one vote, system as well as novel voting systems centered around unique humans."
+					description="Airdrop tokens or other goods in a fair and transparent manner. Prevent spam or farming. Reward your real users."
 					items={[
-						'Undercollateralized lending & credit',
-						'Credit card chargeback protection',
-						'Zero-knowledge compliance with nationality, age and sanctions',
-						'Private transaction mixer with daily amount limits and ZK compliance for MLP',
-						'Private decentralized credit score',
+						'One person one share crypto airdrops',
+						'Crypto airdrops with quadratic rewards / caps per person',
+						'Quests and learn-to-earn distributions',
 					]}
 					linkHref="/use-cases/token-airdrops"
 				/>
@@ -133,13 +128,11 @@ export const UseCasesList: FC<{}> = () => {
 					color="#FF5A76"
 					image="/images/docs/use-cases/icons/nfts.svg"
 					title="NFTs"
-					description="Using World ID’s proof of personhood, a system could be built to ensure aid from NGOs, non-profits, government programs, etc. is distributed equitably to recipients."
+					description="Bring soul-bound tokens to life by enabling NFTs that are actually associated with a person, and prevent NFT farming."
 					items={[
-						'Deduplication in government elections',
-						'Novel DAO governance including quadratic, and conviction voting',
-						'Anonymous online polls platform',
-						'Snapshot integration',
-						'Change.org integration',
+						'One person one PFP avatar collection',
+						'Soulbound NFTs you can transfer between addresses of the same person',
+						'POAP integration',
 					]}
 					linkHref="/use-cases/nfts"
 				/>
@@ -148,13 +141,12 @@ export const UseCasesList: FC<{}> = () => {
 					color="#C4554D"
 					image="/images/docs/use-cases/icons/customer-incentives.svg"
 					title="Customer Incentives"
-					description="Using World ID’s proof of personhood, a system could be built to ensure aid from NGOs, non-profits, government programs, etc. is distributed equitably to recipients."
+					description="Build customer loyalty and acquire new customers efficiently. Ensure beneficiaries are real people while preserving their privacy."
 					items={[
-						'Undercollateralized lending & credit',
-						'Credit card chargeback protection',
-						'Zero-knowledge compliance with nationality, age and sanctions',
-						'Private transaction mixer with daily amount limits and ZK compliance for MLP',
-						'Private decentralized credit score',
+						'Abuse resistant coupons and loyalty programs for retail businesses',
+						'One-time software free trials',
+						'Fraud-proof referral programs',
+						'Fee subsidies with per-person limits',
 					]}
 					linkHref="/use-cases/customer-incentives"
 				/>
@@ -163,13 +155,11 @@ export const UseCasesList: FC<{}> = () => {
 					color="#39B8A8"
 					image="/images/docs/use-cases/icons/marketplaces.svg"
 					title="Marketplaces"
-					description="Particularly relying on global proof of personhood, can be used to build a truly democratic, one person one vote, system as well as novel voting systems centered around unique humans."
+					description="Enhance marketplaces with a new level of trust and transparency. Real reviews that others can trust."
 					items={[
-						'Deduplication in government elections',
-						'Novel DAO governance including quadratic, and conviction voting',
-						'Anonymous online polls platform',
-						'Snapshot integration',
-						'Change.org integration',
+						'Fake review and transaction prevention',
+						'True merchant & customer ratings',
+						'One person one item purchase',
 					]}
 					linkHref="/use-cases/marketplaces"
 				/>
@@ -178,19 +168,13 @@ export const UseCasesList: FC<{}> = () => {
 					color="#8A67AB"
 					image="/images/docs/use-cases/icons/events.svg"
 					title="Events"
-					description="Particularly relying on global proof of personhood, can be used to build a truly democratic, one person one vote, system as well as novel voting systems centered around unique humans."
-					items={[
-						'Undercollateralized lending & credit',
-						'Credit card chargeback protection',
-						'Zero-knowledge compliance with nationality, age and sanctions',
-						'Private transaction mixer with daily amount limits and ZK compliance for MLP',
-						'Private decentralized credit score',
-					]}
+					description="We've all missed a ticket to our favorite event because they magically disappeared in 5 minutes. With World ID only people, not bots, not scalpers can buy tickets."
+					items={['Ticket scalper protection', 'Private age verification', 'Free bandwidth capped WiFi']}
 					linkHref="/use-cases/events"
 				/>
 			</div>
 
-			<h2 className="m-0 mt-12 font-bold text-xl text-black text-center">Join Worldcoin builder community</h2>
+			<h2 className="m-0 mt-12 font-bold text-xl text-black text-center">Join the Worldcoin builder community</h2>
 			<div className="mt-6 grid md:grid-cols-3 gap-y-6 items-center justify-center">
 				<div className="flex flex-col items-center w-[250px]">
 					<div className="font-bold text-black text-[64px] leading-[64px]">5.4m</div>
@@ -211,21 +195,19 @@ export const UseCasesList: FC<{}> = () => {
 			</div>
 
 			<div className="grid gap-y-2 mt-24">
-				<h3 className="uppercase text-2xs m-0 font-medium text-gray-500">
-					Learn how to use the Developer Portal
-				</h3>
+				<h3 className="uppercase text-2xs m-0 font-medium text-gray-500">More Resources</h3>
 
 				<div className="grid lg:grid-cols-3 gap-2">
 					<LinkCard
-						href="https://developer.worldcoin.org/"
+						href="/quick-start"
 						heading="Start building"
-						description="Build your apps using developer portal."
+						description="The Quick Start is the easiest place to start"
 					/>
 
 					<LinkCard
-						href="#" // FIXME: Add proper url
+						href="#" // FIXME: Add correct url
 						heading="Worldcoin Grants"
-						description="Reach out to our team and talk about all the possibilities."
+						description="Grants by the Worldcoin Foundation are coming soon."
 					/>
 
 					<LinkCard

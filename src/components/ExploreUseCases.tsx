@@ -47,7 +47,7 @@ const UseCaseLink: FC<{ image: string; title: string; color: string; href: strin
 export const ExploreUseCases: FC<{ className?: string }> = ({ className }) => {
 	return (
 		<div className={clsx('grid gap-y-4', className)}>
-			<h3 className="uppercase text-2xs m-0 font-medium text-gray-500">Explore World ID uses cases</h3>
+			<h3 className="uppercase text-2xs m-0 font-medium text-gray-500">Explore other World ID uses cases</h3>
 
 			<div className="grid justify-center content-start md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-4">
 				<UseCaseLink

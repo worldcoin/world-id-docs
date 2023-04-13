@@ -32,6 +32,9 @@ module.exports = {
 		typography: require('./typography'),
 
 		extend: {
+			aspectRatio: {
+				card: '394 / 226',
+			},
 			spacing: {
 				4.5: 'calc(4.5 * 1rem / 4)',
 			},
@@ -58,6 +61,7 @@ module.exports = {
 			},
 
 			boxShadow: {
+				card: '0px 10px 30px rgba(180 180 180 / 0.24)',
 				glow: '0 0 4px rgb(0 0 0 / 0.1)',
 			},
 

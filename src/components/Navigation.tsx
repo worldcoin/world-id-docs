@@ -190,12 +190,14 @@ export const navigation = [
 			{ title: 'Quick Start', href: '/quick-start' },
 			{ title: 'Try it Out', href: '/try' },
 			{ title: 'Use Cases', href: '/use-cases' },
+			{ title: 'Apps & Integrations', href: '/apps' },
 		],
 	},
 	{
 		title: 'World ID',
 		links: [
 			{ title: 'Overview', href: '/id' },
+			{ title: 'Proof of Personhood', href: '/id/proof-of-personhood' },
 			{ title: 'Sign In', href: '/id/sign-in' },
 			{ title: 'Anonymous Actions', href: '/id/anonymous-actions' },
 			{ title: 'Testing', href: '/id/testing' },
@@ -233,10 +235,6 @@ export const Navigation: FC<{
 	return (
 		<nav {...props}>
 			<ul role="list">
-				<TopLevelNavItem href="/">Docs</TopLevelNavItem>
-				<TopLevelNavItem href="https://docs.worldcoin.org/waitlist" target="_blank">
-					Join the waitlist
-				</TopLevelNavItem>
 				{navigation.map((group, groupIndex) => (
 					// @ts-ignore
 					<NavigationGroup key={group.title} group={group} className={groupIndex === 0 && 'md:mt-0'} />

@@ -78,14 +78,13 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 				<nav className="hidden md:block">
 					<ul role="list" className="flex items-center gap-4">
 						<TopLevelNavItem
-							className="bg-gray-100 hover:bg-gray-100/50 py-[7px] px-4 rounded-lg border border-gray-200"
-							href={`${process.env.NEXT_PUBLIC_APP_URL}/waitlist`}
-							target="_blank"
+							className="bg-gray-100 hover:bg-gray-100/50 py-[7px] px-4 border rounded-lg border-gray-200"
+							href="/apps"
 						>
-							Join the Waitlist
+							Apps & Integrations
 						</TopLevelNavItem>
-						<Button className="rounded-lg" href="https://developer.worldcoin.org" target="_blank">
-							Developer Portal
+						<Button href="/waitlist" target="_blank">
+							Join the Waitlist
 						</Button>
 					</ul>
 				</nav>

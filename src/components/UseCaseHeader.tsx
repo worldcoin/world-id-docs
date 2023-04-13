@@ -1,10 +1,11 @@
-import { ReactNode } from 'react'
 import Image from 'next/image'
+import clsx from 'clsx'
 
 export const UseCaseHeader = (props: {
   color: string
   image: string
   title: string
+  titleClassName?: string
   description: string
 }) => {
   return (
@@ -40,7 +41,7 @@ export const UseCaseHeader = (props: {
       <div className="mt-12 font-medium text-sm uppercase leading-4" style={{ color:`rgb(${props.color})` }}>
         world id integration Example
       </div>
-      <h1 className="m-0 mt-3 font-bold text-5xl text-center">
+      <h1 className={clsx(props.titleClassName, "m-0 mt-3 font-bold text-5xl text-center")}>
         {props.title}
       </h1>
       <p className="m-0 mt-4 lg:px-12 font-medium text-center leading-6">

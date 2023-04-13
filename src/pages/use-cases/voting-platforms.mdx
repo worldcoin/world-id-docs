@@ -1,10 +1,9 @@
 <UseCaseHeader
-    color="73, 64, 224"
-    image="/images/docs/use-cases/icons/voting-platforms.svg"
-    title="Voting platforms"
-    description="Using World ID, and particularly relying on global proof of personhood, can be used to build a truly democratic, one person one vote, system as well as novel voting systems"
+	color="73, 64, 224"
+	image="/images/docs/use-cases/icons/voting-platforms.svg"
+	title="Voting platforms"
+	description="Using World ID, and particularly relying on global proof of personhood, can be used to build a truly democratic, one person one vote, system as well as novel voting systems"
 />
-
 
 ## What?
 
@@ -24,7 +23,7 @@ This can apply for anything from city council elections, governors to referendum
 
 Public elections without duplicate votes, where each voter can only vote once. Further, this can be done in a public way where anyone can verify each election vote. This can apply for anything from city council elections, governors to referendums, plebiscites, and much more.
 
-<Cta/>
+<Cta />
 
 ## The MVP
 
@@ -38,19 +37,37 @@ Votes are recorded in a backend, smart contract or decentralized database (like 
 
 Anyone can view the vote results.
 
+![Quantum Voting](/images/docs/use-cases/quantumvote-1.png)
+
+![Quantum Voting](/images/docs/use-cases/quantumvote-2.png) {{style: {marginBottom: 0}}}
+
+The above can also be further extended to support multiple-option votes, combine with eligibility criteria (e.g. only users with a Twitter account can vote), support multiple World ID credentials for votes where the credential type determines the weight (e.g. Orb credential = 1 vote, phone credential = 0.1 vote).
+
+## More feature ideas
+
+Quadratic voting. Allow only one person, one vote, but votes are counted quadratically, […]
+
+Conviction voting. Consider for example public goods funding, where funds are allocated based on votes received continuously over time. [This article](https://medium.com/giveth/conviction-voting-a-novel-continuous-decision-making-alternative-to-governance-aa746cfb9475) explains more on conviction voting.
+
+Anonymous proof-of-vote NFT. You get an NFT that you can use to prove you voted in a certain proposal. Could be done with [Sismo](https://docs.sismo.io/sismo-docs/technical-documentation/zk-badge-protocol) to preserve privacy.
+
+<ExploreUseCases className="mt-12" />
+
 <UseCasePagination
-    prev={(
-        <UseCasePaginationItem
-            image="/images/docs/use-cases/icons/defi-and-fintech.svg"
-            title="DeFi and Fintech"
-            url="/use-cases/defi-and-fintech"
-        />
-    )}
-    next={(
-        <UseCasePaginationItem
-            image="/images/docs/use-cases/icons/social-media.svg"
-            title="Social Media"
-            url="/use-cases/social-media"
-        />
-    )}
+	prev={
+		<UseCasePaginationItem
+			image="/images/docs/use-cases/icons/defi-and-fintech.svg"
+			title="DeFi and Fintech"
+			url="/use-cases/defi-and-fintech"
+			color="#9D50FF"
+		/>
+	}
+	next={
+		<UseCasePaginationItem
+			image="/images/docs/use-cases/icons/social-media.svg"
+			title="Social Media"
+			url="/use-cases/social-media"
+			color="#487CA5"
+		/>
+	}
 />

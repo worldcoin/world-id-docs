@@ -11,6 +11,7 @@ export { Cta } from '@/components/Cta'
 export { UseCasePagination } from '@/components/UseCasePagination'
 export { UseCasePaginationItem } from '@/components/UseCasePaginationItem'
 export { UseCaseHeader } from '@/components/UseCaseHeader'
+export { ExploreUseCases } from '@/components/ExploreUseCases'
 export { UseCasesList } from '@/components/UseCasesList'
 export { Tabs, TabItem, Tab, Link as a }
 export const h2: FC<

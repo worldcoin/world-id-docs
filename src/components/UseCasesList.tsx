@@ -1,8 +1,18 @@
-import { FC } from 'react'
+import useSWR from 'swr'
 import Image from 'next/image'
+import { Stats } from './Stats'
+import { FC, useState } from 'react'
 import { Link } from '@/components/Link'
 import RedirectIcon from './icons/RedirectIcon'
 import { UseCasesListItem } from '@/components/UseCasesListItem'
+
+type Stats = {
+	lastWeekCount: number
+	totalCount: number
+	totalSignups: number
+	lastWeekSignups: number
+	success: true
+}
 
 // ANCHOR: LinkCard component for the links in the bottom of the page
 const LinkCard: FC<{ href: string; heading: string; description: string }> = ({ href, heading, description }) => {
@@ -20,6 +30,19 @@ const LinkCard: FC<{ href: string; heading: string; description: string }> = ({ 
 
 // ANCHOR: Main page component
 export const UseCasesList: FC<{}> = () => {
+	const fetcher = (url: string) => fetch(url, { method: 'GET' }).then(response => response.json())
+
+	const { data, isLoading } = useSWR<
+		{
+			lastWeekCount: number
+			totalCount: number
+			totalSignups: number
+			lastWeekSignups: number
+			success: true
+		},
+		{ error: string }
+	>(`${process.env.NEXT_PUBLIC_APP_URL}/api/world-id-stats/fetch-verifications`, fetcher)
+
 	return (
 		<div>
 			<div className="flex flex-col items-center">
@@ -175,20 +198,9 @@ export const UseCasesList: FC<{}> = () => {
 			</div>
 
 			<h2 className="m-0 mt-12 font-bold text-xl text-black text-center">Join the Worldcoin builder community</h2>
-			<div className="mt-6 grid md:grid-cols-3 gap-y-6 items-center justify-center">
-				<div className="flex flex-col items-center w-[250px]">
-					<div className="font-bold text-black text-[64px] leading-[64px]">5.4m</div>
-					<div className="mt-2 text-xs text-black/50 leading-4">Developer verifications</div>
-				</div>
-				<div className="flex flex-col items-center w-[250px]">
-					<div className="font-bold text-black text-[64px] leading-[64px]">1.5m</div>
-					<div className="mt-2 text-xs text-black/50 leading-4">Biometric credentials</div>
-				</div>
-				<div className="flex flex-col items-center w-[250px]">
-					<div className="font-bold text-black text-[64px] leading-[64px]">42.5k</div>
-					<div className="mt-2 text-xs text-black/50 leading-4">Phone credentials</div>
-				</div>
-			</div>
+
+			{<Stats className="mt-6" />}
+
 			<div className="mt-6 text-2xs text-black/50 text-center">
 				*as World ID is a fully open protocol and anyone can build their own implementations, it is not possible
 				to have numbers on all usage and holders.

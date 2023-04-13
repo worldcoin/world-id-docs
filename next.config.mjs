@@ -64,6 +64,14 @@ const nextConfig = {
 			},
 		]
 	},
+	async rewrites() {
+		return [
+			{
+				source: '/api/:slug*',
+				destination: '/api-docs/:slug*',
+			},
+		]
+	},
 }
 
 export default withMDX(nextConfig)

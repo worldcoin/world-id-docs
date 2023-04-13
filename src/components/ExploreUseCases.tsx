@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import Image from 'next/image'
-import { FC, memo } from 'react'
+import { CSSProperties, FC } from 'react'
 import { Link } from '@/components/Link'
 
 //ANCHOR: Single explore use cases link component
@@ -13,11 +13,16 @@ const UseCaseLink: FC<{ image: string; title: string; color: string; href: strin
 	return (
 		<Link
 			href={href}
-			className="grid grid-cols-auto/1fr gap-y-1 gap-x-4 !no-underline saturate-0 hover:saturate-100 transition-[filter]"
+			className={clsx("grid grid-cols-auto/1fr gap-y-1 gap-x-4 !no-underline transition-color",
+				`text-gray-400 hover:!text-[--hoverColor]`
+			)}
+			style={{
+				'--hoverColor': color,
+			} as CSSProperties}
 		>
 			<div className="relative inline-flex row-span-2 self-center">
 				<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<rect width="48" height="48" rx="16" fill={color} />
+					<rect width="48" height="48" rx="16" fill="currentColor" />
 					<rect opacity="0.5" width="48" height="48" rx="16" fill="url(#paint0_radial_20252_65810)" />
 					<defs>
 						<radialGradient

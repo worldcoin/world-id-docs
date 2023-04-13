@@ -25,17 +25,18 @@ Public elections without duplicate votes, where each voter can only vote once. F
 
 <Cta />
 
-## The MVP
+## For Developers
 
-The most basic version of a voting platform could look something like this.
+### Building an MVP
 
-Users can create proposals to vote on. They provide a description on the proposal and a time limit. Proposals support yes/no/abstain.
+The most basic version of a voting platform could look something as follows.
 
-Voters can then go into a proposal and cast a vote only once. The vote is verified with a World ID anonymous action (to ensure proof of personhood, uniqueness, and prevent cross-proposals tracking).
+-   Users can create proposals to vote on. They provide a description on the proposal and a time limit. Proposals support yes/no/abstain.
+-   Voters can then go into a proposal and cast a vote only once. The vote is verified with a World ID anonymous action (to ensure proof of personhood, uniqueness, and prevent cross-proposals tracking).
+-   Votes are recorded in a backend, smart contract or decentralized database (like Ceramic).
+-   Anyone can view the vote results.
 
-Votes are recorded in a backend, smart contract or decentralized database (like Ceramic).
-
-Anyone can view the vote results.
+You can find some conceptual wireframes below on how this could look like.
 
 ![Quantum Voting](/images/docs/use-cases/quantumvote-1.png)
 
@@ -45,11 +46,9 @@ The above can also be further extended to support multiple-option votes, combine
 
 ## More feature ideas
 
-Quadratic voting. Allow only one person, one vote, but votes are counted quadratically, […]
-
-Conviction voting. Consider for example public goods funding, where funds are allocated based on votes received continuously over time. [This article](https://medium.com/giveth/conviction-voting-a-novel-continuous-decision-making-alternative-to-governance-aa746cfb9475) explains more on conviction voting.
-
-Anonymous proof-of-vote NFT. You get an NFT that you can use to prove you voted in a certain proposal. Could be done with [Sismo](https://docs.sismo.io/sismo-docs/technical-documentation/zk-badge-protocol) to preserve privacy.
+-   **Quadratic voting**. Allow only one person, one vote, but votes are counted quadratically, […]
+-   **Conviction voting**. Consider for example public goods funding, where funds are allocated based on votes received continuously over time. [This article](https://medium.com/giveth/conviction-voting-a-novel-continuous-decision-making-alternative-to-governance-aa746cfb9475) explains more on conviction voting.
+-   **Anonymous proof-of-vote NFT**. You get an NFT that you can use to prove you voted in a certain proposal. Could be done with [Sismo](https://docs.sismo.io/sismo-docs/technical-documentation/zk-badge-protocol) to preserve privacy.
 
 <ExploreUseCases className="mt-12" />
 

@@ -217,7 +217,7 @@ export const UseCasesList: FC<{}> = () => {
 					/>
 
 					<LinkCard
-						href="https://worldcoin.org/grants" // FIXME: Add correct url
+						href="https://worldcoin.org/grants"
 						heading="Worldcoin Grants"
 						description="Grants by the Worldcoin Foundation are coming soon."
 					/>

@@ -15,7 +15,7 @@ export const Cta = (props: {}) => {
 				flowing. Some of these can be a cool side hustle, some your next startup.
 			</p>
 			<p className="lg:w-[550px] m-0 text-center text-gray-400 leading-snug">
-				Be sure to check out the <Link href="#">Worldcoin Foundation grants</Link> page and join the community
+				Be sure to check out the <Link href="https://worldcoin.org/grants">Worldcoin Foundation grants</Link> page and join the community
 				in Discord if you’re interested in building.
 			</p>
 			<Link

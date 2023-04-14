@@ -3,37 +3,16 @@
 	"enabled": true,
 	"language": "en-US",
 	"allowCompoundWords": true,
-	"dictionaries": [
-		"typescript",
-		"node",
-		"npm",
-		"html"
-	],
-	"enabledLanguageIds": [
-		"typescript",
-		"typescriptreact",
-		"javascript",
-		"markdown",
-		"yaml",
-		"json"
-	],
-	"ignorePaths": [
-		"**/node_modules",
-		"package.json",
-		"pnpm-lock.yaml"
-	],
-	"ignoreWords": [
-		"signup"
-	],
-	"ignoreRegExpList": [
-		"app_[a-z0-9]+",
-		"jwk_[a-z0-9]+",
-		"ey[a-zA-Z0-9]+\\.ey[a-zA-Z0-9]+\\.[a-zA-Z0-9]+"
-	],
+	"dictionaries": ["typescript", "node", "npm", "html"],
+	"enabledLanguageIds": ["typescript", "typescriptreact", "javascript", "markdown", "yaml", "json"],
+	"ignorePaths": ["**/node_modules", "package.json", "pnpm-lock.yaml"],
+	"ignoreWords": ["signup"],
+	"ignoreRegExpList": ["app_[a-z0-9]+", "jwk_[a-z0-9]+", "ey[a-zA-Z0-9]+\\.ey[a-zA-Z0-9]+\\.[a-zA-Z0-9]+"],
 	"words": [
 		"anonymized",
 		"clippy",
 		"clsx",
+		"Emoy",
 		"countup",
 		"defi",
 		"ETHSF",
@@ -54,10 +33,12 @@
 		"Orbz",
 		"petorbz",
 		"POAP",
+		"Qppp",
 		"quix",
 		"rehype",
 		"Sismo",
 		"testid",
+		"ujfk",
 		"timestamptz",
 		"wagmi",
 		"WalletConnect",

@@ -12,6 +12,8 @@
 		"anonymized",
 		"clippy",
 		"clsx",
+		"Emoy",
+		"countup",
 		"defi",
 		"ETHSF",
 		"hackathon",
@@ -31,14 +33,17 @@
 		"Orbz",
 		"petorbz",
 		"POAP",
+		"Qppp",
 		"quix",
 		"rehype",
 		"Sismo",
 		"testid",
+		"ujfk",
+		"timestamptz",
+		"wagmi",
 		"WalletConnect",
 		"webp",
 		"Worldcoin",
-		"wagmi",
 		"zustand"
 	]
 }

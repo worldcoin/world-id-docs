@@ -20,7 +20,10 @@ During registration, you will need to provide the following values:
 -   `logo_url`: **Optional**, the logo of the application that's displayed to users
 -   `application_type`: **Optional**, one of "web" or "mobile". Defaults to "web"
 -   `grant_types`: **Optional**, the type of flows this application will use. Can include "authorization_code", "implicit", or "hybrid". Defaults to "authorization_code"
--   `response_type`: **Optional**, the response type expected by the application. Can include any of "code", "token", or "id_token". Defaults to "code"
+-   `response_type`: **Optional**, the response type expected by the application. Can include any of "code", "token", or "id_token". Defaults to "id_token"
+    -   `code`: The [`/authorize`](#generate-credentials) endpoint will include an authorization code that can be exchanged for an access token and/or ID token on the [`/token`](#exchange-code) endpoint. Best suited for web/mobile applications with dedicated backends, where security is the highest priority.
+    -   `token`: The [`/authorize`](#generate-credentials) endpoint will include an access token, which can be used to fetch user information from the [`/userinfo`](#get-user-info) and [`/introspect`](#introspect) endpoints. Best suited for low-risk applications, and client-only/SPAs where a `client_secret` cannot be concealed.
+    -   `id_token`: **Recommended for most applications.** The [`/authorize`](#generate-credentials) endpoint will include a signed JWT containing information about the user, including the unique `sub` claim (otherwise known as the [nullifier hash](/idkit/reference#response)). Provides simple user authentication, while keeping the amount of user data shared to a minimum. Best for privacy-conscious apps.
 
 <Note>
 	All redirect URIs must be over HTTPS, and contain no port numbers or URL fragments. `localhost` can be used on

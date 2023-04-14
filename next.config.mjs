@@ -62,11 +62,6 @@ const nextConfig = {
 				destination: 'https://toolsforhumanity.typeform.com/sdk-waitlist',
 				permanent: true,
 			},
-			{
-				source: '/use-cases',
-				destination: 'https://worldcoin.notion.site/World-ID-df11c0d2a42b4890a1e9e8d15b9f550f',
-				permanent: false,
-			},
 		]
 	},
 	async rewrites() {

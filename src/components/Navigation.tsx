@@ -224,6 +224,7 @@ export const navigation = [
 		links: [
 			{ title: 'Introduction', href: '/api' },
 			{ title: 'Reference', href: '/api/reference' },
+			{ title: 'OIDC Reference', href: '/api/oidc-reference' },
 			{ title: 'Internal Endpoints', href: '/api/internal-endpoints' },
 		],
 	},

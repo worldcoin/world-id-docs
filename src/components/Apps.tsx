@@ -307,6 +307,34 @@ const apps = [
 		tags: ['On-chain', 'App'],
 		worldcoin: false,
 	},
+
+	{
+		url: 'https://minaprotocol.com/',
+		githubUrl: 'https://github.com/MinaProtocol/mina',
+		image: {
+			sm: '/images/apps/mina.svg',
+			lg: '/images/apps/mina-lg.svg',
+		},
+		title: 'Mina Protocol',
+		subtitle: 'minaprotocol.com',
+		description: '', //FIXME: Add description
+		tags: [], //FIXME: Add tags
+		worldcoin: false,
+	},
+
+	{
+		url: 'https://www.starknet.io/',
+		githubUrl: 'https://github.com/starkware-libs',
+		image: {
+			sm: '/images/apps/starknet.svg',
+			lg: '/images/apps/starknet-lg.svg',
+		},
+		title: 'StarkNet',
+		subtitle: 'starknet.io',
+		description: '', //FIXME: Add description
+		tags: [], //FIXME: Add tags
+		worldcoin: false,
+	},
 ]
 
 // ANCHOR: tags handling

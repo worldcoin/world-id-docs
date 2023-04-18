@@ -45,3 +45,271 @@ Within the ID token returned by the World ID provider, a minimal number of [OIDC
 -   `https://worldcoin.org/beta`: Describes claims specific to World ID. **Subject to change**
     -   `likely_human`: "strong" or "weak", corresponding to whether the user has strong sybil protection or likelihood of being human. Biometrically verified users have a `strong` value.
     -   `credential_type`: `orb` or `phone`, represents the credential the user to authenticate. In general, for Sign in with Worldcoin, the highest credential available to the user will be used.
+
+## Signup Sequencer
+
+World ID utilizes a sequencer to insert identity commitments on-chain. The sequencer utilizes a batching process to reduce gas costs and improve performance. When verifying a proof from the World app, the Developer Portal will query the sequencer to determine if the proof is valid, since the user could be a part of the current batch. To interact with the sequencer, you can use these endpoints:
+
+### Staging
+
+-   Orb credentials: `https://signup-v2.stage-crypto.worldcoin.dev`
+-   Phone credentials: `https://phone-signup-v2.stage-crypto.worldcoin.dev`
+
+### Production
+
+-   Orb credentials: `https://signup-v2.crypto.worldcoin.dev`
+-   Phone credentials: `https://phone-signup-v2.crypto.worldcoin.dev`
+
+## Fetch Inclusion Proof {{ tag: "POST", label: "/inclusionProof" }}
+
+Fetches the inclusion proof for a given identity commitment, which proves that the commitment has been included on-chain.
+
+<Row><Col>
+
+### Required attributes
+
+<Properties>
+	<Property name="identityCommitment" type="string">
+		The identity commitment to fetch the inclusion proof for.
+	</Property>
+</Properties>
+
+### Possible Responses
+
+-   `200 OK` - The proof was successfully fetched.
+-   `400 Bad Request` - The identity commitment was invalid or not provided.
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/inclusionProof">
+
+```bash {{ title: "cURL" }}
+curl -X POST "/inclusionProof" \
+  -H "Content-Type: application/json" \
+  -d '{"identityCommitment": "0x2717e6ae51dac30ee24338526837d7efaeb3e2b214dceb1830f1915ac35b7165"}'
+```
+
+```js
+fetch(apiUrl, {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		identityCommitment: '0x2717e6ae51dac30ee24338526837d7efaeb3e2b214dceb1830f1915ac35b7165',
+	}),
+})
+```
+
+</CodeGroup>
+
+<CodeGroup title="Response">
+
+```json {{ title: "200 OK" }}
+{
+    "status": "mined",
+    "root": "0x2c2501d1bbe6bfc8a024b847cc6ab5ff429b8c0678a9c1157537dcf2ae0239f0",
+    "proof": [
+        {
+            "Right": "0x0d9c63e4f866e452f4e3c035a5047e71fe480a84e0b9807e24fa7784044871be"
+        },
+        {
+            "Left": "0x1e677e295b7a75f89026cd72e67e231d2e46a9a26e489c65ad14db908224ac31"
+        },
+        ...
+    ]
+}
+```
+
+```text {{ title: "400 Bad Request" }}
+provided identity commitment is invalid
+```
+
+</CodeGroup>
+</Col></Row>
+
+## Add Identity Commitment {{ tag: "POST", label: "/insertIdentity" }}
+
+Adds an identity commitment to the next inclusion batch. The identity commitment must be valid, and not already be included on-chain.
+
+<Row><Col>
+
+### Required attributes
+
+<Properties>
+	<Property name="identityCommitment" type="string">
+		The identity commitment to insert on-chain.
+	</Property>
+</Properties>
+
+### Possible Responses
+
+-   `200 OK` - The identity is added to the next inclusion batch.
+-   `400 Bad Request` - The identity commitment was invalid or not provided.
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/insertIdentity">
+
+```bash {{ title: "cURL" }}
+curl -X POST "/insertIdentity" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Basic ..." \
+  -d '{"identityCommitment": "0x2717e6ae51dac30ee24338526837d7efaeb3e2b214dceb1830f1915ac35b7165"}'
+```
+
+```js
+fetch(apiUrl, {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+		Authorization: 'Basic ...',
+	},
+	body: JSON.stringify({
+		identityCommitment: '0x2717e6ae51dac30ee24338526837d7efaeb3e2b214dceb1830f1915ac35b7165',
+	}),
+})
+```
+
+</CodeGroup>
+
+<CodeGroup title="Response">
+
+```json {{ title: "200 OK" }}
+{
+  "status": "pending",
+    "root": "0x2c2501d1bbe6bfc8a024b847cc6ab5ff429b8c0678a9c1157537dcf2ae0239f0",
+    "proof": [
+        {
+            "Right": "0x0d9c63e4f866e452f4e3c035a5047e71fe480a84e0b9807e24fa7784044871be"
+        },
+        {
+            "Left": "0x1e677e295b7a75f89026cd72e67e231d2e46a9a26e489c65ad14db908224ac31"
+        },
+        ...
+    ]
+}
+```
+
+```text {{ title: "400 Bad Request" }}
+provided identity commitment is invalid
+```
+
+</CodeGroup>
+</Col></Row>
+
+## Check Proof Validity {{ tag: "POST", label: "/verifySemaphoreProof" }}
+
+Verifies a zero-knowledge proof for a given action. The proof must be valid, and the action must be performed by the user who signed the proof.
+
+<Row><Col>
+
+### Required attributes
+
+<Properties>
+	<Property name="root" type="string">
+		The most recent merkle root where the identity is included.
+	</Property>
+	<Property name="nullifierHash" type="string">
+		The unique nullifier hash for the signing user.
+	</Property>
+	<Property name="externalNullifierHash" type="string">
+		The unique external nullifier hash for the performed action.
+	</Property>
+	<Property name="signalHash" type="string">
+		The hash of any included signal data with the verification request.
+	</Property>
+	<Property name="proof" type="string">
+		The zero-knowledge proof returned by IDKit. See [IDKit response](/idkit/reference#response) for details.
+	</Property>
+</Properties>
+
+### Possible Responses
+
+-   `200 OK` - The provided proof is valid for the given action.
+-   `500 Internal Server Error` - The proof could not be verified, please check your parameter values.
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/verifySemaphoreProof">
+
+```bash {{ title: "cURL" }}
+curl -X POST "/verifySemaphoreProof" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "root": "0x1084a22c024e103ced6be2a51c76dada9a071500c1f913743ee664516090b1af",
+    "nullifierHash": "0x1d5e3dfc053300ec172af51faa5e5033774cae3f22c69a88b44e0fad117dee01",
+    "externalNullifierHash": "0x00665f89ede93c5262afb13635fe96fa7a653abbb321eb7151371fc1ee379504",
+    "signalHash": "0x00c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a4",
+    "proof": [
+        [
+            "0x28a7fa16ae7e48cb128f90f98eeb2dadff3dd7c7535e6360042ae251792e32f7",
+            "0x038a84960aac1934568363cb1eb2d87067e81f83cbf1b312b6c7a3c7e1dcd66e"
+        ],
+        [
+            [
+                "0x15ccbc92649e6565e1227e7071e472387bda208471c86ac685b764d4b44a67de",
+                "0x1f41aa7c58b3b61574f5e16eec6d3f9f737a797539013ab47e667c29735ae12c"
+            ],
+            [
+                "0x25fe0271dcedeba895376648c95e73bc1add42b69591199e6e187bf3e91cc93b",
+                "0x07a989c5b8d8ebd943ae48c9842643d1290e85e113c6caff7006e6117662bcc9"
+            ]
+        ],
+        [
+            "0xa099bc6e6c09cb810378425f3467377975b485cc438083b761ba3fbd600a1d",
+            "0x0ecd1421de01591682855088df0c217e57d6cac42e54d70fe764196881131f83"
+        ]
+    ]
+  }'
+```
+
+```js
+fetch(apiUrl, {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		root: '0x1084a22c024e103ced6be2a51c76dada9a071500c1f913743ee664516090b1af',
+		nullifierHash: '0x1d5e3dfc053300ec172af51faa5e5033774cae3f22c69a88b44e0fad117dee01',
+		externalNullifierHash: '0x00665f89ede93c5262afb13635fe96fa7a653abbb321eb7151371fc1ee379504',
+		signalHash: '0x00c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a4',
+		proof: [
+			[
+				'0x28a7fa16ae7e48cb128f90f98eeb2dadff3dd7c7535e6360042ae251792e32f7',
+				'0x038a84960aac1934568363cb1eb2d87067e81f83cbf1b312b6c7a3c7e1dcd66e',
+			],
+			[
+				[
+					'0x15ccbc92649e6565e1227e7071e472387bda208471c86ac685b764d4b44a67de',
+					'0x1f41aa7c58b3b61574f5e16eec6d3f9f737a797539013ab47e667c29735ae12c',
+				],
+				[
+					'0x25fe0271dcedeba895376648c95e73bc1add42b69591199e6e187bf3e91cc93b',
+					'0x07a989c5b8d8ebd943ae48c9842643d1290e85e113c6caff7006e6117662bcc9',
+				],
+			],
+			[
+				'0xa099bc6e6c09cb810378425f3467377975b485cc438083b761ba3fbd600a1d',
+				'0x0ecd1421de01591682855088df0c217e57d6cac42e54d70fe764196881131f83',
+			],
+		],
+	}),
+})
+```
+
+</CodeGroup>
+<CodeGroup title="Response">
+
+```json {{ title: "200 OK" }}
+TODO
+```
+
+```json {{ title: "500 Internal Server Error" }}
+TODO
+```
+
+</CodeGroup>
+
+</Col></Row>

@@ -27,7 +27,7 @@ export const Layout: FC<
 	return (
 		<SectionProvider sections={sections}>
 			<Header />
-			<div className="lg:ml-72 xl:ml-80">
+			<div className="lg:ml-72 xl:ml-80 overflow-x-hidden">
 				<motion.header
 					layoutScroll
 					className="contents lg:pointer-events-none lg:fixed lg:inset-0 lg:top-14 lg:z-[8] lg:flex"

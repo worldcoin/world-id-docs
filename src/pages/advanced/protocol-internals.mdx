@@ -53,12 +53,12 @@ World ID utilizes a sequencer to insert identity commitments on-chain. The seque
 ### Staging
 
 -   Orb credentials: `https://signup-v2.stage-crypto.worldcoin.dev`
--   Phone credentials: `https://phone-signup-v2.stage-crypto.worldcoin.dev`
+-   Phone credentials: `https://phone-signup-v2.stage-crypto.worldcoin.dev` # TODO
 
 ### Production
 
 -   Orb credentials: `https://signup-v2.crypto.worldcoin.dev`
--   Phone credentials: `https://phone-signup-v2.crypto.worldcoin.dev`
+-   Phone credentials: `https://phone-signup-v2.crypto.worldcoin.dev` # TODO
 
 ## Fetch Inclusion Proof {{ tag: "POST", label: "/inclusionProof" }}
 
@@ -303,13 +303,125 @@ fetch(apiUrl, {
 <CodeGroup title="Response">
 
 ```json {{ title: "200 OK" }}
-TODO
+{
+	"root": "0x00b3f4b00b1608243775852ba38a6501a7ec498ba41a6a8f6432e83b5942dde4",
+	"status": "mined",
+	"pendingValidAsOf": "2023-04-18T13:00:22.803792Z",
+	"minedValidAsOf": "2023-04-18T13:01:44.113768Z"
+}
 ```
 
-```json {{ title: "500 Internal Server Error" }}
-TODO
+```text {{ title: "500 Invalid Merkle Root" }}
+invalid root
+```
+
+```text {{ title: "500 Invalid Proof" }}
+invalid proof
 ```
 
 </CodeGroup>
 
+</Col></Row>
+
+## Smart Contract Verifications
+
+Alternatively, proofs can be verified by directly calling the smart contract on-chain (as an example, using Alchemy). The World ID Semaphore contracts are deployed to Polygon Mainnet and the Mumbai testnet. The contract addresses are:
+
+### Mainnet
+
+-   Orb credential: [semaphore.wld.eth](https://etherscan.io/address/0xD81dE4BCEf43840a2883e5730d014630eA6b7c4A)
+-   Phone credential: [phone.wld.eth](https://etherscan.io/address/0xf87B9bf95521aC94bF5d65791f024Ab0f5cc4088) # TODO
+-   Endpoint URL: `https://polygon-mainnet.g.alchemy.com`
+
+### Testnet
+
+-   Orb credential: [staging.semaphore.wld.eth](https://etherscan.io/address/0xABB70f7F39035586Da57B3c8136035f87AC0d2Aa)
+-   Phone credential: [staging.phone.wld.eth](https://etherscan.io/address/0xABB70f7F39035586Da57B3c8136035f87AC0d2Aa) # TODO
+-   Endpoint URL: `https://polygon-mumbai.g.alchemy.com`
+
+## Verify Proof {{ tag: "POST", label: "verifyProof" }}
+
+<Row><Col>
+
+### Required attributes
+
+<Properties>
+	<Property name="to" type="string">
+		The contract address to check the proof against.
+	</Property>
+	<Property name="data" type="string">
+		The payload data to send to the contract, encoded to the contract's ABI using ethers `encodeFunctionData`
+		method. More details can be [found
+		here.](https://github.com/worldcoin/developer-portal/blob/be1742f507fdf7b5858789f881310af7ab740c2b/web/src/backend/verify.ts#L297)
+	</Property>
+</Properties>
+
+### Possible Responses
+
+-   `200 OK` (success) - The proof is valid and the credential is verified.
+-   `200 OK` (failure) - The proof is invalid, please check your parameters and encoding method.
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/v2/{alchemy_api_key}">
+
+```bash {{ title: "cURL" }}
+curl -X POST "/v2/{alchemy_api_key}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "method": "eth_call",
+    "params": [
+      {
+        "to": "0xD81dE4BCEf43840a2883e5730d014630eA6b7c4A",
+        "data": "0x3bc778e31084a22c024e103ced6be2a51c7..."
+      }
+    ]
+  }'
+```
+
+```js
+fetch(`${apiUrl}/v2/${alchemy_api_key}`, {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		jsonrpc: '2.0',
+		method: 'eth_call',
+		params: [
+			{
+				to: '0xD81dE4BCEf43840a2883e5730d014630eA6b7c4A',
+				data: '0x3bc778e31084a22c024e103ced6be2a51c7...',
+			},
+		],
+	}),
+})
+```
+
+</CodeGroup>
+
+<CodeGroup title="Response">
+
+```json {{ title: "200 OK" }}
+{
+	"jsonrpc": "2.0",
+	"id": null,
+	"result": "0x"
+}
+```
+
+```json {{ title: "200 OK " }}
+{
+	"jsonrpc": "2.0",
+	"id": null,
+	"error": {
+		"code": 3,
+		"message": "execution reverted",
+		"data": "0x504570e3"
+	}
+}
+```
+
+</CodeGroup>
 </Col></Row>

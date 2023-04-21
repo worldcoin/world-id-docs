@@ -43,6 +43,10 @@ The following parameters can be passed as props to the `IDKitWidget` component.
 		The description of the specific action (shown to users in World App). **Only recommended for actions created
 		on-the-fly.**
 	</Property>
+	<Property name="credential_types" type="string[]">
+		An array of credential types to allow for verification. Will accept any combination of `orb` & `phone`. Defaults
+		to `orb`. **TypeScript apps can use the `CredentialType` enum.**
+	</Property>
 </Properties>
 
 ## Components

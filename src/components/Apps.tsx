@@ -277,7 +277,7 @@ const apps = [
 		title: 'POAP',
 		subtitle: 'poap.worldcoin.org',
 		description: 'The bookmarks of your life. Issue POAPs to humans only. One person, one POAP.',
-		tags: ['On-Chain', 'Integration'],
+		tags: ['On-chain', 'Integration'],
 	},
 
 	{

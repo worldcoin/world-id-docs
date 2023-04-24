@@ -184,3 +184,128 @@ function verifyAndExecute(
 The World ID protocol currently lives in the Polygon network, and the verifier contract is deployed at `semaphore.wld.eth` on Polygon mainnet and `staging.semaphore.wld.eth` on Polygon Mumbai testnet.
 
 We will very soon be launching the World ID protocol on Ethereum mainnet and Optimism, and will update this documentation accordingly.
+
+## Smart Contract Verifications
+
+As an alternative to verifying proofs with the Developer Portal, proofs can be verified by directly calling the smart contract on-chain. This is a tradeoff that applications may want to make to not rely on a centralized API. Keep in mind that the current batch of registered users can take anywhere from 5-30 minutes to be posted on-chain, so there is a delay associated with these smart contract based calls.
+
+The World ID Semaphore contracts are deployed to Polygon Mainnet and the Mumbai testnet. The contract addresses are:
+
+### Mainnet
+
+-   Orb credential: [semaphore.wld.eth](https://etherscan.io/address/0xD81dE4BCEf43840a2883e5730d014630eA6b7c4A)
+-   Phone credential: [phone.wld.eth](https://etherscan.io/address/0xf87B9bf95521aC94bF5d65791f024Ab0f5cc4088) # TODO
+-   Endpoint URL: `https://polygon-mainnet.g.alchemy.com`
+
+### Testnet
+
+-   Orb credential: [staging.semaphore.wld.eth](https://etherscan.io/address/0xABB70f7F39035586Da57B3c8136035f87AC0d2Aa)
+-   Phone credential: [staging.phone.wld.eth](https://etherscan.io/address/0xABB70f7F39035586Da57B3c8136035f87AC0d2Aa) # TODO
+-   Endpoint URL: `https://polygon-mumbai.g.alchemy.com`
+
+## Verify Proof {{ tag: "POST", label: "verifyProof" }}
+
+Verifies a proof against the contract on-chain. Here we are using the [Alchemy API](https://docs.alchemy.com/alchemy/documentation/alchemy-api-reference) to make the call, but you can use any Ethereum provider (Infura, Quicknode, etc.)
+
+<Note title="caution" type="warning">
+	The most recent batch of users **will not** be available on-chain until the next batch is published. This can take
+	anywhere from 5-30 minutes.
+</Note>
+
+<Row><Col>
+
+### Required attributes
+
+<Properties>
+	<Property name="to" type="string">
+		The contract address to check the proof against.
+	</Property>
+	<Property name="data" type="string">
+		The payload data to send to the contract, encoded to the contract's ABI using ethers `encodeFunctionData`
+		method. More details can be [found
+		here.](https://github.com/worldcoin/developer-portal/blob/be1742f507fdf7b5858789f881310af7ab740c2b/web/src/backend/verify.ts#L297)
+	</Property>
+</Properties>
+
+### Possible Responses
+
+-   `200 OK` - The proof is valid and the credential is verified.
+-   `200 Invalid Merkle Root` - The provided merkle root is invalid. Please check your parameters.
+-   `200 Invalid Proof` - The provided proof is invalid. Please check your parameters and encoding method.
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/v2/{alchemy_api_key}">
+
+```bash {{ title: "cURL" }}
+curl -X POST "/v2/{alchemy_api_key}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "method": "eth_call",
+    "params": [
+      {
+        "to": "0xD81dE4BCEf43840a2883e5730d014630eA6b7c4A",
+        "data": "0x3bc778e31084a22c024e103ced6be2a51c7..."
+      }
+    ]
+  }'
+```
+
+```js
+fetch(`${apiUrl}/v2/${alchemy_api_key}`, {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		jsonrpc: '2.0',
+		method: 'eth_call',
+		params: [
+			{
+				to: '0xD81dE4BCEf43840a2883e5730d014630eA6b7c4A',
+				data: '0x3bc778e31084a22c024e103ced6be2a51c7...',
+			},
+		],
+	}),
+})
+```
+
+</CodeGroup>
+
+<CodeGroup title="Response">
+
+```json {{ title: "200 OK" }}
+{
+	"jsonrpc": "2.0",
+	"id": null,
+	"result": "0x"
+}
+```
+
+```json {{ title: "200 Invalid Merkle Root" }}
+{
+	"jsonrpc": "2.0",
+	"id": null,
+	"error": {
+		"code": 3,
+		"message": "execution reverted",
+		"data": "0x504570e3"
+	}
+}
+```
+
+```json {{ title: "200 Invalid Proof" }}
+{
+	"jsonrpc": "2.0",
+	"id": null,
+	"error": {
+		"code": 3,
+		"message": "execution reverted",
+		"data": "0x09bde339"
+	}
+}
+```
+
+</CodeGroup>
+</Col></Row>

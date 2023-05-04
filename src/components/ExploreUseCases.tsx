@@ -4,24 +4,27 @@ import { Link } from '@/components/Link'
 import { CSSProperties, FC } from 'react'
 
 //ANCHOR: Single explore use cases link component
-const UseCaseLink: FC<{ image: string; title: string; color: string; href: string }> = ({
+const UseCaseLink: FC<{ image: string; title: string; color: string; href: string, disabled?: boolean, }> = ({
 	image,
 	title,
 	color,
 	href,
+	disabled,
 }) => {
 	return (
 		<Link
 			href={href}
 			className={clsx(
-				'grid grid-cols-auto/1fr gap-y-1 gap-x-4 !no-underline transition-color',
-				`text-gray-400 hover:!text-[--hoverColor]`
-			)}
+				'grid grid-cols-auto/1fr gap-y-1 gap-x-4 !no-underline transition-color', {
+					'text-gray-400 hover:!text-[--hoverColor]': !disabled,
+					'text-gray-300 cursor-default': disabled,
+			})}
 			style={
 				{
 					'--hoverColor': color,
 				} as CSSProperties
 			}
+			onClick={!disabled ? undefined : event => event.preventDefault()}
 		>
 			<div className="relative inline-flex row-span-2 self-center">
 				<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +50,9 @@ const UseCaseLink: FC<{ image: string; title: string; color: string; href: strin
 			</div>
 
 			<h4 className="m-0 font-medium text-lg text-gray-900 !no-underline self-end">{title}</h4>
-			<span className="m-0 text-2xs leading-[1.33] text-primary !no-underline self-start">Show me more</span>
+			{!disabled && (
+				<span className="m-0 text-2xs leading-[1.33] text-primary !no-underline self-start">Show me more</span>
+			)}
 		</Link>
 	)
 }
@@ -63,6 +68,7 @@ export const ExploreUseCases: FC<{ className?: string }> = ({ className }) => {
 					image="/images/docs/use-cases/icons/defi-and-fintech.svg"
 					title="DeFi and Fintech"
 					href="/use-cases/defi-and-fintech"
+					disabled
 				/>
 
 				<UseCaseLink
@@ -91,6 +97,7 @@ export const ExploreUseCases: FC<{ className?: string }> = ({ className }) => {
 					image="/images/docs/use-cases/icons/token-airdrops.svg"
 					title="Token Airdrops"
 					href="/use-cases/token-airdrops"
+					disabled
 				/>
 
 				<UseCaseLink
@@ -98,6 +105,7 @@ export const ExploreUseCases: FC<{ className?: string }> = ({ className }) => {
 					image="/images/docs/use-cases/icons/nfts.svg"
 					title="NFTs"
 					href="/use-cases/nfts"
+					disabled
 				/>
 
 				<UseCaseLink
@@ -105,6 +113,7 @@ export const ExploreUseCases: FC<{ className?: string }> = ({ className }) => {
 					image="/images/docs/use-cases/icons/customer-incentives.svg"
 					title="Customer Incentives"
 					href="/use-cases/customer-incentives"
+					disabled
 				/>
 
 				<UseCaseLink
@@ -112,6 +121,7 @@ export const ExploreUseCases: FC<{ className?: string }> = ({ className }) => {
 					image="/images/docs/use-cases/icons/marketplaces.svg"
 					title="Marketplaces"
 					href="/use-cases/marketplaces"
+					disabled
 				/>
 
 				<UseCaseLink
@@ -119,6 +129,7 @@ export const ExploreUseCases: FC<{ className?: string }> = ({ className }) => {
 					image="/images/docs/use-cases/icons/events.svg"
 					title="Events"
 					href="/use-cases/events"
+					disabled
 				/>
 			</div>
 		</div>

@@ -1,11 +1,12 @@
 import clsx from 'clsx'
+import Image from 'next/image'
 import BookIcon from './icons/BookIcon'
 import LockIcon from './icons/LockIcon'
 import { Link } from '@/components/Link'
 import { GetServerSideProps } from 'next'
 import { FC, memo, useMemo } from 'react'
 import ErrorIcon from './icons/ErrorIcon'
-import Logo from 'public/worldcoin-logo.svg'
+import logo from 'public/worldcoin-logo.svg'
 import SuccessIcon from './icons/SuccessIcon'
 import { CodeGroup, Pre } from '@/components/Code'
 import ChevronRightIcon from './icons/ChevronRightIcon'
@@ -55,7 +56,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 
 	return (
 		<div className="min-h-screen w-full bg-[#F7F7F7] grid grid-rows-auto/1fr justify-items-center items-center gap-y-12 p-5">
-			<Logo className="h-6" />
+			<Image src={logo} className="h-6" alt="" />
 
 			<div className="lg:min-w-[720px]">
 				<div className="pt-10 md:pt-16 md:pb-4 pb-8 px-6 grid gap-y-8 justify-items-center bg-white rounded-xl">

@@ -1,9 +1,8 @@
 import clsx from 'clsx'
-import Image from 'next/image'
 import { Button } from './Button'
 import { Link } from '@/components/Link'
 import GitHubIcon from './icons/GitHubIcon'
-import logo from 'public/worldcoin-logo.svg'
+import Logo from 'public/worldcoin-logo.svg'
 import { MobileSearch, Search } from './Search'
 import { useMobileNavigationStore } from '@/components/MobileNavigation'
 import { motion, MotionStyle, useScroll, useTransform } from 'framer-motion'
@@ -65,14 +64,14 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 			/>
 			<div className="hidden lg:flex">
 				<Link href="/" aria-label="Home">
-					<Image src={logo} className="h-6" alt="Worldcoin" />
+					<Logo className="h-6" />
 				</Link>
 			</div>
 			<Search />
 			<div className="flex items-center gap-5 lg:hidden">
 				<MobileNavigation />
 				<Link href="/" aria-label="Home">
-					<Image src={logo} className="h-6" alt="Worldcoin" />
+					<Logo className="h-6" />
 				</Link>
 			</div>
 			<div className="flex items-center gap-5">

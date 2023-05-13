@@ -68,11 +68,21 @@ The `verifyProof` method takes the following arguments:
 
 The `proof` argument is returned from IDKit as a string, but depending how you're calling your smart contract (when using `ethers.js` or `wagmi`, for example), you might be required to unpack it into a `uint256[8]` before passing it to the `verifyProof` method. To unpack it, use the following code:
 
-```ts
+<CodeGroup>
+
+```ts {{ title: "ethers.js" }}
 import { defaultAbiCoder as abi } from '@ethers/utils'
 
 const unpackedProof = abi.decode(['uint256[8]'], proof)[0]
 ```
+
+```ts {{ title: "viem" }}
+import { decodeAbiParameters } from 'viem'
+
+const unpackedProof = decodeAbiParameters([{ type: 'uint256[8]' }], proof)[0]
+```
+
+</CodeGroup>
 
 The `verifyProof` method reverts if the proof is invalid, meaning you can just call it as part of your smart contract's logic and execute the rest of your logic after as usual.
 

@@ -55,9 +55,13 @@ The following parameters can be passed as props to the `IDKitWidget` component.
 
 The `IDKitWidget` component is the main component that renders the World ID widget. It should be mounted in your React app and passed the relevant parameters. Accepts a function as a child that receives a `open` function to open the widget.
 
-### `SignInWithWorldcoin`
+### `SignInWithWorldID`
 
-The `SignInWithWorldcoin` component is a wrapper around the `IDKitWidget` component that renders the World ID widget with the correct parameters for [Sign in with Worldcoin](/id/sign-in).
+The `SignInWithWorldID` component is a wrapper around the `IDKitWidget` component that renders the World ID widget with the correct parameters for [Sign in with Worldcoin](/id/sign-in).
+
+### `SignInButton`
+
+The `SignInButton` component is a styled and animated button, for use with [Sign in with Worldcoin](/id/sign-in). It is the default when using the `SignInWithWorldID` component, but also exported separately for use with custom components.
 
 ## Hooks
 

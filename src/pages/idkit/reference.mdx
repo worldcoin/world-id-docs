@@ -18,7 +18,7 @@ The following parameters can be passed as props to the `IDKitWidget` component.
 		Worldcoin](/id/sign-in).
 	</Property>
 	<Property name="onSuccess" type="function">
-		Function to trigger when verification is successful. Should receive a single parameter of type `IResultResponse`
+		Function to trigger when verification is successful. Should receive a single parameter of type `ISuccessResult`
 		which contains the proof details.
 	</Property>
 </Properties>
@@ -118,7 +118,7 @@ idkit.open()
 
 ## Response
 
-Upon successful completion of the World ID flow, you will receive a response object. This response object of type `IResultResponse` has the following attributes. **Normally, you will forward these parameters to your backend or smart contract for verification.**
+Upon successful completion of the World ID flow, you will receive a response object. This response object of type `ISuccessResult` has the following attributes. **Normally, you will forward these parameters to your backend or smart contract for verification.**
 
 <Properties>
 	<Property name="merkle_root" type="string">

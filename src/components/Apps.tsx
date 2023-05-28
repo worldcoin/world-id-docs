@@ -277,7 +277,7 @@ const apps = [
 		title: 'POAP',
 		subtitle: 'poap.worldcoin.org',
 		description: 'The bookmarks of your life. Issue POAPs to humans only. One person, one POAP.',
-		tags: ['On-Chain', 'Integration'],
+		tags: ['On-chain', 'Integration'],
 	},
 
 	{
@@ -309,30 +309,30 @@ const apps = [
 	},
 
 	{
-		url: 'https://minaprotocol.com/',
-		githubUrl: 'https://github.com/MinaProtocol/mina',
+		url: 'https://ethglobal.com/showcase/world-id-mina-embt9',
+		githubUrl: 'https://github.com/mitschabaude/mina-world-id',
 		image: {
-			sm: '/images/apps/mina.svg',
-			lg: '/images/apps/mina-lg.svg',
+			sm: '/images/apps/ethbogota.jpg',
+			lg: '/images/apps/ethbogota.jpg',
 		},
-		title: 'Mina Protocol',
-		subtitle: 'minaprotocol.com',
-		description: '', //FIXME: Add description
-		tags: [], //FIXME: Add tags
+		title: 'World ID on Mina',
+		subtitle: 'mitschabaude/mina-world-id',
+		description: 'Implementing the World ID system in snarkyjs, making PoP available for Mina smart contracts.',
+		tags: ['Hackathon Project', 'On-chain', 'Integration'],
 		worldcoin: false,
 	},
 
 	{
-		url: 'https://www.starknet.io/',
-		githubUrl: 'https://github.com/starkware-libs',
+		url: 'https://devfolio.co/projects/starksight-5d82',
+		githubUrl: 'https://github.com/HerodotusDev/starksight-zkhack',
 		image: {
-			sm: '/images/apps/starknet.svg',
-			lg: '/images/apps/starknet-lg.svg',
+			sm: '/images/apps/zkhack.png',
+			lg: '/images/apps/zkhack.png',
 		},
-		title: 'StarkNet',
-		subtitle: 'starknet.io',
-		description: '', //FIXME: Add description
-		tags: [], //FIXME: Add tags
+		title: 'StarkSight',
+		subtitle: 'HerodotusDev/starksight-zkhack',
+		description: 'Using Herodotus to make WorldID verifiable on Starknet.',
+		tags: ['Hackathon Project', 'On-chain', 'Integration'],
 		worldcoin: false,
 	},
 ]

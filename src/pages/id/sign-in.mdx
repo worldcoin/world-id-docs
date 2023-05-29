@@ -4,14 +4,14 @@ To better serve all classes of applications, World ID can now be used as an Open
 
 <Fence className="bg-gray-50">![A diagram showcasing the main authentication flow](/images/docs/id/sign-in.svg)</Fence>
 
-If your app already supports OIDC, simply add our [discovery document](/.well-known/openid-configuration) as an authentication option. You can read more about our implementation under the [`/authorize`](#/authorize) and [`/token`](#/token) headings.
+If your app already supports OIDC, simply add our [discovery document](/api/sign-in-reference#open-id-connect-discovery) as an authentication option. You can read more about our implementation in [`/authorize`](#authentication) and [`/token`](/api/sign-in-reference#exchange-code).
 
 ## Registration
 
 Before OIDC authentication can take place, developers must register their applications with Worldcoin. This is a one-time action. There are two ways to accomplish this:
 
 1. Create a new application on the [Developer Portal](https://developer.worldcoin.org)
-2. Use the `/register` endpoint, request body details can be [found here](#/register)
+2. Use the `/register` endpoint, request body details can be [found here](/api/sign-in-reference#register-app)
 
 During registration, you will need to provide the following values:
 
@@ -21,9 +21,9 @@ During registration, you will need to provide the following values:
 -   `application_type`: **Optional**, one of "web" or "mobile". Defaults to "web"
 -   `grant_types`: **Optional**, the type of flows this application will use. Can include "authorization_code", "implicit", or "hybrid". Defaults to "authorization_code"
 -   `response_type`: **Optional**, the response type expected by the application. Can include any of "code", "token", or "id_token". Defaults to "id_token"
-    -   `code`: The [`/authorize`](#generate-credentials) endpoint will include an authorization code that can be exchanged for an access token and/or ID token on the [`/token`](#exchange-code) endpoint. Best suited for web/mobile applications with dedicated backends, where security is the highest priority.
-    -   `token`: The [`/authorize`](#generate-credentials) endpoint will include an access token, which can be used to fetch user information from the [`/userinfo`](#get-user-info) and [`/introspect`](#introspect) endpoints. Best suited for low-risk applications, and client-only/SPAs where a `client_secret` cannot be concealed.
-    -   `id_token`: **Recommended for most applications.** The [`/authorize`](#generate-credentials) endpoint will include a signed JWT containing information about the user, including the unique `sub` claim (otherwise known as the [nullifier hash](/idkit/reference#response)). Provides simple user authentication, while keeping the amount of user data shared to a minimum. Best for privacy-conscious apps.
+    -   `code`: The [`/authorize`](#authentication) endpoint will include an authorization code that can be exchanged for an access token and/or ID token on the [`/token`](/api/sign-in-reference#exchange-code) endpoint. Best suited for web/mobile applications with dedicated backends, where security is the highest priority.
+    -   `token`: The [`/authorize`](#authentication) endpoint will include an access token, which can be used to fetch user information from the [`/userinfo`](/api/sign-in-reference#get-user-info) and [`/introspect`](/api/sign-in-reference#introspect) endpoints. Best suited for low-risk applications, and client-only/SPAs where a `client_secret` cannot be concealed.
+    -   `id_token`: **Recommended for most applications.** The [`/authorize`](#authentication) endpoint will include a signed JWT containing information about the user, including the unique `sub` claim (otherwise known as the [nullifier hash](/idkit/reference#response)). Provides simple user authentication, while keeping the amount of user data shared to a minimum. Best for privacy-conscious apps.
 
 <Note>
 	All redirect URIs must be over HTTPS, and contain no port numbers or URL fragments. `localhost` can be used on
@@ -40,7 +40,7 @@ _Generally_, applications should implement the authorization code flow, as it is
 
 ## Authentication
 
-Authentication begins with a request to the `/authorize` endpoint. Request details can be [found below](#/authorize).
+Authentication begins with a request to the `/authorize` endpoint.
 
 When using the native Sign In with Worldcoin page, most of the OIDC process is handled for you. You can begin the authentication cycle by redirecting your users to:
 
@@ -69,7 +69,7 @@ If using the default authorization code flow, the redirect URL will contain the 
 -   `code`: An authorization code that can be exchanged for an ID token
 -   `state`: The optional state value passed to the `/authorize` endpoint
 
-If you received a response containing an _authorization code_, you must exchange it for an ID token on the `/token` endpoint. Request details can be [seen here](#/token).
+If you received a response containing an _authorization code_, you must exchange it for an ID token on the `/token` endpoint. Request details can be [seen here](/api/sign-in-reference#exchange-code).
 
 If using implicit flow, the redirect URL will contain the following params:
 

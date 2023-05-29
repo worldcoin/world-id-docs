@@ -18,7 +18,7 @@ The following parameters can be passed as props to the `IDKitWidget` component.
 		Worldcoin](/id/sign-in).
 	</Property>
 	<Property name="onSuccess" type="function">
-		Function to trigger when verification is successful. Should receive a single parameter of type `IResultResponse`
+		Function to trigger when verification is successful. Should receive a single parameter of type `ISuccessResult`
 		which contains the proof details.
 	</Property>
 </Properties>
@@ -43,6 +43,10 @@ The following parameters can be passed as props to the `IDKitWidget` component.
 		The description of the specific action (shown to users in World App). **Only recommended for actions created
 		on-the-fly.**
 	</Property>
+	<Property name="credential_types" type="string[]">
+		An array of credential types to allow for verification. Will accept any combination of `orb` & `phone`. Defaults
+		to `orb`. **TypeScript apps can use the `CredentialType` enum.**
+	</Property>
 </Properties>
 
 ## Components
@@ -51,9 +55,13 @@ The following parameters can be passed as props to the `IDKitWidget` component.
 
 The `IDKitWidget` component is the main component that renders the World ID widget. It should be mounted in your React app and passed the relevant parameters. Accepts a function as a child that receives a `open` function to open the widget.
 
-### `SignInWithWorldcoin`
+### `SignInWithWorldID`
 
-The `SignInWithWorldcoin` component is a wrapper around the `IDKitWidget` component that renders the World ID widget with the correct parameters for [Sign in with Worldcoin](/id/sign-in).
+The `SignInWithWorldID` component is a wrapper around the `IDKitWidget` component that renders the World ID widget with the correct parameters for [Sign in with Worldcoin](/id/sign-in).
+
+### `SignInButton`
+
+The `SignInButton` component is a styled and animated button, for use with [Sign in with Worldcoin](/id/sign-in). It is the default when using the `SignInWithWorldID` component, but also exported separately for use with custom components.
 
 ## Hooks
 
@@ -110,7 +118,7 @@ idkit.open()
 
 ## Response
 
-Upon successful completion of the World ID flow, you will receive a response object. This response object of type `IResultResponse` has the following attributes. **Normally, you will forward these parameters to your backend or smart contract for verification.**
+Upon successful completion of the World ID flow, you will receive a response object. This response object of type `ISuccessResult` has the following attributes. **Normally, you will forward these parameters to your backend or smart contract for verification.**
 
 <Properties>
 	<Property name="merkle_root" type="string">

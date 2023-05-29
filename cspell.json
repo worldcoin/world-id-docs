@@ -64,6 +64,7 @@
 		"testid",
 		"timestamptz",
 		"ujfk",
+		"viem",
 		"wagmi",
 		"WalletConnect",
 		"webp",

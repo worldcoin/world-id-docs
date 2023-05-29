@@ -45,3 +45,29 @@ Within the ID token returned by the World ID provider, a minimal number of [OIDC
 -   `https://worldcoin.org/beta`: Describes claims specific to World ID. **Subject to change**
     -   `likely_human`: "strong" or "weak", corresponding to whether the user has strong sybil protection or likelihood of being human. Biometrically verified users have a `strong` value.
     -   `credential_type`: `orb` or `phone`, represents the credential the user to authenticate. In general, for Sign in with Worldcoin, the highest credential available to the user will be used.
+
+## Signup Sequencer
+
+World ID utilizes a sequencer to insert identity commitments on-chain, generate inclusion proofs, and track the state of the contract Merkle trees. This is done to simplify the amount of state applications need to handle to work with World ID.
+
+The sequencer utilizes a batching process to reduce gas costs and improve performance. When verifying a proof from the World app, the Developer Portal will query the sequencer to determine if the proof is valid, since the user could be a part of the current batch (which is not yet on-chain). To interact with the sequencer, you can use these endpoints:
+
+### Staging
+
+-   Orb credentials: `https://signup.stage-crypto.worldcoin.dev`
+-   Phone credentials: `https://phone-signup-v2.stage-crypto.worldcoin.dev` # TODO
+
+### Production
+
+-   Orb credentials: `https://signup-v2.crypto.worldcoin.dev`
+-   Phone credentials: `https://phone-signup-v2.crypto.worldcoin.dev` # TODO
+
+### Endpoints
+
+The sequencer exposes the following endpoints:
+
+-   `/inclusionProof`: Fetches the inclusion proof for a given identity commitment
+-   `/insertIdentity`: Inserts an identity commitment into the current sequencer batch
+-   `/verifySemaphoreProof`: Verifies the given ZK proof (from the World app) is valid, even if it is not yet on-chain
+
+More details about these endpoints can be found in our [Swagger documentation.](https://editor.swagger.io/?url=https://raw.githubusercontent.com/worldcoin/signup-sequencer/batching/main/schemas/openapi.yaml)

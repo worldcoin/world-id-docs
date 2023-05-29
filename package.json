@@ -36,7 +36,7 @@
 		"postcss-import": "^15.1.0",
 		"postcss-nesting": "^11.2.2",
 		"postcss-selector-matches": "^4.0.0",
-		"posthog-js": "^1.51.5",
+		"posthog-js": "^1.57.3",
 		"react": "18.2.0",
 		"react-countup": "^6.4.2",
 		"react-dom": "18.2.0",

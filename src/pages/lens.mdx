@@ -39,8 +39,9 @@ Lens and Worldcoin are partnering to sustainably offer gasless transactions to r
 
     ```jsx
     import { IDKitWidget } from "@worldcoin/idkit";
+    import { useAccount } from "wagmi";
 
-    const address = ''; // the user's wallet address
+    const { address } = useAccount()
     const is_production = process.env.NODE_ENV == "production";
     const action_id = is_production ? 'wid_2d3d2e7a1e0c8286083d4e43598e4f62' : 'wid_staging_ac7743b1589fefaf3ed2fc05b3d60da1';
     const experimental_methods = ["phone", "orb"]; // or ["phone"] if you only want phone number verification

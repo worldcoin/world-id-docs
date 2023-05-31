@@ -18,13 +18,11 @@ Lens and Worldcoin are partnering to sustainably offer gasless transactions to r
 
 ## Integration instructions
 
-_These instructions assume you're integrating into a React/Next.js app. If you're not, read the installation details on the [README.md](README.md)._
-
 1. Install IDKit JS
     ```bash
-    yarn add @worldcoin/idkit@0.4.9
+    yarn add @worldcoin/idkit
     # or
-    npm install @worldcoin/idkit@0.4.9
+    npm install @worldcoin/idkit
     ```
 2. Load IDKit JS. Note the `action_id`  and `experimental_methods` parameters below -- the Action ID is the **same for all Lens-powered apps,** and `experimental_methods` must be `['phone']` or `['phone', 'orb']`.
     

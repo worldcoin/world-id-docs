@@ -51,6 +51,7 @@
 		"mesha",
 		"mina",
 		"minaprotocol",
+		"mitschabaude",
 		"NGOs",
 		"nullifer",
 		"OIDC",
@@ -61,6 +62,7 @@
 		"quix",
 		"rehype",
 		"Sismo",
+		"snarkyjs",
 		"testid",
 		"timestamptz",
 		"ujfk",
@@ -69,6 +71,7 @@
 		"WalletConnect",
 		"webp",
 		"Worldcoin",
+		"zkhack",
 		"zustand"
 	]
 }

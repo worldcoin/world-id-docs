@@ -175,7 +175,7 @@ function verifyAndExecute(
     // We now verify the provided proof is valid and the user is verified by World ID
     worldId.verifyProof(
         root,
-        1, // Or 0 if the user is Phone Verified
+        1, // Or `0` if you want to check for phone verification only
         abi.encodePacked(signal).hashToField(),
         nullifierHash,
         abi.encodePacked(appId).hashToField(),

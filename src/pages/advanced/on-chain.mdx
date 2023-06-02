@@ -25,8 +25,8 @@ We provide a [Foundry starter kit](https://github.com/worldcoin/world-id-starter
   <tbody>
     <tr>
       <td className="align-middle"><img src="/icons/polygon.svg" alt="Polygon logo" className="h-8 w-8 m-0 mr-2 inline" />Polygon</td>
-      <td className="align-middle">`semaphore.wld.eth`</td>
-      <td className="align-middle">`staging.semaphore.wld.eth`<div><b>Mumbai-Testnet</b></div></td>
+      <td className="align-middle">`polygon.id.worldcoin.eth`</td>
+      <td className="align-middle">`mumbai.id.worldcoin.eth`<div><b>Mumbai-Testnet</b></div></td>
     </tr>
     <tr>
       <td className="flex items-center"><img src="/icons/ethereum.svg" alt="Ethereum logo" className="h-8 w-8 m-0 mr-2" /> Ethereum Mainnet</td>
@@ -60,7 +60,7 @@ We provide a [Foundry starter kit](https://github.com/worldcoin/world-id-starter
 The `verifyProof` method takes the following arguments:
 
 -   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should just be passed as-is.
--   `groupId` - This should always be `1` for World ID.
+-   `groupId` - This is `1` for Orb-verified users, and `0` for Phone-verified users. This is determined by the Credential Type returned from the IDKit widget.
 -   `signal` - The signal to verify. See the [signal section](#custom-signals) below.
 -   `nullifierHash` - Anonymous user ID. This is obtained from the IDKit widget, and should just be passed as-is.
 -   `action` - The action to verify. See the [action section](#custom-actions) below.
@@ -175,7 +175,7 @@ function verifyAndExecute(
     // We now verify the provided proof is valid and the user is verified by World ID
     worldId.verifyProof(
         root,
-        1,
+        1, // Or `0` if you want to check for phone verification only
         abi.encodePacked(signal).hashToField(),
         nullifierHash,
         abi.encodePacked(appId).hashToField(),
@@ -191,7 +191,7 @@ function verifyAndExecute(
 
 ## Network support
 
-The World ID protocol currently lives in the Polygon network, and the verifier contract is deployed at `semaphore.wld.eth` on Polygon mainnet and `staging.semaphore.wld.eth` on Polygon Mumbai testnet.
+The World ID protocol currently lives in the Polygon network, and the verification router contract is deployed at `polygon.id.worldcoin.eth` on Polygon mainnet and `mumbai.id.worldcoin.eth` on Polygon Mumbai testnet.
 
 We will very soon be launching the World ID protocol on Ethereum mainnet and Optimism, and will update this documentation accordingly.
 
@@ -199,18 +199,16 @@ We will very soon be launching the World ID protocol on Ethereum mainnet and Opt
 
 As an alternative to verifying proofs with the Developer Portal, proofs can be verified by directly calling the smart contract on-chain. This is a tradeoff that applications may want to make to not rely on a centralized API. Keep in mind that the current batch of registered users can take anywhere from 5-30 minutes to be posted on-chain, so there is a delay associated with these smart contract based calls.
 
-The World ID Semaphore contracts are deployed to Polygon Mainnet and the Mumbai testnet. The contract addresses are:
+The World ID Verification Router contracts are deployed to Polygon Mainnet and the Mumbai testnet. The contract addresses are:
 
 ### Mainnet
 
--   Orb credential: [semaphore.wld.eth](https://etherscan.io/address/0xD81dE4BCEf43840a2883e5730d014630eA6b7c4A)
--   Phone credential: [phone.wld.eth](https://etherscan.io/address/0xf87B9bf95521aC94bF5d65791f024Ab0f5cc4088) # TODO
+-   Verification Router: [polygon.id.worldcoin.eth](https://polygonscan.com/address/0x515f06b36e6d3b707eaecbded18d8b384944c87f)
 -   Endpoint URL: `https://polygon-mainnet.g.alchemy.com`
 
 ### Testnet
 
--   Orb credential: [staging.semaphore.wld.eth](https://etherscan.io/address/0xABB70f7F39035586Da57B3c8136035f87AC0d2Aa)
--   Phone credential: [staging.phone.wld.eth](https://etherscan.io/address/0xABB70f7F39035586Da57B3c8136035f87AC0d2Aa) # TODO
+-   Verification Router: [mumbai.id.worldcoin.eth](https://mumbai.polygonscan.com/address/0x719683f13eeea7d84fcba5d7d17bf82e03e3d260)
 -   Endpoint URL: `https://polygon-mumbai.g.alchemy.com`
 
 ## Verify Proof {{ tag: "POST", label: "verifyProof" }}

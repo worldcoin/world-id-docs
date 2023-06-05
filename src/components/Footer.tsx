@@ -84,7 +84,7 @@ const SmallPrint = () => (
 			<SocialLink href="https://github.com/worldcoin" icon={GitHubIcon}>
 				Follow us on GitHub
 			</SocialLink>
-			<SocialLink href="https://discord.gg/worldcoin" icon={DiscordIcon}>
+			<SocialLink href="https://worldcoin.org/discord" icon={DiscordIcon}>
 				Join our Discord server
 			</SocialLink>
 		</div>

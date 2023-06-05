@@ -232,7 +232,7 @@ export const UseCasesList: FC<{}> = () => {
 					/>
 
 					<LinkCard
-						href="https://discord.gg/worldcoin"
+						href="https://worldcoin.org/discord"
 						heading="Join our Discord community"
 						description="Jam on ideas, see what others are building, ask questions. Look for the #developers channel."
 					/>

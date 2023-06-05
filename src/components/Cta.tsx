@@ -20,7 +20,7 @@ export const Cta = (props: {}) => {
 			</p>
 			<Link
 				className="absolute bottom-[16px] right-[16px] flex items-center justify-center w-8 h-8 bg-[#7B53F2] rounded-full"
-				href="https://discord.gg/worldcoin"
+				href="https://worldcoin.org/discord"
 				target="_blank"
 			>
 				<DiscordIcon className="w-5 text-white" />

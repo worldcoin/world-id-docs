@@ -2,6 +2,7 @@ import 'focus-visible'
 import Head from 'next/head'
 import '@/styles/styles.css'
 import posthog from 'posthog-js'
+import { NextSeo } from 'next-seo'
 import Clippy from 'clippy-widget'
 import { FC, useMemo } from 'react'
 import { AppProps } from 'next/app'
@@ -55,19 +56,103 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 		return true
 	}, [pagesWithoutLayout, router.pathname])
 
+	const ogImagesSizes = useMemo(
+		() => [
+			{ width: 109, height: 109 },
+			{ width: 138, height: 72 },
+			{ width: 180, height: 94 },
+			{ width: 180, height: 110 },
+			{ width: 250, height: 250 },
+			{ width: 355, height: 225 },
+			{ width: 360, height: 123 },
+			{ width: 407, height: 213 },
+			{ width: 502, height: 264 },
+			{ width: 896, height: 512 },
+			{ width: 1024, height: 512 },
+			{ width: 1600, height: 900 },
+			{ width: 1920, height: 1080 },
+		],
+		[]
+	)
+
+	const ogImages = useMemo(() => {
+		const isHomePage = router.pathname === '/'
+
+		if (isHomePage) {
+			return ogImagesSizes.map(({ width, height }) => ({
+				url: `/images/og/default/${width}x${height}.png`,
+				width,
+				height,
+				alt: `Worldcoin Docs`,
+			}))
+		}
+
+		return ogImagesSizes.map(({ width, height }) => {
+			if (width === 1920 && height === 1080) {
+				return {
+					url: `/images/og${router.pathname}.png`,
+					width: 1920,
+					height: 1080,
+					alt: 'Worldcoin Docs',
+				}
+			}
+
+			return {
+				url: `/images/og/default/${width}x${height}.png`,
+				width,
+				height,
+				alt: `Worldcoin Docs`,
+			}
+		})
+	}, [ogImagesSizes, router.pathname])
+
 	return (
 		<>
-			<Head>
-				<title>{title}</title>
-				<meta name="description" content={pageProps.description} />
+			<NextSeo
+				title={title}
+				description={pageProps.description}
+				openGraph={{
+					title,
+					description: pageProps.description,
+					type: 'website',
+					site_name: 'Worldcoin Docs',
+					images: ogImages,
+				}}
+				twitter={{
+					cardType: 'summary_large_image',
+				}}
+				additionalLinkTags={[
+					{
+						rel: 'manifest',
+						href: '/favicon/site.webmanifest',
+					},
+					{
+						rel: 'mask-icon',
+						href: '/favicon/safari-pinned-tab.svg',
+						color: '#191919',
+					},
+					{
+						rel: 'apple-touch-icon',
+						sizes: '180x180',
+						href: '/favicon/apple-touch-icon.png',
+					},
+					{
+						rel: 'icon',
+						type: 'image/png',
+						sizes: '32x32',
+						href: '/favicon/favicon-32x32.png',
+					},
+					{
+						rel: 'icon',
+						type: 'image/png',
+						sizes: '16x16',
+						href: '/favicon/favicon-16x16.png',
+					},
+				]}
+			/>
 
-				<link rel="manifest" href="/favicon/site.webmanifest" />
-				<link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#191919" />
-				<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-				<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
-				<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
-			</Head>
 			{process.env.NODE_ENV === 'production' && <Clippy theme="light" />}
+
 			{/* @ts-ignore */}
 			<MDXProvider components={mdxComponents}>
 				{hasLayout && (

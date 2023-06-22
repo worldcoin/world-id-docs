@@ -483,14 +483,15 @@ const Try = (): JSX.Element => {
 				{({ theme, styleOption, variants }) => (
 					<Suspense>
 						<IDKitWidget
-							credential_types={watch('credentialTypes') ?? []}
 							theme={theme}
+							onSuccess={console.log}
+							action={watch('action') ?? ''}
+							credential_types={watch('credentialTypes') ?? []}
 							app_id={
 								testingEnvironment === 'production'
 									? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!
 									: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
 							}
-							action={watch('action') ?? ''}
 						>
 							{({ open }) => (
 								<div className="relative">

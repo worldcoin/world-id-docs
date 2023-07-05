@@ -309,6 +309,34 @@ const apps = [
 		tags: ['On-chain', 'App'],
 		worldcoin: false,
 	},
+
+	{
+		url: 'https://ethglobal.com/showcase/world-id-mina-embt9',
+		githubUrl: 'https://github.com/mitschabaude/mina-world-id',
+		image: {
+			sm: '/images/apps/ethbogota.jpg',
+			lg: '/images/apps/ethbogota.jpg',
+		},
+		title: 'World ID on Mina',
+		subtitle: 'mitschabaude/mina-world-id',
+		description: 'Implementing the World ID system in snarkyjs, making PoP available for Mina smart contracts.',
+		tags: ['Hackathon Project', 'On-chain', 'Integration'],
+		worldcoin: false,
+	},
+
+	{
+		url: 'https://devfolio.co/projects/starksight-5d82',
+		githubUrl: 'https://github.com/HerodotusDev/starksight-zkhack',
+		image: {
+			sm: '/images/apps/zkhack.png',
+			lg: '/images/apps/zkhack.png',
+		},
+		title: 'StarkSight',
+		subtitle: 'HerodotusDev/starksight-zkhack',
+		description: 'Using Herodotus to make WorldID verifiable on Starknet.',
+		tags: ['Hackathon Project', 'On-chain', 'Integration'],
+		worldcoin: false,
+	},
 ]
 
 // ANCHOR: tags handling

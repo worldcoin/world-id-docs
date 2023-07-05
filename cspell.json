@@ -3,18 +3,40 @@
 	"enabled": true,
 	"language": "en-US",
 	"allowCompoundWords": true,
-	"dictionaries": ["typescript", "node", "npm", "html"],
-	"enabledLanguageIds": ["typescript", "typescriptreact", "javascript", "markdown", "yaml", "json"],
-	"ignorePaths": ["**/node_modules", "package.json", "pnpm-lock.yaml"],
-	"ignoreWords": ["signup"],
-	"ignoreRegExpList": ["app_[a-z0-9]+", "jwk_[a-z0-9]+", "ey[a-zA-Z0-9]+\\.ey[a-zA-Z0-9]+\\.[a-zA-Z0-9]+"],
+	"dictionaries": [
+		"typescript",
+		"node",
+		"npm",
+		"html"
+	],
+	"enabledLanguageIds": [
+		"typescript",
+		"typescriptreact",
+		"javascript",
+		"markdown",
+		"yaml",
+		"json"
+	],
+	"ignorePaths": [
+		"**/node_modules",
+		"package.json",
+		"pnpm-lock.yaml"
+	],
+	"ignoreWords": [
+		"signup"
+	],
+	"ignoreRegExpList": [
+		"app_[a-z0-9]+",
+		"jwk_[a-z0-9]+",
+		"ey[a-zA-Z0-9]+\\.ey[a-zA-Z0-9]+\\.[a-zA-Z0-9]+"
+	],
 	"words": [
 		"anonymized",
 		"clippy",
 		"clsx",
-		"Emoy",
 		"countup",
 		"defi",
+		"Emoy",
 		"ETHSF",
 		"hackathon",
 		"hackathons",
@@ -27,6 +49,9 @@
 		"keccak",
 		"merkle",
 		"mesha",
+		"mina",
+		"minaprotocol",
+		"mitschabaude",
 		"NGOs",
 		"nullifer",
 		"OIDC",
@@ -37,14 +62,16 @@
 		"quix",
 		"rehype",
 		"Sismo",
+		"snarkyjs",
 		"testid",
-		"ujfk",
 		"timestamptz",
+		"ujfk",
 		"viem",
 		"wagmi",
 		"WalletConnect",
 		"webp",
 		"Worldcoin",
+		"zkhack",
 		"zustand"
 	]
 }

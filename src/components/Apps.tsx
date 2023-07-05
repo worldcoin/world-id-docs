@@ -240,6 +240,21 @@ const Item = (props: {
 // ANCHOR: List of the apps data
 const apps = [
 	{
+		url: 'https://worldcoin.org/auth0',
+		githubUrl: 'https://github.com/0xPenryn/auth0-world-id-social-connection',
+		image: {
+			sm: '/images/apps/auth0.svg',
+			lg: '/images/apps/auth0-lg.png',
+		},
+		title: 'Auth0',
+		subtitle: 'marketplace.auth0.com',
+		description:
+			'Add Sign In with Worldcoin to your Auth0 tenant in under 5 minutes. No code required.',
+		tags: ['Integration', 'Social', 'Sign In'],
+		bookmark: false,
+	},
+
+	{
 		url: 'https://human.withlens.app',
 		githubUrl: 'https://github.com/worldcoin/world-id-lens',
 		image: {

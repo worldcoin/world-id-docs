@@ -296,19 +296,6 @@ const apps = [
 	},
 
 	{
-		url: 'https://petorbz.com',
-		githubUrl: 'https://github.com/worldcoin/world-id-petorbz',
-		image: {
-			sm: '/images/apps/petorbz.svg',
-			lg: '',
-		},
-		title: 'Pet Orbz',
-		subtitle: 'petorbz.com',
-		description: 'Claim a single #petorbz NFT once. Only one NFT per person, verified on-chain.',
-		tags: ['On-chain', 'App'],
-	},
-
-	{
 		url: 'https://worldcoin.org',
 		githubUrl: 'https://github.com/worldcoin/world-id-example-airdrop',
 		image: {

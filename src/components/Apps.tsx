@@ -240,6 +240,21 @@ const Item = (props: {
 // ANCHOR: List of the apps data
 const apps = [
 	{
+		url: 'https://worldcoin.org/auth0',
+		githubUrl: 'https://github.com/0xPenryn/auth0-world-id-social-connection',
+		image: {
+			sm: '/images/apps/auth0.svg',
+			lg: '/images/apps/auth0-lg.png',
+		},
+		title: 'Auth0',
+		subtitle: 'marketplace.auth0.com',
+		description:
+			'Add Sign In with Worldcoin to your Auth0 tenant in under 5 minutes. No code required.',
+		tags: ['Integration', 'Social', 'Sign In'],
+		bookmark: false,
+	},
+
+	{
 		url: 'https://human.withlens.app',
 		githubUrl: 'https://github.com/worldcoin/world-id-lens',
 		image: {
@@ -281,19 +296,6 @@ const apps = [
 	},
 
 	{
-		url: 'https://petorbz.com',
-		githubUrl: 'https://github.com/worldcoin/world-id-petorbz',
-		image: {
-			sm: '/images/apps/petorbz.svg',
-			lg: '',
-		},
-		title: 'Pet Orbz',
-		subtitle: 'petorbz.com',
-		description: 'Claim a single #petorbz NFT once. Only one NFT per person, verified on-chain.',
-		tags: ['On-chain', 'App'],
-	},
-
-	{
 		url: 'https://worldcoin.org',
 		githubUrl: 'https://github.com/worldcoin/world-id-example-airdrop',
 		image: {
@@ -305,6 +307,34 @@ const apps = [
 		description:
 			'The first token to be globally and freely distributed to people, just for being a unique individual.',
 		tags: ['On-chain', 'App'],
+		worldcoin: false,
+	},
+
+	{
+		url: 'https://ethglobal.com/showcase/world-id-mina-embt9',
+		githubUrl: 'https://github.com/mitschabaude/mina-world-id',
+		image: {
+			sm: '/images/apps/ethbogota.jpg',
+			lg: '/images/apps/ethbogota.jpg',
+		},
+		title: 'World ID on Mina',
+		subtitle: 'mitschabaude/mina-world-id',
+		description: 'Implementing the World ID system in snarkyjs, making PoP available for Mina smart contracts.',
+		tags: ['Hackathon Project', 'On-chain', 'Integration'],
+		worldcoin: false,
+	},
+
+	{
+		url: 'https://devfolio.co/projects/starksight-5d82',
+		githubUrl: 'https://github.com/HerodotusDev/starksight-zkhack',
+		image: {
+			sm: '/images/apps/zkhack.png',
+			lg: '/images/apps/zkhack.png',
+		},
+		title: 'StarkSight',
+		subtitle: 'HerodotusDev/starksight-zkhack',
+		description: 'Using Herodotus to make World ID verifiable on Starknet.',
+		tags: ['Hackathon Project', 'On-chain', 'Integration'],
 		worldcoin: false,
 	},
 ]

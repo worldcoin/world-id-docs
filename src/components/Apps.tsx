@@ -333,7 +333,7 @@ const apps = [
 		},
 		title: 'StarkSight',
 		subtitle: 'HerodotusDev/starksight-zkhack',
-		description: 'Using Herodotus to make WorldID verifiable on Starknet.',
+		description: 'Using Herodotus to make World ID verifiable on Starknet.',
 		tags: ['Hackathon Project', 'On-chain', 'Integration'],
 		worldcoin: false,
 	},

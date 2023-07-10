@@ -1,0 +1,39 @@
+# On-The-Fly Actions
+
+To accommodate dynamic content, actions can also be created on-the-fly as a user completes a World ID verification. Simply pass the desired `action` and `action_description` values in [IDKit's parameters](/reference/idkit#parameters). A new action will automatically be created and tracked, and will appear the next time you log into the Developer Portal.
+
+### Parameter used only for On-The-Fly Actions
+
+<Properties>
+	<Property name="action_description" type="string">
+		The description of the specific action (shown to users in World App).
+	</Property>
+</Properties>
+
+### Example
+
+As an example, a custom action version of IDKit may look like:
+
+```jsx
+const getUserChoice = userId => {
+	const choice = userChoices['userId']
+	return choice
+}
+
+return (
+	<IDKitWidget
+		onSuccess={onSuccess}
+		handleVerify={handleProof}
+		action={getUserChoice(userId)}
+		app_id="app_staging_7550e829082fc558e112e0620c1c7a59"
+		action_description="Please select an action"
+    >
+    	{({ open }) => <button onClick={open}>Verify with World ID</button>}
+    </IDKitWidget>
+)
+```
+
+<Note>
+	To perform dynamic on-chain actions, please reference the [on-chain section](/anonymous-actions/on-chain) of the
+	documentation.
+</Note>

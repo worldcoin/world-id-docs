@@ -1,15 +1,15 @@
 import { Tag } from '@/components/Tag'
 
-# On-Chain
+# Verifying Proofs On-Chain
+
+We provide an [on-chain starter kit](https://github.com/worldcoin/world-id-onchain-template) to help you get started with World ID. We strongly recommend using this template repository to get started with World ID on-chain.
 
 World ID proofs can be fully verified on-chain. After all, the source of truth for the decentralized protocol is on-chain. To verify a World ID proof, your smart contract will embed a call to the `verifyProof` method of the World ID contract, and then execute the rest of its logic as usual.
 
-We provide a [Foundry starter kit](https://github.com/worldcoin/world-id-starter) and a [Hardhat starter kit](https://github.com/worldcoin/world-id-starter-hardhat) to help you get started with World ID. We strongly recommend using one of these starter kits to get started with World ID.
 
 <Note type="warning">
-	Note that calling the `verifyProof` function by itself does not provide sybil-resistance, or prevent proof reuse, it
-	just verifies that the proof is valid. To prevent sybil attacks, see the [sybil-resistance
-	section](#sybil-resistance) below.
+	It can take 5-30 minutes for an identity commitment to be available on any given chain. This means that a user's proofs will not verify on-chain in this time after they have completed Phone Number or Orb verification.
+  For more details visit the [Protocol Internals](/advanced/protocol-internals#signup-sequencer) page.
 </Note>
 
 ## Supported Chains
@@ -25,8 +25,8 @@ We provide a [Foundry starter kit](https://github.com/worldcoin/world-id-starter
   <tbody>
     <tr>
       <td className="align-middle"><img src="/icons/polygon.svg" alt="Polygon logo" className="h-8 w-8 m-0 mr-2 inline" />Polygon</td>
-      <td className="align-middle">`polygon.id.worldcoin.eth`</td>
-      <td className="align-middle">`mumbai.id.worldcoin.eth`<div><b>Mumbai-Testnet</b></div></td>
+      <td className="align-middle">[`polygon.id.worldcoin.eth`](https://etherscan.io/name-lookup-search?id=polygon.id.worldcoin.eth)<div><b>Polygon Mainnet</b></div></td>
+      <td className="align-middle">[`mumbai.id.worldcoin.eth`](https://etherscan.io/name-lookup-search?id=mumbai.id.worldcoin.eth)<div><b>Mumbai Testnet</b></div></td>
     </tr>
     <tr>
       <td className="flex items-center"><img src="/icons/ethereum.svg" alt="Ethereum logo" className="h-8 w-8 m-0 mr-2" /> Ethereum Mainnet</td>
@@ -50,17 +50,22 @@ We provide a [Foundry starter kit](https://github.com/worldcoin/world-id-starter
   </tbody>
 </table>
 
-## Calling verifyProof
+## verifyProof
 
-<Note>
-	The `verifyProof` function is meant to be called by your smart contract. If you just want to verify a proof from
-	your backend, you should use the [/verify method of the API](/api) instead.
+<Note type="warning">
+	Note that calling the `verifyProof` function by itself does not provide sybil-resistance, or prevent proof reuse -- it
+	just verifies that the proof is valid. To prevent sybil attacks, see the [sybil-resistance section](#sybil-resistance) below.
 </Note>
+
+{/* <Note>
+	The `verifyProof` function is meant to be called by your smart contract. If you just want to verify a proof from
+	your backend, you should use the [/verify method of the API](/reference/api#verify-proof) instead.
+</Note> */}
 
 The `verifyProof` method takes the following arguments:
 
 -   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should just be passed as-is.
--   `groupId` - This is `1` for Orb-verified users, and `0` for Phone-verified users. This is determined by the Credential Type returned from the IDKit widget.
+-   `groupId` - This must be `1` for Orb-verified users, and `0` for Phone-verified users. You may pass this dynamically based on a user's verification status, or you may hardcode it if you only want to allow one type of verification.
 -   `signal` - The signal to verify. See the [signal section](#custom-signals) below.
 -   `nullifierHash` - Anonymous user ID. This is obtained from the IDKit widget, and should just be passed as-is.
 -   `action` - The action to verify. See the [action section](#custom-actions) below.
@@ -188,132 +193,3 @@ function verifyAndExecute(
     // Finally, execute your logic here, for example issue a token, NFT, etc...
 }
 ```
-
-## Network support
-
-The World ID protocol currently lives in the Polygon network, and the verification router contract is deployed at `polygon.id.worldcoin.eth` on Polygon mainnet and `mumbai.id.worldcoin.eth` on Polygon Mumbai testnet.
-
-We will very soon be launching the World ID protocol on Ethereum mainnet and Optimism, and will update this documentation accordingly.
-
-## Smart Contract Verifications
-
-As an alternative to verifying proofs with the Developer Portal, proofs can be verified by directly calling the smart contract on-chain. This is a tradeoff that applications may want to make to not rely on a centralized API. Keep in mind that the current batch of registered users can take anywhere from 5-30 minutes to be posted on-chain, so there is a delay associated with these smart contract based calls.
-
-The World ID Verification Router contracts are deployed to Polygon Mainnet and the Mumbai testnet. The contract addresses are:
-
-### Mainnet
-
--   Verification Router: [polygon.id.worldcoin.eth](https://polygonscan.com/address/0x515f06b36e6d3b707eaecbded18d8b384944c87f)
--   Endpoint URL: `https://polygon-mainnet.g.alchemy.com`
-
-### Testnet
-
--   Verification Router: [mumbai.id.worldcoin.eth](https://mumbai.polygonscan.com/address/0x719683f13eeea7d84fcba5d7d17bf82e03e3d260)
--   Endpoint URL: `https://polygon-mumbai.g.alchemy.com`
-
-## Verify Proof {{ tag: "POST", label: "verifyProof" }}
-
-Verifies a proof against the contract on-chain. Here we are using the [Alchemy API](https://docs.alchemy.com/alchemy/documentation/alchemy-api-reference) to make the call, but you can use any Ethereum provider (Infura, Quicknode, etc.)
-
-<Note title="caution" type="warning">
-	The most recent batch of users **will not** be available on-chain until the next batch is published. This can take
-	anywhere from 5-30 minutes.
-</Note>
-
-<Row><Col>
-
-### Required attributes
-
-<Properties>
-	<Property name="to" type="string">
-		The contract address to check the proof against.
-	</Property>
-	<Property name="data" type="string">
-		The payload data to send to the contract, encoded to the contract's ABI using ethers `encodeFunctionData`
-		method. More details can be [found
-		here.](https://github.com/worldcoin/developer-portal/blob/be1742f507fdf7b5858789f881310af7ab740c2b/web/src/backend/verify.ts#L297)
-	</Property>
-</Properties>
-
-### Possible Responses
-
--   `200 OK` - The proof is valid and the credential is verified.
--   `200 Invalid Merkle Root` - The provided merkle root is invalid. Please check your parameters.
--   `200 Invalid Proof` - The provided proof is invalid. Please check your parameters and encoding method.
-
-</Col><Col sticky>
-
-<CodeGroup title="Request" tag="POST" label="/v2/{alchemy_api_key}">
-
-```bash {{ title: "cURL" }}
-curl -X POST "/v2/{alchemy_api_key}" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "jsonrpc": "2.0",
-    "method": "eth_call",
-    "params": [
-      {
-        "to": "0xD81dE4BCEf43840a2883e5730d014630eA6b7c4A",
-        "data": "0x3bc778e31084a22c024e103ced6be2a51c7..."
-      }
-    ]
-  }'
-```
-
-```js
-fetch(`${apiUrl}/v2/${alchemy_api_key}`, {
-	method: 'POST',
-	headers: {
-		'Content-Type': 'application/json',
-	},
-	body: JSON.stringify({
-		jsonrpc: '2.0',
-		method: 'eth_call',
-		params: [
-			{
-				to: '0xD81dE4BCEf43840a2883e5730d014630eA6b7c4A',
-				data: '0x3bc778e31084a22c024e103ced6be2a51c7...',
-			},
-		],
-	}),
-})
-```
-
-</CodeGroup>
-
-<CodeGroup title="Response">
-
-```json {{ title: "200 OK" }}
-{
-	"jsonrpc": "2.0",
-	"id": null,
-	"result": "0x"
-}
-```
-
-```json {{ title: "200 Invalid Merkle Root" }}
-{
-	"jsonrpc": "2.0",
-	"id": null,
-	"error": {
-		"code": 3,
-		"message": "execution reverted",
-		"data": "0x504570e3"
-	}
-}
-```
-
-```json {{ title: "200 Invalid Proof" }}
-{
-	"jsonrpc": "2.0",
-	"id": null,
-	"error": {
-		"code": 3,
-		"message": "execution reverted",
-		"data": "0x09bde339"
-	}
-}
-```
-
-</CodeGroup>
-</Col></Row>

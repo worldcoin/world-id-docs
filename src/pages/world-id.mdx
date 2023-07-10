@@ -1,0 +1,73 @@
+export const sections = [
+	{ title: 'How it Works', id: 'how-it-works' },
+	{ title: 'The Protocol', id: 'the-protocol' },
+]
+
+# World ID {{ className: 'uppercase text-5xl' }}
+
+The protocol to bring global proof of personhood to the internet. {{ className: 'text-2xl' }}
+
+<hr className="my-10" />
+
+## Introduction {{ className: 'mt-0 uppercase text-sm text-neutral-400 font-normal', anchor: false }}
+
+World ID is a digital passport that lets a user prove they are a unique and real person while remaining anonymous. This happens through [zero-knowledge proofs](/advanced/zero-knowledge-proofs) (ZKP) and other privacy-preserving cryptographic mechanisms.
+
+You can easily integrate World ID in your app and smart contract or backend. World ID holders can easily and anonymously verify they are a unique human through a compatible identity wallet, like the [World App](https://worldcoin.org/download).
+
+![Person using Sign In with Worldcoin](/images/docs/introduction/worldcoin-sign-in.jpg)
+
+<div className="grid gap-y-4">
+	<Steps
+		borders
+		steps={[
+			<span>
+				You integrate <a href="/id/sign-in">Sign in with Worldcoin</a> or <a href="/idkit">IDKit JS</a>.
+			</span>,
+			<span>Your app connects to the user's wallet and requests verification</span>,
+			<span>
+				User verifies with a <a href="/advanced/zero-knowledge-proofs">ZKP</a>, using their World ID
+				credentials.
+			</span>,
+		]}
+	/>
+</div>
+
+<Note title="FYI">
+	World ID is currently in **Beta** and some functionality might change. Please help us improve by sharing
+	[feedback](https://worldcoin.org/discord). Join the waitlist for the SDK [here](https://docs.worldcoin.org/waitlist).
+</Note>
+
+## How it works
+
+In broad strokes, this is how World ID works.
+
+1. User gets their World ID in a compatible wallet (e.g. the [World App](https://worldcoin.org/download)).
+
+2. User receives credentials in their World ID. The flagship credential is biometric verification, currently available by using the [Orb](https://worldcoin.org/blog/engineering/opening-orb-look-inside-worldcoin-biometric-imaging-device). The user can also verify their phone number to obtain the respective credential.
+
+3. Project [integrates with World ID](/quick-start).
+
+4. User connects their World ID to authenticate, and optionally prove they are a unique human doing something only once. The user's wallet will generate a [ZKP](/advanced/zero-knowledge-proofs) to accomplish this.
+
+5. Project verifies the [ZKP](/advanced/zero-knowledge-proofs), either by using the [API](/anonymous-actions/cloud) or by verifying it [on-chain](/anonymous-actions/on-chain).
+
+{/* ## How does it work?
+
+A user's World ID lives in their device, and only in their device. The user installs a compatible identity wallet (such as the [World App](https://worldcoin.org/download)). A unique and random private key is generated on-device, where it is securely stored. Identity wallets may incorporate their own recovery mechanisms, however Protocol-level recovery is being implemented soon.
+
+From the user's private key, a public _identity commitment_ is generated and published on-chain (currently Polygon), which acts at the source of truth for the protocol. An identity commitment is analogous to a public key in an asymmetric key-pair, or a wallet address, but in the World ID protocol this value is not broadly shared. The private key is used as input to each World ID verification, specifically as part of the [ZKP](/advanced/zero-knowledge-proofs).
+
+The user's wallet (e.g. World App) generates a ZKP for every verification a user makes. Verifications cannot be linked across applications or actions, which means that the user's privacy is cryptographically protected.
+
+After a user verifies, a _nullifier hash_ is returned to the application. The nullifier hash is the user's unique identifier for the application (and the action, if using [Anonymous Actions](/id/anonymous-actions)). Nullifiers are unique to the application, and cannot be linked to other nullifiers from the same person, even resistant to colluding applications. */}
+
+
+## The Protocol
+
+The in-depth technical details of the protocol are coming soon. Including the white paper!
+
+At the core of the World ID Protocol is the use of [Semaphore](https://semaphore.appliedzkp.org/). Semaphore is a zk-SNARK based privacy protocol that allows for the creation of anonymous credential systems developed by the Ethereum Foundation. The World ID Protocol uses Semaphore to create distinct anonymity sets for [proof of personhood](/proof-of-personhood).
+
+Currently, personhood credentials are handled as separate Sempahore instances. That means that each credential has its own anonymity set, and is only a list of verified credential holders. No other information is attached on-chain related to the credential (e.g. no biometric information is attached for the biometric credential, or no information about a phone number is attached to a phone credential).
+

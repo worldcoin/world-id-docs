@@ -1,0 +1,89 @@
+# Sign In Widget
+
+It's also possible to implement Sign In with Worldcoin using IDKit. See our [OIDC Explainer](/further-reading/oidc-explainer) for more details on how it works.
+
+<Note type="warning">
+    This is an advanced feature and requires a custom implementation of OIDC flows. We highly recommend using an authentication engine like [NextAuth.js](https://next-auth.js.org/) or [Auth0](https://auth0.com/) instead -- it will be easier and safer.
+    If you do decide to implement this yourself, please ensure you understand the security implications of doing so.
+</Note>
+
+## How it works
+
+The Sign In widget is a wrapper around the [IDKit Widget](/reference/idkit/widget) that implements the OIDC imlpicit flow for Sign In with Worldcoin. It is a modal that opens when the user clicks the Sign In button.
+
+The widget sets these IDKit parameters automatically, and **will not** accept them as props:
+
+<Properties>
+	<Property name="handleVerify" type="function">
+		This is set to a function that calls the OIDC `authorize` endpoint with the correct parameters. It returns the JWT token used in the `onSuccess` callback function.
+	</Property>
+	<Property name="action" type="string">
+		This is set to an empty string `""`.
+	</Property>
+</Properties>
+
+## Components
+
+### `SignInWithWorldID`
+
+The `SignInWithWorldID` component is a wrapper around the `IDKitWidget` component that renders the World ID widget with some parameters preset for Sign in with Worldcoin. See [parameter details](#parameters) below for usage details. 
+
+### `SignInButton`
+
+The `SignInButton` component is a styled and animated button, used as the default for the `SignInWithWorldID` component. It is also exported separately for use with custom components.
+
+## Parameters
+
+### Required
+
+<Properties>
+	<Property name="app_id" type="string">
+		Unique identifier for the app verifying the action. This should be the App ID (also referred to as the Client ID) obtained from the [Developer
+		Portal](https://developer.worldcoin.org).
+	</Property>
+	<Property name="onSuccess" type="function">
+		Function that triggers when verification is successful and the modal is closed. Should receive a single parameter of type `string`
+		which contains the JWT token, and the function should be used to verify the JWT.
+	</Property>
+</Properties>
+
+<Note type="warning">
+    ID tokens must always be verified, and should not be blindly accepted! See [Verifying the ID Token](#verifying-the-id-token) below for details.
+</Note>
+
+### Optional
+
+<Properties>
+	<Property name="enableTelemetry" type="boolean">
+		Whether opt-in telemetry is enabled, defaults to `false`. Very few events are sent, with no PII to help improve the project. [Read more here.](/reference/idkit/telemetry)
+	</Property>
+	<Property name="theme" type='"light" | "dark"'>
+		The theme to apply to the widget's UI. Defaults to `light`.
+	</Property>
+	<Property name="nonce" type="string">
+		Used as a one-time token to prevent replay attacks. If not provided, the current Unix Time will be used.
+	</Property>
+</Properties>
+
+## Verifying the ID Token
+
+To verify an ID token, fetch the public key from the `/jwks` endpoint. You can read more about this process at the [Auth0 blog](https://auth0.com/blog/navigating-rs256-and-jwks/) or [JWT.io](https://jwt.io/), but one example method could be:
+
+```ts
+import * as jose from 'jose'
+
+const [user, setUser] = useState(null)
+
+const onSuccess = (token: string) => {
+    const JWKS = jose.createRemoteJWKSet(new URL('https://id.worldcoin.org/jwks.json'))
+
+    const { payload, header } = await jose.jwtVerify(token, JWKS, {
+        issuer: 'https://id.worldcoin.org',
+        aud: 'app_lshSNnaJfdt6Sohu6YAA', // use your Client ID here
+    })
+
+    setUser(payload)
+}
+```
+
+You can then query user information from the `user` object, which contains the JWT's payload.

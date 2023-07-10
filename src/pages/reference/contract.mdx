@@ -1,0 +1,319 @@
+import { Tag } from '@/components/Tag'
+
+# On-Chain (CHANGE THIS ONE)
+
+{/* World ID proofs can be fully verified on-chain. After all, the source of truth for the decentralized protocol is on-chain. To verify a World ID proof, your smart contract will embed a call to the `verifyProof` method of the World ID contract, and then execute the rest of its logic as usual.
+
+We provide an [on-chain starter kit](https://github.com/worldcoin/world-id-onchain-template) to help you get started with World ID. We strongly recommend using this template repository to get started with World ID on-chain.
+
+<Note type="warning">
+	Note that calling the `verifyProof` function by itself does not provide sybil-resistance, or prevent proof reuse -- it
+	just verifies that the proof is valid. To prevent sybil attacks, see the [sybil-resistance
+	section](#sybil-resistance) below.
+</Note>
+
+## Supported Chains
+
+<table>
+  <thead>
+    <tr>
+      <th>Chain</th>
+      <th>Production Address</th>
+      <th>Staging Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className="align-middle"><img src="/icons/polygon.svg" alt="Polygon logo" className="h-8 w-8 m-0 mr-2 inline" />Polygon</td>
+      <td className="align-middle">[`polygon.id.worldcoin.eth`](https://etherscan.io/name-lookup-search?id=polygon.id.worldcoin.eth)<div><b>Polygon Mainnet</b></div></td>
+      <td className="align-middle">[`mumbai.id.worldcoin.eth`](https://etherscan.io/name-lookup-search?id=mumbai.id.worldcoin.eth)<div><b>Mumbai Testnet</b></div></td>
+    </tr>
+    <tr>
+      <td className="flex items-center"><img src="/icons/ethereum.svg" alt="Ethereum logo" className="h-8 w-8 m-0 mr-2" /> Ethereum Mainnet</td>
+      <td className="align-middle">
+        <Tag>Coming soon</Tag>
+      </td>
+      <td className="align-middle">
+        <Tag>Coming soon</Tag>
+      </td>
+    </tr>
+    <tr>
+      <td className="flex items-center"><img src="/icons/optimism.svg" alt="Optimism logo" className="h-8 w-8 m-0 mr-2" /> Optimism</td>
+      <td className="align-middle">
+        <Tag>Coming soon</Tag>
+      </td>
+      <td className="align-middle">
+        <Tag>Coming soon</Tag>
+      </td>
+    </tr>
+
+  </tbody>
+</table> */}
+
+## verifyProof
+
+<Note>
+	The `verifyProof` function is meant to be called by your smart contract. If you just want to verify a proof from
+	your backend, you should use the [/verify method of the API](/reference/api#verify-proof) instead.
+</Note>
+
+The `verifyProof` method takes the following arguments:
+
+-   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should just be passed as-is.
+-   `groupId` - This must be `1` for Orb-verified users, and `0` for Phone-verified users. You may pass this dynamically based on a user's verification status, or you may hardcode it if you only want to allow one type of verification.
+-   `signal` - The signal to verify. See the [signal section](#custom-signals) below.
+-   `nullifierHash` - Anonymous user ID. This is obtained from the IDKit widget, and should just be passed as-is.
+-   `action` - The action to verify. See the [action section](#custom-actions) below.
+-   `proof` - The proof to verify. This is obtained from the IDKit widget, and should be unpacked into a `uint256[8]` before being passed to the method.
+
+The `proof` argument is returned from IDKit as a string, but depending how you're calling your smart contract (when using `ethers.js` or `wagmi`, for example), you might be required to unpack it into a `uint256[8]` before passing it to the `verifyProof` method. To unpack it, use the following code:
+
+<CodeGroup>
+
+```ts {{ title: "ethers.js" }}
+import { defaultAbiCoder as abi } from '@ethers/utils'
+
+const unpackedProof = abi.decode(['uint256[8]'], proof)[0]
+```
+
+```ts {{ title: "viem" }}
+import { decodeAbiParameters } from 'viem'
+
+const unpackedProof = decodeAbiParameters([{ type: 'uint256[8]' }], proof)[0]
+```
+
+</CodeGroup>
+
+The `verifyProof` method reverts if the proof is invalid, meaning you can just call it as part of your smart contract's logic and execute the rest of your logic after as usual.
+
+## Custom signals
+
+Signals can be used to validate that a transaction has not been tampered with. By including other parameters your smart contract expects in the signal, you can ensure that the proof verification is only successful if those other parameters haven't been tampered with.
+
+For example, a smart contract performing an airdrop might include the receiver address in the signal, while a contract allowing users to vote on a governance proposal might include the vote.
+
+To get started, you'll need to pass the signal to the IDKit widget. You can do this with the `signal` prop:
+
+```tsx focus=1,6
+import { solidityEncode } from '@worldcoin/idkit'
+
+return (
+	<IDKitWidget
+		// ...
+		signal={solidityEncode(['address'], [receiverAddress])}
+	>
+		{/* ... */}
+	</IDKitWidget>
+)
+```
+
+Then, in your smart contract, you `abi.encodePacked` the signal and [call `hashToField` on it](https://github.com/worldcoin/world-id-starter/blob/main/src/helpers/ByteHasher.sol).
+
+```solidity
+worldId.verifyProof(
+    // ...
+    abi.encodePacked(receiverAddress).hashToField(),
+    // ...
+);
+```
+
+## Custom actions
+
+Actions are key to uniqueness on the World ID protocol. The same action will provide the same `nullifierHash` for the same user. By default, your action will be your app id, `abi.encodePacked` and [hashed to field](https://github.com/worldcoin/world-id-starter/blob/main/src/helpers/ByteHasher.sol).
+
+```solidity
+uint256 action = abi.encodePacked(appId).hashToField();
+```
+
+If you want to use a custom action, you can pass it to the IDKit widget with the `action` prop:
+
+```tsx focus=1,4,6
+import { solidityEncode } from '@worldcoin/idkit'
+
+return (
+	<IDKitWidget app_id={appId} action={solidityEncode(['uint256'], [proposalId])}>
+		{/* ... */}
+	</IDKitWidget>
+)
+```
+
+Then, in your smart contract, you `abi.encodePacked` the action and [call `hashToField` on it](https://github.com/worldcoin/world-id-starter/blob/main/src/helpers/ByteHasher.sol).
+
+```solidity
+// we recommend memoizing the appId part on the constructor to save gas
+uint256 action = abi.encodePacked(abi.encodePacked(appId).hashToField(), proposalId).hashToField();
+```
+
+<Note>
+	To put together the two examples below, an application that lets users vote on governance proposals anonymously (but
+	only lets them vote once) would add the proposal id to the action and the contents of the vote to the signal.
+</Note>
+
+## Sybil-resistance
+
+While the World ID protocol makes it very easy to make your contracts sybil-resistant, this takes a little more than just calling the `verifyProof` function. To make your contract sybil-resistant, you'll need to do the following:
+
+-   Store the `nullifierHash` of each user that has successfully verified a proof.
+-   When a user attempts to verify a proof, check that the `nullifierHash` is not already in the list of used `nullifierHash`es.
+
+Here's an example function doing the above. You can also use the [World ID starter kits](#on-chain) to get started with sybil-resistance.
+
+```solidity
+/// @param signal An arbitrary input from the user, usually the user's wallet address
+/// @param root The root (returned by the IDKit widget).
+/// @param nullifierHash The nullifier hash for this proof, preventing double signaling (returned by the IDKit widget).
+/// @param proof The zero-knowledge proof that demonstrates the claimer is registered with World ID (returned by the IDKit widget).
+function verifyAndExecute(
+    address signal,
+    uint256 root,
+    uint256 nullifierHash,
+    uint256[8] calldata proof
+) public {
+    // First, we make sure this person hasn't done this before
+    if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
+
+    // We now verify the provided proof is valid and the user is verified by World ID
+    worldId.verifyProof(
+        root,
+        1, // Or `0` if you want to check for phone verification only
+        abi.encodePacked(signal).hashToField(),
+        nullifierHash,
+        abi.encodePacked(appId).hashToField(),
+        proof
+    );
+
+    // We now record the user has done this, so they can't do it again (proof of uniqueness)
+    nullifierHashes[nullifierHash] = true;
+
+    // Finally, execute your logic here, for example issue a token, NFT, etc...
+}
+```
+
+## Network support
+
+The World ID protocol currently lives in the Polygon network, and the verification router contract is deployed at `polygon.id.worldcoin.eth` on Polygon mainnet and `mumbai.id.worldcoin.eth` on Polygon Mumbai testnet.
+
+We will very soon be launching the World ID protocol on Ethereum mainnet and Optimism, and will update this documentation accordingly.
+
+## Smart Contract Verifications
+
+As an alternative to verifying proofs with the Developer Portal, proofs can be verified by directly calling the smart contract on-chain. This is a tradeoff that applications may want to make to not rely on a centralized API. Keep in mind that the current batch of registered users can take anywhere from 5-30 minutes to be posted on-chain, so there is a delay associated with these smart contract based calls.
+
+The World ID Verification Router contracts are deployed to Polygon Mainnet and the Mumbai testnet. The contract addresses are:
+
+### Mainnet
+
+-   Verification Router: [polygon.id.worldcoin.eth](https://polygonscan.com/address/0x515f06b36e6d3b707eaecbded18d8b384944c87f)
+-   Endpoint URL: `https://polygon-mainnet.g.alchemy.com`
+
+### Testnet
+
+-   Verification Router: [mumbai.id.worldcoin.eth](https://mumbai.polygonscan.com/address/0x719683f13eeea7d84fcba5d7d17bf82e03e3d260)
+-   Endpoint URL: `https://polygon-mumbai.g.alchemy.com`
+
+{/* ## Verify Proof {{ tag: "POST", label: "verifyProof" }}
+
+Verifies a proof against the contract on-chain. Here we are using the [Alchemy API](https://docs.alchemy.com/alchemy/documentation/alchemy-api-reference) to make the call, but you can use any Ethereum provider (Infura, Quicknode, etc.)
+
+<Note title="caution" type="warning">
+	The most recent batch of users **will not** be available on-chain until the next batch is published. This can take
+	anywhere from 5-30 minutes.
+</Note>
+
+<Row><Col>
+
+### Required attributes
+
+<Properties>
+	<Property name="to" type="string">
+		The contract address to check the proof against.
+	</Property>
+	<Property name="data" type="string">
+		The payload data to send to the contract, encoded to the contract's ABI using ethers `encodeFunctionData`
+		method. More details can be [found
+		here.](https://github.com/worldcoin/developer-portal/blob/be1742f507fdf7b5858789f881310af7ab740c2b/web/src/backend/verify.ts#L297)
+	</Property>
+</Properties>
+
+### Possible Responses
+
+-   `200 OK` - The proof is valid and the credential is verified.
+-   `200 Invalid Merkle Root` - The provided merkle root is invalid. Please check your parameters.
+-   `200 Invalid Proof` - The provided proof is invalid. Please check your parameters and encoding method.
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/v2/{alchemy_api_key}">
+
+```bash {{ title: "cURL" }}
+curl -X POST "/v2/{alchemy_api_key}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "method": "eth_call",
+    "params": [
+      {
+        "to": "0xD81dE4BCEf43840a2883e5730d014630eA6b7c4A",
+        "data": "0x3bc778e31084a22c024e103ced6be2a51c7..."
+      }
+    ]
+  }'
+```
+
+```js
+fetch(`${apiUrl}/v2/${alchemy_api_key}`, {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		jsonrpc: '2.0',
+		method: 'eth_call',
+		params: [
+			{
+				to: '0xD81dE4BCEf43840a2883e5730d014630eA6b7c4A',
+				data: '0x3bc778e31084a22c024e103ced6be2a51c7...',
+			},
+		],
+	}),
+})
+```
+
+</CodeGroup>
+
+<CodeGroup title="Response">
+
+```json {{ title: "200 OK" }}
+{
+	"jsonrpc": "2.0",
+	"id": null,
+	"result": "0x"
+}
+```
+
+```json {{ title: "200 Invalid Merkle Root" }}
+{
+	"jsonrpc": "2.0",
+	"id": null,
+	"error": {
+		"code": 3,
+		"message": "execution reverted",
+		"data": "0x504570e3"
+	}
+}
+```
+
+```json {{ title: "200 Invalid Proof" }}
+{
+	"jsonrpc": "2.0",
+	"id": null,
+	"error": {
+		"code": 3,
+		"message": "execution reverted",
+		"data": "0x09bde339"
+	}
+}
+```
+
+</CodeGroup>
+</Col></Row> */}

@@ -1,0 +1,35 @@
+export const sections = []
+
+# Overview
+
+## Anonymous Actions
+
+You can create _anonymous actions_ to verify any arbitrary action a user might take in your app, where each action is independent of other actions. Some examples include:
+
+-   Claiming a one-time discount for a purchase (each purchase is independent of other purchases)
+-   Allowing user's to vote in a poll, but only vote per user (each vote is independent, votes from the same person cannot be linked)
+-   Sharing an invitation to join a platform, limited to five total invites
+
+The basic flow is as follows:
+
+<div className="grid gap-y-4">
+	<Steps
+		borders
+		steps={[
+			<span>Your app connects to the user's device through IDKit and requests verification.</span>,
+			<span>
+				User generates a <a href="/advanced/zero-knowledge-proofs">ZKP</a> on their device, using their World ID
+				credentials.
+			</span>,
+			<span>
+				Your app verifies that proof from the user's device with our API or smart contract.
+			</span>,
+		]}
+	/>
+</div>
+
+To demonstrate the power of actions, take the voting example. Imagine you are building a website to host polls for a local organization, but you'd like votes to be anonymous. By using a new action for each vote, you can enforce that users only vote once in each ballot, while also ensuring that there is no way to correlate a user's cast ballots across votes.
+
+<Fence className="bg-gray-100">
+	![A diagram showcasing how anonymous actions work](/images/docs/id/anonymous-actions.svg)
+</Fence>

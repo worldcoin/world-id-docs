@@ -3,9 +3,9 @@ import Image from 'next/image'
 import cn, { clsx } from 'clsx'
 import LogoIcon from './icons/LogoIcon'
 import { Button } from '@/components/Button'
-import SignInLogoIcon from './icons/SignInLogoIcon'
 import GitHubIcon from '@/components/icons/GitHubIcon'
 import { AllHTMLAttributes, FC, PropsWithChildren, useCallback, useState } from 'react'
+import RedirectIcon from './icons/RedirectIcon'
 
 type Props = PropsWithChildren<{ className?: string } & AllHTMLAttributes<HTMLElement>>
 
@@ -43,6 +43,8 @@ export const Apps: FC<Props> = props => {
 		[filter, isTagSelected]
 	)
 
+	const bookmarkedApps = apps.filter(app => app.bookmark)
+
 	return (
 		<div className={clsx('relative', props.className)}>
 			<Image
@@ -53,18 +55,25 @@ export const Apps: FC<Props> = props => {
 				height={474}
 			/>
 
-			{/* TODO: Will be added later */}
-			{/* <Button className="px-6 py-4.5 !font-bold leading-3 uppercase rounded-xl">
-        Add your app
-      </Button> */}
+			{/* TODO: update with actual link */}
+			<Link href='https://typeform.com'> 
+				<Button className="px-6 py-4.5 !font-bold leading-3 uppercase rounded-xl">
+					Add your app
+				</Button>
+			</Link>
 			<div className="pt-4" />
 
-			<div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
-				<Card app={apps[0]} />
-				<Card app={apps[1]} />
+			<h1 className="text-xl font-bold text-zinc-900 dark:text-white mt-5"> Highlights </h1>
+
+			<div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-2">
+				<Card app={bookmarkedApps[0]} />
+				<Card app={bookmarkedApps[1]} />
 			</div>
 
-			<div className="flex flex-wrap items-center justify-start gap-x-3 gap-y-2 mt-10 mb-10">
+			<hr className="my-10" />
+			<h1 className="text-xl font-bold text-zinc-900 dark:text-white mt-5"> All Integrations </h1>
+
+			<div className="flex flex-wrap items-center justify-start gap-x-3 gap-y-2 mt-5 mb-10">
 				<Tag selected={filter.length === 0} onClick={() => setFilter([])}>
 					All Apps
 				</Tag>
@@ -103,7 +112,7 @@ export const Apps: FC<Props> = props => {
 }
 
 // ANCHOR: Card component for the cards on the top
-const Card: FC<{ app: typeof apps[0] }> = ({ app }) => {
+export const Card: FC<{ app: typeof apps[0] }> = ({ app }) => {
 	return (
 		<div className="rounded-lg shadow-card">
 			<Link href={app.url ?? '#'} className="flex relative aspect-card">
@@ -120,14 +129,14 @@ const Card: FC<{ app: typeof apps[0] }> = ({ app }) => {
 					{app.githubUrl && (
 						<Link
 							href={app.githubUrl}
-							className="flex items-center justify-center w-9 h-9 bg-gray-900 hover:bg-gray-900/80 transition-colors rounded-full"
+							className="flex items-center justify-center w-9 h-9 bg-gray-100 hover:bg-gray-200/70 transition-colors rounded-full"
 						>
-							<GitHubIcon className="w-5 h-5 invert" />
+							<GitHubIcon className="w-5 h-5" />
 						</Link>
 					)}
 
-					<div className="flex items-center justify-center w-9 h-9 bg-gray-100 hover:bg-gray-200/70 transition-colors rounded-full">
-						<SignInLogoIcon className="text-gray-900" />
+					<div className="flex items-center justify-center w-9 h-9 bg-gray-900 hover:bg-gray-900/80 transition-colors rounded-full">
+						<RedirectIcon className="text-gray-100" />
 					</div>
 				</div>
 			</div>
@@ -136,7 +145,7 @@ const Card: FC<{ app: typeof apps[0] }> = ({ app }) => {
 }
 
 // ANCHOR: Tag component for the tags inside app card
-const Tag = (props: { selected: boolean; onClick: () => void; children: string }) => {
+export const Tag = (props: { selected: boolean; onClick: () => void; children: string }) => {
 	return (
 		<button
 			className={cn('px-4 py-2 font-medium text-base leading-5 border rounded-lg', {
@@ -151,17 +160,17 @@ const Tag = (props: { selected: boolean; onClick: () => void; children: string }
 }
 
 // ANCHOR: Card component for the list of the apps
-const Item = (props: {
+export const Item = (props: {
 	image: {
 		sm: string
-		lg: string
+		lg?: string
 	}
 	title: string
 	subtitle: string
 	description: string
 	tags: string[]
 	url: string
-	githubUrl: string
+	githubUrl?: string
 	bookmark?: boolean
 	worldcoin?: boolean
 	onToggleFilter: (tag: string) => void
@@ -193,21 +202,24 @@ const Item = (props: {
 						<div className="text-14 text-gray-500 leading-3">{props.subtitle}</div>
 					</div>
 					<div className="grow flex items-end gap-x-2">
-						<Button
-							variant="primary"
-							className="items-center h-8 px-4 gap-x-1 no-underline !rounded-lg"
-							href={props.githubUrl}
-						>
-							<GitHubIcon className="w-4 h-4 invert" />
-							<div className="font-medium text-14 tracking-[-0.01em]">GITHUB</div>
-						</Button>
+						{props.githubUrl && (
 						<Button
 							variant="neutral"
+							className="items-center h-8 px-4 gap-x-1 no-underline !rounded-lg "
+							href={props.githubUrl}
+						>
+							<GitHubIcon className="w-4 h-4" />
+							<div className="font-medium text-14 tracking-[-0.01em]">GITHUB</div>
+						</Button>
+						)}
+						<Button
+							variant="primary"
 							className="items-center h-8 px-4 gap-x-1 no-underline !rounded-lg"
 							href={props.url}
 						>
 							<div className="font-medium text-14 tracking-[-0.01em]">VISIT</div>
-							<svg
+							<RedirectIcon className="text-gray-100" />
+							{/* <svg
 								width="12"
 								height="12"
 								viewBox="0 0 12 12"
@@ -220,7 +232,7 @@ const Item = (props: {
 									d="M4.37068 2.57227L9.05067 2.57227C9.37376 2.57227 9.63567 2.83418 9.63567 3.15727L9.63568 7.83726C9.63568 8.16035 9.37377 8.42226 9.05068 8.42226C8.72759 8.42226 8.46568 8.16035 8.46568 7.83726L8.46568 4.56958L2.71295 10.1127C2.48449 10.3412 2.11409 10.3412 1.88564 10.1127C1.65718 9.88429 1.65718 9.51389 1.88564 9.28543L7.63836 3.74227L4.37068 3.74227C4.04759 3.74227 3.78568 3.48035 3.78568 3.15727C3.78568 2.83418 4.04759 2.57227 4.37068 2.57227Z"
 									fill="#191C20"
 								/>
-							</svg>
+							</svg> */}
 						</Button>
 					</div>
 				</div>
@@ -251,7 +263,21 @@ const apps = [
 		description:
 			'Add Sign In with Worldcoin to your Auth0 tenant in under 5 minutes. No code required.',
 		tags: ['Integration', 'Social', 'Sign In'],
-		bookmark: false,
+		bookmark: true,
+	},
+
+	{
+		url: 'https://discordbouncer.com',
+		githubUrl: 'https://github.com/worldcoin/discord-bouncer',
+		image: {
+			sm: '/images/apps/discord.svg',
+			lg: '/images/apps/discord-lg.svg',
+		},
+		title: 'Discord Bouncer',
+		subtitle: 'discordbouncer.com',
+		description: 'Prevent spam and increase the quality of the community by verifying humans.',
+		tags: ['App', 'Integration', 'API'],
+		bookmark: true,
 	},
 
 	{
@@ -267,19 +293,6 @@ const apps = [
 			'The decentralized social network. Verify a Lens profile belongs to real person. No bots, reduce spam.',
 		tags: ['On-chain', 'Integration', 'Social'],
 		bookmark: false,
-	},
-
-	{
-		url: 'https://discordbouncer.com',
-		githubUrl: 'https://github.com/worldcoin/discord-bouncer',
-		image: {
-			sm: '/images/apps/discord.svg',
-			lg: '/images/apps/discord-lg.svg',
-		},
-		title: 'Discord Bouncer',
-		subtitle: 'discordbouncer.com',
-		description: 'Prevent spam and increase the quality of the community by verifying humans.',
-		tags: ['App', 'Integration', 'API'],
 	},
 
 	{

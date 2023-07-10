@@ -1,0 +1,135 @@
+# Verifying Proofs via API
+
+This section describes how to verify proofs via the **Developer Portal API**.
+
+<Note type="warning">
+  You must first pass the proof to your backend when verifying proofs via the API. The user can manipulate information in the frontend, so you the proof must be verified in a trusted environment.
+</Note>
+
+## Send the Proof to Your Backend
+
+The proof returned from IDKit includes the `merkle_root`, `nullifier_hash`, `proof`, and `credential_type` fields:
+
+```json {{ title: 'ISuccessResult' }}
+{
+    "credential_type": "orb",
+    "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
+    "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
+    "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394..."
+}
+```
+
+Send these fields to your backend along with the action name. It's recommended to do this in the `handleVerify` callback function. Any errors thrown in this function will be displayed to the user in IDKit. 
+
+Here's an example of how to send the proof to your backend. Assume a backend endpoint `/api/verify`:
+
+```tsx {{ title: 'pages/index.tsx' }}
+const handleVerify = async (result: ISuccessResult) => { // called by IDKit
+  // build the request body
+  const reqBody = {
+    merkle_root: result.merkle_root,
+    nullifier_hash: result.nullifier_hash,
+    proof: result.proof,
+    credential_type: result.credential_type,
+    action: process.env.NEXT_PUBLIC_WLD_ACTION_NAME,
+    signal: "",
+  };
+  const res: Response = await fetch("/api/verify", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reqBody),
+  })
+  const data: VerifyReply = await res.json()
+  if (res.status == 200) {
+    console.log("Verification successful!")
+  } else {
+    throw new Error(`Error code ${res.status} (${data.code}): ${data.detail ?? "Unknown error."}`); // Throw an error if verification fails
+  }
+};
+```
+
+## Verify the Proof in Your Backend
+
+Here our backend receives the proof sent from the frontend, and sends it to the **Developer Portal API** for verification. 
+The **Developer Portal API** will return a `200` response if the proof is valid, and a `400` response with extra error detail if the proof is invalid.
+We then pass the success or error messages back to our frontend after performing our own backend actions.
+
+```typescript {{ title: 'pages/api/verify.ts' }}
+export type VerifyReply = {
+  code: string;
+  detail?: string;
+};
+
+export default function handler(req: NextApiRequest, res: NextApiResponse<VerifyReply>) {
+  fetch(`https://developer.worldcoin.org/api/v1/verify/${process.env.NEXT_PUBLIC_WLD_APP_ID}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    // note that we pass the body of the request directly to the World ID /verify endpoint
+    body: JSON.stringify(req.body), 
+  }).then((verifyRes) => {
+    verifyRes.json().then((wldResponse) => {
+      if (verifyRes.status == 200) {
+        // this is where you should perform backend actions based on the verified credential
+        // i.e. setting a user as "verified" in a database
+        res.status(verifyRes.status).send({ code: "success" });
+      } else {
+        // return the error code and detail from the World ID /verify endpoint to our frontend
+        res.status(verifyRes.status).send({ 
+          code: wldResponse.code, 
+          detail: wldResponse.detail 
+        });
+      }
+    });
+  });
+}
+```
+
+## Post-Verification
+
+If `handleVerify` is does not throw an error, the user will see a success state and the `onSuccess` callback will be called when the modal is closed. The `onSuccess` callback should redirect a user to a success page, or perform any other actions you want to take after a user has been verified.
+
+```tsx {{ title: 'pages/index.tsx' }}
+const onSuccess = (result: ISuccessResult) => {
+  // This is where you should perform frontend actions once a user has been verified
+  window.alert(`Successfully verified with World ID!
+    Your nullifier hash is: ` + result.nullifier_hash);
+};
+```
+
+<Note>
+  For more information on configuration, see the [IDKit](/reference/idkit) and [Cloud API](/api/reference) reference pages.
+</Note>
+
+{/* Verify your action by sending the zero knowledge proof to the **Developer Portal API**. Please check the [API reference](/api/reference#verify) for details on anticipated error responses.
+
+
+<CodeGroup title="API Verification" tag="POST" label="/api/v1/verify/app_GBkZ1KlVUdFTjeMXKlVUdFT">
+
+```json {{ title: "Request" }}
+{
+    "action": "vote_1",
+    "signal": "user_value",
+    "credential_type": "orb",
+    "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
+    "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
+    "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"
+}
+``` */}
+
+{/* cSpell:enable */}
+
+{/* ```json {{ title: 'Response' }}
+{
+  "success": true,
+  "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
+  "action": "vote_1",
+  "created_at": "2023-01-01T12:12:12.000Z"
+}
+```
+</CodeGroup>
+
+7. The user is a unique human! Execute your action on your backend (e.g. claim the user promotion). */}

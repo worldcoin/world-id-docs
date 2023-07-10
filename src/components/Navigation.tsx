@@ -186,46 +186,63 @@ export const navigation = [
 	{
 		title: 'Introduction',
 		links: [
-			{ title: 'Home', href: '/' },
-			{ title: 'Quick Start', href: '/quick-start' },
-			{ title: 'Try it Out', href: '/try' },
+			{ title: 'The Worldcoin Ecosystem', href: '/' },
+			{ title: 'World ID Overview', href: '/world-id' },
+			{ title: 'Proof of Personhood', href: '/proof-of-personhood' },
 			{ title: 'Use Cases', href: '/use-cases' },
 			{ title: 'Apps & Integrations', href: '/apps' },
+			{ title: 'Try it Out', href: '/try' },
+		],
+	}, {
+		title: 'Quick Start',
+		links: [
+			{ title: 'Choosing your Integration', href: '/quick-start/choose-integration' },
+			{ title: 'Set Up the Dev Portal', href: '/quick-start/dev-portal' },
+			{ title: 'Sign In with Worldcoin', href: '/quick-start/sign-in' },
+			{ title: 'Anonymous Actions', href: '/quick-start/anonymous-actions' },
+			{ title: 'Testing with the Simulator', href: '/quick-start/testing' },
 		],
 	},
 	{
-		title: 'World ID',
+		title: 'Sign In with Worldcoin',
 		links: [
-			{ title: 'Overview', href: '/id' },
-			{ title: 'Proof of Personhood', href: '/id/proof-of-personhood' },
-			{ title: 'Sign In', href: '/id/sign-in' },
-			{ title: 'Anonymous Actions', href: '/id/anonymous-actions' },
-			{ title: 'Testing', href: '/id/testing' },
+			{ title: 'Integration', href: '/sign-in' },
 		],
 	},
 	{
-		title: 'IDKit',
+		title: 'Anonymous Actions',
 		links: [
-			{ title: 'Introduction', href: '/idkit' },
-			{ title: 'Reference', href: '/idkit/reference' },
+			{ title: 'Overview', href: '/anonymous-actions' },
+			{ title: 'Get Started with IDKit', href: '/anonymous-actions/idkit' },
+			{ title: 'Cloud Verification', href: '/anonymous-actions/cloud' },
+			{ title: 'On-Chain Verification', href: '/anonymous-actions/on-chain' },
 		],
 	},
 	{
-		title: 'Advanced',
+		title: 'Technical Reference',
 		links: [
-			{ title: 'On-Chain', href: '/advanced/on-chain' },
-			{ title: 'Privacy', href: '/advanced/privacy' },
-			{ title: 'Zero-Knowledge Proofs', href: '/advanced/zero-knowledge-proofs' },
-			{ title: 'Protocol Internals', href: '/advanced/protocol-internals' },
+			{ title: 'IDKit', href: '/reference/idkit' },
+			{ title: 'Cloud Actions API', href: '/reference/api' },
+			{ title: 'Smart Contract', href: '/reference/contract' },
+			{ title: 'Sign In', href: '/reference/sign-in' },
+			// { title: 'Internal Endpoints', href: '/reference/internal-endpoints' },
 		],
 	},
 	{
-		title: 'API',
+		title: 'Advanced Use Cases',
 		links: [
-			{ title: 'Introduction', href: '/api' },
-			{ title: 'Reference', href: '/api/reference' },
-			{ title: 'Sign In Reference', href: '/api/sign-in-reference' },
-			{ title: 'Internal Endpoints', href: '/api/internal-endpoints' },
+			{ title: 'On-the-Fly Actions', href: '/advanced/actions-on-the-fly' },
+			{ title: 'Sign In Widget', href: '/advanced/sign-in-widget' },
+			{ title: 'Dev Portal API', href: '/advanced/dev-portal-api' }, // needs expanded with info from igor for this one
+		],
+	},
+	{
+		title: 'Further Reading',
+		links: [
+			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
+			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
+			{ title: 'Privacy', href: '/further-reading/privacy' },
+			{ title: 'Zero-Knowledge Proofs', href: '/further-reading/zero-knowledge-proofs' },
 		],
 	},
 ] as const

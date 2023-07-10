@@ -1,0 +1,28 @@
+# Setting Up the Developer Portal
+{/* This is definitely worth expanding on with a deeper walkthrough */}
+
+{/* ## Getting Started */}
+
+1. Sign in to the [Developer Portal](https://developer.worldcoin.org). You will need a World-ID compatible wallet (such as the [World App](https://worldcoin.org/download)) and a Phone- or Orb-Verified World ID to sign in.
+	
+	{/* Remove this when we launch SDK access publicly */}
+	<Note>
+		Access to the Developer Portal is currently waitlisted. You can [apply for access here](/waitlist).
+	</Note>
+
+2. Create and configure your first app.
+
+	-	Name your app something recognizable. It will be displayed to users when they are asked to Verify with World ID.
+	-   Select the environment to use: Staging or Production.
+		- Use Staging apps for testing and development. You must use the [World ID Simulator](https://simulator.worldcoin.org) to verify actions.
+		- Use Production apps for production. You must use the [World App](https://worldcoin.org/download) to verify actions.
+	-   Select whether you want this action to be cloud-based or on-chain. See [Choosing your Integration](/quick-start#choosing-your-integration) for help if you're not sure.
+
+	<Note>
+		Sign In with Worldcoin and most Anonymous Actions use the **cloud** engine. Select **on-chain only** if you are using a **smart contract** to verify a
+		user's World ID.
+	</Note>
+
+3. Note your App ID (also called the Client ID). It looks something like {/* cSpell:disable */}`app_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}. For Sign In with Worldcoin, you should also note your Client Secret, which is found alongside the Client ID in the **Sign In** tab.
+
+4. Now that you're finished setting up the Developer Portal, proceed to either [Sign In with Worldcoin](/quick-start/sign-in-with-worldcoin) or [Anonymous Actions](/quick-start/anonymous-actions).

@@ -1,0 +1,78 @@
+# Get Started with IDKit
+
+<Note>
+    This guide assumes you have already completed the steps to [set up the Developer Portal](/quick-start/dev-portal).
+</Note>
+
+IDKit is required in your app's frontend for Anonymous Actions, both for Cloud and On-Chain use cases.
+
+## Creating Actions in the Dev Portal
+
+<Note>
+    Anonymous Actions can either be configured via the [Developer Portal](https://developer.worldcoin.org), or [on-the-fly](/advanced/actions-on-the-fly) through IDKit. Creating actions on the Developer Portal is generally recommended, but setting on-the-fly is best for dynamic contexts.
+    See the [On-the-Fly Actions](/advanced/actions-on-the-fly) page for more information.
+</Note>
+
+Create an action for your app in the Developer Portal. You must provide the following values:
+
+    -   **Action Name**: The stringified action to be taken by the user.
+    -   **Description**: This is shown to your user in the World app as they sign with their World ID, alongside your application logo. Make sure to fully describe the exact action the user is taking.
+    -   **Max Verifications**: _For Cloud actions only_. The number of times a user can take this action. A value of `0` indicates that unlimited verifications can take place.
+
+<Note>
+    An action scopes uniqueness for users, which means users will always generate the same ID (nullifier hash) when performing the same action. 
+    **Cloud actions** natively handle sybil-resistance with a limit set in the Developer Portal.
+    For **on-chain** use cases, you can track this nullifier hash in your smart contract to [implement sybil-resistance](/anonymous-actions/on-chain#sybil-resistance).
+</Note>
+
+## Installing IDKit
+
+The JS package can be included in your project either as a module (which supports tree shaking to reduce bundle size) or you can add the script directly to your website.
+
+<CodeGroup title="Install IDKit">
+
+    ```bash {{ title: "npm" }}
+    npm install @worldcoin/idkit
+    ```
+
+    ```bash {{ title: "yarn" }}
+    yarn add @worldcoin/idkit
+    ```
+
+    ```bash {{ title: "pnpm" }}
+    pnpm add @worldcoin/idkit
+    ```
+
+</CodeGroup>
+
+## Usage
+
+Import and render IDKit. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on proposal").
+
+```tsx
+import { IDKitWidget } from '@worldcoin/idkit'
+
+<IDKitWidget
+    app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // obtained from the Developer Portal
+    action="vote_1" // this is your action name from the Developer Portal
+    onSuccess={onSuccess} // callback when the modal is closed
+    handleVerify={handleVerify} // optional callback when the proof is received
+    credential_types={['orb', 'phone']} // optional, defaults to ['orb']
+    enableTelemetry // optional, defaults to false
+>
+    {({ open }) => <button onClick={open}>Verify with World ID</button>}
+</IDKitWidget>
+```
+
+More configuration options can be found in the [IDKit reference](/reference/idkit).
+
+When a user clicks the button, the IDKit modal will open and prompt them to scan a QR code and verify with World ID. Once this proof is received, the optional `handleVerify` callback is called immediately and the `onSuccess` callback will be called when the modal is closed.
+One of these callbacks should begin the process of verifying the proof.
+
+## Verify the Proof
+
+<Note type="warning">
+    You must verify the proof returned from IDKit with our API or smart contract before allowing a user to perform an action. The process varies depending on your use case.
+    
+    Proceed to the [Cloud](/anonymous-actions/cloud) or [On-Chain](/anonymous-actions/on-chain) sections to learn how to verify proofs.
+</Note>

@@ -1,17 +1,17 @@
-# Sign In With Worldcoin
+# OIDC Explainer
 
-To better serve all classes of applications, World ID can now be used as an OpenID Connect Provider (Identity Provider, IdP, OP). We support many of the same integrations that developers are already familiar with (Auth0, Cloudflare, etc.). The following diagram outlines the general authentication flow for an integrating app:
+The following diagram outlines the general authentication flow for an integrating app:
 
-<Fence className="bg-gray-50">![A diagram showcasing the main authentication flow](/images/docs/id/sign-in.svg)</Fence>
-
-If your app already supports OIDC, simply add our [discovery document](/api/sign-in-reference#open-id-connect-discovery) as an authentication option. You can read more about our implementation in [`/authorize`](#authentication) and [`/token`](/api/sign-in-reference#exchange-code).
+<Fence className="bg-gray-50">
+    ![A diagram showcasing the main authentication flow](/images/docs/id/sign-in.svg)
+</Fence>
 
 ## Registration
 
 Before OIDC authentication can take place, developers must register their applications with Worldcoin. This is a one-time action. There are two ways to accomplish this:
 
-1. Create a new application on the [Developer Portal](https://developer.worldcoin.org)
-2. Use the `/register` endpoint, request body details can be [found here](/api/sign-in-reference#register-app)
+1. Create a new application on the [Developer Portal](https://developer.worldcoin.org).
+2. Use the `/register` endpoint, request body details can be [found here](/reference/sign-in#register-app).
 
 During registration, you will need to provide the following values:
 
@@ -69,13 +69,15 @@ If using the default authorization code flow, the redirect URL will contain the 
 -   `code`: An authorization code that can be exchanged for an ID token
 -   `state`: The optional state value passed to the `/authorize` endpoint
 
-If you received a response containing an _authorization code_, you must exchange it for an ID token on the `/token` endpoint. Request details can be [seen here](/api/sign-in-reference#exchange-code).
+If you received a response containing an _authorization code_, you must exchange it for an ID token on the `/token` endpoint. Request details can be [seen here](/reference/sign-in#exchange-code).
 
 If using implicit flow, the redirect URL will contain the following params:
 
 -   `id_token`: A signed JWT identifying the user, and any requested scope information
 
-<Note type="caution">ID tokens must always be verified, and should not be blindly accepted!</Note>
+<Note type="caution">
+    ID tokens must always be verified, and should not be blindly accepted!
+</Note>
 
 To verify an ID token, fetch the public key from the `/jwks` endpoint. You can read more about this process at the [Auth0 blog](https://auth0.com/blog/navigating-rs256-and-jwks/) or [JWT.io](https://jwt.io/), but one example method could be:
 

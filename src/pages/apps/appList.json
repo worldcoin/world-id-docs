@@ -1,0 +1,107 @@
+{
+	"apps": [
+		{
+			"slug": "auth0",
+			"url": "https://worldcoin.org/auth0",
+			"githubUrl": "https://github.com/0xPenryn/auth0-world-id-social-connection",
+			"image": {
+				"sm": "/images/apps/auth0.svg",
+				"lg": "/images/apps/auth0-lg.png"
+			},
+			"title": "Auth0",
+			"subtitle": "marketplace.auth0.com",
+			"description": "Add Sign In with Worldcoin to your Auth0 tenant in under 5 minutes. No code required.",
+			"tags": ["Integration", "Sign In"],
+			"body": "Auth0 is a flexible, drop-in solution to add authentication and authorization services to your applications. Your team and customers can securely sign in with a single identity provider to any cloud or on-premises application. Auth0 provides a universal authentication & authorization platform for web, mobile and legacy applications. It is loved by developers and trusted by enterprises.",
+			"bookmark": true,
+			"worldcoin": true
+		},
+
+		{
+			"slug": "discord",
+			"url": "https://discordbouncer.com",
+			"githubUrl": "https://github.com/worldcoin/discord-bouncer",
+			"image": {
+				"sm": "/images/apps/discord.svg",
+				"lg": "/images/apps/discord-lg.svg"
+			},
+			"title": "Discord Bouncer",
+			"subtitle": "discordbouncer.com",
+			"description": "Prevent spam and increase the quality of the community by verifying humans.",
+			"tags": ["App", "Integration", "API"],
+			"bookmark": false
+		},
+
+		{
+			"slug": "lens",
+			"url": "https://human.withlens.app",
+			"githubUrl": "https://github.com/worldcoin/world-id-lens",
+			"image": {
+				"sm": "/images/apps/lens.svg",
+				"lg": "/images/apps/lens-lg.svg"
+			},
+			"title": "Lens",
+			"subtitle": "human.withlens.app",
+			"description": "The decentralized social network. Verify a Lens profile belongs to real person. No bots, reduce spam.",
+			"tags": ["On-chain", "Integration", "Social"],
+			"bookmark": false
+		},
+
+		{
+			"slug": "poap",
+			"url": "https://poap.worldcoin.org",
+			"githubUrl": "https://github.com/worldcoin/world-id-poap",
+			"image": {
+				"sm": "/images/apps/poap.svg",
+				"lg": ""
+			},
+			"title": "POAP",
+			"subtitle": "poap.worldcoin.org",
+			"description": "The bookmarks of your life. Issue POAPs to humans only. One person, one POAP.",
+			"tags": ["On-chain", "Integration"]
+		},
+
+		{
+			"slug": "hyperdrop",
+			"url": "https://worldcoin.org",
+			"githubUrl": "https://github.com/worldcoin/world-id-example-airdrop",
+			"image": {
+				"sm": "/images/apps/hyperdrop.svg",
+				"lg": ""
+			},
+			"title": "Worldcoin Airdrop",
+			"subtitle": "worldcoin.org",
+			"description": "The first token to be globally and freely distributed to people, just for being a unique individual.",
+			"tags": ["On-chain", "App"],
+			"worldcoin": true
+		},
+
+		{
+			"slug": "mina-world-id",
+			"url": "https://ethglobal.com/showcase/world-id-mina-embt9",
+			"githubUrl": "https://github.com/mitschabaude/mina-world-id",
+			"image": {
+				"sm": "/images/apps/ethbogota.jpg"
+			},
+			"title": "World ID on Mina",
+			"subtitle": "mitschabaude/mina-world-id",
+			"description": "Implementing the World ID system in snarkyjs, making PoP available for Mina smart contracts.",
+			"tags": ["Hackathon Project", "On-chain", "Integration"],
+			"worldcoin": false
+		},
+
+		{
+			"slug": "starksight",
+			"url": "https://devfolio.co/projects/starksight-5d82",
+			"githubUrl": "https://github.com/HerodotusDev/starksight-zkhack",
+			"image": {
+				"sm": "/images/apps/zkhack.png"
+			},
+			"title": "StarkSight",
+			"subtitle": "HerodotusDev/starksight-zkhack",
+			"description": "Using Herodotus to make World ID verifiable on Starknet.",
+			"tags": ["Hackathon Project", "On-chain", "Integration"],
+			"worldcoin": false
+		}
+	]
+}

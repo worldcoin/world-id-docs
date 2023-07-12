@@ -1,14 +1,17 @@
 import { Link } from './Link'
 import Image from 'next/image'
 import cn, { clsx } from 'clsx'
-import LogoIcon from './icons/LogoIcon'
+import LogoIcon from '@/components/icons/LogoIcon'
 import { Button } from '@/components/Button'
 import SignInLogoIcon from './icons/SignInLogoIcon'
 import GitHubIcon from '@/components/icons/GitHubIcon'
 import { AllHTMLAttributes, FC, PropsWithChildren, useCallback, useState } from 'react'
-import RedirectIcon from './icons/RedirectIcon'
+import { apps } from '../pages/apps/appList.json'
+import ArrowIcon from './icons/ArrowIcon'
 
 type Props = PropsWithChildren<{ className?: string } & AllHTMLAttributes<HTMLElement>>
+
+const sortedApps = apps.sort((a, b) => a.title.localeCompare(b.title))
 
 // ANCHOR: Apps component
 export const Apps: FC<Props> = props => {
@@ -44,7 +47,7 @@ export const Apps: FC<Props> = props => {
 		[filter, isTagSelected]
 	)
 
-	const bookmarkedApps = apps.filter(app => app.bookmark)
+	const bookmarkedApps = sortedApps.filter(app => app.bookmark)
 
 	return (
 		<div className={clsx('relative', props.className)}>
@@ -57,7 +60,7 @@ export const Apps: FC<Props> = props => {
 			/>
 
 			{/* TODO: update with actual link */}
-			<Link href='https://typeform.com'> 
+			<Link href='https://typeform.com'>
 				<Button className="px-6 py-4.5 !font-bold leading-3 uppercase rounded-xl">
 					Add your app
 				</Button>
@@ -67,8 +70,17 @@ export const Apps: FC<Props> = props => {
 			<h1 className="text-xl font-bold text-zinc-900 dark:text-white mt-5"> Highlights </h1>
 
 			<div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-2">
-				<Card app={bookmarkedApps[0]} />
-				<Card app={bookmarkedApps[1]} />
+				{sortedApps.filter(app => app.bookmark).map((example, id) => {
+					if (filter.length === 0 || example.tags.some(tag => isTagSelected(tag))) {
+						return (
+							<Card
+								key={id}
+								app={example}
+							/>
+						)
+					}
+					return null
+				})}
 			</div>
 
 			<hr className="my-10" />
@@ -87,11 +99,12 @@ export const Apps: FC<Props> = props => {
 			</div>
 
 			<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-				{apps.map((example, id) => {
-					if (filter.length === 0 || example.tags.some(tag => isTagSelected(tag))) {
+				{sortedApps.map((example, id) => {
+					if ((filter.length === 0 || example.tags.some(tag => isTagSelected(tag))) && !example.bookmark) {
 						return (
 							<Item
 								key={id}
+								slug={example.slug}
 								image={example.image}
 								title={example.title}
 								subtitle={example.subtitle}
@@ -116,14 +129,14 @@ export const Apps: FC<Props> = props => {
 export const Card: FC<{ app: typeof apps[0] }> = ({ app }) => {
 	return (
 		<div className="rounded-lg shadow-card">
-			<Link href={app.url ?? '#'} className="flex relative aspect-card">
-				<Image className="absolute inset-0 m-0" src={app.image.lg} alt={app.title} fill />
+			<Link href={`/apps/${app.slug}`} className="flex relative aspect-card">
+				<Image className="absolute inset-0 m-0" src={app.image.lg!} alt={app.title} fill />
 			</Link>
 
 			<div className="flex items-center gap-x-6 px-6 py-7">
-				<div className="grow">
-					<div className="font-bold text-base leading-4">{app.title}</div>
-					<div className="mt-1 text-base text-gray-500 leading-4">{app.subtitle}</div>
+				<div className="flex flex-col grow">
+					<Link href={`/apps/${app.slug}`} className="font-bold text-base leading-4 text-gray-700">{app.title}</Link>
+					<Link href={`${app.url}`} className="mt-1 text-base text-gray-500 leading-4">{app.subtitle}</Link>
 				</div>
 
 				<div className="flex gap-x-2">
@@ -135,10 +148,12 @@ export const Card: FC<{ app: typeof apps[0] }> = ({ app }) => {
 							<GitHubIcon className="w-5 h-5" />
 						</Link>
 					)}
-
-					<div className="flex items-center justify-center w-9 h-9 bg-gray-900 hover:bg-gray-900/80 transition-colors rounded-full">
-						<RedirectIcon className="text-gray-100" />
-					</div>
+					<Link
+						href={`/apps/${app.slug}`}
+						className="flex items-center justify-center w-9 h-9 bg-gray-900 hover:bg-gray-900/80 transition-colors rounded-full"
+					>
+						<ArrowIcon className="text-gray-100 h-" />
+					</Link>
 				</div>
 			</div>
 		</div>
@@ -162,6 +177,7 @@ export const Tag = (props: { selected: boolean; onClick: () => void; children: s
 
 // ANCHOR: Card component for the list of the apps
 export const Item = (props: {
+	slug: string
 	image: {
 		sm: string
 		lg?: string
@@ -176,6 +192,7 @@ export const Item = (props: {
 	worldcoin?: boolean
 	onToggleFilter: (tag: string) => void
 }) => {
+
 	return (
 		<div className="relative p-6 border border-gray-100 rounded-lg">
 			{props.bookmark && (
@@ -199,41 +216,27 @@ export const Item = (props: {
 						</div>
 					)}
 					<div className="flex flex-col gap-y-1.5">
-						<div className="font-bold text-base leading-4">{props.title}</div>
-						<div className="text-14 text-gray-500 leading-3">{props.subtitle}</div>
+						<Link href={`/apps/${props.slug}`}><div className="font-bold text-base leading-4 text-gray-700">{props.title}</div></Link>
+						<Link href={`${props.url}`} className="text-14 text-gray-500 leading-3">{props.subtitle}</Link>
 					</div>
 					<div className="grow flex items-end gap-x-2">
 						{props.githubUrl && (
-						<Button
-							variant="neutral"
-							className="items-center h-8 px-4 gap-x-1 no-underline !rounded-lg "
-							href={props.githubUrl}
-						>
-							<GitHubIcon className="w-4 h-4" />
-							<div className="font-medium text-14 tracking-[-0.01em]">GITHUB</div>
-						</Button>
+							<Button
+								variant="neutral"
+								className="items-center h-8 px-4 gap-x-1 no-underline !rounded-lg "
+								href={props.githubUrl}
+							>
+								<GitHubIcon className="w-4 h-4" />
+								<div className="font-medium text-14 tracking-[-0.01em]">GitHub</div>
+							</Button>
 						)}
 						<Button
 							variant="primary"
 							className="items-center h-8 px-4 gap-x-1 no-underline !rounded-lg"
-							href={props.url}
+							href={`/apps/${props.slug}`}
 						>
-							<div className="font-medium text-14 tracking-[-0.01em]">VISIT</div>
-							<RedirectIcon className="text-gray-100" />
-							{/* <svg
-								width="12"
-								height="12"
-								viewBox="0 0 12 12"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									fillRule="evenodd"
-									clipRule="evenodd"
-									d="M4.37068 2.57227L9.05067 2.57227C9.37376 2.57227 9.63567 2.83418 9.63567 3.15727L9.63568 7.83726C9.63568 8.16035 9.37377 8.42226 9.05068 8.42226C8.72759 8.42226 8.46568 8.16035 8.46568 7.83726L8.46568 4.56958L2.71295 10.1127C2.48449 10.3412 2.11409 10.3412 1.88564 10.1127C1.65718 9.88429 1.65718 9.51389 1.88564 9.28543L7.63836 3.74227L4.37068 3.74227C4.04759 3.74227 3.78568 3.48035 3.78568 3.15727C3.78568 2.83418 4.04759 2.57227 4.37068 2.57227Z"
-									fill="#191C20"
-								/>
-							</svg> */}
+							<div className="font-medium text-14 tracking-[-0.01em]">Read More</div>
+							{/* <RedirectIcon className="text-gray-100" /> */}
 						</Button>
 					</div>
 				</div>
@@ -250,111 +253,8 @@ export const Item = (props: {
 	)
 }
 
-// ANCHOR: List of the apps data
-const apps = [
-	{
-		url: 'https://worldcoin.org/auth0',
-		githubUrl: 'https://github.com/0xPenryn/auth0-world-id-social-connection',
-		image: {
-			sm: '/images/apps/auth0.svg',
-			lg: '/images/apps/auth0-lg.png',
-		},
-		title: 'Auth0',
-		subtitle: 'marketplace.auth0.com',
-		description:
-			'Add Sign In with Worldcoin to your Auth0 tenant in under 5 minutes. No code required.',
-		tags: ['Integration', 'Social', 'Sign In'],
-		bookmark: true,
-	},
-
-	{
-		url: 'https://discordbouncer.com',
-		githubUrl: 'https://github.com/worldcoin/discord-bouncer',
-		image: {
-			sm: '/images/apps/discord.svg',
-			lg: '/images/apps/discord-lg.svg',
-		},
-		title: 'Discord Bouncer',
-		subtitle: 'discordbouncer.com',
-		description: 'Prevent spam and increase the quality of the community by verifying humans.',
-		tags: ['App', 'Integration', 'API'],
-		bookmark: true,
-	},
-
-	{
-		url: 'https://human.withlens.app',
-		githubUrl: 'https://github.com/worldcoin/world-id-lens',
-		image: {
-			sm: '/images/apps/lens.svg',
-			lg: '/images/apps/lens-lg.svg',
-		},
-		title: 'Lens',
-		subtitle: 'human.withlens.app',
-		description:
-			'The decentralized social network. Verify a Lens profile belongs to real person. No bots, reduce spam.',
-		tags: ['On-chain', 'Integration', 'Social'],
-		bookmark: false,
-	},
-
-	{
-		url: 'https://poap.worldcoin.org',
-		githubUrl: 'https://github.com/worldcoin/world-id-poap',
-		image: {
-			sm: '/images/apps/poap.svg',
-			lg: '',
-		},
-		title: 'POAP',
-		subtitle: 'poap.worldcoin.org',
-		description: 'The bookmarks of your life. Issue POAPs to humans only. One person, one POAP.',
-		tags: ['On-chain', 'Integration'],
-	},
-
-	{
-		url: 'https://worldcoin.org',
-		githubUrl: 'https://github.com/worldcoin/world-id-example-airdrop',
-		image: {
-			sm: '/images/apps/hyperdrop.svg',
-			lg: '',
-		},
-		title: 'Worldcoin Airdrop',
-		subtitle: 'worldcoin.org',
-		description:
-			'The first token to be globally and freely distributed to people, just for being a unique individual.',
-		tags: ['On-chain', 'App'],
-		worldcoin: false,
-	},
-
-	{
-		url: 'https://ethglobal.com/showcase/world-id-mina-embt9',
-		githubUrl: 'https://github.com/mitschabaude/mina-world-id',
-		image: {
-			sm: '/images/apps/ethbogota.jpg',
-			lg: '/images/apps/ethbogota.jpg',
-		},
-		title: 'World ID on Mina',
-		subtitle: 'mitschabaude/mina-world-id',
-		description: 'Implementing the World ID system in snarkyjs, making PoP available for Mina smart contracts.',
-		tags: ['Hackathon Project', 'On-chain', 'Integration'],
-		worldcoin: false,
-	},
-
-	{
-		url: 'https://devfolio.co/projects/starksight-5d82',
-		githubUrl: 'https://github.com/HerodotusDev/starksight-zkhack',
-		image: {
-			sm: '/images/apps/zkhack.png',
-			lg: '/images/apps/zkhack.png',
-		},
-		title: 'StarkSight',
-		subtitle: 'HerodotusDev/starksight-zkhack',
-		description: 'Using Herodotus to make World ID verifiable on Starknet.',
-		tags: ['Hackathon Project', 'On-chain', 'Integration'],
-		worldcoin: false,
-	},
-]
-
 // ANCHOR: tags handling
-const tags = apps.reduce((accumulator: Array<string>, example) => {
+const tags = sortedApps.reduce((accumulator: Array<string>, example) => {
 	if (accumulator.length === 0) {
 		return example.tags.sort()
 	}
@@ -363,3 +263,20 @@ const tags = apps.reduce((accumulator: Array<string>, example) => {
 
 	return accumulator.concat(tagsToAdd).sort()
 }, [])
+
+export type AppConfig = {
+	slug: string
+	url: string
+	githubUrl?: string
+	image: {
+		sm: string
+		lg?: string
+	}
+	title: string
+	subtitle: string
+	description: string
+	tags: string[]
+	body?: string
+	bookmark?: boolean
+	worldcoin?: boolean
+}

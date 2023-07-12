@@ -69,6 +69,34 @@ More configuration options can be found in the [IDKit reference](/reference/idki
 When a user clicks the button, the IDKit modal will open and prompt them to scan a QR code and verify with World ID. Once this proof is received, the optional `handleVerify` callback is called immediately and the `onSuccess` callback will be called when the modal is closed.
 One of these callbacks should begin the process of verifying the proof.
 
+## Response
+
+Upon successful completion of the World ID flow, you will receive a response object. This response object of type `ISuccessResult` has the following attributes. **Normally, you will forward these parameters to your backend or smart contract for verification.**
+
+```json {{ title: 'ISuccessResult' }}
+{
+    "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
+    "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
+    "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394...",
+    "credential_type": "orb"
+}
+```
+
+<Properties>
+	<Property name="merkle_root" type="string">
+		This is the hash pointer to the root of the Merkle tree that proves membership of the user's identity in the list of identities verified by the Orb. ABI encoded.
+	</Property>
+	<Property name="nullifier_hash" type="string">
+		The unique identifier for this combination of user, app, and action. ABI encoded.
+	</Property>
+	<Property name="proof" type="string">
+		The Zero-knowledge proof of the verification. ABI encoded.
+	</Property>
+	<Property name="credential_type" type='"orb" | "phone"'>
+		Either `orb` or `phone`. Will always return the strongest credential with which a user has been verified.
+	</Property>
+</Properties>
+
 ## Verify the Proof
 
 <Note type="warning">

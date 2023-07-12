@@ -2,59 +2,120 @@ import { Tag } from '@/components/Tag'
 
 # Verifying Proofs On-Chain
 
-We provide an [on-chain starter kit](https://github.com/worldcoin/world-id-onchain-template) to help you get started with World ID. We strongly recommend using this template repository to get started with World ID on-chain.
-
 World ID proofs can be fully verified on-chain. After all, the source of truth for the decentralized protocol is on-chain. To verify a World ID proof, your smart contract will embed a call to the `verifyProof` method of the World ID contract, and then execute the rest of its logic as usual.
 
+We provide a smart contract starter kit ([Foundry](https://github.com/worldcoin/world-id-starter), [Hardhat](https://github.com/worldcoin/world-id-starter-hardhat)) and a [frontend & on-chain monorepo template](https://github.com/worldcoin/world-id-onchain-template) to help you get started with World ID. 
+We strongly recommend using one of these repositories to get started with World ID on-chain.
 
-<Note type="warning">
-	It can take 5-30 minutes for an identity commitment to be available on any given chain. This means that a user's proofs will not verify on-chain in this time after they have completed Phone Number or Orb verification.
-  For more details visit the [Protocol Internals](/advanced/protocol-internals#signup-sequencer) page.
+The following examples demonstrate the most common use case: verifying proofs from only Orb-verified users, for a single action, with a user's wallet address as the signal, while also enabling sybil-resistance. 
+This setup is recommended for most users, as it is the most gas-efficient. For more information on use cases that require more complex setups (such as multiple actions, other types of signals, or multiple credential types), see the [Advanced On-Chain Verification](/advanced/custom-on-chain) page.
+
+<Note>
+  At the core of the World ID Protocol is the use of [Semaphore](https://semaphore.appliedzkp.org/). Semaphore is a zk-SNARK based privacy protocol that allows for the creation of anonymous credential systems developed by the Ethereum Foundation.
+  Read more about [The Protocol](/world-id#the-protocol) and [Semaphore](https://semaphore.appliedzkp.org/).
 </Note>
 
-## Supported Chains
+{/* <Note type="warning">
+	It can take 5-45 minutes for an identity commitment to be available on any given chain after a user verifies. This means that a user's proofs will **not** verify on-chain in this time after they have completed Phone Number or Orb verification.
+  For more details visit the [Contracts Reference](/reference/contracts) page.
+</Note> */}
 
-<table>
-  <thead>
-    <tr>
-      <th>Chain</th>
-      <th>Production Address</th>
-      <th>Staging Address</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td className="align-middle"><img src="/icons/polygon.svg" alt="Polygon logo" className="h-8 w-8 m-0 mr-2 inline" />Polygon</td>
-      <td className="align-middle">[`polygon.id.worldcoin.eth`](https://etherscan.io/name-lookup-search?id=polygon.id.worldcoin.eth)<div><b>Polygon Mainnet</b></div></td>
-      <td className="align-middle">[`mumbai.id.worldcoin.eth`](https://etherscan.io/name-lookup-search?id=mumbai.id.worldcoin.eth)<div><b>Mumbai Testnet</b></div></td>
-    </tr>
-    <tr>
-      <td className="flex items-center"><img src="/icons/ethereum.svg" alt="Ethereum logo" className="h-8 w-8 m-0 mr-2" /> Ethereum Mainnet</td>
-      <td className="align-middle">
-        <Tag>Coming soon</Tag>
-      </td>
-      <td className="align-middle">
-        <Tag>Coming soon</Tag>
-      </td>
-    </tr>
-    <tr>
-      <td className="flex items-center"><img src="/icons/optimism.svg" alt="Optimism logo" className="h-8 w-8 m-0 mr-2" /> Optimism</td>
-      <td className="align-middle">
-        <Tag>Coming soon</Tag>
-      </td>
-      <td className="align-middle">
-        <Tag>Coming soon</Tag>
-      </td>
-    </tr>
+## IDKit Configuration
 
-  </tbody>
-</table>
+When verifying proofs on-chain, there are a few changes you have to make to your IDKit configuration. Primarily, we must use the `solidityEncode` function to encode the `action` parameter. 
+This is because the `action` parameter is passed to the `verifyProof` method as a `uint256` value, so we must encode it as such.
+
+Additionally, we highly recommend to only allow Orb-verified users to verify on-chain. This is because Orb verification is the only verification method that is strongly sybil-resistant.
+
+```tsx
+import { IDKitWidget, solidityEncode } from '@worldcoin/idkit' // add import for solidityEncode
+
+const { address } = useAddress() // get the user's wallet address
+
+<IDKitWidget
+    app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // must be an app set to on-chain
+    action={solidityEncode(['uint256'], ["claim_nft"])} // solidityEncode the action
+    signal={address} // only for on-chain use cases, this is used to prevent tampering with a message
+    onSuccess={onSuccess}
+    // no use for handleVerify, so it is removed
+    credential_types={['orb']} // we recommend only allowing orb verification on-chain
+    enableTelemetry
+>
+    {({ open }) => <button onClick={open}>Verify with World ID</button>}
+</IDKitWidget>
+```
+
+## Contract Addresses
+
+The World ID Router contract is what you should use to verify proofs. It is deployed on multiple chains, and you can find the addresses for each chain below.
+
+  **Ethereum Mainnet**: [`id.worldcoin.eth`](https://etherscan.io/address/0x163b09b4fe21177c455d850bd815b6d583732432#code)<br/>
+  **Ethereum Goerli Testnet**: [`goerli.id.worldcoin.eth`](https://goerli.etherscan.io/address/0x05C4AE6bC33e6308004a47EbFa99E5Abb4133f86#code)<br/>
+  **Optimism Mainnet**: [`optimism.id.worldcoin.eth`](https://goerli-optimism.etherscan.io/address/0x57f928158C3EE7CDad1e4D8642503c4D0201f611#code)<br/>
+  **Optimism Goerli Testnet**: [`op-goerli.id.worldcoin.eth`](https://goerli-optimism.etherscan.io/address/0xfc1315089316fcfe586a8e0a92873c258de8aac1#code)<br/>
+  **Polygon Mainnet**: [`polygon.id.worldcoin.eth`](https://polygonscan.com/address/0x515f06B36E6D3b707eAecBdeD18d8B384944c87f#code)<br/>
+  **Polygon Mumbai Testnet**: [`mumbai.id.worldcoin.eth`](https://mumbai.polygonscan.com/address/0x719683F13Eeea7D84fCBa5d7d17Bf82e03E3d260#code)<br/>
+
+<Note>
+  For more information on the smart contracts used by World ID, see the [Contracts Reference](/reference/contracts) page.
+</Note>
+
+## `hashToField` helper function
+
+We recommend including this helper function in your smart contract. It properly computes the `keccak256` hash used by Semaphore, and is frequenty used in the example code below.
+
+```solidity
+function hashToField(bytes memory value) internal pure returns (uint256) {
+    return uint256(keccak256(abi.encodePacked(value))) >> 8;
+}
+```
+
+## Constructor
+
+The `externalNullifier` is the unique identifier of the action performed in Semaphore. It is a combination of the app ID and the action. We set it in the constructor to save gas, as it will not change when all users perform the same action.
+
+We additionally set the `groupId` to `1`, which limits this example to Orb-verified users only.
+
+```solidity
+/// @notice Thrown when attempting to reuse a nullifier
+error InvalidNullifier();
+
+/// @dev The address of the World ID Router contract that will be used for verifying proofs
+IWorldID internal immutable worldId;
+
+/// @dev The externalNullifier (unique identifier of the action performed), combination of appId and action
+uint256 internal immutable externalNullifier;
+
+/// @dev The World ID group ID (1 for Orb-verified, 0 for Phone-verified)
+uint256 internal immutable groupId = 1;
+
+/// @dev Whether a nullifier hash has been used already. Used to guarantee an action is only performed once by a single person
+mapping(uint256 => bool) internal nullifierHashes;
+
+/// @param _worldId The WorldID instance that will verify the proofs
+/// @param _appId The World ID app ID
+/// @param _actionId The World ID action ID
+constructor(
+    IWorldID _worldId,
+    string memory _appId,
+    string memory _action
+) {
+    worldId = _worldId;
+    externalNullifier = abi
+        .encodePacked(abi.encodePacked(_appId).hashToField(), _action)
+        .hashToField();
+}
+```
 
 ## verifyProof
 
+The `verifyProof` method reverts if the proof is invalid, meaning you can just call it as part of your smart contract's logic and execute the rest of your logic after as usual.
+
 <Note type="warning">
 	Note that calling the `verifyProof` function by itself does not provide sybil-resistance, or prevent proof reuse -- it
-	just verifies that the proof is valid. To prevent sybil attacks, see the [sybil-resistance section](#sybil-resistance) below.
+	just verifies that the proof is valid. 
+  
+  However, this example **does** implement sybil-resistance by checking that the `nullifierHash` has not been verified before.
 </Note>
 
 {/* <Note>
@@ -62,112 +123,21 @@ World ID proofs can be fully verified on-chain. After all, the source of truth f
 	your backend, you should use the [/verify method of the API](/reference/api#verify-proof) instead.
 </Note> */}
 
-The `verifyProof` method takes the following arguments:
+The `verifyProof` method takes the arguments below.
 
--   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should just be passed as-is.
--   `groupId` - This must be `1` for Orb-verified users, and `0` for Phone-verified users. You may pass this dynamically based on a user's verification status, or you may hardcode it if you only want to allow one type of verification.
--   `signal` - The signal to verify. See the [signal section](#custom-signals) below.
--   `nullifierHash` - Anonymous user ID. This is obtained from the IDKit widget, and should just be passed as-is.
--   `action` - The action to verify. See the [action section](#custom-actions) below.
--   `proof` - The proof to verify. This is obtained from the IDKit widget, and should be unpacked into a `uint256[8]` before being passed to the method.
-
-The `proof` argument is returned from IDKit as a string, but depending how you're calling your smart contract (when using `ethers.js` or `wagmi`, for example), you might be required to unpack it into a `uint256[8]` before passing it to the `verifyProof` method. To unpack it, use the following code:
-
-<CodeGroup>
-
-```ts {{ title: "ethers.js" }}
-import { defaultAbiCoder as abi } from '@ethers/utils'
-
-const unpackedProof = abi.decode(['uint256[8]'], proof)[0]
-```
-
-```ts {{ title: "viem" }}
-import { decodeAbiParameters } from 'viem'
-
-const unpackedProof = decodeAbiParameters([{ type: 'uint256[8]' }], proof)[0]
-```
-
-</CodeGroup>
-
-The `verifyProof` method reverts if the proof is invalid, meaning you can just call it as part of your smart contract's logic and execute the rest of your logic after as usual.
-
-## Custom signals
-
-Signals can be used to validate that a transaction has not been tampered with. By including other parameters your smart contract expects in the signal, you can ensure that the proof verification is only successful if those other parameters haven't been tampered with.
-
-For example, a smart contract performing an airdrop might include the receiver address in the signal, while a contract allowing users to vote on a governance proposal might include the vote.
-
-To get started, you'll need to pass the signal to the IDKit widget. You can do this with the `signal` prop:
-
-```tsx focus=1,6
-import { solidityEncode } from '@worldcoin/idkit'
-
-return (
-	<IDKitWidget
-		// ...
-		signal={solidityEncode(['address'], [receiverAddress])}
-	>
-		{/* ... */}
-	</IDKitWidget>
-)
-```
-
-Then, in your smart contract, you `abi.encodePacked` the signal and [call `hashToField` on it](https://github.com/worldcoin/world-id-starter/blob/main/src/helpers/ByteHasher.sol).
+-   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should be passed as-is.
+-   `groupId` - This must be `1` for Orb-verified users, and `0` for Phone-verified users.
+-   `signalHash` - The keccak256 hash of the signal to verify.
+-   `nullifierHash` - Anonymous user ID for this action. This is obtained from the IDKit widget, and should just be passed as-is.
+-   `externalNullifierHash` - The keccak256 hash of the externalNullifier set in the constructor.
+-   `proof` - The proof to verify. This is obtained from the IDKit widget.
 
 ```solidity
-worldId.verifyProof(
-    // ...
-    abi.encodePacked(receiverAddress).hashToField(),
-    // ...
-);
-```
-
-## Custom actions
-
-Actions are key to uniqueness on the World ID protocol. The same action will provide the same `nullifierHash` for the same user. By default, your action will be your app id, `abi.encodePacked` and [hashed to field](https://github.com/worldcoin/world-id-starter/blob/main/src/helpers/ByteHasher.sol).
-
-```solidity
-uint256 action = abi.encodePacked(appId).hashToField();
-```
-
-If you want to use a custom action, you can pass it to the IDKit widget with the `action` prop:
-
-```tsx focus=1,4,6
-import { solidityEncode } from '@worldcoin/idkit'
-
-return (
-	<IDKitWidget app_id={appId} action={solidityEncode(['uint256'], [proposalId])}>
-		{/* ... */}
-	</IDKitWidget>
-)
-```
-
-Then, in your smart contract, you `abi.encodePacked` the action and [call `hashToField` on it](https://github.com/worldcoin/world-id-starter/blob/main/src/helpers/ByteHasher.sol).
-
-```solidity
-// we recommend memoizing the appId part on the constructor to save gas
-uint256 action = abi.encodePacked(abi.encodePacked(appId).hashToField(), proposalId).hashToField();
-```
-
-<Note>
-	To put together the two examples below, an application that lets users vote on governance proposals anonymously (but
-	only lets them vote once) would add the proposal id to the action and the contents of the vote to the signal.
-</Note>
-
-## Sybil-resistance
-
-While the World ID protocol makes it very easy to make your contracts sybil-resistant, this takes a little more than just calling the `verifyProof` function. To make your contract sybil-resistant, you'll need to do the following:
-
--   Store the `nullifierHash` of each user that has successfully verified a proof.
--   When a user attempts to verify a proof, check that the `nullifierHash` is not already in the list of used `nullifierHash`es.
-
-Here's an example function doing the above. You can also use the [World ID starter kits](#on-chain) to get started with sybil-resistance.
-
-```solidity
-/// @param signal An arbitrary input from the user, usually the user's wallet address
+/// @param signal An arbitrary input from the user that cannot be tampered with. In this case, it is the user's wallet address.
 /// @param root The root (returned by the IDKit widget).
 /// @param nullifierHash The nullifier hash for this proof, preventing double signaling (returned by the IDKit widget).
 /// @param proof The zero-knowledge proof that demonstrates the claimer is registered with World ID (returned by the IDKit widget).
+
 function verifyAndExecute(
     address signal,
     uint256 root,
@@ -180,16 +150,35 @@ function verifyAndExecute(
     // We now verify the provided proof is valid and the user is verified by World ID
     worldId.verifyProof(
         root,
-        1, // Or `0` if you want to check for phone verification only
+        groupId, // set to "1"
         abi.encodePacked(signal).hashToField(),
         nullifierHash,
-        abi.encodePacked(appId).hashToField(),
+        abi.encodePacked(externalNullifier).hashToField(),
         proof
     );
 
-    // We now record the user has done this, so they can't do it again (proof of uniqueness)
+    // We now record the user has done this, so they can't do it again (sybil-resistance)
     nullifierHashes[nullifierHash] = true;
 
-    // Finally, execute your logic here, for example issue a token, NFT, etc...
+    // Finally, execute your logic here, knowing the user is verified
 }
 ```
+
+<Note>
+ All arguments are of type `uint256`, with the exception of `proof`, which is of type `uint256[8]`. Depending on how you're calling your smart contract, you might be required to unpack it into a uint256[8] before passing it to the verifyProof method. To unpack it, use the following code:
+
+<CodeGroup>
+
+```ts {{ title: "viem" }}
+import { decodeAbiParameters } from 'viem'
+
+const unpackedProof = decodeAbiParameters([{ type: 'uint256[8]' }], proof)[0]
+```
+
+```ts {{ title: "ethers.js" }}
+import { defaultAbiCoder as abi } from '@ethers/utils'
+
+const unpackedProof = abi.decode(['uint256[8]'], proof)[0]
+```
+</CodeGroup>
+</Note>

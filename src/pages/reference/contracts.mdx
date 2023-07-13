@@ -1,0 +1,389 @@
+import { Tag } from '@/components/Tag'
+
+# Smart Contracts
+
+All of our smart contracts are available on GitHub:
+  - [World ID Smart Contracts](https://github.com/worldcoin/world-id-contracts)
+  - [State Bridge Smart Contracts](https://github.com/worldcoin/world-id-state-bridge)
+
+<Note>
+  If you're interested in using World ID and verifying proofs on-chain, see our [On-Chain Verification guide](/anonymous-actions/on-chain).
+</Note>
+
+## Supported Chains
+
+<table>
+  <thead>
+    <tr>
+      <th>Chain</th>
+      <th>Testnet</th>
+      <th>Role</th>
+      <th>Identity Availability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className="flex items-center"><img src="/icons/ethereum.svg" alt="Ethereum logo" className="h-8 w-8 m-0 mr-2" /><p><b>Ethereum</b></p></td>
+      <td className="align-middle">
+        Goerli
+      </td>
+      <td className="align-middle">
+        <Tag>Canonical</Tag>
+      </td>
+      <td className="align-middle">
+        ~3 Minutes
+      </td>
+    </tr>
+    <tr>
+      <td className="flex items-center"><img src="/icons/optimism.svg" alt="Optimism logo" className="h-8 w-8 m-0 mr-2" /><p><b>Optimism</b></p></td>
+      <td className="align-middle">
+        Optimism Goerli
+      </td>
+      <td className="align-middle">
+        <Tag color="amber">Bridged</Tag>
+      </td>
+      <td className="align-middle">
+        ~5 Minutes
+      </td>
+    </tr>
+    <tr>
+      <td className="flex items-center"><img src="/icons/polygon.svg" alt="Polygon logo" className="h-8 w-8 m-0 mr-2 inline" /><p><b>Polygon</b></p></td>
+      <td className="align-middle">
+        Mumbai
+      </td>
+      <td className="align-middle">
+        <Tag color="amber">Bridged</Tag>
+      </td>
+      <td className="align-middle">
+        ~30 Minutes
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Architecture
+
+This section offers a high-level overview of the various smart contracts that make up World ID. This structure (including state bridging) is replicated on testnets -- currently Goerli, Optimism Goerli, and Polygon Mumbai.
+
+### World ID Router
+
+This is the contract you should interact with. It will route your call to the correct Identity Manager contract (Ethereum) or State Bridge contract (L2 Chains) based on the `groupId` argument. This contract is proxied, so you should not need to update your code if we upgrade the underlying contracts.
+
+### Identity Managers
+
+Identity Managers are only deployed on Ethereum. One contract is deployed for each credential type accepted in World ID, currently two are deployed: Orb and Phone.
+
+The Identity Manager contracts are responsible for managing the Semaphore instance. Worldcoin's signup sequencers call the Identity Manager contracts to add identities to the merkle tree, and anyone can call the `verifyProof` function to verify a World ID proof (although it's suggested to use the World ID Router).
+
+### State Bridges
+
+On Ethereum, one State Bridge contract is deployed for each Identity Manager. It publishes the root of the merkle tree to other chains, allowing proofs to be verified on multiple chains.
+
+On other supported chains (currently Optimism and Polygon), there is also one State Bridge contract for each credential type. These contracts receive the root of the merkle tree from the Ethereum State Bridge, and expose the `verifyProof` function to verify proofs on that chain (using the World ID Router is recommended).
+
+
+## Address Book
+
+Here you can find the address and associated ENS name (if available) for all of the World ID contracts. For verifying proofs, the only contract you need is the `WorldIdRouter` contract -- it will properly route the call to the correct contract based on the `groupId` argument.
+
+<Tabs>
+<TabItem label="Ethereum">
+<table>
+  <thead>
+    <tr>
+      <th>Contract</th>
+      <th>Ethereum Mainnet</th>
+      <th>Ethereum Goerli Testnet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className="align-middle">World ID Router</td>
+      <td className="align-middle">[`id.worldcoin.eth`](https://etherscan.io/address/0x163b09b4fe21177c455d850bd815b6d583732432#code)</td>
+      <td className="align-middle">[`goerli.id.worldcoin.eth`](https://goerli.etherscan.io/address/0x05C4AE6bC33e6308004a47EbFa99E5Abb4133f86#code)</td>
+    </tr>
+    <tr>
+      <td className="align-middle">Orb State Bridge</td>
+      <td className="align-middle">[`0x86D26Ed31556EA7694BD0cC4e674D7526f70511a`](https://etherscan.io/address/0x86D26Ed31556EA7694BD0cC4e674D7526f70511a#code)</td>
+      <td className="align-middle">[`0xcd60da00e20be3d23e2e135283423fd86867c98d`](https://goerli.etherscan.io/address/0xcd60da00e20be3d23e2e135283423fd86867c98d#code)</td>
+    </tr>
+    <tr>
+      <td className="align-middle">Orb Identity Manager</td>
+      <td className="align-middle">[`0xf7134CE138832c1456F2a91D64621eE90c2bddEa`](https://etherscan.io/address/0xf7134CE138832c1456F2a91D64621eE90c2bddEa#code)</td>
+      <td className="align-middle">[`0x711965c7805635315201d0963148DF4445505182`](https://goerli.etherscan.io/address/0x711965c7805635315201d0963148DF4445505182#code)</td>
+    </tr>
+    <tr>
+      <td className="align-middle">Phone State Bridge</td>
+      <td className="align-middle">[`unknown`](https://etherscan.io/)</td>
+      <td className="align-middle">[`unknown`](https://etherscan.io/)</td>
+    </tr>
+    <tr>
+      <td className="align-middle">Phone Identity Manager</td>
+      <td className="align-middle">[`0x3310846ee4250603e6ac6e4904e7e1667a1b248a`](https://etherscan.io/address/0x3310846ee4250603e6ac6e4904e7e1667a1b248a#code)</td>
+      <td className="align-middle">[`0xAcd2F54cA0304Dc1870500fEEEa3e5c6Cd70c1FC`](https://goerli.etherscan.io/address/0xAcd2F54cA0304Dc1870500fEEEa3e5c6Cd70c1FC#code)</td>
+    </tr>
+  </tbody>
+</table>
+</TabItem>
+<TabItem label="Optimism">
+<table>
+  <thead>
+    <tr>
+      <th>Contract</th>
+      <th>Optimism Mainnet</th>
+      <th>Optimism Goerli Testnet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className="align-middle">World ID Router</td>
+      <td className="align-middle">[`optimism.id.worldcoin.eth`](https://optimistic.etherscan.io/address/0x57f928158C3EE7CDad1e4D8642503c4D0201f611#code)</td>
+      <td className="align-middle">[`op-goerli.id.worldcoin.eth`](https://goerli-optimism.etherscan.io/address/0xfc1315089316fcfe586a8e0a92873c258de8aac1#code)</td>
+    </tr>
+    <tr>
+      <td className="align-middle">Orb State Bridge</td>
+      <td className="align-middle">[`0x42FF98C4E85212a5D31358ACbFe76a621b50fC02`](https://optimistic.etherscan.io/address/0x42FF98C4E85212a5D31358ACbFe76a621b50fC02#code)</td>
+      <td className="align-middle">[`0x58BF811321D2E953FcfbCA4CdEB7DB73beB72386`](https://goerli-optimism.etherscan.io/address/0x58BF811321D2E953FcfbCA4CdEB7DB73beB72386#code)</td>
+    </tr>
+    <tr>
+      <td className="align-middle">Phone State Bridge</td>
+      <td className="align-middle">[`unknown`](https://etherscan.io/)</td>
+      <td className="align-middle">[`unknown`](https://etherscan.io/)</td>
+    </tr>
+  </tbody>
+</table>
+</TabItem>
+<TabItem label="Polygon">
+<table>
+  <thead>
+    <tr>
+      <th>Contract</th>
+      <th>Polygon Mainnet</th>
+      <th>Polygon Mumbai Testnet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className="align-middle">World ID Router</td>
+      <td className="align-middle">[`polygon.id.worldcoin.eth`](https://polygonscan.com/address/0x515f06B36E6D3b707eAecBdeD18d8B384944c87f#code)</td>
+      <td className="align-middle">[`mumbai.id.worldcoin.eth`](https://mumbai.polygonscan.com/address/0x719683F13Eeea7D84fCBa5d7d17Bf82e03E3d260#code)</td>
+    </tr>
+    <tr>
+      <td className="align-middle">Orb State Bridge</td>
+      <td className="align-middle">[`0x2Ad412A1dF96434Eed0779D2dB4A8694a06132f8`](https://polygonscan.com/address/0x2Ad412A1dF96434Eed0779D2dB4A8694a06132f8#code)</td>
+      <td className="align-middle">[`0x8d6308aC8d34088587Ef345736389Ee915e2A9dA`](https://mumbai.polygonscan.com/address/0x8d6308ac8d34088587ef345736389ee915e2a9da#code)</td>
+    </tr>
+    <tr>
+      <td className="align-middle">Phone State Bridge</td>
+      <td className="align-middle">[`unknown`](https://etherscan.io/)</td>
+      <td className="align-middle">[`unknown`](https://etherscan.io/)</td>
+    </tr>
+  </tbody>
+</table>
+</TabItem>
+</Tabs>
+
+## verifyProof
+
+<Note>
+	The `verifyProof` function is meant to be called on the `WorldIdRouter` contract.
+</Note>
+
+The `verifyProof` method takes the following arguments:
+
+-   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should just be passed as-is.
+-   `groupId` - This must be `1` for Orb-verified users, and `0` for Phone-verified users. You may pass this dynamically based on a user's verification status, or you may set it during contract deployment it if you only want to allow one type of verification.
+-   `signal` - The signal to verify.
+-   `nullifierHash` - Anonymous user ID. This is obtained from the IDKit widget, and should just be passed as-is.
+-   `action` - The action to verify.
+-   `proof` - The proof to verify. This is obtained from the IDKit widget, and should be unpacked into a `uint256[8]` before being passed to the method.
+
+### root {{ tag: "uint256" }}
+
+<Row><Col>
+
+The root of the merkle tree to verify against. This is obtained from the IDKit widget as a hex string `merkle_root`, and should be passed as-is.
+
+</Col></Row>
+
+### groupId {{ tag: "uint256" }}
+
+<Row><Col>
+
+The groupId, indicating to the World ID Router whether to verify against the merkle tree of Orb- or Phone-verified users.
+
+**Orb-verified users**: `1`<br/>
+**Phone-verified users**: `0`
+
+We recommend setting this to `1` in your contract's constructor, to only ever allow Orb-verified users to perform the specified action. Additionally, this saves on gas costs.
+
+However, if you wish to allow Orb- and Phone-verified users, IDKit returns a `credential_type` field, which is either `phone` or `orb`. You can use this to determine the `groupId` to use in your call to `verifyProof`.
+
+</Col><Col sticky>
+
+<CodeGroup title="groupId">
+
+```solidity {{ title: "Orb-Only" }}
+uint256 internal immutable groupId = 1;
+
+{/* ... */}
+
+worldId.verifyProof(
+  root,
+  groupId,
+  abi.encodePacked(signal).hashToField(),
+  nullifierHash,
+  externalNullifier,
+  proof
+);
+
+{/* ... */}
+```
+
+```solidity {{ title: "Orb and Phone" }}
+function yourFunction(
+  uint256 root,
+  uint256 groupId,
+  address signal,
+  uint256 nullifierHash,
+  uint256[8] calldata proof
+) public {
+
+  {/* ... */}
+
+  worldId.verifyProof(
+    root,
+    groupId,
+    abi.encodePacked(signal).hashToField(),
+    nullifierHash,
+    externalNullifier,
+    proof
+  );
+```
+
+</CodeGroup>
+
+</Col></Row>
+
+### signalHash {{ tag: "uint256" }}
+
+<Row><Col>
+
+The keccak256 hash of the signal to verify. To get signalHash, you should pass the solidityEncoded signal to your smart contract, and then compute the signalHash within the contract. Ensure that you solidityEncode the signal __before__ passing it to IDKit.
+
+<Note>
+  We provide a helper function [`hashToField`](#hash-to-field-helper-function) to properly calculate the keccak256 hash within your smart contract.
+</Note>
+
+</Col><Col sticky>
+
+<CodeGroup title="signalHash">
+
+```solidity
+function yourFunction(
+  uint256 root,
+  address signal, // here we use an address as the signal
+  uint256 nullifierHash,
+  uint256[8] calldata proof
+) public {
+
+  {/* ... */}
+
+  worldId.verifyProof(
+    root,
+    groupId,
+    // using hashToField helper function
+    abi.encodePacked(signal).hashToField(), 
+    nullifierHash,
+    externalNullifier,
+    proof
+  );
+
+  {/* ... */}
+```
+</CodeGroup>
+
+</Col></Row>
+
+### nullifierHash {{ tag: "uint256" }}
+
+<Row><Col>
+
+The root of the merkle tree to verify against. This is obtained from the IDKit widget as a hex string `merkle_root`, and should be passed as-is.
+
+</Col></Row>
+
+### externalNullifierHash {{ tag: "uint256" }}
+
+<Row><Col>
+
+The root of the merkle tree to verify against. This is obtained from the IDKit widget as a hex string `merkle_root`, and should be passed as-is.
+
+</Col></Row>
+
+### proof {{ tag: "uint256[8]" }}
+
+<Row><Col>
+
+The `proof` argument is returned from IDKit as a string, but depending how you're calling your smart contract (when using `wagmi` or `ethers.js`, for example), you might be required to unpack it into a `uint256[8]` before passing it to the `verifyProof` method. To unpack it, use the following code:
+
+</Col><Col><CodeGroup title="unpackedProof">
+
+```ts {{ title: "viem" }}
+import { decodeAbiParameters } from 'viem'
+
+const unpackedProof = decodeAbiParameters([{ type: 'uint256[8]' }], proof)[0]
+```
+
+```ts {{ title: "ethers.js" }}
+import { defaultAbiCoder as abi } from '@ethers/utils'
+
+const unpackedProof = abi.decode(['uint256[8]'], proof)[0]
+```
+
+</CodeGroup>
+
+</Col></Row>
+
+{/* 
+### Sybil-resistance
+
+While the World ID protocol makes it very easy to make your contracts sybil-resistant, this takes a little more than just calling the `verifyProof` function. To make your contract sybil-resistant, you'll need to do the following:
+
+-   Store the `nullifierHash` of each user that has successfully verified a proof.
+-   When a user attempts to verify a proof, check that the `nullifierHash` is not already in the list of used `nullifierHash`es.
+
+Here's an example function doing the above. You can also use the [World ID starter kits](#on-chain) to get started with sybil-resistance.
+
+```solidity
+/// @param root The root (returned by the IDKit widget).
+/// @param groupId The group ID (returned by the IDKit widget).
+/// @param signal An arbitrary input from the user, usually the user's wallet address
+/// @param nullifierHash The nullifier hash for this proof, preventing double signaling (returned by the IDKit widget).
+/// @param proof The zero-knowledge proof that demonstrates the claimer is registered with World ID (returned by the IDKit widget).
+function verifyAndExecute(
+    address signal,
+    uint8 groupId,
+    uint256 root,
+    uint256 nullifierHash,
+    uint256[8] calldata proof
+) public {
+    // First, we make sure this person hasn't done this before
+    if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
+
+    // We now verify the provided proof is valid and the user is verified by World ID
+    worldId.verifyProof(
+        root,
+        1, // Or `0` if you want to check for phone verification only
+        abi.encodePacked(signal).hashToField(),
+        nullifierHash,
+        abi.encodePacked(appId).hashToField(),
+        proof
+    );
+
+    // We now record the user has done this, so they can't do it again (proof of uniqueness)
+    nullifierHashes[nullifierHash] = true;
+
+    // Finally, execute your logic here, for example issue a token, NFT, etc...
+}
+``` */}

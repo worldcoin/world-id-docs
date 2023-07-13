@@ -223,7 +223,7 @@ export const navigation = [
 		links: [
 			{ title: 'IDKit', href: '/reference/idkit' },
 			{ title: 'Cloud Actions API', href: '/reference/api' },
-			{ title: 'Smart Contract', href: '/reference/contract' },
+			{ title: 'Smart Contracts', href: '/reference/contracts' },
 			{ title: 'Sign In', href: '/reference/sign-in' },
 			// { title: 'Internal Endpoints', href: '/reference/internal-endpoints' },
 		],

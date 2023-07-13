@@ -67,7 +67,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 				<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
 				<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
 			</Head>
-			{process.env.NODE_ENV === 'production' && <Clippy theme="light" />}
+			{/* {process.env.NODE_ENV === 'production' && <Clippy theme="light" />} */}
 			{/* @ts-ignore */}
 			<MDXProvider components={mdxComponents}>
 				{hasLayout && (

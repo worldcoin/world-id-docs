@@ -29,7 +29,8 @@
 			"subtitle": "discordbouncer.com",
 			"description": "Prevent spam and increase the quality of the community by verifying humans.",
 			"tags": ["App", "Integration", "API"],
-			"bookmark": false
+			"bookmark": true,
+			"worldcoin": true
 		},
 
 		{
@@ -44,7 +45,8 @@
 			"subtitle": "human.withlens.app",
 			"description": "The decentralized social network. Verify a Lens profile belongs to real person. No bots, reduce spam.",
 			"tags": ["On-chain", "Integration", "Social"],
-			"bookmark": false
+			"bookmark": false,
+			"worldcoin": true
 		},
 
 		{
@@ -58,7 +60,8 @@
 			"title": "POAP",
 			"subtitle": "poap.worldcoin.org",
 			"description": "The bookmarks of your life. Issue POAPs to humans only. One person, one POAP.",
-			"tags": ["On-chain", "Integration"]
+			"tags": ["On-chain", "Integration"],
+			"worldcoin": true
 		},
 
 		{

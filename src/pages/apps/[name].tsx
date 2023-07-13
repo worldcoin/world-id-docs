@@ -6,7 +6,6 @@ import GitHubIcon from '@/components/icons/GitHubIcon'
 import RedirectIcon from '@/components/icons/RedirectIcon'
 import { Button } from '@/components/Button'
 import { apps } from './appList.json'
-import { MDXProvider } from '@mdx-js/react'
 
 
 export default function Page() {
@@ -58,10 +57,10 @@ export default function Page() {
                         ))}
                     </div>
                 </div>
-                <div className="flex flex-col mt-8">
+                {app.body && <div className="flex flex-col mt-8">
                     <div className="font-bold text-xl mb-2">Description</div>
                     {app.body}
-                </div>
+                </div>}
             </div>
         )
     } else {

@@ -47,7 +47,9 @@ export const Apps: FC<Props> = props => {
 		[filter, isTagSelected]
 	)
 
-	const bookmarkedApps = sortedApps.filter(app => app.bookmark)
+	const bookmarkedApps: Array<AppConfig> = sortedApps.filter(app => app.bookmark)
+	console.log(bookmarkedApps)
+	console.log(sortedApps)
 
 	return (
 		<div className={clsx('relative', props.className)}>
@@ -67,21 +69,20 @@ export const Apps: FC<Props> = props => {
 			</Link>
 			<div className="pt-4" />
 
-			<h1 className="text-xl font-bold text-zinc-900 dark:text-white mt-5"> Highlights </h1>
+			{(bookmarkedApps.length > 0) && <div>
+				<h1 className="text-xl font-bold text-zinc-900 dark:text-white mt-5"> Highlights </h1>
 
-			<div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-2">
-				{sortedApps.filter(app => app.bookmark).map((example, id) => {
-					if (filter.length === 0 || example.tags.some(tag => isTagSelected(tag))) {
+				<div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-2">
+					{bookmarkedApps.map((app, id) => {
 						return (
 							<Card
 								key={id}
-								app={example}
+								app={app as AppConfig}
 							/>
 						)
-					}
-					return null
-				})}
-			</div>
+					})}
+				</div>
+			</div>}
 
 			<hr className="my-10" />
 			<h1 className="text-xl font-bold text-zinc-900 dark:text-white mt-5"> All Integrations </h1>
@@ -100,7 +101,7 @@ export const Apps: FC<Props> = props => {
 
 			<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
 				{sortedApps.map((example, id) => {
-					if ((filter.length === 0 || example.tags.some(tag => isTagSelected(tag))) && !example.bookmark) {
+					if ((filter.length === 0 || example.tags.some(tag => isTagSelected(tag)))) {
 						return (
 							<Item
 								key={id}
@@ -126,34 +127,34 @@ export const Apps: FC<Props> = props => {
 }
 
 // ANCHOR: Card component for the cards on the top
-export const Card: FC<{ app: typeof apps[0] }> = ({ app }) => {
+export const Card: FC<{ app: AppConfig }> = ({ app }) => {
 	return (
-		<div className="rounded-lg shadow-card">
-			<Link href={`/apps/${app.slug}`} className="flex relative aspect-card">
+		<div className="rounded-lg shadow-card hover:cursor-pointer hover:scale-105 transition-all" onClick={() => location.href = `/apps/${app.slug}`}>
+			<div className="flex relative aspect-card">
 				<Image className="absolute inset-0 m-0" src={app.image.lg!} alt={app.title} fill />
-			</Link>
+			</div>
 
 			<div className="flex items-center gap-x-6 px-6 py-7">
 				<div className="flex flex-col grow">
-					<Link href={`/apps/${app.slug}`} className="font-bold text-base leading-4 text-gray-700">{app.title}</Link>
-					<Link href={`${app.url}`} className="mt-1 text-base text-gray-500 leading-4">{app.subtitle}</Link>
+					<div className="font-bold text-base leading-4 text-gray-700">{app.title}</div>
+					<div className="mt-1 text-base text-gray-500 leading-4">{app.subtitle}</div>
 				</div>
 
 				<div className="flex gap-x-2">
-					{app.githubUrl && (
+					{/* {app.githubUrl && (
 						<Link
 							href={app.githubUrl}
 							className="flex items-center justify-center w-9 h-9 bg-gray-100 hover:bg-gray-200/70 transition-colors rounded-full"
 						>
 							<GitHubIcon className="w-5 h-5" />
 						</Link>
-					)}
-					<Link
-						href={`/apps/${app.slug}`}
+					)} */}
+					<div
+						// href={`/apps/${app.slug}`}
 						className="flex items-center justify-center w-9 h-9 bg-gray-900 hover:bg-gray-900/80 transition-colors rounded-full"
 					>
 						<ArrowIcon className="text-gray-100 h-" />
-					</Link>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -194,9 +195,9 @@ export const Item = (props: {
 }) => {
 
 	return (
-		<div className="relative p-6 border border-gray-100 rounded-lg">
-			{props.bookmark && (
-				<div className="absolute top-0 right-[50px]">
+		<div className="relative px-6 pt-6 pb-4 border border-gray-200 rounded-lg hover:cursor-pointer hover:scale-105 transition-all" onClick={() => location.href = `/apps/${props.slug}`}>
+			{/* {props.bookmark && (
+				<div className="absolute top-0left-[15px]">
 					<svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path
 							d="M0 0H12V14.0557C12 14.9591 11.0592 15.5546 10.2426 15.1681L6.70526 13.4936C6.25883 13.2823 5.74117 13.2823 5.29474 13.4936L1.75736 15.1681C0.940837 15.5546 0 14.9591 0 14.0557V0Z"
@@ -204,47 +205,28 @@ export const Item = (props: {
 						/>
 					</svg>
 				</div>
-			)}
-			<div className="flex gap-x-4">
-				<div className="relative h-[80px] w-[80px]">
-					<Image className="m-0" src={props.image.sm} alt={props.title} layout="fill" objectFit="cover" />
+			)} */}
+			<div className="flex flex-row gap-x-4">
+				<div className="relative shrink-0 !h-[80px] !w-[80px]">
+					<Image className="m-0" src={props.image.sm} alt={props.title} fill objectFit='cover' />
 				</div>
-				<div className="relative grow flex flex-col">
-					{props.worldcoin && (
-						<div className="absolute top-0 right-0">
-							<LogoIcon className="text-primary" />
-						</div>
-					)}
-					<div className="flex flex-col gap-y-1.5">
-						<Link href={`/apps/${props.slug}`}><div className="font-bold text-base leading-4 text-gray-700">{props.title}</div></Link>
-						<Link href={`${props.url}`} className="text-14 text-gray-500 leading-3">{props.subtitle}</Link>
-					</div>
-					<div className="grow flex items-end gap-x-2">
-						{props.githubUrl && (
-							<Button
-								variant="neutral"
-								className="items-center h-8 px-4 gap-x-1 no-underline !rounded-lg "
-								href={props.githubUrl}
-							>
-								<GitHubIcon className="w-4 h-4" />
-								<div className="font-medium text-14 tracking-[-0.01em]">GitHub</div>
-							</Button>
+				<div className="flex flex-col items-start w-full">
+					<div className="relative align-top items-start justify-between w-full flex flex-row">
+						<div className="font-bold text-base text-gray-700 shrink">{props.title}</div>
+						{props.worldcoin && (
+							<div className="hover:visible shrink" title="Official Integration">
+								<LogoIcon className="text-primary" />
+							</div>
 						)}
-						<Button
-							variant="primary"
-							className="items-center h-8 px-4 gap-x-1 no-underline !rounded-lg"
-							href={`/apps/${props.slug}`}
-						>
-							<div className="font-medium text-14 tracking-[-0.01em]">Read More</div>
-							{/* <RedirectIcon className="text-gray-100" /> */}
-						</Button>
 					</div>
+					<div className="text-sm text-gray-500 leading-4 line-clamp-3 max-w-sm">{props.description}</div>
 				</div>
 			</div>
-			<div className="mt-4 text-14 text-gray-500 leading-5 line-clamp-2">{props.description}</div>
+			{/* <div className="mt-4 text-14 text-gray-500 leading-5 line-clamp-2">{props.description}</div> */}
 			<div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-14 text-primary leading-5 cursor-pointer">
 				{props.tags.map((tag, i) => (
-					<div key={i} onClick={() => props.onToggleFilter(tag)}>
+					<div key={i}>
+						{/* <div key={i} onClick={() => props.onToggleFilter(tag)}> */}
 						{tag}
 					</div>
 				))}

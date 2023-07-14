@@ -29,12 +29,12 @@ const nextConfig = {
 			},
 			{
 				source: '/js',
-				destination: '/idkit',
+				destination: '/reference/idkit',
 				permanent: true,
 			},
 			{
 				source: '/js/:slug',
-				destination: '/idkit/:slug',
+				destination: '/reference/idkit/:slug',
 				permanent: true,
 			},
 			{
@@ -62,18 +62,13 @@ const nextConfig = {
 				destination: '/advanced/zero-knowledge-proofs',
 				permanent: false,
 			},
-			{
-				source: '/waitlist',
-				destination: 'https://toolsforhumanity.typeform.com/sdk-waitlist',
-				permanent: true,
-			},
 		]
 	},
 	async rewrites() {
 		return [
 			{
 				source: '/api/:slug*',
-				destination: '/api-docs/:slug*',
+				destination: '/reference/api/:slug*',
 			},
 		]
 	},

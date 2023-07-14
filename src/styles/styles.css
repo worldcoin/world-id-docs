@@ -53,3 +53,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.clippy-widget {
+	@apply hidden;
+}

@@ -6,12 +6,12 @@ import { Button } from '@/components/Button'
 import SignInLogoIcon from './icons/SignInLogoIcon'
 import GitHubIcon from '@/components/icons/GitHubIcon'
 import { AllHTMLAttributes, FC, PropsWithChildren, useCallback, useState } from 'react'
-import { apps } from '../pages/apps/appList.json'
+import appList from '../pages/apps/appList.json'
 import ArrowIcon from './icons/ArrowIcon'
 
 type Props = PropsWithChildren<{ className?: string } & AllHTMLAttributes<HTMLElement>>
 
-const sortedApps = apps.sort((a, b) => a.title.localeCompare(b.title))
+const sortedApps = appList.apps.sort((a, b) => a.title.localeCompare(b.title))
 
 // ANCHOR: Apps component
 export const Apps: FC<Props> = props => {

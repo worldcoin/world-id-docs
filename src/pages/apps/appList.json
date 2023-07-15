@@ -25,10 +25,11 @@
 				"sm": "/images/apps/discord.svg",
 				"lg": "/images/apps/discord-lg.svg"
 			},
-			"title": "Discord Bouncer",
+			"title": "Discord",
 			"subtitle": "discordbouncer.com",
 			"description": "Prevent spam and increase the quality of the community by verifying humans.",
 			"tags": ["App", "Integration", "API"],
+			"body": "Discord Bouncer is a bot that allows you to verify that a user is a real person before they can join your Discord server. It is a great way to prevent spam and increase the quality of the community.",
 			"bookmark": true,
 			"worldcoin": true
 		},
@@ -41,10 +42,11 @@
 				"sm": "/images/apps/lens.svg",
 				"lg": "/images/apps/lens-lg.svg"
 			},
-			"title": "Lens",
+			"title": "Lens Protocol",
 			"subtitle": "human.withlens.app",
 			"description": "The decentralized social network. Verify a Lens profile belongs to real person. No bots, reduce spam.",
 			"tags": ["On-chain", "Integration", "Social"],
+			"body": "Lens is a decentralized social network built on the Polygon blockchain. Lens allows you to create a profile that is owned by you and only you. You can use your profile to interact with other Lens users, and you can use it to sign in to other Lens-enabled applications. This integration lets you prove that your Lens profile belongs to a real person.",
 			"bookmark": false,
 			"worldcoin": true
 		},
@@ -61,21 +63,23 @@
 			"subtitle": "poap.worldcoin.org",
 			"description": "The bookmarks of your life. Issue POAPs to humans only. One person, one POAP.",
 			"tags": ["On-chain", "Integration"],
+			"body": "POAPs have become a big part of the web3 community. They are a great way to reward people for participating in events, and they are a great way to show off your participation in events. This integration lets you issue POAPs to Worldcoin-verified users only, to ensure your rewards for participants aren't able to sybil-attack the system.",
 			"worldcoin": true
 		},
 
 		{
-			"slug": "hyperdrop",
+			"slug": "worldcoin",
 			"url": "https://worldcoin.org",
 			"githubUrl": "https://github.com/worldcoin/world-id-example-airdrop",
 			"image": {
 				"sm": "/images/apps/hyperdrop.svg",
 				"lg": ""
 			},
-			"title": "Worldcoin Airdrop",
+			"title": "Worldcoin",
 			"subtitle": "worldcoin.org",
 			"description": "The first token to be globally and freely distributed to people, just for being a unique individual.",
 			"tags": ["On-chain", "App"],
+			"body": "Worldcoin is distributed to individuals who've verified that they're a unique human at the Orb. This was the core use case for which World ID was developed.",
 			"worldcoin": true
 		},
 

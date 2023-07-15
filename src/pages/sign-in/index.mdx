@@ -1,7 +1,7 @@
 # Integration
 
 <Note>
-    This guide assumes you have already completed the steps to [set up the Developer Portal](/quick-start/dev-portal).
+    This guide assumes you have already completed the steps to [set up the Developer Portal](/quick-start).
 </Note>
 
 World ID can be used as an authentication mechanism. If you already have an OIDC-compatible authentication engine, you can integrate Sign In with Worldcoin using the steps below.
@@ -19,7 +19,7 @@ World ID can be used as an authentication mechanism. If you already have an OIDC
   If you don't have an authentication engine, you can implement OIDC flows yourself. See the [OIDC Explainer](/further-reading/oidc-explainer) and [Sign In Reference](/reference/sign-in) for details.
 </Note>
 
-## Configure your auth engine
+## Configure your Auth engine
 
 Configure your OIDC authentication engine to use World ID as an Identity Provider (IdP), you will need the following information:
 
@@ -41,6 +41,32 @@ Configure your OIDC authentication engine to use World ID as an Identity Provide
 
 Once you have configured this, you can start the authentication flow from your app or authentication engine.
 
-<Note>
-  This will use the default World ID login page. If you instead want to build your own authentication page, check out the [Sign In Widget](/advanced/sign-in-widget) page in the Advanced Use Cases section.
+<Note type="warning">
+  We recommend allowing users to set a separate recovery method for their account, such as an email. Users who recover their World ID in the future will not be able to access your app unless they have a recovery method set.
 </Note>
+
+## Mapping User Info
+
+The `/userinfo` endpoint returns a JSON object with the following fields:
+
+```json {{ title: "Response" }}
+{
+	"sub": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535",
+	"https://id.worldcoin.org/beta": {
+		"likely_human": "strong",
+		"credential_type": "orb"
+	},
+	"email": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535@id.worldcoin.org",
+	"name": "World ID User",
+	"given_name": "World ID",
+	"family_name": "User"
+}
+```
+
+<Note type="warning">
+The `email` field is set only for compatibility with apps that cannot function without it. Users cannot receive emails at this address, and it should be ignored when possible.
+</Note>
+
+The `sub` field is the user's nullifier hash -- their unique identifier in the context of your app. A user's nullifier hash will be different for each app they use.
+
+You can information about a user's World ID Credentials in the `https://id.worldcoin.org/beta` object. Use the `credential_type` field to determine whether the user has been Orb-verified or not.

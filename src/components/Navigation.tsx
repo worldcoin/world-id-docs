@@ -186,21 +186,20 @@ export const navigation = [
 	{
 		title: 'Introduction',
 		links: [
-			{ title: 'The Worldcoin Ecosystem', href: '/' },
+			{ title: 'Home', href: '/' },
 			{ title: 'World ID Overview', href: '/world-id' },
-			{ title: 'Proof of Personhood', href: '/proof-of-personhood' },
 			{ title: 'Use Cases', href: '/use-cases' },
 			{ title: 'Apps & Integrations', href: '/apps' },
 			{ title: 'Try it Out', href: '/try' },
 		],
-	}, {
+	}, 
+	{
 		title: 'Quick Start',
 		links: [
-			{ title: 'Choosing your Integration', href: '/quick-start/choose-integration' },
-			{ title: 'Set Up the Dev Portal', href: '/quick-start/dev-portal' },
+			{ title: 'Create your App', href: '/quick-start' },
 			{ title: 'Sign In with Worldcoin', href: '/quick-start/sign-in' },
 			{ title: 'Anonymous Actions', href: '/quick-start/anonymous-actions' },
-			{ title: 'Testing with the Simulator', href: '/quick-start/testing' },
+			{ title: 'Testing your App', href: '/quick-start/testing' },
 		],
 	},
 	{
@@ -225,20 +224,21 @@ export const navigation = [
 			{ title: 'Cloud Actions API', href: '/reference/api' },
 			{ title: 'Smart Contracts', href: '/reference/contracts' },
 			{ title: 'Sign In', href: '/reference/sign-in' },
+			{ title: 'Dev Portal API', href: '/reference/dev-portal-api' }, // needs expanded with info from igor for this one
 			// { title: 'Internal Endpoints', href: '/reference/internal-endpoints' },
 		],
 	},
-	{
-		title: 'Advanced Use Cases',
-		links: [
-			{ title: 'On-the-Fly Actions', href: '/advanced/actions-on-the-fly' },
-			{ title: 'Sign In Widget', href: '/advanced/sign-in-widget' },
-			{ title: 'Dev Portal API', href: '/advanced/dev-portal-api' }, // needs expanded with info from igor for this one
-		],
-	},
+	// {
+	// 	title: 'Advanced Use Cases',
+	// 	links: [
+	// 		{ title: 'Dynamic Actions', href: '/advanced/dynamic-actions' },
+	//		{ title: 'Sign In Widget', href: '/advanced/sign-in-widget' },
+	// 	],
+	// },
 	{
 		title: 'Further Reading',
 		links: [
+			{ title: 'Proof of Personhood', href: '/proof-of-personhood' },
 			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
 			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
 			{ title: 'Privacy', href: '/further-reading/privacy' },

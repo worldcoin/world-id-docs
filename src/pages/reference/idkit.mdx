@@ -5,26 +5,6 @@
 	submit a pull request.
 </Note>
 
-{/* ## Installation
-
-The JS package can be included in your project either as a module (which supports tree shaking to reduce bundle size) or you can add the script directly to your website.
-
-<CodeGroup title="Install IDKit">
-
-    ```bash {{ title: "npm" }}
-    npm install @worldcoin/idkit
-    ```
-
-    ```bash {{ title: "yarn" }}
-    yarn add @worldcoin/idkit
-    ```
-
-    ```bash {{ title: "pnpm" }}
-    pnpm add @worldcoin/idkit
-    ```
-
-    </CodeGroup> */}
-
 ## Components
 
 ### `IDKitWidget`
@@ -45,14 +25,14 @@ The `IDKitWidget` component is the main component that renders the World ID widg
       {({ open }) => <button onClick={open}>Verify with World ID</button>}
     </IDKitWidget>
     ```
-
+{/* 
 ### `SignInWithWorldID`
 
 The `SignInWithWorldID` component is a wrapper around the `IDKitWidget` component that renders the World ID widget with some parameters preset for Sign in with Worldcoin. Please see the [Sign In Widget page](/advanced/sign-in-widget) for usage details. 
 
 ### `SignInButton`
 
-The `SignInButton` component is a styled and animated button, used as the default for the [`SignInWithWorldID` component](/advanced/sign-in-widget). It is also exported separately for use with custom components.
+The `SignInButton` component is a styled and animated button, used as the default for the [`SignInWithWorldID` component](/advanced/sign-in-widget). It is also exported separately for use with custom components. */}
 
 ## Parameters
 
@@ -179,7 +159,7 @@ Upon successful completion of the World ID flow, you will receive a response obj
 
 ## Error Handling
 
-Errors in the JS package will generally be returned in the Promise rejection of the [`.init()`](/idkit/reference#init) method. In exceptional cases, some errors may be thrown in the Javascript console (though this is mostly for unhandled errors, and is not normal behavior).
+Errors in the JS package will generally be returned in the Promise rejection of the [`.init()`](/reference/idkit#init) method. In exceptional cases, some errors may be thrown in the Javascript console (though this is mostly for unhandled errors, and is not normal behavior).
 
 The `errorResult` object that is returned in the Promise rejection has the following structure:
 

@@ -23,11 +23,6 @@ const nextConfig = {
 	async redirects() {
 		return [
 			{
-				source: '/quick-start',
-				destination: '/quick-start/choose-integration',
-				permanent: true,
-			},
-			{
 				source: '/js',
 				destination: '/idkit',
 				permanent: true,

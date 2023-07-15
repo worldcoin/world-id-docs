@@ -15,11 +15,6 @@ This setup is recommended for most users, as it is the most gas-efficient. For m
   Read more about [The Protocol](/world-id#the-protocol) and [Semaphore](https://semaphore.appliedzkp.org/).
 </Note>
 
-{/* <Note type="warning">
-	It can take 5-45 minutes for an identity commitment to be available on any given chain after a user verifies. This means that a user's proofs will **not** verify on-chain in this time after they have completed Phone Number or Orb verification.
-  For more details visit the [Contracts Reference](/reference/contracts) page.
-</Note> */}
-
 ## IDKit Configuration
 
 When verifying proofs on-chain, there are a few changes you have to make to your IDKit configuration. Primarily, we must use the `solidityEncode` function to encode the `action` parameter. 
@@ -72,7 +67,9 @@ function hashToField(bytes memory value) internal pure returns (uint256) {
 
 ## Constructor
 
-The `externalNullifier` is the unique identifier of the action performed in Semaphore. It is a combination of the app ID and the action. We set it in the constructor to save gas, as it will not change when all users perform the same action.
+The `externalNullifier` is the unique identifier of the action performed in Semaphore, and its keccak256 hash (named `externalNullifierHash`) is what is passed to the World ID Router contract. It is a combination of the app ID and the action.
+You should typically set it in the constructor to save gas (as is done in this example), as it will not change when all users perform the same action. 
+However, if your users will be performing [Dynamic Actions](/anonymous-actions/idkit#dynamic-actions), you should accept the action as a parameter to your contract's functions, and set it in the function body.
 
 We additionally set the `groupId` to `1`, which limits this example to Orb-verified users only.
 
@@ -83,8 +80,8 @@ error InvalidNullifier();
 /// @dev The address of the World ID Router contract that will be used for verifying proofs
 IWorldID internal immutable worldId;
 
-/// @dev The externalNullifier (unique identifier of the action performed), combination of appId and action
-uint256 internal immutable externalNullifier;
+/// @dev The keccak256 hash of the externalNullifier (unique identifier of the action performed), combination of appId and action
+uint256 internal immutable externalNullifierHash;
 
 /// @dev The World ID group ID (1 for Orb-verified, 0 for Phone-verified)
 uint256 internal immutable groupId = 1;
@@ -101,7 +98,7 @@ constructor(
     string memory _action
 ) {
     worldId = _worldId;
-    externalNullifier = abi
+    externalNullifierHash = abi
         .encodePacked(abi.encodePacked(_appId).hashToField(), _action)
         .hashToField();
 }
@@ -118,18 +115,13 @@ The `verifyProof` method reverts if the proof is invalid, meaning you can just c
   However, this example **does** implement sybil-resistance by checking that the `nullifierHash` has not been verified before.
 </Note>
 
-{/* <Note>
-	The `verifyProof` function is meant to be called by your smart contract. If you just want to verify a proof from
-	your backend, you should use the [/verify method of the API](/reference/api#verify-proof) instead.
-</Note> */}
-
 The `verifyProof` method takes the arguments below.
 
 -   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should be passed as-is.
 -   `groupId` - This must be `1` for Orb-verified users, and `0` for Phone-verified users.
 -   `signalHash` - The keccak256 hash of the signal to verify.
 -   `nullifierHash` - Anonymous user ID for this action. This is obtained from the IDKit widget, and should just be passed as-is.
--   `externalNullifierHash` - The keccak256 hash of the externalNullifier set in the constructor.
+-   `externalNullifierHash` - The externalNullifierHash, which identifies which app and action the user is verifying for.
 -   `proof` - The proof to verify. This is obtained from the IDKit widget.
 
 ```solidity
@@ -137,7 +129,6 @@ The `verifyProof` method takes the arguments below.
 /// @param root The root (returned by the IDKit widget).
 /// @param nullifierHash The nullifier hash for this proof, preventing double signaling (returned by the IDKit widget).
 /// @param proof The zero-knowledge proof that demonstrates the claimer is registered with World ID (returned by the IDKit widget).
-
 function verifyAndExecute(
     address signal,
     uint256 root,
@@ -153,7 +144,7 @@ function verifyAndExecute(
         groupId, // set to "1"
         abi.encodePacked(signal).hashToField(),
         nullifierHash,
-        abi.encodePacked(externalNullifier).hashToField(),
+        externalNullifierHash,
         proof
     );
 

@@ -2,17 +2,10 @@
 
 Anonymous Actions unlock a set of other use cases beyond verifying accounts (which is enabled by Sign In with World ID). With Anonymous Actions, you can verify a person is doing something only once, for a particular context.
 
-{/* <Note>
-    For example, you can verify a person is claiming a particular promotional
-    campaign just once. If you later have a new promotional campaign, users from
-    campaign 1 will always be delinked from users from campaign 2, providing
-    higher privacy.
-</Note> */}
-
 1. Create an action for your app in the Developer Portal.
     You must provide the following values:
 
-    -   **Action**: The stringified action to be taken by the user.
+    -   **Action**: The action to be taken by the user.
     -   **Max Verifications**: _For Cloud actions only_. The number of times a user can take this action. A value of `0` indicates that unlimited verifications can take place.
 
     The "Description" field is shown to your user in the World app as they sign with their World ID, alongside your application logo. Make sure to fully describe the exact action the user is taking.
@@ -52,5 +45,8 @@ Anonymous Actions unlock a set of other use cases beyond verifying accounts (whi
         <Note>
             If you'd rather not use our template repository, look at the [On-Chain Verification documentation](/anonymous-actions/on-chain).
         </Note>
+        Getting started with our On-Chain template is easy:
+        - Create a new repository based on our [On-Chain Verification template](https://github.com/worldcoin/world-id-onchain-template).
+        - Configure the frontend (found in the `src` folder) with your `appId` and `action` from the Developer Portal.
     </TabItem>
 </Tabs>

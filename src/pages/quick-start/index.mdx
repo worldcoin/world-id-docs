@@ -1,0 +1,47 @@
+# Create your App
+
+The first step to integrate World ID is to create your app. This is done through the [Developer Portal](https://developer.worldcoin.org).
+
+1. Sign in to the [Developer Portal](https://developer.worldcoin.org). You will need a World-ID compatible wallet (such as the [World App](https://worldcoin.org/download)) and a Phone- or Orb-Verified World ID to sign in.
+    <Note>While adding your email is optional, we suggest you do so. This will allow you to maintain access to your Developer Portal account if you lose your World ID.</Note>
+
+2. Decide whether you're going to use **Sign In with Worldcoin** or **Anonymous Actions**. Here's a helpful guide:
+    <Tabs> 
+        <TabItem label="Sign In with Worldcoin">
+        ### Sign In with Worldcoin
+        Sign In with Worldcoin is built to bring the privacy benefits of World ID to a broad range of apps as easily as possible. It is a simple, drop-in authentication mechanism that works with any OIDC-compatible authentication engine.
+        - ✅ When to use Sign In with Worldcoin:
+        - You want to know that an account belongs to a real person, and each real person only has one account.
+        - You already use Auth0, NextAuth, or a similar authentication engine in your app.
+        - You want to allow users to preserve their privacy, or even stay completely anonymous.
+        - 🚫 When **not** to use Sign In with Worldcoin:
+        - Your app has an on-chain component (e.g. a smart contract).
+        - You want a user to be able to have multiple accounts and keep them separate.
+        - You want to verify a user is doing a specific action only once.
+        </TabItem>
+        <TabItem label="Anonymous Actions">
+        ### Anonymous Actions
+        Anonymous Actions are a powerful tool for sybil-resistance both on and off-chain. They allow you to verify a user is doing something only once, for a particular context. For example, you can verify a person is claiming a particular airdrop just once.
+        - ✅ When to use Anonymous Actions:
+        - You want to verify a user is doing something only once, for a particular context.
+        - Your user will be taking multiple discrete actions (e.g. claiming multiple airdrops, voting on multiple proposals, etc.) and you want to allow each action to be done only once.
+        - Your app interacts with a smart contract on-chain.
+        - 🚫 When **not** to use Anonymous Actions:
+        - You want to use World ID for authentication or identification of a user. (Use Sign In with Worldcoin instead.)
+        </TabItem>
+    </Tabs>
+
+2. Create and configure your first app.
+
+	-	Name your app something recognizable. It will be displayed to users when they are asked to Verify with World ID.
+	-   Select the environment to use: Staging or Production.
+		- Use Staging apps for testing and development. You must use the [World ID Simulator](https://simulator.worldcoin.org) to verify actions.
+		- Use Production apps for production. You must use the [World App](https://worldcoin.org/download) to verify actions.
+	-   Select whether you want this action to be cloud-based or on-chain. Cloud-based actions are verified with our Cloud API, while on-chain actions are verified by our smart contracts on the blockchain.
+        <Note>
+            If you want to use **Sign In with Worldcoin**, ensure you select **Cloud-based**.
+        </Note>
+
+3. Note your App ID (also called the Client ID). It looks something like {/* cSpell:disable */}`app_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}. For Sign In with Worldcoin, you should also note your Client Secret, which is found alongside the Client ID in the **Sign In** tab.
+
+4. Now that you're finished setting up the Developer Portal, proceed to either [Sign In with Worldcoin](/quick-start/sign-in) or [Anonymous Actions](/quick-start/anonymous-actions).

@@ -84,8 +84,8 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 						>
 							Apps & Integrations
 						</TopLevelNavItem> */}
-						<Button href="/waitlist" target="_blank">
-							Join the Waitlist
+						<Button href="https://developer.worldcoin.org" target="_blank">
+							Developer Portal
 						</Button>
 					</ul>
 				</nav>

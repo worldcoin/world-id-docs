@@ -196,52 +196,35 @@ export const navigation = [
 	{
 		title: 'Quick Start',
 		links: [
-			{ title: 'Create your App', href: '/quick-start' },
-			{ title: 'Sign In with Worldcoin', href: '/quick-start/sign-in' },
-			{ title: 'Anonymous Actions', href: '/quick-start/anonymous-actions' },
-			{ title: 'Testing your App', href: '/quick-start/testing' },
+			{ title: 'Integration Guide', href: '/quick-start' },
 		],
 	},
 	{
-		title: 'Sign In with Worldcoin',
+		title: 'World ID',
 		links: [
-			{ title: 'Integration', href: '/sign-in' },
-		],
-	},
-	{
-		title: 'Anonymous Actions',
-		links: [
-			{ title: 'Overview', href: '/anonymous-actions' },
-			{ title: 'Get Started with IDKit', href: '/anonymous-actions/idkit' },
-			{ title: 'Cloud Verification', href: '/anonymous-actions/cloud' },
-			{ title: 'On-Chain Verification', href: '/anonymous-actions/on-chain' },
+			{ title: 'Sign In with Worldcoin', href: '/id/sign-in' },
+			{ title: 'Anonymous Actions Overview', href: '/id/anonymous-actions' },
+			{ title: 'Get Started with IDKit', href: '/id/idkit' },
+			{ title: 'Cloud Verification', href: '/id/cloud' },
+			{ title: 'On-Chain Verification', href: '/id/on-chain' },
 		],
 	},
 	{
 		title: 'Technical Reference',
 		links: [
 			{ title: 'IDKit', href: '/reference/idkit' },
-			{ title: 'Cloud Actions API', href: '/reference/api' },
+			{ title: 'API', href: '/reference/api' },
+			{ title: 'Sign In with Worldcoin', href: '/reference/sign-in' },
 			{ title: 'Smart Contracts', href: '/reference/contracts' },
-			{ title: 'Sign In', href: '/reference/sign-in' },
-			{ title: 'Dev Portal API', href: '/reference/dev-portal-api' }, // needs expanded with info from igor for this one
-			// { title: 'Internal Endpoints', href: '/reference/internal-endpoints' },
+			{ title: 'Address Book', href: '/reference/address-book' },
 		],
 	},
-	// {
-	// 	title: 'Advanced Use Cases',
-	// 	links: [
-	// 		{ title: 'Dynamic Actions', href: '/advanced/dynamic-actions' },
-	//		{ title: 'Sign In Widget', href: '/advanced/sign-in-widget' },
-	// 	],
-	// },
 	{
 		title: 'Further Reading',
 		links: [
 			{ title: 'Proof of Personhood', href: '/proof-of-personhood' },
 			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
 			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
-			{ title: 'Privacy', href: '/further-reading/privacy' },
 			{ title: 'Zero-Knowledge Proofs', href: '/further-reading/zero-knowledge-proofs' },
 		],
 	},

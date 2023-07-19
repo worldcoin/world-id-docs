@@ -230,7 +230,7 @@ const Try = (): JSX.Element => {
 	const {
 		register,
 		watch,
-		formState: { errors, dirtyFields },
+		formState: { errors },
 		control,
 	} = useForm<{
 		signInEnvironment: Environment
@@ -239,12 +239,13 @@ const Try = (): JSX.Element => {
 		// maxVerifications: 0 | 1 | 2 | 3 FIXME: Enable when dynamic maxVerifications is supported
 		credentialTypes: Array<CredentialType>
 	}>({
-		mode: 'onChange',
+		mode: 'all',
 		defaultValues: {
 			signInEnvironment: 'production',
 			testingEnvironment: 'production',
+			action: 'test-action',
 			// maxVerifications: 1, FIXME: Enable when dynamic maxVerifications is supported
-			credentialTypes: [],
+			credentialTypes: [CredentialType.Orb],
 		},
 	})
 
@@ -261,10 +262,8 @@ const Try = (): JSX.Element => {
 	const isTestingWidgetValid = useMemo(
 		() =>
 			!errors.action &&
-			!errors.credentialTypes &&
-			Boolean(dirtyFields.action) &&
-			Boolean(dirtyFields.credentialTypes),
-		[dirtyFields.action, dirtyFields.credentialTypes, errors.action, errors.credentialTypes]
+			!errors.credentialTypes,
+		[errors.action, errors.credentialTypes]
 	)
 
 	const authLink = useMemo(() => {
@@ -416,6 +415,7 @@ const Try = (): JSX.Element => {
 						{...register('action', { required: true })}
 						className="border border-gray-200 rounded-xl p-3 placeholder:text-gray-400"
 						placeholder="Change this to simulate different actions"
+						defaultValue="test-action"
 					/>
 				</div>
 

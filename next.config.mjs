@@ -28,6 +28,11 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: '/id',
+				destination: '/id/anonymous-actions',
+				permanent: true,
+			},
+			{
 				source: '/js/:slug',
 				destination: '/reference/idkit/:slug',
 				permanent: true,

@@ -71,8 +71,7 @@ The following parameters can be passed as props to the `IDKitWidget` component:
 		For use when validating proofs on-chain. Read more on [the On-chain section](/advanced/on-chain).
 	</Property>
 	<Property name="action_description" type="string">
-		The description of the specific action (shown to users in World App). **Only used for [actions created
-		on-the-fly](/advanced/actions-on-the-fly).**
+		The description of the specific action (shown to users in World App). **Only used for Dynamic Actions.**
 	</Property>
 	<Property name="credential_types" type="string[]">
 		An array of credential types to allow for verification. Will accept any combination of `orb` & `phone`. Defaults
@@ -251,11 +250,8 @@ The Javascript package comes bundled with optional **opt-in** telemetry. Receivi
 
 Here are the events we capture:
 
--   `wid loaded`. When the widget is loaded.
--   `wid opened`. When the user clicks on the World ID widget and the modal shows up.
--   `wid connection established`. When the connection to the user's WLD app is established. We include the number of seconds it took from the previous step.
--   `wid verification success`. When the complete World ID process is successful.
--   `wid verification failed`. When the complete World ID process fails. We include the `errorCode` here too.
+-   `idkit loaded`. When the widget is loaded.
+-   `idkit opened`. When the user clicks on the World ID widget and the modal shows up.
 -   `$exception`. When an unhandled exception occurs in the package. We include the error message and the stack trace.
 
 ### Attributes captured

@@ -218,11 +218,10 @@ export const navigation = [
 		title: 'Technical Reference',
 		links: [
 			{ title: 'IDKit', href: '/reference/idkit' },
-			{ title: 'Cloud Actions API', href: '/reference/api' },
+			{ title: 'API', href: '/reference/api' },
 			{ title: 'Smart Contracts', href: '/reference/contracts' },
 			{ title: 'Address Book', href: '/reference/address-book' },
 			{ title: 'Sign In', href: '/reference/sign-in' },
-			{ title: 'Dev Portal API', href: '/reference/dev-portal-api' }, // needs expanded with info from igor for this one
 			// { title: 'Internal Endpoints', href: '/reference/internal-endpoints' },
 		],
 	},

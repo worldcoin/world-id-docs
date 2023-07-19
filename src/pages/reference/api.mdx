@@ -8,27 +8,6 @@ The Worldcoin Developer Portal offers an API to enable easy verification of Worl
 https://developer.worldcoin.org
 ```
 
-{/* ## Authentication
-
-**The main proof verification endpoints require no authentication** and are only rate limited (see `/precheck/{app_id}` and `/verify/{app_id}` endpoints for details).
-
-Other endpoints do require authentication and there is two mechanisms available.
-
--   Login token. Intended only for using the frontend of the Developer Portal. These tokens are short-lived and require personal interaction through Sign in with Worldcoin.
--   API keys.
-
-### API Keys
-
-<Note>API Keys are currently in Alpha. To get an API key contact a Worldcoin core contributor.</Note>
-
--   API keys are intended for use by third-party applications and for server-to-server communication. They are long-lived and can be revoked at any time.
--   API keys are scoped to a team and have full permissions for any actions as any user of the Developer Portal.
--   Once you have an API key, use it as the value of the `Authorization` header in your requests. For example:
-
-```
-Authorization: Bearer $API_KEY
-``` */}
-
 ## Verify Proof {{ tag: "POST", label: "/v1/verify/{app_id}" }}
 
 <Row><Col>
@@ -277,7 +256,21 @@ fetch('/api/v1/jwks')
 
 </Col></Row>
 
-{/* ## GraphQL {{ tag: "POST", label: "/v1/graphql" }}
+# Authenticated Endpoints
+
+### API Keys
+
+<Note>You can generate API Keys on the **My Team** page of the Developer Portal.</Note>
+
+-   API keys are intended for use by third-party applications and for server-to-server communication. They are long-lived and can be revoked at any time.
+-   API keys are scoped to a team and have full permissions for any actions as any user of the Developer Portal.
+-   Once you have an API key, use it as the value of the `Authorization` header in your requests. For example:
+
+```
+Authorization: Bearer $API_KEY
+```
+
+## GraphQL {{ tag: "POST", label: "/v1/graphql" }}
 
 <Row><Col>
 
@@ -338,4 +331,4 @@ fetch('/v1/graphql', {
 
 </CodeGroup>
 
-</Col></Row> */}
+</Col></Row>

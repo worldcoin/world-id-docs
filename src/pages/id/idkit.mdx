@@ -8,11 +8,6 @@ IDKit is required in your app's frontend for Anonymous Actions, both for Cloud a
 
 ## Creating Actions in the Dev Portal
 
-{/* <Note>
-    Anonymous Actions can either be configured via the [Developer Portal](https://developer.worldcoin.org), or [on-the-fly](/advanced/actions-on-the-fly) through IDKit. Creating actions on the Developer Portal is generally recommended, but setting on-the-fly is best for dynamic contexts.
-    See the [On-the-Fly Actions](/advanced/actions-on-the-fly) page for more information.
-</Note> */}
-
 Create an action for your app in the Developer Portal. You must provide the following values:
 
     -   **Action Name**: The stringified action to be taken by the user.
@@ -88,10 +83,10 @@ return (
         {/* ... */}
 		action={getUserChoice(userId)}
         {/* ... */}
+    >
     </IDKitWidget>
 )
 ```
-
 
 ## Response
 

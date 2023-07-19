@@ -55,7 +55,7 @@ export default function Page() {
                 </div>
                 <div className="flex w-full items-top gap-x-6 mt-8">
                     <div className="w-1/2 text-14 text-gray-500 leading-5 line-clamp-2">{app.description}</div>
-                    <div className="w-1/2 flex flex-wrap justify-end gap-x-3 gap-y-1 text-14 text-primary leading-5 cursor-pointer">
+                    <div className="w-1/2 flex flex-wrap justify-end gap-x-3 gap-y-1 text-14 text-gray-500 leading-5">
                         {app.tags.map((tag, i) => (
                             <div key={i}>
                                 {tag}

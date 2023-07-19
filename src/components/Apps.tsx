@@ -198,7 +198,7 @@ export const Item = (props: {
 					<div className="text-sm text-gray-500 leading-4 line-clamp-3 max-w-sm">{props.description}</div>
 				</div>
 			</div>
-			<div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-14 text-primary leading-5 cursor-pointer">
+			<div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-14 text-gray-500 leading-5">
 				{props.tags.map((tag, i) => (
 					<div key={i}>
 						{tag}

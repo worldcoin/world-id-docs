@@ -10,10 +10,12 @@ This guide will walk you through everything you need to get started with World I
         <TabItem label="Sign In with Worldcoin">
         ### Sign In with Worldcoin
         Sign In with Worldcoin is built to bring the privacy benefits of World ID to a broad range of apps as easily as possible. It is a simple, drop-in authentication mechanism that works with any OIDC-compatible authentication engine.
+        
         ✅ When to use Sign In with Worldcoin:
         - You want to know that an account belongs to a real person, and each real person only has one account.
         - You already use Auth0, NextAuth, or a similar authentication engine in your app.
         - You want to allow users to preserve their privacy, or even stay completely anonymous.
+        
         🚫 When **not** to use Sign In with Worldcoin:
         - Your app has an on-chain component (e.g. a smart contract).
         - You want a user to be able to have multiple accounts and keep them separate.
@@ -22,10 +24,12 @@ This guide will walk you through everything you need to get started with World I
         <TabItem label="Anonymous Actions">
         ### Anonymous Actions
         Anonymous Actions are a powerful tool for sybil-resistance both on and off-chain. They allow you to verify a user is doing something only once, for a particular context. For example, you can verify a person is claiming a particular airdrop just once.
+        
         ✅ When to use Anonymous Actions:
         - You want to verify a user is doing something only once, for a particular context.
         - Your user will be taking multiple discrete actions (e.g. claiming multiple airdrops, voting on multiple proposals, etc.) and you want to allow each action to be done only once.
         - Your app interacts with a smart contract on-chain.
+        
         🚫 When **not** to use Anonymous Actions:
         - You want to use World ID for authentication or identification of a user. (Use Sign In with Worldcoin instead.)
         </TabItem>

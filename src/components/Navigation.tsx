@@ -197,9 +197,6 @@ export const navigation = [
 		title: 'Quick Start',
 		links: [
 			{ title: 'Integration Guide', href: '/quick-start' },
-			// { title: 'Sign In with Worldcoin', href: '/quick-start/sign-in' },
-			// { title: 'Anonymous Actions', href: '/quick-start/anonymous-actions' },
-			// { title: 'Testing your App', href: '/quick-start/testing' },
 		],
 	},
 	{

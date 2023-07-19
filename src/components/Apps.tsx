@@ -46,8 +46,6 @@ export const Apps: FC<Props> = props => {
 	)
 
 	const bookmarkedApps: Array<AppConfig> = sortedApps.filter(app => app.bookmark)
-	console.log(bookmarkedApps)
-	console.log(sortedApps)
 
 	return (
 		<div className={clsx('relative', props.className)}>

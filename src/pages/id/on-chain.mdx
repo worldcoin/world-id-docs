@@ -58,7 +58,6 @@ function hashToField(bytes memory value) internal pure returns (uint256) {
 
 The `externalNullifier` is the unique identifier of the action performed in Semaphore, and its keccak256 hash (named `externalNullifierHash`) is what is passed to the World ID Router contract. It is a combination of the app ID and the action.
 You should typically set it in the constructor to save gas (as is done in this example), as it will not change when all users perform the same action. 
-However, if your users will be performing [Dynamic Actions](/anonymous-actions/idkit#dynamic-actions), you should accept the action as a parameter to your contract's functions, and set it in the function body.
 
 We additionally set the `groupId` to `1`, which limits this example to Orb-verified users only.
 

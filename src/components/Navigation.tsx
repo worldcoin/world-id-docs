@@ -200,18 +200,13 @@ export const navigation = [
 		],
 	},
 	{
-		title: 'Sign In with Worldcoin',
+		title: 'World ID',
 		links: [
-			{ title: 'Integration', href: '/sign-in' },
-		],
-	},
-	{
-		title: 'Anonymous Actions',
-		links: [
-			{ title: 'Overview', href: '/anonymous-actions' },
-			{ title: 'Get Started with IDKit', href: '/anonymous-actions/idkit' },
-			{ title: 'Cloud Verification', href: '/anonymous-actions/cloud' },
-			{ title: 'On-Chain Verification', href: '/anonymous-actions/on-chain' },
+			{ title: 'Sign In with Worldcoin', href: '/id/sign-in' },
+			{ title: 'Anonymous Actions Overview', href: '/id/anonymous-actions' },
+			{ title: 'Get Started with IDKit', href: '/id/idkit' },
+			{ title: 'Cloud Verification', href: '/id/cloud' },
+			{ title: 'On-Chain Verification', href: '/id/on-chain' },
 		],
 	},
 	{
@@ -219,19 +214,11 @@ export const navigation = [
 		links: [
 			{ title: 'IDKit', href: '/reference/idkit' },
 			{ title: 'API', href: '/reference/api' },
+			{ title: 'Sign In with Worldcoin', href: '/reference/sign-in' },
 			{ title: 'Smart Contracts', href: '/reference/contracts' },
 			{ title: 'Address Book', href: '/reference/address-book' },
-			{ title: 'Sign In', href: '/reference/sign-in' },
-			// { title: 'Internal Endpoints', href: '/reference/internal-endpoints' },
 		],
 	},
-	// {
-	// 	title: 'Advanced Use Cases',
-	// 	links: [
-	// 		{ title: 'Dynamic Actions', href: '/advanced/dynamic-actions' },
-	//		{ title: 'Sign In Widget', href: '/advanced/sign-in-widget' },
-	// 	],
-	// },
 	{
 		title: 'Further Reading',
 		links: [

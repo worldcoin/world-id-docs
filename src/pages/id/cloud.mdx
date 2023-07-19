@@ -6,53 +6,7 @@ This section describes how to verify proofs via the **Developer Portal API**.
   You must first pass the proof to your backend when verifying proofs via the API. The user can manipulate information in the frontend, so you the proof must be verified in a trusted environment.
 </Note>
 
-## Send the Proof to Your Backend
-
-The proof returned from IDKit includes the `merkle_root`, `nullifier_hash`, `proof`, and `credential_type` fields:
-
-```json {{ title: 'ISuccessResult' }}
-{
-    "credential_type": "orb",
-    "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
-    "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
-    "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394..."
-}
-```
-
-Send these fields to your backend along with the action name. It's recommended to do this in the `handleVerify` callback function. Any errors thrown in this function will be displayed to the user in IDKit. 
-
-Here's an example of how to send the proof to your backend. Assume a backend endpoint `/api/verify`:
-
-```tsx {{ title: 'pages/index.tsx' }}
-const handleVerify = async (result: ISuccessResult) => { // called by IDKit
-  // build the request body
-  const reqBody = {
-    merkle_root: result.merkle_root,
-    nullifier_hash: result.nullifier_hash,
-    proof: result.proof,
-    credential_type: result.credential_type,
-    action: process.env.NEXT_PUBLIC_WLD_ACTION_NAME,
-    signal: "",
-  };
-  const res: Response = await fetch("/api/verify", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(reqBody),
-  })
-  const data: VerifyReply = await res.json()
-  if (res.status == 200) {
-    console.log("Verification successful!")
-  } else {
-    throw new Error(`Error code ${res.status} (${data.code}): ${data.detail ?? "Unknown error."}`); // Throw an error if verification fails
-  }
-};
-```
-
-## Verify the Proof in Your Backend
-
-Here our backend receives the proof sent from the frontend, and sends it to the **Developer Portal API** for verification. 
+Our backend should receivee the `proof`, `merkle_root`, `nullifier_hash`, and `credential_type` from IDKit, as well as the same `action` and `signal` as were input into IDKit, and send it to the **Developer Portal API** for verification. 
 The **Developer Portal API** will return a `200` response if the proof is valid, and a `400` response with extra error detail if the proof is invalid.
 We then pass the success or error messages back to our frontend after performing our own backend actions.
 
@@ -63,13 +17,21 @@ export type VerifyReply = {
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<VerifyReply>) {
+  const reqBody = {
+    merkle_root: req.body.merkle_root,
+    nullifier_hash: req.body.nullifier_hash,
+    proof: req.body.proof,
+    credential_type: req.body.credential_type,
+    action: req.body.action, // or get this from environment variables,
+    signal: req.body.signal ?? "", // if we don't have a signal, use the empty string
+  };
   fetch(`https://developer.worldcoin.org/api/v1/verify/${process.env.NEXT_PUBLIC_WLD_APP_ID}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     // note that we pass the body of the request directly to the World ID /verify endpoint
-    body: JSON.stringify(req.body), 
+    body: JSON.stringify(reqBody), 
   }).then((verifyRes) => {
     verifyRes.json().then((wldResponse) => {
       if (verifyRes.status == 200) {

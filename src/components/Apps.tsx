@@ -136,16 +136,7 @@ export const Card: FC<{ app: AppConfig }> = ({ app }) => {
 				</div>
 
 				<div className="flex gap-x-2">
-					{/* {app.githubUrl && (
-						<Link
-							href={app.githubUrl}
-							className="flex items-center justify-center w-9 h-9 bg-gray-100 hover:bg-gray-200/70 transition-colors rounded-full"
-						>
-							<GitHubIcon className="w-5 h-5" />
-						</Link>
-					)} */}
 					<div
-						// href={`/apps/${app.slug}`}
 						className="flex items-center justify-center w-9 h-9 bg-gray-900 hover:bg-gray-900/80 transition-colors rounded-full"
 					>
 						<ArrowIcon className="text-gray-100 h-" />
@@ -191,16 +182,6 @@ export const Item = (props: {
 
 	return (
 		<div className="relative px-6 pt-6 pb-4 border border-gray-200 rounded-lg hover:cursor-pointer hover:scale-105 transition-all" onClick={() => location.href = `/apps/${props.slug}`}>
-			{/* {props.bookmark && (
-				<div className="absolute top-0left-[15px]">
-					<svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path
-							d="M0 0H12V14.0557C12 14.9591 11.0592 15.5546 10.2426 15.1681L6.70526 13.4936C6.25883 13.2823 5.74117 13.2823 5.29474 13.4936L1.75736 15.1681C0.940837 15.5546 0 14.9591 0 14.0557V0Z"
-							fill="#4940E0"
-						/>
-					</svg>
-				</div>
-			)} */}
 			<div className="flex flex-row gap-x-4">
 				<div className="relative shrink-0 !h-[80px] !w-[80px]">
 					<Image className="m-0" src={props.image.sm} alt={props.title} fill objectFit='cover' />
@@ -217,11 +198,9 @@ export const Item = (props: {
 					<div className="text-sm text-gray-500 leading-4 line-clamp-3 max-w-sm">{props.description}</div>
 				</div>
 			</div>
-			{/* <div className="mt-4 text-14 text-gray-500 leading-5 line-clamp-2">{props.description}</div> */}
 			<div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-14 text-primary leading-5 cursor-pointer">
 				{props.tags.map((tag, i) => (
 					<div key={i}>
-						{/* <div key={i} onClick={() => props.onToggleFilter(tag)}> */}
 						{tag}
 					</div>
 				))}

@@ -61,8 +61,7 @@ export const Apps: FC<Props> = props => {
 				height={474}
 			/>
 
-			{/* TODO: update with actual link */}
-			<Link href='https://typeform.com'>
+			<Link href='https://github.com/worldcoin/world-id-docs/blob/main/src/pages/apps/appList.json'>
 				<Button className="px-6 py-4.5 !font-bold leading-3 uppercase rounded-xl">
 					Add your app
 				</Button>

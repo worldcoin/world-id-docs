@@ -65,7 +65,8 @@
 			"description": "The bookmarks of your life. Issue POAPs to humans only. One person, one POAP.",
 			"tags": ["On-chain", "Integration"],
 			"body": "POAPs are a great way to reward people for participating in events, and they are a great way to show off your participation in events. This integration lets you issue POAPs to Worldcoin-verified users only, to ensure your rewards for participants aren't able to sybil-attack the system.",
-			"worldcoin": true
+			"worldcoin": true,
+			"legacy": true
 		},
 
 		{

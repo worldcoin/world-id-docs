@@ -47,6 +47,7 @@ The World ID Router contract is what you should use to verify proofs. It is depl
 ## `hashToField` helper function
 
 We recommend including this helper function in your smart contract. It properly computes the `keccak256` hash used by Semaphore, and is frequently used in the example code below.
+You can find it in our [template repository here](https://github.com/worldcoin/world-id-onchain-template/blob/main/contracts/src/helpers/ByteHasher.sol).
 
 ```solidity
 function hashToField(bytes memory value) internal pure returns (uint256) {

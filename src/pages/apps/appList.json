@@ -112,6 +112,20 @@
 			"tags": ["Hackathon Project", "On-chain", "Integration"],
 			"body": "Many projects make use of ZK-SNARK technology to achieve either scalability or privacy (like Worldcoin). Using groth16 over the curve BN254 is a very common practice, as Ethereum has a precompile for pairings over this curve. The problem is that other chains, like Starknet don't, and they also operate over a different field. Garaga emulates the BN254 curve over the Stark field, being able to perform the 3 pairings needed to verify the groth16 proof. Furthermore, WorldID verification is only accessible on the chains where the Merkle Roots are stored. By using Herodotus we can make the roots available on any Ethereum layer, thus, making WorldID verifiable anywhere.",
 			"worldcoin": false
+		},
+
+		{
+			"slug": "talent-protocol",
+			"url": "https://www.talentprotocol.com/",
+			"image": {
+				"sm": "/images/apps/talent-protocol.jpg",
+				"lg": "/images/apps/talent-protocol-lg.jpg"
+			},
+			"title": "Talent Protocol",
+			"subtitle": "talentprotocol.com",
+			"description": "Connecting web3 builders across Europe and incentivizing them to support each other and grow together.",
+			"tags": ["App", "Integration"],
+			"body": "After signing up for Talent Protocol, a person only needs to click on the “Verify Your Humanity” quest from either their home dashboard or the Quests page (each quest earns a person points by doing things like adding a profile picture, connecting a wallet and subscribing to other members)."
 		}
 	]
 }

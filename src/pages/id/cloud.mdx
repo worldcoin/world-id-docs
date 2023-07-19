@@ -30,7 +30,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Verify
     headers: {
       "Content-Type": "application/json",
     },
-    // note that we pass the body of the request directly to the World ID /verify endpoint
     body: JSON.stringify(reqBody), 
   }).then((verifyRes) => {
     verifyRes.json().then((wldResponse) => {

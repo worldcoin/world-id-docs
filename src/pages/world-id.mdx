@@ -7,7 +7,11 @@ export const sections = [
 
 The protocol to bring global proof of personhood to the internet. {{ className: 'text-2xl' }}
 
-<hr className="my-10" />
+{/* <hr className="my-10" /> */}
+
+<Note>
+	You can find the Protocol Whitepaper at [whitepaper.worldcoin.org](https://whitepaper.worldcoin.org).
+</Note>
 
 ## Introduction {{ className: 'mt-0 uppercase text-sm text-neutral-400 font-normal', anchor: false }}
 
@@ -47,13 +51,12 @@ In broad strokes, this is how World ID works.
 
 5. Project verifies the [ZKP](/advanced/zero-knowledge-proofs), either by using the [API](/anonymous-actions/cloud) or by verifying it [on-chain](/anonymous-actions/on-chain).
 
-## The Protocol
+## Privacy
 
-<Note>
-	You can find the detailed protocol whitepaper [here](https://worldcoin.org/protocol-whitepaper).
-</Note>
-
-At the core of the World ID Protocol is the use of [Semaphore](https://semaphore.appliedzkp.org/). Semaphore is a zk-SNARK based privacy protocol that allows for the creation of anonymous credential systems developed by the Ethereum Foundation. The World ID Protocol uses Semaphore to create distinct anonymity sets for [proof of personhood](/proof-of-personhood).
-
-Currently, personhood credentials are handled as separate Sempahore instances. That means that each credential has its own anonymity set, and is only a list of verified credential holders. No other information is attached on-chain related to the credential (e.g. no biometric information is attached for the biometric credential, or no information about a phone number is attached to a phone credential).
-
+-   World ID offers the highest standards of privacy. The core protocol relies on [Zero-Knowledge Proofs](/advanced/zero-knowledge-proofs) to ensure that **no one** (including core Worldcoin contributors) can:
+    -   Link a user to a specific person (unless they explicitly do so with a third-party app).
+    -   Link users across applications, or even across anonymous actions.
+    -   Know a person's iris code (even if they have verified at an Orb).
+-   World ID can be used without providing personal information. No emails, no social profiles, no names, everything is optional.
+-   The Protocol is self-custodial by default and users are in full control.
+    -   The user's World ID is stored in their device, encrypted, following best practices.

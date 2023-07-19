@@ -6,6 +6,7 @@ import GitHubIcon from '@/components/icons/GitHubIcon'
 import RedirectIcon from '@/components/icons/RedirectIcon'
 import { Button } from '@/components/Button'
 import { apps } from './appList.json'
+import { Note } from '@/components/mdx'
 
 
 export default function Page() {
@@ -18,6 +19,11 @@ export default function Page() {
                 {app.image.lg && <Link href={app.url ?? '#'} className="flex relative aspect-card mb-8">
                     <Image className="absolute inset-0 m-0" src={app.image.lg!} alt={app.title} fill />
                 </Link>}
+                {app.legacy && <Note type="warning">
+                    This app uses an outdated version of the World ID Protocol or SDK and may not work as expected.
+                </Note>
+
+                }
                 <div className="flex flex-row items-center">
                     {!app.image.lg && <Link href={app.url ?? '#'} className="h-[80px] w-[80px] relative aspect-square mr-4">
                         <Image className="m-0" src={app.image.sm} alt={app.title} fill />

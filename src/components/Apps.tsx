@@ -3,8 +3,6 @@ import Image from 'next/image'
 import cn, { clsx } from 'clsx'
 import LogoIcon from '@/components/icons/LogoIcon'
 import { Button } from '@/components/Button'
-import SignInLogoIcon from './icons/SignInLogoIcon'
-import GitHubIcon from '@/components/icons/GitHubIcon'
 import { AllHTMLAttributes, FC, PropsWithChildren, useCallback, useState } from 'react'
 import appList from '../pages/apps/appList.json'
 import ArrowIcon from './icons/ArrowIcon'
@@ -260,4 +258,5 @@ export type AppConfig = {
 	body?: string
 	bookmark?: boolean
 	worldcoin?: boolean
+	legacy?: boolean
 }

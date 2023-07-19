@@ -48,7 +48,8 @@
 			"tags": ["On-chain", "Integration", "Social"],
 			"body": "Lens is a decentralized social network built on the Polygon blockchain. Lens allows you to create a profile that is owned by you and only you. You can use your profile to interact with other Lens users, and you can use it to sign in to other Lens-enabled applications. This integration lets you prove that your Lens profile belongs to a real person.",
 			"bookmark": false,
-			"worldcoin": true
+			"worldcoin": true,
+			"legacy": true
 		},
 
 		{

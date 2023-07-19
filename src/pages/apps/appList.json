@@ -70,10 +70,10 @@
 		{
 			"slug": "worldcoin",
 			"url": "https://worldcoin.org",
-			"githubUrl": "https://github.com/worldcoin/world-id-example-airdrop",
+			"githubUrl": "https://github.com/worldcoin",
 			"image": {
 				"sm": "/images/apps/wld.svg",
-				"lg": ""
+				"lg": "/images/apps/wld-lg.svg"
 			},
 			"title": "Worldcoin",
 			"subtitle": "worldcoin.org",

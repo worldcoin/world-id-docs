@@ -7,7 +7,7 @@ const variantStyles = {
 	primary:
 		'rounded-lg bg-zinc-900 py-1 px-3 text-white hover:bg-zinc-700 dark:bg-emerald-400/10 dark:text-emerald-400 dark:ring-1 dark:ring-inset dark:ring-emerald-400/20 dark:hover:bg-emerald-400/10 dark:hover:text-emerald-300 dark:hover:ring-emerald-300',
 	neutral: 'rounded-lg bg-gray-200 py-1 px-3 text-gray-900 hover:bg-gray-100/60',
-	text: 'text-primary hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-primary',
+	text: 'text-primary dark:text-emerald-400 dark:hover:text-primary',
 }
 
 type Props = PropsWithChildren<

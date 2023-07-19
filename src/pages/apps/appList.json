@@ -63,7 +63,7 @@
 			"subtitle": "poap.worldcoin.org",
 			"description": "The bookmarks of your life. Issue POAPs to humans only. One person, one POAP.",
 			"tags": ["On-chain", "Integration"],
-			"body": "POAPs have become a big part of the web3 community. They are a great way to reward people for participating in events, and they are a great way to show off your participation in events. This integration lets you issue POAPs to Worldcoin-verified users only, to ensure your rewards for participants aren't able to sybil-attack the system.",
+			"body": "POAPs are a great way to reward people for participating in events, and they are a great way to show off your participation in events. This integration lets you issue POAPs to Worldcoin-verified users only, to ensure your rewards for participants aren't able to sybil-attack the system.",
 			"worldcoin": true
 		},
 
@@ -72,14 +72,14 @@
 			"url": "https://worldcoin.org",
 			"githubUrl": "https://github.com/worldcoin/world-id-example-airdrop",
 			"image": {
-				"sm": "/images/apps/hyperdrop.svg",
+				"sm": "/images/apps/wld.svg",
 				"lg": ""
 			},
 			"title": "Worldcoin",
 			"subtitle": "worldcoin.org",
 			"description": "The first token to be globally and freely distributed to people, just for being a unique individual.",
 			"tags": ["On-chain", "App"],
-			"body": "Worldcoin is distributed to individuals who've verified that they're a unique human at the Orb. This was the core use case for which World ID was developed.",
+			"body": "Worldcoin is building the world's largest identity and financial network as a public utility, giving ownership to everyone.",
 			"worldcoin": true
 		},
 
@@ -94,6 +94,7 @@
 			"subtitle": "mitschabaude/mina-world-id",
 			"description": "Implementing the World ID system in snarkyjs, making PoP available for Mina smart contracts.",
 			"tags": ["Hackathon Project", "On-chain", "Integration"],
+			"body": "This project is an exploration in what it takes to make World IDs - the proofs of personhood (PoP) issues by Worldcoin - available on Mina zkApps. We ported Semaphore to snarkyjs and create an e2e demo by adding a mock sequencer (which maintains the PoP Merkle tree) and a demo UI showing 2 simple PoP use cases.",
 			"worldcoin": false
 		},
 
@@ -108,6 +109,7 @@
 			"subtitle": "HerodotusDev/starksight-zkhack",
 			"description": "Using Herodotus to make World ID verifiable on Starknet.",
 			"tags": ["Hackathon Project", "On-chain", "Integration"],
+			"body": "Many projects make use of ZK-SNARK technology to achieve either scalability or privacy (like Worldcoin). Using groth16 over the curve BN254 is a very common practice, as Ethereum has a precompile for pairings over this curve. The problem is that other chains, like Starknet don't, and they also operate over a different field. Garaga emulates the BN254 curve over the Stark field, being able to perform the 3 pairings needed to verify the groth16 proof. Furthermore, WorldID verification is only accessible on the chains where the Merkle Roots are stored. By using Herodotus we can make the roots available on any Ethereum layer, thus, making WorldID verifiable anywhere.",
 			"worldcoin": false
 		}
 	]

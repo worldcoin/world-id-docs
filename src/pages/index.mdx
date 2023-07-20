@@ -1,62 +1,51 @@
-export const sections = [
-	{ title: 'How it Works', id: 'how-it-works' },
-	{ title: 'Use Cases', id: 'use-cases' },
-]
+<span className="mb-9 mt-4 flex rounded-3xl bg-gray-900 bg-[url('/images/docs/announcement-texture.png')] bg-repeat px-8 py-1 text-white">
+	<span className="grow">
+		<span className="block text-lg font-bold">World ID SDK now publicly available</span>
+		The SDK is now available for public use. Read the announcement and start building now.
+	</span>
+	<span className="flex items-center justify-end pl-6">
+		<a
+			className="m-0 rounded-lg bg-white px-4 py-2 text-gray-900 no-underline hover:no-underline"
+			href="http://worldcoin.org/blog/product/wait-over-worldcoin-world-id-sdk-publicly-available"
+			target="_blank"
+		>
+			<p className="m-0 p-0 font-medium hover:no-underline">Announcement</p>
+		</a>
+	</span>
+</span>
 
-# World ID {{ className: 'uppercase text-5xl' }}
+# Developer Docs {{ className: 'text-5xl' }}
 
-The protocol to bring global proof of personhood to the internet. {{ className: 'text-2xl' }}
+Building the world's largest identity and financial network as a public utility, giving ownership to everyone. {{ className: 'text-2xl' }}
 
 <hr className="my-10" />
 
-## Introduction {{ className: 'mt-0 uppercase text-sm text-neutral-400 font-normal', anchor: false }}
+![World App](/images/docs/introduction/world-app.png)
 
-World ID is a digital passport that lets a user prove they are a unique and real person while remaining anonymous. This happens through [zero-knowledge proofs](/advanced/zero-knowledge-proofs) (ZKP) and other privacy-preserving cryptographic mechanisms.
+<span className="grid lg:grid-flow-col gap-8">
+<Col>
+	## World App
+	enables payment, purchases and transfers globally using the Worldcoin token, digital assets and traditional currencies.
 
-You can easily integrate World ID in your app and smart contract or backend. World ID holders can easily and anonymously verify they are a unique human through a compatible identity wallet, like the [World App](https://worldcoin.org/download).
+    [Learn more](https://worldcoin.org/world-app).
 
-![Person using Sign In with Worldcoin](/images/docs/introduction/worldcoin-sign-in.jpg)
+</Col>
 
-<div className="grid gap-y-4">
-	<Steps
-		borders
-		steps={[
-			<span>
-				You integrate <a href="/id/sign-in">Sign in with Worldcoin</a> or <a href="/idkit">IDKit JS</a>.
-			</span>,
-			<span>Your app connects to the user's wallet and requests verification</span>,
-			<span>
-				User verifies with a <a href="/advanced/zero-knowledge-proofs">ZKP</a>, using their World ID
-				credentials.
-			</span>,
-		]}
-	/>
-</div>
+<Col>
+	## Worldcoin Token
+	the first token (WLD) to be globally and freely distributed to people, for both utility and future governance, just for
+	being a unique individual.
 
-<Note title="FYI">
-	World ID is currently in **Beta** and some functionality might change. Please help us improve by sharing
-	[feedback](https://worldcoin.org/discord). Join the waitlist for the SDK [here](https://docs.worldcoin.org/waitlist).
-</Note>
+    [Learn more](https://worldcoin.org/).
 
-## How it works
+</Col>
 
-In broad strokes, this is how World ID works.
+<Col>
+	## World ID
+	digital identity that proves you are a real and unique person while fully protecting your privacy.
+	<div className="mt-12">
+    	[Learn more](https://worldcoin.org/world-id).
+	</div>
 
-1. User gets their World ID in a compatible wallet (e.g. the [World App](https://worldcoin.org/download)).
-
-2. User receives credentials in their World ID. The flagship credential is biometric verification, currently available by using the [Orb](https://worldcoin.org/blog/engineering/opening-orb-look-inside-worldcoin-biometric-imaging-device). The user can also verify their phone number to obtain the respective credential.
-
-3. Project [integrates with World ID](/quick-start).
-
-4. User connects their World ID to authenticate, and optionally prove they are a unique human doing something only once. The user's wallet will generate a [ZKP](/advanced/zero-knowledge-proofs) to accomplish this.
-
-5. Project verifies the [ZKP](/advanced/zero-knowledge-proofs), either by using the [API](/api) or by verifying it [on-chain](/advanced/on-chain).
-
-## Use cases
-
-World ID unlocks a vast number of applications and use cases. You can find a list of community-curated ideas [here](/use-cases).
-
-<Note>
-	Spot an error in these docs? Worldcoin docs are open source (same as the protocol) too and contributions are highly
-	welcomed. Open a PR in [GitHub](https://github.com/worldcoin/world-id-docs).
-</Note>
+</Col>
+</span>

@@ -2,13 +2,13 @@ import 'focus-visible'
 import Head from 'next/head'
 import '@/styles/styles.css'
 import posthog from 'posthog-js'
+import Script from 'next/script'
 import { NextSeo } from 'next-seo'
-import Clippy from 'clippy-widget'
 import { AppProps } from 'next/app'
 import { Sora } from 'next/font/google'
 import { MDXProvider } from '@mdx-js/react'
 import { Layout } from '@/components/Layout'
-import { FC, useEffect, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import { usePostHog } from '@/lib/use-posthog'
 import { Router, useRouter } from 'next/router'
 import * as mdxComponents from '@/components/mdx'
@@ -22,8 +22,9 @@ Router.events.on('routeChangeStart', onRouteChange)
 Router.events.on('hashChangeStart', onRouteChange)
 
 const sora = Sora({
-	subsets: ['latin'],
 	style: ['normal'],
+	subsets: ['latin'],
+	variable: '--font-sora',
 	weight: ['400', '600', '700'],
 })
 
@@ -57,7 +58,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 	}, [pagesWithoutLayout, router.pathname])
 
 	return (
-		<>
+		<div className={sora.variable}>
 			<NextSeo
 				title={title}
 				description={pageProps.description}
@@ -110,9 +111,9 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 				]}
 			/>
 
-			{process.env.NODE_ENV === 'production' && <Clippy theme="light" />}
-
+			{/* {process.env.NODE_ENV === 'production' && <Clippy theme="light" />} */}
 			{/* @ts-ignore */}
+
 			<MDXProvider components={mdxComponents}>
 				{hasLayout && (
 					<Layout {...pageProps}>
@@ -123,12 +124,33 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 				{!hasLayout && <Component {...pageProps} />}
 			</MDXProvider>
 
-			<style jsx global>{`
-				:root {
-					--font-sora: ${sora.style.fontFamily};
-				}
-			`}</style>
-		</>
+			{process.env.NEXT_PUBLIC_COOKIEPRO_DOMAIN_SCRIPT && (
+				<Script
+					src="https://cookie-cdn.cookiepro.com/scripttemplates/otSDKStub.js"
+					type="text/javascript"
+					data-domain-script={process.env.NEXT_PUBLIC_COOKIEPRO_DOMAIN_SCRIPT}
+					async
+				/>
+			)}
+
+			{process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
+				<>
+					<Script
+						async
+						src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}
+					/>
+					<Script id="google-analytics">
+						{`
+							window.dataLayer = window.dataLayer || [];
+							function gtag(){dataLayer.push(arguments);}
+							gtag('js', new Date());
+
+							gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}');
+							`}
+					</Script>
+				</>
+			)}
+		</div>
 	)
 }
 

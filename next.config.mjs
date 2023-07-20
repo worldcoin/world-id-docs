@@ -24,27 +24,32 @@ const nextConfig = {
 		return [
 			{
 				source: '/js',
-				destination: '/idkit',
+				destination: '/reference/idkit',
+				permanent: true,
+			},
+			{
+				source: '/id',
+				destination: '/id/anonymous-actions',
 				permanent: true,
 			},
 			{
 				source: '/js/:slug',
-				destination: '/idkit/:slug',
+				destination: '/reference/idkit/:slug',
 				permanent: true,
 			},
 			{
 				source: '/protocol',
-				destination: '/id/protocol',
+				destination: '/advanced/protocol',
 				permanent: false,
 			},
 			{
 				source: '/test',
-				destination: '/id/testing',
+				destination: '/quick-start/testing',
 				permanent: false,
 			},
 			{
 				source: '/simulator',
-				destination: '/id/testing',
+				destination: '/quick-start/testing',
 				permanent: false,
 			},
 			{
@@ -57,18 +62,13 @@ const nextConfig = {
 				destination: '/advanced/zero-knowledge-proofs',
 				permanent: false,
 			},
-			{
-				source: '/waitlist',
-				destination: 'https://toolsforhumanity.typeform.com/sdk-waitlist',
-				permanent: true,
-			},
 		]
 	},
 	async rewrites() {
 		return [
 			{
 				source: '/api/:slug*',
-				destination: '/api-docs/:slug*',
+				destination: '/reference/api/:slug*',
 			},
 		]
 	},

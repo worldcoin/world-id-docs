@@ -224,17 +224,15 @@ export const UseCasesList: FC<{}> = () => {
 						heading="Start building"
 						description="The Quick Start is the easiest place to start"
 					/>
-
-					<LinkCard
-						href="https://worldcoin.org/grants"
-						heading="Worldcoin Grants"
-						description="Grants by the Worldcoin Foundation are coming soon."
-					/>
-
 					<LinkCard
 						href="https://worldcoin.org/discord"
 						heading="Join our Discord community"
-						description="Jam on ideas, see what others are building, ask questions. Look for the #developers channel."
+						description="Jam on ideas, see what others are building, ask questions. Look for the #sdk-developers channel."
+					/>
+					<LinkCard
+						href="https://github.com/worldcoin"
+						heading="Contribute on GitHub"
+						description="PR's are always appreciated for bugfixes, features, and documentation improvements."
 					/>
 				</div>
 			</div>

@@ -21,7 +21,7 @@
 		"@sindresorhus/slugify": "^2.1.1",
 		"@tailwindcss/typography": "^0.5.8",
 		"@vercel/og": "^0.5.7",
-		"@worldcoin/idkit": "^0.4.6",
+		"@worldcoin/idkit": "^0.5.1",
 		"acorn": "^8.8.1",
 		"autoprefixer": "^10.4.7",
 		"clippy-widget": "^0.1.27",

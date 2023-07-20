@@ -14,25 +14,6 @@ const useInitialValue = <T,>(value: T, condition = true): T => {
 	return condition ? initialValue : value
 }
 
-const TopLevelNavItem: FC<
-	PropsWithChildren<{
-		href: string
-		target?: string
-	}>
-> = ({ href, children, target }) => {
-	return (
-		<li className="md:hidden">
-			<Link
-				href={href}
-				target={target}
-				className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white block py-1 text-sm transition"
-			>
-				{children}
-			</Link>
-		</li>
-	)
-}
-
 const NavLink: FC<
 	PropsWithChildren<{
 		href: string
@@ -186,46 +167,40 @@ export const navigation = [
 	{
 		title: 'Introduction',
 		links: [
-			{ title: 'Home', href: '/' },
-			{ title: 'Quick Start', href: '/quick-start' },
-			{ title: 'Try it Out', href: '/try' },
+			{ title: 'World ID Overview', href: '/world-id' },
 			{ title: 'Use Cases', href: '/use-cases' },
 			{ title: 'Apps & Integrations', href: '/apps' },
+			{ title: 'Try it Out', href: '/try' },
+			{ title: 'Quick Start', href: '/quick-start' },
 		],
 	},
 	{
 		title: 'World ID',
 		links: [
-			{ title: 'Overview', href: '/id' },
-			{ title: 'Proof of Personhood', href: '/id/proof-of-personhood' },
-			{ title: 'Sign In', href: '/id/sign-in' },
+			{ title: 'Sign In with Worldcoin', href: '/id/sign-in' },
 			{ title: 'Anonymous Actions', href: '/id/anonymous-actions' },
-			{ title: 'Testing', href: '/id/testing' },
+			{ title: 'Intro to IDKit', href: '/id/idkit' },
+			{ title: 'Cloud Verification', href: '/id/cloud' },
+			{ title: 'On-Chain Verification', href: '/id/on-chain' },
 		],
 	},
 	{
-		title: 'IDKit',
+		title: 'Technical Reference',
 		links: [
-			{ title: 'Introduction', href: '/idkit' },
-			{ title: 'Reference', href: '/idkit/reference' },
+			{ title: 'IDKit Reference', href: '/reference/idkit' },
+			{ title: 'API Reference', href: '/reference/api' },
+			{ title: 'Sign In Reference', href: '/reference/sign-in' },
+			{ title: 'Smart Contracts', href: '/reference/contracts' },
+			{ title: 'Address Book', href: '/reference/address-book' },
 		],
 	},
 	{
-		title: 'Advanced',
+		title: 'Further Reading',
 		links: [
-			{ title: 'On-Chain', href: '/advanced/on-chain' },
-			{ title: 'Privacy', href: '/advanced/privacy' },
-			{ title: 'Zero-Knowledge Proofs', href: '/advanced/zero-knowledge-proofs' },
-			{ title: 'Protocol Internals', href: '/advanced/protocol-internals' },
-		],
-	},
-	{
-		title: 'API',
-		links: [
-			{ title: 'Introduction', href: '/api' },
-			{ title: 'Reference', href: '/api/reference' },
-			{ title: 'Sign In Reference', href: '/api/sign-in-reference' },
-			{ title: 'Internal Endpoints', href: '/api/internal-endpoints' },
+			{ title: 'Proof of Personhood', href: '/proof-of-personhood' },
+			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
+			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
+			{ title: 'Zero-Knowledge Proofs', href: '/further-reading/zero-knowledge-proofs' },
 		],
 	},
 ] as const

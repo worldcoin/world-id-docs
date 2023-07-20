@@ -1,10 +1,18 @@
 # API Reference
 
+The Worldcoin Developer Portal offers an API to enable easy verification of World IDs and relevant credentials.
+
+### Base URL
+
+```
+https://developer.worldcoin.org
+```
+
 ## Verify Proof {{ tag: "POST", label: "/v1/verify/{app_id}" }}
 
 <Row><Col>
 
-Enables you to verify a World ID proof for a **Cloud action.** To ensure [human-uniqueness](/about/protocol#proof-of-uniqueness), a single person can only verify once for every action. If you send a proof for the same user twice, an error will be returned.
+Enables you to verify a World ID proof for a **Cloud action.** To ensure [human-uniqueness](/proof-of-personhood), a single person can only verify once for every action. If you send a proof for the same user twice, an error will be returned.
 
 ### Required attributes
 
@@ -105,12 +113,13 @@ fetch(apiUrl, {
 }
 ```
 
-````json {{ title: "400 User Exceeded Maximum Verifications" }}
+```json {{ title: "400 User Exceeded Maximum Verifications" }}
 {
     "code": "exceeded_max_verifications",
     "detail": "This user has exceeded the maximum number of verifications allowed for this proof.",
     "attribute": null
 }
+```
 
 ```json {{ title: "400 User Already Verified" }}
 {
@@ -118,7 +127,7 @@ fetch(apiUrl, {
     "detail": "This person has already verified for this action.",
     "attribute": null
 }
-````
+```
 
 </CodeGroup>
 
@@ -246,6 +255,20 @@ fetch('/api/v1/jwks')
 {/* cSpell:enable */}
 
 </Col></Row>
+
+# Authenticated Endpoints
+
+### API Keys
+
+<Note>You can generate API Keys on the **My Team** page of the Developer Portal.</Note>
+
+-   API keys are intended for use by third-party applications and for server-to-server communication. They are long-lived and can be revoked at any time.
+-   API keys are scoped to a team and have full permissions for any actions as any user of the Developer Portal.
+-   Once you have an API key, use it as the value of the `Authorization` header in your requests. For example:
+
+```
+Authorization: Bearer $API_KEY
+```
 
 ## GraphQL {{ tag: "POST", label: "/v1/graphql" }}
 

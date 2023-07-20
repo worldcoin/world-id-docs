@@ -49,9 +49,9 @@ export const Row: FC<PropsWithChildren<{}>> = ({ children }) => (
 )
 
 export const Col: FC<PropsWithChildren<{ sticky?: boolean }>> = ({ children, sticky = false }) => (
-	<div className={clsx('[&>:first-child]:mt-0 [&>:last-child]:mb-0', sticky && 'xl:sticky xl:top-24')}>
+	<span className={clsx('block [&>:first-child]:mt-0 [&>:last-child]:mb-0', sticky && 'xl:sticky xl:top-24')}>
 		{children}
-	</div>
+	</span>
 )
 
 export const Properties: FC<PropsWithChildren<{}>> = ({ children }) => (

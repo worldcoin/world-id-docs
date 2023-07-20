@@ -2,7 +2,6 @@ import 'focus-visible'
 import Head from 'next/head'
 import '@/styles/styles.css'
 import posthog from 'posthog-js'
-import Clippy from 'clippy-widget'
 import { FC, useMemo } from 'react'
 import { AppProps } from 'next/app'
 import { Sora } from 'next/font/google'
@@ -21,8 +20,9 @@ Router.events.on('routeChangeStart', onRouteChange)
 Router.events.on('hashChangeStart', onRouteChange)
 
 const sora = Sora({
-	subsets: ['latin'],
 	style: ['normal'],
+	subsets: ['latin'],
+	variable: '--font-sora',
 	weight: ['400', '600', '700'],
 })
 
@@ -56,7 +56,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 	}, [pagesWithoutLayout, router.pathname])
 
 	return (
-		<>
+		<div className={sora.variable}>
 			<Head>
 				<title>{title}</title>
 				<meta name="description" content={pageProps.description} />
@@ -78,13 +78,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 
 				{!hasLayout && <Component {...pageProps} />}
 			</MDXProvider>
-
-			<style jsx global>{`
-				:root {
-					--font-sora: ${sora.style.fontFamily};
-				}
-			`}</style>
-		</>
+		</div>
 	)
 }
 

@@ -7,7 +7,7 @@ import DiscordIcon from './icons/DiscordIcon'
 import { navigation } from '@/components/Navigation'
 import { FC, PropsWithChildren, SVGAttributes } from 'react'
 
-const PageLink: FC<{
+export const PageLink: FC<{
 	label: string
 	page: { href: string; title: string; section: string }
 	previous?: boolean

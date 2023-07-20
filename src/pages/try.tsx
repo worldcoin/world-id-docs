@@ -230,7 +230,7 @@ const Try = (): JSX.Element => {
 	const {
 		register,
 		watch,
-		formState: { errors, dirtyFields },
+		formState: { errors },
 		control,
 	} = useForm<{
 		signInEnvironment: Environment
@@ -239,12 +239,13 @@ const Try = (): JSX.Element => {
 		// maxVerifications: 0 | 1 | 2 | 3 FIXME: Enable when dynamic maxVerifications is supported
 		credentialTypes: Array<CredentialType>
 	}>({
-		mode: 'onChange',
+		mode: 'all',
 		defaultValues: {
 			signInEnvironment: 'production',
 			testingEnvironment: 'production',
+			action: 'test-action',
 			// maxVerifications: 1, FIXME: Enable when dynamic maxVerifications is supported
-			credentialTypes: [],
+			credentialTypes: [CredentialType.Orb],
 		},
 	})
 
@@ -261,10 +262,8 @@ const Try = (): JSX.Element => {
 	const isTestingWidgetValid = useMemo(
 		() =>
 			!errors.action &&
-			!errors.credentialTypes &&
-			Boolean(dirtyFields.action) &&
-			Boolean(dirtyFields.credentialTypes),
-		[dirtyFields.action, dirtyFields.credentialTypes, errors.action, errors.credentialTypes]
+			!errors.credentialTypes,
+		[errors.action, errors.credentialTypes]
 	)
 
 	const authLink = useMemo(() => {
@@ -291,14 +290,14 @@ const Try = (): JSX.Element => {
 	return (
 		<div>
 			<h1>Try It Out</h1>
-			<p className="text-gray-900 font-medium text-base">Want to see World ID in action? Check it out below</p>
+			<p className="text-gray-900 font-medium text-base">Want to see World ID in action? Check it out below.</p>
 
 			<hr className="text-gray-100" />
 
 			<div>
 				<Section
 					heading="Sign in with Worldcoin"
-					description="Try authentication with World ID using the OpenID Connector (OIDC) standard. You can easily integrate with existing SSO systems (like Okta, OneLogin, Azure AD, and many more) or roll out your own authentication."
+					description="Try authentication with World ID using the OpenID Connect (OIDC) standard. You can use our integration on the Auth0 Marketplace, easily integrate with existing SSO systems (like Okta, OneLogin, Azure AD, and many others), or roll out your own authentication."
 				/>
 
 				<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
@@ -348,7 +347,7 @@ const Try = (): JSX.Element => {
 					>
 						<LogoIcon />
 						<span className="text-base leading-normal font-sora font-semibold">
-							Continue with Worldcoin
+							Sign In with Worldcoin
 						</span>
 					</Link>
 				)}
@@ -358,14 +357,14 @@ const Try = (): JSX.Element => {
 
 			<Section
 				heading="Anonymous Actions"
-				description={`Last step is test your entire integration. Open the JS widget where you'll see a QR code (or "Open Worldcoin app" button if on mobile).`}
+				description={'Here you can test out various Anonymous Actions configurations, including ones that will fail (such as a phone-verified user attemping an action requiring Orb verification).'}
 				steps={[
-					'Choose between Staging or Production, this will enable the “Continue with Worldcoin”.',
-					'Input the name of the action',
-					'Select max number of verifications per person',
+					'Choose between Staging or Production.',
+					'Input the name of the action.',
+					// 'Select max number of verifications per person',
 					'Choose what type of credentials you want to accept. You can have both Orb and Phone, or only one.',
-					'Tap on “Continue with Worldcoin”.',
-					'Follow the steps in “Continue with Worldcoin” flow.',
+					'Tap on "Continue with Worldcoin."',
+					'Follow the steps in "Continue with Worldcoin" flow.',
 				]}
 			/>
 
@@ -416,6 +415,7 @@ const Try = (): JSX.Element => {
 						{...register('action', { required: true })}
 						className="border border-gray-200 rounded-xl p-3 placeholder:text-gray-400"
 						placeholder="Change this to simulate different actions"
+						defaultValue="test-action"
 					/>
 				</div>
 
@@ -475,7 +475,7 @@ const Try = (): JSX.Element => {
 				</div>
 			</div>
 
-			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
+			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12 mb-4">
 				Step 3 • this is what your users see
 			</div>
 

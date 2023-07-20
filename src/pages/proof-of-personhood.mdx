@@ -7,7 +7,7 @@ import { Link } from '@/components/Link'
 
 Building a global, scalable and inclusive proof of personhood system is at the core of World ID. Whenever World ID is used, whether through [Sign In with Worldcoin](/id/sign-in) or [Anonymous Actions](/id/anonymous-actions), the verifier app can additionally request information from the user related to their proof of personhood. The user can then choose to share that information.
 
-**Maximum privacy**. Given that proof of personhood is about just proving someone is human, and not who they are, proof of personhood is handled with the highest privacy standard. Users share their proof of personhood **anonymously**. Each credential is issued in an independent set, with no other information attached (more on [The Protocol](/id/protocol)).
+**Maximum privacy**. Given that proof of personhood is about just proving someone is human, and not who they are, proof of personhood is handled with the highest privacy standard. Users share their proof of personhood **anonymously**. Each credential is issued in an independent set, with no other information attached (more on [The Protocol](/world-id/protocol)).
 
 **Multiple credentials**. Proof of personhood is not a binary yes or no in the digital world, but rather a **spectrum**. Multiple signals can contribute to determine where a potential user falls on the spectrum. In the World ID Protocol multiple credentials are used as input signals for proof of personhood. The choice of credentials is a trade-off that apps and users must decide on. Weaker credentials will generally be easier for users to obtain but more easily spoofed or sybil attacked.
 
@@ -19,7 +19,7 @@ Building a global, scalable and inclusive proof of personhood system is at the c
 
 <Note title="caution" type="info">
 	The choice of which credentials to accept is up to the app (easily configured on
-	[IDKit](/idkit/reference#parameters)).
+	[IDKit](/reference/idkit#parameters)).
 </Note>
 
 The best way to determine which credentials to use is to consider the use case. As an app, you want to ensure that your network is protected while avoiding locking out real users. **A good rule of thumb is to pick the minimal credential for which the cost of sybil attacking is higher than the received benefit**. For instance, if you're giving away a promotion valued at $250, using the phone credential is not a good idea as it will be beneficial to sybil attack it. However, if the value of the action is a few cents, the phone credential is enough.
@@ -49,7 +49,7 @@ This list will continue to grow as more credentials are supported for proof of p
       <td className="align-middle">Unique device check and unique phone number verification.</td>
       <td className="align-middle">Weak</td>
       <td className="align-middle">
-        <Tag color="amber">STAGING</Tag>
+      <td className="align-middle"><Tag>PRODUCTION</Tag> <Tag color="amber">STAGING</Tag></td>
       </td>
     </tr>
     <tr>

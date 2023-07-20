@@ -4,11 +4,11 @@ import '@/styles/styles.css'
 import posthog from 'posthog-js'
 import { NextSeo } from 'next-seo'
 import Clippy from 'clippy-widget'
-import { FC, useMemo } from 'react'
 import { AppProps } from 'next/app'
 import { Sora } from 'next/font/google'
 import { MDXProvider } from '@mdx-js/react'
 import { Layout } from '@/components/Layout'
+import { FC, useEffect, useMemo } from 'react'
 import { usePostHog } from '@/lib/use-posthog'
 import { Router, useRouter } from 'next/router'
 import * as mdxComponents from '@/components/mdx'
@@ -56,56 +56,6 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 		return true
 	}, [pagesWithoutLayout, router.pathname])
 
-	const ogImagesSizes = useMemo(
-		() => [
-			{ width: 109, height: 109 },
-			{ width: 138, height: 72 },
-			{ width: 180, height: 94 },
-			{ width: 180, height: 110 },
-			{ width: 250, height: 250 },
-			{ width: 355, height: 225 },
-			{ width: 360, height: 123 },
-			{ width: 407, height: 213 },
-			{ width: 502, height: 264 },
-			{ width: 896, height: 512 },
-			{ width: 1024, height: 512 },
-			{ width: 1600, height: 900 },
-			{ width: 1920, height: 1080 },
-		],
-		[]
-	)
-
-	const ogImages = useMemo(() => {
-		const isHomePage = router.pathname === '/'
-
-		if (isHomePage) {
-			return ogImagesSizes.map(({ width, height }) => ({
-				url: `/images/og/default/${width}x${height}.png`,
-				width,
-				height,
-				alt: `Worldcoin Docs`,
-			}))
-		}
-
-		return ogImagesSizes.map(({ width, height }) => {
-			if (width === 1920 && height === 1080) {
-				return {
-					url: `/images/og${router.pathname}.png`,
-					width: 1920,
-					height: 1080,
-					alt: 'Worldcoin Docs',
-				}
-			}
-
-			return {
-				url: `/images/og/default/${width}x${height}.png`,
-				width,
-				height,
-				alt: `Worldcoin Docs`,
-			}
-		})
-	}, [ogImagesSizes, router.pathname])
-
 	return (
 		<>
 			<NextSeo
@@ -116,7 +66,16 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 					description: pageProps.description,
 					type: 'website',
 					site_name: 'Worldcoin Docs',
-					images: ogImages,
+					images: [
+						{
+							url: `/api/og?category=${pageProps.title}&title=${pageProps.title}&description=${
+								pageProps.description ?? pageProps.title
+							}`,
+							width: 1920,
+							height: 1080,
+							alt: 'Worldcoin Docs',
+						},
+					],
 				}}
 				twitter={{
 					cardType: 'summary_large_image',

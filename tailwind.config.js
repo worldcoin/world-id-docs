@@ -48,7 +48,7 @@ module.exports = {
 				accents: {
 					info: {
 						700: '#506DFF',
-					}
+					},
 				},
 				gray: {
 					25: '#FBFBFC',

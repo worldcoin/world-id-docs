@@ -9,7 +9,7 @@ const NotFound = (): JSX.Element => {
 			<div className="grid gap-y-3">
 				<h1 className="mb-0 text-[28px] text-gray-900">Sorry, this page can’t be found</h1>
 				<p className="my-0 max-w-md text-base leading-tight text-gray-900">
-					We are here to infinity and beyond exploring the outer space but still can’t find your page.
+					This page may have been moved or deleted. Be sure to check your spelling.
 				</p>
 			</div>
 

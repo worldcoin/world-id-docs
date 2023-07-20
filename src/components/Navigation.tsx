@@ -14,25 +14,6 @@ const useInitialValue = <T,>(value: T, condition = true): T => {
 	return condition ? initialValue : value
 }
 
-const TopLevelNavItem: FC<
-	PropsWithChildren<{
-		href: string
-		target?: string
-	}>
-> = ({ href, children, target }) => {
-	return (
-		<li className="md:hidden">
-			<Link
-				href={href}
-				target={target}
-				className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white block py-1 text-sm transition"
-			>
-				{children}
-			</Link>
-		</li>
-	)
-}
-
 const NavLink: FC<
 	PropsWithChildren<{
 		href: string
@@ -186,25 +167,19 @@ export const navigation = [
 	{
 		title: 'Introduction',
 		links: [
-			{ title: 'Home', href: '/' },
 			{ title: 'World ID Overview', href: '/world-id' },
 			{ title: 'Use Cases', href: '/use-cases' },
 			{ title: 'Apps & Integrations', href: '/apps' },
 			{ title: 'Try it Out', href: '/try' },
-		],
-	}, 
-	{
-		title: 'Quick Start',
-		links: [
-			{ title: 'Integration Guide', href: '/quick-start' },
+			{ title: 'Quick Start', href: '/quick-start' },
 		],
 	},
 	{
 		title: 'World ID',
 		links: [
 			{ title: 'Sign In with Worldcoin', href: '/id/sign-in' },
-			{ title: 'Anonymous Actions Overview', href: '/id/anonymous-actions' },
-			{ title: 'Get Started with IDKit', href: '/id/idkit' },
+			{ title: 'Anonymous Actions', href: '/id/anonymous-actions' },
+			{ title: 'Intro to IDKit', href: '/id/idkit' },
 			{ title: 'Cloud Verification', href: '/id/cloud' },
 			{ title: 'On-Chain Verification', href: '/id/on-chain' },
 		],
@@ -212,9 +187,9 @@ export const navigation = [
 	{
 		title: 'Technical Reference',
 		links: [
-			{ title: 'IDKit', href: '/reference/idkit' },
-			{ title: 'API', href: '/reference/api' },
-			{ title: 'Sign In with Worldcoin', href: '/reference/sign-in' },
+			{ title: 'IDKit Reference', href: '/reference/idkit' },
+			{ title: 'API Reference', href: '/reference/api' },
+			{ title: 'Sign In Reference', href: '/reference/sign-in' },
 			{ title: 'Smart Contracts', href: '/reference/contracts' },
 			{ title: 'Address Book', href: '/reference/address-book' },
 		],

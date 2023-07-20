@@ -24,11 +24,11 @@ The `IDKitWidget` component is the main component that renders the World ID widg
     >
       {({ open }) => <button onClick={open}>Verify with World ID</button>}
     </IDKitWidget>
-    ```
-{/* 
+```
+{/*
 ### `SignInWithWorldID`
 
-The `SignInWithWorldID` component is a wrapper around the `IDKitWidget` component that renders the World ID widget with some parameters preset for Sign in with Worldcoin. Please see the [Sign In Widget page](/advanced/sign-in-widget) for usage details. 
+The `SignInWithWorldID` component is a wrapper around the `IDKitWidget` component that renders the World ID widget with some parameters preset for Sign in with Worldcoin. Please see the [Sign In Widget page](/advanced/sign-in-widget) for usage details.
 
 ### `SignInButton`
 
@@ -169,11 +169,11 @@ The `errorResult` object that is returned in the Promise rejection has the follo
 }
 ```
 
-<Note>When debugging, we always recommend you also check the Javascript console for any additional details.</Note>
+<Note>When debugging, check the Javascript console for any additional details.</Note>
 
 <Note>
-	If you enable telemetry, any errors will be reported to help us proactively detect and fix any bugs. If you are
-	running into an issue and don't have telemetry enabled, we recommend enabling it so the error can be reported.
+	If you enable telemetry, any errors will be reported to help proactively detect and fix any bugs. If you are running
+	into an issue and don't have telemetry enabled, please report any bugs.
 </Note>
 
 ### Error codes
@@ -238,29 +238,29 @@ The JS package may return any of the following error codes.
 
 ## Telemetry
 
-The Javascript package comes bundled with optional **opt-in** telemetry. Receiving these telemetry events from the package helps us understand how the product is being used so we can improve it. Additionally, any bugs that are found are automatically detected so we can proactively work on fixing them.
+The Javascript package comes bundled with optional **opt-in** telemetry. Receiving these telemetry events from the package helps us understand how the product is being used so it can be improved.
 
--   We **don't capture any PII**, neither from the developer, nor end users. Not even the IP address. It's all anonymous analytics.
--   When a telemetry event is received, we use the IP address to obtain a rough location (country, state/province, city) using the [MaxMind](https://github.com/maxmind) database through [PostHog][posthog], the IP address is immediately discarded and not stored anywhere.
--   We don't store anything on the device running the World ID widget. **No cookies, no local storage, nothing.**
--   **We don't do fingerprinting** or any other mechanism to attempt to identify users cross-browser or cross-device.
--   All telemetry events are captured using [PostHog](https://github.com/posthog/posthog), an open-source product analytics library. We'll likely be looking into moving to our own self-hosted PostHog version in the future.
+-   **PII is not captured**, neither from the developer, nor end users. Not even the IP address. It's all anonymous analytics.
+-   When a telemetry event is received, the IP address is used to obtain a rough location (country, state/province, city) using the [MaxMind](https://github.com/maxmind) database through [PostHog][posthog], the IP address is immediately discarded and not stored.
+-   Nothing is stored in the user's device running IDKit. **No cookies, no local storage, nothing.**
+-   **No fingerprinting** or any other mechanism to attempt to identify users cross-browser or cross-device.
+-   All telemetry events are captured using [PostHog](https://github.com/posthog/posthog), an open-source product analytics library.
 
 ### Events captured
 
-Here are the events we capture:
+Here are the events captured:
 
 -   `idkit loaded`. When the widget is loaded.
--   `idkit opened`. When the user clicks on the World ID widget and the modal shows up.
--   `$exception`. When an unhandled exception occurs in the package. We include the error message and the stack trace.
+-   `idkit opened`. When IDKit is triggered in the user interface.
+-   `$exception`. When an unhandled exception occurs in the package. The error message and the stack trace is included.
 
 ### Attributes captured
 
-For each event, we capture the following information:
+For each event, the additional metadata is kept:
 
--   Estimate city location (from IP address). IP address is discarded.
+-   Estimated coarse location, like country and state/province (from IP address). IP address is discarded.
 -   Screen size.
--   World ID package version.
+-   IDKit version.
 -   Device information from `User-Agent` (e.g. browser, OS, ...).
 -   Current URL.
 -   Referrer header.

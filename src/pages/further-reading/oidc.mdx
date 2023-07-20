@@ -2,9 +2,7 @@
 
 The following diagram outlines the general authentication flow for an integrating app:
 
-<Fence className="bg-gray-50">
-    ![A diagram showcasing the main authentication flow](/images/docs/id/sign-in.svg)
-</Fence>
+<Fence className="bg-gray-50">![A diagram showcasing the main authentication flow](/images/docs/id/sign-in.svg)</Fence>
 
 ## Registration
 
@@ -75,9 +73,7 @@ If using implicit flow, the redirect URL will contain the following params:
 
 -   `id_token`: A signed JWT identifying the user, and any requested scope information
 
-<Note type="caution">
-    ID tokens must always be verified, and should not be blindly accepted!
-</Note>
+<Note type="warning">ID tokens must always be verified, and should not be blindly accepted!</Note>
 
 To verify an ID token, fetch the public key from the `/jwks` endpoint. You can read more about this process at the [Auth0 blog](https://auth0.com/blog/navigating-rs256-and-jwks/) or [JWT.io](https://jwt.io/), but one example method could be:
 

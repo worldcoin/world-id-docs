@@ -24,12 +24,16 @@ export const h2: FC<
 	}>
 > = props => <Heading level={2} {...props} />
 
-export const Note: FC<PropsWithChildren<{ type?: 'info' | 'danger' | 'warning' }>> = ({ children, type = 'info' }) => (
+export const Note: FC<PropsWithChildren<{ type?: 'info' | 'danger' | 'warning' | 'announcement' }>> = ({
+	children,
+	type = 'info',
+}) => (
 	<div
 		className={clsx(
 			type == 'info' && 'border-gray-500/20 bg-gray-50/50 text-gray-700',
 			type == 'warning' && 'border-yellow-500/20 bg-yellow-50/50 text-yellow-700 prose-strong:text-yellow-700',
 			type == 'danger' && 'border-red-500/20 bg-red-50/50 text-red-700 prose-strong:text-red-700',
+			type == 'announcement' && 'border-gray-900/20 bg-gray-900 text-white prose-strong:text-white',
 			'my-6 flex gap-2.5 rounded-2xl border p-4 leading-6'
 		)}
 	>

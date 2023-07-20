@@ -43,7 +43,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 			[State.Success]: {
 				icon: <SuccessIcon />,
 				heading: 'Your connection works!',
-				description: 'Below is the user identity we will use to check againt your rules.',
+				description: `Below is the World ID holder's record.`,
 			},
 			[State.Error]: {
 				icon: <ErrorIcon />,

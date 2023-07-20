@@ -1,12 +1,10 @@
-# Get Started with IDKit
+# Intro to IDKit
 
-<Note>
-    This guide assumes you have already completed the steps to [set up the Developer Portal](/quick-start).
-</Note>
+<Note>This guide assumes you have already completed the steps to [set up the Developer Portal](/quick-start).</Note>
 
 IDKit is required in your app's frontend for Anonymous Actions, both for Cloud and On-Chain use cases.
 
-## Creating Actions in the Dev Portal
+## Creating actions
 
 Create an action for your app in the Developer Portal. You must provide the following values:
 
@@ -15,9 +13,10 @@ Create an action for your app in the Developer Portal. You must provide the foll
     -   **Max Verifications**: _For Cloud actions only_. The number of times a user can take this action. A value of `0` indicates that unlimited verifications can take place.
 
 <Note>
-    An action scopes uniqueness for users, which means users will always generate the same ID (nullifier hash) when performing the same action. 
-    **Cloud actions** natively handle sybil-resistance with a limit set in the Developer Portal.
-    For **on-chain** use cases, you can track this nullifier hash in your smart contract to [implement sybil-resistance](/id/on-chain#sybil-resistance).
+	An action scopes uniqueness for users, which means users will always generate the same ID (nullifier hash) when
+	performing the same action. **Cloud actions** natively handle sybil-resistance with a limit set in the Developer
+	Portal. For **on-chain** use cases, you can track this nullifier hash in your smart contract to [implement
+	sybil-resistance](/id/on-chain#sybil-resistance).
 </Note>
 
 ### Dynamic Actions
@@ -50,16 +49,15 @@ Import and render IDKit. You'll want to do this on the screen where the user exe
 
 ```tsx
 import { IDKitWidget } from '@worldcoin/idkit'
-
-<IDKitWidget
-    app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // obtained from the Developer Portal
-    action="vote_1" // this is your action name from the Developer Portal
-    onSuccess={onSuccess} // callback when the modal is closed
-    handleVerify={handleVerify} // optional callback when the proof is received
-    credential_types={['orb', 'phone']} // optional, defaults to ['orb']
-    enableTelemetry // optional, defaults to false
+;<IDKitWidget
+	app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // obtained from the Developer Portal
+	action="vote_1" // this is your action name from the Developer Portal
+	onSuccess={onSuccess} // callback when the modal is closed
+	handleVerify={handleVerify} // optional callback when the proof is received
+	credential_types={['orb', 'phone']} // optional, defaults to ['orb']
+	enableTelemetry // optional, defaults to false
 >
-    {({ open }) => <button onClick={open}>Verify with World ID</button>}
+	{({ open }) => <button onClick={open}>Verify with World ID</button>}
 </IDKitWidget>
 ```
 
@@ -94,16 +92,17 @@ Upon successful completion of the World ID flow, you will receive a response obj
 
 ```json {{ title: 'ISuccessResult' }}
 {
-    "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
-    "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
-    "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394...",
-    "credential_type": "orb"
+	"merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
+	"nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
+	"proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394...",
+	"credential_type": "orb"
 }
 ```
 
 <Properties>
 	<Property name="merkle_root" type="string">
-		This is the hash pointer to the root of the Merkle tree that proves membership of the user's identity in the list of identities verified by the Orb. ABI encoded.
+		This is the hash pointer to the root of the Merkle tree that proves membership of the user's identity in the
+		list of identities verified by the Orb. ABI encoded.
 	</Property>
 	<Property name="nullifier_hash" type="string">
 		The unique identifier for this combination of user, app, and action. ABI encoded.
@@ -119,7 +118,7 @@ Upon successful completion of the World ID flow, you will receive a response obj
 ## Verify the Proof
 
 <Note type="warning">
-    You must verify the proof returned from IDKit with our API or smart contract before allowing a user to perform an action. The process varies depending on your use case.
-    
-    Proceed to the [Cloud](/id/cloud) or [On-Chain](/id/on-chain) sections to learn how to verify proofs.
+	You must verify the proof returned from IDKit with the API or smart contract before allowing a user to perform an
+	action. The process varies depending on your use case. Proceed to the [Cloud Verification](/id/cloud) or [On-Chain
+	Verification](/id/on-chain) sections to learn how to verify proofs.
 </Note>

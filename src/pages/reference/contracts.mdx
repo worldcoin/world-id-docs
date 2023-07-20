@@ -3,67 +3,70 @@ import { Tag } from '@/components/Tag'
 # Smart Contracts
 
 All of our smart contracts are available on GitHub:
-  - [World ID Smart Contracts](https://github.com/worldcoin/world-id-contracts)
-  - [State Bridge Smart Contracts](https://github.com/worldcoin/world-id-state-bridge)
+
+-   [World ID Smart Contracts](https://github.com/worldcoin/world-id-contracts)
+-   [State Bridge Smart Contracts](https://github.com/worldcoin/world-id-state-bridge)
 
 <Note>
-  If you're interested in using World ID and verifying proofs on-chain, see our [On-Chain Verification guide](/id/on-chain).
+	If you're interested in using World ID and verifying proofs on-chain, see our [On-Chain Verification
+	guide](/id/on-chain).
 </Note>
 
 ## Supported Chains
 
 <table>
-  <thead>
-    <tr>
-      <th>Chain</th>
-      <th>Testnet</th>
-      <th>Role</th>
-      <th>Identity Availability</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td className="flex items-center"><img src="/icons/ethereum.svg" alt="Ethereum logo" className="h-8 w-8 m-0 mr-2" /><p><b>Ethereum</b></p></td>
-      <td className="align-middle">
-        Goerli
-      </td>
-      <td className="align-middle">
-        <Tag>Canonical</Tag>
-      </td>
-      <td className="align-middle">
-        ~3 Minutes
-      </td>
-    </tr>
-    <tr>
-      <td className="flex items-center"><img src="/icons/optimism.svg" alt="Optimism logo" className="h-8 w-8 m-0 mr-2" /><p><b>Optimism</b></p></td>
-      <td className="align-middle">
-        Optimism Goerli
-      </td>
-      <td className="align-middle">
-        <Tag color="amber">Bridged</Tag>
-      </td>
-      <td className="align-middle">
-        ~5 Minutes
-      </td>
-    </tr>
-    <tr>
-      <td className="flex items-center"><img src="/icons/polygon.svg" alt="Polygon logo" className="h-8 w-8 m-0 mr-2 inline" /><p><b>Polygon</b></p></td>
-      <td className="align-middle">
-        Mumbai
-      </td>
-      <td className="align-middle">
-        <Tag color="amber">Bridged</Tag>
-      </td>
-      <td className="align-middle">
-        ~30 Minutes
-      </td>
-    </tr>
-  </tbody>
+	<thead>
+		<tr>
+			<th>Chain</th>
+			<th>Testnet</th>
+			<th>Role</th>
+			<th>Identity Availability</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td className="flex items-center">
+				<img src="/icons/ethereum.svg" alt="Ethereum logo" className="m-0 mr-2 h-8 w-8" />
+				<p>
+					<b>Ethereum</b>
+				</p>
+			</td>
+			<td className="align-middle">Goerli</td>
+			<td className="align-middle">
+				<Tag>Canonical</Tag>
+			</td>
+			<td className="align-middle">~3 Minutes</td>
+		</tr>
+		<tr>
+			<td className="flex items-center">
+				<img src="/icons/optimism.svg" alt="Optimism logo" className="m-0 mr-2 h-8 w-8" />
+				<p>
+					<b>Optimism</b>
+				</p>
+			</td>
+			<td className="align-middle">Optimism Goerli</td>
+			<td className="align-middle">
+				<Tag color="amber">Bridged</Tag>
+			</td>
+			<td className="align-middle">~5 Minutes</td>
+		</tr>
+		<tr>
+			<td className="flex items-center">
+				<img src="/icons/polygon.svg" alt="Polygon logo" className="m-0 mr-2 inline h-8 w-8" />
+				<p>
+					<b>Polygon</b>
+				</p>
+			</td>
+			<td className="align-middle">Mumbai</td>
+			<td className="align-middle">
+				<Tag color="amber">Bridged</Tag>
+			</td>
+			<td className="align-middle">~30 Minutes</td>
+		</tr>
+	</tbody>
 </table>
 
-<Note>
-  Find our smart contract [address book here](/reference/address-book).
-</Note>
+<Note>Find our smart contract [address book here](/reference/address-book).</Note>
 
 ## Architecture
 
@@ -71,7 +74,7 @@ This section offers a high-level overview of the various smart contracts that ma
 
 ### World ID Router
 
-This is the contract you should interact with. It will route your call to the correct Identity Manager contract (Ethereum) or State Bridge contract (L2 Chains) based on the `groupId` argument. This contract is proxied, so you should not need to update your code if we upgrade the underlying contracts.
+This is the contract you should interact with. It will route your call to the correct Identity Manager contract (Ethereum) or State Bridge contract (L2 Chains) based on the `groupId` argument. This contract is proxied, so you should not need to update your code if the underlying contracts need to be upgraded.
 
 ### Identity Managers
 
@@ -87,9 +90,7 @@ On other supported chains (currently Optimism and Polygon), there is also one St
 
 ## verifyProof
 
-<Note>
-	The `verifyProof` function is meant to be called on the `WorldIdRouter` contract.
-</Note>
+<Note>The `verifyProof` function is meant to be called on the `WorldIdRouter` contract.</Note>
 
 The `verifyProof` method takes the following arguments:
 
@@ -117,7 +118,7 @@ The groupId, indicating to the World ID Router whether to verify against the mer
 **Orb-verified users**: `1`<br/>
 **Phone-verified users**: `0`
 
-We recommend setting this to `1` in your contract's constructor, to only ever allow Orb-verified users to perform the specified action. Additionally, this saves on gas costs.
+Recommendation: Set this to `1` in your contract's constructor, to only ever allow Orb-verified users to perform the specified action. Additionally, this saves on gas costs.
 
 However, if you wish to allow Orb- and Phone-verified users, IDKit returns a `credential_type` field, which is either `phone` or `orb`. You can use this to determine the `groupId` to use in your call to `verifyProof`.
 
@@ -171,10 +172,11 @@ function yourFunction(
 
 <Row><Col>
 
-The keccak256 hash of the signal to verify. To get signalHash, you should pass the solidityEncoded signal to your smart contract, and then compute the signalHash within the contract. Ensure that you solidityEncode the signal __before__ passing it to IDKit.
+The keccak256 hash of the signal to verify. To get signalHash, you should pass the solidityEncoded signal to your smart contract, and then compute the signalHash within the contract. Ensure that you solidityEncode the signal **before** passing it to IDKit.
 
 <Note>
-  We provide a helper function [`hashToField`](#hash-to-field-helper-function) to properly calculate the keccak256 hash within your smart contract.
+	A helper function [`hashToField`](#hash-to-field-helper-function) is provided to properly calculate the `keccak256`
+	hash within your smart contract.
 </Note>
 
 </Col><Col sticky>
@@ -184,7 +186,7 @@ The keccak256 hash of the signal to verify. To get signalHash, you should pass t
 ```solidity
 function yourFunction(
   uint256 root,
-  address signal, // here we use an address as the signal
+  address signal, // in this case the address is used as signal
   uint256 nullifierHash,
   uint256[8] calldata proof
 ) public {
@@ -195,7 +197,7 @@ function yourFunction(
     root,
     groupId,
     // using hashToField helper function
-    abi.encodePacked(signal).hashToField(), 
+    abi.encodePacked(signal).hashToField(),
     nullifierHash,
     externalNullifier,
     proof
@@ -203,6 +205,7 @@ function yourFunction(
 
   {/* ... */}
 ```
+
 </CodeGroup>
 
 </Col></Row>
@@ -247,15 +250,14 @@ const unpackedProof = abi.decode(['uint256[8]'], proof)[0]
 
 </Col></Row>
 
-{/* 
-### Sybil-resistance
+### Sybil resistance
 
-While the World ID protocol makes it very easy to make your contracts sybil-resistant, this takes a little more than just calling the `verifyProof` function. To make your contract sybil-resistant, you'll need to do the following:
+While the World ID protocol makes it very easy to make your contracts sybil resistant, this takes a little more than just calling the `verifyProof` function. To make your contract sybil-resistant, you'll need to do the following:
 
 -   Store the `nullifierHash` of each user that has successfully verified a proof.
 -   When a user attempts to verify a proof, check that the `nullifierHash` is not already in the list of used `nullifierHash`es.
 
-Here's an example function doing the above. You can also use the [World ID starter kits](#on-chain) to get started with sybil-resistance.
+Here's an example function doing the above. You can also use the [World ID starter kits](#on-chain) to get started with sybil resistance.
 
 ```solidity
 /// @param root The root (returned by the IDKit widget).
@@ -270,10 +272,10 @@ function verifyAndExecute(
     uint256 nullifierHash,
     uint256[8] calldata proof
 ) public {
-    // First, we make sure this person hasn't done this before
+    // First make sure this person hasn't done this before
     if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
 
-    // We now verify the provided proof is valid and the user is verified by World ID
+    // Now verify the provided proof is valid and the user is verified by World ID
     worldId.verifyProof(
         root,
         1, // Or `0` if you want to check for phone verification only
@@ -283,9 +285,9 @@ function verifyAndExecute(
         proof
     );
 
-    // We now record the user has done this, so they can't do it again (proof of uniqueness)
+    // Record the user has done this, so they can't do it again (proof of uniqueness)
     nullifierHashes[nullifierHash] = true;
 
     // Finally, execute your logic here, for example issue a token, NFT, etc...
 }
-``` */}
+```

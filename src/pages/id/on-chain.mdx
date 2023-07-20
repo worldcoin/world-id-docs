@@ -4,8 +4,8 @@ import { Tag } from '@/components/Tag'
 
 World ID proofs can be fully verified on-chain. After all, the source of truth for the decentralized protocol is on-chain. To verify a World ID proof, your smart contract will embed a call to the `verifyProof` method of the World ID contract, and then execute the rest of its logic as usual.
 
-We provide a smart contract starter kit ([Foundry](https://github.com/worldcoin/world-id-starter), [Hardhat](https://github.com/worldcoin/world-id-starter-hardhat)) and a [frontend & on-chain monorepo template](https://github.com/worldcoin/world-id-onchain-template) to help you get started with World ID. 
-We strongly recommend using one of these repositories to get started with World ID on-chain.
+The smart contract starter kit ([Foundry](https://github.com/worldcoin/world-id-starter), [Hardhat](https://github.com/worldcoin/world-id-starter-hardhat)) and the[frontend & on-chain monorepo template](https://github.com/worldcoin/world-id-onchain-template) are great resources to help you get started with World ID. 
+Using one of these repositories is strongly recommended to get started with World ID on-chain.
 
 The following examples demonstrate the most common use case: verifying proofs from only Orb-verified users, for a single action, with a user's wallet address as the signal, while also enabling sybil-resistance. 
 This setup is recommended for most users, as it is the most gas-efficient. For more information on use cases that require more complex setups (such as multiple actions, other types of signals, or multiple credential types), see the [Advanced On-Chain Verification](/advanced/custom-on-chain) page.

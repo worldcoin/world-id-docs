@@ -1,18 +1,21 @@
 # Sign In with Worldcoin
 
 <Note type="warning">
-  When using Sign In with Worldcoin, we recommend allowing users to set a separate recovery method for their account, such as an email. Users who recover their World ID in the future will not be able to access your app unless they have a recovery method set.
+	When using Sign In with Worldcoin, we recommend allowing users to set a separate recovery method for their account
+	(e.g. email), in case users lose access to their World ID. Read more about upcoming
+	[recovery](https://whitepaper.worldcoin.org) for World ID.
 </Note>
 
-World ID can be used as an authentication mechanism. We provide a few resources for integrating World ID with your app: our [Auth0 Integration](https://worldcoin.org/auth0)
-or [NextAuth.js Template Repository](https://github.com/worldcoin/world-id-nextauth-template) make integration quick and easy, and we also provide information on adding Sign In with Worldcoin to custom Authentication engines.
+World ID can be used as an authentication mechanism. Some helpful resources for integrating World ID with your app:
+
+-   World ID [Auth0 Integration](https://worldcoin.org/auth0).
+-   [NextAuth.js Template Repository](https://github.com/worldcoin/world-id-nextauth-template).
 
 <Note>
-  Typical OIDC-compatible authentication engines include
-  [Auth0](https://auth0.com/), [AWS Cognito](https://aws.amazon.com/cognito/), [CloudFlare
-  Access](https://www.cloudflare.com/products/zero-trust/access/),
-  [OneLogin](https://www.onelogin.com/) and many more. Most languages and
-  frameworks have simple open source packages for this. 
+	Typical OIDC-compatible authentication engines include [Auth0](https://auth0.com/), [AWS
+	Cognito](https://aws.amazon.com/cognito/), [CloudFlare
+	Access](https://www.cloudflare.com/products/zero-trust/access/), [OneLogin](https://www.onelogin.com/) and many
+	more. Most languages and frameworks have simple open source packages for this.
 </Note>
 
 <Tabs>
@@ -56,8 +59,8 @@ or [NextAuth.js Template Repository](https://github.com/worldcoin/world-id-nexta
 
       Once you have configured this, you can start the authentication flow from your app or authentication engine.
     </TabItem>
-</Tabs>
 
+</Tabs>
 
 ## Mapping User Info
 
@@ -78,7 +81,8 @@ The `/userinfo` endpoint returns a JSON object with the following fields:
 ```
 
 <Note type="warning">
-The `email` field is set only for compatibility with apps that cannot function without it. Users cannot receive emails at this address, and it should be ignored when possible.
+	The `email` field is set only for compatibility with apps that cannot function without it. Users cannot receive
+	emails at this address, and it should be ignored when possible.
 </Note>
 
 The `sub` field is the user's nullifier hash -- their unique identifier in the context of your app. A user's nullifier hash will be different for each app they use.

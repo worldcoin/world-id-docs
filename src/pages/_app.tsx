@@ -2,6 +2,7 @@ import 'focus-visible'
 import Head from 'next/head'
 import '@/styles/styles.css'
 import posthog from 'posthog-js'
+import Script from 'next/script'
 import { FC, useMemo } from 'react'
 import { AppProps } from 'next/app'
 import { Sora } from 'next/font/google'
@@ -78,6 +79,31 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 
 				{!hasLayout && <Component {...pageProps} />}
 			</MDXProvider>
+			{process.env.NEXT_PUBLIC_COOKIEPRO_DOMAIN_SCRIPT && (
+				<Script
+					src="https://cookie-cdn.cookiepro.com/scripttemplates/otSDKStub.js"
+					type="text/javascript"
+					data-domain-script={process.env.NEXT_PUBLIC_COOKIEPRO_DOMAIN_SCRIPT}
+					async
+				/>
+			)}
+			{process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
+				<>
+					<Script
+						async
+						src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}
+					/>
+					<Script id="google-analytics">
+						{`
+							window.dataLayer = window.dataLayer || [];
+							function gtag(){dataLayer.push(arguments);}
+							gtag('js', new Date());
+
+							gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}');
+							`}
+					</Script>
+				</>
+			)}
 		</div>
 	)
 }

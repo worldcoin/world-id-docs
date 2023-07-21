@@ -1,17 +1,17 @@
 import 'focus-visible'
-import Head from 'next/head'
 import '@/styles/styles.css'
 import posthog from 'posthog-js'
 import Script from 'next/script'
 import { NextSeo } from 'next-seo'
+import { FC, useMemo } from 'react'
 import { AppProps } from 'next/app'
 import { Sora } from 'next/font/google'
 import { MDXProvider } from '@mdx-js/react'
 import { Layout } from '@/components/Layout'
-import { FC, useMemo } from 'react'
 import { usePostHog } from '@/lib/use-posthog'
 import { Router, useRouter } from 'next/router'
 import * as mdxComponents from '@/components/mdx'
+import { navigation } from '@/components/Navigation'
 import { useMobileNavigationStore } from '@/components/MobileNavigation'
 
 function onRouteChange() {
@@ -47,6 +47,12 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 		return `${pageProps.title} | Worldcoin Docs`
 	}, [pageProps.title, router.pathname])
 
+	const section = useMemo(() => {
+		if (router.pathname === '/') return null
+
+		return navigation.find(nav => nav.links.some(link => link.href === router.pathname))?.title
+	}, [router.pathname])
+
 	const pagesWithoutLayout = useMemo(() => ['/try-callback'], [])
 
 	const hasLayout = useMemo(() => {
@@ -64,56 +70,34 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 				description={pageProps.description}
 				openGraph={{
 					title,
-					description: pageProps.description,
 					type: 'website',
 					site_name: 'Worldcoin Docs',
+					description: pageProps.description,
 					images: [
 						{
-							url: `/api/og?category=${pageProps.title}&title=${pageProps.title}&description=${
-								pageProps.description ?? pageProps.title
-							}`,
+							url:
+								router.pathname == '/'
+									? 'https://images.prismic.io/worldcoin-company-website/170cfad7-d23d-4032-957d-98b7277dc397_updated_cover.png?auto=compress,format'
+									: `${process.env.NEXT_PUBLIC_APP_URL!}/api/og?category=${section ?? ''}&title=${
+											pageProps.title
+									  }`,
 							width: 1920,
 							height: 1080,
 							alt: 'Worldcoin Docs',
 						},
 					],
 				}}
-				twitter={{
-					cardType: 'summary_large_image',
-				}}
+				twitter={{ cardType: 'summary_large_image' }}
 				additionalLinkTags={[
-					{
-						rel: 'manifest',
-						href: '/favicon/site.webmanifest',
-					},
-					{
-						rel: 'mask-icon',
-						href: '/favicon/safari-pinned-tab.svg',
-						color: '#191919',
-					},
-					{
-						rel: 'apple-touch-icon',
-						sizes: '180x180',
-						href: '/favicon/apple-touch-icon.png',
-					},
-					{
-						rel: 'icon',
-						type: 'image/png',
-						sizes: '32x32',
-						href: '/favicon/favicon-32x32.png',
-					},
-					{
-						rel: 'icon',
-						type: 'image/png',
-						sizes: '16x16',
-						href: '/favicon/favicon-16x16.png',
-					},
+					{ rel: 'manifest', href: '/favicon/site.webmanifest' },
+					{ rel: 'mask-icon', href: '/favicon/safari-pinned-tab.svg', color: '#191919' },
+					{ rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png' },
+					{ rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon/favicon-32x32.png' },
+					{ rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon/favicon-16x16.png' },
 				]}
 			/>
 
-			{/* {process.env.NODE_ENV === 'production' && <Clippy theme="light" />} */}
 			{/* @ts-ignore */}
-
 			<MDXProvider components={mdxComponents}>
 				{hasLayout && (
 					<Layout {...pageProps}>

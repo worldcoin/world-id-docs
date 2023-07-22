@@ -274,7 +274,7 @@ const Try = (): JSX.Element => {
 
 		const baseUrl = new URL(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/authorize`)
 		baseUrl.searchParams.append('redirect_uri', `${process.env.NEXT_PUBLIC_APP_URL}/try-callback`)
-		baseUrl.searchParams.append('response_type', 'code')
+		baseUrl.searchParams.append('response_type', 'token')
 
 		baseUrl.searchParams.append(
 			'client_id',

@@ -27,7 +27,7 @@ type Props = {
 		likelyHuman: string
 	}
 	details?: {
-		actionId?: string | null
+		json?: string | null
 		error?: string | null
 	}
 	result: State
@@ -39,7 +39,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 			[State.Success]: {
 				icon: <SuccessIcon />,
 				heading: 'Your connection works!',
-				description: `Below is the World ID holder's record.`,
+				description: `Details for this request can be found below.`,
 			},
 			[State.Error]: {
 				icon: <ErrorIcon />,
@@ -64,14 +64,48 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 					</div>
 
 					{result === State.Success && userData && (
-						<div className="grid md:grid-cols-2 gap-y-2 md:gap-y-6 justify-items-start w-full">
+						<div className="grid md:grid-cols-2 gap-y-2 md:gap-y-8 gap-x-6 justify-items-start w-full">
 							<p
 								className={clsx('text-sm leading-none', {
 									'text-gray-700': userData.sub,
 								})}
 							>
 								<span className="not-italic text-gray-900 font-semibold">User ID (nullifier): </span>{' '}
-								{userData.sub ?? 'Not requested'}
+								<span className="break-all leading-5">{userData.sub ?? 'Not available'}</span>
+							</p>
+
+							<p
+								className={clsx('text-sm leading-none', {
+									'text-gray-700': userData.credentialType,
+								})}
+							>
+								<span className="not-italic text-gray-900 font-semibold">Credential Type: </span>{' '}
+								<span className="break-all leading-5">
+									{userData.credentialType ? (
+										<code className="bg-gray-100 px-2 py-1 rounded text-primary">
+											{userData.credentialType}
+										</code>
+									) : (
+										'Not available'
+									)}
+								</span>
+							</p>
+
+							<p
+								className={clsx('text-sm leading-none', {
+									'text-gray-700': userData.likelyHuman,
+								})}
+							>
+								<span className="not-italic text-gray-900 font-semibold">Likely human: </span>{' '}
+								<span className="break-all leading-5">
+									{userData.likelyHuman ? (
+										<code className="bg-gray-100 px-2 py-1 rounded text-primary">
+											{userData.likelyHuman}
+										</code>
+									) : (
+										'Not available'
+									)}
+								</span>
 							</p>
 
 							<p
@@ -96,12 +130,22 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 
 							<p
 								className={clsx('text-sm leading-none', {
-									'text-gray-400 italic': !userData.lastName,
-									'text-gray-700': userData.lastName,
+									'text-gray-400 italic': !userData.givenName,
+									'text-gray-700': userData.givenName,
 								})}
 							>
-								<span className="not-italic text-gray-900 font-semibold">Last name: </span>{' '}
-								{userData.lastName ?? 'Not requested'}
+								<span className="not-italic text-gray-900 font-semibold">Given name: </span>{' '}
+								{userData.name ?? 'Not requested'}
+							</p>
+
+							<p
+								className={clsx('text-sm leading-none', {
+									'text-gray-400 italic': !userData.familyName,
+									'text-gray-700': userData.familyName,
+								})}
+							>
+								<span className="not-italic text-gray-900 font-semibold">Family name: </span>{' '}
+								{userData.familyName ?? 'Not requested'}
 							</p>
 						</div>
 					)}
@@ -110,7 +154,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 						{details && (
 							<CodeGroup title="Response details">
 								<Pre>
-									{details.actionId && `actionId="${details.actionId}"`}
+									{details.json && JSON.stringify(details.json, null, 2)}
 									{details.error && `Error: ${details.error}`}
 								</Pre>
 							</CodeGroup>
@@ -144,53 +188,27 @@ export default memo(TryCallback)
 export const getServerSideProps: GetServerSideProps<Props> = async ({ req }) => {
 	const url = new URL(req.url!, process.env.NEXT_PUBLIC_APP_URL)
 	const params = new URLSearchParams(url.search)
-	const code = params.get('code')
+	const token = params.get('token')
 
 	// TODO: Properly generate and store temporary nonces to exemplify proper usage
 
-	if (!code) {
+	if (!token) {
 		return {
 			props: {
 				result: State.Error,
-				details: { error: 'Authorization code was not provided.' },
+				details: { error: 'Authorization token was not provided.' },
 			},
 		}
 	}
 
-	// NOTE: Verify code with API
-	const response = await fetch(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/token`, {
-		method: 'POST',
-		headers: {
-			Authorization: `Basic ${Buffer.from(
-				`${process.env.NEXT_PUBLIC_TRY_IT_OUT_APP}:${process.env.TRY_IT_OUT_APP_SECRET}`
-			).toString('base64')}`,
-			'Content-Type': 'application/x-www-form-urlencoded',
-		},
-		body: new URLSearchParams({
-			code,
-			grant_type: 'authorization_code',
-		}),
-	})
-
-	if (!response.ok) {
-		return {
-			props: {
-				result: State.Error,
-				details: {
-					error: `Error verifying the provided code (${response.status}): \n\n${await response.text()}`,
-				},
-			},
-		}
-	}
-
-	const jsonCodeResponse = await response.json()
-	const jwt = jsonCodeResponse.id_token
-
-	// NOTE: Obtain user info with JWT
+	/* NOTE: Obtain user info with JWT, this will also verify the JWT is valid. We opt for this instead of auth code so:
+	 * 1. We do a single request to verify the token and obtain the information
+	 * 2. If the user refreshes the page, the token remains valid (this is a page for debugging)
+	 */
 	const userResponse = await fetch(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/userinfo`, {
 		method: 'POST',
 		headers: {
-			Authorization: `Bearer ${jwt}`,
+			Authorization: `Bearer ${token}`,
 		},
 	})
 
@@ -217,7 +235,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ req }) => 
 				credentialType: userInfo['https://id.worldcoin.org/beta'].credential_type,
 				likelyHuman: userInfo['https://id.worldcoin.org/beta'].likely_human,
 			},
-			details: { actionId: '123' },
+			details: {
+				json: {
+					token,
+					userInfo,
+				},
+			},
 			result: State.Success,
 		},
 	}

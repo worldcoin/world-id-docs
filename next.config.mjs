@@ -23,52 +23,44 @@ const nextConfig = {
 	async redirects() {
 		return [
 			{
+				source: '/idkit',
+				destination: '/id/idkit',
+				permanent: true,
+			},
+			{
 				source: '/js',
-				destination: '/reference/idkit',
+				destination: '/id/idkit',
 				permanent: true,
 			},
 			{
 				source: '/id',
-				destination: '/id/anonymous-actions',
-				permanent: true,
-			},
-			{
-				source: '/js/:slug',
-				destination: '/reference/idkit/:slug',
+				destination: '/id/world-id',
 				permanent: true,
 			},
 			{
 				source: '/protocol',
-				destination: '/advanced/protocol',
+				destination: 'https://whitepaper.worldcoin.org', // TODO: add proper anchor
 				permanent: false,
 			},
 			{
 				source: '/test',
-				destination: '/quick-start/testing',
+				destination: '/quick-start',
 				permanent: false,
 			},
 			{
 				source: '/simulator',
-				destination: '/quick-start/testing',
+				destination: '/quick-start',
 				permanent: false,
 			},
 			{
 				source: '/privacy',
-				destination: '/advanced/privacy',
+				destination: 'https://whitepaper.worldcoin.org', // TODO: add proper anchor
 				permanent: false,
 			},
 			{
 				source: '/zkp',
 				destination: '/advanced/zero-knowledge-proofs',
 				permanent: false,
-			},
-		]
-	},
-	async rewrites() {
-		return [
-			{
-				source: '/api/:slug*',
-				destination: '/reference/api/:slug*',
 			},
 		]
 	},

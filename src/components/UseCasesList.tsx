@@ -1,11 +1,10 @@
 import useSWR from 'swr'
-import Image from 'next/image'
+import { FC } from 'react'
 import { Stats } from './Stats'
-import { FC, useState } from 'react'
 import { Link } from '@/components/Link'
 import RedirectIcon from './icons/RedirectIcon'
-import { UseCasesListItem } from '@/components/UseCasesListItem'
 import { SoonUseCases } from '@/components/SoonUseCases'
+import { UseCasesListItem } from '@/components/UseCasesListItem'
 
 type Stats = {
 	lastWeekCount: number
@@ -204,7 +203,7 @@ export const UseCasesList: FC<{}> = () => {
 				{/*/>*/}
 			</div>
 
-			<SoonUseCases/>
+			<SoonUseCases />
 
 			<h2 className="m-0 mt-16 font-bold text-xl text-black text-center">Join the Worldcoin builder community</h2>
 

@@ -16,20 +16,16 @@ enum State {
 	Success = 'success',
 }
 
-//FIXME: Adjust type for real data
 type Props = {
-	searchParams: {
-		token: string | null
-		state: string | null
+	userData?: {
+		sub: string
+		name?: string
+		email?: string
+		givenName?: string
+		familyName?: string
+		credentialType: string
+		likelyHuman: string
 	}
-	userData:
-		| {
-				userId?: string | null
-				name?: string | null
-				email?: string | null
-				lastName?: string | null
-		  }
-		| undefined
 	details?: {
 		actionId?: string | null
 		error?: string | null
@@ -58,7 +54,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 		<div className="min-h-screen w-full bg-[#F7F7F7] grid grid-rows-auto/1fr justify-items-center items-center gap-y-12 p-5">
 			<Image src={logo} className="h-6" alt="" />
 
-			<div className="lg:min-w-[720px]">
+			<div className="lg:min-w-[720px] max-w-[1024px]">
 				<div className="pt-10 md:pt-16 md:pb-4 pb-8 px-6 grid gap-y-8 justify-items-center bg-white rounded-xl">
 					{content[result].icon}
 
@@ -71,12 +67,11 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 						<div className="grid md:grid-cols-2 gap-y-2 md:gap-y-6 justify-items-start w-full">
 							<p
 								className={clsx('text-sm leading-none', {
-									'text-gray-400 italic': !userData.userId,
-									'text-gray-700': userData.userId,
+									'text-gray-700': userData.sub,
 								})}
 							>
-								<span className="not-italic text-gray-900 font-semibold">UserID: </span>{' '}
-								{userData.userId ?? 'Not requested'}
+								<span className="not-italic text-gray-900 font-semibold">User ID (nullifier): </span>{' '}
+								{userData.sub ?? 'Not requested'}
 							</p>
 
 							<p
@@ -111,7 +106,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 						</div>
 					)}
 
-					<div className="w-full">
+					<div className="w-full overflow-hidden">
 						{details && (
 							<CodeGroup title="Response details">
 								<Pre>
@@ -145,17 +140,83 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 
 export default memo(TryCallback)
 
+// TODO: ? Show a nice loading state while the server is processing the request
 export const getServerSideProps: GetServerSideProps<Props> = async ({ req }) => {
 	const url = new URL(req.url!, process.env.NEXT_PUBLIC_APP_URL)
 	const params = new URLSearchParams(url.search)
-	const token = params.get('token')
-	const state = params.get('state')
+	const code = params.get('code')
 
-	// FIXME: pass real data
+	// TODO: Properly generate and store temporary nonces to exemplify proper usage
+
+	if (!code) {
+		return {
+			props: {
+				result: State.Error,
+				details: { error: 'Authorization code was not provided.' },
+			},
+		}
+	}
+
+	// NOTE: Verify code with API
+	const response = await fetch(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/token`, {
+		method: 'POST',
+		headers: {
+			Authorization: `Basic ${Buffer.from(
+				`${process.env.NEXT_PUBLIC_TRY_IT_OUT_APP}:${process.env.TRY_IT_OUT_APP_SECRET}`
+			).toString('base64')}`,
+			'Content-Type': 'application/x-www-form-urlencoded',
+		},
+		body: new URLSearchParams({
+			code,
+			grant_type: 'authorization_code',
+		}),
+	})
+
+	if (!response.ok) {
+		return {
+			props: {
+				result: State.Error,
+				details: {
+					error: `Error verifying the provided code (${response.status}): \n\n${await response.text()}`,
+				},
+			},
+		}
+	}
+
+	const jsonCodeResponse = await response.json()
+	const jwt = jsonCodeResponse.id_token
+
+	// NOTE: Obtain user info with JWT
+	const userResponse = await fetch(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/userinfo`, {
+		method: 'POST',
+		headers: {
+			Authorization: `Bearer ${jwt}`,
+		},
+	})
+
+	if (!userResponse.ok) {
+		return {
+			props: {
+				result: State.Error,
+				details: {
+					error: `Unable to obtain user info from JWT (${
+						userResponse.status
+					}): \n\n${await userResponse.text()}`,
+				},
+			},
+		}
+	}
+
+	const userInfo = await userResponse.json()
+
 	return {
 		props: {
-			searchParams: { token, state },
-			userData: { userId: '123', email: '123@worldcoin.org' },
+			userData: {
+				sub: userInfo.sub,
+				email: userInfo.email ?? null,
+				credentialType: userInfo['https://id.worldcoin.org/beta'].credential_type,
+				likelyHuman: userInfo['https://id.worldcoin.org/beta'].likely_human,
+			},
 			details: { actionId: '123' },
 			result: State.Success,
 		},

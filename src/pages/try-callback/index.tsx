@@ -19,15 +19,15 @@ enum State {
 type Props = {
 	userData?: {
 		sub: string
-		name?: string
-		email?: string
-		givenName?: string
-		familyName?: string
+		name: string | null
+		email?: string | null
+		givenName?: string | null
+		familyName?: string | null
 		credentialType: string
 		likelyHuman: string
 	}
 	details?: {
-		json?: string | null
+		output?: Record<string, any> | null
 		error?: string | null
 	}
 	result: State
@@ -115,7 +115,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 								})}
 							>
 								<span className="not-italic text-gray-900 font-semibold">Name: </span>{' '}
-								{userData.name ?? 'Not requested'}
+								<span className="break-all leading-5">{userData.name ?? 'Not requested'}</span>
 							</p>
 
 							<p
@@ -125,7 +125,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 								})}
 							>
 								<span className="not-italic text-gray-900 font-semibold">Email: </span>{' '}
-								{userData.email ?? 'Not requested'}
+								<span className="break-all leading-5">{userData.email ?? 'Not requested'}</span>
 							</p>
 
 							<p
@@ -135,7 +135,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 								})}
 							>
 								<span className="not-italic text-gray-900 font-semibold">Given name: </span>{' '}
-								{userData.name ?? 'Not requested'}
+								<span className="break-all leading-5">{userData.givenName ?? 'Not requested'}</span>
 							</p>
 
 							<p
@@ -145,7 +145,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 								})}
 							>
 								<span className="not-italic text-gray-900 font-semibold">Family name: </span>{' '}
-								{userData.familyName ?? 'Not requested'}
+								<span className="break-all leading-5">{userData.familyName ?? 'Not requested'}</span>
 							</p>
 						</div>
 					)}
@@ -154,7 +154,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 						{details && (
 							<CodeGroup title="Response details">
 								<Pre>
-									{details.json && JSON.stringify(details.json, null, 2)}
+									{details.output && JSON.stringify(details.output, null, 2)}
 									{details.error && `Error: ${details.error}`}
 								</Pre>
 							</CodeGroup>
@@ -232,11 +232,14 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ req }) => 
 			userData: {
 				sub: userInfo.sub,
 				email: userInfo.email ?? null,
+				name: userInfo.name ?? null,
+				givenName: userInfo.given_name ?? null,
+				familyName: userInfo.family_name ?? null,
 				credentialType: userInfo['https://id.worldcoin.org/beta'].credential_type,
 				likelyHuman: userInfo['https://id.worldcoin.org/beta'].likely_human,
 			},
 			details: {
-				json: {
+				output: {
 					token,
 					userInfo,
 				},

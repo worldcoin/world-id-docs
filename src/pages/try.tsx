@@ -13,6 +13,12 @@ import { CredentialType, IDKitWidget, WidgetProps } from '@worldcoin/idkit'
 
 type Environment = 'staging' | 'production'
 
+enum SignInScopes {
+	OpenID = 'openid',
+	Profile = 'profile',
+	Email = 'email',
+}
+
 // ANCHOR: Staging/Promotion button
 const EnvButton = ({
 	selected,
@@ -232,6 +238,7 @@ const Try = (): JSX.Element => {
 		formState: { errors },
 		control,
 	} = useForm<{
+		signInScopes: SignInScopes[]
 		signInEnvironment: Environment
 		testingEnvironment: Environment
 		action: string
@@ -240,6 +247,7 @@ const Try = (): JSX.Element => {
 	}>({
 		mode: 'all',
 		defaultValues: {
+			signInScopes: [SignInScopes.OpenID],
 			signInEnvironment: 'production',
 			testingEnvironment: 'production',
 			action: 'test-action',
@@ -251,6 +259,11 @@ const Try = (): JSX.Element => {
 	const signInEnvironment = useWatch({
 		control,
 		name: 'signInEnvironment',
+	})
+
+	const signInScopes = useWatch({
+		control,
+		name: 'signInScopes',
 	})
 
 	const testingEnvironment = useWatch({
@@ -275,6 +288,7 @@ const Try = (): JSX.Element => {
 		const baseUrl = new URL(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/authorize`)
 		baseUrl.searchParams.append('redirect_uri', `${process.env.NEXT_PUBLIC_APP_URL}/try-callback`)
 		baseUrl.searchParams.append('response_type', 'token')
+		baseUrl.searchParams.append('scope', signInScopes.join(' '))
 
 		baseUrl.searchParams.append(
 			'client_id',
@@ -284,7 +298,7 @@ const Try = (): JSX.Element => {
 		)
 
 		return baseUrl.toString()
-	}, [signInEnvironment])
+	}, [signInEnvironment, signInScopes])
 
 	return (
 		<div>
@@ -332,10 +346,30 @@ const Try = (): JSX.Element => {
 						<RedirectIcon />
 					</Link>
 				</div>
+
+				<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
+					Step 2 • optional scopes (comaptibility)
+				</div>
+
+				<div className="grid grid-cols-2 gap-x-3 mt-10">
+					<FormChoiceButton
+						type="checkbox"
+						item={{ value: SignInScopes.Profile, label: 'Profile' }}
+						selected={watch('signInScopes')?.includes(SignInScopes.Profile)}
+						register={register('signInScopes', { required: true })}
+					/>
+
+					<FormChoiceButton
+						type="checkbox"
+						item={{ value: SignInScopes.Email, label: 'Email' }}
+						selected={watch('signInScopes')?.includes(SignInScopes.Email)}
+						register={register('signInScopes', { required: true })}
+					/>
+				</div>
 			</div>
 
 			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8 mb-4">
-				Step 2 • this is what your users see
+				Step 3 • this is what your users see
 			</div>
 
 			<ExamplesWrapper id="sign-in" valid={true}>

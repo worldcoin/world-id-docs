@@ -34,7 +34,7 @@ const nextConfig = {
 			},
 			{
 				source: '/id',
-				destination: '/id/world-id',
+				destination: '/world-id',
 				permanent: true,
 			},
 			{

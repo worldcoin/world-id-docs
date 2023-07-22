@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { Link } from '@/components/Link'
-import { GetServerSideProps } from 'next'
 import SunIcon from '@/components/icons/SunIcon'
 import MoonIcon from '@/components/icons/MoonIcon'
 import LogoIcon from '@/components/icons/LogoIcon'
@@ -13,6 +12,12 @@ import { useForm, UseFormRegisterReturn, useWatch } from 'react-hook-form'
 import { CredentialType, IDKitWidget, WidgetProps } from '@worldcoin/idkit'
 
 type Environment = 'staging' | 'production'
+
+enum SignInScopes {
+	OpenID = 'openid',
+	Profile = 'profile',
+	Email = 'email',
+}
 
 // ANCHOR: Staging/Promotion button
 const EnvButton = ({
@@ -233,6 +238,7 @@ const Try = (): JSX.Element => {
 		formState: { errors },
 		control,
 	} = useForm<{
+		signInScopes: SignInScopes[]
 		signInEnvironment: Environment
 		testingEnvironment: Environment
 		action: string
@@ -241,6 +247,7 @@ const Try = (): JSX.Element => {
 	}>({
 		mode: 'all',
 		defaultValues: {
+			signInScopes: [SignInScopes.OpenID],
 			signInEnvironment: 'production',
 			testingEnvironment: 'production',
 			action: 'test-action',
@@ -254,26 +261,34 @@ const Try = (): JSX.Element => {
 		name: 'signInEnvironment',
 	})
 
+	const signInScopes = useWatch({
+		control,
+		name: 'signInScopes',
+	})
+
 	const testingEnvironment = useWatch({
 		control,
 		name: 'testingEnvironment',
 	})
 
 	const isTestingWidgetValid = useMemo(
-		() =>
-			!errors.action &&
-			!errors.credentialTypes,
+		() => !errors.action && !errors.credentialTypes,
 		[errors.action, errors.credentialTypes]
 	)
 
 	const authLink = useMemo(() => {
-		if (!process.env.NEXT_PUBLIC_TRY_IT_OUT_APP || !process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP) {
+		if (
+			!process.env.NEXT_PUBLIC_TRY_IT_OUT_APP ||
+			!process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP ||
+			!process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT
+		) {
 			return null
 		}
 
-		const baseUrl = new URL('https://id.worldcoin.org/authorize')
+		const baseUrl = new URL(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/authorize`)
 		baseUrl.searchParams.append('redirect_uri', `${process.env.NEXT_PUBLIC_APP_URL}/try-callback`)
 		baseUrl.searchParams.append('response_type', 'token')
+		baseUrl.searchParams.append('scope', signInScopes.join(' '))
 
 		baseUrl.searchParams.append(
 			'client_id',
@@ -282,10 +297,8 @@ const Try = (): JSX.Element => {
 				: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
 		)
 
-		baseUrl.searchParams.append('state', 'session_102030405060708091')
-		baseUrl.searchParams.append('nonce', 'z-dkEmoy_ujfk7B8uTiQppp')
 		return baseUrl.toString()
-	}, [signInEnvironment])
+	}, [signInEnvironment, signInScopes])
 
 	return (
 		<div>
@@ -333,10 +346,30 @@ const Try = (): JSX.Element => {
 						<RedirectIcon />
 					</Link>
 				</div>
+
+				<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
+					Step 2 • optional scopes (compatibility)
+				</div>
+
+				<div className="grid grid-cols-2 gap-x-3 mt-10">
+					<FormChoiceButton
+						type="checkbox"
+						item={{ value: SignInScopes.Profile, label: 'Profile' }}
+						selected={watch('signInScopes')?.includes(SignInScopes.Profile)}
+						register={register('signInScopes', { required: true })}
+					/>
+
+					<FormChoiceButton
+						type="checkbox"
+						item={{ value: SignInScopes.Email, label: 'Email' }}
+						selected={watch('signInScopes')?.includes(SignInScopes.Email)}
+						register={register('signInScopes', { required: true })}
+					/>
+				</div>
 			</div>
 
 			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8 mb-4">
-				Step 2 • this is what your users see
+				Step 3 • this is what your users see
 			</div>
 
 			<ExamplesWrapper id="sign-in" valid={true}>
@@ -346,9 +379,7 @@ const Try = (): JSX.Element => {
 						className={clsx('flex items-center gap-x-4 transition-all no-underline', variants[styleOption])}
 					>
 						<LogoIcon />
-						<span className="text-base leading-normal font-sora font-semibold">
-							Sign In with Worldcoin
-						</span>
+						<span className="text-base leading-normal font-sora font-semibold">Sign In with Worldcoin</span>
 					</Link>
 				)}
 			</ExamplesWrapper>
@@ -357,7 +388,9 @@ const Try = (): JSX.Element => {
 
 			<Section
 				heading="Anonymous Actions"
-				description={'Here you can test out various Anonymous Actions configurations, including ones that will fail (such as a phone-verified user attemping an action requiring Orb verification).'}
+				description={
+					'Here you can test out various Anonymous Actions configurations, including ones that will fail (such as a phone-verified user attemping an action requiring Orb verification).'
+				}
 				steps={[
 					'Choose between Staging or Production.',
 					'Input the name of the action.',

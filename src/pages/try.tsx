@@ -348,7 +348,7 @@ const Try = (): JSX.Element => {
 				</div>
 
 				<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
-					Step 2 • optional scopes (comaptibility)
+					Step 2 • optional scopes (compatibility)
 				</div>
 
 				<div className="grid grid-cols-2 gap-x-3 mt-10">

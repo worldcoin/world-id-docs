@@ -30,19 +30,6 @@ const LinkCard: FC<{ href: string; heading: string; description: string }> = ({ 
 
 // ANCHOR: Main page component
 export const UseCasesList: FC<{}> = () => {
-	const fetcher = (url: string) => fetch(url, { method: 'GET' }).then(response => response.json())
-
-	const { data, isLoading } = useSWR<
-		{
-			lastWeekCount: number
-			totalCount: number
-			totalSignups: number
-			lastWeekSignups: number
-			success: true
-		},
-		{ error: string }
-	>(`${process.env.NEXT_PUBLIC_APP_URL}/api/world-id-stats/fetch-verifications`, fetcher)
-
 	return (
 		<div>
 			<div className="flex flex-col items-center">
@@ -205,14 +192,16 @@ export const UseCasesList: FC<{}> = () => {
 
 			<SoonUseCases />
 
-			<h2 className="m-0 mt-16 font-bold text-xl text-black text-center">Join the Worldcoin builder community</h2>
 
-			<Stats className="mt-6" />
+			{/* FIXME: Retturn stats after solving the DB load problem */}
+			{/* <h2 className="m-0 mt-16 font-bold text-xl text-black text-center">Join the Worldcoin builder community</h2> */}
 
-			<div className="mt-6 text-2xs text-black/50 text-center">
+			{/* <Stats className="mt-6" /> */}
+
+			{/* <div className="mt-6 text-2xs text-black/50 text-center">
 				*as World ID is a fully open protocol and anyone can build their own implementations, it is not possible
 				to have numbers on all usage and holders.
-			</div>
+			</div> */}
 
 			<div className="grid gap-y-2 mt-24">
 				<h3 className="uppercase text-2xs m-0 font-medium text-gray-500">More Resources</h3>

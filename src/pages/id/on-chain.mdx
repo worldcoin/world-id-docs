@@ -29,7 +29,7 @@ const { address } = useAddress() // get the user's wallet address
 
 <IDKitWidget
     app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // must be an app set to on-chain
-    action={solidityEncode(['uint256'], ["claim_nft"])} // solidityEncode the action
+    action="claim_nft"
     signal={address} // only for on-chain use cases, this is used to prevent tampering with a message
     onSuccess={onSuccess}
     // no use for handleVerify, so it is removed

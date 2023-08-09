@@ -48,8 +48,10 @@ World ID can be used as an authentication mechanism. Some helpful resources for 
       - **Client ID**: your app id from the Developer Portal (e.g. {/* cSpell:disable */}`app_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}).
       - **Client secret**: app secret, obtained from the "Sign In" tab in the Developer Portal (e.g. `sk_6f07e1566ee4b765fe23d8c8`).
       - **Authorize endpoint**: `https://id.worldcoin.org/authorize`
-      - **Response type**: depends on how you want to authenticate, follow the recommendations of your engine. We recommend auth code flow for server-side apps and implicit flow for client-side apps
-        - Supported response types: `code` (authorization flow), `id_token` (implicit flow), `token`, or a combination of them (hybrid flow).
+      - **Response type**: depends on how you want to authenticate, follow the recommendations of your engine. We recommend authorization code flow for server-side apps and implicit flow for client-side apps.
+        - `code` for authorization code flow
+        - `id_token` or `id_token token` for implicit flow (ensure your authentication engine provides and validates a `nonce` when using the implicit flow)
+        - `code id_token` or `code token id_token` for hybrid flow
 
       ### Optional inputs
 

@@ -48,8 +48,19 @@ World ID can be used as an authentication mechanism. Some helpful resources for 
       - **Client ID**: your app id from the Developer Portal (e.g. {/* cSpell:disable */}`app_GBkZ1KlVUdFTjeMXskrX`{/* cSpell:enable */}).
       - **Client secret**: app secret, obtained from the "Sign In" tab in the Developer Portal (e.g. `sk_6f07e1566ee4b765fe23d8c8`).
       - **Authorize endpoint**: `https://id.worldcoin.org/authorize`
-      - **Response type**: depends on how you want to authenticate, follow the recommendations of your engine. We recommend auth code flow for server-side apps and implicit flow for client-side apps
-        - Supported response types: `code` (authorization flow), `id_token` (implicit flow), `token`, or a combination of them (hybrid flow).
+      - **Scope**: must contain `openid`, and may contain two optional scopes for compatibility with applications that require them:
+        - `profile` to receive dummy name information about the user
+        - `email` to receive dummy email information about the user
+      - **Response type**: depends on how you want to authenticate, follow the recommendations of your engine. We recommend authorization code flow for server-side apps and implicit flow for client-side apps.
+        - `code` for authorization code flow
+        - `id_token` (recommended) or `id_token token` for implicit flow (ensure your authentication engine provides and validates a `nonce` when using the implicit flow)
+        - `code id_token`, `code token`, or `code token id_token` for hybrid flow. Generally not recommended for Sign in with Worldcoin.
+
+      <Note>
+        We use the same JWT token as the `id_token` and `access_token`. There are no actions or information accessible with the `access_token` that are not contained within the `id_token`, as Sign in with Worldcoin is intended only for authentication and not authorization.
+
+        We do not recommend using the hybrid OIDC flow for this reason.
+      </Note>
 
       ### Optional inputs
 
@@ -73,7 +84,9 @@ The `/userinfo` endpoint returns a JSON object with the following fields:
 		"likely_human": "strong",
 		"credential_type": "orb"
 	},
-	"email": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535@id.worldcoin.org",
+  // if `email` scope is included:
+	"email": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535@id.worldcoin.org", 
+  // if `profile` scope is included:
 	"name": "World ID User",
 	"given_name": "World ID",
 	"family_name": "User"

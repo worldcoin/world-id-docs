@@ -58,8 +58,8 @@ Registers a new application for use with Sign In with World ID.
 ### Required attributes
 
     <Properties>
-      <Property name="redirect_uris" type="string">
-        URLs the user will be redirected to after authentication. Must be HTTPS, and can always be updated in the Developer Portal.
+      <Property name="redirect_uris" type="string[]">
+        URLs the user may be redirected to after authentication. Must be HTTPS, and cannot be localhost.
       </Property>
     </Properties>
 
@@ -70,13 +70,13 @@ Registers a new application for use with Sign In with World ID.
         Name of the application. This is displayed to the user during authentication.
       </Property>
       <Property name="logo_uri" type="string">
-        URL to the application's logo. This is displayed to the user during authentication.
+        URL to the application's logo. This is displayed to the user during authentication if your app has been verified.
       </Property>
       <Property name="application_type" type="string">
         Type of application. Can be either `web` or `mobile`. Defaults to `web`.
       </Property>
       <Property name="grant_types" type="string">
-        Grant types the application is allowed to use. Can be either `authorization_code`, `implicit`, `hybrid`. Defaults to `authorization_code`.
+        Grant types the application is allowed to use. Can be `authorization_code`, `implicit`, or `hybrid`. Defaults to `authorization_code`.
       </Property>
     </Properties>
 
@@ -96,7 +96,7 @@ Registers a new application for use with Sign In with World ID.
         -H "Content-Type: application/json" \
         -d '{
             "client_name": "Example Application",
-            "logo_uri": "https://app.example.com/logo.svg",
+            "logo_uri": "https://app.example.com/logo.png",
             "redirect_uris": ["https://app.example.com/callback", "https://app.example.com/redirect"],
             "application_type": "web",
             "grant_types": "authorization_code",

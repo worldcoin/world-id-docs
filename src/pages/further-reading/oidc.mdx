@@ -18,14 +18,13 @@ During registration, you will need to provide the following values:
 -   `logo_url`: **Optional**, the logo of the application that's displayed to users
 -   `application_type`: **Optional**, one of "web" or "mobile". Defaults to "web"
 -   `grant_types`: **Optional**, the type of flows this application will use. Can include "authorization_code", "implicit", or "hybrid". Defaults to "authorization_code"
--   `response_type`: **Optional**, the response type expected by the application. Can include any of "code", "token", or "id_token". Defaults to "id_token"
-    -   `code`: The [`/authorize`](#authentication) endpoint will include an authorization code that can be exchanged for an access token and/or ID token on the [`/token`](/api/sign-in-reference#exchange-code) endpoint. Best suited for web/mobile applications with dedicated backends, where security is the highest priority.
+-   `response_type`: **Optional**, the response type expected by the application. Can include any of "code", "token", or "id_token". Defaults to "code"
+    -   `code`: **Recommended for most applications.** The [`/authorize`](#authentication) endpoint will include an authorization code that can be exchanged for an access token and/or ID token on the [`/token`](/api/sign-in-reference#exchange-code) endpoint. Best suited for web/mobile applications with dedicated backends, where security is the highest priority.
     -   `token`: The [`/authorize`](#authentication) endpoint will include an access token, which can be used to fetch user information from the [`/userinfo`](/api/sign-in-reference#get-user-info) and [`/introspect`](/api/sign-in-reference#introspect) endpoints. Best suited for low-risk applications, and client-only/SPAs where a `client_secret` cannot be concealed.
-    -   `id_token`: **Recommended for most applications.** The [`/authorize`](#authentication) endpoint will include a signed JWT containing information about the user, including the unique `sub` claim (otherwise known as the [nullifier hash](/idkit/reference#response)). Provides simple user authentication, while keeping the amount of user data shared to a minimum. Best for privacy-conscious apps.
+    -   `id_token`: The [`/authorize`](#authentication) endpoint will include a signed JWT containing information about the user, including the unique `sub` claim (otherwise known as the [nullifier hash](/idkit/reference#response)). Provides simple user authentication, while keeping the amount of user data shared to a minimum. Best for privacy-conscious apps.
 
 <Note>
-	All redirect URIs must be over HTTPS, and contain no port numbers or URL fragments. `localhost` can be used on
-	staging apps for testing, but will not work on production apps.
+	All redirect URIs must be over HTTPS, and contain no port numbers or URL fragments. For example, `https://app.example.com/login` is valid, but `https://app.example.com:3000/login` is not. Similarly, `https://app.example.com/login#foo` is not valid, but `https://app.example.com/login?foo=bar` is.
 </Note>
 
 After registration is complete, you will have a valid `app_id` that will be needed for every other step in the authentication process. This value is equivalent to `client_id` from the [OIDC specification](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
@@ -43,7 +42,7 @@ Authentication begins with a request to the `/authorize` endpoint.
 When using the native Sign In with Worldcoin page, most of the OIDC process is handled for you. You can begin the authentication cycle by redirecting your users to:
 
 ```
-https://id.worldcoin.org/authorize?client_id={app_id}&response_type={code|token|id_token}&redirect_uri={encoded_redirect_url}&state={state_value}&nonce={nonce_value}
+https://id.worldcoin.org/authorize?client_id={app_id}&response_type={code|token|id_token}&redirect_uri={encoded_redirect_url}&scope={scope}&state={state_value}&nonce={nonce_value}
 ```
 
 Example values could be:
@@ -53,8 +52,9 @@ Example values could be:
 -   `client_id`: obtained from the Developer Portal or `/register` endpoint (example: `app_lshSNnaJfdt6Sohu6YAA`).
 -   `response_type`: response type as specified in OIDC spec, remember to URL encode (example: `code%20id_token`).
 -   `redirect_uri`: where the user is redirected upon successful authentication. Must be on the approved redirect URI list which can always be updated in the Developer Portal (example: `https%3A%2F%2Fapp.example.com%2Flogin`).
+-	`scope`: space-separated list of scopes to request. Defaults to `openid` if not provided. (example: `openid%20profile%20email`).
 -   `state`: unique value used to track a user's session (example: `session_102030405060708090`).
--   `nonce`: random value to prevent replay attacks (example: `z-dkEmoy_ujfk7B8uTiQpp`).
+-   `nonce`: random value to prevent replay attacks (example: `z-dkEmoy_ujfk7B8uTiQpp`). Required when using the `id_token` response type.
 
 {/* cSpell:enable */}
 
@@ -73,7 +73,7 @@ If using implicit flow, the redirect URL will contain the following params:
 
 -   `id_token`: A signed JWT identifying the user, and any requested scope information
 
-<Note type="warning">ID tokens must always be verified, and should not be blindly accepted!</Note>
+<Note type="warning">ID tokens must always be verified, and should not be blindly accepted! Additionally, you must validate that the `nonce` within the ID token matches the nonce you provided.</Note>
 
 To verify an ID token, fetch the public key from the `/jwks` endpoint. You can read more about this process at the [Auth0 blog](https://auth0.com/blog/navigating-rs256-and-jwks/) or [JWT.io](https://jwt.io/), but one example method could be:
 

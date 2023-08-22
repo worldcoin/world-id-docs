@@ -63,6 +63,19 @@ All of our smart contracts are available on GitHub:
 			</td>
 			<td className="align-middle">~30 Minutes</td>
 		</tr>
+    <tr>
+			<td className="flex items-center">
+				<img src="/icons/base.svg" alt="Base logo" className="m-0 mr-2 h-8 w-8" />
+				<p>
+					<b>Base (Testnet Only)</b>
+				</p>
+			</td>
+			<td className="align-middle">Base Goerli</td>
+			<td className="align-middle">
+				<Tag color="amber">Bridged</Tag>
+			</td>
+			<td className="align-middle">~5 Minutes</td>
+		</tr>
 	</tbody>
 </table>
 
@@ -70,7 +83,7 @@ All of our smart contracts are available on GitHub:
 
 ## Architecture
 
-This section offers a high-level overview of the various smart contracts that make up World ID. This structure (including state bridging) is replicated on testnets -- currently Goerli, Optimism Goerli, and Polygon Mumbai.
+This section offers a high-level overview of the various smart contracts that make up World ID. This structure (including state bridging) is replicated on testnets -- currently Goerli, Optimism Goerli, Polygon Mumbai, and Base Goerli.
 
 ### World ID Router
 
@@ -78,9 +91,7 @@ This is the contract you should interact with. It will route your call to the co
 
 ### Identity Managers
 
-Identity Managers are only deployed on Ethereum. One contract is deployed for each credential type accepted in World ID, currently two are deployed: Orb and Phone.
-
-The Identity Manager contracts are responsible for managing the Semaphore instance. Worldcoin's signup sequencers call the Identity Manager contracts to add identities to the merkle tree, and anyone can call the `verifyProof` function to verify a World ID proof (although it's suggested to use the World ID Router).
+Identity Managers are only deployed on Ethereum. The Identity Manager contracts are responsible for managing the Semaphore instance. Worldcoin's signup sequencers call the Identity Manager contracts to add identities to the merkle tree, and anyone can call the `verifyProof` function to verify a World ID proof (although it's suggested to use the World ID Router).
 
 ### State Bridges
 
@@ -95,7 +106,7 @@ On other supported chains (currently Optimism and Polygon), there is also one St
 The `verifyProof` method takes the following arguments:
 
 -   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should just be passed as-is.
--   `groupId` - This must be `1` for Orb-verified users, and `0` for Phone-verified users. You may pass this dynamically based on a user's verification status, or you may set it during contract deployment it if you only want to allow one type of verification.
+-   `groupId` - This must be `1` for Orb-verified users. We recommend setting this in your smart contract's constructor.
 -   `signal` - The signal to verify.
 -   `nullifierHash` - Anonymous user ID. This is obtained from the IDKit widget, and should just be passed as-is.
 -   `action` - The action to verify.
@@ -113,18 +124,15 @@ The root of the merkle tree to verify against. This is obtained from the IDKit w
 
 <Row><Col>
 
-The groupId, indicating to the World ID Router whether to verify against the merkle tree of Orb- or Phone-verified users.
+The groupId, indicating to the World ID Router which Credential Type to use for verification. Currently only Orb credentials are supported on-chain.
 
 **Orb-verified users**: `1`<br/>
-**Phone-verified users**: `0`
 
-Recommendation: Set this to `1` in your contract's constructor, to only ever allow Orb-verified users to perform the specified action. Additionally, this saves on gas costs.
-
-However, if you wish to allow Orb- and Phone-verified users, IDKit returns a `credential_type` field, which is either `phone` or `orb`. You can use this to determine the `groupId` to use in your call to `verifyProof`.
+We recommend you set this to `1` in your contract's constructor, to only ever allow Orb-verified users to perform the specified action. Additionally, this saves on gas costs.
 
 </Col><Col sticky>
 
-<CodeGroup title="groupId">
+{/* <CodeGroup title="groupId"> */}
 
 ```solidity {{ title: "Orb-Only" }}
 uint256 internal immutable groupId = 1;
@@ -142,29 +150,7 @@ worldId.verifyProof(
 
 {/* ... */}
 ```
-
-```solidity {{ title: "Orb and Phone" }}
-function yourFunction(
-  uint256 root,
-  uint256 groupId,
-  address signal,
-  uint256 nullifierHash,
-  uint256[8] calldata proof
-) public {
-
-  {/* ... */}
-
-  worldId.verifyProof(
-    root,
-    groupId,
-    abi.encodePacked(signal).hashToField(),
-    nullifierHash,
-    externalNullifier,
-    proof
-  );
-```
-
-</CodeGroup>
+{/* </CodeGroup> */}
 
 </Col></Row>
 
@@ -261,13 +247,12 @@ Here's an example function doing the above. You can also use the [World ID start
 
 ```solidity
 /// @param root The root (returned by the IDKit widget).
-/// @param groupId The group ID (returned by the IDKit widget).
+/// @param groupId The group ID 
 /// @param signal An arbitrary input from the user, usually the user's wallet address
 /// @param nullifierHash The nullifier hash for this proof, preventing double signaling (returned by the IDKit widget).
 /// @param proof The zero-knowledge proof that demonstrates the claimer is registered with World ID (returned by the IDKit widget).
 function verifyAndExecute(
     address signal,
-    uint8 groupId,
     uint256 root,
     uint256 nullifierHash,
     uint256[8] calldata proof
@@ -278,7 +263,7 @@ function verifyAndExecute(
     // Now verify the provided proof is valid and the user is verified by World ID
     worldId.verifyProof(
         root,
-        1, // Or `0` if you want to check for phone verification only
+        groupId,
         abi.encodePacked(signal).hashToField(),
         nullifierHash,
         abi.encodePacked(appId).hashToField(),

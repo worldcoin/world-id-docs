@@ -39,7 +39,7 @@ This guide will walk you through everything you need to get started with World I
 
 	-	Name your app something recognizable. It will be displayed to users when they are asked to Verify with World ID.
 	-   Select the environment to use: Staging or Production.
-		- Use Staging apps for testing and development. You must use the [World ID Simulator](https://simulator.worldcoin.org) to verify actions.
+		- Use Staging apps for testing and development. You must use the [Worldcoin Simulator](https://simulator.worldcoin.org) to verify actions.
 		- Use Production apps for production. You must use the [World App](https://worldcoin.org/download) to verify actions.
 	-   Select whether you want this action to be cloud-based or on-chain. Cloud-based actions are verified with our Cloud API, while on-chain actions are verified by our smart contracts on the blockchain.
         <Note>
@@ -84,7 +84,7 @@ This guide will walk you through everything you need to get started with World I
             
             Modify the [`/src/pages/api/verify.ts`](https://github.com/worldcoin/world-id-cloud-template/blob/main/src/pages/api/verify.ts) file to add code that runs in the backend after a user is verified. For example, you can add code to mark a user as verified in a database, or to send a user a reward.
 
-            Modify the onSuccess function in [`/src/pages/index.tsx`](https://github.com/worldcoin/world-id-cloud-template/blob/main/src/pages/index.tsx) to add code that runs in the frontend after a user is verified. For example, you can add code to show a success message to the user.\
+            Modify the onSuccess function in [`/src/pages/index.tsx`](https://github.com/worldcoin/world-id-cloud-template/blob/main/src/pages/index.tsx) to add code that runs in the frontend after a user is verified. For example, you can add code to show a success message to the user.
         </TabItem>
         <TabItem value="on-chain" label="On-Chain Anonymous Actions">
             <Note>
@@ -100,3 +100,14 @@ This guide will walk you through everything you need to get started with World I
     </Tabs>
 
 6. Test your integration with the [Worldcoin Simulator](https://simulator.worldcoin.org) and a Staging App ID.
+
+    - You can use the Simulator as a web app on either desktop or mobile.
+    - Select which identity to use in the Simulator. All identities are already Phone- and Orb-verified, and you can choose which credentials to use after scanning the QR code.
+        - You can always change identities by tapping the identity icon in the top-left of the simulator.
+        - Add more identities by tapping the "+" in the bottom-right.
+        - Only Orb credentials are supported on-chain.
+    - To begin the World ID verification, tap "Scan QR or Paste data."
+        - On mobile, you can scan the QR code with the camera, just as you would in World App.
+        - On desktop, you can click the QR code in IDKit to copy the data, then click "Manual Input" to paste the data from the QR code into the Simulator.
+    - Select which credential(s) to use for this verification. If multiple credentials are selected, the highest-strength credential will be used.
+    - Tap "Verify with World ID" to complete the verification!

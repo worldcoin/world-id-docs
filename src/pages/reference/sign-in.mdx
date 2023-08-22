@@ -8,6 +8,10 @@
 https://id.worldcoin.org
 ```
 
+<Note>
+  This page primarily describes options that are OIDC-compliant. We additionally support using access tokens as described in the OAuth2 standards. No actions can be taken on behalf of a user with OAuth2 access tokens, but you may retrieve the same information about a user as would be contained in an `id_token`. [See below for details.](#OAuth2)
+</Note>
+
 ## OpenID Connect discovery {{ tag: 'GET', label: '/.well-known/openid-configuration' }}
 
 <Row>
@@ -143,6 +147,77 @@ Registers a new application for use with Sign In with World ID.
   </Col>
 </Row>
 
+## Authorize {{ tag: 'GET', label: '/authorize' }}
+
+<Row>
+  <Col>
+
+Redirect your users to this page to begin the sign-in flow.
+
+### Required attributes
+
+    All attributes are formatted as URL query parameters.
+
+    <Properties>
+      <Property name="response_type" type="string">
+        Must be `code` for authorization code flow, `id_token` for implicit flow, or a space-separated combination of `code`, `id_token`, and `token` for hybrid flow. We generally recommend using the authorization code or implicit flows.
+      </Property>
+      <Property name="scope" type="string">
+        Space-separated list of the requested OIDC scopes. Must include `openid`, and may optionally include `email` and `profile`.
+      </Property>
+      <Property name="client_id" type="string">
+        The Client ID of your app. Get this from the Developer Portal.
+      </Property>
+      <Property name="redirect_uri" type="string">
+        URL the user will be redirected to after authentication. Must match one of your app's configured `redirect_uris`.
+      </Property>
+    </Properties>
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="state" type="string">
+        An opaque value used to maintain state between the request and the callback.
+      </Property>
+      <Property name="nonce" type="string">
+        **Required when using the implicit flow.** Used to prevent replay attacks. Should be randomly generated for each sign-in, and checked to ensure it's unchanged after the callback.
+      </Property>
+      <Property name="response_mode" type="string">
+        Determines how the authorization code, ID token, and/or access token are returned. Must be one of `query`, `fragment`, or `form_post`. `query` is only supported for the authorization code flow. Defaults to `query` for authorization code flow, and `fragment` for all others.
+      </Property>
+    </Properties>
+
+### Common Errors
+
+-   `required`: A necessary attribute was not set. Required attributes are: `response_type scope client_id redirect_uri`
+-   `invalid_redirect_uri`: The provided redirect URI is invalid. Ensure you've set the correct `redirect_uri` in the Developer Portal.
+
+</Col>
+<Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/authorize">
+
+    ```http
+    https://id.worldcoin.org/authorize?redirect_uri=https%3A%2F%2Fdocs.worldcoin.org%2Ftry-callback&response_type=code&scope=openid+profile+email&client_id=app_ce4cb73cb75fc3b73b71ffb4de178410
+    ```
+
+    </CodeGroup>
+
+    <CodeGroup title="Response">
+
+    ```http {{ title: 'Authorization Code' }}
+    https://example.app/api/auth/callback/worldcoin?code=e777d780f437330bbd79535b
+    ```
+
+    ```http {{ title: 'ID Token' }}
+    https://example.app/api/auth/callback/worldcoin#id_token=eyJhbGciOiJSUzI1NiIsInR5cCI6I...
+    ```
+
+    </CodeGroup>
+
+  </Col>
+</Row>
+
 ## Exchange Code {{ tag: 'POST', label: '/token' }}
 
 <Row>
@@ -212,6 +287,13 @@ fetch('https://id.worldcoin.org/token', {
 ```
 
 </Col></Row>
+
+## OAuth2
+
+If you selected `token` as one of your `response_types` for the `/authorize` endpoint, you'll receive an OAuth2 access token. Typically an access token would allow you to perform certain actions on a user's behalf, but there are no actions to perform for a user in this case.
+You can retrieve the same information about a user with an access token as you'd receive in an ID token. While we support this functionality for broader compatibility, we generally recommend using the authorization code or implicit flows, rather than the hybrid flow.
+
+The endpoints below are only used with an OAuth2 access token.
 
 ## Introspect {{ tag: 'POST', label: '/introspect' }}
 

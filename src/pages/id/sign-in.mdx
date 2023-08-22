@@ -53,8 +53,8 @@ World ID can be used as an authentication mechanism. Some helpful resources for 
         - `email` to receive dummy email information about the user
       - **Response type**: depends on how you want to authenticate, follow the recommendations of your engine. We recommend authorization code flow for server-side apps and implicit flow for client-side apps.
         - `code` for authorization code flow
-        - `id_token` (recommended) or `id_token token` for implicit flow (ensure your authentication engine provides and validates a `nonce` when using the implicit flow)
-        - `code id_token`, `code token`, or `code token id_token` for hybrid flow. Generally not recommended for Sign in with Worldcoin.
+        - `id_token` (recommended) for implicit flow (ensure your authentication engine provides and validates a `nonce` when using the implicit flow)
+        - `id_token token` or `code token` for hybrid flow. Generally not recommended for Sign in with Worldcoin.
 
       <Note>
         We use the same JWT token as the `id_token` and `access_token`. There are no actions or information accessible with the `access_token` that are not contained within the `id_token`, as Sign in with Worldcoin is intended only for authentication and not authorization.
@@ -64,9 +64,9 @@ World ID can be used as an authentication mechanism. Some helpful resources for 
 
       ### Optional inputs
 
-      - **(Optional for implicit flow). Token endpoint**: `https://id.worldcoin.org/token`
-      - **(Optional). User info endpoint**: `https://id.worldcoin.org/userinfo`
-      - **(Optional). Introspect endpoint**: `https://id.worldcoin.org/introspect`
+      - **(Not required for implicit flow). Token endpoint**: `https://id.worldcoin.org/token`
+      - **(Only used for hybrid flow). User info endpoint**: `https://id.worldcoin.org/userinfo`
+      - **(Only used for hybrid flow). Introspect endpoint**: `https://id.worldcoin.org/introspect`
 
       Once you have configured this, you can start the authentication flow from your app or authentication engine.
     </TabItem>
@@ -75,7 +75,7 @@ World ID can be used as an authentication mechanism. Some helpful resources for 
 
 ## Mapping User Info
 
-The `/userinfo` endpoint returns a JSON object with the following fields:
+The `/userinfo` endpoint or `id_token` JWT returns a JSON object with the following fields:
 
 ```json {{ title: "Response" }}
 {

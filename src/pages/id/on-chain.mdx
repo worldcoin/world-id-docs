@@ -30,7 +30,7 @@ const { address } = useAddress() // get the user's wallet address
     signal={address} // prevents tampering with a message
     onSuccess={onSuccess}
     // no use for handleVerify, so it is removed
-    credential_types={[CredentialType.Orb()]} // only orb verification supported on-chain
+    // leave credential_types unspecified (orb-only by default), as phone credentials are not supported on-chain
     enableTelemetry
 >
     {({ open }) => <button onClick={open}>Verify with World ID</button>}

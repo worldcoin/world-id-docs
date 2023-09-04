@@ -73,9 +73,6 @@ Registers a new application for use with Sign In with World ID.
       <Property name="client_name" type="string">
         Name of the application. This is displayed to the user during authentication.
       </Property>
-      <Property name="logo_uri" type="string">
-        URL to the application's logo. This is displayed to the user during authentication if your app has been verified.
-      </Property>
       <Property name="application_type" type="string">
         Type of application. Can be either `web` or `mobile`. Defaults to `web`.
       </Property>
@@ -100,7 +97,6 @@ Registers a new application for use with Sign In with World ID.
         -H "Content-Type: application/json" \
         -d '{
             "client_name": "Example Application",
-            "logo_uri": "https://app.example.com/logo.png",
             "redirect_uris": ["https://app.example.com/callback", "https://app.example.com/redirect"],
             "application_type": "web",
             "grant_types": "authorization_code",
@@ -116,7 +112,6 @@ Registers a new application for use with Sign In with World ID.
         },
         body: JSON.stringify({
             client_name: 'Example Application',
-            logo_uri: 'https://app.example.com/logo.png',
             redirect_uris: [
                 'https://app.example.com/callback',
                 'https://app.example.com/redirect'
@@ -139,7 +134,6 @@ Registers a new application for use with Sign In with World ID.
         "client_secret": "sk_6a2ff697607b77d641fbb10101b7636f3e6c750f2aac3652",
         "client_secret_expires_at": 0,
         "grant_types": "authorization_code",
-        "logo_uri": "https://app.example.com/logo.png",
         "response_types": "code"
     }
     ```

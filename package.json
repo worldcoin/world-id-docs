@@ -13,6 +13,8 @@
 	},
 	"browserslist": "defaults, not ie <= 11",
 	"dependencies": {
+		"@docsearch/css": "3",
+		"@docsearch/react": "3",
 		"@headlessui/react": "^1.7.11",
 		"@mdx-js/loader": "^2.1.5",
 		"@mdx-js/react": "^2.1.5",
@@ -24,7 +26,6 @@
 		"@worldcoin/idkit": "^0.5.1",
 		"acorn": "^8.8.1",
 		"autoprefixer": "^10.4.7",
-		"clippy-widget": "^0.1.27",
 		"clsx": "^1.2.1",
 		"dayjs": "^1.11.7",
 		"focus-visible": "^5.2.0",

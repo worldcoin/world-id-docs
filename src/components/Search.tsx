@@ -1,92 +1,11 @@
 import clsx from 'clsx'
-import { search } from 'clippy-widget'
 import { useRouter } from 'next/router'
 import SearchIcon from './icons/SearchIcon'
-import useDebounce from '@/lib/use-debounce'
+import { Combobox } from '@headlessui/react'
 import LoadingIcon from './icons/LoadingIcon'
+import { DocSearchModal } from '@docsearch/react'
 import NoResultsIcon from './icons/NoResultsIcon'
-import { References } from 'clippy-widget/build/types'
-import { Combobox, Dialog, Transition } from '@headlessui/react'
-import {
-	FC,
-	forwardRef,
-	Fragment,
-	KeyboardEvent as ReactKeyboardEvent,
-	useCallback,
-	useEffect,
-	useRef,
-	useState,
-} from 'react'
-
-const SearchResult: FC<{ result: References[0]; resultIndex: number }> = ({ result, resultIndex }) => (
-	<Combobox.Option
-		value={result.path}
-		className={({ active }) =>
-			clsx(
-				active && 'bg-zinc-50',
-				'group block px-4 py-3 hover:bg-zinc-50 cursor-pointer',
-				resultIndex > 0 && 'border-t border-zinc-100 dark:border-zinc-800'
-			)
-		}
-	>
-		<div
-			aria-hidden="true"
-			className="text-sm font-medium text-zinc-900 group-aria-selected:text-emerald-500 dark:text-white"
-		>
-			{result.title || result.page_title}
-		</div>
-		{result.title && (
-			<div aria-hidden="true" className="mt-1 truncate whitespace-nowrap text-2xs text-zinc-500">
-				{result.page_title}
-			</div>
-		)}
-	</Combobox.Option>
-)
-
-const SearchResults: FC<{ hasSearched: boolean; isLoading: boolean; query: string; results: References }> = ({
-	hasSearched,
-	isLoading,
-	query,
-	results,
-}) => {
-	if (hasSearched && !isLoading && results.length === 0) {
-		return (
-			<div className="p-6 text-center">
-				<NoResultsIcon className="mx-auto h-5 w-5 stroke-zinc-900 dark:stroke-zinc-600" />
-				<p className="mt-2 text-xs text-zinc-700 dark:text-zinc-400">
-					Nothing found for{' '}
-					<strong className="break-words font-semibold text-zinc-900 dark:text-white">
-						&lsquo;{query}&rsquo;
-					</strong>
-					. Please try again.
-				</p>
-			</div>
-		)
-	}
-
-	return (
-		<>
-			<Combobox.Options as="ul">
-				{results.map((result, i) => (
-					<SearchResult key={i} result={result} resultIndex={i} />
-				))}
-			</Combobox.Options>
-			{results.length > 0 && (
-				<p className="flex items-center justify-end gap-1 border-t border-zinc-100 px-4 py-2 text-xs text-zinc-400 dark:border-zinc-800 dark:text-zinc-500">
-					Powered by{' '}
-					<a
-						target="_blank"
-						rel="noreferrer"
-						className="text-zinc-700 font-semibold"
-						href="https://clippy.help/?ref=worldcoin"
-					>
-						Clippy
-					</a>
-				</p>
-			)}
-		</>
-	)
-}
+import { FC, forwardRef, KeyboardEvent as ReactKeyboardEvent, useEffect, useRef, useState } from 'react'
 
 const SearchInput = forwardRef<
 	HTMLInputElement,
@@ -122,30 +41,6 @@ const SearchDialog: FC<{ open: boolean; setOpen: (open: boolean) => void; classN
 	setOpen,
 }) => {
 	let router = useRouter()
-	const [query, setQuery] = useState('')
-	const debouncedQuery = useDebounce(query, 300)
-	const [isLoading, setLoading] = useState(false)
-	const [hasSearched, setHasSearched] = useState(false)
-	const [results, setResults] = useState<References>([])
-
-	useEffect(() => {
-		if (!debouncedQuery || debouncedQuery.length < 3) {
-			setResults([])
-			return
-		}
-
-		setLoading(true)
-		search(debouncedQuery).then(results => {
-			setLoading(false)
-			setResults(
-				results.filter(
-					(item, i, arr) =>
-						arr.findIndex(t => (t.title || t.page_title) === (item.title || t.page_title)) === i
-				)
-			)
-			setHasSearched(true)
-		})
-	}, [debouncedQuery])
 
 	useEffect(() => {
 		if (!open) return
@@ -169,6 +64,10 @@ const SearchDialog: FC<{ open: boolean; setOpen: (open: boolean) => void; classN
 				event.preventDefault()
 				setOpen(true)
 			}
+
+			if (event.key === 'Escape' && open) {
+				setOpen(false)
+			}
 		}
 
 		window.addEventListener('keydown', onKeyDown)
@@ -178,53 +77,17 @@ const SearchDialog: FC<{ open: boolean; setOpen: (open: boolean) => void; classN
 		}
 	}, [open, setOpen])
 
-	const reset = useCallback(() => {
-		setQuery('')
-		setResults([])
-		setHasSearched(false)
-	}, [])
+	if (!open) return null
 
 	return (
-		<Transition.Root show={open} as={Fragment} afterLeave={reset} appear>
-			<Dialog as="div" className="relative z-50" onClose={setOpen}>
-				<Transition.Child
-					as={Fragment}
-					enter="ease-out duration-300"
-					enterFrom="opacity-0"
-					enterTo="opacity-100"
-					leave="ease-in duration-200"
-					leaveFrom="opacity-100"
-					leaveTo="opacity-0"
-				>
-					<div className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
-				</Transition.Child>
-
-				<div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20">
-					<Transition.Child
-						as={Fragment}
-						enter="ease-out duration-300"
-						enterFrom="opacity-0 scale-95"
-						enterTo="opacity-100 scale-100"
-						leave="ease-in duration-200"
-						leaveFrom="opacity-100 scale-100"
-						leaveTo="opacity-0 scale-95"
-					>
-						<Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
-							<Combobox onChange={(path: string) => void router.push(path)}>
-								<SearchInput query={query} onChange={setQuery} isLoading={isLoading} reset={reset} />
-
-								<SearchResults
-									query={query}
-									results={results}
-									isLoading={isLoading}
-									hasSearched={hasSearched}
-								/>
-							</Combobox>
-						</Dialog.Panel>
-					</Transition.Child>
-				</div>
-			</Dialog>
-		</Transition.Root>
+		<DocSearchModal
+			insights={true}
+			appId="9BGXSWLSR1"
+			initialScrollY={0}
+			indexName="worldcoin"
+			onClose={() => setOpen(false)}
+			apiKey="f08f4ba9366cfefd94f0522bd514c93f"
+		/>
 	)
 }
 

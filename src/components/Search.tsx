@@ -82,6 +82,7 @@ const SearchDialog: FC<{ open: boolean; setOpen: (open: boolean) => void; classN
 	return (
 		<DocSearchModal
 			insights={true}
+			// cspell:disable-next-line
 			appId="9BGXSWLSR1"
 			initialScrollY={0}
 			indexName="worldcoin"

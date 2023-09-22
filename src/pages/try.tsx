@@ -7,11 +7,9 @@ import ChartIcon from '@/components/icons/CharIcon'
 import CheckIcon from '@/components/icons/CheckIcon'
 import RocketIcon from '@/components/icons/RocketIcon'
 import RedirectIcon from '@/components/icons/RedirectIcon'
-import { memo, ReactNode, Suspense, useMemo, useState } from 'react'
-import { useForm, UseFormRegisterReturn, useWatch } from 'react-hook-form'
+import { memo, ReactNode, Suspense, useEffect, useMemo, useState } from 'react'
 import { CredentialType, IDKitWidget, WidgetProps } from '@worldcoin/idkit'
-
-type Environment = 'staging' | 'production'
+import pkceChallenge from "pkce-challenge";
 
 enum SignInScopes {
 	OpenID = 'openid',
@@ -19,31 +17,42 @@ enum SignInScopes {
 	Email = 'email',
 }
 
-// ANCHOR: Staging/Promotion button
+// ANCHOR: Staging/Production button
 const EnvButton = ({
-	selected,
-	register,
+	isStaging,
+	setIsStaging,
 	icon,
 	title,
 	description,
 	value,
 }: {
-	selected?: boolean
-	register: UseFormRegisterReturn
+	isStaging?: boolean
+	setIsStaging: (value: boolean) => void
 	icon: ReactNode
 	title: string
 	description: string
 	value: string
 }): JSX.Element => {
+	let selected = false
+	if (value === 'staging' && isStaging == true) {
+		selected = true
+	} else if (value === 'production' && isStaging == false) {
+		selected = true
+	}
 	return (
 		<label
 			className={clsx(
 				'grid grid-cols-auto/1fr/auto items-center gap-x-4 p-4 border border-[#F0EDF9] rounded-xl transition-colors cursor-pointer hover:bg-gray-100/50',
 				{ 'bg-gray-100': selected }
 			)}
+			onClick={() => {
+				if (value === 'staging') {
+					setIsStaging(true)
+				} else if (value === 'production') {
+					setIsStaging(false)
+				}
+			}}
 		>
-			<input type="radio" value={value} {...register} className="hidden" />
-
 			<div
 				className={clsx(
 					'p-3 rounded-full transition-colors',
@@ -147,7 +156,7 @@ const ExamplesWrapper = ({
 			</div>
 
 			<div
-				className={clsx('flex justify-center py-24 md:py-16 transition-colors', {
+				className={clsx('flex justify-center pb-16 pt-12 transition-colors', {
 					'opacity-50 pointer-events-none select-none cursor-not-allowed': !valid,
 				})}
 			>
@@ -203,189 +212,145 @@ const ExamplesWrapper = ({
 	)
 }
 
-// ANCHOR: MaxVerificationsButton component
-const FormChoiceButton = ({
+// ANCHOR: OpenID scopes component
+const ScopeChoiceButton = ({
 	item,
-	selected,
-	register,
-	type,
+	scopes,
+	setScopes,
 }: {
-	item: { value: number | string; label: string }
-	selected: boolean
-	register: UseFormRegisterReturn
-	type: 'radio' | 'checkbox'
-}): JSX.Element => (
-	<label
-		className={clsx(
-			'flex justify-center relative border items-center w-full py-4 rounded-xl cursor-pointer transition-colors',
-			{
-				'bg-gray-100 border-transparent hover:bg-gray-100/70': selected,
-				'border-[#F0EDF9] hover:bg-gray-100/40': !selected,
-			}
-		)}
-	>
-		<input type={type} value={item.value} className="hidden" {...register} />
-		<span className="saturate-0 select-none leading-none">{item.label}</span>
-		{selected && <CheckIcon className="absolute right-3 top-[calc(50%-10px)] text-accents-info-700" />}
-	</label>
-)
+	item: { value: SignInScopes; label: string }
+	scopes: Array<SignInScopes>
+	setScopes: (scopes: Array<SignInScopes>) => void
+}): JSX.Element => {
+	let selected = false
+	if ((scopes as string[]).includes(item.value)) {
+		selected = true
+	}
 
-// ANCHOR: Try it out page component
-const Try = (): JSX.Element => {
-	const {
-		register,
-		watch,
-		formState: { errors },
-		control,
-	} = useForm<{
-		signInScopes: SignInScopes[]
-		signInEnvironment: Environment
-		testingEnvironment: Environment
-		action: string
-		// maxVerifications: 0 | 1 | 2 | 3 FIXME: Enable when dynamic maxVerifications is supported
-		credentialTypes: Array<CredentialType>
-	}>({
-		mode: 'all',
-		defaultValues: {
-			signInScopes: [SignInScopes.OpenID],
-			signInEnvironment: 'production',
-			testingEnvironment: 'production',
-			action: 'test-action',
-			// maxVerifications: 1, FIXME: Enable when dynamic maxVerifications is supported
-			credentialTypes: [CredentialType.Orb],
-		},
-	})
-
-	const signInEnvironment = useWatch({
-		control,
-		name: 'signInEnvironment',
-	})
-
-	const signInScopes = useWatch({
-		control,
-		name: 'signInScopes',
-	})
-
-	const testingEnvironment = useWatch({
-		control,
-		name: 'testingEnvironment',
-	})
-
-	const isTestingWidgetValid = useMemo(
-		() => !errors.action && !errors.credentialTypes,
-		[errors.action, errors.credentialTypes]
-	)
-
-	const authLink = useMemo(() => {
-		if (
-			!process.env.NEXT_PUBLIC_TRY_IT_OUT_APP ||
-			!process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP ||
-			!process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT
-		) {
-			return null
-		}
-
-		const baseUrl = new URL(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/authorize`)
-		baseUrl.searchParams.append('redirect_uri', `${process.env.NEXT_PUBLIC_APP_URL}/try-callback`)
-		baseUrl.searchParams.append('response_type', 'token')
-		baseUrl.searchParams.append('scope', signInScopes.join(' '))
-
-		baseUrl.searchParams.append(
-			'client_id',
-			signInEnvironment === 'production'
-				? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!
-				: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
+	if (item.value === SignInScopes.OpenID) {
+		return (
+			<label
+				title="The OpenID scope is required per the OIDC specification."
+				className='flex justify-center relative border items-center w-full py-4 rounded-xl cursor-not-allowed transition-colors bg-gray-100 border-transparent hover:bg-gray-100/70'
+			>
+				<span className="saturate-0 select-none leading-none">{item.label}</span>
+				<CheckIcon className="absolute right-3 top-[calc(50%-10px)] text-accents-info-700" />
+			</label>
 		)
+	} else {
+		return (
+			<label
+				className={clsx(
+					'flex justify-center relative border items-center w-full py-4 rounded-xl cursor-pointer transition-colors',
+					{
+						'bg-gray-100 border-transparent hover:bg-gray-100/70': selected,
+						'border-[#F0EDF9] hover:bg-gray-100/40': !selected,
+					}
+				)}
+				onClick={() => {
+					if (selected) {
+						setScopes(scopes.filter((scope) => scope !== item.value))
+					} else {
+						setScopes([...scopes, item.value])
+					}
+				}}
+			>
+				<span className="saturate-0 select-none leading-none">{item.label}</span>
+				{selected && <CheckIcon className="absolute right-3 top-[calc(50%-10px)] text-accents-info-700" />}
+			</label>
+		)
+	}
+}
 
-		return baseUrl.toString()
-	}, [signInEnvironment, signInScopes])
+//ANCHOR: Accepted credentials component
+const CredentialChoiceButton = ({
+	item,
+	credentials,
+	setCredentials,
+}: {
+	item: { value: CredentialType; label: string }
+	credentials: Array<CredentialType>
+	setCredentials: (scopes: Array<CredentialType>) => void
+}): JSX.Element => {
+	let selected = false
+	if ((credentials).includes(item.value)) {
+		selected = true
+	}
+	return (
+		<label
+			className={clsx(
+				'flex justify-center relative border items-center w-full py-4 rounded-xl cursor-pointer transition-colors',
+				{
+					'bg-gray-100 border-transparent hover:bg-gray-100/70': selected,
+					'border-[#F0EDF9] hover:bg-gray-100/40': !selected,
+				}
+			)}
+			onClick={() => {
+				if (selected) {
+					setCredentials(credentials.filter((credential) => credential !== item.value))
+				} else {
+					setCredentials([...credentials, item.value])
+				}
+			}}
+		>
+			<span className="saturate-0 select-none leading-none">{item.label}</span>
+			{selected && <CheckIcon className="absolute right-3 top-[calc(50%-10px)] text-accents-info-700" />}
+		</label>
+	)
+}
+
+//ANCHOR: Max Verifications component
+// const MaxVerificationsChoiceButton = ({
+// 	item,
+// 	maxVerifications,
+// 	setMaxVerifications,
+// }: {
+// 	item: { value: 0 | 1 | 2; label: string }
+// 	maxVerifications: 0 | 1 | 2
+// 	setMaxVerifications: (number: 0 | 1 | 2) => void
+// }): JSX.Element => {
+// 	let selected = false
+// 	if (maxVerifications == item.value) {
+// 		selected = true
+// 	}
+// 	return (
+// 		<label
+// 			className={clsx(
+// 				'flex justify-center relative border items-center w-full py-4 rounded-xl cursor-pointer transition-colors',
+// 				{
+// 					'bg-gray-100 border-transparent hover:bg-gray-100/70': selected,
+// 					'border-[#F0EDF9] hover:bg-gray-100/40': !selected,
+// 				}
+// 			)}
+// 			onClick={() => {
+// 				setMaxVerifications(item.value)
+// 			}}
+// 		>
+// 			<span className="saturate-0 select-none leading-none">{item.label}</span>
+// 			{selected && <CheckIcon className="absolute right-3 top-[calc(50%-10px)] text-accents-info-700" />}
+// 		</label>
+// 	)
+// }
+
+// ANCHOR: Anonymous Actions page component
+const AnonymousActions = (): JSX.Element => {
+
+	const [isStaging, setIsStaging] = useState(false)
+	const [action, setAction] = useState<string>("test-action")
+	const [credentials, setCredentials] = useState<Array<CredentialType>>([CredentialType.Orb])
+	const [isTestingWidgetValid, setIsTestingWidgetValid] = useState(false)
+	// const [maxVerifications, setMaxVerifications] = useState< 0 | 1 | 2 >(1)
+
+	useEffect(() => {
+		if (action && credentials.length > 0) {
+			setIsTestingWidgetValid(true)
+		} else {
+			setIsTestingWidgetValid(false)
+		}
+	}, [action, credentials])
 
 	return (
 		<div>
-			<h1>Try It Out</h1>
-			<p className="text-gray-900 font-medium text-base">Want to see World ID in action? Check it out below.</p>
-
-			<hr className="text-gray-100" />
-
-			<div>
-				<Section
-					heading="Sign in with Worldcoin"
-					description="Try authentication with World ID using the OpenID Connect (OIDC) standard. You can use our integration on the Auth0 Marketplace, easily integrate with existing SSO systems (like Okta, OneLogin, Azure AD, and many others), or roll out your own authentication."
-				/>
-
-				<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
-					Step 1 • action configuration
-				</div>
-
-				<div className="grid md:grid-cols-2 gap-y-4 gap-x-6 mt-4">
-					<EnvButton
-						title="Staging"
-						description="Use the simulator"
-						value="staging"
-						selected={watch('signInEnvironment') === 'staging'}
-						register={register('signInEnvironment')}
-						icon={<RocketIcon />}
-					/>
-
-					<EnvButton
-						title="Production"
-						description="Use the World App"
-						value="production"
-						selected={watch('signInEnvironment') === 'production'}
-						register={register('signInEnvironment')}
-						icon={<ChartIcon />}
-					/>
-				</div>
-
-				<div className="flex justify-start items-start">
-					<Link
-						className="flex items-center gap-x-1 mt-3 leading-none text-gray-300 hover:text-primary transition-colors"
-						href="https://simulator.worldcoin.org/"
-					>
-						<span>Open Simulator</span>
-						<RedirectIcon />
-					</Link>
-				</div>
-
-				<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
-					Step 2 • optional scopes (compatibility)
-				</div>
-
-				<div className="grid grid-cols-2 gap-x-3 mt-10">
-					<FormChoiceButton
-						type="checkbox"
-						item={{ value: SignInScopes.Profile, label: 'Profile' }}
-						selected={watch('signInScopes')?.includes(SignInScopes.Profile)}
-						register={register('signInScopes', { required: true })}
-					/>
-
-					<FormChoiceButton
-						type="checkbox"
-						item={{ value: SignInScopes.Email, label: 'Email' }}
-						selected={watch('signInScopes')?.includes(SignInScopes.Email)}
-						register={register('signInScopes', { required: true })}
-					/>
-				</div>
-			</div>
-
-			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8 mb-4">
-				Step 3 • this is what your users see
-			</div>
-
-			<ExamplesWrapper id="sign-in" valid={true}>
-				{({ variants, styleOption }) => (
-					<Link
-						href={authLink ?? '#'}
-						className={clsx('flex items-center gap-x-4 transition-all no-underline', variants[styleOption])}
-					>
-						<LogoIcon />
-						<span className="text-base leading-normal font-sora font-semibold">Sign In with Worldcoin</span>
-					</Link>
-				)}
-			</ExamplesWrapper>
-
-			<hr className="text-gray-100" />
-
 			<Section
 				heading="Anonymous Actions"
 				description={
@@ -410,8 +375,8 @@ const Try = (): JSX.Element => {
 					title="Staging"
 					description="Use the simulator"
 					value="staging"
-					selected={watch('testingEnvironment') === 'staging'}
-					register={register('testingEnvironment')}
+					isStaging={isStaging}
+					setIsStaging={setIsStaging}
 					icon={<RocketIcon />}
 				/>
 
@@ -419,20 +384,10 @@ const Try = (): JSX.Element => {
 					title="Production"
 					description="Use the World App"
 					value="production"
-					selected={watch('testingEnvironment') === 'production'}
-					register={register('testingEnvironment')}
+					isStaging={isStaging}
+					setIsStaging={setIsStaging}
 					icon={<ChartIcon />}
 				/>
-			</div>
-
-			<div className="flex justify-start items-start">
-				<Link
-					className="flex items-center gap-x-1 mt-3 leading-none text-gray-300 hover:text-primary transition-colors"
-					href="https://simulator.worldcoin.org/"
-				>
-					<span>Open Simulator</span>
-					<RedirectIcon />
-				</Link>
 			</div>
 
 			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
@@ -445,44 +400,33 @@ const Try = (): JSX.Element => {
 
 					<input
 						type="text"
-						{...register('action', { required: true })}
+						onChange={(e) => setAction(e.target.value)}
 						className="border border-gray-200 rounded-xl p-3 placeholder:text-gray-400"
 						placeholder="Change this to simulate different actions"
 						defaultValue="test-action"
 					/>
 				</div>
 
-				{/* FIXME: Coming soon! */}
 				{/* <div className="grid gap-y-2">
-					<span className="font-medium">Max number of verifications per person</span>
+					<span className="font-medium">Maximum number of verifications</span>
 
-					<div className="grid grid-cols-4 gap-x-3">
-						<FormChoiceButton
-							type="radio"
+					<div className="grid grid-cols-3 gap-x-3">
+						<MaxVerificationsChoiceButton
 							item={{ value: 1, label: '1' }}
-							selected={Number(watch('maxVerifications')) === 1}
-							register={register('maxVerifications')}
+							maxVerifications={maxVerifications}
+							setMaxVerifications={setMaxVerifications}
 						/>
 
-						<FormChoiceButton
-							type="radio"
+						<MaxVerificationsChoiceButton
 							item={{ value: 2, label: '2' }}
-							selected={Number(watch('maxVerifications')) === 2}
-							register={register('maxVerifications')}
+							maxVerifications={maxVerifications}
+							setMaxVerifications={setMaxVerifications}
 						/>
 
-						<FormChoiceButton
-							type="radio"
-							item={{ value: 3, label: '3' }}
-							selected={Number(watch('maxVerifications')) === 3}
-							register={register('maxVerifications')}
-						/>
-
-						<FormChoiceButton
-							type="radio"
-							item={{ value: 0, label: `♾️` }}
-							selected={Number(watch('maxVerifications')) === 0}
-							register={register('maxVerifications')}
+						<MaxVerificationsChoiceButton
+							item={{ value: 0, label: 'Unlimited' }}
+							maxVerifications={maxVerifications}
+							setMaxVerifications={setMaxVerifications}
 						/>
 					</div>
 				</div> */}
@@ -491,22 +435,28 @@ const Try = (): JSX.Element => {
 					<span className="font-medium">Accepted credentials</span>
 
 					<div className="grid grid-cols-2 gap-x-3">
-						<FormChoiceButton
-							type="checkbox"
+						<CredentialChoiceButton
 							item={{ value: CredentialType.Orb, label: 'Orb' }}
-							selected={watch('credentialTypes')?.includes(CredentialType.Orb)}
-							register={register('credentialTypes', { required: true })}
+							credentials={credentials}
+							setCredentials={setCredentials}
 						/>
 
-						<FormChoiceButton
-							type="checkbox"
+						<CredentialChoiceButton
 							item={{ value: CredentialType.Phone, label: 'Phone' }}
-							selected={watch('credentialTypes')?.includes(CredentialType.Phone)}
-							register={register('credentialTypes', { required: true })}
+							credentials={credentials}
+							setCredentials={setCredentials}
 						/>
 					</div>
 				</div>
 			</div>
+
+			{!isTestingWidgetValid && (
+				<div>
+					<p className="text-red-500 text-xs text-center mt-4">
+						The current configuration is invalid. You must provide an action and select at least one credential type.
+					</p>
+				</div>
+			)}
 
 			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12 mb-4">
 				Step 3 • this is what your users see
@@ -518,12 +468,12 @@ const Try = (): JSX.Element => {
 						<IDKitWidget
 							theme={theme}
 							onSuccess={console.log}
-							action={watch('action') ?? ''}
-							credential_types={watch('credentialTypes') ?? []}
+							action={action}
+							credential_types={credentials}
 							app_id={
-								testingEnvironment === 'production'
-									? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!
-									: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
+								isStaging
+									? process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
+									: process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!
 							}
 						>
 							{({ open }) => (
@@ -534,7 +484,7 @@ const Try = (): JSX.Element => {
 											'flex items-center gap-x-4 transition-all',
 											variants[styleOption]
 										)}
-										disabled={!isTestingWidgetValid}
+										// disabled={!isTestingWidgetValid}
 									>
 										<LogoIcon />
 										<span className="text-base leading-normal font-sora font-semibold">
@@ -542,7 +492,7 @@ const Try = (): JSX.Element => {
 										</span>
 									</button>
 
-									{watch('testingEnvironment') && watch('testingEnvironment') === 'staging' && (
+									{isStaging && (
 										<Link
 											className="flex justify-center items-center gap-x-1 mt-3.5 absolute -bottom-8 inset-x-0"
 											href="https://simulator.worldcoin.org/"
@@ -557,6 +507,140 @@ const Try = (): JSX.Element => {
 					</Suspense>
 				)}
 			</ExamplesWrapper>
+		</div>
+	)
+}
+
+// ANCHOR: Sign In page component
+const SignIn = (): JSX.Element => {
+
+	const [isStaging, setIsStaging] = useState(false)
+	const [scopes, setScopes] = useState<Array<SignInScopes>>([SignInScopes.OpenID])
+	const [codeChallenge, setCodeChallenge] = useState<string>("")
+	const [authLink, setAuthLink] = useState<string>("")
+
+	useEffect(() => {
+		const pkce = pkceChallenge()
+		window.sessionStorage.setItem("codeVerifier", pkce.code_verifier)
+		setCodeChallenge(pkce.code_challenge)
+	}, [])
+
+	useEffect(() => {
+		const baseUrl = new URL(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/authorize`)
+		baseUrl.searchParams.append('redirect_uri', `${process.env.NEXT_PUBLIC_APP_URL}/try-callback`)
+		baseUrl.searchParams.append('response_type', 'code')
+		baseUrl.searchParams.append('response_mode', 'query')
+		baseUrl.searchParams.append('scope', scopes.join(' '))
+		baseUrl.searchParams.append('code_challenge', codeChallenge)
+		baseUrl.searchParams.append('code_challenge_method', 'S256')
+
+		baseUrl.searchParams.append(
+			'client_id',
+			isStaging
+				? process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
+				: process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!
+		)
+
+		setAuthLink(baseUrl.toString())
+	}, [isStaging, scopes, codeChallenge])
+
+	return (
+		<div>
+			<Section
+				heading="Sign in with Worldcoin"
+				description="Try authentication with World ID using the OpenID Connect (OIDC) standard. You can use our integration on the Auth0 Marketplace, easily integrate with existing SSO systems (like Okta, OneLogin, Azure AD, and many others), or roll out your own authentication."
+			/>
+
+			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
+				Step 1 • environment configuration
+			</div>
+
+			<div className="grid md:grid-cols-2 gap-y-4 gap-x-6 mt-4">
+				<EnvButton
+					title="Staging"
+					description="Use the simulator"
+					value="staging"
+					isStaging={isStaging}
+					setIsStaging={setIsStaging}
+					icon={<RocketIcon />}
+				/>
+
+				<EnvButton
+					title="Production"
+					description="Use the World App"
+					value="production"
+					isStaging={isStaging}
+					setIsStaging={setIsStaging}
+					icon={<ChartIcon />}
+				/>
+			</div>
+
+			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
+				Step 2 • OIDC scopes
+			</div>
+
+			<div className="grid grid-cols-3 gap-x-3 mt-4">
+				<ScopeChoiceButton
+					item={{ value: SignInScopes.OpenID, label: 'OpenID' }}
+					scopes={scopes}
+					setScopes={setScopes}
+				/>
+
+				<ScopeChoiceButton
+					item={{ value: SignInScopes.Profile, label: 'Profile' }}
+					scopes={scopes}
+					setScopes={setScopes}
+				/>
+
+				<ScopeChoiceButton
+					item={{ value: SignInScopes.Email, label: 'Email' }}
+					scopes={scopes}
+					setScopes={setScopes}
+				/>
+			</div>
+
+			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8 mb-4">
+				Step 3 • this is what your users see
+			</div>
+
+			<ExamplesWrapper id="sign-in" valid={true}>
+				{({ variants, styleOption }) => (
+					<Suspense>
+						<div className='relative'>
+							<a
+								href={authLink ?? '#'}
+								target="_self"
+								className={clsx('flex items-center gap-x-4 transition-all no-underline', variants[styleOption])}
+							>
+								<LogoIcon />
+								<span className="text-base leading-normal font-sora font-semibold">Sign In with Worldcoin</span>
+							</a>
+							{isStaging && (
+								<Link
+									className="flex justify-center items-center gap-x-1 mt-3.5 absolute -bottom-8 inset-x-0"
+									href="https://simulator.worldcoin.org/"
+								>
+									<span>Scan with Simulator</span>
+									<RedirectIcon />
+								</Link>
+							)}
+						</div>
+					</Suspense>
+				)}
+			</ExamplesWrapper>
+		</div>
+	)
+}
+
+const Try = (): JSX.Element => {
+	return (
+		<div>
+			<h1>Try It Out</h1>
+			<p className="text-gray-900 font-medium text-base">Want to see World ID in action? Check it out below.</p>
+
+			<SignIn />
+
+			<AnonymousActions />
 		</div>
 	)
 }

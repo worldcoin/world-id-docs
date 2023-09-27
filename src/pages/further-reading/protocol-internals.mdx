@@ -6,13 +6,46 @@ Documentation of certain protocol elements. Intended for **internal use only.**
 
 ## Universal Link
 
-The universal link is used so that the World App can recognize a World ID request and handle it correctly. As more clients are built, the universal link will be extended to other wallets. The structure of the universal link is documented here. The source of truth function for this can be found [on GitHub](https://github.com/worldcoin/idkit-js/blob/main/idkit/src/lib/qr.ts#L4), `buildQRData` function.
+The universal link is used so that the World App can recognize a World ID request and handle it correctly. As more clients are built, the universal link will be extended to other wallets. The structure of the universal link is documented here. The source of truth function for this can be found [on GitHub](https://github.com/worldcoin/idkit-js/blob/main/idkit/src/services/wld-bridge.ts#L86).
 
 -   The universal link base is: `https://worldcoin.org/verify`.
-    -   There is one **required** query string, `w`, which contains the [WalletConnect URI](https://docs.walletconnect.com/2.0/javascript/sign/wallet-usage#uri)
-    -   There is one **optional** query string, `r`, which contains a return URL for mobile app verifications
+    -   If the query string `t` is equal to `wld`, the request is using the World ID Bridge, and the following requirements apply:
+        -   `i` is a **required** query string, which contains the `requestId`, a randomly-generated UUID used to identify the request
+        -   `k` is a **required** query string, which contains the URL Base64 encoded AES-GCM key
+        -   `b` is an **optional** query string, which contains the URL of the World ID Bridge. This defaults to `https://bridge.id.worldcoin.org/`.
+    -   If `t` is not present or is any value other than `wld`, the request uses the WalletConnect bridge, with the following requirements:
+        -   There is one **required** query string, `w`, which contains the [WalletConnect URI](https://docs.walletconnect.com/2.0/javascript/sign/wallet-usage#uri)
+            -   According to guidance from the WalletConnect team, only v2 URIs are supported.
+        -   There is one **optional** query string, `r`, which contains a return URL for mobile app verifications
+        -   The WalletConnect bridge functionality is deprecated, and is only documented here for reference.
 
-According to guidance from the WalletConnect team, only v2 URIs are supported.
+## World ID Bridge
+
+The World ID Bridge acts as the intermediary between IDKit and World App. It is responsible for passing the `app_id` and `action` to the World App, and returning the proof to IDKit. A functional diagram is shown here, with a step-by-step explanation to follow:
+
+![World ID Bridge Diagram](/images/docs/world-id-bridge.png)
+
+1. IDKit initiates the proof request session on the World ID Bridge.
+    - An app configures and opens IDKit with the required parameters `app_id` and `action`, and the optional parameters `signal`, `credential_types`, and `action_description`.
+    - IDKit generates a random UUID, which is used as the `requestId` for the request to the World ID Bridge, as well as generating an AES-GCM `key` and `iv`. IDKit temporarily stores the `key`, `iv`, and `requestId` in memory.
+    - IDKit encrypts the above parameters with the `key` and `iv`, forming the encrypted body of the request to the World ID Bridge. The `iv` is included unencrypted in the request body.
+    - IDKit sends a PUT request to the World ID Bridge: `https://bridge.id.worldcoin.org/request/${requestId}`, with the body formed above, thus initiating the session and sending the payload required to generate a proof.
+    - The universal link is formed as described above, with the `requestId` and AES-GCM `key` included in the query string.
+2. World App or the Worldcoin Simulator (referred to going forward as the client) receives the payload from the bridge, generates the zero-knowledge proof, and returns the proof as a payload in a proof response session on the Bridge.
+    - The client receives the universal link via QR code, mobile app deeplink, or pasting from the clipboard. 
+    - The client parses the query string to extract the `requestId` and `key`. The `key` is used to decrypt the payload, and the `requestId` is used to identify the request.
+    - The client sends a GET request to the World ID Bridge to fetch the payload: `https://bridge.id.worldcoin.org/request/${requestId}`. The payload is returned to the client and removed from the Bridge, thus ending the proof request session.
+        - The client can optionally send a HEAD request to check if a payload is available for the given `requestId`. A `200` response indicates a payload is available, while a `404` response indicates no payload is available. The payload is not returned, nor removed from the bridge if it is present.
+    - The client parses the payload to get the AES-GCM `iv` and encrypted body. The `key` from the universal link and `iv` are used to decrypt the body, which contains the `app_id` and `action` for the request, as well as the optional `signal`, `credential_types`, and `action_description` parameters.
+    - The client calculates the `externalNullifier` from the `app_id` and `action`, and generates the zero-knowledge proof using the local Semaphore identity after receiving the user's consent.
+    - The client forms the body, which either contains the successful proof or an error response.
+    - The client encrypts the body with the `key` and `iv`, and sends a PUT request to the World ID Bridge: `https://bridge.id.worldcoin.org/response/${requestId}`, with the encrypted proof or error as the body.
+    - The client must delete any information received from the Bridge, as this could be used to disclose which actions a user has performed.
+3. IDKit polls the Bridge for the response from the client, receives the encrypted response, decrypts it, and calls the callback with the proof or handles the returned error.
+    - IDKit sends a GET request to `https://bridge.id.worldcoin.org/response/${requestId}` to check if the proof is available.
+        - If the Bridge returns a `200` response, the response is available and the response body is returned to IDKit. The proof response session is ended, and the response is removed from the Bridge.
+        - If the Bridge returns a `404` response, the proof is not yet available, and IDKit will retry the request after a short delay.
+    - IDKit decrypts the response using the `key` and `iv` it generated earlier, and either handles the error or calls the configured callback function(s) with the proof.
 
 ## External Nullifier
 
@@ -45,7 +78,7 @@ Within the ID token returned by the World ID provider, a minimal number of [OIDC
 -   `alg`: The algorithm used to sign the ID token, only RS256 is supported
 -   `scope`: The scopes requested by the application. Must always contain `openid`. The `profile` and `email` scopes are also supported for compatibility, but use should be avoided.
 -   `https://worldcoin.org/beta`: Describes claims specific to World ID. **Subject to change**
-    -   `likely_human`: "strong" or "weak", corresponding to whether the user has strong sybil protection or likelihood of being human. Biometrically verified users have a `strong` value.
+    -   `likely_human`: `strong` or `weak`, corresponding to whether the user has strong sybil protection or likelihood of being human. Biometrically verified users have a `strong` value.
     -   `credential_type`: `orb` or `phone`, represents the credential the user to authenticate. In general, for Sign in with Worldcoin, the highest credential available to the user will be used.
 
 ## Signup Sequencer

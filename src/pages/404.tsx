@@ -1,16 +1,30 @@
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
+import { useRouter } from 'next/router'
 import { Link } from '@/components/Link'
 import { Search } from '@/components/Search'
 import ArrowIcon from '@/components/icons/ArrowIcon'
 
 const NotFound = (): JSX.Element => {
+	const router = useRouter()
+
+	const description = useMemo(() => {
+		if (router.asPath === '/waitlist') {
+			return (
+				<span>
+					SDK is now live and the waitlist is closed. For more information about SDK, click{' '}
+					<Link href="/">here</Link>
+				</span>
+			)
+		}
+
+		return 'This page may have been moved or deleted. Be sure to check your spelling.'
+	}, [router.asPath])
+
 	return (
 		<div className="grid gap-y-8 content-start">
 			<div className="grid gap-y-3">
 				<h1 className="mb-0 text-[28px] text-gray-900">Sorry, this page can’t be found</h1>
-				<p className="my-0 max-w-md text-base leading-tight text-gray-900">
-					This page may have been moved or deleted. Be sure to check your spelling.
-				</p>
+				<p className="my-0 max-w-md text-base leading-tight text-gray-900">{description}</p>
 			</div>
 
 			<div className="grid justify-items-start gap-y-2">
@@ -33,7 +47,7 @@ export default memo(NotFound)
 export async function getStaticProps() {
 	return {
 		props: {
-			title: 'Sorry. Page Not Found'
+			title: 'Sorry. Page Not Found',
 		},
 	}
 }

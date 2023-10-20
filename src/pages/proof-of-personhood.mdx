@@ -20,9 +20,14 @@ Building a global, scalable and inclusive proof of personhood system is at the c
 <Note title="caution" type="info">
 	The choice of which credentials to accept is up to the app (easily configured in
 	[IDKit](/reference/idkit#parameters)).
+  Sign In with Worldcoin will always accept all credentials.
 </Note>
 
-The best way to determine which credentials to use is to consider the use case. As an app, you want to ensure that your network is protected while avoiding locking out real users. **A good rule of thumb is to pick the minimal credential for which the cost of sybil attacking is higher than the received benefit**. For instance, if you're giving away a promotion valued at $250, using the phone credential is not a good idea as it will be beneficial to sybil attack it. However, if the value of the action is a few cents, the phone credential is enough.
+By default, IDKit is configured to accept only Orb credentials. This is the strongest credential and is the only one that is verifiable on-chain.
+
+For Cloud apps, there is more flexibility for credential selection -- IDKit can be configured to accept any combination of credentials. Accepted credentials should be configured based on how strongly the app needs to verify that a user is a unique human. 
+
+We recommend requiring Orb verification in instances where users are given a financial incentive, such as a signup bonus or airdrop. For other situations, such as a social media app, it may be sufficient to only require a phone number. An app can always choose to support multiple credentials and react according to which credential was used.
 
 ## Available Credentials
 

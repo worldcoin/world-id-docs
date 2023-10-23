@@ -127,6 +127,21 @@
 			"description": "Connecting web3 builders across Europe and incentivizing them to support each other and grow together.",
 			"tags": ["App", "Integration"],
 			"body": "After signing up for Talent Protocol, a person only needs to click on the “Verify Your Humanity” quest from either their home dashboard or the Quests page (each quest earns a person points by doing things like adding a profile picture, connecting a wallet and subscribing to other members)."
+		},
+
+		{
+		    "slug": "growability-network",
+		    "url": "https://growability.network",
+		    "githubUrl": "https://github.com/growability-network",
+		    "image": {
+			"sm": "/images/apps/growability-network.svg",
+			"lg": "/images/apps/growability-network.svg"
+		    },
+		    "title": "Growability Network",
+		    "subtitle": "growability.network",
+		    "description": "Growability is a digital profile that is embodied as a non-fungible token (NFT).",
+		    "tags": ["Integration", "Sign In"],
+		    "body": "It is a digital representation of your skills and experience, which can be used to apply for jobs, showcase your skills, and more."
 		}
 	]
 }

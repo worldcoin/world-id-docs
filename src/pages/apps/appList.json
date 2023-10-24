@@ -134,14 +134,14 @@
 		    "url": "https://growability.network",
 		    "githubUrl": "https://github.com/growability-network",
 		    "image": {
-			"sm": "/images/apps/growability-network.svg",
-			"lg": "/images/apps/growability-network.svg"
+					"sm": "/images/apps/growability.svg",
+					"lg": "/images/apps/growability-lg.svg"
 		    },
 		    "title": "Growability Network",
 		    "subtitle": "growability.network",
-		    "description": "Growability is a digital profile that is embodied as a non-fungible token (NFT).",
-		    "tags": ["Integration", "Sign In"],
-		    "body": "It is a digital representation of your skills and experience, which can be used to apply for jobs, showcase your skills, and more."
+		    "description": "Growability Network provide you a digital profile of your knowledge.",
+		    "tags": ["Integration", "Sign In", "Social"],
+		    "body": "It serves as a digital embodiment of your expertise and abilities, enabling you to seek employment opportunities, display your knowledge, and much more."
 		}
 	]
 }

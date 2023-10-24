@@ -1,3 +1,4 @@
+@import '@docsearch/css';
 @import './cookiepro.css';
 
 :root {
@@ -53,7 +54,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.clippy-widget {
-	@apply hidden;
-}

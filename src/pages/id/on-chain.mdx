@@ -30,7 +30,7 @@ const { address } = useAddress() // get the user's wallet address
     signal={address} // proof will only verify if the signal is unchanged, this prevents tampering
     onSuccess={onSuccess} // use onSuccess to call your smart contract
     // no use for handleVerify, so it is removed
-    // use default credential_types (orb-only), as phone credentials are not supported on-chain
+    // use default credential_types (orb-only), as device credentials are not supported on-chain
 >
     {({ open }) => <button onClick={open}>Verify with World ID</button>}
 </IDKitWidget>

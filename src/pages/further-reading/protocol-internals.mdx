@@ -46,7 +46,7 @@ Within the ID token returned by the World ID provider, a minimal number of [OIDC
 -   `scope`: The scopes requested by the application. Must always contain `openid`. The `profile` and `email` scopes are also supported for compatibility, but use should be avoided.
 -   `https://worldcoin.org/beta`: Describes claims specific to World ID. **Subject to change**
     -   `likely_human`: "strong" or "weak", corresponding to whether the user has strong sybil protection or likelihood of being human. Biometrically verified users have a `strong` value.
-    -   `credential_type`: `orb` or `phone`, represents the credential the user to authenticate. In general, for Sign in with Worldcoin, the highest credential available to the user will be used.
+    -   `credential_type`: `orb` or `device`, represents the credential the user to authenticate. In general, for Sign in with Worldcoin, the highest credential available to the user will be used.
 
 ## Signup Sequencer
 
@@ -57,12 +57,12 @@ The sequencer utilizes a batching process to reduce gas costs and improve perfor
 ### Staging
 
 -   Orb credential: `https://signup-batching.stage-crypto.worldcoin.org`
--   Phone credential: `https://phone-signup.stage-crypto.worldcoin.org`
+-   Device credential: `https://phone-signup.stage-crypto.worldcoin.org`
 
 ### Production
 
 -   Orb credential: `https://signup.crypto.worldcoin.org`
--   Phone credential: `https://phone-signup.crypto.worldcoin.org`
+-   Device credential: `https://phone-signup.crypto.worldcoin.org`
 
 ### Endpoints
 

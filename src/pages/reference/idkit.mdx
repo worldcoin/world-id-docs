@@ -19,7 +19,7 @@ The `IDKitWidget` component is the main component that renders the World ID widg
       action="vote_1" // this is your action name from the Developer Portal
       signal="user_value" // any arbitrary value the user is committing to, e.g. a vote
       onSuccess={onSuccess}
-      credential_types={['orb', 'phone']} // the credentials you want to accept
+      credential_types={['orb', 'device']} // the credentials you want to accept
       enableTelemetry
     >
       {({ open }) => <button onClick={open}>Verify with World ID</button>}
@@ -74,7 +74,7 @@ The following parameters can be passed as props to the `IDKitWidget` component:
 		The description of the specific action (shown to users in World App). **Only used for Dynamic Actions.**
 	</Property>
 	<Property name="credential_types" type="string[]">
-		An array of credential types to allow for verification. Will accept any combination of `orb` & `phone`. Defaults
+		An array of credential types to allow for verification. Will accept any combination of `orb` & `device`. Defaults
 		to `orb`. **TypeScript apps can use the `CredentialType` enum.**
 	</Property>
 	<Property name="autoClose" type="boolean">
@@ -151,8 +151,8 @@ Upon successful completion of the World ID flow, you will receive a response obj
 	<Property name="proof" type="string">
 		The Zero-knowledge proof of the verification. ABI encoded.
 	</Property>
-	<Property name="credential_type" type='"orb" | "phone"'>
-		Either `orb` or `phone`. Will always return the strongest credential with which a user has been verified.
+	<Property name="credential_type" type='"orb" | "device"'>
+		Either `orb` or `device`. Will always return the strongest credential with which a user has been verified.
 	</Property>
 </Properties>
 

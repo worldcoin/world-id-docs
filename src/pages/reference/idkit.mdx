@@ -25,8 +25,7 @@ import { IDKitWidget } from '@worldcoin/idkit'
 	action="vote_1" // this is your action name from the Developer Portal
 	signal="user_value" // any arbitrary value the user is committing to, e.g. a vote
 	onSuccess={onSuccess}
-	credential_types={['orb', 'phone']} // the credentials you want to accept
-	enableTelemetry
+	credential_types={['orb', 'device']} // the credentials you want to accept
 >
 	{({ open }) => <button onClick={open}>Verify with World ID</button>}
 </IDKitWidget>
@@ -65,9 +64,6 @@ The following parameters can be passed as props to the `IDKitWidget` component:
 	</Property>
 	<Property name="action_description" type="string">
 		The description of the specific action (shown to users in World App). **Only used for Dynamic Actions.**
-	</Property>
-	<Property name="enableTelemetry" type="boolean" defaultValue="false">
-		Whether opt-in telemetry is enabled, defaults to `false`. Very few events are sent, with no PII to help improve the project. [Read more here.](/reference/idkit/telemetry)
 	</Property>
 	<Property name="theme" type='"light" | "dark"' defaultValue='"light"'>
 		The theme to apply to the widget's UI. Defaults to `"light"`.
@@ -115,8 +111,8 @@ Upon successful completion of the World ID flow, you will receive a response obj
 	<Property name="proof" type="string">
 		The Zero-knowledge proof of the verification. ABI encoded.
 	</Property>
-	<Property name="credential_type" type='"orb" | "phone"'>
-		Either `orb` or `phone`. Will always return the strongest credential with which a user has been verified.
+	<Property name="credential_type" type='"orb" | "device"'>
+		Either `orb` or `device`. Will always return the strongest credential with which a user has been verified.
 	</Property>
 </Properties>
 
@@ -134,11 +130,6 @@ The `errorResult` object that is returned in the Promise rejection has the follo
 ```
 
 <Note>When debugging, check the Javascript console for any additional details.</Note>
-
-<Note>
-	If you enable telemetry, any errors will be reported to help proactively detect and fix any bugs. If you are running
-	into an issue and don't have telemetry enabled, please report any bugs.
-</Note>
 
 #### Error codes
 
@@ -199,37 +190,6 @@ The JS package may return any of the following error codes.
 		</tr>
 	</tbody>
 </table>
-
-### Telemetry
-
-The React package comes bundled with optional **opt-in** telemetry. Receiving these telemetry events from the package helps us understand how the product is being used so it can be improved.
-
--   **PII is not captured**, neither from the developer, nor end users. Not even the IP address. It's all anonymous analytics.
--   When a telemetry event is received, the IP address is used to obtain a rough location (country, state/province, city) using the [MaxMind](https://github.com/maxmind) database through [PostHog][posthog], the IP address is immediately discarded and not stored.
--   Nothing is stored in the user's device running IDKit. **No cookies, no local storage, nothing.**
--   **No fingerprinting** or any other mechanism to attempt to identify users cross-browser or cross-device.
--   All telemetry events are captured using [PostHog](https://github.com/posthog/posthog), an open-source product analytics library.
-
-#### Events captured
-
-Here are the events captured:
-
--   `idkit loaded`. When the widget is loaded.
--   `idkit opened`. When IDKit is triggered in the user interface.
--   `$exception`. When an unhandled exception occurs in the package. The error message and the stack trace is included.
-
-#### Attributes captured
-
-For each event, the additional metadata is kept:
-
--   Estimated coarse location, like country and state/province (from IP address). IP address is discarded.
--   Screen size.
--   IDKit version.
--   Device information from `User-Agent` (e.g. browser, OS, ...).
--   Current URL.
--   Referrer header.
-
-[posthog]: https://github.com/posthog/posthog
 
 ## IDKit Standalone
 

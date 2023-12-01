@@ -58,7 +58,7 @@ export const Properties: FC<PropsWithChildren<{}>> = ({ children }) => (
 	<div className="my-6">
 		<ul
 			role="list"
-			className="m-0 max-w-[calc(theme(maxWidth.lg)-theme(spacing.8))] list-none divide-y divide-zinc-900/5 p-0"
+			className="m-0 max-w-full list-none divide-y divide-zinc-900/5 p-0"
 		>
 			{children}
 		</ul>

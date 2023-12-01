@@ -19,10 +19,6 @@ Create an action for your app in the Developer Portal. You must provide the foll
 	sybil-resistance](/id/on-chain#sybil-resistance).
 </Note>
 
-### Dynamic Actions
-
-To accommodate dynamic content, actions can also be created at the time a user completes a World ID verification. Simply pass the desired `action` and `action_description` values in [IDKit's parameters](/reference/idkit#parameters). A new action will automatically be created and tracked, and will appear the next time you log into the Developer Portal.
-
 ## Installing IDKit
 
 The JS package can be included in your project either as a module (which supports tree shaking to reduce bundle size) or you can add the script directly to your website.
@@ -66,6 +62,10 @@ When a user clicks the button, the IDKit modal will open and prompt them to scan
 One of these callbacks should begin the process of verifying the proof.
 
 ### IDKit with Dynamic Actions
+
+To accommodate dynamic content, actions can also be created at the time a user completes a World ID verification. Simply pass the desired `action` and `action_description` values in [IDKit's parameters](/reference/idkit#parameters). A new action will automatically be created and tracked, and will appear the next time you log into the Developer Portal.
+
+<Note> If using dynamic actions on-chain, you will need to re-calculate the `externalNullifierHash` for each action you wish to verify. Read more [here](/further-reading/protocol-internals#external-nullifier). </Note>
 
 As an example, using IDKit with Dynamic Actions may look like this:
 

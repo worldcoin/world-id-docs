@@ -47,12 +47,14 @@ The World ID Bridge acts as the intermediary between IDKit and World App. It is 
                 "return_to": "https://example.com" // only used when deeplinking to mobile application. must be a valid https URL
             }
             ```
+            {/* cSpell: disable */}
             ```json {{ title: "Encrypted Request Body" }}
             {
                 "iv": "a2xhanNsbnJ2b2VzanJ2YTtvanNpZWZubGFp", // Base64 encoded
                 "payload": "YWVvbmJybGFpc2VudWJybGFvbTtvdmNubGRrZmE..." // Base64 encoded encrypted body
             }
             ```
+            {/* cSpell: enable */}
         </CodeGroup>
     - IDKit sends a POST request to the Bridge: `https://bridge.worldcoin.org/request`, with the encrypted JSON body described above, thus initiating the session and sending the payload required to generate a proof. The Bridge returns a UUIDv4 `requestId` to IDKit, which is used to identify the request.
     - The universal link is formed as described in the above section, with the `requestId` and AES-GCM `key` included in the query string.
@@ -73,6 +75,7 @@ The World ID Bridge acts as the intermediary between IDKit and World App. It is 
         - `retrieved`: The verification request has been received by the client, but the proof has not yet been returned.
         - `completed`: The proof (or an error) has been returned by the client, and will be included in this response.
         <CodeGroup title="Bridge Response">
+            {/* cSpell: disable */}
             ```json {{ title: "Completed" }}
             {
                 "status": "completed",
@@ -82,6 +85,7 @@ The World ID Bridge acts as the intermediary between IDKit and World App. It is 
                 }
             }
             ```
+            {/* cSpell: enable */}
             ```json {{ title: "Initialized" }}
             {
                 "status": "initialized",

@@ -288,7 +288,7 @@ const Try = (): JSX.Element => {
 		const baseUrl = new URL(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/authorize`)
 		baseUrl.searchParams.append('redirect_uri', `${process.env.NEXT_PUBLIC_APP_URL}/try-callback`)
 		baseUrl.searchParams.append('response_type', 'token')
-		baseUrl.searchParams.append('scope', signInScopes.join(' '))
+		baseUrl.searchParams.append('scope', ['openid', ...signInScopes].join(' '))
 
 		baseUrl.searchParams.append(
 			'client_id',
@@ -389,13 +389,13 @@ const Try = (): JSX.Element => {
 			<Section
 				heading="Anonymous Actions"
 				description={
-					'Here you can test out various Anonymous Actions configurations, including ones that will fail (such as a phone-verified user attemping an action requiring Orb verification).'
+					'Here you can test out various Anonymous Actions configurations, including ones that will fail (such as a device-verified user attemping an action requiring Orb verification).'
 				}
 				steps={[
 					'Choose between Staging or Production.',
 					'Input the name of the action.',
 					// 'Select max number of verifications per person',
-					'Choose what type of credentials you want to accept. You can have both Orb and Phone, or only one.',
+					'Choose what type of credentials you want to accept. You can have both Orb and Device, or only one.',
 					'Tap on "Continue with Worldcoin."',
 					'Follow the steps in "Continue with Worldcoin" flow.',
 				]}

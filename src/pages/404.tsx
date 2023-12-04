@@ -33,7 +33,7 @@ export default memo(NotFound)
 export async function getStaticProps() {
 	return {
 		props: {
-			title: 'Sorry. Page Not Found'
+			title: 'Sorry. Page Not Found',
 		},
 	}
 }

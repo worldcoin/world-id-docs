@@ -9,7 +9,7 @@ Building a global, scalable and inclusive proof of personhood system is at the c
 
 **Maximum privacy**. Given that proof of personhood is about just proving someone is human, and not who they are, proof of personhood is handled with the highest privacy standard. Users share their proof of personhood **anonymously**. Each credential is issued in an independent set, with no other information attached (more on [The Protocol](/world-id/protocol)).
 
-**Multiple credentials**. Proof of personhood is not a binary yes or no in the digital world, but rather a **spectrum**. Multiple signals can contribute to determine where a potential user falls on the spectrum. In the World ID Protocol multiple credentials are used as input signals for proof of personhood. The choice of credentials is a trade-off that apps and users must decide on. Weaker credentials will generally be easier for users to obtain but more easily spoofed or sybil attacked.
+**Multiple credentials**. Proof of personhood is not a binary yes or no in the digital world, but rather a **spectrum**. Multiple signals can contribute to determine where a potential user falls on the spectrum. In the World ID Protocol, the strongest credential a user holds will be used to generate the proof of personhood. The choice of credentials is a trade-off that apps and users must decide on. Weaker credentials will generally be easier for users to obtain but more easily spoofed or sybil attacked.
 
 <Fence className="bg-gray-100">
   ![Proof of Personhood Credentials Spectrum](/images/docs/id/proof-of-personhood-credentials.svg)
@@ -18,11 +18,16 @@ Building a global, scalable and inclusive proof of personhood system is at the c
 ### Credential Selection
 
 <Note title="caution" type="info">
-	The choice of which credentials to accept is up to the app (easily configured on
+	The choice of which credentials to accept is up to the app (easily configured in
 	[IDKit](/reference/idkit#parameters)).
+  Sign In with Worldcoin will always accept all credentials.
 </Note>
 
-The best way to determine which credentials to use is to consider the use case. As an app, you want to ensure that your network is protected while avoiding locking out real users. **A good rule of thumb is to pick the minimal credential for which the cost of sybil attacking is higher than the received benefit**. For instance, if you're giving away a promotion valued at $250, using the phone credential is not a good idea as it will be beneficial to sybil attack it. However, if the value of the action is a few cents, the phone credential is enough.
+By default, IDKit is configured to accept only Orb credentials. This is the strongest credential and is the only one that is verifiable on-chain.
+
+For Cloud apps, there is more flexibility for credential selection -- IDKit can be configured to accept any combination of credentials. Accepted credentials should be configured based on how strongly the app needs to verify that a user is a unique human. 
+
+We recommend requiring Orb verification in instances where users are given a financial incentive, such as a signup bonus or airdrop. For other situations, such as a social media app, it may be sufficient to only require a device credential. An app can always choose to support multiple credentials and react according to which credential was used.
 
 ## Available Credentials
 
@@ -42,23 +47,19 @@ This list will continue to grow as more credentials are supported for proof of p
       <td className="align-middle"><img src="/icons/credential-orb.svg" alt="" className="h-8 w-8 m-0 mr-2 inline" />Orb</td>
       <td className="align-middle">Biometric in-person verification, uniqueness through iris (<Link href="https://worldcoin.org/blog/engineering/opening-orb-look-inside-worldcoin-biometric-imaging-device">details</Link>).</td>
       <td className="align-middle">Strongest</td>
-      <td className="align-middle"><Tag>PRODUCTION</Tag> <Tag color="amber">STAGING</Tag></td>
+      <td className="align-middle"><Tag>ON-CHAIN</Tag> <Tag color="sky">CLOUD</Tag></td>
     </tr>
     <tr>
-      <td className="flex items-center"><img src="/icons/credential-phone.svg" alt="" className="h-8 w-8 m-0 mr-2" /> Phone</td>
-      <td className="align-middle">Unique device check and unique phone number verification.</td>
+      <td className="flex items-center"><img src="/icons/credential-phone.svg" alt="" className="h-8 w-8 m-0 mr-2" />Device</td>
+      <td className="align-middle">Unique device check.</td>
       <td className="align-middle">Weak</td>
-      <td className="align-middle">
-      <td className="align-middle"><Tag>PRODUCTION</Tag> <Tag color="amber">STAGING</Tag></td>
-      </td>
+      <td className="align-middle"><Tag color="sky">CLOUD</Tag></td>
     </tr>
     <tr>
-      <td className="flex items-center"><img src="/icons/credential-face.svg" alt="" className="h-8 w-8 m-0 mr-2" /> Face</td>
+      <td className="flex items-center"><img src="/icons/credential-face.svg" alt="" className="h-8 w-8 m-0 mr-2" />Face</td>
       <td className="align-middle">Unique and privacy-preserving face match.</td>
       <td className="align-middle">Medium</td>
-      <td className="align-middle">
-        <Tag color="zinc">COMING SOON</Tag>
-      </td>
+      <td className="align-middle"><Tag color="zinc">COMING SOON</Tag></td>
     </tr>
 
   </tbody>

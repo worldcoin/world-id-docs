@@ -17,7 +17,7 @@ This setup is recommended for most users, as it is the most gas-efficient. For m
 
 ## IDKit Configuration
 
-When verifying proofs on-chain, there are a few changes you have to make to your IDKit configuration. You must ensure that the app created in the Developer Portal is configured as an on-chain app, and you should only accept Orb credentials in IDKit, as phone credentials are not currently supported on-chain.
+When verifying proofs on-chain, there are a few changes you have to make to your IDKit configuration. You must ensure that the app created in the Developer Portal is configured as an on-chain app, and you should only accept Orb credentials in IDKit, as device credentials are not currently supported on-chain.
 
 ```tsx
 import { IDKitWidget, solidityEncode } from '@worldcoin/idkit' // add import for solidityEncode
@@ -30,7 +30,7 @@ const { address } = useAddress() // get the user's wallet address
     signal={address} // prevents tampering with a message
     onSuccess={onSuccess}
     // no use for handleVerify, so it is removed
-    // leave credential_types unspecified (orb-only by default), as phone credentials are not supported on-chain
+    // leave credential_types unspecified (orb-only by default), as device credentials are not supported on-chain
     enableTelemetry
 >
     {({ open }) => <button onClick={open}>Verify with World ID</button>}
@@ -57,7 +57,7 @@ function hashToField(bytes memory value) internal pure returns (uint256) {
 The `externalNullifier` is the unique identifier of the action performed in Semaphore, and its keccak256 hash (named `externalNullifierHash`) is what is passed to the World ID Router contract. It is a combination of the app ID and the action.
 You should typically set it in the constructor to save gas (as is done in this example), as it will not change when all users perform the same action. 
 
-We additionally set the `groupId` to `1`, which limits this example to Orb-verified users only. Phone credentials are currently not supported on-chain.
+We additionally set the `groupId` to `1`, which limits this example to Orb-verified users only. Device credentials are currently not supported on-chain.
 
 ```solidity
 /// @notice Thrown when attempting to reuse a nullifier
@@ -104,7 +104,7 @@ The `verifyProof` method reverts if the proof is invalid, meaning you can just c
 The `verifyProof` method takes the arguments below.
 
 -   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should be passed as-is.
--   `groupId` - This must be `1` for Orb-verified users. Phone credentials are currently not supported on-chain.
+-   `groupId` - This must be `1` for Orb-verified users. Device credentials are currently not supported on-chain.
 -   `signalHash` - The keccak256 hash of the signal to verify.
 -   `nullifierHash` - Anonymous user ID for this action. This is obtained from the IDKit widget, and should just be passed as-is.
 -   `externalNullifierHash` - The externalNullifierHash, which identifies which app and action the user is verifying for.
@@ -142,7 +142,7 @@ function verifyAndExecute(
 ```
 
 <Note>
- All arguments are of type `uint256`, with the exception of `proof`, which is of type `uint256[8]`. Depending on how you're calling your smart contract, you might be required to unpack it into a uint256[8] before passing it to the verifyProof method. To unpack it, use the following code:
+ All arguments are of type `uint256`, with the exception of `proof`, which is of type `uint256[8]`. Depending on how you're calling your smart contract, you might be required to unpack it into a `uint256[8]` before passing it to the verifyProof method. To unpack it, use the following code:
 
 <CodeGroup>
 

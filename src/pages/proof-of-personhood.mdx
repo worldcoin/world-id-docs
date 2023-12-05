@@ -27,7 +27,7 @@ By default, IDKit is configured to accept only Orb credentials. This is the stro
 
 For Cloud apps, there is more flexibility for credential selection -- IDKit can be configured to accept any combination of credentials. Accepted credentials should be configured based on how strongly the app needs to verify that a user is a unique human. 
 
-We recommend requiring Orb verification in instances where users are given a financial incentive, such as a signup bonus or airdrop. For other situations, such as a social media app, it may be sufficient to only require a phone number. An app can always choose to support multiple credentials and react according to which credential was used.
+We recommend requiring Orb verification in instances where users are given a financial incentive, such as a signup bonus or airdrop. For other situations, such as a social media app, it may be sufficient to only require a device credential. An app can always choose to support multiple credentials and react according to which credential was used.
 
 ## Available Credentials
 
@@ -50,13 +50,13 @@ This list will continue to grow as more credentials are supported for proof of p
       <td className="align-middle"><Tag>ON-CHAIN</Tag> <Tag color="sky">CLOUD</Tag></td>
     </tr>
     <tr>
-      <td className="flex items-center"><img src="/icons/credential-phone.svg" alt="" className="h-8 w-8 m-0 mr-2" /> Phone</td>
-      <td className="align-middle">Unique device check and unique phone number verification.</td>
+      <td className="flex items-center"><img src="/icons/credential-phone.svg" alt="" className="h-8 w-8 m-0 mr-2" />Device</td>
+      <td className="align-middle">Unique device check.</td>
       <td className="align-middle">Weak</td>
       <td className="align-middle"><Tag color="sky">CLOUD</Tag></td>
     </tr>
     <tr>
-      <td className="flex items-center"><img src="/icons/credential-face.svg" alt="" className="h-8 w-8 m-0 mr-2" /> Face</td>
+      <td className="flex items-center"><img src="/icons/credential-face.svg" alt="" className="h-8 w-8 m-0 mr-2" />Face</td>
       <td className="align-middle">Unique and privacy-preserving face match.</td>
       <td className="align-middle">Medium</td>
       <td className="align-middle"><Tag color="zinc">COMING SOON</Tag></td>

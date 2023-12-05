@@ -54,7 +54,7 @@ import { IDKitWidget } from '@worldcoin/idkit'
 	action="vote_1" // this is your action name from the Developer Portal
 	onSuccess={onSuccess} // callback when the modal is closed
 	handleVerify={handleVerify} // optional callback when the proof is received
-	credential_types={['orb', 'phone']} // optional, defaults to ['orb']
+	credential_types={['orb', 'device']} // optional, defaults to ['orb']
 	enableTelemetry // optional, defaults to false
 >
 	{({ open }) => <button onClick={open}>Verify with World ID</button>}
@@ -110,8 +110,8 @@ Upon successful completion of the World ID flow, you will receive a response obj
 	<Property name="proof" type="string">
 		The Zero-knowledge proof of the verification. ABI encoded.
 	</Property>
-	<Property name="credential_type" type='"orb" | "phone"'>
-		Either `orb` or `phone`. Will always return the strongest credential with which a user has been verified.
+	<Property name="credential_type" type='"orb" | "device"'>
+		Either `orb` or `device`. Will always return the strongest credential with which a user has been verified.
 	</Property>
 </Properties>
 

@@ -13,7 +13,7 @@ The universal link is used so that the World App can recognize a World ID reques
         -   `i` is a **required** query string, which contains the `requestId`, a UUIDv4 used to identify the request
         -   `k` is a **required** query string, which contains the URL Base64 encoded AES-GCM key
         -   `b` is an **optional** query string, which contains the URL of the World ID Bridge. This defaults to `https://bridge.worldcoin.org/`.
-    -   If the query string `t` is equal to `wmobile`, the request is passed directly from a native mobile app to World App, and the following requirements apply:
+    -   **Coming Soon:** If the query string `t` is equal to `wmobile`, the request is passed directly from a native mobile app to World App, and the following requirements apply:
         -   `app_id` is a **required** query string. This is the `app_id` from the Developer Portal, or is equal to `self_hosted`.
         -   `action` is a **required** query string, which contains the action ID
         -   `credential_types` is an **optional** query string, which is a comma-separated string of accepted credentials.
@@ -44,7 +44,7 @@ The World ID Bridge acts as the intermediary between IDKit and the user's World 
                 "signal": "0xa1ddac5b45704c897203...", // optional
                 "credential_types": ["orb", "device"], // optional, defaults to ["orb"]
                 "action_description": "Blah blah blah", // optional
-                "return_to": "https://example.com" // only used when deeplinking to mobile application. must be a valid https URL
+                "return_to": "https://your-application.com/world-id" // only used when deeplinking to mobile application. must be a valid https URL
             }
             ```
             {/* cSpell: disable */}

@@ -142,14 +142,14 @@ Enables fetching information about a particular app to determine eligibility for
 ### Request Body
 
 <Properties>
-	<Property name="action" type="string" defaultValue='""'>
-		The action to check. This is the same action that was passed to IDKit. Ignored if an `external_nullifier` is provided. Defaults to an empty string for Sign In with Worldcoin.
+	<Property name="action" type="string" defaultValue='""' required={true}>
+		The action to check. This is the same action that was passed to IDKit. Defaults to an empty string for Sign In with Worldcoin.
 	</Property>
 	<Property name="nullifier_hash" type="string" defaultValue='""'>
 		The ZKP's nullifier hash, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details. Defaults to an empty string.
 	</Property>
-	<Property name="external_nullifier" type="string" defaultValue='null'>
-		The ZKP's external nullifier. If not provided, it will be calculated from the `app_id` and `action`. **Required if `action` is not provided.**
+	<Property name="external_nullifier" type="string" deprecated={true}>
+		The ZKP's external nullifier. This parameter is deprecated and will be removed in a future release, and should no longer be used. Instead, pass the `action` parameter.
 	</Property>
 </Properties>
 
@@ -242,16 +242,8 @@ fetch(`/api/v1/precheck/${appId}`, {
 ```json {{ title: "400 Required" }}
 {
 	"code": "required",
-	"detail": "This attribute is required for new actions.",
+	"detail": "This attribute is required.",
 	"attribute": "action"
-}
-```
-
-```json {{ title: "400 External Nullifier Mismatch" }}
-{
-	"code": "external_nullifier_mismatch",
-	"detail": "This action already exists but the external nullifier does not match. Please send the correct external nullifier and action.",
-	"attribute": "external_nullifier"
 }
 ```
 
@@ -266,7 +258,7 @@ fetch(`/api/v1/precheck/${appId}`, {
 ```json {{ title: "404 Not Found" }}
 {
 	"code": "not_found",
-	"detail": "We couldn't find an app with this ID. Action may be inactive.",
+	"detail": "We couldn't find an app with this ID.",
 	"attribute": null
 }
 ```

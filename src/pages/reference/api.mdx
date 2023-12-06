@@ -135,11 +135,11 @@ fetch(apiUrl, {
 
 ## Get Action Metadata {{ tag: "GET", label: "/api/v1/precheck/{app_id}" }}
 
-<Row><Col>
-
 Enables fetching information about a particular app to determine eligibility for verification. This endpoint is also used by the World ID Kiosk, Sign In with Worldcoin, and World App to show metadata about the action being verified. This endpoint will only return information for active actions. <br/> Primarily intended for internal use.
 
 ### Request Body
+
+<Row><Col>
 
 <Properties>
 	<Property name="action" type="string" defaultValue='""' required={true}>
@@ -150,38 +150,6 @@ Enables fetching information about a particular app to determine eligibility for
 	</Property>
 	<Property name="external_nullifier" type="string" deprecated={true}>
 		The ZKP's external nullifier. This parameter is deprecated and will be removed in a future release, and should no longer be used. Instead, pass the `action` parameter.
-	</Property>
-</Properties>
-
-### Response
-
-<Properties>
-	<Property name="id" type="string">
-		The `app_id`.
-	</Property>
-	<Property name="engine" type='"cloud" | "on-chain"'>
-		Whether the app is configured for use with **Cloud** or **On-Chain** proof verifications.
-	</Property>
-	<Property name="is_staging" type="boolean">
-		Whether the app is a staging app. If `true`, the [Worldcoin Simulator](https://simulator.worldcoin.org) must be used to verify.
-	</Property>
-	<Property name="is_verified" type="string">
-		Whether the app has been verified by Worldcoin.
-	</Property>
-	<Property name="name" type="string">
-		The app's name as configured in the Developer Portal.
-	</Property>
-	<Property name="verified_app_logo" type="string">
-		The URL of the app's logo. Only returned if the app has been verified, otherwise returns an empty string.
-	</Property>
-	<Property name="is_sign_in" type="boolean">
-		Whether the action request is for Sign In with Worldcoin.
-	</Property>
-	<Property name="can_user_verify" type='"yes" | "no" | "on-chain" | "undetermined"'>
-		If the user is eligible to verify for this action. Will always return `"yes"` if `sign_in_with_world_id` is `true`, or `"on-chain"` for **On-Chain** apps. For **Cloud** apps, will return `"yes"` or `"no"` if a `nullifier_hash` was provided, or `"undetermined"` if a `nullifier_hash` was not provided.
-	</Property>
-	<Property name="action" type="JSON">
-		Information about the action being verified.
 	</Property>
 </Properties>
 
@@ -214,6 +182,51 @@ fetch(`/api/v1/precheck/${appId}`, {
 ```
 
 </CodeGroup>
+</Col></Row>
+
+### Response
+
+<Row><Col>
+
+<Properties>
+	<Property name="__typename" type="string" defaultValue="app">
+		Always returns `app`.
+	</Property>
+	<Property name="id" type="string">
+		The `app_id` from the Developer Portal.
+	</Property>
+	<Property name="engine" type='"cloud" | "on-chain"'>
+		Whether the app is configured for use with **Cloud** or **On-Chain** proof verifications.
+	</Property>
+	<Property name="is_staging" type="boolean">
+		Whether the app is a staging app. If `true`, the [Worldcoin Simulator](https://simulator.worldcoin.org) must be used to verify.
+	</Property>
+	<Property name="is_verified" type="string">
+		Whether the app has been verified by Worldcoin.
+	</Property>
+	<Property name="name" type="string">
+		The app's name as configured in the Developer Portal.
+	</Property>
+	<Property name="verified_app_logo" type="string">
+		The URL of the app's logo. Only returned if the app has been verified, otherwise returns an empty string.
+	</Property>
+	<Property name="is_sign_in" type="boolean">
+		Whether the action request is for Sign In with Worldcoin.
+	</Property>
+	<Property name="can_user_verify" type='"yes" | "no" | "on-chain" | "undetermined"'>
+		If the user is eligible to verify for this action. 
+		- `"yes"`: The user has not reached the maximum number of verifications for this action based on the `nullifier_hash` provided. Always returned when `is_sign_in` is `true`.
+		- `"no"`: The user has reached the maximum number of verifications for this action based on the `nullifier_hash` provided.
+		- `"undetermined"`: A nullifier_hash was not provided, so the user's eligibility cannot be determined. 
+		- `"on-chain"`: The app is configured for **On-Chain** verifications, so the user's eligibility cannot be determined. Verification eligibility is determined solely by the application's smart contract.
+	</Property>
+	<Property name="action" type="JSON">
+		Information about the action being verified.
+	</Property>
+</Properties>
+
+</Col><Col sticky>
+
 <CodeGroup title="Response">
 
 ```json {{ title: "200 OK" }}
@@ -313,9 +326,7 @@ fetch('/api/v1/jwks')
 
 </Col></Row>
 
-# Authenticated Endpoints
-
-### API Keys
+## Authenticated Endpoints
 
 <Note>You can generate API Keys on the **My Team** page of the Developer Portal.</Note>
 
@@ -327,7 +338,7 @@ fetch('/api/v1/jwks')
 Authorization: Bearer $API_KEY
 ```
 
-## GraphQL {{ tag: "POST", label: "/v1/graphql" }}
+### GraphQL {{ tag: "POST", label: "/v1/graphql" }}
 
 <Row><Col>
 

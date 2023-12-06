@@ -65,7 +65,8 @@ The following parameters can be passed as props to the `IDKitWidget` component:
 	</Property>
 	<Property name="bridge_url" type="string" defaultValue='"https://bridge.worldcoin.org"'>
 		The URL of the [Wallet Bridge](https://github.com/worldcoin/wallet-bridge) to use for establishing a connection between IDKit and the user's World ID Wallet. Defaults to the bridge service hosted by Worldcoin. 
-		**Only change this if you are running your own bridge service.** Read more in [Protocol Internals](/further-reading/protocol-internals).
+		**Only change this if you are running your own bridge service.** Read more in [Protocol Internals](/further-reading/protocol-internals#wallet-bridge).
+		<Note type="warning">World App will temporarily prevent users from connecting to a Wallet Bridge that is not hosted by Worldcoin or Tools for Humanity while security reviews are ongoing, so we **recommend using the default value** by leaving the `bridge_url` parameter undefined.</Note>
 	</Property>
 	<Property name="action_description" type="string">
 		The description of the specific action (shown to users in World App). **Only used for Dynamic Actions.**

@@ -54,6 +54,9 @@ function rehypeSlugify() {
 			if (node.tagName === 'h2' && !node.properties.id) {
 				node.properties.id = slugify(toString(node))
 			}
+			if (node.tagName === 'h3' && !node.properties.id) {
+				node.properties.id = slugify(toString(node))
+			}
 		})
 	}
 }

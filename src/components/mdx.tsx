@@ -24,6 +24,15 @@ export const h2: FC<
 	}>
 > = props => <Heading level={2} {...props} />
 
+export const h3: FC<
+	PropsWithChildren<{
+		id: string
+		tag?: 'get' | 'post' | 'put' | 'delete'
+		label?: string
+		anchor?: boolean
+	}>
+> = props => <Heading level={3} {...props} />
+
 export const Note: FC<PropsWithChildren<{ type?: 'info' | 'danger' | 'warning' | 'announcement' }>> = ({
 	children,
 	type = 'info',

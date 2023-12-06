@@ -80,8 +80,9 @@ export const Property: FC<
 		type: string
 		defaultValue?: string
 		required?: boolean
+		deprecated?: boolean
 	}>
-> = ({ name, type, defaultValue, required, children }) => (
+> = ({ name, type, defaultValue, required, deprecated, children }) => (
 	<li className="m-0 px-0 py-4 first:pt-0 last:pb-0">
 		<dl className="m-0 flex flex-wrap items-center gap-x-3 gap-y-2">
 			<dt className="sr-only">Name</dt>
@@ -98,6 +99,10 @@ export const Property: FC<
 			{required && <>
 				<dt className="sr-only">Required</dt>
 				<dd className=" text-xs text-red-400 dark:text-red-500">REQUIRED</dd>
+			</>}
+			{deprecated && <>
+				<dt className="sr-only">Deprecated</dt>
+				<dd className=" text-xs text-red-400 dark:text-red-500">DEPRECATED</dd>
 			</>}
 			<dt className="sr-only">Description</dt>
 			<dd className="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0">{children}</dd>

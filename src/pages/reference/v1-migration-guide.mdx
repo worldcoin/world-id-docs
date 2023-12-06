@@ -76,6 +76,7 @@ There is a new `bridge_url` parameter in IDKit defining the URL of the Wallet Br
 
 ```jsx {{ title: "JavaScript" }}
 import { IDKitWidget } from '@worldcoin/idkit'
+### World ID Reset
 
 <IDKitWidget
 	app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT"
@@ -86,8 +87,10 @@ import { IDKitWidget } from '@worldcoin/idkit'
 	{({ open }) => <button onClick={open}>Verify with World ID</button>}
 </IDKitWidget>
 ```
+World ID Reset is a new feature that allows users to reset their World ID in case their World ID is lost or stolen.
 
 <Note type="warning">World App will temporarily prevent users from connecting to a Wallet Bridge that is not hosted by Worldcoin or Tools for Humanity while security reviews are ongoing, so we **recommend using the default value** by leaving the `bridge_url` parameter undefined.</Note>
+<Note>Read more about World ID Reset and important considerations for your application in the [World ID Reset documentation](/further-reading/world-id-reset).</Note>
 
 ### `onError` Callback
 

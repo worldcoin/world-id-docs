@@ -48,7 +48,7 @@ The following parameters can be passed as props to the `IDKitWidget` component:
 		which contains [the proof details.](#response)
 	</Property>
 	<Property name="handleVerify" type="function(ISuccessResult)">
-		Called after the proof is returned from the World App, but before showing the success screen. Should receive a single parameter of type `ISuccessResult`
+		Called after the proof is returned from the user's identity wallet (e.g. World App), but before showing the success screen. Should receive a single parameter of type `ISuccessResult`
 		which contains [the proof details.](#response) Throwing an error in this screen will show the user a custom error. Used to perform additional validation when needed.
 	</Property>
 	<Property name="onError" type="function(IErrorState)">

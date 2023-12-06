@@ -49,7 +49,9 @@ The following parameters can be passed as props to the `IDKitWidget` component:
 	</Property>
 	<Property name="handleVerify" type="function(ISuccessResult)">
 		Called after the proof is returned from the user's identity wallet (e.g. World App), but before showing the success screen. Should receive a single parameter of type `ISuccessResult`
-		which contains [the proof details.](#response) Throwing an error in this screen will show the user a custom error. Used to perform additional validation when needed.
+		which contains [the proof details.](#response) Throwing an error in this screen will show the user a custom error.
+
+		<Note>`handleVerify` should be used for API proof verifications to create the best user experience. This will show a pending state while the proof is verified and present any errors thrown in a user-readable fashion.</Note>
 	</Property>
 	<Property name="onError" type="function(IErrorState)">
 		Called when IDKit is closed after an error. Should receive a single parameter of type `IErrorState` which contains [the error details.](#error-handling)

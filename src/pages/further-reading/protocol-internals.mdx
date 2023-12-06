@@ -39,12 +39,12 @@ The World ID Bridge acts as the intermediary between IDKit and the user's World 
         <CodeGroup title="Bridge POST Request">
             ```json {{ title: "Unencrypted JSON" }}
             {
-                "app_id": "app_123456", // starts with "app_", or is equal to "self_hosted"
-                "action": "some_string",
-                "signal": "0xa1ddac5b45704c897203...", // optional
+                "app_id": "app_2cde98081f4673c86082d418e6a59f58", // starts with "app_", or is equal to "self_hosted"
+                "action": "verify-account",
+                "signal": "@username", // optional, defaults to ""
                 "credential_types": ["orb", "device"], // optional, defaults to ["orb"]
-                "action_description": "Blah blah blah", // optional
-                "return_to": "https://your-application.com/world-id" // only used when deeplinking to mobile application. must be a valid https URL
+                "action_description": "Verify your account on an example social media website!", // optional
+                "return_to": "https://your-application.com/world-id" // coming soon -- only used when deeplinking to mobile application. must be a valid https URL
             }
             ```
             {/* cSpell: disable */}

@@ -28,6 +28,11 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: '/world-id-2',
+				destination: 'https://worldcoin.org/blog', // TODO: update with World ID 2.0 blog post
+				permanent: true,
+			},
+			{
 				source: '/idkit',
 				destination: '/id/idkit',
 				permanent: true,

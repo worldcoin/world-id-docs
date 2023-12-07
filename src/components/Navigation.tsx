@@ -191,7 +191,7 @@ export const navigation = [
 			{ title: 'Sign In Reference', href: '/reference/sign-in' },
 			{ title: 'Smart Contracts', href: '/reference/contracts' },
 			{ title: 'Address Book', href: '/reference/address-book' },
-			{ title: 'IDKit v1 Migration Guide', href: '/reference/v1-migration-guide' },
+			{ title: 'World ID 2.0 Migration Guide', href: '/reference/world-id-2-migration-guide' },
 		],
 	},
 	{

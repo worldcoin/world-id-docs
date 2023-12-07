@@ -35,7 +35,7 @@ All of our smart contracts are available on GitHub:
 			<td className="align-middle">
 				<Tag>Canonical</Tag>
 			</td>
-			<td className="align-middle">~3 Minutes</td>
+			<td className="align-middle">~60 minutes after verification</td>
 		</tr>
 		<tr>
 			<td className="flex items-center">
@@ -48,7 +48,7 @@ All of our smart contracts are available on GitHub:
 			<td className="align-middle">
 				<Tag color="amber">Bridged</Tag>
 			</td>
-			<td className="align-middle">~5 Minutes</td>
+			<td className="align-middle">~5 Minutes after Ethereum</td>
 		</tr>
 		<tr>
 			<td className="flex items-center">
@@ -61,20 +61,20 @@ All of our smart contracts are available on GitHub:
 			<td className="align-middle">
 				<Tag color="amber">Bridged</Tag>
 			</td>
-			<td className="align-middle">~30 Minutes</td>
+			<td className="align-middle">~40 Minutes after Ethereum</td>
 		</tr>
-    <tr>
+    	<tr>
 			<td className="flex items-center">
 				<img src="/icons/base.svg" alt="Base logo" className="m-0 mr-2 h-8 w-8" />
 				<p>
-					<b>Base (Testnet Only)</b>
+					<b>Base (Goerli Only)</b>
 				</p>
 			</td>
 			<td className="align-middle">Base Goerli</td>
 			<td className="align-middle">
 				<Tag color="amber">Bridged</Tag>
 			</td>
-			<td className="align-middle">~5 Minutes</td>
+			<td className="align-middle">~5 Minutes after Ethereum Goerli</td>
 		</tr>
 	</tbody>
 </table>
@@ -85,156 +85,96 @@ All of our smart contracts are available on GitHub:
 
 This section offers a high-level overview of the various smart contracts that make up World ID. This structure (including state bridging) is replicated on testnets -- currently Goerli, Optimism Goerli, Polygon Mumbai, and Base Goerli.
 
-### World ID Router
+### Identity Managers: `WorldIdIdentityManager`
 
-This is the contract you should interact with. It will route your call to the correct Identity Manager contract (Ethereum) or State Bridge contract (L2 Chains) based on the `groupId` argument. This contract is proxied, so you should not need to update your code if the underlying contracts need to be upgraded.
+Identity Managers are only deployed on Ethereum. The Identity Manager contracts are responsible for managing the Semaphore instance. Worldcoin's signup sequencers call the Identity Manager contracts to add or remove identities from the merkle tree.
 
-### Identity Managers
+### State Bridges: `OpStateBridge`/`PolygonStateBridge`
 
-Identity Managers are only deployed on Ethereum. The Identity Manager contracts are responsible for managing the Semaphore instance. Worldcoin's signup sequencers call the Identity Manager contracts to add identities to the merkle tree, and anyone can call the `verifyProof` function to verify a World ID proof (although it's suggested to use the World ID Router).
+One State Bridge contract is deployed on Ethereum for each bridged chain. It publishes the root of the merkle tree to its configured chain's World ID contract, allowing proofs to be verified on that chain.
 
-### State Bridges
+### Bridged World ID: `OpWorldId`/`PolygonWorldId`
 
-On Ethereum, one State Bridge contract is deployed for each Identity Manager. It publishes the root of the merkle tree to other chains, allowing proofs to be verified on multiple chains.
+One World ID contract is deployed on each bridged chain, with an associated State Bridge contract on Ethereum. It is responsible for receiving merkle roots from its State Bridge contract, and verifying World ID proofs against those roots.
 
-On other supported chains (currently Optimism and Polygon), there is also one State Bridge contract for each credential type. These contracts receive the root of the merkle tree from the Ethereum State Bridge, and expose the `verifyProof` function to verify proofs on that chain (using the World ID Router is recommended).
+<Note>You can deploy your own State Bridge contract on Ethereum and Bridged World ID contract to any chain to bridge World ID to that chain permissionlessly.</Note>
 
-## verifyProof
+### World ID Router: `WorldIdRouter`
 
-<Note>The `verifyProof` function is meant to be called on the `WorldIdRouter` contract.</Note>
+**This is the contract you should interact with.** 
 
-The `verifyProof` method takes the following arguments:
+The World ID Router will route your call to the correct Identity Manager contract (Ethereum) or World ID contract (L2 Chains) based on the `groupId` argument. This contract is proxied, so you will not need to update your code if the underlying contracts are upgraded.
 
--   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should just be passed as-is.
--   `groupId` - This must be `1` for Orb-verified users. We recommend setting this in your smart contract's constructor.
--   `signal` - The signal to verify.
--   `nullifierHash` - Anonymous user ID. This is obtained from the IDKit widget, and should just be passed as-is.
--   `action` - The action to verify.
--   `proof` - The proof to verify. This is obtained from the IDKit widget, and should be unpacked into a `uint256[8]` before being passed to the method.
+<Note>Only Orb credentials are supported on-chain, so the `groupId` must be `1`.</Note>
 
-### root {{ tag: "uint256" }}
+## Usage
 
-<Row><Col>
+The `verifyProof` method of the **World ID Router** is used to verify proofs on-chain.
 
-The root of the merkle tree to verify against. This is obtained from the IDKit widget as a hex string `merkle_root`, and should be passed as-is.
+### Arguments
 
-</Col></Row>
+<Properties>
+	<Property name="root" type="uint256" required={true}>
+		The World ID root to verify against.
+	</Property>
+	<Property name="groupId" type="uint256" required={true}>
+		<Row><Col>
+		Determines which Credential Type to verify against. As only Orb credentials are supported on-chain, this must be `1`.
+		</Col><Col>
 
-### groupId {{ tag: "uint256" }}
+		```solidity {{ title: "Orb-Only groupId" }}
+		uint256 internal immutable groupId = 1;
+		```
 
-<Row><Col>
+		</Col></Row>
+	</Property>
+	<Property name="signalHash" type="uint256" required={true}>
+		<Row><Col>
+		The `keccak256` hash of the signal to verify.
+		</Col><Col>
 
-The groupId, indicating to the World ID Router which Credential Type to use for verification. Currently only Orb credentials are supported on-chain.
+		```solidity {{ title: "signalHash" }}
+		abi.encodePacked(signal).hashToField();
+		```
 
-**Orb-verified users**: `1`<br/>
+		</Col></Row>
+	</Property>
+	<Property name="nullifierHash" type="uint256" required={true}>
+		The root of the merkle tree to verify against. This is obtained from the IDKit widget as a hex string `nullifier_hash`, and must be converted to a `uint256` before passing it to the `verifyProof` method.
+	</Property>
+	<Property name="externalNullifierHash" type="uint256" required={true}>
+		<Row><Col>
+		The `keccak256` hash of the `externalNullifier` to verify. The `externalNullifier` is computed from the `app_id` and `action`.
+		</Col><Col>
 
-We recommend you set this to `1` in your contract's constructor, to only ever allow Orb-verified users to perform the specified action. Additionally, this saves on gas costs.
+		```solidity {{ title: "externalNullifierHash" }}
+		externalNullifier = abi.encodePacked(abi.encodePacked(appId).hashToField(), action)
+		externalNullifierHash = externalNullifier.hashToField();
+		```
 
-</Col><Col sticky>
+		</Col></Row>
+		<Note>Read more about the External Nullifier in [Protocol Internals](/further-reading/protocol-internals#external-nullifier).</Note>
+	</Property>
+	<Property name="proof" type="uint256[8]" required={true}>
+		<Row><Col>
+		The zero-knowledge proof to verify. This is obtained from the IDKit widget as a hex string `proof`, and must be converted to a `uint256[8]` before passing it to the `verifyProof` method.
+		</Col><Col><CodeGroup title="Unpacking Proof">
 
-{/* <CodeGroup title="groupId"> */}
+		```ts {{ title: "viem" }}
+		import { decodeAbiParameters } from 'viem'
 
-```solidity {{ title: "Orb-Only" }}
-uint256 internal immutable groupId = 1;
+		const unpackedProof = decodeAbiParameters([{ type: 'uint256[8]' }], proof)[0]
+		```
 
-{/* ... */}
+		```ts {{ title: "ethers.js" }}
+		import { defaultAbiCoder as abi } from '@ethers/utils'
 
-worldId.verifyProof(
-  root,
-  groupId,
-  abi.encodePacked(signal).hashToField(),
-  nullifierHash,
-  externalNullifier,
-  proof
-);
+		const unpackedProof = abi.decode(['uint256[8]'], proof)[0]
+		```
 
-{/* ... */}
-```
-{/* </CodeGroup> */}
-
-</Col></Row>
-
-### signalHash {{ tag: "uint256" }}
-
-<Row><Col>
-
-The keccak256 hash of the signal to verify. To get signalHash, you should pass the solidityEncoded signal to your smart contract, and then compute the signalHash within the contract. Ensure that you solidityEncode the signal **before** passing it to IDKit.
-
-<Note>
-	A helper function [`hashToField`](#hash-to-field-helper-function) is provided to properly calculate the `keccak256`
-	hash within your smart contract.
-</Note>
-
-</Col><Col sticky>
-
-<CodeGroup title="signalHash">
-
-```solidity
-function yourFunction(
-  uint256 root,
-  address signal, // in this case the address is used as signal
-  uint256 nullifierHash,
-  uint256[8] calldata proof
-) public {
-
-  {/* ... */}
-
-  worldId.verifyProof(
-    root,
-    groupId,
-    // using hashToField helper function
-    abi.encodePacked(signal).hashToField(),
-    nullifierHash,
-    externalNullifier,
-    proof
-  );
-
-  {/* ... */}
-```
-
-</CodeGroup>
-
-</Col></Row>
-
-### nullifierHash {{ tag: "uint256" }}
-
-<Row><Col>
-
-The root of the merkle tree to verify against. This is obtained from the IDKit widget as a hex string `merkle_root`, and should be passed as-is.
-
-</Col></Row>
-
-### externalNullifierHash {{ tag: "uint256" }}
-
-<Row><Col>
-
-The root of the merkle tree to verify against. This is obtained from the IDKit widget as a hex string `merkle_root`, and should be passed as-is.
-
-</Col></Row>
-
-### proof {{ tag: "uint256[8]" }}
-
-<Row><Col>
-
-The `proof` argument is returned from IDKit as a string, but depending how you're calling your smart contract (when using `wagmi` or `ethers.js`, for example), you might be required to unpack it into a `uint256[8]` before passing it to the `verifyProof` method. To unpack it, use the following code:
-
-</Col><Col><CodeGroup title="unpackedProof">
-
-```ts {{ title: "viem" }}
-import { decodeAbiParameters } from 'viem'
-
-const unpackedProof = decodeAbiParameters([{ type: 'uint256[8]' }], proof)[0]
-```
-
-```ts {{ title: "ethers.js" }}
-import { defaultAbiCoder as abi } from '@ethers/utils'
-
-const unpackedProof = abi.decode(['uint256[8]'], proof)[0]
-```
-
-</CodeGroup>
-
-</Col></Row>
+		</CodeGroup></Col></Row>
+	</Property>
+</Properties>
 
 ### Sybil resistance
 
@@ -243,7 +183,7 @@ While the World ID protocol makes it very easy to make your contracts sybil resi
 -   Store the `nullifierHash` of each user that has successfully verified a proof.
 -   When a user attempts to verify a proof, check that the `nullifierHash` is not already in the list of used `nullifierHash`es.
 
-Here's an example function doing the above. You can also use the [World ID starter kits](#on-chain) to get started with sybil resistance.
+Here's an example function doing the above. You can also use the [World ID starter kits](/id/on-chain) to get started with sybil resistance.
 
 ```solidity
 /// @param root The root (returned by the IDKit widget).
@@ -266,7 +206,7 @@ function verifyAndExecute(
         groupId,
         abi.encodePacked(signal).hashToField(),
         nullifierHash,
-        abi.encodePacked(appId).hashToField(),
+		externalNullifierHash,
         proof
     );
 

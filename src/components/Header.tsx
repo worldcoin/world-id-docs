@@ -78,12 +78,12 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 			<div className="flex items-center gap-5">
 				<nav className="hidden md:block">
 					<ul role="list" className="flex items-center gap-4">
-						{/* <TopLevelNavItem
+						<TopLevelNavItem
 							className="bg-gray-100 hover:bg-gray-100/50 py-[7px] px-4 border rounded-lg border-gray-200"
-							href="/apps"
+							href="https://worldcoin.org/apps"
 						>
-							Apps & Integrations
-						</TopLevelNavItem> */}
+							Explore Apps
+						</TopLevelNavItem>
 						<Button href="https://developer.worldcoin.org" target="_blank">
 							Developer Portal
 						</Button>

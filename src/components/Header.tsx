@@ -80,7 +80,7 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 					<ul role="list" className="flex items-center gap-4">
 						<TopLevelNavItem
 							className="bg-gray-100 hover:bg-gray-100/50 py-[7px] px-4 border rounded-lg border-gray-200"
-							href="https://worldcoin.org/apps"
+							href="/apps"
 						>
 							Explore Apps
 						</TopLevelNavItem>

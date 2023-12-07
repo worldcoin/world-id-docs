@@ -200,6 +200,7 @@ export const navigation = [
 			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
 			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
 			{ title: 'Zero-Knowledge Proofs', href: '/further-reading/zero-knowledge-proofs' },
+			{ title: 'World ID Reset', href: '/further-reading/world-id-reset' },
 		],
 	},
 ] as const

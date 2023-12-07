@@ -169,7 +169,6 @@ export const navigation = [
 		links: [
 			{ title: 'World ID Overview', href: '/world-id' },
 			{ title: 'Use Cases', href: '/use-cases' },
-			{ title: 'Apps & Integrations', href: '/apps' },
 			{ title: 'Try it Out', href: '/try' },
 			{ title: 'Quick Start', href: '/quick-start' },
 		],

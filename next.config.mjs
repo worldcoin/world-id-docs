@@ -49,7 +49,7 @@ const nextConfig = {
 			},
 			{
 				source: '/protocol',
-				destination: 'https://whitepaper.worldcoin.org', // TODO: add proper anchor
+				destination: 'https://whitepaper.worldcoin.org/technical-implementation#worldcoin-protocol',
 				permanent: false,
 			},
 			{
@@ -64,7 +64,7 @@ const nextConfig = {
 			},
 			{
 				source: '/privacy',
-				destination: 'https://whitepaper.worldcoin.org', // TODO: add proper anchor
+				destination: 'https://whitepaper.worldcoin.org/technical-implementation#privacy',
 				permanent: false,
 			},
 			{

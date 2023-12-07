@@ -23,6 +23,11 @@ const nextConfig = {
 	async redirects() {
 		return [
 			{
+				source: '/apps',
+				destination: 'https://worldcoin.org/apps',
+				permanent: true,
+			},
+			{
 				source: '/idkit',
 				destination: '/id/idkit',
 				permanent: true,

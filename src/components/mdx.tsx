@@ -7,7 +7,6 @@ import InfoIcon from './icons/InfoIcon'
 import Tabs, { TabItem, Tab } from './Tabs'
 import DangerIcon from './icons/DangerIcon'
 export { CodeGroup, Code as code, Pre as pre } from '@/components/Code'
-export { Apps } from '@/components/Apps'
 export { Cta } from '@/components/Cta'
 export { UseCasePagination } from '@/components/UseCasePagination'
 export { UseCasePaginationItem } from '@/components/UseCasePaginationItem'
@@ -23,6 +22,15 @@ export const h2: FC<
 		anchor?: boolean
 	}>
 > = props => <Heading level={2} {...props} />
+
+export const h3: FC<
+	PropsWithChildren<{
+		id: string
+		tag?: 'get' | 'post' | 'put' | 'delete'
+		label?: string
+		anchor?: boolean
+	}>
+> = props => <Heading level={3} {...props} />
 
 export const Note: FC<PropsWithChildren<{ type?: 'info' | 'danger' | 'warning' | 'announcement' }>> = ({
 	children,
@@ -58,7 +66,7 @@ export const Properties: FC<PropsWithChildren<{}>> = ({ children }) => (
 	<div className="my-6">
 		<ul
 			role="list"
-			className="m-0 max-w-[calc(theme(maxWidth.lg)-theme(spacing.8))] list-none divide-y divide-zinc-900/5 p-0"
+			className="m-0 max-w-full list-none divide-y divide-zinc-900/5 p-0"
 		>
 			{children}
 		</ul>
@@ -69,16 +77,32 @@ export const Property: FC<
 	PropsWithChildren<{
 		name: string
 		type: string
+		defaultValue?: string
+		required?: boolean
+		deprecated?: boolean
 	}>
-> = ({ name, type, children }) => (
+> = ({ name, type, defaultValue, required, deprecated, children }) => (
 	<li className="m-0 px-0 py-4 first:pt-0 last:pb-0">
 		<dl className="m-0 flex flex-wrap items-center gap-x-3 gap-y-2">
 			<dt className="sr-only">Name</dt>
 			<dd>
 				<code>{name}</code>
 			</dd>
-			<dt className="sr-only">Type</dt>
-			<dd className="font-mono text-xs text-zinc-400 dark:text-zinc-500">{type}</dd>
+			{defaultValue ? <>
+				<dt className="sr-only">Type</dt>
+				<dd className="font-mono text-xs text-zinc-400 dark:text-zinc-500">{type}: <code className='text-zinc-500'>{defaultValue}</code></dd>
+			</> : <>
+				<dt className="sr-only">Type</dt>
+				<dd className="font-mono text-xs text-zinc-400 dark:text-zinc-500">{type}</dd>
+			</>}
+			{required && <>
+				<dt className="sr-only">Required</dt>
+				<dd className=" text-xs text-red-400 dark:text-red-500">REQUIRED</dd>
+			</>}
+			{deprecated && <>
+				<dt className="sr-only">Deprecated</dt>
+				<dd className=" text-xs text-red-400 dark:text-red-500">DEPRECATED</dd>
+			</>}
 			<dt className="sr-only">Description</dt>
 			<dd className="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0">{children}</dd>
 		</dl>

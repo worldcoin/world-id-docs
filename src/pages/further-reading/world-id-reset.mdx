@@ -1,0 +1,32 @@
+# World ID Reset
+
+World ID 2.0 allows a user to reset their World ID in case their World ID has been lost or stolen. The user reverifies at the Orb, and their old World ID is invalidated. The user is then issued a new World ID and this new identity is verified at the Orb.  A user will not be able to perform a World ID Reset more than once every 14 days.
+
+## Impact on Sign In with World ID
+
+When a user signs in with World ID, their Nullifier Hash is returned as the `sub` claim in the ID Token. Recall that the Nullifier Hash is the unique identifier of a user in the context of a specific action -- a different identity will return a different Nullifier Hash.
+
+<Note type="danger">A user who performs a World ID Reset will appear as a new user to your application.</Note>
+
+### Suggested Action
+
+A second sign-in method, such as an email address or phone number, is **highly recommended** to ensure that the user can continue to use their account in the event of a World ID Reset. The user should be able to verify that second factor after a World ID Reset and link their new World ID to their existing account.
+
+<Note>For comparison, if your application were to use Sign In with Ethereum, this is identical to a user migrating to a new Ethereum address.</Note>
+
+## Impact on Anonymous Actions
+
+When a user performs a World ID Reset, they are issued a new World ID and their old World ID is invalidated. This means that any anonymous actions performed by the user will no longer be associated with their new World ID.
+
+<Note type="danger">If your application uses Anonymous Actions for sybil-resistance, this means that a user will be able to perform the action again with a new Nullifier Hash after performing a World ID Reset.</Note>
+
+### Suggested action
+
+We recommend using **time-bound sybil resistance** in your application to mitigate the impact of a World ID Reset. Time-bound sybil resistance requires a user to verify with World ID periodically, rather than a single verification lasting indefinitely. 
+
+<Note>This is a similar concept to a user being logged out of an email account after two weeks, and being required to re-enter their password to log back in.</Note>
+
+Time-bound sybil resistance is used for Worldcoin Grants, where a new grant is issued every two weeks. Every grant is a new action in World ID, requiring a separate World ID verification to claim each grant.
+
+As another example, a social media application may use World ID to mark a user's account as verified. The application could require the user to perform a new verification every 30 days to maintain their verified badge.
+In this situation, a user who performs a World ID Reset may be able to mark a second account as "verified" immediately after performing the reset, but will only be able to verify a single account at the end of the 30 day period.

@@ -21,7 +21,7 @@ IDKit v1 introduces a number of breaking changes that must be addressed in order
 
 The `phone` credential has been deprecated in favor of World ID Lite. World ID Lite is the name for the new `device` credential, which relies on the user's identity wallet, such as World App, to verify a user's unique device.
 
-This device fingerprint acts as the unique identifier within World ID, and all World App users with a unique device will be issued this credential. This is more scalable, user friendly, and privacy-preserving than the `phone` credential, which was previously issued when a user verified their phone number in World App.
+<Note>Read more about [World ID Lite](/further-reading/world-id-lite).</Note>
 
 In order to support this change, the `credential_types` field in the IDKitWidget's parameters has been updated. If you previously accepted the `phone` credential, you should now accept the `device` credential instead.
 

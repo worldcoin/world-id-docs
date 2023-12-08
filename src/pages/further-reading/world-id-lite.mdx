@@ -1,0 +1,15 @@
+# World ID Lite
+
+World ID Lite is replacing the previous `phone` credential in World ID. World ID Lite relies on the user's identity wallet, such as World App, to verify a user's unique device.
+
+This device fingerprint acts as the unique identifier within World ID Lite, and all World App users with a unique device will be issued this credential automatically. This is more scalable, user friendly, and privacy-preserving than the previous `phone` credential, which was issued when a user verified their phone number in World App.
+
+<Note>Read about configuring IDKit for World ID Lite in the [IDKit Reference](/reference/idkit/).</Note>
+
+## Benefits
+
+World ID Lite has a number of benefits over the previous `phone` credential:
+
+- **Automatic Issuance:** World ID Lite is automatically issued to all World App users with a unique device. No action needs to be taken by users to receive this credential.
+- **Privacy:** Users can now receive a World ID without providing any information at all. Although verifying a phone number in World App has always been optional, users could previously only use World ID after they verified their phone number or verified at an Orb.
+- **Credential Strength:** World ID Lite is a stronger credential than the previous `phone` credential. It is more difficult and more expensive for an adversary to obtain a new unique device than a new phone number.

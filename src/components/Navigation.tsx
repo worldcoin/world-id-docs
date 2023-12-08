@@ -177,7 +177,7 @@ export const navigation = [
 		title: 'World ID',
 		links: [
 			{ title: 'Sign In with Worldcoin', href: '/id/sign-in' },
-			{ title: 'Anonymous Actions', href: '/id/anonymous-actions' },
+			{ title: 'Incognito Actions', href: '/id/incognito-actions' },
 			{ title: 'Intro to IDKit', href: '/id/idkit' },
 			{ title: 'Cloud Verification', href: '/id/cloud' },
 			{ title: 'On-Chain Verification', href: '/id/on-chain' },

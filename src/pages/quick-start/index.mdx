@@ -5,7 +5,7 @@ This guide will walk you through everything you need to get started with World I
 1. Sign in to the [Developer Portal](https://developer.worldcoin.org). You will need a World-ID compatible wallet (such as the [World App](https://worldcoin.org/download)) and a Device- or Orb-Verified World ID to sign in.
     <Note>While adding your email is optional, adding it is encouraged. This will allow you to maintain access to your Developer Portal account should you lose your World ID.</Note>
 
-2. Decide whether you're going to use **Sign In with Worldcoin** or **Anonymous Actions**. Here's a helpful guide:
+2. Decide whether you're going to use **Sign In with Worldcoin** or **Incognito Actions**. Here's a helpful guide:
     <Tabs> 
         <TabItem label="Sign In with Worldcoin">
         ### Sign In with Worldcoin
@@ -21,16 +21,16 @@ This guide will walk you through everything you need to get started with World I
         - You want a user to be able to have multiple accounts and keep them separate.
         - You want to verify a user is doing a specific action only once.
         </TabItem>
-        <TabItem label="Anonymous Actions">
-        ### Anonymous Actions
-        Anonymous Actions are a powerful tool for sybil-resistance both on and off-chain. They allow you to verify a user is doing something only once, for a particular context. For example, you can verify a person is claiming a particular airdrop just once.
+        <TabItem label="Incognito Actions">
+        ### Incognito Actions
+        Incognito Actions are a powerful tool for sybil-resistance both on and off-chain. They allow you to verify a user is doing something only once, for a particular context. For example, you can verify a person is claiming a particular airdrop just once.
         
-        ✅ When to use Anonymous Actions:
+        ✅ When to use Incognito Actions:
         - You want to verify a user is doing something only once, for a particular context.
         - Your user will be taking multiple discrete actions (e.g. claiming multiple airdrops, voting on multiple proposals, etc.) and you want to allow each action to be done only once.
         - Your app interacts with a smart contract on-chain.
         
-        🚫 When **not** to use Anonymous Actions:
+        🚫 When **not** to use Incognito Actions:
         - You want to use World ID for authentication or identification of a user. (Use Sign In with Worldcoin instead.)
         </TabItem>
     </Tabs>
@@ -65,7 +65,7 @@ This guide will walk you through everything you need to get started with World I
             </Note>
             4. Run `pnpm i && pnpm dev` to install dependencies and run the app locally, or deploy the app to [Vercel](https://vercel.com).
         </TabItem> */}
-        <TabItem value="cloud" label="Cloud Anonymous Actions">
+        <TabItem value="cloud" label="Cloud Incognito Actions">
             <Note>
                 If you'd rather not use our template repository, look at the [Cloud Verification documentation](/id/cloud).
             </Note>
@@ -86,7 +86,7 @@ This guide will walk you through everything you need to get started with World I
 
             Modify the onSuccess function in [`/src/pages/index.tsx`](https://github.com/worldcoin/world-id-cloud-template/blob/main/src/pages/index.tsx) to add code that runs in the frontend after a user is verified. For example, you can add code to show a success message to the user.
         </TabItem>
-        <TabItem value="on-chain" label="On-Chain Anonymous Actions">
+        <TabItem value="on-chain" label="On-Chain Incognito Actions">
             <Note>
                 If you'd rather not use our template repository, look at the [On-Chain Verification documentation](/id/on-chain).
             </Note>

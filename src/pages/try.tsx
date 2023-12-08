@@ -387,9 +387,9 @@ const Try = (): JSX.Element => {
 			<hr className="text-gray-100" />
 
 			<Section
-				heading="Anonymous Actions"
+				heading="Incognito Actions"
 				description={
-					'Here you can test out various Anonymous Actions configurations, including ones that will fail (such as a device-verified user attemping an action requiring Orb verification).'
+					'Here you can test out various Incognito Actions configurations, including ones that will fail (such as a device-verified user attemping an action requiring Orb verification).'
 				}
 				steps={[
 					'Choose between Staging or Production.',

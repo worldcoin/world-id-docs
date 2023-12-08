@@ -67,6 +67,11 @@ const nextConfig = {
 				destination: '/advanced/zero-knowledge-proofs',
 				permanent: false,
 			},
+			{
+				source: '/id/anonymous-actions',
+				destination: '/id/incognito-actions',
+				permanent: false,
+			},
 		]
 	},
 }

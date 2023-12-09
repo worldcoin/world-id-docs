@@ -135,7 +135,7 @@ fetch(apiUrl, {
 
 ## Get Action Metadata {{ tag: "GET", label: "/api/v1/precheck/{app_id}" }}
 
-Enables fetching information about a particular app to determine eligibility for verification. This endpoint is also used by the World ID Kiosk, Sign In with Worldcoin, and World App to show metadata about the action being verified. This endpoint will only return information for active actions. <br/> Primarily intended for internal use.
+Enables fetching information about a particular app to determine eligibility for verification. This endpoint is also used by the World ID Kiosk, Sign in with World ID, and World App to show metadata about the action being verified. This endpoint will only return information for active actions. <br/> Primarily intended for internal use.
 
 ### Request Body
 
@@ -143,7 +143,7 @@ Enables fetching information about a particular app to determine eligibility for
 
 <Properties>
 	<Property name="action" type="string" defaultValue='""' required={true}>
-		The action to check. This is the same action that was passed to IDKit. Defaults to an empty string for Sign In with Worldcoin.
+		The action to check. This is the same action that was passed to IDKit. Defaults to an empty string for Sign in with World ID.
 	</Property>
 	<Property name="nullifier_hash" type="string" defaultValue='""'>
 		The ZKP's nullifier hash, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details. Defaults to an empty string.
@@ -211,7 +211,7 @@ fetch(`/api/v1/precheck/${appId}`, {
 		The URL of the app's logo. Only returned if the app has been verified, otherwise returns an empty string.
 	</Property>
 	<Property name="is_sign_in" type="boolean">
-		Whether the action request is for Sign In with Worldcoin.
+		Whether the action request is for Sign in with World ID.
 	</Property>
 	<Property name="can_user_verify" type='"yes" | "no" | "on-chain" | "undetermined"'>
 		If the user is eligible to verify for this action. 
@@ -226,7 +226,7 @@ fetch(`/api/v1/precheck/${appId}`, {
 		- `action`: The action identifier as configured in the Developer Portal. Typically a slugified version of the action's name.
 		- `description`: The action's description as configured in the Developer Portal.
 		- `max_verifications`: The maximum number of verifications allowed for this action. Will be `0` if the action is configured for unlimited verifications.
-		- `max_accounts_per_user`: The maximum number of accounts allowed per user for Sign In with Worldcoin. Will always be `1`.
+		- `max_accounts_per_user`: The maximum number of accounts allowed per user for Sign in with World ID. Will always be `1`.
 		- `external_nullifier`: The action's external nullifier. **Intended for internal use only.**
 		- `status`: Will return `active` if the action is active, otherwise will return `inactive`.
 		- `__typename`: Always returns `action`.

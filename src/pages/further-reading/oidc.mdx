@@ -38,7 +38,7 @@ _Generally_, applications should implement the authorization code flow, as it is
 
 Authentication begins with a request to the `/authorize` endpoint.
 
-When using the native Sign In with Worldcoin page, most of the OIDC process is handled for you. You can begin the authentication cycle by redirecting your users to:
+When using the native Sign in with World ID page, most of the OIDC process is handled for you. You can begin the authentication cycle by redirecting your users to:
 
 ```
 https://id.worldcoin.org/authorize?client_id={app_id}&response_type={code|token|id_token}&redirect_uri={encoded_redirect_url}&scope={scope}&state={state_value}&nonce={nonce_value}

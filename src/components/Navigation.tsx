@@ -191,6 +191,7 @@ export const navigation = [
 			{ title: 'Sign In Reference', href: '/reference/sign-in' },
 			{ title: 'Smart Contracts', href: '/reference/contracts' },
 			{ title: 'Address Book', href: '/reference/address-book' },
+			{ title: 'World ID 2.0 Migration Guide', href: '/reference/world-id-2-migration-guide' },
 		],
 	},
 	{
@@ -200,6 +201,7 @@ export const navigation = [
 			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
 			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
 			{ title: 'Zero-Knowledge Proofs', href: '/further-reading/zero-knowledge-proofs' },
+			{ title: 'World ID Lite', href: '/further-reading/world-id-lite' },
 			{ title: 'World ID Reset', href: '/further-reading/world-id-reset' },
 		],
 	},

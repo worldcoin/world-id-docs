@@ -176,11 +176,12 @@ export const navigation = [
 	{
 		title: 'World ID',
 		links: [
-			{ title: 'Sign In with Worldcoin', href: '/id/sign-in' },
-			{ title: 'Anonymous Actions', href: '/id/anonymous-actions' },
+			{ title: 'Sign in with World ID', href: '/id/sign-in' },
+			{ title: 'Incognito Actions', href: '/id/incognito-actions' },
 			{ title: 'Intro to IDKit', href: '/id/idkit' },
 			{ title: 'Cloud Verification', href: '/id/cloud' },
 			{ title: 'On-Chain Verification', href: '/id/on-chain' },
+			{ title: 'World ID Lite', href: '/id/world-id-lite' },
 		],
 	},
 	{
@@ -192,6 +193,7 @@ export const navigation = [
 			{ title: 'Smart Contracts', href: '/reference/contracts' },
 			{ title: 'Address Book', href: '/reference/address-book' },
 			{ title: 'Errors', href: '/reference/errors' },
+			{ title: 'World ID 2.0 Migration Guide', href: '/reference/world-id-2-migration-guide' },
 		],
 	},
 	{

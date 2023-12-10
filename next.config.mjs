@@ -28,6 +28,11 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: '/world-id-2',
+				destination: 'https://worldcoin.org/blog', // TODO: update with World ID 2.0 blog post
+				permanent: true,
+			},
+			{
 				source: '/idkit',
 				destination: '/id/idkit',
 				permanent: true,
@@ -44,7 +49,7 @@ const nextConfig = {
 			},
 			{
 				source: '/protocol',
-				destination: 'https://whitepaper.worldcoin.org', // TODO: add proper anchor
+				destination: 'https://whitepaper.worldcoin.org/technical-implementation#worldcoin-protocol',
 				permanent: false,
 			},
 			{
@@ -59,12 +64,17 @@ const nextConfig = {
 			},
 			{
 				source: '/privacy',
-				destination: 'https://whitepaper.worldcoin.org', // TODO: add proper anchor
+				destination: 'https://whitepaper.worldcoin.org/technical-implementation#privacy',
 				permanent: false,
 			},
 			{
 				source: '/zkp',
 				destination: '/advanced/zero-knowledge-proofs',
+				permanent: false,
+			},
+			{
+				source: '/id/anonymous-actions',
+				destination: '/id/incognito-actions',
 				permanent: false,
 			},
 		]

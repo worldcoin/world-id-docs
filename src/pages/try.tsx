@@ -309,7 +309,7 @@ const Try = (): JSX.Element => {
 
 			<div>
 				<Section
-					heading="Sign in with Worldcoin"
+					heading="Sign in with World ID"
 					description="Try authentication with World ID using the OpenID Connect (OIDC) standard. You can use our integration on the Auth0 Marketplace, easily integrate with existing SSO systems (like Okta, OneLogin, Azure AD, and many others), or roll out your own authentication."
 				/>
 
@@ -379,7 +379,7 @@ const Try = (): JSX.Element => {
 						className={clsx('flex items-center gap-x-4 transition-all no-underline', variants[styleOption])}
 					>
 						<LogoIcon />
-						<span className="text-base leading-normal font-sora font-semibold">Sign In with Worldcoin</span>
+						<span className="text-base leading-normal font-sora font-semibold">Sign in with World ID</span>
 					</Link>
 				)}
 			</ExamplesWrapper>
@@ -387,9 +387,9 @@ const Try = (): JSX.Element => {
 			<hr className="text-gray-100" />
 
 			<Section
-				heading="Anonymous Actions"
+				heading="Incognito Actions"
 				description={
-					'Here you can test out various Anonymous Actions configurations, including ones that will fail (such as a device-verified user attemping an action requiring Orb verification).'
+					'Here you can test out various Incognito Actions configurations, including ones that will fail (such as a device-verified user attemping an action requiring Orb verification).'
 				}
 				steps={[
 					'Choose between Staging or Production.',

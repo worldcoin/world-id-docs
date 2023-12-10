@@ -1,7 +1,7 @@
-# Sign In with Worldcoin
+# Sign in with World ID
 
 <Note type="warning">
-	When using Sign In with Worldcoin, we highly recommend allowing users to set a separate recovery method for their account
+	When using Sign in with World ID, we highly recommend allowing users to set a separate recovery method for their account
 	(e.g. email), in case users lose access to or reset their World ID. Read about World ID Reset [here](/further-reading/world-id-reset).
 </Note>
 
@@ -19,9 +19,9 @@ World ID can be used as an authentication mechanism. Some helpful resources for 
 
 <Tabs>
     <TabItem label="Auth0 Integration">
-        Follow the [Auth0 Integration](https://worldcoin.org/auth0) installation instructions to add Sign In with Worldcoin to your Auth0 Tenant using the Client ID and Client Secret found in the [Developer Portal](https://developer.worldcoin.org).
+        Follow the [Auth0 Integration](https://worldcoin.org/auth0) installation instructions to add Sign in with World ID to your Auth0 Tenant using the Client ID and Client Secret found in the [Developer Portal](https://developer.worldcoin.org).
         <Note>
-            If your app hasn't yet integrated Auth0, you can use any of their [various SDK libraries](https://auth0.com/docs/libraries) to get started. This allows using Sign In with Worldcoin on a very broad range of platforms, including web, mobile, and desktop apps.
+            If your app hasn't yet integrated Auth0, you can use any of their [various SDK libraries](https://auth0.com/docs/libraries) to get started. This allows using Sign in with World ID on a very broad range of platforms, including web, mobile, and desktop apps.
         </Note>
     </TabItem>
     <TabItem label="NextAuth Template">
@@ -53,10 +53,10 @@ World ID can be used as an authentication mechanism. Some helpful resources for 
       - **Response type**: depends on how you want to authenticate, follow the recommendations of your engine. We recommend authorization code flow for server-side apps and implicit flow for client-side apps.
         - `code` for authorization code flow
         - `id_token` (recommended) for implicit flow (ensure your authentication engine provides and validates a `nonce` when using the implicit flow)
-        - `id_token token` or `code token` for hybrid flow. Generally not recommended for Sign in with Worldcoin.
+        - `id_token token` or `code token` for hybrid flow. Generally not recommended for Sign in with World ID.
 
       <Note>
-        We use the same JWT token as the `id_token` and `access_token`. There are no actions or information accessible with the `access_token` that are not contained within the `id_token`, as Sign in with Worldcoin is intended only for authentication and not authorization.
+        We use the same JWT token as the `id_token` and `access_token`. There are no actions or information accessible with the `access_token` that are not contained within the `id_token`, as Sign in with World ID is intended only for authentication and not authorization.
 
         We do not recommend using the hybrid OIDC flow for this reason.
       </Note>

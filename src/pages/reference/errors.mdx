@@ -99,11 +99,3 @@ This page acts as a reference for the error codes returned by IDKit, the Wallet 
 		</tr>
 	</tbody>
 </table>
-
-## Wallet Bridge
-        - `verification_rejected`: The user rejected the verification (by closing off the World ID modal, etc.)
-        - `max_verifications_reached`: This action only allows N verifications, and this would be the user's N+1
-        - `credential_unavailable`: The app requested a credential the user doesn't possess.
-        - `malformed_request`: The request payload couldn't be decrypted or did not conform to the standard.
-        - `inclusion_proof_failed`: The sequencer returned an unexpected error when retrieving the inclusion proof.
-        - `inclusion_proof_pending`: Future. The user might have the requested credential, but it is not available on-chain yet. It might be available for API verification.

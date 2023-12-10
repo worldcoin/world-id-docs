@@ -191,7 +191,7 @@ export const navigation = [
 			{ title: 'Sign In Reference', href: '/reference/sign-in' },
 			{ title: 'Smart Contracts', href: '/reference/contracts' },
 			{ title: 'Address Book', href: '/reference/address-book' },
-			{ title: 'Error Codes', href: '/reference/errors' },
+			{ title: 'Errors', href: '/reference/errors' },
 		],
 	},
 	{

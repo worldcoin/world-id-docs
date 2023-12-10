@@ -181,6 +181,7 @@ export const navigation = [
 			{ title: 'Intro to IDKit', href: '/id/idkit' },
 			{ title: 'Cloud Verification', href: '/id/cloud' },
 			{ title: 'On-Chain Verification', href: '/id/on-chain' },
+			{ title: 'World ID Lite', href: '/id/world-id-lite' },
 		],
 	},
 	{
@@ -201,7 +202,6 @@ export const navigation = [
 			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
 			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
 			{ title: 'Zero-Knowledge Proofs', href: '/further-reading/zero-knowledge-proofs' },
-			{ title: 'World ID Lite', href: '/further-reading/world-id-lite' },
 			{ title: 'World ID Reset', href: '/further-reading/world-id-reset' },
 		],
 	},

@@ -1,0 +1,51 @@
+import { Tag } from '@/components/Tag'
+
+# World ID Lite
+
+World ID Lite is replacing the previous `phone` credential in World ID. World ID Lite relies on the user's identity wallet, such as World App, to verify a user's unique device.
+
+The premise of World ID Lite is users having a unique mobile device. This is more scalable, user friendly, and privacy-preserving than the previous `phone` credential, which was issued when a user verified their phone number in World App.
+
+## When to use World ID Lite vs. World ID Orb Credential
+
+World ID Lite offers a credential that's convenient for a user to receive, but it also provides a weaker level of resistance to Sybil attacks than World ID's Orb credential. It's best used for applications that only require a moderate level of sybil resistance or have a significant userbase in regions where the Orb is not available.
+
+For example, a gaming application that wants to prevent many bot accounts from being created would be a great use case for World ID Lite. However, an undercollateralized lending application would likely want to use World ID's Orb credential, as it provides the highest level of sybil resistance.
+
+<table>
+  <thead>
+    <tr>
+      <th>Credential</th>
+      <th>Sybil-Resistance</th>
+      <th>Proof-of-Personhood</th>
+      <th>Credential Acquisition</th>
+      <th>Availability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className="align-middle"><img src="/icons/credential-orb.svg" alt="" className="h-8 w-8 m-0 mr-2 inline" />Orb</td>
+      <td className="align-middle">Strongest</td>
+      <td className="align-middle">Strongest</td>
+      <td className="align-middle">In-person Orb Verification</td>
+      <td className="align-middle"><Tag>ON-CHAIN</Tag> <Tag color="sky">CLOUD</Tag></td>
+    </tr>
+    <tr>
+      <td className="flex items-center"><img src="/icons/credential-phone.svg" alt="" className="h-8 w-8 m-0 mr-2" />World ID Lite</td>
+      <td className="align-middle">Medium</td>
+      <td className="align-middle">Weak</td>
+      <td className="align-middle">Automatic Issuance</td>
+      <td className="align-middle"><Tag color="sky">CLOUD</Tag></td>
+    </tr>
+  </tbody>
+</table>
+
+<Note>Read about configuring IDKit for World ID Lite in the [IDKit Reference](/reference/idkit/).</Note>
+
+## Benefits
+
+World ID Lite has a number of benefits over the previous `phone` credential:
+
+- **Automatic Issuance:** World ID Lite is automatically issued to all World App users with a unique device. No action needs to be taken by users to receive this credential other than downloading World App.
+- **Privacy:** Users can now receive a World ID without providing any information at all. Although verifying a phone number in World App has always been optional, users could previously only use World ID after they verified their phone number or verified at an Orb.
+- **Strength:** World ID Lite is more resistant to Sybil attacks, as the cost and complexity of acquiring a separate unique mobile device is higher than acquiring a separate phone number.

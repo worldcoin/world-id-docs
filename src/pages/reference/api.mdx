@@ -18,16 +18,16 @@ Enables you to verify a World ID proof for a **Cloud action.** To ensure [human-
 
 <Properties>
 	<Property name="nullifier_hash" type="string" required={true}>
-	The unique user identifier (called the nullifier hash in the ZKP), as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+	The unique user identifier (called the nullifier hash in the ZKP), as provided by IDKit. See [IDKit response](/reference/idkit#types) for details.
 	</Property>
 	<Property name="proof" type="string" required={true}>
-	The zero-knowledge proof, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+	The zero-knowledge proof, as provided by IDKit. See [IDKit response](/reference/idkit#types) for details.
 	</Property>
 	<Property name="merkle_root" type="string" required={true}>
-	Part of the ZKP, the hash of the Merkle root that proves membership to the set of credentials. As provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+	Part of the ZKP, the hash of the Merkle root that proves membership to the set of credentials. As provided by IDKit. See [IDKit response](/reference/idkit#types) for details.
 	</Property>
 	<Property name="credential_type" type="string" required={true}>
-	The credential type, as provided by IDKit. See [IDKit response](/idkit/reference#response) for details.
+	The credential type, as provided by IDKit. See [IDKit response](/reference/idkit#types) for details.
 	</Property>
 	<Property name="action" type="string" required={true}>
 	Same action identifier as passed to IDKit.

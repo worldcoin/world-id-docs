@@ -29,7 +29,7 @@ The Wallet Bridge acts as the intermediary between IDKit and the user's World ID
 ![Wallet Bridge Diagram](/images/docs/world-id-bridge.png)
 
 <Note>
-    All requests to the Wallet Bridge must include a `Content-Type: application/json` header and a valid JSON body.
+    All requests to the Wallet Bridge must include a `Content-Type: application/json` header, a `User-Agent` header, and a valid JSON body.
 </Note>
 1. IDKit initiates the proof request session on the Wallet Bridge.
     - An app configures and opens IDKit with the required parameters `app_id` and `action`, and the optional parameters `signal`, `credential_types`, and `action_description`.

@@ -181,7 +181,7 @@ export const navigation = [
 			{ title: 'Intro to IDKit', href: '/id/idkit' },
 			{ title: 'Cloud Verification', href: '/id/cloud' },
 			{ title: 'On-Chain Verification', href: '/id/on-chain' },
-			{ title: 'World ID Device', href: '/id/world-id-device' },
+			{ title: 'Verification Levels', href: '/id/verification-levels' },
 		],
 	},
 	{
@@ -199,7 +199,6 @@ export const navigation = [
 	{
 		title: 'Further Reading',
 		links: [
-			{ title: 'Proof of Personhood', href: '/proof-of-personhood' },
 			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
 			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
 			{ title: 'Zero-Knowledge Proofs', href: '/further-reading/zero-knowledge-proofs' },

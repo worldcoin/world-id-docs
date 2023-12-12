@@ -11,32 +11,33 @@ Building a global, scalable and inclusive proof of personhood system is at the c
 
 **Multiple credentials**. Proof of personhood is not a binary yes or no in the digital world, but rather a **spectrum**. Multiple signals can contribute to determine where a potential user falls on the spectrum. In the World ID Protocol, the strongest credential a user holds will be used to generate the proof of personhood. The choice of credentials is a trade-off that apps and users must decide on. Weaker credentials will generally be easier for users to obtain but more easily spoofed or sybil attacked.
 
-<Fence className="bg-gray-100">
+{/* commented out until updated image is available */}
+{/* <Fence className="bg-gray-100">
   ![Proof of Personhood Credentials Spectrum](/images/docs/id/proof-of-personhood-credentials.svg)
-</Fence>
+</Fence> */}
 
 ### Credential Selection
 
 <Note title="caution" type="info">
-	The choice of which credentials to accept is up to the app (easily configured in
+	The choice of which verification levels to accept is up to the app (easily configured in
 	[IDKit](/reference/idkit#parameters)).
-  Sign in with World ID will always accept all credentials.
+  Sign in with World ID will always accept all verification levels.
 </Note>
 
-By default, IDKit is configured to accept only Orb credentials. This is the strongest credential and is the only one that is verifiable on-chain.
+By default, IDKit is configured to accept World ID Orb. This is the strongest credential and is the only one that is verifiable on-chain.
 
-For Cloud apps, there is more flexibility for credential selection -- IDKit can be configured to accept any combination of credentials. Accepted credentials should be configured based on how strongly the app needs to verify that a user is a unique human. 
+For Cloud apps, there is more flexibility for verification levels -- IDKit can be configured to accept any verification level. The minimum verification level should be configured based on how strongly the app needs to verify that a user is a unique human. 
 
-We recommend requiring Orb verification in instances where users are given a financial incentive, such as a signup bonus or airdrop. For other situations, such as a social media app, it may be sufficient to only require a device credential. An app can always choose to support multiple credentials and react according to which credential was used.
+We recommend requiring World ID Orb in instances where users are given a financial incentive, such as a signup bonus or airdrop. For other situations, such as a social media app, it may be sufficient to only require [World ID Device](/id/world-id-device). An application can always react according to the verification level used, e.g. when an Orb-verified user performs an action that requires World ID Device.
 
-## Available Credentials
+## Available Verification Levels
 
-This list will continue to grow as more credentials are supported for proof of personhood in the World ID Protocol.
+This list will continue to grow as more verification levels are supported for proof of personhood in the World ID Protocol.
 
 <table>
   <thead>
     <tr>
-      <th>Credential</th>
+      <th>Verification Level</th>
       <th>Description</th>
       <th>Humanness Level</th>
       <th>Availability</th>
@@ -46,21 +47,20 @@ This list will continue to grow as more credentials are supported for proof of p
     <tr>
       <td className="align-middle"><img src="/icons/credential-orb.svg" alt="" className="h-8 w-8 m-0 mr-2 inline" />Orb</td>
       <td className="align-middle">Biometric in-person verification, uniqueness through iris (<Link href="https://worldcoin.org/blog/engineering/opening-orb-look-inside-worldcoin-biometric-imaging-device">details</Link>).</td>
-      <td className="align-middle">Strongest</td>
-      <td className="align-middle"><Tag>ON-CHAIN</Tag> <Tag color="sky">CLOUD</Tag></td>
+      <td className="align-middle">Strong</td>
+      <td className="align-middle"><Tag>ON-CHAIN</Tag><Tag color="sky">CLOUD</Tag></td>
     </tr>
     <tr>
-      <td className="flex items-center"><img src="/icons/credential-phone.svg" alt="" className="h-8 w-8 m-0 mr-2" />World ID Lite</td>
+      <td className="flex items-center"><img src="/icons/credential-phone.svg" alt="" className="h-8 w-8 m-0 mr-2" />Device</td>
       <td className="align-middle">Unique device check.</td>
-      <td className="align-middle">Weak</td>
+      <td className="align-middle">Medium</td>
       <td className="align-middle"><Tag color="sky">CLOUD</Tag></td>
     </tr>
     <tr>
-      <td className="flex items-center"><img src="/icons/credential-face.svg" alt="" className="h-8 w-8 m-0 mr-2" />Face</td>
-      <td className="align-middle">Unique and privacy-preserving face match.</td>
-      <td className="align-middle">Medium</td>
+      <td className="flex items-center"><img src="/icons/credential-face.svg" alt="" className="h-8 w-8 m-0 mr-2" />Orb+</td>
+      <td className="align-middle">Verify that the person who visited the Orb is performing a specific action.</td>
+      <td className="align-middle">Very Strong</td>
       <td className="align-middle"><Tag color="zinc">COMING SOON</Tag></td>
     </tr>
-
   </tbody>
 </table>

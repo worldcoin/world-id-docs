@@ -25,7 +25,7 @@ import { IDKitWidget } from '@worldcoin/idkit'
 	action="vote_1" // this is your action name from the Developer Portal
 	signal="user_value" // any arbitrary value the user is committing to, e.g. a vote
 	onSuccess={onSuccess}
-	credential_types={['orb', 'device']} // the credentials you want to accept
+	verification_level="device" // minimum verification level accepted, defaults to "orb"
 >
 	{({ open }) => <button onClick={open}>Verify with World ID</button>}
 </IDKitWidget>
@@ -56,9 +56,9 @@ The following parameters can be passed as props to the `IDKitWidget` component:
 	<Property name="onError" type="function(IErrorState)">
 		Called when IDKit is closed after an error. Should receive a single parameter of type `IErrorState` which contains [the error details.](#error-handling)
 	</Property>
-	<Property name="credential_types" type="string[]" defaultValue='["orb"]'>
-		An array of credential types to allow for verification. Will accept any combination of `orb` & `device`. Defaults
-		to `"orb"`. **TypeScript apps can use the `CredentialType` enum.**
+	<Property name="verification_level" type="string" defaultValue="orb">
+		The minimum verification level accepted. Can be `orb` or `device`. Defaults
+		to `orb`. **TypeScript apps can use the `VerificationLevel` enum.**
 	</Property>
 	<Property name="signal" type="string" defaultValue='""'>
 		The signal to be included in the zero-knowledge proof. Typically used for on-chain actions, read more in [the On-chain section](/id/on-chain).
@@ -120,8 +120,13 @@ return (
 	<Property name="proof" type="string">
 		The Zero-knowledge proof of the verification. ABI encoded.
 	</Property>
-	<Property name="credential_type" type='"orb" | "device"'>
+	<Property name="verification_level" type='"orb" | "device"'>
+		Either `orb` or `device`. Returns the verification level used to generate the proof.
+	</Property>
+	<Property name="credential_type" type='"orb" | "device"' deprecated={true}>
 		Either `orb` or `device`. Will always return the strongest credential with which a user has been verified.
+
+		<Note type="warning">This property is deprecated and will be removed in a future release. Use `verification_level` instead.</Note>
 	</Property>
 </Properties>
 
@@ -130,7 +135,7 @@ return (
 	"merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
 	"nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
 	"proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394...",
-	"credential_type": "orb"
+	"verification_level": "orb"
 }
 ```
 
@@ -232,7 +237,7 @@ import { IDKitWidget } from '@worldcoin/idkit'
 	action="your_app_name_vote_1" // this is your action, set to whatever you'd like
 	signal="user_value"
 	onSuccess={onSuccess}
-	credential_types={['orb']} // only orb credentials are supported for self-hosted applications
+	verification_level="orb" // only orb verifications are supported for self-hosted applications
 	advanced={
 		self_hosted, // enable the self-hosted mode
 	}

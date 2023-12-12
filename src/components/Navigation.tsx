@@ -181,7 +181,7 @@ export const navigation = [
 			{ title: 'Intro to IDKit', href: '/id/idkit' },
 			{ title: 'Cloud Verification', href: '/id/cloud' },
 			{ title: 'On-Chain Verification', href: '/id/on-chain' },
-			{ title: 'World ID Lite', href: '/id/world-id-lite' },
+			{ title: 'World ID Device', href: '/id/world-id-device' },
 		],
 	},
 	{

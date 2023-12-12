@@ -1,6 +1,6 @@
 # World ID 2.0 Migration Guide
 
-This guide will help you migrate your application to use World ID 2.0, including upgrading from the beta version of IDKit (v0.5.1 or earlier) to the new release of IDKit (v1.0.0 or later). 
+This guide will help you migrate your application to use World ID 2.0, including upgrading from the beta version of IDKit (v0.5.1 or earlier) to the new release of IDKit (v1.1.0 or later). 
 We recommend you read the [World ID 2.0 Announcement](/world-id-2) to understand the new features and changes.
 
 <Note>
@@ -17,37 +17,41 @@ IDKit v1 introduces a number of breaking changes that must be addressed in order
     If your users experience issues after migrating your application to IDKit v1, please ensure they are using the latest version of World App.
 </Note>
 
-### Changes to `credential_types`
+### World ID Device
 
-The `phone` credential has been deprecated in favor of World ID Lite. World ID Lite is the name for the new `device` credential, which relies on the user's identity wallet, such as World App, to verify a user's unique device.
+The `phone` credential has been replaced by World ID Device. This credential is used to verify a user's unique device rather than a phone number. This allows for a more secure and private verification flow.
 
-<Note>Read more about [World ID Lite](/id/world-id-lite).</Note>
+<Note>Read more about World ID Device and important considerations for your application in the [World ID Device documentation](/id/world-id-device).</Note>
 
-In order to support this change, the `credential_types` field in the IDKitWidget's parameters has been updated. If you previously accepted the `phone` credential, you should now accept the `device` credential instead.
+### Migrate from `credential_types` to `verification_level`
 
-<CodeGroup title="Device Credential">
-```jsx {{ title: "JavaScript" }}
-import { IDKitWidget } from '@worldcoin/idkit'
+The `credential_types` parameter has been replaced with the `verification_level` parameter. This parameter is used to specify the minimum level of verification required for a user to complete the World ID verification flow. This change also includes replacing `phone` with `device` for users who have not been verified at the Orb.
+
+<Note>Instead of passing an array of accepted credential types, you now pass the minimum verification level to accept.</Note>
+
+<CodeGroup title="Verification Level">
+```tsx {{ title: "Accept Device or Orb" }}
+import { IDKitWidget, VerificationLevel } from '@worldcoin/idkit'
 
 <IDKitWidget
 	app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT"
 	action="vote_1"
 	onSuccess={onSuccess}
 	handleVerify={handleVerify}
-	credential_types={['orb', 'device']} // `phone` has been replaced with `device`
+	verification_level={VerificationLevel.Device} // or "device"
 >
 	{({ open }) => <button onClick={open}>Verify with World ID</button>}
 </IDKitWidget>
 ```
-```tsx {{ title: "TypeScript" }}
-import { IDKitWidget, CredentialType } from '@worldcoin/idkit'
+```tsx {{ title: "Accept only Orb" }}
+import { IDKitWidget, VerificationLevel } from '@worldcoin/idkit'
 
 <IDKitWidget
 	app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT"
 	action="vote_1"
 	onSuccess={onSuccess}
 	handleVerify={handleVerify}
-	credential_types={[CredentialType.Orb, CredentialType.Device]} // `phone` has been replaced with `device`
+	verification_level={VerificationLevel.Orb} // or "orb"
 >
 	{({ open }) => <button onClick={open}>Verify with World ID</button>}
 </IDKitWidget>
@@ -74,7 +78,7 @@ The Wallet Bridge enables increased performance both in terms of speed and stabi
     You can view the [Protocol Internals](/further-reading/protocol-internals#wallet-bridge) page or [Wallet Bridge](https://github.com/worldcoin/wallet-bridge) GitHub repository to learn more about how the Wallet Bridge works.
 
     Usage information can be found in the [IDKit Reference Documentation](/reference/idkit#parameters).
-</Note> 
+</Note>
 
 ### World ID Reset
 

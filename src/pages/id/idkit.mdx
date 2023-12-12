@@ -45,12 +45,13 @@ Import and render IDKit. You'll want to do this on the screen where the user exe
 
 ```tsx
 import { IDKitWidget } from '@worldcoin/idkit'
+
 <IDKitWidget
 	app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // obtained from the Developer Portal
 	action="vote_1" // this is your action name from the Developer Portal
 	onSuccess={onSuccess} // callback when the modal is closed
 	handleVerify={handleVerify} // optional callback when the proof is received
-	credential_types={['orb', 'device']} // optional, defaults to ['orb']
+	verification_level={VerificationLevel.Device}
 >
 	{({ open }) => <button onClick={open}>Verify with World ID</button>}
 </IDKitWidget>
@@ -94,7 +95,7 @@ Upon successful completion of the World ID flow, you will receive a response obj
 	"merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
 	"nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
 	"proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394...",
-	"credential_type": "orb"
+	"verification_level": "orb"
 }
 ```
 
@@ -109,8 +110,8 @@ Upon successful completion of the World ID flow, you will receive a response obj
 	<Property name="proof" type="string">
 		The Zero-knowledge proof of the verification. ABI encoded.
 	</Property>
-	<Property name="credential_type" type='"orb" | "device"'>
-		Either `orb` or `device`. Will always return the strongest credential with which a user has been verified.
+	<Property name="verification_level" type='"orb" | "device"'>
+		Either `orb` or `device`. Returns the verification_level used to generate the proof.
 	</Property>
 </Properties>
 

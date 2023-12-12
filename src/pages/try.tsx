@@ -114,13 +114,12 @@ const ExamplesWrapper = ({
 	id: string
 	valid: boolean
 	children: (params: {
-		theme: WidgetProps['theme']
 		variants: Record<string, boolean | undefined>[] | string[]
 		styleOption: number
 	}) => ReactNode
 }): JSX.Element => {
 	const [selected, setSelected] = useState(0)
-	const [theme, setTheme] = useState<WidgetProps['theme']>('light')
+	const [theme, setTheme] = useState<"dark" | "light">('light')
 
 	const variants = useMemo(
 		() => [
@@ -151,7 +150,7 @@ const ExamplesWrapper = ({
 					'opacity-50 pointer-events-none select-none cursor-not-allowed': !valid,
 				})}
 			>
-				{children({ theme, styleOption: selected, variants })}
+				{children({ styleOption: selected, variants })}
 			</div>
 
 			<div
@@ -513,17 +512,16 @@ const Try = (): JSX.Element => {
 			</div>
 
 			<ExamplesWrapper id="testing" valid={isTestingWidgetValid}>
-				{({ theme, styleOption, variants }) => (
+				{({ styleOption, variants }) => (
 					<Suspense>
 						<IDKitWidget
-							theme={theme}
 							onSuccess={console.log}
 							action={watch('action') ?? ''}
 							verification_level={watch('verification_level')}
 							app_id={
 								testingEnvironment === 'production'
-									? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!
-									: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
+									? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!  as `app_${string}`
+									: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP! as `app_${string}`
 							}
 						>
 							{({ open }) => (

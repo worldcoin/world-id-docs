@@ -23,7 +23,7 @@
 		"@sindresorhus/slugify": "^2.1.1",
 		"@tailwindcss/typography": "^0.5.8",
 		"@vercel/og": "^0.5.7",
-		"@worldcoin/idkit": "^0.5.1",
+		"@worldcoin/idkit": "^1.1.0",
 		"acorn": "^8.8.1",
 		"autoprefixer": "^10.4.7",
 		"clsx": "^1.2.1",

@@ -4,7 +4,7 @@ import { Tag } from '@/components/Tag'
 
 World ID proofs can be fully verified on-chain. After all, the source of truth for the decentralized protocol is on-chain. To verify a World ID proof, your smart contract will embed a call to the `verifyProof` method of the World ID contract, and then execute the rest of its logic as usual.
 
-The smart contract starter kit ([Foundry](https://github.com/worldcoin/world-id-starter), [Hardhat](https://github.com/worldcoin/world-id-starter-hardhat)) and the [frontend & on-chain monorepo template](https://github.com/worldcoin/world-id-onchain-template) are great resources to help you get started with World ID. 
+The smart contract starter kits ([Foundry](https://github.com/worldcoin/world-id-starter), [Hardhat](https://github.com/worldcoin/world-id-starter-hardhat)) and the [frontend & on-chain monorepo template](https://github.com/worldcoin/world-id-onchain-template) are great resources to help you get started with World ID. 
 Using one of these repositories is strongly recommended to get started with World ID on-chain.
 
 The following examples demonstrate the most common use case: verifying proofs from only Orb-verified users, for a single action, with a user's wallet address as the signal, while also enabling sybil-resistance. 
@@ -12,26 +12,25 @@ This setup is recommended for most users, as it is the most gas-efficient. For m
 
 <Note>
   At the core of the World ID Protocol is the use of [Semaphore](https://semaphore.appliedzkp.org/). Semaphore is a zk-SNARK based privacy protocol that allows for the creation of anonymous credential systems developed by the Ethereum Foundation.
-  Read more about [The Protocol](/world-id#the-protocol) and [Semaphore](https://semaphore.appliedzkp.org/).
+  Read more about [The Protocol](/world-id) and [Semaphore](https://semaphore.appliedzkp.org/).
 </Note>
 
 ## IDKit Configuration
 
-When verifying proofs on-chain, there are a few changes you have to make to your IDKit configuration. You must ensure that the app created in the Developer Portal is configured as an on-chain app, and you should only accept Orb credentials in IDKit, as phone credentials are not currently supported on-chain.
+When verifying proofs on-chain, there are a few changes you have to make to your IDKit configuration. You must ensure that the app created in the Developer Portal is configured as an on-chain app, and you should only accept Orb credentials in IDKit, as World ID Device is not currently supported on-chain.
 
 ```tsx
-import { IDKitWidget, solidityEncode } from '@worldcoin/idkit' // add import for solidityEncode
+import { IDKitWidget } from '@worldcoin/idkit'
 
 const { address } = useAddress() // get the user's wallet address
 
 <IDKitWidget
-    app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // must be an app set to on-chain
+    app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // must be an app set to on-chain in Developer Portal
     action="claim_nft"
-    signal={address} // prevents tampering with a message
-    onSuccess={onSuccess}
+    signal={address} // proof will only verify if the signal is unchanged, this prevents tampering
+    onSuccess={onSuccess} // use onSuccess to call your smart contract
     // no use for handleVerify, so it is removed
-    // leave credential_types unspecified (orb-only by default), as phone credentials are not supported on-chain
-    enableTelemetry
+    // use default verification_level (orb-only), as device credentials are not supported on-chain
 >
     {({ open }) => <button onClick={open}>Verify with World ID</button>}
 </IDKitWidget>
@@ -41,25 +40,45 @@ const { address } = useAddress() // get the user's wallet address
 
 The World ID Router contract is what you should use to verify proofs. It is deployed on multiple chains, and you can find the addresses for each chain in our contracts [Address Book](/reference/address-book).
 
-## `hashToField` helper function
+## `hashToField` Helper Function
 
-We recommend including this helper function in your smart contract. It properly computes the `keccak256` hash used by Semaphore, and is frequently used in the example code below.
-You can find it in our [template repository here](https://github.com/worldcoin/world-id-onchain-template/blob/main/contracts/src/helpers/ByteHasher.sol).
+Our contracts use a custom hash function that returns a `uint256` that is guaranteed to be in the field of the elliptic curve we use. This is necessary to ensure that the `uint256` returned by the hash function can be used in our zero-knowledge proofs.
 
 ```solidity
-function hashToField(bytes memory value) internal pure returns (uint256) {
-    return uint256(keccak256(abi.encodePacked(value))) >> 8;
+library ByteHasher {
+	/// @dev Creates a keccak256 hash of a bytestring.
+	/// @param value The bytestring to hash
+	/// @return The hash of the specified value
+	/// @dev `>> 8` makes sure that the result is included in our field
+	function hashToField(bytes memory value) internal pure returns (uint256) {
+		return uint256(keccak256(abi.encodePacked(value))) >> 8;
+	}
 }
+```
+
+To use this function, simply import the `ByteHasher` library and call `hashToField` on your bytestring.
+
+```solidity
+import { ByteHasher } from './helpers/ByteHasher.sol';
+
+contract HelloWorld {
+	using ByteHasher for bytes;
+	// {...}
+	abi.encodePacked('hello world').hashToField(); // returns the keccak256 hash of 'hello world' as a uint256
+	// {...}
 ```
 
 ## Constructor
 
 The `externalNullifier` is the unique identifier of the action performed in Semaphore, and its keccak256 hash (named `externalNullifierHash`) is what is passed to the World ID Router contract. It is a combination of the app ID and the action.
-You should typically set it in the constructor to save gas (as is done in this example), as it will not change when all users perform the same action. 
+You should typically set it in the constructor to save gas (as is done in this example), as it will not change if all users are performing the same action. 
 
-We additionally set the `groupId` to `1`, which limits this example to Orb-verified users only. Phone credentials are currently not supported on-chain.
+We additionally set the `groupId` to `1`, which limits this example to Orb-verified users only. World ID Device is currently not supported on-chain.
 
 ```solidity
+/// @dev This allows us to use our hashToField function on bytes
+using ByteHasher for bytes;
+
 /// @notice Thrown when attempting to reuse a nullifier
 error InvalidNullifier();
 
@@ -75,9 +94,9 @@ uint256 internal immutable groupId = 1;
 /// @dev Whether a nullifier hash has been used already. Used to guarantee an action is only performed once by a single person
 mapping(uint256 => bool) internal nullifierHashes;
 
-/// @param _worldId The WorldID instance that will verify the proofs
-/// @param _appId The World ID app ID
-/// @param _actionId The World ID action ID
+/// @param _worldId The address of the WorldIDRouter that will verify the proofs
+/// @param _appId The World ID App ID (from Developer Portal)
+/// @param _actionId The World ID Action (from Developer Portal)
 constructor(
     IWorldID _worldId,
     string memory _appId,
@@ -104,7 +123,7 @@ The `verifyProof` method reverts if the proof is invalid, meaning you can just c
 The `verifyProof` method takes the arguments below.
 
 -   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should be passed as-is.
--   `groupId` - This must be `1` for Orb-verified users. Phone credentials are currently not supported on-chain.
+-   `groupId` - This must be `1` for Orb-verified users. World ID Device is currently not supported on-chain.
 -   `signalHash` - The keccak256 hash of the signal to verify.
 -   `nullifierHash` - Anonymous user ID for this action. This is obtained from the IDKit widget, and should just be passed as-is.
 -   `externalNullifierHash` - The externalNullifierHash, which identifies which app and action the user is verifying for.
@@ -142,10 +161,9 @@ function verifyAndExecute(
 ```
 
 <Note>
- All arguments are of type `uint256`, with the exception of `proof`, which is of type `uint256[8]`. Depending on how you're calling your smart contract, you might be required to unpack it into a uint256[8] before passing it to the verifyProof method. To unpack it, use the following code:
+ All arguments are of type `uint256`, with the exception of `proof`, which is of type `uint256[8]`. Depending on how you're calling your smart contract, you might be required to unpack it into a `uint256[8]` before passing it to the verifyProof method. To unpack it, use the following code:
 
 <CodeGroup>
-
 ```ts {{ title: "viem" }}
 import { decodeAbiParameters } from 'viem'
 

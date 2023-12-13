@@ -1,0 +1,150 @@
+# World ID 2.0 Migration Guide
+
+This guide will help you migrate your application to use World ID 2.0, including upgrading from the beta version of IDKit (v0.5.1 or earlier) to the new release of IDKit (v1.1.0 or later). 
+We recommend you read the [World ID 2.0 Announcement](/world-id-2) to understand the new features and changes.
+
+<Note>
+    The [Breaking Changes](#breaking-changes) section outlines changes that must be addressed in order to successfully migrate your application to IDKit v1.
+    The [New Features](#new-features) and [Deprecated Functionality](#deprecated-functionality) sections outline changes that do not require immediate action.
+</Note>
+
+## Breaking Changes
+
+IDKit v1 introduces a number of breaking changes that must be addressed in order to successfully migrate.
+
+<Note type="warning">
+    The minimum versions of World App compatible with IDKit v1 are **2.5.0.1 on Android** and **2.5.1 on iOS**. 
+    If your users experience issues after migrating your application to IDKit v1, please ensure they are using the latest version of World App.
+</Note>
+
+### World ID Device
+
+The `phone` credential has been replaced by World ID Device. This credential is used to verify a user's unique device rather than a phone number. This allows for a more secure and private verification flow.
+
+<Note>Read more about World ID Device and important considerations for your application in the [Verification Levels documentation](/id/verification-levels).</Note>
+
+### Migrate from `credential_types` to `verification_level`
+
+The `credential_types` parameter has been replaced with the `verification_level` parameter. This parameter is used to specify the minimum level of verification required for a user to complete the World ID verification flow. This change also includes replacing `phone` with `device` for users who have not been verified at the Orb.
+
+<Note>Instead of passing an array of accepted credential types, you now pass the minimum verification level to accept.</Note>
+
+<CodeGroup title="Verification Level">
+```tsx {{ title: "Accept Device or Orb" }}
+import { IDKitWidget, VerificationLevel } from '@worldcoin/idkit'
+
+<IDKitWidget
+	app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT"
+	action="vote_1"
+	onSuccess={onSuccess}
+	handleVerify={handleVerify}
+	verification_level={VerificationLevel.Device} // or "device"
+>
+	{({ open }) => <button onClick={open}>Verify with World ID</button>}
+</IDKitWidget>
+```
+```tsx {{ title: "Accept only Orb" }}
+import { IDKitWidget, VerificationLevel } from '@worldcoin/idkit'
+
+<IDKitWidget
+	app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT"
+	action="vote_1"
+	onSuccess={onSuccess}
+	handleVerify={handleVerify}
+	verification_level={VerificationLevel.Orb} // or "orb"
+>
+	{({ open }) => <button onClick={open}>Verify with World ID</button>}
+</IDKitWidget>
+```
+</CodeGroup>
+
+### New Package for Vanilla JavaScript
+
+If your application uses vanilla JavaScript, you will need to install the new `@worldcoin/idkit-standalone` package instead of `@worldcoin/idkit`. 
+This package acts as a wrapper around the `@worldcoin/idkit` package for applications that do not use React.
+
+<Note>See the [IDKit Standalone](/reference/idkit#idkit-standalone) reference documentation for integration details.</Note>
+
+## New Features
+
+This section outlines new features introduced in IDKit v1 and other developer tools. These features are optional, and you can safely upgrade to IDKit v1 without making any changes described in this section.
+
+### Wallet Bridge
+
+The Wallet Bridge is a lightweight, open-source, and secure message passing service that allows IDKit to request and receive a zero-knowledge proof from a user's identity wallet, such as World App. This replaces WalletConnect, which was previously used for this functionality.
+The Wallet Bridge enables increased performance both in terms of speed and stability.
+
+<Note>
+    You can view the [Protocol Internals](/further-reading/protocol-internals#wallet-bridge) page or [Wallet Bridge](https://github.com/worldcoin/wallet-bridge) GitHub repository to learn more about how the Wallet Bridge works.
+
+    Usage information can be found in the [IDKit Reference Documentation](/reference/idkit#parameters).
+</Note>
+
+### World ID Reset
+
+World ID Reset is a new feature that allows users to reset their World ID in case their World ID is lost or stolen.
+
+<Note>Read more about World ID Reset and important considerations for your application in the [World ID Reset documentation](/further-reading/world-id-reset).</Note>
+
+### `onError` Callback
+
+The new `onError` callback allows you to gracefully handle errors that occur during the World ID verification flow. This optional callback is called when the IDKit Widget is closed from an error state.
+
+<Note>Read more about the `onError` callback in the [IDKit reference documentation](/reference/idkit#parameters).</Note>
+
+### Self-Hosted Applications
+
+Self-hosted applications are more clearly supported in IDKit v1. These applications completely bypass the Worldcoin Developer Portal, allowing for permissionless use of the World ID protocol with IDKit.
+
+<Note>Read more about self-hosted applications in the [IDKit Reference](/reference/idkit#self-hosted-applications).</Note>
+
+### `idkit-core` Package
+
+The `@worldcoin/idkit-core` package is a new package that contains the core functionality of IDKit, primarily interactions with the Wallet Bridge. This package is used by the `@worldcoin/idkit` and `@worldcoin/idkit-standalone` packages.
+**Intended only for use within another IDKit package**, and not intended to be used directly by applications.
+
+### `idkit-js` Monorepo
+
+The [GitHub repository for IDKit](https://github.com/worldcoin/idkit-js) has been updated to a monorepo, which contains the source code for the `@worldcoin/idkit-core`, `@worldcoin/idkit`, and `@worldcoin/idkit-standalone` packages.
+This refactor allows for easier maintenance and development of IDKit, and allows for much simpler creation of new IDKit packages for various frontend frameworks.
+
+<Note>Want support for a new frontend framework? Let us know by [opening an issue](https://github.com/worldcoin/idkit-js/issues) or build it and [submit a pull request](https://github.com/worldcoin/idkit-js/pulls)!</Note>
+
+### Use Email Address to Sign In to the Developer Portal
+
+The [Worldcoin Developer Portal](https://developer.worldcoin.org) now supports signing in with an email address in addition to Sign In with Worldcoin.
+
+## Deprecated Functionality
+
+This section outlines deprecated functionality in IDKit v1. These features have been removed or will be removed in the near future.
+
+### Telemetry
+
+All telemetry has been removed from the IDKit package. The `enableTelemetry` parameter should be removed.
+
+### IDKit Theme
+
+The `theme` parameter has been removed from IDKit. Dark mode will be re-enabled in a future release.
+
+### WalletConnect
+
+WalletConnect was previously used to pass messages between IDKit and a user's identity wallet. This has been replaced with the new Wallet Bridge, which is a lightweight, open-source, and secure message passing service.
+
+If you previously set `walletConnectProjectId` in IDKit's parameters, you should remove it.
+
+<Note>More information about the new Wallet Bridge can be found [above](#wallet-bridge).</Note>
+
+### `SignInWithWorldID` Component
+
+The `SignInWithWorldID` and `SignInButton` components have been removed from IDKit. All applications that wish to use Sign In with Worldcoin should do so through our [OIDC Provider](/id/sign-in).
+
+## Other Changes
+
+World ID 2.0 includes other changes that are noted here.
+
+### Terminology
+
+The following terminology changes have been made:
+
+- 'Sign In with Worldcoin' has been updated to 'Sign In with World ID'
+- 'Anonymous Actions' has been updated to 'Incognito Actions'

@@ -169,7 +169,6 @@ export const navigation = [
 		links: [
 			{ title: 'World ID Overview', href: '/world-id' },
 			{ title: 'Use Cases', href: '/use-cases' },
-			{ title: 'Apps & Integrations', href: '/apps' },
 			{ title: 'Try it Out', href: '/try' },
 			{ title: 'Quick Start', href: '/quick-start' },
 		],
@@ -177,11 +176,13 @@ export const navigation = [
 	{
 		title: 'World ID',
 		links: [
-			{ title: 'Sign In with Worldcoin', href: '/id/sign-in' },
-			{ title: 'Anonymous Actions', href: '/id/anonymous-actions' },
+			{ title: 'Verify with World ID', href: '/id/verify-with-world-id' },
+			{ title: 'Sign in with World ID', href: '/id/sign-in' },
+			{ title: 'Incognito Actions', href: '/id/incognito-actions' },
 			{ title: 'Intro to IDKit', href: '/id/idkit' },
 			{ title: 'Cloud Verification', href: '/id/cloud' },
 			{ title: 'On-Chain Verification', href: '/id/on-chain' },
+			{ title: 'Verification Levels', href: '/id/verification-levels' },
 		],
 	},
 	{
@@ -192,15 +193,17 @@ export const navigation = [
 			{ title: 'Sign In Reference', href: '/reference/sign-in' },
 			{ title: 'Smart Contracts', href: '/reference/contracts' },
 			{ title: 'Address Book', href: '/reference/address-book' },
+			{ title: 'Errors', href: '/reference/errors' },
+			{ title: 'World ID 2.0 Migration Guide', href: '/reference/world-id-2-migration-guide' },
 		],
 	},
 	{
 		title: 'Further Reading',
 		links: [
-			{ title: 'Proof of Personhood', href: '/proof-of-personhood' },
 			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
 			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
 			{ title: 'Zero-Knowledge Proofs', href: '/further-reading/zero-knowledge-proofs' },
+			{ title: 'World ID Reset', href: '/further-reading/world-id-reset' },
 		],
 	},
 ] as const

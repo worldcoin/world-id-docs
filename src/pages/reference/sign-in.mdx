@@ -1,6 +1,6 @@
-# Sign In with Worldcoin Reference
+# Sign in with World ID Reference
 
-<Note>Sign in with Worldcoin uses a different base API endpoint than the Developer Portal.</Note>
+<Note>Sign in with World ID uses a different base API endpoint than the Developer Portal.</Note>
 
 **Base domain**
 
@@ -39,102 +39,12 @@ https://id.worldcoin.org
         "authorization_endpoint": "https://id.worldcoin.org/authorize",
         "token_endpoint": "https://id.worldcoin.org/token",
         "userinfo_endpoint": "https://id.worldcoin.org/userinfo",
-        "registration_endpoint": "https://id.worldcoin.org/register",
         "jwks_uri": "https://id.worldcoin.org/jwks",
         "scopes_supported": ["openid", "email", "profile"],
         "response_types_supported": ["code", "id_token", "id_token token", "code id_token"],
         "grant_types_supported": ["authorization_code", "implicit"],
         "subject_types_supported": ["pairwise"],
         "id_token_signing_alg_values_supported": ["RSA"]
-    }
-    ```
-
-  </Col>
-</Row>
-
-## Register App {{ tag: 'POST', label: '/register' }}
-
-<Row>
-  <Col>
-
-Registers a new application for use with Sign In with World ID.
-
-### Required attributes
-
-    <Properties>
-      <Property name="redirect_uris" type="string[]">
-        URLs the user may be redirected to after authentication. Must be HTTPS, and cannot be localhost.
-      </Property>
-    </Properties>
-
-    ### Optional attributes
-
-    <Properties>
-      <Property name="client_name" type="string">
-        Name of the application. This is displayed to the user during authentication.
-      </Property>
-      <Property name="application_type" type="string">
-        Type of application. Can be either `web` or `mobile`. Defaults to `web`.
-      </Property>
-      <Property name="grant_types" type="string">
-        Grant types the application is allowed to use. Can be `authorization_code`, `implicit`, or `hybrid`. Defaults to `authorization_code`.
-      </Property>
-    </Properties>
-
-### Common Errors
-
--   `method_not_allowed`: HTTP method is not allowed. Only POST and OPTIONS may be used
--   `required`: A necessary attribute was not set. Required attributes are: `redirect_uris`
--   `invalid_redirect_uri`: The provided redirect URI is invalid, either HTTPS was not used or the URL was malformed
-
-</Col>
-<Col sticky>
-
-    <CodeGroup title="Request" tag="POST" label="/register">
-
-    ```bash {{ title: 'cURL' }}
-    curl -X POST https://id.worldcoin.org/register \
-        -H "Content-Type: application/json" \
-        -d '{
-            "client_name": "Example Application",
-            "redirect_uris": ["https://app.example.com/callback", "https://app.example.com/redirect"],
-            "application_type": "web",
-            "grant_types": "authorization_code",
-            "response_types": "code"
-        }'
-    ```
-
-    ```js
-    fetch('https://id.worldcoin.org/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            client_name: 'Example Application',
-            redirect_uris: [
-                'https://app.example.com/callback',
-                'https://app.example.com/redirect'
-            ],
-            application_type: 'web',
-            grant_types: 'authorization_code',
-            response_types: 'code'
-        })
-    })
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-        "application_type": "web",
-        "client_id": "app_staging_7550e829082fc558e112e0620c1c7a59",
-        "client_id_issued_at": "2023-03-09T00:58:52.5011+00:00",
-        "client_name": "Example Application",
-        "client_secret": "sk_6a2ff697607b77d641fbb10101b7636f3e6c750f2aac3652",
-        "client_secret_expires_at": 0,
-        "grant_types": "authorization_code",
-        "response_types": "code"
     }
     ```
 
@@ -299,7 +209,7 @@ Validates the given access token is active for the user.
 	For introspect, [Basic
 	Authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme) is
 	used. The `Authorization` header contains the word "Basic ", followed by a base64 encoding of the
-	"client_id:client_secret" values returned from the `/register` endpoint.
+	"client_id:client_secret" values. You obtain your client_id (also called app_id) and client_secret from the Developer Portal.
 </Note>
 
 ### Required attributes
@@ -397,11 +307,16 @@ fetch('https://id.worldcoin.org/userinfo', {
 ```json {{ title: "Response" }}
 {
 	"sub": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535",
-	"https://id.worldcoin.org/beta": {
+	"https://id.worldcoin.org/beta": { // deprecated, will be removed in the future
 		"likely_human": "strong",
 		"credential_type": "orb"
 	},
-	"email": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535@id.worldcoin.org",
+  "https://id.worldcoin.org/v1": {
+    "verification_level": "orb", // "orb" or "device"
+  },
+  // if `email` scope is included:
+	"email": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535@id.worldcoin.org", 
+  // if `profile` scope is included:
 	"name": "World ID User",
 	"given_name": "World ID",
 	"family_name": "User"

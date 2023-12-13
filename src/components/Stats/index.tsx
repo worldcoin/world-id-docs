@@ -46,7 +46,7 @@ export const Stats: FC<{ className?: string }> = ({ className }) => {
 			{
 				total: simplifyNumber(42500),
 				lastWeek: 8830,
-				footnote: 'Phone credentials',
+				footnote: 'Device credentials',
 			},
 		],
 		[data, isLoading]

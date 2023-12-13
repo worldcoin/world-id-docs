@@ -6,7 +6,7 @@ This section describes how to verify proofs via the **Developer Portal API**.
   You must first pass the proof to your backend when verifying proofs via the API. The user can manipulate information in the frontend, so you the proof must be verified in a trusted environment.
 </Note>
 
-Our backend should receive the `proof`, `merkle_root`, `nullifier_hash`, and `credential_type` from IDKit, as well as the same `action` and `signal` as were input into IDKit, and send it to the **Developer Portal API** for verification. 
+Our backend should receive the `proof`, `merkle_root`, `nullifier_hash`, and `verification_level` from IDKit, as well as the same `action` and `signal` as were input into IDKit, and send it to the **Developer Portal API** for verification. 
 The **Developer Portal API** will return a `200` response if the proof is valid, and a `400` response with extra error detail if the proof is invalid.
 We then pass the success or error messages back to our frontend after performing our own backend actions.
 
@@ -21,7 +21,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Verify
     merkle_root: req.body.merkle_root,
     nullifier_hash: req.body.nullifier_hash,
     proof: req.body.proof,
-    credential_type: req.body.credential_type,
+    verification_level: req.body.verification_level,
     action: req.body.action, // or get this from environment variables,
     signal: req.body.signal ?? "", // if we don't have a signal, use the empty string
   };
@@ -64,33 +64,3 @@ const onSuccess = (result: ISuccessResult) => {
 <Note>
   For more information on configuration, see the [IDKit](/reference/idkit) and [Cloud API](/api/reference) reference pages.
 </Note>
-
-{/* Verify your action by sending the zero knowledge proof to the **Developer Portal API**. Please check the [API reference](/api/reference#verify) for details on anticipated error responses.
-
-
-<CodeGroup title="API Verification" tag="POST" label="/api/v1/verify/app_GBkZ1KlVUdFTjeMXKlVUdFT">
-
-```json {{ title: "Request" }}
-{
-    "action": "vote_1",
-    "signal": "user_value",
-    "credential_type": "orb",
-    "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
-    "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
-    "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"
-}
-``` */}
-
-{/* cSpell:enable */}
-
-{/* ```json {{ title: 'Response' }}
-{
-  "success": true,
-  "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
-  "action": "vote_1",
-  "created_at": "2023-01-01T12:12:12.000Z"
-}
-```
-</CodeGroup>
-
-7. The user is a unique human! Execute your action on your backend (e.g. claim the user promotion). */}

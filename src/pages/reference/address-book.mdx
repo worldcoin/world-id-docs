@@ -1,6 +1,8 @@
 # Address Book
 
-Here you can find the address and associated ENS name (if available) for all of the World ID contracts. For verifying proofs, the only contract you need is the `WorldIdRouter` contract -- it will properly route the call to the correct contract based on the `groupId` argument.
+Here you can find the address and associated ENS name (if available) for all of the World ID contracts. For verifying proofs, the only contract you need to interact with is the `WorldIdRouter` contract, which will properly route the call to the correct contract based on the `groupId` argument.
+
+<Note>Only the Orb credential is supported on-chain, so your `groupId` should always be `1`.</Note>
 
 <Tabs>
 <TabItem label="Ethereum">
@@ -19,7 +21,7 @@ Here you can find the address and associated ENS name (if available) for all of 
       <td className="align-middle">[`goerli.id.worldcoin.eth`](https://goerli.etherscan.io/address/0x11cA3127182f7583EfC416a8771BD4d11Fae4334#code)</td>
     </tr>
     <tr>
-      <td className="align-middle">Orb Identity Manager</td>
+      <td className="align-middle">Identity Manager</td>
       <td className="align-middle">[`0xf7134CE138832c1456F2a91D64621eE90c2bddEa`](https://etherscan.io/address/0xf7134CE138832c1456F2a91D64621eE90c2bddEa#code)</td>
       <td className="align-middle">[`0x78ec127a3716d447f4575e9c834d452e397ee9e1`](https://goerli.etherscan.io/address/0x78eC127A3716D447F4575E9c834d452E397EE9E1#code)</td>
     </tr>
@@ -42,7 +44,7 @@ Here you can find the address and associated ENS name (if available) for all of 
       <td className="align-middle">[`op-goerli.id.worldcoin.eth`](https://goerli-optimism.etherscan.io/address/0x515f06B36E6D3b707eAecBdeD18d8B384944c87f#code)</td>
     </tr>
     <tr>
-      <td className="align-middle">World ID Bridge</td>
+      <td className="align-middle">Bridged World ID</td>
       <td className="align-middle">[`0xB3E7771a6e2d7DD8C0666042B7a07C39b938eb7d`](https://optimistic.etherscan.io/address/0xB3E7771a6e2d7DD8C0666042B7a07C39b938eb7d#code)</td>
       <td className="align-middle">[`0x715161DB36C260e4bE7094773785A111D11bC5F9`](https://goerli-optimism.etherscan.io/address/0x715161DB36C260e4bE7094773785A111D11bC5F9#code)</td>
     </tr>
@@ -65,36 +67,31 @@ Here you can find the address and associated ENS name (if available) for all of 
       <td className="align-middle">[`mumbai.id.worldcoin.eth`](https://mumbai.polygonscan.com/address/0x719683F13Eeea7D84fCBa5d7d17Bf82e03E3d260#code)</td>
     </tr>
     <tr>
-      <td className="align-middle">World ID Bridge</td>
+      <td className="align-middle">Bridged World ID</td>
       <td className="align-middle">[`0xa6d85F3b3bE6Ff6DC52C3aaBe9A35d0ce252b79F`](https://polygonscan.com/address/0xa6d85F3b3bE6Ff6DC52C3aaBe9A35d0ce252b79F#code)</td>
       <td className="align-middle">[`0xCDfDF72065493bDDb2131478c89C1D5482BD1dF6`](https://mumbai.polygonscan.com/address/0xCDfDF72065493bDDb2131478c89C1D5482BD1dF6#code)</td>
     </tr>
   </tbody>
 </table>
 </TabItem>
-<TabItem label="Base">
+<TabItem label="Base (Goerli)">
 <table>
   <thead>
     <tr>
       <th>Contract</th>
-      <th>Base Mainnet</th>
       <th>Base Goerli Testnet</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td className="align-middle">World ID Router</td>
-      <td className="align-middle">`Coming Soon`</td>
       <td className="align-middle">[`0x78ec127a3716d447f4575e9c834d452e397ee9e1`](https://goerli.basescan.org/address/0x78ec127a3716d447f4575e9c834d452e397ee9e1#code)</td>
     </tr>
     <tr>
-      <td className="align-middle">World ID Bridge</td>
-      <td className="align-middle">`Coming Soon`</td>
+      <td className="align-middle">Bridged World ID</td>
       <td className="align-middle">[`0x2a968958E6136FA0FC2Ed068aF8Bef464c7b66EA`](https://goerli.basescan.org/address/0x2a968958E6136FA0FC2Ed068aF8Bef464c7b66EA#code)</td>
     </tr>
   </tbody>
 </table>
 </TabItem>
 </Tabs>
-
-

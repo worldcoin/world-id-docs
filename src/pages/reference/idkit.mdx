@@ -5,91 +5,88 @@
 	submit a pull request.
 </Note>
 
-## Components
+There are three packages available in the IDKit Monorepo: `@worldcoin/idkit`, `@worldcoin/idkit-standalone`, and `@worldcoin/idkit-core`. The `@worldcoin/idkit` package is the main package that should be used with the React JS framework. The `@worldcoin/idkit-standalone` package is a standalone package that can be used in vanilla JavaScript applications. The `@worldcoin/idkit-core` package is a core functionality package that is used by the other two packages, and should be used only when creating a new IDKit package.
 
-### `IDKitWidget`
+## IDKit (React)
 
-The `IDKitWidget` component is the main component that renders the World ID widget. It should be mounted in your React app and passed the relevant parameters. Accepts a function as a child that receives a `open` function to open the widget.
+The `@worldcoin/idkit` package is the main package that should be used with the [React framework](https://react.dev/) or any other framework that supports React components, such as [Next.JS](https://nextjs.org/).
 
-```tsx
-    import { IDKitWidget } from '@worldcoin/idkit'
+### Components
 
-    <IDKitWidget
-      app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // obtained from the Developer Portal
-      action="vote_1" // this is your action name from the Developer Portal
-      signal="user_value" // any arbitrary value the user is committing to, e.g. a vote
-      onSuccess={onSuccess}
-      credential_types={['orb', 'phone']} // the credentials you want to accept
-      enableTelemetry
-    >
-      {({ open }) => <button onClick={open}>Verify with World ID</button>}
-    </IDKitWidget>
+#### `IDKitWidget`
+
+The `IDKitWidget` component is the main component that renders the World ID widget. It should be mounted in your React app and passed the relevant parameters. Accepts a function as a child that receives an `open` function to open the widget.
+
+```jsx
+import { IDKitWidget } from '@worldcoin/idkit'
+
+<IDKitWidget
+	app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // obtained from the Developer Portal
+	action="vote_1" // this is your action name from the Developer Portal
+	signal="user_value" // any arbitrary value the user is committing to, e.g. a vote
+	onSuccess={onSuccess}
+	verification_level="device" // minimum verification level accepted, defaults to "orb"
+>
+	{({ open }) => <button onClick={open}>Verify with World ID</button>}
+</IDKitWidget>
 ```
-{/*
-### `SignInWithWorldID`
 
-The `SignInWithWorldID` component is a wrapper around the `IDKitWidget` component that renders the World ID widget with some parameters preset for Sign in with Worldcoin. Please see the [Sign In Widget page](/advanced/sign-in-widget) for usage details.
-
-### `SignInButton`
-
-The `SignInButton` component is a styled and animated button, used as the default for the [`SignInWithWorldID` component](/advanced/sign-in-widget). It is also exported separately for use with custom components. */}
-
-## Parameters
+### Parameters
 
 The following parameters can be passed as props to the `IDKitWidget` component:
 
-### Required
-
 <Properties>
-	<Property name="app_id" type="string">
+	<Property name="app_id" type="string" required={true}>
 		Unique identifier for the app verifying the action. This should be the App ID obtained from the [Developer
 		Portal](https://developer.worldcoin.org).
 	</Property>
-	<Property name="action" type="string">
+	<Property name="action" type="string" required={true}>
         Identifier for the action the user is performing. This should be the action name set in the Developer Portal.
 	</Property>
-	<Property name="onSuccess" type="function">
+	<Property name="onSuccess" type="function(ISuccessResult)" required={true}>
 		Function to trigger when verification is successful and the modal is closed. Should receive a single parameter of type `ISuccessResult`
 		which contains [the proof details.](#response)
 	</Property>
-</Properties>
+	<Property name="handleVerify" type="function(ISuccessResult)">
+		Called after the proof is returned from the user's identity wallet (e.g. World App), but before showing the success screen. Should receive a single parameter of type `ISuccessResult`
+		which contains [the proof details.](#response) Throwing an error in this screen will show the user a custom error.
 
-### Optional
-
-<Properties>
-	<Property name="handleVerify" type="function">
-		Called after the proof is returned from the World App, but before showing the success screen. Throwing an error in this
-		screen will show the user a custom error. Used to perform additional validation when needed.
+		<Note>`handleVerify` should be used for API proof verifications to create the best user experience. This will show a pending state while the proof is verified and present any errors thrown in a user-readable fashion.</Note>
 	</Property>
-	<Property name="enableTelemetry" type="boolean">
-		Whether opt-in telemetry is enabled, defaults to `false`. Very few events are sent, with no PII to help improve the project. [Read more here.](/reference/idkit/telemetry)
+	<Property name="onError" type="function(IErrorState)">
+		Called when IDKit is closed after an error. Should receive a single parameter of type `IErrorState` which contains [the error details.](#error-handling)
 	</Property>
-	<Property name="theme" type='"light" | "dark"'>
-		The theme to apply to the widget's UI. Defaults to `light`.
+	<Property name="verification_level" type="string" defaultValue="orb">
+		The minimum verification level accepted. Can be `orb` or `device`. Defaults
+		to `orb`. **TypeScript apps can use the `VerificationLevel` enum.**
 	</Property>
-	<Property name="signal" type="string">
-		For use when validating proofs on-chain. Read more on [the On-chain section](/advanced/on-chain).
+	<Property name="signal" type="string" defaultValue='""'>
+		The signal to be included in the zero-knowledge proof. Typically used for on-chain actions, read more in [the On-chain section](/id/on-chain).
+	</Property>
+	<Property name="bridge_url" type="string" defaultValue='"https://bridge.worldcoin.org"'>
+		The URL of the [Wallet Bridge](https://github.com/worldcoin/wallet-bridge) to use for establishing a connection between IDKit and the user's World ID Wallet. Defaults to the bridge service hosted by Worldcoin. 
+		**Only change this if you are running your own bridge service.** Read more in [Protocol Internals](/further-reading/protocol-internals#wallet-bridge).
+		<Note type="warning">World App will temporarily prevent users from connecting to a Wallet Bridge that is not hosted by Worldcoin or Tools for Humanity while security reviews are ongoing, so we **recommend using the default value** by leaving the `bridge_url` parameter undefined.</Note>
 	</Property>
 	<Property name="action_description" type="string">
 		The description of the specific action (shown to users in World App). **Only used for Dynamic Actions.**
 	</Property>
-	<Property name="credential_types" type="string[]">
-		An array of credential types to allow for verification. Will accept any combination of `orb` & `phone`. Defaults
-		to `orb`. **TypeScript apps can use the `CredentialType` enum.**
-	</Property>
-	<Property name="autoClose" type="boolean">
+	<Property name="autoClose" type="boolean" defaultValue="true">
 		Whether to automatically close the widget after completion. Defaults to `true`.
+	</Property>
+	<Property name="advanced" type="JSON">
+		A JSON object containing advanced configuration options that may be unstable or subject to change. See [Advanced Configuration](#advanced-configuration) for more details.
 	</Property>
 </Properties>
 
-## Hooks
+### Hooks
 
-### `useIDKit`
+#### `useIDKit`
 
 The `useIDKit` hook allows you to programmatically open the IDKit widget without mounting any buttons on screen. Note that you still need to mount the component for this to work.
 
 ```jsx focus=1,3,6,11
-import { useIDKit } from '@worldcoin/idkit'
+import { IDKitWidget, useIDKit } from '@worldcoin/idkit'
 
 const { open, setOpen } = useIDKit()
 
@@ -104,40 +101,9 @@ return (
 )
 ```
 
-## Methods
+### Types
 
-### .init()
-
-The `.init()` method is the main initialization method used for vanilla JS apps. It should be called to start up IDKit and configure the widget.
-
-**.init(parameters) => void**
-
-**Example:**
-
-{/* cSpell:disable */}
-
-```js
-idkit.init({
-	action: 'my_action',
-	app_id: 'app_lshSNnaJfdt6Sohu6YAA',
-})
-```
-
-{/* cSpell:enable */}
-
-### .open()
-
-The `.open()` method is used to open the widget. It should be called after the `.init()` method.
-
-**Example:**
-
-```js
-idkit.open()
-```
-
-## Response
-
-Upon successful completion of the World ID flow, you will receive a response object. This response object of type `ISuccessResult` has the following attributes. **Normally, you will forward these parameters to your backend or smart contract for verification.**
+#### `ISuccessResult`
 
 <Properties>
 	<Property name="merkle_root" type="string">
@@ -145,124 +111,134 @@ Upon successful completion of the World ID flow, you will receive a response obj
 		list of identities verified by the Orb. ABI encoded.
 	</Property>
 	<Property name="nullifier_hash" type="string">
-		Essentially the user's unique identifier for your app (and specific action if using Anonymous actions). ABI
+		Essentially the user's unique identifier for your app (and specific action if using Incognito Actions). ABI
 		encoded.
 	</Property>
 	<Property name="proof" type="string">
 		The Zero-knowledge proof of the verification. ABI encoded.
 	</Property>
-	<Property name="credential_type" type='"orb" | "phone"'>
-		Either `orb` or `phone`. Will always return the strongest credential with which a user has been verified.
+	<Property name="verification_level" type='"orb" | "device"'>
+		Either `orb` or `device`. Returns the verification level used to generate the proof.
+	</Property>
+	<Property name="credential_type" type='"orb" | "device"' deprecated={true}>
+		Either `orb` or `device`. Will always return the strongest credential with which a user has been verified.
+
+		<Note type="warning">This property is deprecated and will be removed in a future release. Use `verification_level` instead.</Note>
 	</Property>
 </Properties>
 
-## Error Handling
+```json {{ title: 'ISuccessResult' }}
+{
+	"merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
+	"nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
+	"proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394...",
+	"verification_level": "orb"
+}
+```
 
-Errors in the JS package will generally be returned in the Promise rejection of the [`.init()`](/reference/idkit#init) method. In exceptional cases, some errors may be thrown in the Javascript console (though this is mostly for unhandled errors, and is not normal behavior).
+#### `IErrorState`
 
-The `errorResult` object that is returned in the Promise rejection has the following structure:
+<Properties>
+	<Property name="code" type="string">The error code.</Property>
+	<Property name="detail" type="string">
+		A human-readable description of the error.
+	</Property>
+</Properties>
 
-```json
+```json {{ title: 'IErrorState' }}
 {
 	"code": "already_signed",
 	"detail": "User has previously signed and submitted proof for this action."
 }
 ```
 
-<Note>When debugging, check the Javascript console for any additional details.</Note>
+### Error Handling
+
+An error in IDKit will generally be returned as the input to the `onError` callback. IDKit will display an error to the user and call the `onError` callback with an `IErrorState` object when the modal is closed.
+
+<Note>View the [Errors Reference](/reference/errors) for assistance when troubleshooting.</Note>
+
+## IDKit Standalone
+
+The `@worldcoin/idkit-standalone` package is intended for vanilla JS applications. It is a standalone package that acts as a wrapper around the `@worldcoin/idkit` package.
+
+### Methods
 
 <Note>
-	If you enable telemetry, any errors will be reported to help proactively detect and fix any bugs. If you are running
-	into an issue and don't have telemetry enabled, please report any bugs.
+	The `.init()` and `.update()` methods take the same parameters as the React package's IDKitWidget component. See [above](#parameters) for more details.
 </Note>
 
-### Error codes
+#### .init()
 
-The JS package may return any of the following error codes.
+The `.init()` method is the main initialization method used for vanilla JS apps. It should be called to start up IDKit and configure the widget.
 
-<table>
-	<thead>
-		<tr>
-			<th>Code</th>
-			<th>Description</th>
-			<th>How to fix?</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>`connection_failed`</td>
-			<td>Could not establish a connection to the WLD app.</td>
-			<td>
-				Ask the user to check their internet connection on both devices running your dapp and their WLD app.
-				Additionally, make sure the user has the latest WLD app version.
-			</td>
-		</tr>
-		<tr>
-			<td>`verification_rejected`</td>
-			<td>User rejected the World ID request in their WLD app.</td>
-			<td>If this was a mistake, ask the user to go through the flow again.</td>
-		</tr>
-		<tr>
-			<td>`already_signed`</td>
-			<td>This person has already submitted a proof for the particular action.</td>
-			<td>Nothing to do. User cannot submit a request for the same action twice.</td>
-		</tr>
-		<tr>
-			<td>`invalid_action_id`</td>
-			<td>The action ID provided to IDKit is not valid.</td>
-			<td>Check the action ID. Make sure it's a valid string.</td>
-		</tr>
-		<tr>
-			<td>`invalid_signal`</td>
-			<td>The signal provided to IDKit is not valid.</td>
-			<td>Check the signal. Make sure it's a valid string or address.</td>
-		</tr>
-		<tr>
-			<td>`unexpected_response`</td>
-			<td>There was a problem with the response obtained from the WLD app.</td>
-			<td>
-				Check the JS console for further details, though in most cases these will require contacting us to
-				report the bug.
-			</td>
-		</tr>
-		<tr>
-			<td>`generic_error`</td>
-			<td>An unhandled exception occurred.</td>
-			<td>
-				Check the JS console for further details, though in most cases these will require contacting us to
-				report the bug.
-			</td>
-		</tr>
-	</tbody>
-</table>
+{/* cSpell:disable */}
 
-## Telemetry
+```js
+import { IDKit } from '@worldcoin/idkit-standalone'
 
-The Javascript package comes bundled with optional **opt-in** telemetry. Receiving these telemetry events from the package helps us understand how the product is being used so it can be improved.
+const onSuccess = (result) => {
+	// handle success
+}
 
--   **PII is not captured**, neither from the developer, nor end users. Not even the IP address. It's all anonymous analytics.
--   When a telemetry event is received, the IP address is used to obtain a rough location (country, state/province, city) using the [MaxMind](https://github.com/maxmind) database through [PostHog][posthog], the IP address is immediately discarded and not stored.
--   Nothing is stored in the user's device running IDKit. **No cookies, no local storage, nothing.**
--   **No fingerprinting** or any other mechanism to attempt to identify users cross-browser or cross-device.
--   All telemetry events are captured using [PostHog](https://github.com/posthog/posthog), an open-source product analytics library.
+IDKit.init({
+	app_id: 'app_lshSNnaJfdt6Sohu6YAA',
+	action: 'my_action',
+	onSuccess: onSuccess,
+})
+```
 
-### Events captured
+{/* cSpell:enable */}
 
-Here are the events captured:
+#### .update()
 
--   `idkit loaded`. When the widget is loaded.
--   `idkit opened`. When IDKit is triggered in the user interface.
--   `$exception`. When an unhandled exception occurs in the package. The error message and the stack trace is included.
+The `.update()` method reinitializes the widget with new parameters. It can only be called after the `.init()` method.
 
-### Attributes captured
+{/* cSpell:disable */}
 
-For each event, the additional metadata is kept:
+```js
+IDKit.update({
+	app_id: 'app_lshSNnaJfdt6Sohu6YAA',
+	action: 'my_new_action',
+	onSuccess: onSuccess,
+})
+```
 
--   Estimated coarse location, like country and state/province (from IP address). IP address is discarded.
--   Screen size.
--   IDKit version.
--   Device information from `User-Agent` (e.g. browser, OS, ...).
--   Current URL.
--   Referrer header.
+{/* cSpell:enable */}
 
-[posthog]: https://github.com/posthog/posthog
+#### .open()
+
+The `.open()` method is used to open the widget. It can only be called after the `.init()` method, typically in response to a button click.
+
+This method returns a Promise object that will resolve when the `onSuccess` callback is called, or reject when the `onError` callback is called.
+
+```js
+IDKit.open()
+```
+
+## Advanced configuration
+
+This section outlines advanced configuration options that may be unstable or subject to change. These options are passed as a JSON object to the `advanced` prop of the `IDKitWidget` component.
+
+### Self-Hosted Applications
+
+Self-hosted applications bypass the Worldcoin Developer Portal entirely. The proof returned **can not be verified by the Developer Portal API.** Instead, you must verify the proof on-chain or with a custom prover service.
+
+When using self-hosted mode, no `app_id` is required, and any value passed to IDKit will be ignored. The `action` you set must have sufficient uniqueness to avoid collisions with other applications. We recommend using a prefix that includes your application name, e.g. `your_app_name_vote_1`.
+
+```jsx
+import { IDKitWidget } from '@worldcoin/idkit'
+
+<IDKitWidget
+	// no app_id is set for self-hosted applications
+	action="your_app_name_vote_1" // this is your action, set to whatever you'd like
+	signal="user_value"
+	onSuccess={onSuccess}
+	verification_level="orb" // only orb verifications are supported for self-hosted applications
+	advanced={
+		self_hosted, // enable the self-hosted mode
+	}
+>
+	{({ open }) => <button onClick={open}>Verify with World ID</button>}
+</IDKitWidget>
+```

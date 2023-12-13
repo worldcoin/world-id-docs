@@ -487,7 +487,7 @@ const Try = (): JSX.Element => {
 				</div> */}
 
 				<div className="grid gap-y-2">
-					<span className="font-medium">Accepted credentials</span>
+					<span className="font-medium">Minimum Verification Level</span>
 
 					<div className="grid grid-cols-2 gap-x-3">
 						<FormChoiceButton

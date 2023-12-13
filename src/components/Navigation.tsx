@@ -176,6 +176,7 @@ export const navigation = [
 	{
 		title: 'World ID',
 		links: [
+			{ title: 'Verify with World ID', href: '/id/verify-with-world-id' },
 			{ title: 'Sign in with World ID', href: '/id/sign-in' },
 			{ title: 'Incognito Actions', href: '/id/incognito-actions' },
 			{ title: 'Intro to IDKit', href: '/id/idkit' },

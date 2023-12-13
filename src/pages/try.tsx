@@ -9,7 +9,7 @@ import RocketIcon from '@/components/icons/RocketIcon'
 import RedirectIcon from '@/components/icons/RedirectIcon'
 import { memo, ReactNode, Suspense, useMemo, useState } from 'react'
 import { useForm, UseFormRegisterReturn, useWatch } from 'react-hook-form'
-import { CredentialType, IDKitWidget, WidgetProps } from '@worldcoin/idkit'
+import { VerificationLevel, IDKitWidget, WidgetProps } from '@worldcoin/idkit'
 
 type Environment = 'staging' | 'production'
 
@@ -114,13 +114,12 @@ const ExamplesWrapper = ({
 	id: string
 	valid: boolean
 	children: (params: {
-		theme: WidgetProps['theme']
 		variants: Record<string, boolean | undefined>[] | string[]
 		styleOption: number
 	}) => ReactNode
 }): JSX.Element => {
 	const [selected, setSelected] = useState(0)
-	const [theme, setTheme] = useState<WidgetProps['theme']>('light')
+	const [theme, setTheme] = useState<"dark" | "light">('light')
 
 	const variants = useMemo(
 		() => [
@@ -151,7 +150,7 @@ const ExamplesWrapper = ({
 					'opacity-50 pointer-events-none select-none cursor-not-allowed': !valid,
 				})}
 			>
-				{children({ theme, styleOption: selected, variants })}
+				{children({ styleOption: selected, variants })}
 			</div>
 
 			<div
@@ -243,7 +242,7 @@ const Try = (): JSX.Element => {
 		testingEnvironment: Environment
 		action: string
 		// maxVerifications: 0 | 1 | 2 | 3 FIXME: Enable when dynamic maxVerifications is supported
-		credentialTypes: Array<CredentialType>
+		verification_level: VerificationLevel
 	}>({
 		mode: 'all',
 		defaultValues: {
@@ -252,7 +251,7 @@ const Try = (): JSX.Element => {
 			testingEnvironment: 'production',
 			action: 'test-action',
 			// maxVerifications: 1, FIXME: Enable when dynamic maxVerifications is supported
-			credentialTypes: [CredentialType.Orb],
+			verification_level: VerificationLevel.Orb,
 		},
 	})
 
@@ -272,8 +271,8 @@ const Try = (): JSX.Element => {
 	})
 
 	const isTestingWidgetValid = useMemo(
-		() => !errors.action && !errors.credentialTypes,
-		[errors.action, errors.credentialTypes]
+		() => !errors.action && !errors.verification_level,
+		[errors.action, errors.verification_level]
 	)
 
 	const authLink = useMemo(() => {
@@ -488,21 +487,21 @@ const Try = (): JSX.Element => {
 				</div> */}
 
 				<div className="grid gap-y-2">
-					<span className="font-medium">Accepted credentials</span>
+					<span className="font-medium">Minimum Verification Level</span>
 
 					<div className="grid grid-cols-2 gap-x-3">
 						<FormChoiceButton
-							type="checkbox"
-							item={{ value: CredentialType.Orb, label: 'Orb' }}
-							selected={watch('credentialTypes')?.includes(CredentialType.Orb)}
-							register={register('credentialTypes', { required: true })}
+							type="radio"
+							item={{ value: VerificationLevel.Orb, label: 'Orb' }}
+							selected={watch('verification_level')?.includes(VerificationLevel.Orb)}
+							register={register('verification_level', { required: true })}
 						/>
 
 						<FormChoiceButton
-							type="checkbox"
-							item={{ value: CredentialType.Phone, label: 'Phone' }}
-							selected={watch('credentialTypes')?.includes(CredentialType.Phone)}
-							register={register('credentialTypes', { required: true })}
+							type="radio"
+							item={{ value: VerificationLevel.Device, label: 'Device' }}
+							selected={watch('verification_level')?.includes(VerificationLevel.Device)}
+							register={register('verification_level', { required: true })}
 						/>
 					</div>
 				</div>
@@ -513,17 +512,16 @@ const Try = (): JSX.Element => {
 			</div>
 
 			<ExamplesWrapper id="testing" valid={isTestingWidgetValid}>
-				{({ theme, styleOption, variants }) => (
+				{({ styleOption, variants }) => (
 					<Suspense>
 						<IDKitWidget
-							theme={theme}
 							onSuccess={console.log}
 							action={watch('action') ?? ''}
-							credential_types={watch('credentialTypes') ?? []}
+							verification_level={watch('verification_level')}
 							app_id={
 								testingEnvironment === 'production'
-									? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!
-									: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP!
+									? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!  as `app_${string}`
+									: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP! as `app_${string}`
 							}
 						>
 							{({ open }) => (

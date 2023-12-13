@@ -74,15 +74,20 @@ World ID can be used as an authentication mechanism. Some helpful resources for 
 
 ## Mapping User Info
 
+<Note>The `https://id.worldcoin.org/beta` claim has been deprecated and replaced by `https://id.worldcoin.org/v1`.</Note>
+
 The `/userinfo` endpoint or `id_token` JWT returns a JSON object with the following fields:
 
 ```json {{ title: "Response" }}
 {
 	"sub": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535",
-	"https://id.worldcoin.org/beta": {
+	"https://id.worldcoin.org/beta": { // deprecated, will be removed in the future
 		"likely_human": "strong",
 		"credential_type": "orb"
 	},
+  "https://id.worldcoin.org/v1": {
+    "verification_level": "orb", // "orb" or "device"
+  },
   // if `email` scope is included:
 	"email": "0x2ae86d6d747702b3b2c81811cd2b39875e8fa6b780ee4a207bdc203a7860b535@id.worldcoin.org", 
   // if `profile` scope is included:
@@ -99,4 +104,4 @@ The `/userinfo` endpoint or `id_token` JWT returns a JSON object with the follow
 
 The `sub` field is the user's nullifier hash -- their unique identifier in the context of your app. A user's nullifier hash will be different for each app they use.
 
-You can information about a user's World ID Credentials in the `https://id.worldcoin.org/beta` object. Use the `credential_type` field to determine whether the user has been Orb-verified or not.
+You can information about a user's World ID Credentials in the `https://id.worldcoin.org/v1` object. Use the `verification_level` field to determine whether the user has been Orb-verified or not.

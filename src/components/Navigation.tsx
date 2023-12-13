@@ -176,12 +176,13 @@ export const navigation = [
 	{
 		title: 'World ID',
 		links: [
+			{ title: 'Verify with World ID', href: '/id/verify-with-world-id' },
 			{ title: 'Sign in with World ID', href: '/id/sign-in' },
 			{ title: 'Incognito Actions', href: '/id/incognito-actions' },
 			{ title: 'Intro to IDKit', href: '/id/idkit' },
 			{ title: 'Cloud Verification', href: '/id/cloud' },
 			{ title: 'On-Chain Verification', href: '/id/on-chain' },
-			{ title: 'World ID Lite', href: '/id/world-id-lite' },
+			{ title: 'Verification Levels', href: '/id/verification-levels' },
 		],
 	},
 	{
@@ -199,7 +200,6 @@ export const navigation = [
 	{
 		title: 'Further Reading',
 		links: [
-			{ title: 'Proof of Personhood', href: '/proof-of-personhood' },
 			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
 			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
 			{ title: 'Zero-Knowledge Proofs', href: '/further-reading/zero-knowledge-proofs' },

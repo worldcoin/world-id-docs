@@ -17,7 +17,7 @@ This setup is recommended for most users, as it is the most gas-efficient. For m
 
 ## IDKit Configuration
 
-When verifying proofs on-chain, there are a few changes you have to make to your IDKit configuration. You must ensure that the app created in the Developer Portal is configured as an on-chain app, and you should only accept Orb credentials in IDKit, as World ID Lite is not currently supported on-chain.
+When verifying proofs on-chain, there are a few changes you have to make to your IDKit configuration. You must ensure that the app created in the Developer Portal is configured as an on-chain app, and you should only accept Orb credentials in IDKit, as World ID Device is not currently supported on-chain.
 
 ```tsx
 import { IDKitWidget } from '@worldcoin/idkit'
@@ -30,7 +30,7 @@ const { address } = useAddress() // get the user's wallet address
     signal={address} // proof will only verify if the signal is unchanged, this prevents tampering
     onSuccess={onSuccess} // use onSuccess to call your smart contract
     // no use for handleVerify, so it is removed
-    // use default credential_types (orb-only), as device credentials are not supported on-chain
+    // use default verification_level (orb-only), as device credentials are not supported on-chain
 >
     {({ open }) => <button onClick={open}>Verify with World ID</button>}
 </IDKitWidget>
@@ -73,7 +73,7 @@ contract HelloWorld {
 The `externalNullifier` is the unique identifier of the action performed in Semaphore, and its keccak256 hash (named `externalNullifierHash`) is what is passed to the World ID Router contract. It is a combination of the app ID and the action.
 You should typically set it in the constructor to save gas (as is done in this example), as it will not change if all users are performing the same action. 
 
-We additionally set the `groupId` to `1`, which limits this example to Orb-verified users only. World ID Lite is currently not supported on-chain.
+We additionally set the `groupId` to `1`, which limits this example to Orb-verified users only. World ID Device is currently not supported on-chain.
 
 ```solidity
 /// @dev This allows us to use our hashToField function on bytes
@@ -123,7 +123,7 @@ The `verifyProof` method reverts if the proof is invalid, meaning you can just c
 The `verifyProof` method takes the arguments below.
 
 -   `root` - The World ID root to verify against. This is obtained from the IDKit widget, and should be passed as-is.
--   `groupId` - This must be `1` for Orb-verified users. World ID Lite is currently not supported on-chain.
+-   `groupId` - This must be `1` for Orb-verified users. World ID Device is currently not supported on-chain.
 -   `signalHash` - The keccak256 hash of the signal to verify.
 -   `nullifierHash` - Anonymous user ID for this action. This is obtained from the IDKit widget, and should just be passed as-is.
 -   `externalNullifierHash` - The externalNullifierHash, which identifies which app and action the user is verifying for.

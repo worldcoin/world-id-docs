@@ -24,7 +24,7 @@ const nextConfig = {
 		return [
 			{
 				source: '/apps',
-				destination: 'https://worldcoin.org/apps',
+				destination: 'https://worldcoin.org/explore-apps',
 				permanent: true,
 			},
 			{

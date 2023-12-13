@@ -29,7 +29,7 @@ const nextConfig = {
 			},
 			{
 				source: '/world-id-2',
-				destination: 'https://worldcoin.org/blog', // TODO: update with World ID 2.0 blog post
+				destination: 'https://worldcoin.org/blog/announcements/introducing-world-id-2.0',
 				permanent: true,
 			},
 			{

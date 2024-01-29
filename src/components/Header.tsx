@@ -44,8 +44,8 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 			ref={ref as RefObject<HTMLDivElement>}
 			className={clsx(
 				className,
-				'sticky inset-x-0 top-0 z-[9] flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6',
-				!isInsideMobileNavigation && 'backdrop-blur-sm dark:backdrop-blur lg:left-72 xl:left-80',
+				'fixed inset-x-0 top-0 z-[9] flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6',
+				!isInsideMobileNavigation && 'backdrop-blur-sm dark:backdrop-blur',
 				isInsideMobileNavigation
 					? 'bg-white dark:bg-zinc-900'
 					: 'bg-white/[var(--bg-opacity-light)] dark:bg-zinc-900/[var(--bg-opacity-dark)]'

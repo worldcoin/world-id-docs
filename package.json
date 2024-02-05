@@ -13,8 +13,8 @@
 	},
 	"browserslist": "defaults, not ie <= 11",
 	"dependencies": {
-		"@docsearch/css": "3",
-		"@docsearch/react": "3",
+		"@docsearch/css": "^3.5.2",
+		"@docsearch/react": "^3.5.2",
 		"@headlessui/react": "^1.7.11",
 		"@mdx-js/loader": "^2.1.5",
 		"@mdx-js/react": "^2.1.5",

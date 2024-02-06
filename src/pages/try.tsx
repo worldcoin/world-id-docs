@@ -7,9 +7,9 @@ import ChartIcon from '@/components/icons/CharIcon'
 import CheckIcon from '@/components/icons/CheckIcon'
 import RocketIcon from '@/components/icons/RocketIcon'
 import RedirectIcon from '@/components/icons/RedirectIcon'
-import { memo, ReactNode, Suspense, useMemo, useState } from 'react'
+import { memo, ReactNode, Suspense, useCallback, useMemo, useState } from 'react'
 import { useForm, UseFormRegisterReturn, useWatch } from 'react-hook-form'
-import { VerificationLevel, IDKitWidget, WidgetProps } from '@worldcoin/idkit'
+import { VerificationLevel, IDKitWidget, WidgetProps, ISuccessResult, IErrorState } from '@worldcoin/idkit'
 import Tabs, { TabItem } from '@/components/Tabs'
 
 type Environment = 'staging' | 'production'
@@ -230,7 +230,7 @@ const Try = (): JSX.Element => {
 			signInScopes: [SignInScopes.OpenID],
 			signInEnvironment: 'production',
 			testingEnvironment: 'production',
-			action: 'test-action',
+			action: ("test-action-" + Math.random().toString(36).substring(2, 7)),
 			verification_level: VerificationLevel.Orb,
 		},
 	})
@@ -280,6 +280,30 @@ const Try = (): JSX.Element => {
 		return baseUrl.toString()
 	}, [signInEnvironment, signInScopes])
 
+	async function handleVerify(result: ISuccessResult) {
+		console.log("Result from IDKit: ", result)
+
+		const res = await fetch('/api/verify', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				...result,
+				action: watch("action"),
+				env: watch("testingEnvironment"),
+			}),
+		})
+
+		const data = await res.json()
+
+		if (res.status == 200) {
+			console.log("Successful response from backend:\n", data); // Log the response from our backend for visibility
+		} else {
+			throw new Error(`Error code ${res.status} (${data.code}): ${data.detail}` ?? "Unknown error."); // Throw an error if verification fails
+		}
+	}
+
 	return (
 		<div>
 			<h1>Try It Out</h1>
@@ -327,7 +351,6 @@ const Try = (): JSX.Element => {
 								{...register('action', { required: true })}
 								className="border border-gray-200 rounded-xl p-3 placeholder:text-gray-400"
 								placeholder="Change this to simulate different actions"
-								defaultValue="test-action"
 							/>
 						</div>
 						<div className="grid gap-y-2">
@@ -360,6 +383,7 @@ const Try = (): JSX.Element => {
 							<Suspense>
 								<IDKitWidget
 									onSuccess={console.log}
+									handleVerify={handleVerify}
 									action={watch('action') ?? ''}
 									verification_level={watch('verification_level')}
 									app_id={
@@ -367,6 +391,7 @@ const Try = (): JSX.Element => {
 											? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP! as `app_${string}`
 											: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP! as `app_${string}`
 									}
+									autoClose={false}
 								>
 									{({ open }) => (
 										<div className="relative">

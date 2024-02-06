@@ -57,7 +57,7 @@ const EnvButton = ({
 
 			<div className="grid gap-y-1">
 				<span className="text-gray-900 font-semibold self-end leading-none font-sora">{title}</span>
-				<span className="self-start leading-none">{description}</span>
+				<span className="self-start text-sm leading-none">{description}</span>
 			</div>
 
 			<CheckIcon

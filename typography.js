@@ -235,6 +235,7 @@ module.exports = ({ theme }) => ({
 				marginTop: theme('spacing.8'),
 				marginBottom: theme('spacing.8'),
 				lineHeight: theme('lineHeight.6'),
+				fontSize: theme('fontSize.sm')[0],
 			},
 			thead: {
 				borderBottomWidth: '1px',

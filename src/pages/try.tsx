@@ -7,9 +7,9 @@ import ChartIcon from '@/components/icons/CharIcon'
 import CheckIcon from '@/components/icons/CheckIcon'
 import RocketIcon from '@/components/icons/RocketIcon'
 import RedirectIcon from '@/components/icons/RedirectIcon'
-import { memo, ReactNode, Suspense, useCallback, useMemo, useState } from 'react'
+import { memo, ReactNode, Suspense, useMemo, useState } from 'react'
 import { useForm, UseFormRegisterReturn, useWatch } from 'react-hook-form'
-import { VerificationLevel, IDKitWidget, WidgetProps, ISuccessResult, IErrorState } from '@worldcoin/idkit'
+import { VerificationLevel, IDKitWidget, ISuccessResult } from '@worldcoin/idkit'
 import Tabs, { TabItem } from '@/components/Tabs'
 
 type Environment = 'staging' | 'production'
@@ -64,26 +64,6 @@ const EnvButton = ({
 				className={clsx('text-accents-info-700 col-start-3 transition-opacity', { 'opacity-0': !selected })}
 			/>
 		</label>
-	)
-}
-
-// ANCHOR: List of steps
-const List = ({ steps }: { steps: string[] }): JSX.Element => {
-	return (
-		<ul className="grid gap-y-2 m-0 p-0">
-			{steps.map((item, index) => (
-				<li
-					className="grid grid-cols-auto/1fr items-center gap-x-3 text-gray-500 m-0 p-0"
-					key={`try-list-item-${index}`}
-				>
-					<span className="text-gray-900 flex items-center justify-center rounded-full text-2xs w-4.5 h-4.5 bg-gray-100">
-						{index + 1}
-					</span>
-
-					<p className="m-0">{item}</p>
-				</li>
-			))}
-		</ul>
 	)
 }
 

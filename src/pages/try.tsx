@@ -10,6 +10,7 @@ import RedirectIcon from '@/components/icons/RedirectIcon'
 import { memo, ReactNode, Suspense, useMemo, useState } from 'react'
 import { useForm, UseFormRegisterReturn, useWatch } from 'react-hook-form'
 import { VerificationLevel, IDKitWidget, WidgetProps } from '@worldcoin/idkit'
+import Tabs, { TabItem } from '@/components/Tabs'
 
 type Environment = 'staging' | 'production'
 
@@ -83,25 +84,6 @@ const List = ({ steps }: { steps: string[] }): JSX.Element => {
 				</li>
 			))}
 		</ul>
-	)
-}
-
-// ANCHOR: Common section component
-const Section = ({
-	heading,
-	description,
-	steps,
-}: {
-	heading: string
-	description: string
-	steps?: Array<string>
-}): JSX.Element => {
-	return (
-		<div>
-			<h2>{heading}</h2>
-			<p className="max-w-[684px] text-gray-500 min-w-0">{description}</p>
-			{steps && <List steps={steps} />}
-		</div>
 	)
 }
 
@@ -241,7 +223,6 @@ const Try = (): JSX.Element => {
 		signInEnvironment: Environment
 		testingEnvironment: Environment
 		action: string
-		// maxVerifications: 0 | 1 | 2 | 3 FIXME: Enable when dynamic maxVerifications is supported
 		verification_level: VerificationLevel
 	}>({
 		mode: 'all',
@@ -250,7 +231,6 @@ const Try = (): JSX.Element => {
 			signInEnvironment: 'production',
 			testingEnvironment: 'production',
 			action: 'test-action',
-			// maxVerifications: 1, FIXME: Enable when dynamic maxVerifications is supported
 			verification_level: VerificationLevel.Orb,
 		},
 	})
@@ -304,257 +284,211 @@ const Try = (): JSX.Element => {
 			<h1>Try It Out</h1>
 			<p className="text-gray-900 font-medium text-base">Want to see World ID in action? Check it out below.</p>
 
-			<hr className="text-gray-100" />
+			<Tabs>
+				{/* @ts-ignore */}
+				<TabItem label="Incognito Actions">
+					<div className="mt-4 text-sm text-gray-600">Here you can test out various Incognito Actions configurations, including ones that will fail (such as a device-verified user attemping an action requiring Orb verification).</div>
 
-			<div>
-				<Section
-					heading="Sign in with World ID"
-					description="Try authentication with World ID using the OpenID Connect (OIDC) standard. You can use our integration on the Auth0 Marketplace, easily integrate with existing SSO systems (like Okta, OneLogin, Azure AD, and many others), or roll out your own authentication."
-				/>
+					<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8">
+						Step 1 • Choose Staging or Production
+					</div>
 
-				<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
-					Step 1 • action configuration
-				</div>
-
-				<div className="grid md:grid-cols-2 gap-y-4 gap-x-6 mt-4">
-					<EnvButton
-						title="Staging"
-						description="Use the simulator"
-						value="staging"
-						selected={watch('signInEnvironment') === 'staging'}
-						register={register('signInEnvironment')}
-						icon={<RocketIcon />}
-					/>
-
-					<EnvButton
-						title="Production"
-						description="Use the World App"
-						value="production"
-						selected={watch('signInEnvironment') === 'production'}
-						register={register('signInEnvironment')}
-						icon={<ChartIcon />}
-					/>
-				</div>
-
-				<div className="flex justify-start items-start">
-					<Link
-						className="flex items-center gap-x-1 mt-3 leading-none text-gray-300 hover:text-primary transition-colors"
-						href="https://simulator.worldcoin.org/"
-					>
-						<span>Open Simulator</span>
-						<RedirectIcon />
-					</Link>
-				</div>
-
-				<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
-					Step 2 • optional scopes (compatibility)
-				</div>
-
-				<div className="grid grid-cols-2 gap-x-3 mt-10">
-					<FormChoiceButton
-						type="checkbox"
-						item={{ value: SignInScopes.Profile, label: 'Profile' }}
-						selected={watch('signInScopes')?.includes(SignInScopes.Profile)}
-						register={register('signInScopes', { required: true })}
-					/>
-
-					<FormChoiceButton
-						type="checkbox"
-						item={{ value: SignInScopes.Email, label: 'Email' }}
-						selected={watch('signInScopes')?.includes(SignInScopes.Email)}
-						register={register('signInScopes', { required: true })}
-					/>
-				</div>
-			</div>
-
-			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8 mb-4">
-				Step 3 • this is what your users see
-			</div>
-
-			<ExamplesWrapper id="sign-in" valid={true}>
-				{({ variants, styleOption }) => (
-					<Link
-						href={authLink ?? '#'}
-						className={clsx('flex items-center gap-x-4 transition-all no-underline', variants[styleOption])}
-					>
-						<LogoIcon />
-						<span className="text-base leading-normal font-sora font-semibold">Sign in with World ID</span>
-					</Link>
-				)}
-			</ExamplesWrapper>
-
-			<hr className="text-gray-100" />
-
-			<Section
-				heading="Incognito Actions"
-				description={
-					'Here you can test out various Incognito Actions configurations, including ones that will fail (such as a device-verified user attemping an action requiring Orb verification).'
-				}
-				steps={[
-					'Choose between Staging or Production.',
-					'Input the name of the action.',
-					// 'Select max number of verifications per person',
-					'Choose what type of credentials you want to accept. You can have both Orb and Device, or only one.',
-					'Tap on "Continue with Worldcoin."',
-					'Follow the steps in "Continue with Worldcoin" flow.',
-				]}
-			/>
-
-			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
-				Step 1 • Choose Staging or Production
-			</div>
-
-			<div className="grid md:grid-cols-2 gap-y-4 gap-x-6 mt-4">
-				<EnvButton
-					title="Staging"
-					description="Use the simulator"
-					value="staging"
-					selected={watch('testingEnvironment') === 'staging'}
-					register={register('testingEnvironment')}
-					icon={<RocketIcon />}
-				/>
-
-				<EnvButton
-					title="Production"
-					description="Use the World App"
-					value="production"
-					selected={watch('testingEnvironment') === 'production'}
-					register={register('testingEnvironment')}
-					icon={<ChartIcon />}
-				/>
-			</div>
-
-			<div className="flex justify-start items-start">
-				<Link
-					className="flex items-center gap-x-1 mt-3 leading-none text-gray-300 hover:text-primary transition-colors"
-					href="https://simulator.worldcoin.org/"
-				>
-					<span>Open Simulator</span>
-					<RedirectIcon />
-				</Link>
-			</div>
-
-			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12">
-				Step 2 • configure action
-			</div>
-
-			<div className="grid lg:grid-cols-2 gap-8">
-				<div className="grid gap-y-2">
-					<span className="font-medium">Action</span>
-
-					<input
-						type="text"
-						{...register('action', { required: true })}
-						className="border border-gray-200 rounded-xl p-3 placeholder:text-gray-400"
-						placeholder="Change this to simulate different actions"
-						defaultValue="test-action"
-					/>
-				</div>
-
-				{/* FIXME: Coming soon! */}
-				{/* <div className="grid gap-y-2">
-					<span className="font-medium">Max number of verifications per person</span>
-
-					<div className="grid grid-cols-4 gap-x-3">
-						<FormChoiceButton
-							type="radio"
-							item={{ value: 1, label: '1' }}
-							selected={Number(watch('maxVerifications')) === 1}
-							register={register('maxVerifications')}
+					<div className="grid md:grid-cols-2 gap-y-4 gap-x-6 mt-4">
+						<EnvButton
+							title="Staging"
+							description="Use the simulator"
+							value="staging"
+							selected={watch('testingEnvironment') === 'staging'}
+							register={register('testingEnvironment')}
+							icon={<RocketIcon />}
 						/>
 
-						<FormChoiceButton
-							type="radio"
-							item={{ value: 2, label: '2' }}
-							selected={Number(watch('maxVerifications')) === 2}
-							register={register('maxVerifications')}
-						/>
-
-						<FormChoiceButton
-							type="radio"
-							item={{ value: 3, label: '3' }}
-							selected={Number(watch('maxVerifications')) === 3}
-							register={register('maxVerifications')}
-						/>
-
-						<FormChoiceButton
-							type="radio"
-							item={{ value: 0, label: `♾️` }}
-							selected={Number(watch('maxVerifications')) === 0}
-							register={register('maxVerifications')}
+						<EnvButton
+							title="Production"
+							description="Use the World App"
+							value="production"
+							selected={watch('testingEnvironment') === 'production'}
+							register={register('testingEnvironment')}
+							icon={<ChartIcon />}
 						/>
 					</div>
-				</div> */}
 
-				<div className="grid gap-y-2">
-					<span className="font-medium">Minimum Verification Level</span>
-
-					<div className="grid grid-cols-2 gap-x-3">
-						<FormChoiceButton
-							type="radio"
-							item={{ value: VerificationLevel.Orb, label: 'Orb' }}
-							selected={watch('verification_level')?.includes(VerificationLevel.Orb)}
-							register={register('verification_level', { required: true })}
-						/>
-
-						<FormChoiceButton
-							type="radio"
-							item={{ value: VerificationLevel.Device, label: 'Device' }}
-							selected={watch('verification_level')?.includes(VerificationLevel.Device)}
-							register={register('verification_level', { required: true })}
-						/>
-					</div>
-				</div>
-			</div>
-
-			<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-12 mb-4">
-				Step 3 • this is what your users see
-			</div>
-
-			<ExamplesWrapper id="testing" valid={isTestingWidgetValid}>
-				{({ styleOption, variants }) => (
-					<Suspense>
-						<IDKitWidget
-							onSuccess={console.log}
-							action={watch('action') ?? ''}
-							verification_level={watch('verification_level')}
-							app_id={
-								testingEnvironment === 'production'
-									? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP!  as `app_${string}`
-									: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP! as `app_${string}`
-							}
+					{/* <div className="flex justify-start items-start">
+						<Link
+							className="flex items-center gap-x-1 mt-3 leading-none text-gray-300 hover:text-primary transition-colors"
+							href="https://simulator.worldcoin.org/"
 						>
-							{({ open }) => (
-								<div className="relative">
-									<button
-										onClick={open}
-										className={clsx(
-											'flex items-center gap-x-4 transition-all',
-											variants[styleOption]
-										)}
-										disabled={!isTestingWidgetValid}
-									>
-										<LogoIcon />
-										<span className="text-base leading-normal font-sora font-semibold">
-											Continue with Worldcoin
-										</span>
-									</button>
+							<span>Open Simulator</span>
+							<RedirectIcon />
+						</Link>
+					</div> */}
 
-									{watch('testingEnvironment') && watch('testingEnvironment') === 'staging' && (
-										<Link
-											className="flex justify-center items-center gap-x-1 mt-3.5 absolute -bottom-8 inset-x-0"
-											href="https://simulator.worldcoin.org/"
-										>
-											<span>Scan with Simulator</span>
-											<RedirectIcon />
-										</Link>
+					<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8">
+						Step 2 • configure action
+					</div>
+
+					<div className="grid lg:grid-cols-2 gap-8">
+						<div className="grid gap-y-2">
+							<span className="font-medium">Action</span>
+
+							<input
+								type="text"
+								{...register('action', { required: true })}
+								className="border border-gray-200 rounded-xl p-3 placeholder:text-gray-400"
+								placeholder="Change this to simulate different actions"
+								defaultValue="test-action"
+							/>
+						</div>
+						<div className="grid gap-y-2">
+							<span className="font-medium">Minimum Verification Level</span>
+
+							<div className="grid grid-cols-2 gap-x-3">
+								<FormChoiceButton
+									type="radio"
+									item={{ value: VerificationLevel.Orb, label: 'Orb' }}
+									selected={watch('verification_level')?.includes(VerificationLevel.Orb)}
+									register={register('verification_level', { required: true })}
+								/>
+
+								<FormChoiceButton
+									type="radio"
+									item={{ value: VerificationLevel.Device, label: 'Device' }}
+									selected={watch('verification_level')?.includes(VerificationLevel.Device)}
+									register={register('verification_level', { required: true })}
+								/>
+							</div>
+						</div>
+					</div>
+
+					<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8 mb-4">
+						Step 3 • this is what your users see
+					</div>
+
+					<ExamplesWrapper id="testing" valid={isTestingWidgetValid}>
+						{({ styleOption, variants }) => (
+							<Suspense>
+								<IDKitWidget
+									onSuccess={console.log}
+									action={watch('action') ?? ''}
+									verification_level={watch('verification_level')}
+									app_id={
+										testingEnvironment === 'production'
+											? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP! as `app_${string}`
+											: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP! as `app_${string}`
+									}
+								>
+									{({ open }) => (
+										<div className="relative">
+											<button
+												onClick={open}
+												className={clsx(
+													'flex items-center gap-x-4 transition-all',
+													variants[styleOption]
+												)}
+												disabled={!isTestingWidgetValid}
+											>
+												<LogoIcon />
+												<span className="text-base leading-normal font-sora font-semibold">
+													Continue with Worldcoin
+												</span>
+											</button>
+
+											{watch('testingEnvironment') && watch('testingEnvironment') === 'staging' && (
+												<Link
+													className="flex justify-center items-center gap-x-1 mt-3.5 absolute -bottom-8 inset-x-0"
+													href="https://simulator.worldcoin.org/"
+												>
+													<span>Scan with Simulator</span>
+													<RedirectIcon />
+												</Link>
+											)}
+										</div>
 									)}
-								</div>
-							)}
-						</IDKitWidget>
-					</Suspense>
-				)}
-			</ExamplesWrapper>
+								</IDKitWidget>
+							</Suspense>
+						)}
+					</ExamplesWrapper>
+				</TabItem>
+				{/* @ts-ignore */}
+				<TabItem label="Sign in with World ID">
+					<div>
+						<div className='mt-4 text-sm text-gray-600'>Try authentication with World ID using the OpenID Connect (OIDC) standard. You can use our integration on the Auth0 Marketplace, easily integrate with existing SSO systems (like Okta, OneLogin, Azure AD, and many others), or roll out your own authentication.</div>
+
+						<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8">
+							Step 1 • action configuration
+						</div>
+
+						<div className="grid md:grid-cols-2 gap-y-4 gap-x-6 mt-4">
+							<EnvButton
+								title="Staging"
+								description="Use the simulator"
+								value="staging"
+								selected={watch('signInEnvironment') === 'staging'}
+								register={register('signInEnvironment')}
+								icon={<RocketIcon />}
+							/>
+
+							<EnvButton
+								title="Production"
+								description="Use the World App"
+								value="production"
+								selected={watch('signInEnvironment') === 'production'}
+								register={register('signInEnvironment')}
+								icon={<ChartIcon />}
+							/>
+						</div>
+
+						<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8">
+							Step 2 • optional scopes (compatibility)
+						</div>
+
+						<div className="grid grid-cols-2 gap-x-3 mt-4">
+							<FormChoiceButton
+								type="checkbox"
+								item={{ value: SignInScopes.Profile, label: 'Profile' }}
+								selected={watch('signInScopes')?.includes(SignInScopes.Profile)}
+								register={register('signInScopes', { required: true })}
+							/>
+
+							<FormChoiceButton
+								type="checkbox"
+								item={{ value: SignInScopes.Email, label: 'Email' }}
+								selected={watch('signInScopes')?.includes(SignInScopes.Email)}
+								register={register('signInScopes', { required: true })}
+							/>
+						</div>
+					</div>
+
+					<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8 mb-4">
+						Step 3 • this is what your users see
+					</div>
+
+					<ExamplesWrapper id="sign-in" valid={true}>
+						{({ variants, styleOption }) => (
+							<div className='relative'>
+								<Link
+									href={authLink ?? '#'}
+									className={clsx('flex items-center gap-x-4 transition-all no-underline', variants[styleOption])}
+								>
+									<LogoIcon />
+									<span className="text-base leading-normal font-sora font-semibold">Sign in with World ID</span>
+								</Link>
+								{watch('signInEnvironment') && watch('signInEnvironment') === 'staging' && (
+									<Link
+										className="flex justify-center items-center gap-x-1 mt-3.5 absolute -bottom-8 inset-x-0"
+										href="https://simulator.worldcoin.org/"
+									>
+										<span>Scan with Simulator</span>
+										<RedirectIcon />
+									</Link>
+								)}
+							</div>
+						)}
+					</ExamplesWrapper>
+				</TabItem>
+			</Tabs>
+
+
 		</div>
 	)
 }

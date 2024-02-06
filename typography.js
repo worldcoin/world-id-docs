@@ -39,7 +39,7 @@ module.exports = ({ theme }) => ({
 
 			// Base
 			color: 'var(--tw-prose-body)',
-			fontSize: theme('fontSize.sm')[0],
+			fontSize: theme('fontSize.base')[0],
 			lineHeight: theme('lineHeight.7'),
 
 			// Layout

@@ -265,9 +265,10 @@ const Try = (): JSX.Element => {
 		}
 
 		const baseUrl = new URL(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/authorize`)
-		baseUrl.searchParams.append('redirect_uri', `${process.env.NEXT_PUBLIC_APP_URL}/try-callback`)
-		baseUrl.searchParams.append('response_type', 'token')
+		baseUrl.searchParams.append('redirect_uri', `${process.env.NEXT_PUBLIC_APP_URL}/api/auth`)
+		baseUrl.searchParams.append('response_type', 'code')
 		baseUrl.searchParams.append('scope', ['openid', ...signInScopes].join(' '))
+		baseUrl.searchParams.append('state', signInEnvironment)
 
 		baseUrl.searchParams.append(
 			'client_id',
@@ -312,16 +313,6 @@ const Try = (): JSX.Element => {
 							icon={<ChartIcon />}
 						/>
 					</div>
-
-					{/* <div className="flex justify-start items-start">
-						<Link
-							className="flex items-center gap-x-1 mt-3 leading-none text-gray-300 hover:text-primary transition-colors"
-							href="https://simulator.worldcoin.org/"
-						>
-							<span>Open Simulator</span>
-							<RedirectIcon />
-						</Link>
-					</div> */}
 
 					<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8">
 						Step 2 • configure action

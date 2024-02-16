@@ -1,3 +1,9 @@
+import Image from 'next/image'
+
+import appProfile from './images/app-profile.png'
+import appConfig from './images/app-config.png'
+import createAction from './images/create-action.png'
+
 # Installing IDKit
 
 IDKit is our official library for integrating World ID into your application. This section will guide you through creating your application in the [Worldcoin Developer Portal](https://developer.worldcoin.org) and installing IDKit.
@@ -9,19 +15,19 @@ IDKit is our official library for integrating World ID into your application. Th
 Sign in to the [Worldcoin Developer Portal](https://developer.worldcoin.org). The Developer Portal will prompt you to create an application, and configure it as a Staging app for Cloud verification:
 
 <div align="center">
-    <img src="/images/docs/quick-start/app-config.png" width="450"/>
+    <Image src={appConfig} width="500"/>
 </div>
 
 The Developer Portal will then prompt you to create an Incognito Action. Give it a name, and note the **action identifier**:
 
 <div align="center">
-    <img src="/images/docs/quick-start/create-action.png" width="450"/>
+    <Image src={createAction} width="500"/>
 </div>
 
 Finally, navigate to _App Profile_ and note the **application ID**:
 
 <div align="center">
-    <img src="/images/docs/quick-start/app-profile.png" width="450"/>
+    <Image src={appProfile} width="500"/>
 </div>
 
 ## IDKit Installation

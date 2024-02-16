@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
 	const client_id = (state == "production") ? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP : process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP
-	const client_secret = state == "production" ? process.env.PROD_CLIENT_SECRET : process.env.STAGING_CLIENT_SECRET
+	const client_secret = state == "production" ? process.env.SIGN_IN_SECRET_PROD : process.env.SIGN_IN_SECRET_STAGING
 
 	const tokenResponse = await fetch(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/token`, {
 		method: 'POST',

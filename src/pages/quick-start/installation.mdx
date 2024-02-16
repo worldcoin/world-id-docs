@@ -1,0 +1,47 @@
+# Installing IDKit
+
+IDKit is our official library for integrating World ID into your application. This section will guide you through creating your application in the [Worldcoin Developer Portal](https://developer.worldcoin.org) and installing IDKit.
+
+<Note>The Quick Start guide assumes your application uses Next.js.</Note>
+
+## Developer Portal
+
+Sign in to the [Worldcoin Developer Portal](https://developer.worldcoin.org). The Developer Portal will prompt you to create an application, and configure it as a Staging app for Cloud verification:
+
+<div align="center">
+    <img src="/images/docs/quick-start/app-config.png" width="450"/>
+</div>
+
+The Developer Portal will then prompt you to create an Incognito Action. Give it a name, and note the **action identifier**:
+
+<div align="center">
+    <img src="/images/docs/quick-start/create-action.png" width="450"/>
+</div>
+
+Finally, navigate to _App Profile_ and note the **application ID**:
+
+<div align="center">
+    <img src="/images/docs/quick-start/app-profile.png" width="450"/>
+</div>
+
+## IDKit Installation
+
+To install IDKit, use your package manager of choice:
+
+<CodeGroup title="Install IDKit">
+
+    ```bash {{ title: "npm" }}
+    npm install @worldcoin/idkit
+    ```
+
+    ```bash {{ title: "yarn" }}
+    yarn add @worldcoin/idkit
+    ```
+
+    ```bash {{ title: "pnpm" }}
+    pnpm add @worldcoin/idkit
+    ```
+
+</CodeGroup>
+
+Proceed to [Configuration](/quick-start/configuration) to configure IDKit in your application.

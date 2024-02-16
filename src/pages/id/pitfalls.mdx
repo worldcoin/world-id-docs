@@ -1,0 +1,13 @@
+# Incognito Actions Common Pitfalls
+
+## Not Verifying Proofs
+
+When using Incognito Actions, it's important to **always verify the proof received from IDKit.** This proof is a _claim_ that the user has been verified by World ID, and verifying that proof with our API or smart contracts is the only way to ensure that the claim is true.
+
+## Improper Signal (Proof fails verification)
+
+If using a signal as an input to IDKit, the same signal must be submitted when verifying the proof with our API or smart contracts. If the signal is not submitted, the proof will fail verification.
+
+## Compilation/Runtime Errors
+
+IDKit must be run client-side. Ensure that your frontend framework isn't attempting to render IDKit server-side.

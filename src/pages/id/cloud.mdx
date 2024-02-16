@@ -1,12 +1,126 @@
-# Verifying Proofs via API
+# Cloud Incognito Actions
+
+IDKit is required in your app's frontend for Incognito Actions, and the [zero-knowledge proof](/concepts#vocabulary) received from the user will be verified via the **Developer Portal API** in your backend.
+
+## Creating actions
+
+Create an action for your app in the Developer Portal. You must provide the following values:
+
+    -   **Action Name**: The stringified action to be taken by the user.
+    -   **Description**: This is shown to your user in the World app as they sign with their World ID. Make sure to fully describe the exact action the user is taking.
+    -   **Max Verifications**: The number of times a user can take this action. A value of `0` indicates that unlimited verifications can take place.
+
+<Note>
+	An action scopes uniqueness for users, which means users will always generate the same ID (nullifier hash) when
+	performing the same action. **Cloud actions** natively handle sybil-resistance with a limit set in the Developer
+	Portal.
+</Note>
+
+## Installing IDKit
+
+The JS package can be included in your project either as a module (which supports tree shaking to reduce bundle size) or you can add the script directly to your website.
+
+<CodeGroup title="Install IDKit">
+
+    ```bash {{ title: "npm" }}
+    npm install @worldcoin/idkit
+    ```
+
+    ```bash {{ title: "yarn" }}
+    yarn add @worldcoin/idkit
+    ```
+
+    ```bash {{ title: "pnpm" }}
+    pnpm add @worldcoin/idkit
+    ```
+
+</CodeGroup>
+
+## Usage
+
+Import and render IDKit. You'll want to do this on the screen where the user executes the protected action (e.g. before they click "Claim airdrop" or "Vote on proposal").
+
+```tsx
+import { IDKitWidget, VerificationLevel } from '@worldcoin/idkit'
+
+<IDKitWidget
+	app_id="app_GBkZ1KlVUdFTjeMXKlVUdFT" // obtained from the Developer Portal
+	action="vote_1" // this is your action id from the Developer Portal
+	onSuccess={onSuccess} // callback when the modal is closed
+	handleVerify={handleVerify} // optional callback when the proof is received
+	verification_level={VerificationLevel.Device}
+>
+	{({ open }) => <button onClick={open}>Verify with World ID</button>}
+</IDKitWidget>
+```
+
+More configuration options can be found in the [IDKit reference](/reference/idkit).
+
+When a user clicks the button, the IDKit modal will open and prompt them to scan a QR code and verify with World ID. Once this proof is received, the optional `handleVerify` callback is called immediately and the `onSuccess` callback will be called when the modal is closed.
+One of these callbacks should begin the process of verifying the proof.
+
+### IDKit with Dynamic Actions
+
+To accommodate dynamic content, actions can also be created at the time a user completes a World ID verification. Simply pass the desired `action` and `action_description` values in [IDKit's parameters](/reference/idkit#parameters). A new action will automatically be created and tracked, and will appear the next time you log into the Developer Portal.
+
+As an example, using IDKit with Dynamic Actions may look like this:
+
+```jsx
+const getUserChoice = userId => {
+	const choice = userChoices['userId']
+	return choice
+}
+
+return (
+	<IDKitWidget
+        {/* ... */}
+		action={getUserChoice(userId)}
+    action_description="verify for an action"
+        {/* ... */}
+    >
+    </IDKitWidget>
+)
+```
+
+## Response
+
+Upon successful completion of the World ID flow, you will receive a response object. This response object of type `ISuccessResult` has the following attributes. **Normally, you will forward these parameters to your backend for verification.**
+
+```json {{ title: 'ISuccessResult' }}
+{
+	"merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
+	"nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
+	"proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394...",
+	"verification_level": "orb"
+}
+```
+
+<Properties>
+	<Property name="merkle_root" type="string">
+		This is the hash pointer to the root of the Merkle tree that proves membership of the user's identity in the
+		list of identities verified by the Orb.
+	</Property>
+	<Property name="nullifier_hash" type="string">
+		The unique identifier for this combination of user, app, and action.
+	</Property>
+	<Property name="proof" type="string">
+		The Zero-knowledge proof of the verification.
+	</Property>
+	<Property name="verification_level" type='"orb" | "device"'>
+		Either `orb` or `device`. Returns the verification_level used to generate the proof.
+	</Property>
+</Properties>
+
+## Verifying Proofs
 
 This section describes how to verify proofs via the **Developer Portal API**.
 
 <Note type="warning">
-  You must first pass the proof to your backend when verifying proofs via the API. The user can manipulate information in the frontend, so you the proof must be verified in a trusted environment.
+  You must first pass the proof to your backend when verifying proofs via the API. The user can manipulate information in the frontend, so the proof must be verified in a trusted environment.
 </Note>
 
-Our backend should receive the `proof`, `merkle_root`, `nullifier_hash`, and `verification_level` from IDKit, as well as the same `action` and `signal` as were input into IDKit, and send it to the **Developer Portal API** for verification. 
+Our backend should receive the `proof`, `merkle_root`, `nullifier_hash`, and `verification_level` from IDKit, as well as the `signal` that was input into IDKit, and send it to the **Developer Portal API** for verification.
+If using Dynamic Actions, you should also pass the `action` ID to the backend.
 The **Developer Portal API** will return a `200` response if the proof is valid, and a `400` response with extra error detail if the proof is invalid.
 We then pass the success or error messages back to our frontend after performing our own backend actions.
 
@@ -22,7 +136,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Verify
     nullifier_hash: req.body.nullifier_hash,
     proof: req.body.proof,
     verification_level: req.body.verification_level,
-    action: req.body.action, // or get this from environment variables,
+    action: process.env.NEXT_PUBLIC_WLD_ACTION_ID,
     signal: req.body.signal ?? "", // if we don't have a signal, use the empty string
   };
   fetch(`https://developer.worldcoin.org/api/v1/verify/${process.env.NEXT_PUBLIC_WLD_APP_ID}`, {
@@ -62,5 +176,5 @@ const onSuccess = (result: ISuccessResult) => {
 ```
 
 <Note>
-  For more information on configuration, see the [IDKit](/reference/idkit) and [Cloud API](/api/reference) reference pages.
+  For more information on configuration, see the [IDKit](/reference/idkit) and [Cloud API](/reference/api) reference pages.
 </Note>

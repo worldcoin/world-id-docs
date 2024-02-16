@@ -65,7 +65,7 @@ If the verification request to the Developer Portal succeeds, the backend should
 ```tsx
 if (verifyRes.ok) {
     // This is where you should perform backend actions if the verification succeeds
-    // Such as setting a user as "verified" in a database
+    // Such as, setting a user as "verified" in a database
     res.status(verifyRes.status).send({
         code: "success",
         detail: "This action verified correctly!",

@@ -6,7 +6,8 @@ IDKit is a single React component, and we'll be writing two callback functions: 
 
 First, add the `IDKitWidget` component to your site. The values for the `app_id` and `action` props were obtained from the Developer Portal in [Installation](/quick-start/installation). We'll define the `handleVerify` and `onSuccess` callbacks next.
 
-```tsx
+```tsx {{ title: "/verify.tsx"}}
+'use client' // for Next.js app router
 import { IDKitWidget, VerificationLevel, ISuccessResult } from '@worldcoin/idkit'
 
 // ...
@@ -29,7 +30,7 @@ import { IDKitWidget, VerificationLevel, ISuccessResult } from '@worldcoin/idkit
 
 The `handleVerify` callback is called when the user's proof is received. This will send the proof to your backend for verification:
 
-```tsx
+```tsx {{ title: "/verify.tsx"}}
 const handleVerify = async (proof: ISuccessResult) => {
     const res = await fetch("/api/verify", { // route to your backend will depend on implementation
         method: "POST",
@@ -50,7 +51,7 @@ The `handleVerify` callback sends the proof to your backend for verification. Th
 
 <Note type="warning">The call to the Developer Portal API must be made from your backend, not from the frontend.</Note>
 
-```tsx
+```tsx {{ title: "/api/verify.ts"}}
 const verifyRes = await fetch(`https://developer.worldcoin.org/api/v1/verify/${your_app_id}`, {
     method: "POST",
     headers: {
@@ -62,7 +63,7 @@ const verifyRes = await fetch(`https://developer.worldcoin.org/api/v1/verify/${y
 
 If the verification request to the Developer Portal succeeds, the backend should perform any necessary actions, such as updating a user's status in a database. If the verification request fails, the backend should handle the error and return an appropriate response to the frontend.
 
-```tsx
+```tsx {{ title: "/api/verify.ts"}}
 if (verifyRes.ok) {
     // This is where you should perform backend actions if the verification succeeds
     // Such as, setting a user as "verified" in a database
@@ -83,7 +84,7 @@ if (verifyRes.ok) {
 
 The `onSuccess` callback is called when the user closes the modal. This is where you can perform any necessary actions, such as redirecting the user to a new page.
 
-```tsx
+```tsx {{ title: "/verify.tsx"}}
 const onSuccess = () => {
     // This is where you should perform any actions after the modal is closed
     // Such as redirecting the user to a new page

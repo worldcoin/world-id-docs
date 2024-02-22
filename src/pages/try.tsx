@@ -560,3 +560,11 @@ const Try = (): JSX.Element => {
 }
 
 export default memo(Try)
+
+export async function getStaticProps() {
+	return {
+		props: {
+			title: 'Try Out World ID',
+		},
+	}
+}

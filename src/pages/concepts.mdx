@@ -1,0 +1,47 @@
+import { Link } from '@/components/Link'
+
+# Core Concepts
+
+World ID is built for easy integration, but here are a few core concepts that are helpful to understand before you start.
+
+## Proof of Personhood
+
+"Proof of Personhood" is distinct from many existing identity systems. It is a way to prove that a person is unique, without revealing any personal information. World ID is not KYC, and it does not disclose your identity or previous actions to anyone.
+
+World ID supports multiple "Verification Levels" to prove that a person is a unique human. These levels provide different degrees of humanness assurance, accessibility, and protection against fraud.
+
+<table>
+  <thead>
+    <tr>
+      <th>Verification Level</th>
+      <th>Humanness Level</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className="flex items-center"><img src="/icons/credential-phone.svg" alt="" className="h-8 w-8 m-0 mr-2" />Device</td>
+      <td className="align-middle">Medium</td>
+      <td className="align-middle">Unique mobile device check.</td>
+    </tr>
+    <tr>
+      <td className="align-middle"><img src="/icons/credential-orb.svg" alt="" className="h-8 w-8 m-0 mr-2 inline" />Orb</td>
+      <td className="align-middle">Strong</td>
+      <td className="align-middle">Biometric verification, uniqueness through iris (<Link href="https://worldcoin.org/blog/engineering/opening-orb-look-inside-worldcoin-biometric-imaging-device">details</Link>).</td>
+    </tr>
+    <tr>
+      <td className="flex items-center"><img src="/icons/credential-face.svg" alt="" className="h-8 w-8 m-0 mr-2" />Orb+</td>
+      <td className="align-middle">Very Strong</td>
+      <td className="align-middle">Orb verification, plus authentication which verifies the person using World ID is the legitimate holder.</td>
+    </tr>
+  </tbody>
+</table>
+
+## Vocabulary
+
+Some terms are used throughout the World ID documentation. Here are a few of the most important ones:
+
+- **World ID**: A user's self-custodial identity, as well as the name of the protocol.
+- **Zero-Knowledge Proof (ZKP)**: A cryptographic method to prove that a statement is true without revealing any information about the statement itself. World ID uses ZKPs to prove that a user is verified without revealing the user's identity.
+- **Nullifier Hash**: A component of the World ID ZKP; a unique identifier for a combination of a user, `app_id`, and action. It is used to prevent sybil attacks and ensure a user is only able to perform an action once.
+- **Signal**: A component of the World ID ZKP; data attached to the proof that cannot be tampered with. An example may be a user's choice for a governance proposal.

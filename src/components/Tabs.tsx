@@ -79,7 +79,7 @@ export const Tab = (props: { isActive: boolean; label: string; onSelect: () => v
 )
 
 export const TabItem = (props: { value: string; isActive: boolean; children: ReactNode }) => {
-	return props.isActive && <div className="">{props.children}</div>
+	return props.isActive ? <div className="">{props.children}</div> : <></>
 }
 
 export default Tabs

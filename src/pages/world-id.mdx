@@ -1,57 +1,19 @@
-# World ID {{ className: 'uppercase text-5xl' }}
+# World ID {{ className: 'text-5xl' }}
 
-The protocol to bring global proof of personhood to the internet. {{ className: 'text-2xl' }}
+The protocol to bring privacy-preserving global proof of personhood to the internet. {{ className: 'text-2xl' }}
 
-{/* <hr className="my-10" /> */}
-
-{/* <Note>
+<Note>
 	You can find the Protocol Whitepaper at [whitepaper.worldcoin.org](https://whitepaper.worldcoin.org).
-</Note> */}
-
-## Introduction {{ className: 'mt-0 uppercase text-sm text-neutral-400 font-normal', anchor: false }}
-
-World ID is a digital passport that lets a user prove they are a unique and real person while remaining anonymous. This happens through [zero-knowledge proofs](/advanced/zero-knowledge-proofs) (ZKP) and other privacy-preserving cryptographic mechanisms.
-
-You can easily integrate World ID in your app and smart contract or backend. World ID holders can easily and anonymously verify they are a unique human through a compatible identity wallet, like the [World App](https://worldcoin.org/download).
+</Note>
 
 ![Person using Sign in with World ID](/images/docs/introduction/worldcoin-sign-in.jpg)
 
-<div className="grid gap-y-4">
-	<Steps
-		borders
-		steps={[
-			<span>
-				You integrate <a href="/id/sign-in">Sign in with World ID</a> or <a href="/id/incognito-actions">IDKit JS</a>.
-			</span>,
-			<span>Your app connects to the user's wallet and requests verification</span>,
-			<span>
-				User verifies with a <a href="/advanced/zero-knowledge-proofs">ZKP</a>, using their World ID
-				credentials.
-			</span>,
-		]}
-	/>
-</div>
+World ID is a digital identity solution enabling users to prove their uniqueness and humanity anonymously via [zero-knowledge proofs](/further-reading/zero-knowledge-proofs) and advanced privacy-preserving cryptography.
 
-## How it works
+World ID can be easily integrated into both cloud and on chain apps. Users, with a valid World ID, can anonymously verify in seconds that they are a unique human through a World ID compatible wallet, like [World App](https://worldcoin.org/download).
 
-In broad strokes, this is how World ID works.
+### Why?
 
-1. User gets their World ID in a compatible wallet (e.g. the [World App](https://worldcoin.org/download)).
+Existing identity solutions are broken. They are either too centralized, too invasive, or too insecure. World ID is a privacy-preserving, decentralized, and robust identity solution that is easy to use and integrate.
 
-2. User receives credentials in their World ID. The flagship credential is biometric verification, currently available by using the [Orb](https://worldcoin.org/blog/engineering/opening-orb-look-inside-worldcoin-biometric-imaging-device). The user can also verify their unique device to obtain the respective credential.
-
-3. Project [integrates with World ID](/quick-start).
-
-4. User connects their World ID to authenticate, and optionally prove they are a unique human doing something only once. The user's wallet will generate a [ZKP](/advanced/zero-knowledge-proofs) to accomplish this.
-
-5. Project verifies the [ZKP](/advanced/zero-knowledge-proofs), either by using the [API](/id/cloud) or by verifying it [on-chain](/id/on-chain).
-
-## Privacy
-
--   World ID offers the highest standards of privacy. The core protocol relies on [Zero-Knowledge Proofs](/advanced/zero-knowledge-proofs) to ensure that **no one** (including core Worldcoin contributors) can:
-    -   Link a user to a specific person (unless they explicitly do so with a third-party app).
-    -   Link users across applications, or even across Incognito Actions.
-    -   Know a person's iris code (even if they have verified at an Orb).
--   World ID can be used without providing personal information. No emails, no social profiles, no names, everything is optional.
--   The Protocol is self-custodial by default and users are in full control.
-    -   The user's World ID is stored in their device, encrypted, following best practices.
+Users never need to share personal information to use World ID -- no government IDs, no emails, no social profiles, no names. They can prove they are a unique human without revealing their identity to anyone, **not even Worldcoin's core contributors.**

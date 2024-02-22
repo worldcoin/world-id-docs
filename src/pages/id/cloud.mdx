@@ -119,10 +119,10 @@ This section describes how to verify proofs via the **Developer Portal API**.
   You should pass the proof to your backend when verifying proofs via the API. Users can manipulate information in the frontend, so the proof must be verified in a trusted environment.
 </Note>
 
-Our backend should receive the `proof`, `merkle_root`, `nullifier_hash`, and `verification_level` returned by IDKit, as well as the `signal` that was input into IDKit, and send it to the **Developer Portal API** for verification.
-If using Dynamic Actions, you should also pass the `action` ID to the backend.
+Your backend should receive the `proof`, `merkle_root`, `nullifier_hash`, and `verification_level` returned by IDKit, as well as the `signal` that was input into IDKit, and send it to the **Developer Portal API** for verification.
+The `action` ID should be accessible in your backend as an environment variable unless using Dynamic Actions, in which case you should pass the `action` ID to the backend with the proof and signal.
 The **Developer Portal API** will return a `200` response if the proof is valid, and a `400` response with extra error detail if the proof is invalid.
-We then pass the success or error messages back to our frontend after performing our own backend actions.
+After performing your own backend actions based on this result, you then pass the success or error messages back to your frontend.
 
 ```typescript {{ title: 'pages/api/verify.ts' }}
 export type VerifyReply = {

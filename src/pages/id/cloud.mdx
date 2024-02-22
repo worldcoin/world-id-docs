@@ -6,9 +6,9 @@ IDKit is required in your app's frontend for Incognito Actions, and the [zero-kn
 
 Create an action for your app in the Developer Portal. You must provide the following values:
 
-    -   **Action Name**: The stringified action to be taken by the user.
-    -   **Description**: This is shown to your user in the World app as they sign with their World ID. Make sure to fully describe the exact action the user is taking.
-    -   **Max Verifications**: The number of times a user can take this action. A value of `0` indicates that unlimited verifications can take place.
+-   **Action Name**: The stringified action to be taken by the user.
+-   **Description**: This is shown to your user in the World app as they sign with their World ID. Make sure to fully describe the exact action the user is taking.
+-   **Max Verifications**: The number of times a user can take this action. A value of `0` indicates that unlimited verifications can take place.
 
 <Note>
 	An action scopes uniqueness for users, which means users will always generate the same ID (nullifier hash) when
@@ -65,17 +65,17 @@ To accommodate dynamic content, actions can also be created at the time a user c
 
 As an example, using IDKit with Dynamic Actions may look like this:
 
-```jsx
+```tsx
 const getUserChoice = userId => {
 	const choice = userChoices['userId']
 	return choice
 }
 
 return (
-	<IDKitWidget
+    <IDKitWidget
         {/* ... */}
-		action={getUserChoice(userId)}
-    action_description="verify for an action"
+        action={getUserChoice(userId)}
+        action_description="verify for an action"
         {/* ... */}
     >
     </IDKitWidget>
@@ -116,7 +116,8 @@ Upon successful completion of the World ID flow, you will receive a response obj
 This section describes how to verify proofs via the **Developer Portal API**.
 
 <Note type="warning">
-  You should pass the proof to your backend when verifying proofs via the API. Users can manipulate information in the frontend, so the proof must be verified in a trusted environment.
+	You should pass the proof to your backend when verifying proofs via the API. Users can manipulate information in the
+	frontend, so the proof must be verified in a trusted environment.
 </Note>
 
 Your backend should receive the `proof`, `merkle_root`, `nullifier_hash`, and `verification_level` returned by IDKit, as well as the `signal` that was input into IDKit, and send it to the **Developer Portal API** for verification.
@@ -126,40 +127,40 @@ After performing your own backend actions based on this result, you then pass th
 
 ```typescript {{ title: 'pages/api/verify.ts' }}
 export type VerifyReply = {
-  code: string;
-  detail?: string;
-};
+	code: string
+	detail?: string
+}
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<VerifyReply>) {
-  const reqBody = {
-    merkle_root: req.body.merkle_root,
-    nullifier_hash: req.body.nullifier_hash,
-    proof: req.body.proof,
-    verification_level: req.body.verification_level,
-    action: process.env.NEXT_PUBLIC_WLD_ACTION_ID,
-    signal: req.body.signal ?? "", // if we don't have a signal, use the empty string
-  };
-  fetch(`https://developer.worldcoin.org/api/v1/verify/${process.env.NEXT_PUBLIC_WLD_APP_ID}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(reqBody), 
-  }).then((verifyRes) => {
-    verifyRes.json().then((wldResponse) => {
-      if (verifyRes.status == 200) {
-        // this is where you should perform backend actions based on the verified credential
-        // i.e. setting a user as "verified" in a database
-        res.status(verifyRes.status).send({ code: "success" });
-      } else {
-        // return the error code and detail from the World ID /verify endpoint to our frontend
-        res.status(verifyRes.status).send({ 
-          code: wldResponse.code, 
-          detail: wldResponse.detail 
-        });
-      }
-    });
-  });
+	const reqBody = {
+		merkle_root: req.body.merkle_root,
+		nullifier_hash: req.body.nullifier_hash,
+		proof: req.body.proof,
+		verification_level: req.body.verification_level,
+		action: process.env.NEXT_PUBLIC_WLD_ACTION_ID,
+		signal: req.body.signal ?? '', // if we don't have a signal, use the empty string
+	}
+	fetch(`https://developer.worldcoin.org/api/v1/verify/${process.env.NEXT_PUBLIC_WLD_APP_ID}`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(reqBody),
+	}).then(verifyRes => {
+		verifyRes.json().then(wldResponse => {
+			if (verifyRes.status == 200) {
+				// this is where you should perform backend actions based on the verified credential
+				// i.e. setting a user as "verified" in a database
+				res.status(verifyRes.status).send({ code: 'success' })
+			} else {
+				// return the error code and detail from the World ID /verify endpoint to our frontend
+				res.status(verifyRes.status).send({
+					code: wldResponse.code,
+					detail: wldResponse.detail,
+				})
+			}
+		})
+	})
 }
 ```
 
@@ -169,12 +170,15 @@ If `handleVerify` is does not throw an error, the user will see a success state 
 
 ```tsx {{ title: 'pages/index.tsx' }}
 const onSuccess = (result: ISuccessResult) => {
-  // This is where you should perform frontend actions once a user has been verified
-  window.alert(`Successfully verified with World ID!
-    Your nullifier hash is: ` + result.nullifier_hash);
-};
+	// This is where you should perform frontend actions once a user has been verified
+	window.alert(
+		`Successfully verified with World ID!
+    Your nullifier hash is: ` + result.nullifier_hash
+	)
+}
 ```
 
 <Note>
-  For more information on configuration, see the [IDKit](/reference/idkit) and [Cloud API](/reference/api) reference pages.
+	For more information on configuration, see the [IDKit](/reference/idkit) and [Cloud API](/reference/api) reference
+	pages.
 </Note>

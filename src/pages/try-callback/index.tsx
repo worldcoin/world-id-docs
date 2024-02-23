@@ -10,6 +10,7 @@ import logo from 'public/worldcoin-logo.svg'
 import SuccessIcon from './icons/SuccessIcon'
 import { CodeGroup, Pre } from '@/components/Code'
 import ChevronRightIcon from './icons/ChevronRightIcon'
+import ArrowIcon from '@/components/icons/ArrowIcon'
 
 enum State {
 	Error = 'error',
@@ -55,6 +56,9 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 			<Image src={logo} className="h-6" alt="" />
 
 			<div className="lg:min-w-[720px] max-w-[1024px]">
+                <Link href="/try">
+                    <ArrowIcon width="32" className="absolute text-gray-400 transform -scale-x-100 m-6" />
+                </Link>
 				<div className="pt-10 md:pt-16 md:pb-4 pb-8 px-6 grid gap-y-8 justify-items-center bg-white rounded-xl">
 					{content[result].icon}
 

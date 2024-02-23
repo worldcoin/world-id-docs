@@ -166,7 +166,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Verify
 
 ## Post-Verification
 
-If `handleVerify` is does not throw an error, the user will see a success state and the `onSuccess` callback will be called when the modal is closed. The `onSuccess` callback should redirect a user to a success page, or perform any other actions you want to take after a user has been verified.
+If `handleVerify` does not throw an error, the user will see a success state and the `onSuccess` callback will be called when the modal is closed. The `onSuccess` callback should redirect a user to a success page, or perform any other actions you want to take after a user has been verified.
 
 ```tsx {{ title: 'pages/index.tsx' }}
 const onSuccess = (result: ISuccessResult) => {

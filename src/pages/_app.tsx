@@ -77,7 +77,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 						{
 							url:
 								router.pathname == '/'
-									? 'https://images.prismic.io/worldcoin-company-website/170cfad7-d23d-4032-957d-98b7277dc397_updated_cover.png?auto=compress,format'
+									? `${process.env.NEXT_PUBLIC_APP_URL!}/images/og/og.png`
 									: `${process.env.NEXT_PUBLIC_APP_URL!}/api/og?category=${section ?? ''}&title=${
 											pageProps.title
 									  }`,

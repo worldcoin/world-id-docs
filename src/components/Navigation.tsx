@@ -167,22 +167,33 @@ export const navigation = [
 	{
 		title: 'Introduction',
 		links: [
-			{ title: 'World ID Overview', href: '/world-id' },
-			{ title: 'Use Cases', href: '/use-cases' },
+			{ title: 'What is World ID?', href: '/world-id' },
+			{ title: 'Core Concepts', href: '/concepts' },
 			{ title: 'Try it Out', href: '/try' },
-			{ title: 'Quick Start', href: '/quick-start' },
 		],
 	},
 	{
-		title: 'World ID',
+		title: 'Quick Start',
 		links: [
-			{ title: 'Verify with World ID', href: '/id/verify-with-world-id' },
-			{ title: 'Sign in with World ID', href: '/id/sign-in' },
-			{ title: 'Incognito Actions', href: '/id/incognito-actions' },
-			{ title: 'Intro to IDKit', href: '/id/idkit' },
+			{ title: 'Template Repositories', href: '/quick-start/templates' },
+			{ title: 'Installation', href: '/quick-start/installation' },
+			{ title: 'Configuration', href: '/quick-start/configuration' },
+			{ title: 'Testing', href: '/quick-start/testing' },
+		],
+	},
+	{
+		title: 'Incognito Actions',
+		links: [
 			{ title: 'Cloud Verification', href: '/id/cloud' },
 			{ title: 'On-Chain Verification', href: '/id/on-chain' },
-			{ title: 'Verification Levels', href: '/id/verification-levels' },
+			{ title: 'Common Pitfalls', href: '/id/pitfalls' },
+		],
+	},
+	{
+		title: 'Sign In with World ID',
+		links: [
+			{ title: 'OpenID Connect (OIDC)', href: '/sign-in' },
+			{ title: 'Common Pitfalls', href: '/sign-in/pitfalls' },
 		],
 	},
 	{
@@ -190,7 +201,6 @@ export const navigation = [
 		links: [
 			{ title: 'IDKit Reference', href: '/reference/idkit' },
 			{ title: 'API Reference', href: '/reference/api' },
-			{ title: 'Sign In Reference', href: '/reference/sign-in' },
 			{ title: 'Smart Contracts', href: '/reference/contracts' },
 			{ title: 'Address Book', href: '/reference/address-book' },
 			{ title: 'Errors', href: '/reference/errors' },

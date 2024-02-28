@@ -10,6 +10,7 @@ import logo from 'public/worldcoin-logo.svg'
 import SuccessIcon from './icons/SuccessIcon'
 import { CodeGroup, Pre } from '@/components/Code'
 import ChevronRightIcon from './icons/ChevronRightIcon'
+import ArrowIcon from '@/components/icons/ArrowIcon'
 
 enum State {
 	Error = 'error',
@@ -55,6 +56,9 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 			<Image src={logo} className="h-6" alt="" />
 
 			<div className="lg:min-w-[720px] max-w-[1024px]">
+                <Link href="/try">
+                    <ArrowIcon width="32" className="absolute text-gray-400 transform -scale-x-100 m-6" />
+                </Link>
 				<div className="pt-10 md:pt-16 md:pb-4 pb-8 px-6 grid gap-y-8 justify-items-center bg-white rounded-xl">
 					{content[result].icon}
 
@@ -189,21 +193,38 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ req }) => 
 	const url = new URL(req.url!, process.env.NEXT_PUBLIC_APP_URL)
 	const params = new URLSearchParams(url.search)
 	const token = params.get('token')
+	const error = params.get('error')
 
-	// TODO: Properly generate and store temporary nonces to exemplify proper usage
+	if (error) {
+		switch (error) {
+			case "code_not_provided":
+				return {
+					props: {
+						result: State.Error,
+						details: { error: 'Authorization code was not provided.' },
+					},
+				}
 
-	if (!token) {
-		return {
-			props: {
-				result: State.Error,
-				details: { error: 'Authorization token was not provided.' },
-			},
+			case "state_not_provided":
+				return {
+					props: {
+						result: State.Error,
+						details: { error: 'State was not provided.' },
+					},
+				}
+
+			case "token_endpoint_error":
+				return {
+					props: {
+						result: State.Error,
+						details: { error: 'Error exchanging Authorization Code for Access Token. The Authorization Code may be expired.' },
+					},
+				}
 		}
 	}
 
-	/* NOTE: Obtain user info with JWT, this will also verify the JWT is valid. We opt for this instead of auth code so:
-	 * 1. We do a single request to verify the token and obtain the information
-	 * 2. If the user refreshes the page, the token remains valid (this is a page for debugging)
+	/* NOTE: Obtain user info with access token.
+	 * If the user refreshes the page, the token remains valid (this is a page for debugging)
 	 */
 	const userResponse = await fetch(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/userinfo`, {
 		method: 'POST',
@@ -217,7 +238,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ req }) => 
 			props: {
 				result: State.Error,
 				details: {
-					error: `Unable to obtain user info from JWT (${
+					error: `Unable to obtain user info (${
 						userResponse.status
 					}): \n\n${await userResponse.text()}`,
 				},

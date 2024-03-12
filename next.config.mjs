@@ -34,17 +34,22 @@ const nextConfig = {
 			},
 			{
 				source: '/idkit',
-				destination: '/id/idkit',
+				destination: '/id/cloud',
 				permanent: true,
 			},
 			{
 				source: '/js',
-				destination: '/id/idkit',
+				destination: '/id/cloud',
 				permanent: true,
 			},
 			{
 				source: '/id',
 				destination: '/world-id',
+				permanent: true,
+			},
+			{
+				source: '/id/sign-in',
+				destination: '/sign-in',
 				permanent: true,
 			},
 			{
@@ -59,7 +64,7 @@ const nextConfig = {
 			},
 			{
 				source: '/simulator',
-				destination: '/quick-start',
+				destination: '/quick-start/testing',
 				permanent: false,
 			},
 			{

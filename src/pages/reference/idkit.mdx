@@ -101,6 +101,40 @@ return (
 )
 ```
 
+### Functions
+
+#### `verifyCloudProof`
+
+The `verifyCloudProof` function is used to verify a proof returned from the user's identity wallet (e.g. World App) against the Developer Portal API. This function is useful for verifying proofs on the server side.
+
+
+<Properties>
+	<Property name="proof" type="ISuccessResult" required={true}>
+		The proof object returned from IDKit.
+	</Property>
+	<Property name="app_id" type="app_${string}" required={true}>
+		The app_id obtained from the Developer Portal.
+	</Property>
+	<Property name="action" type="string" required={true}>
+        The action id from the Developer Portal.
+	</Property>
+	<Property name="signal" type='string' defaultValue='""'>
+		The signal as input to IDKit.
+	</Property>
+	<Property name="endpoint" type='URL | string' defaultValue='https://developer.worldcoin.org/api/v2/verify/${app_id}'>
+        The endpoint to send the proof to for verification. Defaults to the Worldcoin Developer Portal.
+	</Property>
+</Properties>
+
+```ts {{ title: 'verifyCloudProof' }}
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+	const { proof, action, signal } = req.body
+    const app_id = process.env.APP_ID
+	const response = (await verifyCloudProof(proof, app_id, action, signal)) as IVerifyResponse
+	res.status(response.success ? 200 : 400).json(response)
+}
+```
+
 ### Types
 
 #### `ISuccessResult`
@@ -149,6 +183,26 @@ return (
 {
 	"code": "already_signed",
 	"detail": "User has previously signed and submitted proof for this action."
+}
+```
+
+#### `IVerifyResult`
+
+<Properties>
+	<Property name="success" type="boolean">If the proof verification succeeded.</Property>
+	<Property name="code" type="string | undefined">The error code.</Property>
+	<Property name="detail" type="string | undefined">
+		A human-readable description of the error.
+	</Property>
+	<Property name="attribute" type="string | null | undefined">The attribute causing the error.</Property>
+</Properties>
+
+```json {{ title: 'IVerifyResult' }}
+{
+    "success": false,
+	"code": "invalid_proof",
+	"detail": "The provided proof is invalid and it cannot be verified. Please check all inputs and try again.",
+    "attribute": null,
 }
 ```
 

@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			code,
 			client_id: client_id!,
 			client_secret: client_secret!,
-			redirect_uri: process.env.NEXT_PUBLIC_APP_URL!,
+			redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL!}/try-callback`,
 		}).toString(),
 	})
 

@@ -120,48 +120,29 @@ This section describes how to verify proofs via the **Developer Portal API**.
 	frontend, so the proof must be verified in a trusted environment.
 </Note>
 
-Your backend should receive the `proof`, `merkle_root`, `nullifier_hash`, and `verification_level` returned by IDKit, as well as the `signal` that was input into IDKit, and send it to the **Developer Portal API** for verification.
+Your backend should receive the `ISuccessResult` object returned by IDKit, as well as the `signal` that was input into IDKit, and send it to the **Developer Portal API** for verification using the `verifyCloudProof` helper.
 The `action` ID should be accessible in your backend as an environment variable unless using Dynamic Actions, in which case you should pass the `action` ID to the backend with the proof and signal.
-The **Developer Portal API** will return a `200` response if the proof is valid, and a `400` response with extra error detail if the proof is invalid.
-After performing your own backend actions based on this result, you then pass the success or error messages back to your frontend.
+After performing your own backend actions based on the result, you then pass the success or error messages back to your frontend.
 
 ```typescript {{ title: 'pages/api/verify.ts' }}
-export type VerifyReply = {
-	code: string
-	detail?: string
-}
+import { type IVerifyResponse, verifyCloudProof } from '@worldcoin/idkit'
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<VerifyReply>) {
-	const reqBody = {
-		merkle_root: req.body.merkle_root,
-		nullifier_hash: req.body.nullifier_hash,
-		proof: req.body.proof,
-		verification_level: req.body.verification_level,
-		action: process.env.NEXT_PUBLIC_WLD_ACTION_ID,
-		signal: req.body.signal ?? '', // if we don't have a signal, use the empty string
-	}
-	fetch(`https://developer.worldcoin.org/api/v1/verify/${process.env.NEXT_PUBLIC_WLD_APP_ID}`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(reqBody),
-	}).then(verifyRes => {
-		verifyRes.json().then(wldResponse => {
-			if (verifyRes.status == 200) {
-				// this is where you should perform backend actions based on the verified credential
-				// i.e. setting a user as "verified" in a database
-				res.status(verifyRes.status).send({ code: 'success' })
-			} else {
-				// return the error code and detail from the World ID /verify endpoint to our frontend
-				res.status(verifyRes.status).send({
-					code: wldResponse.code,
-					detail: wldResponse.detail,
-				})
-			}
-		})
-	})
-}
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+	const { proof, signal } = req.body
+    const app_id = process.env.APP_ID
+    const action = process.env.ACTION_ID
+	const verifyRes = (await verifyCloudProof(proof, app_id, action, signal)) as IVerifyResponse
+
+    if (verifyRes.success) {
+        // This is where you should perform backend actions if the verification succeeds
+        // Such as, setting a user as "verified" in a database
+        res.status(200).send(verifyRes);
+    } else {
+        // This is where you should handle errors from the World ID /verify endpoint. 
+        // Usually these errors are due to a user having already verified.
+        res.status(400).send(verifyRes);
+    }
+};
 ```
 
 ## Post-Verification

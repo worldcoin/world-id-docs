@@ -24,8 +24,7 @@ type Props = {
 		email?: string | null
 		givenName?: string | null
 		familyName?: string | null
-		credentialType: string
-		likelyHuman: string
+		verificationLevel: string
 	}
 	details?: {
 		output?: Record<string, any> | null
@@ -80,31 +79,14 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 
 							<p
 								className={clsx('text-sm leading-none', {
-									'text-gray-700': userData.credentialType,
+									'text-gray-700': userData.verificationLevel,
 								})}
 							>
-								<span className="not-italic text-gray-900 font-semibold">Credential Type: </span>{' '}
+								<span className="not-italic text-gray-900 font-semibold">Verification Level: </span>{' '}
 								<span className="break-all leading-5">
-									{userData.credentialType ? (
+									{userData.verificationLevel ? (
 										<code className="bg-gray-100 px-2 py-1 rounded text-primary">
-											{userData.credentialType}
-										</code>
-									) : (
-										'Not available'
-									)}
-								</span>
-							</p>
-
-							<p
-								className={clsx('text-sm leading-none', {
-									'text-gray-700': userData.likelyHuman,
-								})}
-							>
-								<span className="not-italic text-gray-900 font-semibold">Likely human: </span>{' '}
-								<span className="break-all leading-5">
-									{userData.likelyHuman ? (
-										<code className="bg-gray-100 px-2 py-1 rounded text-primary">
-											{userData.likelyHuman}
+											{userData.verificationLevel}
 										</code>
 									) : (
 										'Not available'
@@ -256,8 +238,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ req }) => 
 				name: userInfo.name ?? null,
 				givenName: userInfo.given_name ?? null,
 				familyName: userInfo.family_name ?? null,
-				credentialType: userInfo['https://id.worldcoin.org/beta'].credential_type,
-				likelyHuman: userInfo['https://id.worldcoin.org/beta'].likely_human,
+				verificationLevel: userInfo['https://id.worldcoin.org/v1'].verification_level,
 			},
 			details: {
 				output: {

@@ -12,11 +12,15 @@ https://developer.worldcoin.org
     All requests to the Developer Portal API must include a `Content-Type: application/json` header, a `User-Agent` header, and a valid JSON body.
 </Note>
 
-## Verify Proof {{ tag: "POST", label: "/api/v1/verify/{app_id}" }}
+## Verify Proof {{ tag: "POST", label: "/api/v2/verify/{app_id}" }}
 
 <Row><Col>
 
 Enables you to verify a World ID proof for a **Cloud action.** To ensure sybil-resistance, by default, a single person can only verify once for every action. The number of allowed verifications for a single user can be configured in the Developer Portal.
+
+<Note>
+    This endpoint is now on **version 2**. The previous version at `/api/v1/verify/{app_id}` will be unavailable after June 30, 2024.
+</Note>
 
 ### Request Body
 
@@ -33,17 +37,11 @@ Enables you to verify a World ID proof for a **Cloud action.** To ensure sybil-r
 	<Property name="verification_level" type="string" required={true}>
 	The verification level, as provided by IDKit. See [IDKit response](/reference/idkit#types) for details.
 	</Property>
-	<Note>Not required if a `credential_type` is provided. If both are provided, `verification_level` will take precedence.</Note>
-	<Property name="credential_type" type="string" deprecated={true}>
-	The credential type, as provided by IDKit. See [IDKit response](/reference/idkit#types) for details. 
-	
-	This parameter is deprecated and will be removed in a future release, but is still supported for versions of IDKit \<v1.0.0.
-	</Property>
 	<Property name="action" type="string" required={true}>
 	Same action identifier as passed to IDKit.
 	</Property>
-	<Property name="signal" type="string" defaultValue='""'>
-	Same signal as passed to IDKit. If not provided, defaults to an empty string.
+	<Property name="signal_hash" type="string" defaultValue="hashToField('').digest">
+	The hash of the signal that was used to generate the proof. Defaults to the hash of an empty string.
 	</Property>
 </Properties>
 
@@ -54,10 +52,10 @@ Enables you to verify a World ID proof for a **Cloud action.** To ensure sybil-r
 
 </Col><Col sticky>
 
-<CodeGroup title="Request" tag="POST" label="/api/v1/verify/{app_id}">
+<CodeGroup title="Request" tag="POST" label="/api/v2/verify/{app_id}">
 
 ```bash {{ title: "cURL" }}
-curl -X POST "/api/v1/verify/{app_id}" \
+curl -X POST "/api/v2/verify/{app_id}" \
     -H "Content-Type: application/json" \
     -d '{
         "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
@@ -65,7 +63,7 @@ curl -X POST "/api/v1/verify/{app_id}" \
         "proof": "0x1aa8b8f3b2d2de5ff452c0e1a83e29d6bf46fb83ef35dc5957121ff3d3698a1119090fb...",
         "verification_level": "orb",
         "action": "my_action",
-        "signal": "my_signal"
+        "signal_hash": "0x00c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a4"
     }'
 ```
 
@@ -81,7 +79,7 @@ fetch(apiUrl, {
 		proof: '0x1aa8b8f3b2d2de5ff452c0e1a83e29d6bf46fb83ef35dc5957121ff3d3698a1119090fb...',
 		verification_level: 'orb',
 		action: 'my_action',
-		signal: 'my_signal',
+		signal_hash: '0x00c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a4',
 	}),
 })
 ```

@@ -138,6 +138,9 @@ Exchanges an authorization code for an `id_token` for the given user.
       <Property name="grant_type" type="string">
         The type of grant to exchange. Must be `authorization_code`.
       </Property>
+      <Property name="redirect_uri" type="string">
+        The same redirect URI used in the `/authorize` request.
+      </Property>
     </Properties>
 
 ### Common Errors
@@ -158,7 +161,7 @@ Exchanges an authorization code for an `id_token` for the given user.
 curl -X POST https://id.worldcoin.org/token \
      -H "Authorization: Basic YXBwXzU1MGU4MjkwODJmYzU1OGUxMTJlMDYyMGMxYzdhNT..." \
      -H "Content-Type: application/x-www-form-urlencoded" \
-     -d "code=23e5edda0f731dfdddace390&grant_type=authorization_code"
+     -d "code=23e5edda0f731dfdddace390&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fdocs.worldcoin.org%2Fapi%2Fauth"
 ```
 
 {/* cSpell:enable */}
@@ -167,6 +170,7 @@ curl -X POST https://id.worldcoin.org/token \
 const data = new URLSearchParams()
 data.append('code', '23e5edda0f731dfdddace390')
 data.append('grant_type', 'authorization_code')
+data.append('redirect_uri', 'https://docs.worldcoin.org/api/auth')
 
 fetch('https://id.worldcoin.org/token', {
 	method: 'POST',

@@ -249,6 +249,7 @@ const Try = (): JSX.Element => {
 		baseUrl.searchParams.append('response_type', 'code')
 		baseUrl.searchParams.append('scope', ['openid', ...signInScopes].join(' '))
 		baseUrl.searchParams.append('state', signInEnvironment)
+		baseUrl.searchParams.append('nonce', Math.random().toString(36).substring(2, 15))
 
 		baseUrl.searchParams.append(
 			'client_id',

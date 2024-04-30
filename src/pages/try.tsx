@@ -207,7 +207,7 @@ const Try = (): JSX.Element => {
 	}>({
 		mode: 'all',
 		defaultValues: {
-			signInScopes: [SignInScopes.OpenID],
+			signInScopes: [],
 			signInEnvironment: 'production',
 			testingEnvironment: 'production',
 			action: ("test-action-" + Math.random().toString(36).substring(2, 7)),

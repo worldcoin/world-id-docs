@@ -292,7 +292,7 @@ const Try = (): JSX.Element => {
 			<Tabs>
 				{/* @ts-ignore */}
 				<TabItem label="Incognito Actions">
-					<div className="mt-4 text-sm text-gray-600">Here you can test out various Incognito Actions configurations, including ones that will fail (such as a device-verified user attemping an action requiring Orb verification).</div>
+					<div className="mt-4 text-sm text-gray-600">Here you can test out various Incognito Actions configurations, including ones that will fail (such as a device-verified user attempting an action requiring Orb verification).</div>
 
 					<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8">
 						Step 1 • Choose Staging or Production

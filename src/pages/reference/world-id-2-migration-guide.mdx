@@ -21,7 +21,7 @@ IDKit v1 introduces a number of breaking changes that must be addressed in order
 
 The `phone` credential has been replaced by World ID Device. This credential is used to verify a user's unique device rather than a phone number. This allows for a more secure and private verification flow.
 
-<Note>Read more about World ID Device and important considerations for your application in the [Verification Levels documentation](/id/verification-levels).</Note>
+<Note>Read more about World ID Device and important considerations for your application in the [Verification Levels documentation](/concepts#proof-of-personhood).</Note>
 
 ### Migrate from `credential_types` to `verification_level`
 
@@ -63,7 +63,7 @@ import { IDKitWidget, VerificationLevel } from '@worldcoin/idkit'
 If your application uses vanilla JavaScript, you will need to install the new `@worldcoin/idkit-standalone` package instead of `@worldcoin/idkit`. 
 This package acts as a wrapper around the `@worldcoin/idkit` package for applications that do not use React.
 
-<Note>See the [IDKit Standalone](/reference/idkit#idkit-standalone) reference documentation for integration details.</Note>
+<Note>See the [IDKit Standalone](/reference/idkit#id-kit-standalone) reference documentation for integration details.</Note>
 
 ## New Features
 

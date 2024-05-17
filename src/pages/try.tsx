@@ -20,6 +20,20 @@ enum SignInScopes {
 	Email = 'email',
 }
 
+// ANCHOR: Create action in dev portal
+async function createAction(action: string, isStaging: boolean) {
+    await fetch('/api/action', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            action,
+            is_staging: isStaging,
+        }),
+    })
+}
+
 // ANCHOR: Staging/Promotion button
 const EnvButton = ({
 	selected,
@@ -365,7 +379,7 @@ const Try = (): JSX.Element => {
 								<IDKitWidget
 									onSuccess={console.log}
 									handleVerify={handleVerify}
-									action={watch('action') ?? ''}
+									action={watch('action') ?? 'test-action'}
 									verification_level={watch('verification_level')}
 									app_id={
 										testingEnvironment === 'production'
@@ -377,7 +391,11 @@ const Try = (): JSX.Element => {
 									{({ open }) => (
 										<div className="relative">
 											<button
-												onClick={open}
+												onClick={() => {
+                                                    // Create action in dev portal when opening IDKit, so precheck succeeds on mobile
+                                                    createAction(watch('action'), watch('testingEnvironment') === 'staging')
+                                                    open()
+                                                }}
 												className={clsx(
 													'flex items-center gap-x-4 transition-all',
 													variants[styleOption]
@@ -499,3 +517,4 @@ export async function getStaticProps() {
 		},
 	}
 }
+

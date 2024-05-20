@@ -59,7 +59,7 @@ More configuration options can be found in the [IDKit reference](/reference/idki
 When a user clicks the button, the IDKit modal will open and prompt them to scan a QR code and verify with World ID. Once this proof is received, the optional `handleVerify` callback is called immediately and the `onSuccess` callback will be called when the modal is closed.
 One of these callbacks should begin the process of verifying the proof.
 
-### IDKit with Dynamic Actions
+{/* ### IDKit with Dynamic Actions
 
 To accommodate dynamic content, actions can also be created at the time a user completes a World ID verification. Simply pass the desired `action` and `action_description` values in [IDKit's parameters](/reference/idkit#parameters). A new action will automatically be created and tracked, and will appear the next time you log into the Developer Portal.
 
@@ -73,14 +73,14 @@ const getUserChoice = userId => {
 
 return (
     <IDKitWidget
-        {/* ... */}
+        // ...
         action={getUserChoice(userId)}
         action_description="verify for an action"
-        {/* ... */}
+        // ... 
     >
     </IDKitWidget>
 )
-```
+``` */}
 
 ## Response
 
@@ -121,7 +121,7 @@ This section describes how to verify proofs via the **Developer Portal API**.
 </Note>
 
 Your backend should receive the `ISuccessResult` object returned by IDKit, as well as the `signal` that was input into IDKit, and send it to the **Developer Portal API** for verification using the `verifyCloudProof` helper.
-The `action` ID should be accessible in your backend as an environment variable unless using Dynamic Actions, in which case you should pass the `action` ID to the backend with the proof and signal.
+The `action` ID should be accessible in your backend as an environment variable{/* unless using Dynamic Actions, in which case you should pass the `action` ID to the backend with the proof and signal */}.
 After performing your own backend actions based on the result, you then pass the success or error messages back to your frontend.
 
 ```typescript {{ title: 'pages/api/verify.ts' }}

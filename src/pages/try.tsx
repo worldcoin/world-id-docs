@@ -393,7 +393,7 @@ const Try = (): JSX.Element => {
 											<button
 												onClick={() => {
                                                     // Create action in dev portal when opening IDKit, so precheck succeeds on mobile
-                                                    createAction(watch('action'), watch('testingEnvironment') === 'staging')
+                                                    createAction(watch('action'), testingEnvironment === 'staging')
                                                     open()
                                                 }}
 												className={clsx(

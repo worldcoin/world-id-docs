@@ -11,7 +11,7 @@ export const config = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const action = req.body.action
 	const app_id =
-		req.body.isStaging
+		req.body.is_staging
 			? process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP
 			: process.env.NEXT_PUBLIC_TRY_IT_OUT_APP
 

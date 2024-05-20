@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         body: JSON.stringify({
             action,
             name: action,
-            description: "test World ID in the Worldcoin Developer Documentation.",
+            description: "test World ID in the Worldcoin Developer Documentation",
             max_verifications: 1,
         }),
     })

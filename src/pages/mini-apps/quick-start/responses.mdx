@@ -1,0 +1,38 @@
+# Responses
+World App will return responses to the Mini App based on the command sent. You can define custom logic to handle these responses with Minikit.
+
+### Example Response
+Listening for a response from the `Verify` command in your Mini App.
+``` tsx
+import { MiniKit, ResponseEvent } from '@worldcoin/minikit-js';
+// ...
+ useEffect(() => {
+    if (!MiniKit.isInstalled()) {
+      return;
+    }
+
+    MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async (verifyResponse) => {
+        if (payload.status === "error") {
+            return console.log("Error payload", payload);
+        }
+      
+        // Verify the proof in the backend 
+        const verifyResponse = await fetch("/api/verify", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                payload: verifyResponse,
+                action: verifyResponse.action
+            })
+          
+        });
+    });
+
+    return () => {
+        // Clean up on unmount
+        MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction);
+    };
+  }, []);
+  ```

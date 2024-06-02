@@ -1,0 +1,69 @@
+# Minikit-JS SDK
+Minikit-JS is our official SDK for creating mini apps that work with World App. It provides handy functions and types to make development a breeze.
+
+## Installing Minikit
+
+The JS package can be included in your project either as a module (which supports tree shaking to reduce bundle size) or you can add the script directly to your website.
+
+<CodeGroup title="Install Minikit">
+
+    ```bash {{ title: "npm" }}
+    npm install @worldcoin/minikit-js
+    ```
+
+    ```bash {{ title: "yarn" }}
+    yarn add @worldcoin/minikit-js
+    ```
+
+    ```bash {{ title: "pnpm" }}
+    pnpm add @worldcoin/minikit-js
+    ```
+
+</CodeGroup>
+
+## Usage
+
+1. Create a Minikit Provider component that installs the Minikit SDK and makes it easy to access `Minikit` inside your app
+```tsx
+// src/minikit-provider.tsx
+"use client";  // Required for Next.js
+
+import { MiniKit } from "@worldcoin/minikit-js";
+import { ReactNode, useEffect } from "react";
+
+export default function MiniKitProvider({ children }: { children: ReactNode }) {
+  useEffect(() => {
+    MiniKit.install();
+  }, []);
+
+  return <>{children}</>;
+}
+```
+
+
+2. Wrap your root with the MiniKitProvider component.
+```tsx
+// src/index.tsx
+
+export default async function Root({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <MiniKitProvider>
+        <body className={inter.className}>
+	        {children}
+        </body>
+      </MiniKitProvider>
+    </html>
+  );
+}
+```
+
+3. Check if Minikit is installed and ready to use
+```tsx
+// ...
+console.log(Minikit.isInstalled())
+```

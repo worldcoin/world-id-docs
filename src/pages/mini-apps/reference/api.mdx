@@ -1,0 +1,104 @@
+# API Reference
+Minikit introduces a new api for verifying transactions.
+
+### Base URL
+
+```
+https://developer.worldcoin.org
+```
+
+## Get Transaction{{ tag: "GET", label: "/api/v2/minikit/transaction/{transaction_id}?app_id=" }}
+
+<Row>
+    <Col>
+        This endpoint lets you query your apps transactions for their current status. You will only be able to
+        query for transactions of apps where you possess the `api_key`.
+
+        ### Query Params
+        <Properties>
+            <Property name="app_id" type="string" required={true}>
+            The `app_id` corresponding to the transaction that is being queried.
+            </Property>
+        </Properties>
+
+        ### Request Headers
+        <Properties>
+            <Property name="Authorization" type="string" required={true}>
+            The `Authorization` header should be the `api_key` for your app from the Developer Portal. Make sure to
+            prefix it with `Bearer {api_key}`.
+            </Property>
+        </Properties>
+    </Col>
+    <Col>
+        <CodeGroup title="Request" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
+            ```bash {{ title: "cURL" }}
+            curl -X POST "/api/v2/minikit/transaction/{transaction_id}" \
+                -H "Authorization: Bearer {api_key}" 
+            ```
+            ```js
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer {api_key}',
+                }
+            })
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+<hr/>
+### Response
+<Row>
+    <Col>
+        <Properties>
+            <Property name="reference" type="string" >
+            The `reference` is your specified unique identifier for the transaction.
+            </Property>
+            <Property name="transaction_hash" type="string" >
+            The `transaction_hash` is the hash of the transaction on the blockchain.
+            </Property>
+            <Property name="transaction_status" type="string" >
+            The current `transaction_status`, can be either 'pending', 'mined', or 'failed'.
+            </Property>
+            <Property name="from" type="string" >
+            The `from` is the address of the sender.
+            </Property>
+            <Property name="chain" type="string" >
+            The `chain` is the name of the blockchain network.
+            </Property>
+            <Property name="timestamp" type="string">
+            The `timestamp` is the time when the transaction was created, in ISO 8601 format.
+            </Property>
+            <Property name="token_amount" type="string">
+            The `token_amount` is the amount of tokens transferred, in BigInt with 6 decimals.
+            </Property>
+            <Property name="token" type="string">
+            The `token` is the type of token transferred.
+            </Property>
+            <Property name="to" type="string">
+            The `to` is the address of the receiver.
+            </Property>
+            <Property name="app_id" type="string">
+            The `app_id` is the identifier of the app initiating the transaction.
+            </Property>
+        </Properties>
+    </Col>
+     <Col>
+        <CodeGroup title="Response" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
+            ```json
+            {
+                "reference": "1fa38f30-8ee1-4e4b-9988-0517a774f96c",
+                "transaction_hash": "0xfb25cb74b13d51deeb1a91460619c3d86a7637d40dd29831aa38dd6cbb05e880",
+                "transaction_status": "pending | mined | failed",
+                "from": "0x1203921032u30123231wefwef11231231231",
+                "chain": "optimism",
+                "timestamp": "2024-01-01T00:00:00.000Z", // ISO 8601
+                "token_amount": "100000000", // amount in BigInt with 6 decimals
+                "token": "USDCE",
+                "to": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+                "app_id": "app_staging_9a73963d73efdf2e7d9472593dc9dffd"
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>

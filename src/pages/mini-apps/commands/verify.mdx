@@ -7,13 +7,22 @@ The verify command lets you use <Link href="/world-id/id/cloud">incognito action
 To use incognito actions you must first create it in the <Link href="https://developer.worldcoin.org/">Developer Portal</Link>.
 
 ## Sending the command
+Minikit uses a slightly modified input type than compared to IDKit.
+``` tsx
+export type VerifyCommandInput = {
+  action: string;
+  signal?: string;
+  verification_level?: VerificationLevel; // Default: Orb
+};
+```
+Using the `verify` command:
 ```tsx {{ title: 'pages/index.tsx' }}
 import { MiniKit, VerifyCommandInput, VerificationLevel} from "@worldcoin/minikit-js";
 
 const verifyPayload: VerifyCommandInput = {
   action: "voting-action", // This is your Action Id from the Developer Portal
-  verification_level: VerificationLevel.Orb, // Orb | Device
   signal: "0x12312" // Optional additional data
+  verification_level: VerificationLevel.Orb, // Orb | Device
 };
 
 const payload = MiniKit.commands.verify(verifyPayload);

@@ -51,6 +51,7 @@
 		"testid",
 		"timestamptz",
 		"ujfk",
+		"USDCE",
 		"viem",
 		"wagmi",
 		"WalletConnect",

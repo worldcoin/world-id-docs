@@ -1,0 +1,96 @@
+import { Link } from '@/components/Link'
+
+# Verify
+
+The verify command lets you use <Link href="/world-id/id/cloud">incognito actions</Link> inside of your mini app. Incognito actions are a primitive of World ID, and allow you to gate functionality behind a unique human check.
+
+To use incognito actions you must first create it in the <Link href="https://developer.worldcoin.org/">Developer Portal</Link>.
+
+## Sending the command
+```tsx {{ title: 'pages/index.tsx' }}
+import { MiniKit, VerifyCommandInput, VerificationLevel} from "@worldcoin/minikit-js";
+
+const verifyPayload: VerifyCommandInput = {
+  action: "voting-action", // This is your Action Id from the Developer Portal
+  verification_level: VerificationLevel.Orb, // Orb | Device
+  signal: "0x12312" // Optional additional data
+};
+
+const payload = MiniKit.commands.verify(verifyPayload);
+```
+
+The main change to incognito actions in mini-apps is the removal of `app_id` from the payload. Since World App already knows your `app_id` when it loads the mini app, there's no need to pass it. 
+
+## Listening for the response
+Upon receiving the command from your mini-app, World App will open a drawer prompting the user to confirm the operation. 
+
+``` tsx {{ title: 'pages/index.tsx' }}
+import { Minikit, ResponseEvent, ISuccessResult } from '@worldcoin/minikit-js';
+
+// ...
+ useEffect(() => {
+    if (!MiniKit.isInstalled()) {
+      return;
+    }
+
+    MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async (payload) => {
+        if (payload.status === "error") {
+            return console.log("Error payload", payload);
+        }
+      
+        // Verify the proof in the backend 
+        const verifyResponse = await fetch("/api/verify", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                payload: verifyResponse as ISuccessResult,
+                action: "voting-action",
+                signal: "0x12312" // Optional
+            }) 
+        });
+
+        // TODO: Handle Success!
+    });
+
+    return () => {
+      MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction);
+    };
+  }, []);
+```
+
+## Verifying the proof
+<Note type="warning">
+	You should pass the proof to your backend when verifying proofs via the API. Users can manipulate information in the
+	frontend, so the proof must be verified in a trusted environment.
+</Note>
+
+Successful responses will return a `MiniAppVerifyActionSuccessPayload`. 
+
+
+```typescript {{ title: 'pages/api/verify.ts' }}
+import { verifyCloudProof, IVerifyResponse, ISuccessResult } from '@worldcoin/minikit-js'
+
+interface IRequestPayload {
+  payload: ISuccessResult; 
+  action: string;
+  signal: string | undefined;
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const { payload, action, signal } = req.body as IRequestPayload
+    const app_id = process.env.APP_ID 
+    const verifyRes = (await verifyCloudProof(payload, app_id, action, signal)) as IVerifyResponse // Wrapper on this
+
+    if (verifyRes.success) {
+        // This is where you should perform backend actions if the verification succeeds
+        // Such as, setting a user as "verified" in a database
+        res.status(200).send(verifyRes);
+    } else {
+        // This is where you should handle errors from the World ID /verify endpoint. 
+        // Usually these errors are due to a user having already verified.
+        res.status(400).send(verifyRes);
+    }
+};
+```

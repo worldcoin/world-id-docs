@@ -1,0 +1,105 @@
+import { Link } from '@/components/Link'
+
+# Wallet Auth (Sign in with Ethereum)
+
+Wallet Auth is our native support for <Link href="https://eips.ethereum.org/EIPS/eip-4361">Sign in With Ethereum</Link>. 
+
+## Creating the nonce
+Since the user can modify the client, it's important to create the nonce in the backend. **The nonce must be at least 8 alphanumeric characters in length.**
+``` ts {{ title: 'pages/api/nonce.ts' }}
+export default function handler(req, res) {
+  const nonce = crypto.randomUUID();
+  req.session.nonce = nonce
+  res.status(200).json({ nonce });
+}
+```
+
+
+## Sending the command
+
+Below is the expected input for `walletAuth`. 
+
+``` tsx
+interface WalletAuthInput {
+  nonce: string
+	expirationTime?: Date
+	statement?: string
+	requestId?: string
+	notBefore?: Date
+} 
+```
+Using the `walletAuth` command. 
+``` tsx
+import { MiniKit, WalletAuthInput } from '@worldcoin/minikit-js'
+    const res = await fetch(`/nonce`);
+
+    const generateMessageResult = MiniKit.commands.walletAuth({
+        nonce: nonce,
+        requestId: "0", // Optional
+        expirationTime: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+        notBefore: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+        statement:
+        "This is my statement and here is a link https://worldcoin.com/apps",
+    });
+```
+
+## Receiving the response
+The returned message will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-4361">ERC-191</Link>. You're welcome to use any third party libraries to validate the SIWE, but we also provide functions inside of minikit for you to use.
+```tsx
+import { ResponseEvent } from '@worldcoin/minikit-js'
+
+  useEffect(() => {
+    if (!MiniKit.isInstalled()) {
+      return;
+    }
+
+    MiniKit.subscribe(ResponseEvent.MiniAppWalletAuth, async (payload) => {
+      if (payload.status === "error") {
+        return
+      } else {
+        const response = await fetch("/api/complete-siwe", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            siweResponsePayload: payload,
+            nonce,
+          }),
+        });
+      }
+    });
+
+    return () => {
+      MiniKit.unsubscribe(ResponseEvent.MiniAppWalletAuth);
+    };
+  }, []);
+  ```
+
+## Verifying the Login
+Finally, complete the sign in by verifying the response from World App in your backend.
+```ts {{ title: 'pages/api/complete-siwe.ts' }}
+import { MiniAppWalletAuthSuccessPayload, verifySiweMessage } from "@worldcoin/minikit-js";
+
+interface IRequestPayload {
+  payload: MiniAppWalletAuthSuccessPayload; 
+}
+
+export default function handler(req, res) {
+    const { payload } = req.body as IRequestPayload
+    
+    const validMessage = await verifySiweMessage(
+      payload,
+      req.session.nonce
+    );
+
+    if (validMessage) {
+        // Login User
+        res.status(200).send({ loggedIn: true }); 
+    } else {
+        res.status(401).send({ loggedIn: false }); 
+    }
+    
+}
+
+```

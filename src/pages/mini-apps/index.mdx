@@ -1,12 +1,13 @@
+import { Link } from '@/components/Link'
+
 # Mini Apps {{ className: 'text-5xl' }}
 
-<hr className="my-10" />
+Mini apps enable third-party developers to create native-like applications within World App. We currently support World ID, Payments, and Sign in with Ethereum, providing access to our rapidly growing user network and monetization opportunities via WLD and USDC.<br/>
 
-<ul>
-	<li>
-		Mini apps enable third-party developers to create native-like interfaces within World App. Mini apps support
-		World ID, Payments, and SIWE, providing access to our growing user network and monetization opportunities
-		through WLD and USDC.
-	</li>
-	<li>To make it easy to build mini apps, we’ve release the <a href="https://www.npmjs.com/package/@worldcoin/minikit-js">Minikit-JS SDK</a>. Read more on how it works.</li>
-</ul>
+
+
+## How it Works
+
+In it's most basic form, Mini Apps work by sending <Link href="/mini-apps/quick-start/commands">Commands</Link> via the Minikit SDK to World App, and listening for <Link href="/mini-apps/quick-start/responses">Responses</Link> passed back.
+
+To make it easy to build mini apps, we’ve release the <a href="https://www.npmjs.com/package/@worldcoin/minikit-js">Minikit-JS SDK</a>. 

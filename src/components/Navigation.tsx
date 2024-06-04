@@ -238,17 +238,14 @@ export const miniAppsNavigation = [
 	{
 		title: 'Commands',
 		links: [
-			{ title: 'Cloud Verification', href: '/id/cloud' },
-			{ title: 'On-Chain Verification', href: '/id/on-chain' },
-			{ title: 'Common Pitfalls', href: '/id/pitfalls' },
+			{ title: 'Verify', href: '/mini-apps/commands/verify' },
+			{ title: 'Pay', href: '/mini-apps/commands/pay' },
+			{ title: 'Wallet Auth', href: '/mini-apps/commands/wallet-auth' },
 		],
 	},
 	{
 		title: 'Sign In with World ID',
-		links: [
-			{ title: 'OpenID Connect (OIDC)', href: '/sign-in' },
-			{ title: 'Common Pitfalls', href: '/sign-in/pitfalls' },
-		],
+		links: [{ title: 'Sign In', href: '/mini-apps/sign-in/setup' }],
 	},
 	{
 		title: 'Technical Reference',

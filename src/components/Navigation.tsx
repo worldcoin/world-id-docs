@@ -246,10 +246,7 @@ export const miniAppsNavigation = [
 	},
 	{
 		title: 'Sign In with World ID',
-		links: [
-			{ title: 'OpenID Connect (OIDC)', href: '/sign-in' },
-			{ title: 'Common Pitfalls', href: '/sign-in/pitfalls' },
-		],
+		links: [{ title: 'Sign In', href: '/mini-apps/sign-in/setup' }],
 	},
 	{
 		title: 'Technical Reference',

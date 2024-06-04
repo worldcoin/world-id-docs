@@ -1,0 +1,20 @@
+# Sharing your Mini App
+World App supports universal links for your mini app. Urls will follow the schema below. 
+
+
+If a user clicks on your link and has World App installed, it will automatically open the mini app inside of World App to the specified path. Otherwise, it will direct them to the app store and prompt them to install World App.
+
+```
+ https://worldcoin.org/mini-app?app_id={app_id}&path={path}
+```
+
+### Parameters
+
+<Properties>
+    <Property name="app_id" type="string" required={true}>
+        The `app_id` corresponding to your mini app.
+    </Property>
+    <Property name="path" type="string">
+        Should be the url encoded path where you want to link to inside of your mini app
+    </Property>
+</Properties>

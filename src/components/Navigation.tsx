@@ -250,22 +250,9 @@ export const miniAppsNavigation = [
 	{
 		title: 'Technical Reference',
 		links: [
-			{ title: 'IDKit Reference', href: '/reference/idkit' },
-			{ title: 'API Reference', href: '/reference/api' },
-			{ title: 'Sign In Reference', href: '/reference/sign-in' },
-			{ title: 'Smart Contracts', href: '/reference/contracts' },
-			{ title: 'Address Book', href: '/reference/address-book' },
-			{ title: 'Errors', href: '/reference/errors' },
-			{ title: 'World ID 2.0 Migration Guide', href: '/reference/world-id-2-migration-guide' },
-		],
-	},
-	{
-		title: 'Further Reading',
-		links: [
-			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
-			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
-			{ title: 'Zero-Knowledge Proofs', href: '/further-reading/zero-knowledge-proofs' },
-			{ title: 'World ID Reset', href: '/further-reading/world-id-reset' },
+			{ title: 'API Reference', href: '/mini-apps/reference/api' },
+			{ title: 'Sharing', href: '/mini-apps/reference/sharing' },
+			{ title: 'Errors', href: '/mini-apps/reference/errors' },
 		],
 	},
 ]

@@ -44,7 +44,7 @@ import { MiniKit, WalletAuthInput } from '@worldcoin/minikit-js'
 ```
 
 ## Receiving the response
-The returned message will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-4361">ERC-191</Link>. You're welcome to use any third party libraries to validate the SIWE, but we also provide functions inside of minikit for you to use.
+The returned message will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-4361">ERC-191</Link>. You're welcome to use any third party libraries to verify the payloads for SIWE, but we also provide functions inside of minikit for you to use.
 ```tsx
 import { ResponseEvent } from '@worldcoin/minikit-js'
 

@@ -2,12 +2,12 @@ import { Link } from '@/components/Link'
 
 # Verify
 
-The verify command lets you use <Link href="/world-id/id/cloud">incognito actions</Link> inside of your mini app. Incognito actions are a primitive of World ID, and allow you to gate functionality behind a unique human check.
+The verify command lets you use <Link href="/world-id/id/cloud">incognito actions</Link> inside of your mini app. Incognito actions are a primitive of World ID and allow you to gate functionality behind a unique human check.
 
-To use incognito actions you must first create it in the <Link href="https://developer.worldcoin.org/">Developer Portal</Link>.
+To use incognito actions, first create one in the <Link href="https://developer.worldcoin.org/">Developer Portal</Link>.
 
 ## Sending the command
-Minikit uses a slightly modified input type than compared to IDKit.
+Minikit uses a slightly different input payload than IDKit.
 ``` tsx
 export type VerifyCommandInput = {
   action: string;
@@ -20,7 +20,7 @@ Using the `verify` command:
 import { MiniKit, VerifyCommandInput, VerificationLevel} from "@worldcoin/minikit-js";
 
 const verifyPayload: VerifyCommandInput = {
-  action: "voting-action", // This is your Action Id from the Developer Portal
+  action: "voting-action", // This is your action ID from the Developer Portal
   signal: "0x12312" // Optional additional data
   verification_level: VerificationLevel.Orb, // Orb | Device
 };
@@ -28,10 +28,10 @@ const verifyPayload: VerifyCommandInput = {
 const payload = MiniKit.commands.verify(verifyPayload);
 ```
 
-The main change to incognito actions in mini-apps is the removal of `app_id` from the payload. Since World App already knows your `app_id` when it loads the mini app, there's no need to pass it. 
+The main change to incognito actions is the removal of `app_id` from the payload. Since World App already knows your `app_id` when it loads the mini app, there's no need to pass it. 
 
 ## Listening for the response
-Upon receiving the command from your mini-app, World App will open a drawer prompting the user to confirm the operation. 
+Upon receiving the command from your mini app, World App will open a drawer prompting the user to confirm the operation. 
 
 ``` tsx {{ title: 'pages/index.tsx' }}
 import { Minikit, ResponseEvent, ISuccessResult } from '@worldcoin/minikit-js';

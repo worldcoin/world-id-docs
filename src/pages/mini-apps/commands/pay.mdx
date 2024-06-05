@@ -10,11 +10,12 @@ At launch, WLD and USDC.e will be supported. Gas fees will also be covered.
 Payments are executed on-chain, so you'll need an <Link href="https://metamask.io/">Ethereum compatible wallet</Link>. Next, whitelist the address in the <Link href="https://developer.worldcoin.org/">Developer Portal</Link>. 
 
 
-If you try to receive payments at an address that you have not whitelisted, the payment will be rejected.
+If you try to receive payments at an address you haven't whitelisted, the payment will be rejected.
 ![Whitelist an Address](/images/docs/mini-apps/commands/pay-setup.png)
 
 ## Initiating the payment
-Since payment operations are client side, it is important to create your unique id in the backend. Make sure to save this as you should verify this value when you receive the response.
+Since payment operations are client side, it is important to create your unique id in the backend.
+Make sure to save this as you will need to verify this value when you receive the response.
 ``` tsx {{ title: 'pages/api/initiate-pay.tsx' }}
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const uuid = crypto.randomUUID().replace(/-/g, "");
@@ -25,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 ```
 ## Sending the command
-We currently support WLD and USDC payments. Below is the expected input for the Pay command. For now, payments will all be done on Optimism.
+We currently support WLD and USDC payments. For now, payments will all be done on Optimism. Below is the expected input for the Pay command.
 ``` tsx {{title: 'PayCommandInput' }}
 export type TokensPayload = {
   symbol: Tokens;
@@ -43,12 +44,12 @@ export type PayCommandInput = {
 Using the Pay command: 
 ``` tsx {{ title: 'pages/index.tsx' }}
 import { MiniKit, tokenToDecimals, Tokens, PayCommandInput } from '@worldcoin/minikit-js'
-
+    // ...
     const res = await fetch(`/api/initiate-payment`);
 
     const payload: PayCommandInput = {
         reference: res.text(),
-        to: // Your Wallet Address,
+        to: process.env.WalletAddress,
         tokens: [
             { symbol: Tokens.WLD, token_amount: tokenToDecimals(1 * credits, Tokens.WLD).toString()},
             { symbol: Tokens.USDCE, token_amount: tokenToDecimals(3 * credits, Tokens.USDCE).toString()}
@@ -61,8 +62,8 @@ import { MiniKit, tokenToDecimals, Tokens, PayCommandInput } from '@worldcoin/mi
     }
 ```
 ## Handling the response
-Once World App receives the command, the user will be prompted to confirm the payment via a drawer. Once the app has submitted the payment on chain it will return. 
-The response does not wait until the transaction is mined on chain. **Thus, it's critical to confirm the payment in your backend.**
+Once World App receives the command, the user will be prompted to confirm the payment via a drawer. After that the app will send the payment to our relayer to be submitted on-chain and return. 
+The response does not wait until the transaction is mined on-chain. **Thus, it's critical to confirm the payment in your backend.**
 ``` tsx {{ title: 'pages/index.tsx' }}
 import { MiniKit, tokenToDecimals, Tokens, PayCommandInput, ResponseEvent } from '@worldcoin/minikit-js'
   useEffect(() => {
@@ -97,10 +98,10 @@ import { MiniKit, tokenToDecimals, Tokens, PayCommandInput, ResponseEvent } from
 	frontend, so the response must be verified in a trusted environment.
 </Note>
 
-**Web2** applications can call our Developer Portal API to get the current status of the transaction. Since payments are executed on chain, it can take up to a few minutes to confirm.
-You can choose to optimistically accept the payments once they've landed on chain, or poll the endpoint to wait till it's successful mined.
+**Web2** applications can call our Developer Portal API to get the current status of the transaction. Since payments are executed on-chain, it can take up to a few minutes to confirm.
+You can choose to optimistically accept the payments once they've landed on-chain, or poll the endpoint to wait until it's successful mined.
 
-**Web3** applications can choose to search the on chain event logs temselves via the `TransferReference` event emitted on chain.
+**Web3** applications can choose to search the on-chain event logs temselves via the `TransferReference` event emitted on-chain.
 ``` solidity {{title : 'TransferReference'}}
 event TransferReference(
     address sender,
@@ -111,7 +112,7 @@ event TransferReference(
     bool indexed success
 );
 ```
-However, in this example, we will show querying via Developer Portal API.
+In this example, we will show querying via Developer Portal API.
 ``` tsx {{ title: 'pages/index.tsx' }}
 interface IRequestPayload {
   payload: MiniAppPaymentSuccessEventPayload; 
@@ -122,7 +123,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const reference = getReferenceFromDB(user) // TODO
 
-    // 1. Check that the transaction we received from the Mini App is the same one we sent
+    // 1. Check that the transaction we received from the mini app is the same one we sent
     if (payload.reference === reference) {
         const response = await fetch(`https://developer.worldcoin.org/api/v2/minikit/transaction/${payload.transactionId}?app_id=${process.env.APP_ID}`, 
             headers: {

@@ -4,8 +4,8 @@ import GitHubIcon from './icons/GitHubIcon'
 import { Button } from '@/components/Button'
 import TwitterIcon from './icons/TwitterIcon'
 import DiscordIcon from './icons/DiscordIcon'
-import { navigation } from '@/components/Navigation'
 import { FC, PropsWithChildren, SVGAttributes } from 'react'
+import { miniAppsNavigation, worldIdNavigation } from '@/components/Navigation'
 
 export const PageLink: FC<{
 	label: string
@@ -35,6 +35,8 @@ export const PageLink: FC<{
 
 function PageNavigation() {
 	let router = useRouter()
+	let isWorldId = router.pathname.includes('world-id')
+	let navigation = isWorldId ? worldIdNavigation : miniAppsNavigation
 	let allPages = navigation.flatMap(group => group.links.map(link => ({ ...link, section: group.title })))
 	let currentPageIndex = allPages.findIndex(page => page.href === router.pathname.replace('/api-docs', '/api'))
 

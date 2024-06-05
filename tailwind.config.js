@@ -72,6 +72,7 @@ module.exports = {
 			boxShadow: {
 				card: '0px 10px 30px rgba(180 180 180 / 0.24)',
 				glow: '0 0 4px rgb(0 0 0 / 0.1)',
+				toggle: '0px 4px 6px -2px #191C2008, 0px 12px 16px -4px #191C2014',
 			},
 
 			maxWidth: {

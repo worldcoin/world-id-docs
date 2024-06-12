@@ -62,6 +62,8 @@ export default async function Root({
 ```
 
 3. Check if Minikit is installed and ready to use
+
+By default, `Minikit.isInstalled()` will return false until the SDK is installed and it receives an init payload from World App. You can use this check to conditionally render components that rely on your app being loaded as a Mini App.
 ```tsx
 // ...
 console.log(Minikit.isInstalled())

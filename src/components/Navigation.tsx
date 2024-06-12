@@ -256,6 +256,10 @@ export const miniAppsNavigation = [
 			{ title: 'Errors', href: '/mini-apps/reference/errors' },
 		],
 	},
+	{
+		title: 'Further Reading',
+		links: [{ title: 'Security', href: '/mini-apps/more/security' }],
+	},
 ]
 
 export const Navigation: FC<{

@@ -1,1 +1,15 @@
-### TODO: Placeholder will do some type of selector, waiting on design
+import Image from 'next/image'
+import {Card} from "@/components/Card"
+
+<h1 className='sm:text-5xl text-3xl'>Worldcoin Developer Docs</h1>
+
+<p className='text-xl text-gray-700 my-5'>Building the world's largest identity and financial network as a public utility, giving ownership to everyone.</p>
+
+
+<span className="grid lg:grid-flow-col gap-x-8 mt-10 sm:grid-cols-3">
+    <Card alt="World ID" title={"Build with World ID"} content="Simple, private, and secure proof of humanity" link="/world-id" imagePath="/images/docs/world-id-cover.png"/>
+
+    <Card alt="Mini Apps" title={"Create a Mini App"} content="Native like applications integrated in World App" link="/mini-apps" imagePath="/images/docs/mini-apps-cover.png"/>
+
+    <Card alt="World Chain" title={"Integrate World Chain"} content="A chain for humans. More details coming soon" link="#" imagePath="/images/docs/worldchain-cover.png"/>
+</span>

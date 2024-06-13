@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { Tag } from '@/components/Tag'
-import { ToggleButton } from './Toggle'
 import { useRouter } from 'next/router'
 import { remToPx } from '@/lib/remToPx'
 import { Link } from '@/components/Link'
@@ -270,22 +269,6 @@ export const Navigation: FC<{
 
 	return (
 		<nav {...props}>
-			<div className="grid grid-cols-2 bg-gray-100 p-1 rounded-xl mb-4 relative">
-				<div
-					className={clsx(
-						'w-1/2 h-full absolute top-0 bottom-0 p-1 transition-all ease-in-out duration-300 pointer-events-none select-none',
-						{
-							'left-0': isWorldID,
-							'left-1/2': !isWorldID,
-						}
-					)}
-				>
-					<div className="w-full h-full bg-white shadow-toggle rounded-lg" />
-				</div>
-
-				<ToggleButton label="World ID" isActive={isWorldID} href="/world-id" />
-				<ToggleButton label="Mini Apps" isActive={!isWorldID} href="/mini-apps" />
-			</div>
 			<ul role="list">
 				{isWorldID
 					? worldIdNavigation.map((group, groupIndex) => (

@@ -59,11 +59,6 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: '/',
-				destination: '/mini-apps',
-				permanent: false,
-			},
-			{
 				source: '/protocol',
 				destination: 'https://whitepaper.worldcoin.org/technical-implementation#worldcoin-protocol',
 				permanent: false,

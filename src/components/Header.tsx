@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import Image from 'next/image'
 import { Button } from './Button'
+import { useRouter } from 'next/router'
 import { Link } from '@/components/Link'
 import GitHubIcon from './icons/GitHubIcon'
 import logo from 'public/worldcoin-logo.svg'
@@ -38,17 +39,16 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 	let { scrollY } = useScroll()
 	let bgOpacityDark = useTransform(scrollY, [0, 72], [0.2, 0.8])
 	let bgOpacityLight = useTransform(scrollY, [0, 72], [0.5, 0.9])
+	const router = useRouter()
+	const basePath = router.pathname.split('/')[1]
 
 	return (
 		<motion.div
 			ref={ref as RefObject<HTMLDivElement>}
 			className={clsx(
 				className,
-				'fixed inset-x-0 top-0 z-[9] flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6',
-				!isInsideMobileNavigation && 'backdrop-blur-sm dark:backdrop-blur',
-				isInsideMobileNavigation
-					? 'bg-white dark:bg-zinc-900'
-					: 'bg-white/[var(--bg-opacity-light)] dark:bg-zinc-900/[var(--bg-opacity-dark)]'
+				'fixed inset-x-0 top-0 z-[9] bg-white dark:bg-zinc-900',
+				!isInsideMobileNavigation && 'backdrop-blur-sm dark:backdrop-blur transition '
 			)}
 			style={
 				{
@@ -57,45 +57,68 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 				} as MotionStyle
 			}
 		>
-			<div
-				className={clsx(
-					'absolute inset-x-0 top-full h-px transition',
-					(isInsideMobileNavigation || !mobileNavIsOpen) && 'bg-zinc-900/7.5 dark:bg-white/7.5'
-				)}
-			/>
-			<div className="hidden lg:flex">
-				<Link href="/" aria-label="Home">
-					<Image src={logo} className="h-6" alt="Worldcoin" />
-				</Link>
+			<div className="flex h-14 items-center justify-between gap-12 border px-4 sm:px-6 ">
+				<div
+					className={clsx(
+						'absolute inset-x-0 top-full h-px transition',
+						(isInsideMobileNavigation || !mobileNavIsOpen) && 'bg-zinc-900/7.5 dark:bg-white/7.5'
+					)}
+				/>
+				<div className="hidden lg:flex">
+					<Link href="/" aria-label="Home">
+						<Image src={logo} className="h-6" alt="Worldcoin" />
+					</Link>
+				</div>
+				<Search />
+				<div className="flex items-center gap-5 lg:hidden">
+					<MobileNavigation />
+					<Link href="/" aria-label="Home">
+						<Image src={logo} className="h-6" alt="Worldcoin" />
+					</Link>
+				</div>
+				<div className="flex items-center gap-5">
+					<nav className="hidden md:block">
+						<ul role="list" className="flex items-center gap-4">
+							<TopLevelNavItem
+								className="bg-gray-100 hover:bg-gray-100/50 py-[7px] px-4 border rounded-lg border-gray-200"
+								href="/apps"
+							>
+								Explore Apps
+							</TopLevelNavItem>
+							<Button href="https://developer.worldcoin.org" target="_blank">
+								Developer Portal
+							</Button>
+						</ul>
+					</nav>
+					<MobileSearch />
+					<div className="hidden md:block md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15" />
+					<a href="https://github.com/worldcoin/idkit-js" target="_blank" rel="noreferrer">
+						<GitHubIcon className="h-6 w-6 text-black" />
+					</a>
+				</div>
 			</div>
-			<Search />
-			<div className="flex items-center gap-5 lg:hidden">
-				<MobileNavigation />
-				<Link href="/" aria-label="Home">
-					<Image src={logo} className="h-6" alt="Worldcoin" />
-				</Link>
-			</div>
-			<div className="flex items-center gap-5">
-				<nav className="hidden md:block">
-					<ul role="list" className="flex items-center gap-4">
-						<TopLevelNavItem
-							className="bg-gray-100 hover:bg-gray-100/50 py-[7px] px-4 border rounded-lg border-gray-200"
-							href="/apps"
-						>
-							Explore Apps
-						</TopLevelNavItem>
-						<Button href="https://developer.worldcoin.org" target="_blank">
-							Developer Portal
-						</Button>
-					</ul>
-				</nav>
-				<MobileSearch />
-				<div className="hidden md:block md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15" />
-				<a href="https://github.com/worldcoin/idkit-js" target="_blank" rel="noreferrer">
-					<GitHubIcon className="h-6 w-6 text-black" />
-				</a>
+			<div className="px-4 sm:px-6 flex items-center gap-6 h-12 bg-white">
+				<SectionTab text="Home" isActive={basePath === ''} href="/" />
+				<SectionTab text="World ID" isActive={basePath === 'world-id'} href="/world-id" />
+				<SectionTab text="Mini Apps" isActive={basePath === 'mini-apps'} href="/mini-apps" />
 			</div>
 		</motion.div>
 	)
 })
+
+const SectionTab = (props: { className?: string; text: string; isActive: boolean; href: string }) => {
+	const { className, text, isActive, href } = props
+	return (
+		<div
+			className={clsx('h-full flex items-center text-center justify-center', {
+				'text-gray-900 border-black border-b': isActive,
+			})}
+		>
+			<a href={href} className={clsx('text-gray-400 text-sm', { 'text-gray-900': isActive }, className)}>
+				{text}
+			</a>
+		</div>
+	)
+}
+
 Header.displayName = 'Header'

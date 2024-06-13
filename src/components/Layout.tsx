@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { Prose } from '@/components/Prose'
@@ -30,14 +31,23 @@ export const Layout: FC<
 			)
 		}
 	}, [router.pathname])
-
+	const basePath = router.pathname.split('/')[1]
 	return (
 		<SectionProvider sections={sections}>
 			<Header />
-			<div className="lg:ml-72 xl:ml-80 mt-14 overflow-x-hidden">
+			<div
+				className={clsx('lg:ml-72 xl:ml-80 mt-14 overflow-x-hidden', {
+					'!ml-0 justify-center items-center sm:flex mt-24': basePath === '',
+				})}
+			>
 				<motion.header
 					layoutScroll
-					className="contents lg:pointer-events-none lg:fixed lg:inset-0 lg:top-14 lg:z-[8] lg:flex"
+					className={clsx(
+						'contents lg:pointer-events-none lg:fixed lg:inset-0 lg:top-14 lg:z-[8] lg:flex mt-14',
+						{
+							invisible: basePath === '',
+						}
+					)}
 				>
 					<ScrollArea.Root asChild>
 						<div className="contents lg:pointer-events-auto lg:overflow-hidden lg:flex lg:flex-col lg:w-72 xl:w-80">

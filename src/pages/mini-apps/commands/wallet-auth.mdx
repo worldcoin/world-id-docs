@@ -4,12 +4,18 @@ import { Link } from '@/components/Link'
 
 Wallet Auth is our native support for <Link href="https://eips.ethereum.org/EIPS/eip-4361">Sign in With Ethereum</Link>. 
 
+<Note type="info">
+World App currently uses <Link href="https://safe.global/wallet">Safe</Link> addresses in order to do the SIWE flow. This means that it will not work with common libraries like <Link href="https://github.com/spruceid/siwe">SIWE</Link> which expect EOAs.
+</Note>
 ## Creating the nonce
 Since the user can modify the client, it's important to create the nonce in the backend. **The nonce must be at least 8 alphanumeric characters in length.**
 ``` ts {{ title: 'pages/api/nonce.ts' }}
+import { cookies } from "next/headers";
+
 export default function handler(req, res) {
   const nonce = crypto.randomUUID();
-  req.session.nonce = nonce
+  // The nonce should be stored somewhere that is not tamperable by the client
+  cookies().set("siwe", nonce, { secure: true });
   res.status(200).json({ nonce });
 }
 ```
@@ -80,6 +86,7 @@ import { ResponseEvent } from '@worldcoin/minikit-js'
 Finally, complete the sign in by verifying the response from World App in your backend.
 ```ts {{ title: 'pages/api/complete-siwe.ts' }}
 import { MiniAppWalletAuthSuccessPayload, verifySiweMessage } from "@worldcoin/minikit-js";
+import { cookies } from "next/headers";
 
 interface IRequestPayload {
   payload: MiniAppWalletAuthSuccessPayload; 
@@ -87,10 +94,13 @@ interface IRequestPayload {
 
 export default function handler(req, res) {
     const { payload } = req.body as IRequestPayload
+    // We need to verify the nonce
+    const cookieStore = cookies();
+    const nonce = cookieStore.get("siwe");
     
     const validMessage = await verifySiweMessage(
       payload,
-      req.session.nonce
+      nonce
     );
 
     if (validMessage) {

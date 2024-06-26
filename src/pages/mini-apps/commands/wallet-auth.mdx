@@ -13,7 +13,9 @@ Since the user can modify the client, it's important to create the nonce in the 
 import { cookies } from "next/headers";
 
 export default function handler(req, res) {
-  const nonce = crypto.randomUUID();
+  // Expects only alphanumeric characters
+  const nonce = crypto.randomUUID().replace(/-/g, '');
+  
   // The nonce should be stored somewhere that is not tamperable by the client
   cookies().set("siwe", nonce, { secure: true });
   res.status(200).json({ nonce });

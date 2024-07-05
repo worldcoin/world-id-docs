@@ -27,6 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 ```
 ## Sending the command
 We currently support WLD and USDC payments. For now, payments will all be done on Optimism. Below is the expected input for the Pay command.
+Since World App sponsors the gas fee, there is a minimum transfer amount of $0.1 for all Tokens.
 ``` tsx {{title: 'PayCommandInput' }}
 export type TokensPayload = {
   symbol: Tokens;

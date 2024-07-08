@@ -16,7 +16,6 @@ export const Card = (props: {
 				width={300}
 				height={300}
 				src={imagePath}
-				objectFit="contain"
 				alt={alt}
 				className={clsx('m-0 sm:h-30 w-auto', className)}
 			/>

@@ -187,6 +187,7 @@ export const navigation = [
 			{ title: 'Cloud Verification', href: '/id/cloud' },
 			{ title: 'On-Chain Verification', href: '/id/on-chain' },
 			{ title: 'Common Pitfalls', href: '/id/pitfalls' },
+			{ title: 'Supported Libraries', href: '/id/libraries' },
 		],
 	},
 	{

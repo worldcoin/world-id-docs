@@ -54,7 +54,9 @@ Using the Pay command:
 import { MiniKit, tokenToDecimals, Tokens, PayCommandInput } from '@worldcoin/minikit-js'
     // ...
     const sendPayment = async () => {
-      const res = await fetch(`/api/initiate-payment`);
+      const res = await fetch('/api/initiate-payment', {
+        method: 'POST'
+      });
       const { id } = await res.json();
 
       const payload: PayCommandInput = {

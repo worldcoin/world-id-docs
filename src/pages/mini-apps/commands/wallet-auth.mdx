@@ -9,17 +9,20 @@ World App currently uses <Link href="https://safe.global/wallet">Safe</Link> add
 </Note>
 ## Creating the nonce
 Since the user can modify the client, it's important to create the nonce in the backend. **The nonce must be at least 8 alphanumeric characters in length.**
-``` ts {{ title: 'pages/api/nonce.ts' }}
+``` ts {{ title: 'app/api/nonce.ts' }}
 import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
-export default function handler(req, res) {
+export default function GET(req: NextRequest) {
   // Expects only alphanumeric characters
-  const nonce = crypto.randomUUID().replace(/-/g, '');
-  
+  const nonce = crypto.randomUUID().replace(/-/g, "");
+
   // The nonce should be stored somewhere that is not tamperable by the client
+  // Optionally you can HMAC the nonce with a secret key stored in your environment
   cookies().set("siwe", nonce, { secure: true });
-  res.status(200).json({ nonce });
+  return NextResponse.json({ nonce });
 }
+
 ```
 
 
@@ -27,35 +30,52 @@ export default function handler(req, res) {
 
 Below is the expected input for `walletAuth`. 
 
-``` tsx
+``` ts
 interface WalletAuthInput {
   nonce: string
-	expirationTime?: Date
-	statement?: string
-	requestId?: string
-	notBefore?: Date
+  expirationTime?: Date
+  statement?: string
+  requestId?: string
+  notBefore?: Date
 } 
 ```
 Using the `walletAuth` command. 
-``` tsx
+``` tsx {{ title: 'app/page.tsx' }}
 import { MiniKit, WalletAuthInput } from '@worldcoin/minikit-js'
-    const res = await fetch(`/nonce`);
+  // ...
+  const signInWithWallet = async () => {
+    const res = await fetch(`/api/nonce`);
+    const { nonce } = await res.json();
 
     const generateMessageResult = MiniKit.commands.walletAuth({
-        nonce: nonce,
-        requestId: "0", // Optional
-        expirationTime: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
-        notBefore: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-        statement:
+      nonce: nonce,
+      requestId: "0", // Optional
+      expirationTime: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+      notBefore: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+      statement:
         "This is my statement and here is a link https://worldcoin.com/apps",
     });
+  };
 ```
 
 ## Receiving the response
-The returned message will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-4361">ERC-191</Link>. You're welcome to use any third party libraries to verify the payloads for SIWE, but we also provide functions inside of minikit for you to use.
-```tsx
-import { ResponseEvent } from '@worldcoin/minikit-js'
+The returned message will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-4361">ERC-191</Link>. 
+You're welcome to use any third party libraries to verify the payloads for SIWE, but since World App uses Safe addresses that do not implement `isValidSignature` we created a helper function for you. 
+Under the hood, we use the wallet's EOA private key to sign the message but the address is the Safe address.
 
+```tsx
+type MiniAppWalletAuthSuccessPayload = {
+  status: "success";
+  message: string;
+  signature: string;
+  address: string;
+  version: number;
+};
+```
+
+```tsx {{ title: 'app/page.tsx' }}
+import { ResponseEvent } from '@worldcoin/minikit-js'
+  // ...
   useEffect(() => {
     if (!MiniKit.isInstalled()) {
       return;
@@ -71,7 +91,7 @@ import { ResponseEvent } from '@worldcoin/minikit-js'
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            siweResponsePayload: payload,
+            payload: payload,
             nonce,
           }),
         });
@@ -85,33 +105,42 @@ import { ResponseEvent } from '@worldcoin/minikit-js'
   ```
 
 ## Verifying the Login
-Finally, complete the sign in by verifying the response from World App in your backend.
-```ts {{ title: 'pages/api/complete-siwe.ts' }}
+Finally, complete the sign in by verifying the response from World App in your backend. Here we check the nonce matches the one we created earlier, and
+then verify the signature.
+```ts {{ title: 'app/api/complete-siwe.ts' }}
 import { MiniAppWalletAuthSuccessPayload, verifySiweMessage } from "@worldcoin/minikit-js";
 import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
 interface IRequestPayload {
-  payload: MiniAppWalletAuthSuccessPayload; 
+  payload: MiniAppWalletAuthSuccessPayload;
+  nonce: string;
 }
 
-export default function handler(req, res) {
-    const { payload } = req.body as IRequestPayload
-    // We need to verify the nonce
-    const cookieStore = cookies();
-    const nonce = cookieStore.get("siwe");
-    
-    const validMessage = await verifySiweMessage(
-      payload,
-      nonce
-    );
+export const POST = async (req: NextRequest) => {
+  const { payload, nonce } = (await req.json()) as IRequestPayload;
+  if (nonce != cookies().get("siwe")?.value) {
+    return NextResponse.json({
+      status: "error",
+      isValid: false,
+      message: "Invalid nonce",
+    });
+  }
+  try {
+    const validMessage = await verifySiweMessage(payload, nonce);
 
-    if (validMessage) {
-        // Login User
-        res.status(200).send({ loggedIn: true }); 
-    } else {
-        res.status(401).send({ loggedIn: false }); 
-    }
-    
-}
+    return NextResponse.json({
+      status: "success",
+      isValid: validMessage.isValid,
+    });
+  } catch (error: any) {
+    // Handle errors in validation or processing
+    return NextResponse.json({
+      status: "error",
+      isValid: false,
+      message: error.message,
+    });
+  }
+};
 
 ```

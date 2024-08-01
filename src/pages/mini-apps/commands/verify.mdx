@@ -7,7 +7,7 @@ The verify command lets you use <Link href="/world-id/id/cloud">incognito action
 To use incognito actions, first create one in the <Link href="https://developer.worldcoin.org/">Developer Portal</Link>.
 
 ## Sending the command
-Minikit uses a slightly different input payload than IDKit.
+Minikit uses a slightly different input payload than IDKit. We do not need to pass in the `app_id`.
 ``` tsx
 export type VerifyCommandInput = {
   action: string;
@@ -16,7 +16,7 @@ export type VerifyCommandInput = {
 };
 ```
 Using the `verify` command:
-```tsx {{ title: 'pages/index.tsx' }}
+```tsx {{ title: 'app/page.tsx' }}
 import { MiniKit, VerifyCommandInput, VerificationLevel} from "@worldcoin/minikit-js";
 
 const verifyPayload: VerifyCommandInput = {
@@ -28,39 +28,41 @@ const verifyPayload: VerifyCommandInput = {
 const payload = MiniKit.commands.verify(verifyPayload);
 ```
 
-The main change to incognito actions is the removal of `app_id` from the payload. Since World App already knows your `app_id` when it loads the mini app, there's no need to pass it. 
-
 ## Listening for the response
 Upon receiving the command from your mini app, World App will open a drawer prompting the user to confirm the operation. 
 
-``` tsx {{ title: 'pages/index.tsx' }}
-import { Minikit, ResponseEvent, ISuccessResult } from '@worldcoin/minikit-js';
+``` tsx {{ title: 'app/page.tsx' }}
+import { MiniKit, ResponseEvent, ISuccessResult, MiniAppVerifyActionPayload } from '@worldcoin/minikit-js';
 
 // ...
- useEffect(() => {
+  useEffect(() => {
     if (!MiniKit.isInstalled()) {
       return;
     }
 
-    MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async (payload) => {
-        if (payload.status === "error") {
-            return console.log("Error payload", payload);
-        }
-      
-        // Verify the proof in the backend 
-        const verifyResponse = await fetch("/api/verify", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                payload: verifyResponse as ISuccessResult,
-                action: "voting-action",
-                signal: "0x12312" // Optional
-            }) 
-        });
+    MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async (response: MiniAppVerifyActionPayload) => {
+      if (response.status === "error") {
+        return console.log("Error payload", response);
+      }
 
-        // TODO: Handle Success!
+      // Verify the proof in the backend
+      const verifyResponse = await fetch("/api/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          payload: response as ISuccessResult, // Parses only the fields we need to verify
+          action: "voting-action",
+          signal: "0x12312", // Optional
+        }),
+      });
+
+      // TODO: Handle Success!
+      const verifyResponseJson = await verifyResponse.json();
+      if (verifyResponseJson.status === 200) {
+        console.log("Verification success!");
+      }
     });
 
     return () => {
@@ -76,10 +78,20 @@ import { Minikit, ResponseEvent, ISuccessResult } from '@worldcoin/minikit-js';
 </Note>
 
 Successful responses will return a `MiniAppVerifyActionSuccessPayload`. 
-
-
-```typescript {{ title: 'pages/api/verify.ts' }}
+```typescript
+type MiniAppVerifyActionSuccessPayload = {
+  status: "success";
+  proof: string;
+  merkle_root: string;
+  nullifier_hash: string;
+  verification_level: VerificationLevel;
+  version: number;
+};
+```
+To verify the proof, you will need to make a backend route.
+```typescript {{ title: 'app/api/verify/route.ts' }}
 import { verifyCloudProof, IVerifyResponse, ISuccessResult } from '@worldcoin/minikit-js'
+import { NextRequest, NextResponse } from "next/server";
 
 interface IRequestPayload {
   payload: ISuccessResult; 
@@ -87,19 +99,19 @@ interface IRequestPayload {
   signal: string | undefined;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { payload, action, signal } = req.body as IRequestPayload
-    const app_id = process.env.APP_ID 
+export default async function POST(req: NextRequest) {
+    const { payload, action, signal } = (await req.json()) as IRequestPayload;
+    const app_id = process.env.APP_ID as `app_${string}`;
     const verifyRes = (await verifyCloudProof(payload, app_id, action, signal)) as IVerifyResponse // Wrapper on this
 
     if (verifyRes.success) {
         // This is where you should perform backend actions if the verification succeeds
         // Such as, setting a user as "verified" in a database
-        res.status(200).send(verifyRes);
+        return NextResponse.json({ verifyRes, status: 200 });
     } else {
         // This is where you should handle errors from the World ID /verify endpoint. 
         // Usually these errors are due to a user having already verified.
-        res.status(400).send(verifyRes);
+        return NextResponse.json({ verifyRes, status: 400 });
     }
 };
 ```

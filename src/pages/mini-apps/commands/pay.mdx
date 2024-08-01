@@ -3,27 +3,34 @@ import { Link } from '@/components/Link'
 # Pay
 
 Pay, as the name suggests, allows developers to build native payment experiences directly inside of their mini app.
-At launch, WLD and USDC.e will be supported. Gas fees will also be covered.
+At launch, WLD and USDC.e will be supported. Payments are easy to use and only have three simple steps.
+
+1. Creating the transaction
+2. Sending the command
+3. Verifying the payment
 
 ## Setup
 
-Payments are executed on-chain, so you'll need an <Link href="https://metamask.io/">Ethereum compatible wallet</Link>. Next, whitelist the address in the <Link href="https://developer.worldcoin.org/">Developer Portal</Link>. 
+Payments are executed on-chain, so you'll need an <Link href="https://metamask.io/">Ethereum compatible wallet</Link>. 
+Next, whitelist the address in the <Link href="https://developer.worldcoin.org/">Developer Portal</Link>. 
+Whitelisting adds security to your mini app to prevent payments from being sent to an unauthorized addresses. Optionally you can 
+disable this check in the Developer Portal.
 
-
-If you try to receive payments at an address you haven't whitelisted, the payment will be rejected.
-![Whitelist an Address](/images/docs/mini-apps/commands/pay-setup.png)
+![Whitelist an Address](/images/docs/mini-apps/commands/whitelist.png)
 
 ## Initiating the payment
-Since payment operations are client side, it is important to create your unique id in the backend.
-Make sure to save this as you will need to verify this value when you receive the response.
-``` tsx {{ title: 'pages/api/initiate-pay.tsx' }}
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const uuid = crypto.randomUUID().replace(/-/g, "");
+For security, it's important you initialize and store your payment operation in the backend.
+``` tsx {{ title: 'app/api/initiate-pay/route.ts' }}
+import { NextRequest, NextResponse } from "next/server";
 
-    // TODO: Store the ID field in your database
+export default async function POST(req: NextRequest) {
+  const uuid = crypto.randomUUID().replace(/-/g, "");
 
-    res.status(200).send(uuid);
+  // TODO: Store the ID field in your database so you can verify the payment later
+
+  return NextResponse.json({ id: uuid });
 }
+
 ```
 ## Sending the command
 We currently support WLD and USDC payments. For now, payments will all be done on Optimism. Below is the expected input for the Pay command.
@@ -43,45 +50,58 @@ export type PayCommandInput = {
 };
 ```
 Using the Pay command: 
-``` tsx {{ title: 'pages/index.tsx' }}
+``` tsx {{ title: 'app/page.tsx' }}
 import { MiniKit, tokenToDecimals, Tokens, PayCommandInput } from '@worldcoin/minikit-js'
     // ...
-    const res = await fetch(`/api/initiate-payment`);
+    const sendPayment = async () => {
+      const res = await fetch(`/api/initiate-payment`);
+      const { id } = await res.json();
 
-    const payload: PayCommandInput = {
-        reference: res.text(),
-        to: process.env.WalletAddress,
+      const payload: PayCommandInput = {
+        reference: id,
+        to: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", // Test address
         tokens: [
-            { symbol: Tokens.WLD, token_amount: tokenToDecimals(1 * credits, Tokens.WLD).toString()},
-            { symbol: Tokens.USDCE, token_amount: tokenToDecimals(3 * credits, Tokens.USDCE).toString()}
+          {
+            symbol: Tokens.WLD,
+            token_amount: tokenToDecimals(1, Tokens.WLD).toString(),
+          },
+          {
+            symbol: Tokens.USDCE,
+            token_amount: tokenToDecimals(3, Tokens.USDCE).toString(),
+          },
         ],
         description: "Test example payment for minikit",
-    }
-    
-    if (MiniKit.isInstalled()) {
+      };
+
+      if (MiniKit.isInstalled()) {
         MiniKit.commands.pay(payload);
-    }
+      }
+    };
 ```
 ## Handling the response
-Once World App receives the command, the user will be prompted to confirm the payment via a drawer. After that the app will send the payment to our relayer to be submitted on-chain and return. 
-The response does not wait until the transaction is mined on-chain. **Thus, it's critical to confirm the payment in your backend.**
-``` tsx {{ title: 'pages/index.tsx' }}
+Once World App receives the command, the user will be prompted to confirm the payment via a drawer. After that the app will send the payment to our relayer to be submitted on-chain. 
+The response does not wait until the transaction is mined. **Thus, it's critical to confirm the payment in your backend.**
+``` tsx {{ title: 'app/page.tsx' }}
 import { MiniKit, tokenToDecimals, Tokens, PayCommandInput, ResponseEvent } from '@worldcoin/minikit-js'
-  useEffect(() => {
+   useEffect(() => {
     if (!MiniKit.isInstalled()) {
-      toast.error("Please use as MiniApp to make a purchase");
+      console.error("MiniKit is not installed");
       return;
     }
 
     MiniKit.subscribe(
       ResponseEvent.MiniAppPayment,
-      async (payload: MiniAppPaymentPayload) => {
-        if (payload.status == "success"){
-            const payment = await fetch(`/api/confirm-payment`, {payload});
-            
-            if (payment.success) {
-                // Congrats your payment was successful!
-            }
+      async (response: MiniAppPaymentPayload) => {
+        if (response.status == "success") {
+          const res = await fetch(`/api/confirm-payment`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(response),
+          });
+          const payment = await res.json();
+          if (payment.success) {
+            // Congrats your payment was successful!
+          }
         }
       }
     );
@@ -114,32 +134,41 @@ event TransferReference(
 );
 ```
 In this example, we will show querying via Developer Portal API.
-``` tsx {{ title: 'pages/index.tsx' }}
+``` tsx {{ title: 'app/verify-payment/route.ts' }}
+import { MiniAppPaymentSuccessEventPayload } from "@worldcoin/minikit-js";
+import { NextRequest, NextResponse } from "next/server";
+
 interface IRequestPayload {
-  payload: MiniAppPaymentSuccessEventPayload; 
+  payload: MiniAppPaymentSuccessEventPayload;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { payload } = req.body as IRequestPayload
+export default async function handler(req: NextRequest) {
+  const { payload } = (await req.json()) as IRequestPayload;
+  
+  // IMPORTANT: Here we should fetch the reference you created in /initiate-payment to ensure the transaction we are verifying is the same one we initiated
+  const reference = getReferenceFromDB()
+  
+  // 1. Check that the transaction we received from the mini app is the same one we sent
+  if (payload.reference === reference) {
+    const response = await fetch(
+      `https://developer.worldcoin.org/api/v2/minikit/transaction/${payload.transaction_id}?app_id=${process.env.APP_ID}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${process.env.DEV_PORTAL_API_KEY}`,
+        },
+      }
+    );
+    const transaction = await response.json();
 
-    const reference = getReferenceFromDB(user) // TODO
-
-    // 1. Check that the transaction we received from the mini app is the same one we sent
-    if (payload.reference === reference) {
-        const response = await fetch(`https://developer.worldcoin.org/api/v2/minikit/transaction/${payload.transactionId}?app_id=${process.env.APP_ID}`, 
-            headers: {
-                Authorization: `Bearer ${process.env.DEV_PORTAL_API_KEY}`,
-            },
-        )
-        const transaction = await response.json()
-
-        // 2. Here we optimistically confirm the transaction.
-        // Otherwise, you can poll until the status == mined
-        if (transaction.reference == reference && transaction.status != "failed"){
-            res.status(200).send({ success: true }); 
-        } else {
-            res.status(200).send({ success: false }); 
-        }
+    // 2. Here we optimistically confirm the transaction.
+    // Otherwise, you can poll until the status == mined
+    if (transaction.reference == reference && transaction.status != "failed") {
+      return NextResponse.json({ success: true });
+    } else {
+      return NextResponse.json({ success: false });
     }
+  }
 }
+
 ```

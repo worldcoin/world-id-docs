@@ -260,6 +260,7 @@ export const miniAppsNavigation = [
 		links: [
 			{ title: 'Security', href: '/mini-apps/more/security' },
 			{ title: 'App Store Guidelines', href: '/mini-apps/more/guidelines' },
+			{ title: 'Promotion', href: '/mini-apps/more/promotion' },
 		],
 	},
 ]

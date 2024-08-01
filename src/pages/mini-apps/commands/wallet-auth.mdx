@@ -128,7 +128,6 @@ export const POST = async (req: NextRequest) => {
   }
   try {
     const validMessage = await verifySiweMessage(payload, nonce);
-
     return NextResponse.json({
       status: "success",
       isValid: validMessage.isValid,

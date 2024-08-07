@@ -1,11 +1,14 @@
+import { Link } from '@/components/Link'
+
 # Sign in with World ID
 
 <Note type="warning">
-	When using Sign in with World ID, we highly recommend allowing users to set a separate recovery method for their account
-	(e.g. email), in case users lose access to or reset their World ID. Read about World ID Reset [here](/further-reading/world-id-reset).
+It is <b>strongly recommended</b> that mobile applications use <Link href="/id/cloud">Incognito Actions</Link> instead. Mobile sign currently behaves poorly.
 </Note>
+When using Sign in with World ID, we highly recommend allowing users to set a separate recovery method for their account
+(e.g. email), in case users lose access to or reset their World ID. Read about World ID Reset [here](/further-reading/world-id-reset). 
 
-World ID can be used as an authentication mechanism. Some helpful resources for integrating World ID with your app:
+Some helpful resources for integrating World ID with your app:
 
 -   World ID [Auth0 Integration](https://worldcoin.org/auth0).
 -   [NextAuth.js Template Repository](https://github.com/worldcoin/world-id-nextauth-template).

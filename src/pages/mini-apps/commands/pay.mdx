@@ -49,7 +49,9 @@ export type PayCommandInput = {
   description: string;
 };
 ```
-Using the Pay command: 
+Using the Pay command.
+
+Note for convenience, we offer a public endpoint to query the current price of 1 WLD in various currencies detailed <Link href="/mini-apps/reference/api#get-prices">here</Link>. 
 ``` tsx {{ title: 'app/page.tsx' }}
 import { MiniKit, tokenToDecimals, Tokens, PayCommandInput } from '@worldcoin/minikit-js'
     // ...

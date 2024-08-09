@@ -32,7 +32,7 @@ https://developer.worldcoin.org
     <Col>
         <CodeGroup title="Request" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
             ```bash {{ title: "cURL" }}
-            curl -X POST "/api/v2/minikit/transaction/{transaction_id}" \
+            curl -X GET "/api/v2/minikit/transaction/{transaction_id}" \
                 -H "Authorization: Bearer {api_key}" 
             ```
             ```js
@@ -97,6 +97,76 @@ https://developer.worldcoin.org
                 "token": "USDCE",
                 "to": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
                 "app_id": "app_9a73963d73efdf2e7d9472593dc9dffd"
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+<hr/>
+
+## Get Prices {{ tag: "GET", label: "https://app-backend.toolsforhumanity.com/public/v1/prices/latest/wld?fiatCurrencies=" }}
+
+<Row>
+    <Col>
+This endpoint lets you query the latest prices of the Worldcoin token in various fiat currencies. 
+We offer this as a service to make it easier to use WLD as a currency.
+
+
+        ### Query Params
+        <Properties>
+            <Property name="fiatCurrencies" type="string" required={true}>
+            The `fiatCurrencies` is a comma-separated list of fiat currencies following ISO4217 currency code.
+            eg. `USD,EUR,JPY,ARS`
+            </Property>
+        </Properties>
+
+    </Col>
+    <Col>
+        <CodeGroup title="Request" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
+            ```bash {{ title: "cURL" }}
+            curl -X GET "https://app-backend.toolsforhumanity.com/public/v1/prices/latest/wld?fiatCurrencies=USD"
+            ```
+            ```js
+            fetch(apiUrl, {
+                method: 'GET',
+            })
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+<hr/>
+
+### Response (abridged)
+Detailed are a just a few values in the return that could be confusing. See the response object in the bottom right column for the full list of fields
+<Row>
+    <Col>
+        <Properties>
+            <Property name="prices" type="string" >
+            The `prices` is an object where each key is the respective currency code
+            </Property>
+            <Property name="amount" type="string" >
+            The `amount` represents the non converted value for the price of 1 WLD for a given currency
+            </Property>
+            <Property name="decimals" type="string" >
+            The current `decimals`, should be used to calculate the converted price. ie an amount of 1000000 with 6 decimals would mean a price of $1.00 
+            via, 1000000 * 10^-6
+            </Property>
+        </Properties>
+    </Col>
+     <Col>
+        <CodeGroup title="Response" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
+            ```json
+            {
+                "result": {
+                    "prices": {
+                        "ARS": {
+                            "asset": "ARS",
+                            "amount": "2335813898",
+                            "decimals": 6,
+                            "symbol": "ARS"
+                        }
+                    }
+                }
             }
             ```
         </CodeGroup>

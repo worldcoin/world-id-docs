@@ -21,7 +21,7 @@ import { MiniKit, VerifyCommandInput, VerificationLevel} from "@worldcoin/miniki
 
 const verifyPayload: VerifyCommandInput = {
   action: "voting-action", // This is your action ID from the Developer Portal
-  signal: "0x12312" // Optional additional data
+  signal: "0x12312", // Optional additional data
   verification_level: VerificationLevel.Orb, // Orb | Device
 };
 
@@ -99,7 +99,7 @@ interface IRequestPayload {
   signal: string | undefined;
 }
 
-export default async function POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
     const { payload, action, signal } = (await req.json()) as IRequestPayload;
     const app_id = process.env.APP_ID as `app_${string}`;
     const verifyRes = (await verifyCloudProof(payload, app_id, action, signal)) as IVerifyResponse // Wrapper on this

@@ -13,7 +13,7 @@ Since the user can modify the client, it's important to create the nonce in the 
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-export default function GET(req: NextRequest) {
+export function GET(req: NextRequest) {
   // Expects only alphanumeric characters
   const nonce = crypto.randomUUID().replace(/-/g, "");
 

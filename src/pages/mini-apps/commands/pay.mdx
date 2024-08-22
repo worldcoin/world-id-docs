@@ -23,7 +23,7 @@ For security, it's important you initialize and store your payment operation in 
 ``` tsx {{ title: 'app/api/initiate-pay/route.ts' }}
 import { NextRequest, NextResponse } from "next/server";
 
-export default async function POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
   const uuid = crypto.randomUUID().replace(/-/g, "");
 
   // TODO: Store the ID field in your database so you can verify the payment later

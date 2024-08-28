@@ -104,7 +104,7 @@ https://developer.worldcoin.org
 </Row>
 <hr/>
 
-## Get Prices {{ tag: "GET", label: "https://app-backend.toolsforhumanity.com/public/v1/prices/latest/wld?fiatCurrencies=" }}
+## Get Prices {{ tag: "GET", label: "https://app-backend.toolsforhumanity.com/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDCE&fiatCurrencies=" }}
 
 <Row>
     <Col>
@@ -117,6 +117,12 @@ We offer this as a service to make it easier to use WLD as a currency.
             <Property name="fiatCurrencies" type="string" required={true}>
             The `fiatCurrencies` is a comma-separated list of fiat currencies following ISO4217 currency code.
             eg. `USD,EUR,JPY,ARS`
+            </Property>
+        </Properties>
+         <Properties>
+            <Property name="cryptoCurrencies" type="string" required={true}>
+            The `cryptoCurrencies` is a comma-separated list of currencies we support.
+            eg. `USDCE,WLD`
             </Property>
         </Properties>
 
@@ -159,11 +165,21 @@ Detailed are a just a few values in the return that could be confusing. See the 
             {
                 "result": {
                     "prices": {
-                        "ARS": {
-                            "asset": "ARS",
-                            "amount": "2335813898",
-                            "decimals": 6,
-                            "symbol": "ARS"
+                        "WLD": {
+                            "USD": {
+                                "asset": "USD",
+                                "amount": "1510763",
+                                "decimals": 6,
+                                "symbol": "USD"
+                            },
+                        },
+                        "USDCE": {
+                            "USD": {
+                                "asset": "USD",
+                                "amount": "1000058",
+                                "decimals": 6,
+                                "symbol": "USD"
+                            },
                         }
                     }
                 }

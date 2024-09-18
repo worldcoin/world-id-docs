@@ -237,10 +237,14 @@ export const miniAppsNavigation = [
 	{
 		title: 'Commands',
 		links: [
-			{ title: 'Cloud Verification', href: '/id/cloud' },
-			{ title: 'On-Chain Verification', href: '/id/on-chain' },
-			{ title: 'Common Pitfalls', href: '/id/pitfalls' },
-			{ title: 'Supported Libraries', href: '/id/libraries' },
+			{ title: 'Verify', href: '/mini-apps/commands/verify' },
+			{ title: 'Pay', href: '/mini-apps/commands/pay' },
+			{ title: 'Wallet Auth', href: '/mini-apps/commands/wallet-auth' },
+			{ title: 'Send Transaction', href: '/mini-apps/commands/send-transaction' },
+			{ title: 'Sign Message', href: '/mini-apps/commands/sign-message' },
+			{ title: 'Sign Typed Data', href: '/mini-apps/commands/sign-typed-data' },
+			{ title: 'Share Social Graph (soon)', href: '/mini-apps/commands/share-social-graph' },
+			{ title: 'Send Notifications (soon)', href: '/mini-apps/commands/notifications' },
 		],
 	},
 	{

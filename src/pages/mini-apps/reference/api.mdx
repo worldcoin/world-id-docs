@@ -7,7 +7,7 @@ Minikit introduces a new api for verifying transactions.
 https://developer.worldcoin.org
 ```
 
-## Get Transaction{{ tag: "GET", label: "/api/v2/minikit/transaction/{transaction_id}?app_id=" }}
+## Get Transaction{{ tag: "GET", label: "/api/v2/minikit/transaction/{transaction_id}?app_id=&type=" }}
 
 <Row>
     <Col>
@@ -18,6 +18,9 @@ https://developer.worldcoin.org
         <Properties>
             <Property name="app_id" type="string" required={true}>
             The `app_id` corresponding to the transaction that is being queried.
+            </Property>
+            <Property name="type" type="string" required={true}>
+            The `type` is either payment (pay) or transaction (sendTransaction) depending on the command you used.
             </Property>
         </Properties>
 
@@ -84,8 +87,8 @@ https://developer.worldcoin.org
         </Properties>
     </Col>
      <Col>
-        <CodeGroup title="Response" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
-            ```json
+        <CodeGroup title="Response" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=&type=">
+            ```json {{ title: "Payment" }}
             {
                 "reference": "1fa38f30-8ee1-4e4b-9988-0517a774f96c",
                 "transaction_hash": "0xfb25cb74b13d51deeb1a91460619c3d86a7637d40dd29831aa38dd6cbb05e880",
@@ -97,6 +100,18 @@ https://developer.worldcoin.org
                 "token": "USDCE",
                 "to": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
                 "app_id": "app_9a73963d73efdf2e7d9472593dc9dffd"
+            }
+            ```
+            ```json {{ title: "Transaction" }}
+           {
+                "transactionId": "0xa5b02107433da9e2a450c433560be1db01963a9146c14eed076cbf2c61837d60",
+                "transactionHash": "0xa8388148b630b49a3d5a739eaad9e98b5766235cdb21a5ec8d3f89053d982a71",
+                "transactionStatus": "failed",
+                "miniappId": "app_staging_5748c49d2e6c68849479e0b321bc5257",
+                "updatedAt": "2024-09-09T15:18:25.320Z",
+                "network": "optimism",
+                "fromWalletAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558",
+                "toContractAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558"
             }
             ```
         </CodeGroup>

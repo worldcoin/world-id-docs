@@ -103,6 +103,12 @@ import { ResponseEvent } from '@worldcoin/minikit-js'
     };
   }, []);
   ```
+  You can now additionally access the user's wallet address from the minikit object.
+  ```tsx
+  const walletAddress = MiniKit.walletAddress;
+  // or
+  const walletAddress = window.MiniKit?.walletAddress;
+  ```
 
 ## Verifying the Login
 Finally, complete the sign in by verifying the response from World App in your backend. Here we check the nonce matches the one we created earlier, and

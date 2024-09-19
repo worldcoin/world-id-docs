@@ -197,7 +197,7 @@ import { MiniKit, MiniAppSendTransactionPayload, ResponseEvent } from '@worldcoi
 ```
 
 ## Verifying the transaction
-You can query for the transaction hash and status of the transaction in the developer portal.
+You can query for the transaction hash and status of the transaction in the developer portal. Make sure to specify `type=transaction` in the query string.  
 
 Transactions are sent via our relayer currently and so we provide you an internal id rather than a hash in the original response above.
 ``` tsx {{ title: 'app/confirm-transaction/route.ts' }}
@@ -213,7 +213,7 @@ export async function POST(req: NextRequest) {
   
   
     const response = await fetch(
-      `https://developer.worldcoin.org/api/v2/minikit/transaction/${payload.transaction_id}?app_id=${process.env.APP_ID}`,
+      `https://developer.worldcoin.org/api/v2/minikit/transaction/${payload.transaction_id}?app_id=${process.env.APP_ID}&type=transaction`,
       {
         method: "GET",
         headers: {
@@ -226,6 +226,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(transaction);
 
   }
-
-
+```
+Example response from `/minikit/transaction`
+```tsx
+{
+    "transactionId": "0xa5b02107433da9e2a450c433560be1db01963a9146c14eed076cbf2c61837d60",
+    "transactionHash": "0xa8388148b630b49a3d5a739eaad9e98b5766235cdb21a5ec8d3f89053d982a71",
+    "transactionStatus": "failed",
+    "miniappId": "app_staging_5748c49d2e6c68849479e0b321bc5257",
+    "updatedAt": "2024-09-09T15:18:25.320Z",
+    "network": "optimism",
+    "fromWalletAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558",
+    "toContractAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558"
+}
 ```

@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { title } from 'process'
 import { Tag } from '@/components/Tag'
 import { useRouter } from 'next/router'
 import { remToPx } from '@/lib/remToPx'
@@ -270,33 +271,54 @@ export const miniAppsNavigation = [
 	},
 ]
 
+export const worldChainNavigation = [
+	{
+		title: 'Introduction',
+		links: [{ title: 'What is World Chain?', href: '/world-chain' }],
+	},
+	{
+		title: 'Quick Start',
+		links: [{ title: 'Network Information', href: '/world-chain/quick-start/info' }],
+	},
+	{
+		title: 'Infrastructure Providers',
+		links: [{ title: 'Core', href: '/world-chain/providers/infrastructure' }],
+	},
+	{
+		title: 'Technical Reference',
+		links: [{ title: 'Address Book', href: '/world-chain/reference/address-book' }],
+	},
+]
+
 export const Navigation: FC<{
 	className?: string
 }> = props => {
 	const router = useRouter()
+
+	const getNavigationGroups = () => {
+		if (router.pathname.includes('world-id')) {
+			return worldIdNavigation
+		} else if (router.pathname.includes('mini-apps')) {
+			return miniAppsNavigation
+		} else if (router.pathname.includes('world-chain')) {
+			return worldChainNavigation
+		}
+		// Default case or error handling
+		return []
+	}
+
+	const navigationGroups = getNavigationGroups()
+
 	const isWorldID = router.pathname.includes('world-id')
 
 	return (
 		<nav {...props}>
 			<ul role="list">
-				{isWorldID
-					? worldIdNavigation.map((group, groupIndex) => (
-							<NavigationGroup
-								key={group.title}
-								group={group}
-								className={clsx(groupIndex === 0 && 'md:mt-0')}
-							/>
-					  ))
-					: miniAppsNavigation.map((group, groupIndex) => (
-							// @ts-ignore
-							<NavigationGroup
-								key={group.title}
-								group={group}
-								className={clsx(groupIndex === 0 && 'md:mt-0')}
-							/>
-					  ))}
+				{navigationGroups.map((group, groupIndex) => (
+					<NavigationGroup key={group.title} group={group} className={clsx(groupIndex === 0 && 'md:mt-0')} />
+				))}
 
-				<li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
+				<li className="sticky bottom-0 z-10 mt-6 min-[]:hidden">
 					<Button href="https://developer.worldcoin.org" target="_blank" className="w-full">
 						Developer Portal
 					</Button>

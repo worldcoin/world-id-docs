@@ -101,6 +101,7 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 				<SectionTab text="Home" isActive={basePath === ''} href="/" />
 				<SectionTab text="World ID" isActive={basePath === 'world-id'} href="/world-id" />
 				<SectionTab text="Mini Apps" isActive={basePath === 'mini-apps'} href="/mini-apps" />
+				<SectionTab text="World Chain" isActive={basePath === 'world-chain'} href="/world-chain" />
 			</div>
 		</motion.div>
 	)

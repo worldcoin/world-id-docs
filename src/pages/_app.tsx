@@ -12,7 +12,7 @@ import { usePostHog } from '@/lib/use-posthog'
 import { Router, useRouter } from 'next/router'
 import * as mdxComponents from '@/components/mdx'
 import { useMobileNavigationStore } from '@/components/MobileNavigation'
-import { miniAppsNavigation, worldIdNavigation } from '@/components/Navigation'
+import { miniAppsNavigation, worldIdNavigation, worldChainNavigation } from '@/components/Navigation'
 
 function onRouteChange() {
 	useMobileNavigationStore.getState().close()
@@ -56,6 +56,9 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 
 		if (router.pathname.includes('mini-app')) {
 			return miniAppsNavigation.find(nav => nav.links.some(link => link.href === router.pathname))?.title
+		}
+		if (router.pathname.includes('world-chain')) {
+			return worldChainNavigation.find(nav => nav.links.some(link => link.href === router.pathname))?.title
 		}
 	}, [router.pathname])
 

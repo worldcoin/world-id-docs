@@ -318,7 +318,7 @@ export const Navigation: FC<{
 					<NavigationGroup key={group.title} group={group} className={clsx(groupIndex === 0 && 'md:mt-0')} />
 				))}
 
-				<li className="sticky bottom-0 z-10 mt-6 min-[]:hidden">
+				<li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
 					<Button href="https://developer.worldcoin.org" target="_blank" className="w-full">
 						Developer Portal
 					</Button>

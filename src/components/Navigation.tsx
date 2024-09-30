@@ -278,7 +278,10 @@ export const worldChainNavigation = [
 	},
 	{
 		title: 'Quick Start',
-		links: [{ title: 'Network Information', href: '/world-chain/quick-start/info' }],
+		links: [
+			{ title: 'Network Information', href: '/world-chain/quick-start/info' },
+			{ title: 'World Chain Contracts', href: '/world-chain/quick-start/world-chain-contracts' },
+		],
 	},
 	{
 		title: 'Infrastructure Providers',

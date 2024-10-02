@@ -127,6 +127,8 @@ import { MiniKit, tokenToDecimals, Tokens, PayCommandInput, ResponseEvent } from
 You can choose to optimistically accept the payments once they've landed on-chain, or poll the endpoint to wait until it's successful mined.
 
 **Web3** applications can choose to search the on-chain event logs temselves via the `TransferReference` event emitted on-chain.
+Note for reference ID the value on chain will be the keccak256 hash of the reference ID.
+
 ``` solidity {{title : 'TransferReference'}}
 event TransferReference(
     address sender,

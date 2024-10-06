@@ -191,7 +191,7 @@ import { MiniKit, MiniAppSendTransactionPayload, ResponseEvent } from '@worldcoi
             }
         );
         return () => {
-            MiniKit.unsubscribe(ResponseEvent.MiniAppPayment);
+            MiniKit.unsubscribe(ResponseEvent.MiniAppSendTransaction);
         };
     }, []);
 ```

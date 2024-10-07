@@ -148,56 +148,69 @@ import DEXABI from "../../abi/DEX.json";
 ```
 
 ## Receiving the response
-The transactionw will be first simulated and checked for errors. If there are no errors the user will be prompted to sign the transaction. 
-The response does not wait until the transaction is mined. **Thus, it's critical to confirm the transaction in your backend.**
+The transaction will be first simulated and checked for errors. If there are no errors the user will be prompted to sign the transaction. To make it easier we let you install hooks.
 
-Here is the example transaction success response payload. Note that the transaction_status is `submitted` and not `mined` and the transaction_id needs to be exchanged for the actual transaction_hash
+```bash {{ title: "Usage" }}
+pnpm i @worldcoin/minikit-react
+```
+
+In this flow we will use the hook `useWaitForTransactionReceipt` to check the status of the transaction. 
 ```tsx
-export type MiniAppSendTransactionSuccessPayload = {
-    status: "success";
-    transaction_status: "submitted";
-    transaction_id: string;
-    reference: string;
-    from: string;
-    chain: Network;
-    timestamp: string;
-    version: number;
-};
+interface UseTransactionReceiptResult {
+  transactionHash?: `0x${string}`;
+  receipt?: TransactionReceipt;
+  isError: boolean;
+  isLoading: boolean;
+  isSuccess: boolean;
+  error?: Error;
+  retrigger: () => void;
+}
 ```
 
 ``` tsx {{ title: 'app/page.tsx' }}
-import { MiniKit, MiniAppSendTransactionPayload, ResponseEvent } from '@worldcoin/minikit-js'
+const [transactionId, setTransactionId] = useState<string>("");
 
-    useEffect(() => {
-        if (!MiniKit.isInstalled()) {
-            return;
+  const client = createPublicClient({
+    chain: worldchain,
+    // Choose your own RPC optionally
+    transport: http("https://worldchain-mainnet.g.alchemy.com/public"),
+  });
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      client: client,
+      appConfig: {
+        app_id: "<app_id>",
+      },
+      transactionId: transactionId,
+    });
+
+  useEffect(() => {
+    if (!MiniKit.isInstalled()) {
+      return;
+    }
+
+    MiniKit.subscribe(
+      ResponseEvent.MiniAppSendTransaction,
+      async (payload: MiniAppSendTransactionPayload) => {
+        if (payload.status === "error") {
+            console.error("Error sending transaction", payload);
+        } else {
+          setTransactionId(payload.transaction_id);
         }
+        setReceivedSendTransactionPayload(payload);
+      }
+    );
 
-        MiniKit.subscribe(
-            ResponseEvent.MiniAppSendTransaction,
-            async (payload: MiniAppSendTransactionPayload) => {
-                  if (response.status == "success") {
-                    const res = await fetch(`/api/confirm-transaction`, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(response),
-                    });
-                    const transaction = await res.json();
-                    if (transaction.success) {
-                        // Congrats your payment was successful!
-                    }
-                }
+    return () => {
+      MiniKit.unsubscribe(ResponseEvent.MiniAppSendTransaction);
+    };
+  }, [tempInstallFix]);
 
-            }
-        );
-        return () => {
-            MiniKit.unsubscribe(ResponseEvent.MiniAppSendTransaction);
-        };
-    }, []);
 ```
 
-## Verifying the transaction
-You can query for the transaction hash and status of the transaction in the developer portal. Make sure to specify `type=transaction` in the query string.  
+## Alternative: Verifying the transaction 
+If you don't want to use our hook you can choose to query for the hash yourself using this endpoint. Make sure to specify `type=transaction` in the query string. 
 
 Transactions are sent via our relayer currently and so we provide you an internal id rather than a hash in the original response above.
 ``` tsx {{ title: 'app/confirm-transaction/route.ts' }}

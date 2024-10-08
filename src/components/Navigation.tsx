@@ -285,7 +285,13 @@ export const worldChainNavigation = [
 	},
 	{
 		title: 'Infrastructure Providers',
-		links: [{ title: 'Core', href: '/world-chain/providers/infrastructure' }],
+		links: [
+			{ title: 'Overview', href: '/world-chain/providers/infrastructure' },
+			{ title: 'Bridges', href: '/world-chain/providers/bridges' },
+			{ title: 'Data', href: '/world-chain/providers/data' },
+			{ title: 'Block Explorers', href: '/world-chain/providers/explorers' },
+			{ title: 'Developer Tooling', href: '/world-chain/providers/developer-tooling' },
+		],
 	},
 	{
 		title: 'Technical Reference',

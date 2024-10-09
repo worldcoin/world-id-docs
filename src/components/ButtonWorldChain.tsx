@@ -15,6 +15,7 @@ type Props = PropsWithChildren<
 		variant?: keyof typeof variantStyles
 		className?: string
 		arrow?: 'left' | 'right'
+		testnet?: boolean
 	} & AllHTMLAttributes<HTMLElement>
 >
 
@@ -32,8 +33,8 @@ export const ButtonWorldChain: FC<Props> = ({ variant = 'primary', className = '
 		/>
 	)
 
-	const addWorldChainToMetaMask = async () => {
-		if (window.ethereum) {
+	const addWorldChainToMetaMask = async (testnet: boolean) => {
+		if (window.ethereum && testnet == false) {
 			try {
 				await window.ethereum.request({
 					method: 'wallet_addEthereumChain',
@@ -55,6 +56,28 @@ export const ButtonWorldChain: FC<Props> = ({ variant = 'primary', className = '
 			} catch (error) {
 				console.error('Failed to add World Chain to MetaMask', error)
 			}
+		} else if (window.ethereum && testnet == true) {
+			try {
+				await window.ethereum.request({
+					method: 'wallet_addEthereumChain',
+					params: [
+						{
+							chainId: '0x12C1',
+							chainName: 'World Chain Sepolia Testnet',
+							nativeCurrency: {
+								name: 'Ether',
+								symbol: 'ETH',
+								decimals: 18,
+							},
+							rpcUrls: ['https://worldchain-sepolia.g.alchemy.com/public'], // Replace with World Chain Testnet RPC URL
+							blockExplorerUrls: ['worldchain-seolia.explorer.alchemy.com'], // Replace with World Chain Testnet explorer URL
+						},
+					],
+				})
+				console.log('World Chain Testnet added to MetaMask')
+			} catch (error) {
+				console.error('Failed to add World Chain Testnet to MetaMask', error)
+			}
 		} else {
 			alert('MetaMask is not installed. Please install MetaMask and try again.')
 		}
@@ -64,7 +87,7 @@ export const ButtonWorldChain: FC<Props> = ({ variant = 'primary', className = '
 		// @ts-ignore
 		<Component
 			{...props}
-			onClick={addWorldChainToMetaMask}
+			onClick={() => addWorldChainToMetaMask(props.testnet ?? false)}
 			className={clsx(
 				'inline-flex gap-0.5 justify-center overflow-hidden text-sm font-medium transition',
 				variantStyles[variant],

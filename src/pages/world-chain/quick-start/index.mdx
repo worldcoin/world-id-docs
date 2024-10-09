@@ -1,11 +1,21 @@
 import { ButtonWorldChain } from '@/components/ButtonWorldChain';
 
+# How to start using World Chain
+
 In order to start using World Chain, you need to add the World Chain network to your wallet of choice. Either by clicking the button below:
 
-<ButtonWorldChain style = {{height: '80px', color:'black', backgroundColor:'white', border:'1px solid black'}}>
+<Row>
+
+<ButtonWorldChain className="h-20 w-80 !text-black !bg-white border border-black" >
 Add World Chain 
+
+<img src='/icons/metamask.svg' className="w-8 self-center"/>
+</ButtonWorldChain>
+<ButtonWorldChain testnet={true} className="h-20 w-80 text-black bg-white border border-black">
+Add World Chain Sepolia
 
 <img src='/icons/metamask.svg' style={{width: '2rem', alignSelf: 'center'}} />
 </ButtonWorldChain>
+</Row>
 
 Or by manually adding the information available in the <a href='/world-chain/quick-start/info/'>World Chain Network section below</a>.

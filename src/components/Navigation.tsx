@@ -355,8 +355,6 @@ export const Navigation: FC<{
 
 	const navigationGroups = getNavigationGroups()
 
-	const isWorldID = router.pathname.includes('world-id')
-
 	return (
 		<nav {...props}>
 			<ul role="list">

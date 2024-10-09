@@ -150,6 +150,7 @@ import DEXABI from "../../abi/DEX.json";
 ## Receiving the response
 The transaction will be first simulated and checked for errors. If there are no errors the user will be prompted to sign the transaction. To make it easier we let you install hooks built on top of Viem.
 
+This requires installing the `@worldcoin/minikit-react` package.
 ```bash {{ title: "Usage" }}
 pnpm i @worldcoin/minikit-react
 ```
@@ -198,14 +199,13 @@ const [transactionId, setTransactionId] = useState<string>("");
         } else {
           setTransactionId(payload.transaction_id);
         }
-        setReceivedSendTransactionPayload(payload);
       }
     );
 
     return () => {
       MiniKit.unsubscribe(ResponseEvent.MiniAppSendTransaction);
     };
-  }, [tempInstallFix]);
+  }, []);
 
 ```
 

@@ -292,6 +292,7 @@ export const worldChainNavigation = [
 		title: 'Building on World Chain',
 		links: [
 			{ title: 'Deploy on World Chain', href: '/world-chain/developers/deploy' },
+			{ title: 'Deploy World ID template app', href: '/world-chain/developers/template' },
 			{ title: 'World Chain Contracts', href: '/world-chain/developers/world-chain-contracts' },
 			{ title: 'Fees', href: '/world-chain/developers/fees' },
 			{ title: 'EVM Equivalence', href: '/world-chain/developers/evm-equivalence' },

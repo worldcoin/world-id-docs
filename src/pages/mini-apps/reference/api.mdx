@@ -143,7 +143,7 @@ We offer this as a service to make it easier to use WLD as a currency.
 
     </Col>
     <Col>
-        <CodeGroup title="Request" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
+        <CodeGroup title="Request" tag="GET" label="https://app-backend.toolsforhumanity.com/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDCE&fiatCurrencies=">
             ```bash {{ title: "cURL" }}
             curl -X GET "https://app-backend.toolsforhumanity.com/public/v1/prices/latest/wld?fiatCurrencies=USD"
             ```
@@ -175,7 +175,7 @@ Detailed are a just a few values in the return that could be confusing. See the 
         </Properties>
     </Col>
      <Col>
-        <CodeGroup title="Response" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
+        <CodeGroup title="Response" tag="GET" label="https://app-backend.toolsforhumanity.com/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDCE&fiatCurrencies=">
             ```json
             {
                 "result": {

@@ -7,7 +7,7 @@ import { Header } from '@/components/Header'
 import { FC, PropsWithChildren, useMemo } from 'react'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { Section, SectionProvider } from '@/components/SectionProvider'
-import { Navigation, miniAppsNavigation, worldIdNavigation } from './Navigation'
+import { Navigation, miniAppsNavigation, worldChainNavigation, worldIdNavigation } from './Navigation'
 
 export const Layout: FC<
 	PropsWithChildren<{
@@ -25,6 +25,13 @@ export const Layout: FC<
 		}
 		if (router.pathname.includes('mini-app')) {
 			return miniAppsNavigation.find(section =>
+				section.links.some(
+					link => router.pathname != '/' && link.href == router.pathname.replace('/api-docs', '/api')
+				)
+			)
+		}
+		if (router.pathname.includes('world-chain')) {
+			return worldChainNavigation.find(section =>
 				section.links.some(
 					link => router.pathname != '/' && link.href == router.pathname.replace('/api-docs', '/api')
 				)

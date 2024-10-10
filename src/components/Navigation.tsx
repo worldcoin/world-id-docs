@@ -277,7 +277,7 @@ export const worldChainNavigation = [
 		links: [
 			{ title: 'What is World Chain?', href: '/world-chain' },
 			{ title: 'Why World Chain?', href: '/world-chain/quick-start/why' },
-			{ title: 'Priority Blosckpace for Humans', href: '/world-chain/quick-start/priority-blockspace' },
+			{ title: 'Priority Blosckpace for Humans', href: '/world-chain/quick-start/features' },
 		],
 	},
 	{

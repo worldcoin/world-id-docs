@@ -274,24 +274,32 @@ export const miniAppsNavigation = [
 export const worldChainNavigation = [
 	{
 		title: 'About World Chain',
-		links: [{ title: 'What is World Chain?', href: '/world-chain' }],
+		links: [
+			{ title: 'What is World Chain?', href: '/world-chain' },
+			{ title: 'Why World Chain?', href: '/world-chain/quick-start/why' },
+			{ title: 'Priority Blosckpace for Humans', href: '/world-chain/quick-start/priority-blockspace' },
+		],
 	},
 	{
 		title: 'Using World Chain',
 		links: [
 			{ title: 'Quick Start', href: '/world-chain/quick-start' },
+			{ title: 'Funding a Wallet', href: '/world-chain/quick-start/fund-wallet' },
 			{ title: 'Network Information', href: '/world-chain/quick-start/info' },
 		],
 	},
 	{
 		title: 'Building on World Chain',
 		links: [
+			{ title: 'Deploy on World Chain', href: '/world-chain/developers/deploy' },
 			{ title: 'World Chain Contracts', href: '/world-chain/developers/world-chain-contracts' },
 			{ title: 'Fees', href: '/world-chain/developers/fees' },
+			{ title: 'EVM Equivalence', href: '/world-chain/developers/evm-equivalence' },
 			{
 				title: 'Scaling World Chain',
 				href: 'https://worldcoin.org/blog/engineering/finding-scalable-home-for-worldcoin',
 			},
+			{ title: 'Human Collective Grants', href: '/world-chain/developers/grants' },
 		],
 	},
 	{
@@ -302,6 +310,7 @@ export const worldChainNavigation = [
 			{ title: 'Data', href: '/world-chain/providers/data' },
 			{ title: 'Block Explorers', href: '/world-chain/providers/explorers' },
 			{ title: 'Developer Tooling', href: '/world-chain/providers/developer-tooling' },
+			{ title: 'Paymasters', href: '/world-chain/providers/paymasters' },
 			{ title: 'Onramps', href: '/world-chain/providers/onramps' },
 		],
 	},
@@ -321,9 +330,15 @@ export const worldChainNavigation = [
 		],
 	},
 	{
-		title: 'Important Links',
+		title: 'Others',
 		links: [
 			{ title: 'Brand Kit', href: 'https://worldcoin.org/press' },
+			{ title: 'Worldcoin Whitepaper', href: 'https://whitepaper.worldcoin.org/' },
+		],
+	},
+	{
+		title: 'Legal',
+		links: [
 			{
 				title: 'Terms of Service',
 				href: 'https://vault.pactsafe.io/s/8a18d792-fd76-44db-9b92-b0bb7981c248/legal.html#contract-byutjvtyt',

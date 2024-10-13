@@ -11,9 +11,6 @@ For the example we will be using a sample <Link href="https://optimistic.ethersc
 ## Crafting the payload
 
 Send transaction will automatically create the permit2 signatures for you. 
-<Note type="info">
-	Make sure you specify the contracts and tokens you are interacting with in the Developer Portal (configuration/advanced) otherwise we will block the transaction.
-</Note>
 ``` ts
 export type SendTransactionInput = {
   transaction: Transaction[];

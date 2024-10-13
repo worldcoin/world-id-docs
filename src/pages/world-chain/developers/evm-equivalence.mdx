@@ -1,1 +1,73 @@
 # EVM Equivalence
+
+World Chain is EVM-equivalent because it utilizes the [OP Stack](https://docs.optimism.io/stack/getting-started), a modular framework developed by Optimism,
+which ensures compatibility with the [Ethereum Virtual Machine (EVM)](https://ethereum.org/en/developers/docs/evm/). By leveraging the OP Stack,
+World Chain can execute smart contracts and interact with decentralized applications designed for Ethereum
+without any modifications. This equivalency enables seamless interoperability with Ethereum's ecosystem of applications and protocols. 
+The OP Stack's modularity also allows World Chain to implement scaling solutions and other customizations while maintaining the fundamental EVM equivalence,
+ensuring a flexible yet consistent environment for developers and users alike.
+
+## Differences between World Chain, OP Mainnet and Ethereum
+
+Though the EVM remains unchanged across OP Stack (Superchain) chains compared to the Ethereum layer 1, there are some configurations of the execution clients that
+do differ. 
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>World Chain</th>
+      <th>OP Mainnet</th>
+      <th>Ethereum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Block time in seconds</td>
+      <td>2</td>
+      <td>2</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>Block gas limit</td>
+      <td>30,000,000</td>
+      <td>30,000,000</td>
+      <td>30,000,000</td>
+    </tr>
+    <tr>
+      <td>Block gas target</td>
+      <td>10,000,000</td>
+      <td>5,000,000</td>
+      <td>15,000,000</td>
+    </tr>
+    <tr>
+      <td>EIP-1559 elasticity multiplier</td>
+      <td>6</td>
+      <td>6</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>EIP-1559 denominator</td>
+      <td></td>
+      <td>250</td>
+      <td>8</td>
+    </tr>
+    <tr>
+    <td>Maximum base fee increase (per block)</td>
+    <td> </td>
+    <td>2%</td>
+    <td>12.5%</td>
+    </tr>
+    <tr>
+    <td>Maximum base fee decrease (per block)</td>
+    <td> </td>
+    <td>0.4%</td>
+    <td>12.5%</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+For more information check out the [OP Stack docs](https://docs.optimism.io/stack/getting-started).

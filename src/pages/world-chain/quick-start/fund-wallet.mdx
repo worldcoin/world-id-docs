@@ -1,1 +1,27 @@
 # Funding a Wallet
+
+<Note>Make sure that whatever assets you are bridging to and from World Chain are always supported by your wallet and the exchange you are using.
+Depositing an unsupported asset on an unsupported chain to an unsupported wallet or exchange will result in loss of funds.</Note>
+
+In order to use World Chain you will need an [EVM-compatible wallet](https://ethereum.org/en/wallets/) such as MetaMask, Rabby, or any other wallet where you can add custom EVM networks.
+If you are a user of World App then you can use the built-in wallet to interact with World Chain as well as the existing onramps and offramps which are integrated into the app.
+The [Ethereum.org website](https://ethereum.org/en/) has [a great explainer on wallets](https://ethereum.org/en/wallets/) which goes into more detail on how to choose a wallet that is right for you.
+
+## Bridging from Ethereum
+
+If you are coming from Ethereum, you can bridge your assets to World Chain using the bridge interface provided by [Alchemy](https://worldchain-mainnet.bridge.alchemy.com/) which is an interface to the native OP Stack bridge contract that allows you to move assets between Ethereum and World Chain natively.
+Since World Chain is an optimistic rollup, built on the [OP Stack](https://docs.optimism.io/stack/getting-started) and part of the [Superchain](https://docs.optimism.io/stack/explainer) it takes about 7 days to withdraw from World Chain back to Ethereum through the native bridge as
+the OP Stack needs to wait for [the fault proof period](https://docs.optimism.io/stack/protocol/fault-proofs/explainer) to expire before the L2 finalizes and the assets can be withdrawn back to Ethereum.
+
+## Superchain interop (coming soon)
+
+If you are coming from another OP Stack L2 which is part of the Superchain, you will soon be able to migrate assets seamlessly between the L2s using the Superchain bridge interface which is currently under development and is estimated to come by end of year. 
+If you want to learn more you can read the [interoperability explainer in the OP Stack documentation](https://docs.optimism.io/stack/protocol/interop/explainer).
+
+## Bridging from another network
+
+There are several other bridges live between different L2s that are provided by multiple third parties that leverage different bridging mechanisms. The World Chain documentation has a [bridge section](/world-chain/providers/bridges) that lists several bridges that support the network.
+
+## Bridging from an exchange or onramp provider
+
+If you are coming from an exchange or [onramp provider](/world-chain/providers/onramps) that supports World Chain and you already have a wallet that supports the network then you can deposit your assets directly to your wallet. 

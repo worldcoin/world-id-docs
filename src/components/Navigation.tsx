@@ -278,6 +278,7 @@ export const worldChainNavigation = [
 			{ title: 'What is World Chain?', href: '/world-chain' },
 			{ title: 'Why World Chain?', href: '/world-chain/quick-start/why' },
 			{ title: 'Unique features', href: '/world-chain/quick-start/features' },
+			{ title: 'Data Dashboards', href: '/world-chain/quick-start/data' },
 		],
 	},
 	{

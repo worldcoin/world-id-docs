@@ -1,10 +1,32 @@
 # How is World Chain different?
 
+World Chain is built on the OP Stack and is part of the Superchain, it uses the EVM for execution and Ethereum for data availability and finality.
+These are standard properties of all Superchain networks, however, there are several features that make World Chain unique. World Chain is a network
+built for unique humans and its features reflect that.
+
 ## Priority Blockspace for Humans
+
+While it's open for everyone, World Chain was designed to prioritize anonymously verified human interactions over bots and AI through direct protocol integrations
+ with [World ID](https://worldcoin.org/world-id) for proof-of-human verification. One of the initial protocol integrations being worked on is Priority Blockspace for Humans (PBH).
+PBH enables verified users to execute transactions guaranteeing top of block inclusion, enabling a more frictionless user experience.
+PBH ensures that ordinary users aren't unfairly disadvantaged by automated systems, greatly mitigates the impact of [MEV](https://ethereum.org/en/developers/docs/mev/) attacks and exploits,
+and reduces the need to pay significant gas fees to be included in a block. PBH also enables future flexibility, allowing for a separate EIP-1559-style
+market for human transactions.
+
+The implementation details of how PBH is going to work are going to be published soon as a standalone blog post coming soon. 
+
+If you are interested in PBH, how it works or if you would like to apply for a grant to help contribute to the roadmap, check out the [Human Collective Grants section](/world-chain/developers/grants)
+ or send us a message to grants@worldcoin.org.
+
 
 ## Gas Allowance for Humans
 
-Two approaches
+Not only do humans get priority inclusion on World Chain through PBH, but they also will have a gas stipend to transact on World Chain for free.
+Initially the stipend to fund this gas allowance will be provided by the [Worldcoin Foundation](https://worldcoin.foundation) with the goal of progressive
+decentralization allowing Worldcoin governance to set it.
 
-- 4337
-- chain-level
+There are two main approaches to implement the gas allowance, one opetion is on the app/wallet level through the use of account abstraction and the other one 
+is to set it at the OP Stack level through sequencer reimbursements or separate fee markets for unique humans where unique humans are not charged or their fees are paid for
+by non-human transactions in the mempool which are executed by the sequencer. The simplest one is to implement a World ID gatekept [EIP4337](https://www.erc4337.io/) [paymaster](https://www.alchemy.com/overviews/what-is-a-paymaster)
+where each `userOp` or group of `userOps` per user requires a World ID proof. More details on gas allowance for humans coming soon.
+

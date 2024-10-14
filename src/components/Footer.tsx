@@ -5,7 +5,7 @@ import { Button } from '@/components/Button'
 import TwitterIcon from './icons/TwitterIcon'
 import DiscordIcon from './icons/DiscordIcon'
 import { FC, PropsWithChildren, SVGAttributes } from 'react'
-import { miniAppsNavigation, worldIdNavigation } from '@/components/Navigation'
+import { miniAppsNavigation, worldChainNavigation, worldIdNavigation } from '@/components/Navigation'
 
 export const PageLink: FC<{
 	label: string
@@ -35,8 +35,21 @@ export const PageLink: FC<{
 
 function PageNavigation() {
 	let router = useRouter()
-	let isWorldId = router.pathname.includes('world-id')
-	let navigation = isWorldId ? worldIdNavigation : miniAppsNavigation
+
+	const getNavigationGroups = () => {
+		if (router.pathname.includes('world-id')) {
+			return worldIdNavigation
+		} else if (router.pathname.includes('mini-apps')) {
+			return miniAppsNavigation
+		} else if (router.pathname.includes('world-chain')) {
+			return worldChainNavigation
+		}
+		// Default case or error handling
+		return []
+	}
+
+	const navigation = getNavigationGroups()
+
 	let allPages = navigation.flatMap(group => group.links.map(link => ({ ...link, section: group.title })))
 	let currentPageIndex = allPages.findIndex(page => page.href === router.pathname.replace('/api-docs', '/api'))
 

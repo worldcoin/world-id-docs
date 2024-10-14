@@ -322,7 +322,11 @@ export const worldChainNavigation = [
 	},
 	{
 		title: 'Tokens',
-		links: [{ title: 'Bridging an L1 token to World Chain', href: '/world-chain/tokens/bridging' }],
+		links: [
+			{ title: 'Bridging an L1 token to World Chain', href: '/world-chain/tokens/bridging' },
+
+			{ title: 'Superchain Token Bridging', href: '/world-chain/tokens/superchain-token' },
+		],
 	},
 	{
 		title: 'Status Page',

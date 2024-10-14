@@ -298,7 +298,7 @@ export const worldChainNavigation = [
 			{ title: 'Fees', href: '/world-chain/developers/fees' },
 			{ title: 'EVM Equivalence', href: '/world-chain/developers/evm-equivalence' },
 			{
-				title: 'Scaling World Chain',
+				title: 'Scaling World Chain 🔗',
 				href: 'https://worldcoin.org/blog/engineering/finding-scalable-home-for-worldcoin',
 			},
 			{ title: 'Human Collective Grants', href: '/world-chain/developers/grants' },
@@ -331,26 +331,26 @@ export const worldChainNavigation = [
 	{
 		title: 'Status Page',
 		links: [
-			{ title: 'World Chain Mainnet', href: 'https://worldchain-mainnet-status.alchemy.com/' },
-			{ title: 'World Chain Sepolia Testnet', href: 'https://worldchain-sepolia-status.alchemy.com/' },
+			{ title: 'World Chain Mainnet 🔗', href: 'https://worldchain-mainnet-status.alchemy.com/' },
+			{ title: 'World Chain Sepolia Testnet 🔗', href: 'https://worldchain-sepolia-status.alchemy.com/' },
 		],
 	},
 	{
 		title: 'Others',
 		links: [
-			{ title: 'Brand Kit', href: 'https://worldcoin.org/press' },
-			{ title: 'Worldcoin Whitepaper', href: 'https://whitepaper.worldcoin.org/' },
+			{ title: 'Brand Kit 🔗', href: 'https://worldcoin.org/press' },
+			{ title: 'Worldcoin Whitepaper 🔗', href: 'https://whitepaper.worldcoin.org/' },
 		],
 	},
 	{
 		title: 'Legal',
 		links: [
 			{
-				title: 'Terms of Service',
+				title: 'Terms of Service 🔗',
 				href: 'https://vault.pactsafe.io/s/8a18d792-fd76-44db-9b92-b0bb7981c248/legal.html#contract-byutjvtyt',
 			},
 			{
-				title: 'Privacy Policy',
+				title: 'Privacy Policy 🔗',
 				href: 'https://vault.pactsafe.io/s/8a18d792-fd76-44db-9b92-b0bb7981c248/legal.html#contract-s1ytru6kk',
 			},
 		],

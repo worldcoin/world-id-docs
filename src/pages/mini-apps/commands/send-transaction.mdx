@@ -11,6 +11,9 @@ For the example we will be using a sample <Link href="https://optimistic.ethersc
 ## Crafting the payload
 
 Send transaction will automatically create the permit2 signatures for you. 
+<Note type="info">
+	Make sure you specify the contracts and tokens you are interacting with in the Developer Portal (configuration/advanced) otherwise we will block the transaction.
+</Note>
 ``` ts
 export type SendTransactionInput = {
   transaction: Transaction[];
@@ -150,6 +153,7 @@ import DEXABI from "../../abi/DEX.json";
 ## Receiving the response
 The transaction will be first simulated and checked for errors. If there are no errors the user will be prompted to sign the transaction. To make it easier we let you install hooks built on top of Viem.
 
+This requires installing the `@worldcoin/minikit-react` package.
 ```bash {{ title: "Usage" }}
 pnpm i @worldcoin/minikit-react
 ```
@@ -198,14 +202,13 @@ const [transactionId, setTransactionId] = useState<string>("");
         } else {
           setTransactionId(payload.transaction_id);
         }
-        setReceivedSendTransactionPayload(payload);
       }
     );
 
     return () => {
       MiniKit.unsubscribe(ResponseEvent.MiniAppSendTransaction);
     };
-  }, [tempInstallFix]);
+  }, []);
 
 ```
 

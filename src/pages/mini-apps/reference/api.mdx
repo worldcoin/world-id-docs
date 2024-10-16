@@ -1,5 +1,6 @@
 # API Reference
-Minikit introduces a new api for verifying transactions.
+
+MiniKit introduces a new api for verifying transactions.
 
 ### Base URL
 
@@ -36,7 +37,7 @@ https://developer.worldcoin.org
         <CodeGroup title="Request" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
             ```bash {{ title: "cURL" }}
             curl -X GET "/api/v2/minikit/transaction/{transaction_id}" \
-                -H "Authorization: Bearer {api_key}" 
+                -H "Authorization: Bearer {api_key}"
             ```
             ```js
             fetch(apiUrl, {
@@ -48,6 +49,7 @@ https://developer.worldcoin.org
             ```
         </CodeGroup>
     </Col>
+
 </Row>
 <hr/>
 ### Response
@@ -126,7 +128,6 @@ https://developer.worldcoin.org
 This endpoint lets you query the latest prices of the Worldcoin token in various fiat currencies. 
 We offer this as a service to make it easier to use WLD as a currency.
 
-
         ### Query Params
         <Properties>
             <Property name="fiatCurrencies" type="string" required={true}>
@@ -143,7 +144,7 @@ We offer this as a service to make it easier to use WLD as a currency.
 
     </Col>
     <Col>
-        <CodeGroup title="Request" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
+        <CodeGroup title="Request" tag="GET" label="https://app-backend.toolsforhumanity.com/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDCE&fiatCurrencies=">
             ```bash {{ title: "cURL" }}
             curl -X GET "https://app-backend.toolsforhumanity.com/public/v1/prices/latest/wld?fiatCurrencies=USD"
             ```
@@ -154,11 +155,14 @@ We offer this as a service to make it easier to use WLD as a currency.
             ```
         </CodeGroup>
     </Col>
+
 </Row>
 <hr/>
 
 ### Response (abridged)
+
 Detailed are a just a few values in the return that could be confusing. See the response object in the bottom right column for the full list of fields
+
 <Row>
     <Col>
         <Properties>
@@ -175,7 +179,7 @@ Detailed are a just a few values in the return that could be confusing. See the 
         </Properties>
     </Col>
      <Col>
-        <CodeGroup title="Response" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
+        <CodeGroup title="Response" tag="GET" label="https://app-backend.toolsforhumanity.com/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDCE&fiatCurrencies=">
             ```json
             {
                 "result": {

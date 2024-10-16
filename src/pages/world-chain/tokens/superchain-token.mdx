@@ -1,0 +1,21 @@
+# Superchain token bridging (coming soon)
+
+<Note>The SuperchainERC20 standard will become the default standard for issuing tokens on the Superchain once the OP Stack Interop features are live on mainnet.
+Currently the [Superchain token bridging standard](https://github.com/ethereum-optimism/specs/blob/main/specs/interop/token-bridging.md) documentation is a work in progress, so please stay tuned.</Note>
+
+The [Superchain token bridging standard](https://github.com/ethereum-optimism/specs/blob/main/specs/interop/token-bridging.md) (`SuperchainERC20`) is a set of properties and an interface designed to enable ERC20 tokens
+to be fungible across the Superchain using the official `SuperchainERC20Bridge`. This standard builds
+upon the existing [ERC20 token standard](https://docs.openzeppelin.com/contracts/4.x/erc20) and implements the `ICrosschainERC20` interface, which includes
+two key properties: only allowing the `SuperchainERC20Bridge` to call `crosschainMint` and `crosschainBurn` functions,
+and ensuring the token is deployed at the same address on every chain in the Superchain.
+
+The `SuperchainERC20Bridge` is a predeploy that works as an abstraction on top of the `L2ToL2CrossDomainMessenger` for token bridging.
+It includes two main functions: `sendERC20`, which initiates a cross-chain transfer by burning tokens locally and sending a message
+to the target chain, and `relayERC20`, which processes incoming messages and mints the corresponding amount of tokens on the destination
+chain. This bridge utilizes the `L2ToL2CrossDomainMessenger` for replay protection, domain binding, and access to additional message information.
+
+By implementing the `SuperchainERC20` standard, tokens can achieve fungibility across the Superchain while maintaining a trust-minimized bridging
+solution. The standard's design ensures liquidity availability, which is fundamental to achieving fungibility, and removes the need for cross-chain
+access control lists. Additionally, the standard allows for potential future enhancements, such as cross-chain transferFrom functionality and concatenated
+actions for more complex cross-chain operations.
+

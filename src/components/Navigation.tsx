@@ -273,20 +273,87 @@ export const miniAppsNavigation = [
 
 export const worldChainNavigation = [
 	{
-		title: 'Introduction',
-		links: [{ title: 'What is World Chain?', href: '/world-chain' }],
+		title: 'About World Chain',
+		links: [
+			{ title: 'What is World Chain?', href: '/world-chain' },
+			{ title: 'Why World Chain?', href: '/world-chain/quick-start/why' },
+			{ title: 'Unique features', href: '/world-chain/quick-start/features' },
+			{ title: 'Data Dashboards', href: '/world-chain/quick-start/data' },
+		],
 	},
 	{
-		title: 'Quick Start',
-		links: [{ title: 'Network Information', href: '/world-chain/quick-start/info' }],
+		title: 'Using World Chain',
+		links: [
+			{ title: 'Quick Start', href: '/world-chain/quick-start' },
+			{ title: 'Funding a Wallet', href: '/world-chain/quick-start/fund-wallet' },
+			{ title: 'Network Information', href: '/world-chain/quick-start/info' },
+		],
+	},
+	{
+		title: 'Building on World Chain',
+		links: [
+			{ title: 'Deploy on World Chain', href: '/world-chain/developers/deploy' },
+			{ title: 'Deploy World ID template app', href: '/world-chain/developers/template' },
+			{ title: 'World Chain Contracts', href: '/world-chain/developers/world-chain-contracts' },
+			{ title: 'Fees', href: '/world-chain/developers/fees' },
+			{ title: 'EVM Equivalence', href: '/world-chain/developers/evm-equivalence' },
+			{
+				title: 'Scaling World Chain 🔗',
+				href: 'https://worldcoin.org/blog/engineering/finding-scalable-home-for-worldcoin',
+			},
+			{ title: 'Human Collective Grants', href: '/world-chain/developers/grants' },
+		],
 	},
 	{
 		title: 'Infrastructure Providers',
-		links: [{ title: 'Core', href: '/world-chain/providers/infrastructure' }],
+		links: [
+			{ title: 'Nodes', href: '/world-chain/providers/nodes' },
+			{ title: 'Bridges', href: '/world-chain/providers/bridges' },
+			{ title: 'Data', href: '/world-chain/providers/data' },
+			{ title: 'Block Explorers', href: '/world-chain/providers/explorers' },
+			{ title: 'Developer Tooling', href: '/world-chain/providers/developer-tooling' },
+			{ title: 'Paymasters', href: '/world-chain/providers/paymasters' },
+			{ title: 'Onramps', href: '/world-chain/providers/onramps' },
+		],
 	},
 	{
 		title: 'Technical Reference',
 		links: [{ title: 'Address Book', href: '/world-chain/reference/address-book' }],
+	},
+	{
+		title: 'Tokens',
+		links: [
+			{ title: 'Bridging an L1 token to World Chain', href: '/world-chain/tokens/bridging' },
+
+			{ title: 'Superchain Token Bridging', href: '/world-chain/tokens/superchain-token' },
+		],
+	},
+	{
+		title: 'Status Page',
+		links: [
+			{ title: 'World Chain Mainnet 🔗', href: 'https://worldchain-mainnet-status.alchemy.com/' },
+			{ title: 'World Chain Sepolia Testnet 🔗', href: 'https://worldchain-sepolia-status.alchemy.com/' },
+		],
+	},
+	{
+		title: 'Others',
+		links: [
+			{ title: 'Brand Kit 🔗', href: 'https://worldcoin.org/press' },
+			{ title: 'Worldcoin Whitepaper 🔗', href: 'https://whitepaper.worldcoin.org/' },
+		],
+	},
+	{
+		title: 'Legal',
+		links: [
+			{
+				title: 'Terms of Service 🔗',
+				href: 'https://vault.pactsafe.io/s/8a18d792-fd76-44db-9b92-b0bb7981c248/legal.html#contract-byutjvtyt',
+			},
+			{
+				title: 'Privacy Policy 🔗',
+				href: 'https://vault.pactsafe.io/s/8a18d792-fd76-44db-9b92-b0bb7981c248/legal.html#contract-s1ytru6kk',
+			},
+		],
 	},
 ]
 
@@ -309,8 +376,6 @@ export const Navigation: FC<{
 
 	const navigationGroups = getNavigationGroups()
 
-	const isWorldID = router.pathname.includes('world-id')
-
 	return (
 		<nav {...props}>
 			<ul role="list">
@@ -318,7 +383,7 @@ export const Navigation: FC<{
 					<NavigationGroup key={group.title} group={group} className={clsx(groupIndex === 0 && 'md:mt-0')} />
 				))}
 
-				<li className="sticky bottom-0 z-10 mt-6 min-[]:hidden">
+				<li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
 					<Button href="https://developer.worldcoin.org" target="_blank" className="w-full">
 						Developer Portal
 					</Button>

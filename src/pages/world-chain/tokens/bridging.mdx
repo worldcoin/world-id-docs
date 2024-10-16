@@ -1,0 +1,21 @@
+# Bridging an Ethereum token to World Chain
+
+## 1. Deploy your token on World Chain
+
+Choose your preferred bridging framework and use it to deploy an ERC-20 for your token on World Chain.
+We recommend using the framework provided by World Chain's [standard bridge contracts](https://github.com/ethereum-optimism/specs/blob/main/specs/protocol/bridges.md),
+and deploying your token with the [OptimismMintableERC20Factory](/world-chain/developers/world-chain-contracts).
+This deployment method offers guarantees that will streamline the approval process. If you opt for a different bridging framework,
+it must be compatible with the standard bridge interface, or we may have difficulty supporting it.
+
+## 2. Submit details for your token
+
+Follow the instructions in the [GitHub repository](https://github.com/ethereum-optimism/ethereum-optimism.github.io) and submit a PR with the required details for your token.
+You must specify a section for `worldchain-sepolia` and/or `worldchain` in your token’s data.json file.
+The submission is straightforward if your token is already listed on the Superchain token list.
+
+{/* TODO: confirm data.json slug*/}
+
+## 3. Await final approval
+
+The Worldcoin team regularly reviews submissions, and you should receive a response within 24-72 hours, depending on whether the PR is submitted on a weekday, weekend, or holiday.

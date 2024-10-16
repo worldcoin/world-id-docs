@@ -70,7 +70,7 @@ export const ButtonWorldChain: FC<Props> = ({ variant = 'primary', className = '
 								decimals: 18,
 							},
 							rpcUrls: ['https://worldchain-sepolia.g.alchemy.com/public'], // Replace with World Chain Testnet RPC URL
-							blockExplorerUrls: ['worldchain-seolia.explorer.alchemy.com'], // Replace with World Chain Testnet explorer URL
+							blockExplorerUrls: ['worldchain-sepolia.explorer.alchemy.com'], // Replace with World Chain Testnet explorer URL
 						},
 					],
 				})

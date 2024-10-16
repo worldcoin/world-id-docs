@@ -25,7 +25,7 @@ Not only do humans get priority inclusion on World Chain through PBH, but they a
 Initially the stipend to fund this gas allowance will be provided by the [Worldcoin Foundation](https://worldcoin.foundation) with the goal of progressive
 decentralization allowing Worldcoin governance to set it.
 
-There are two main approaches to implement the gas allowance, one opetion is on the app/wallet level through the use of account abstraction and the other one 
+There are two main approaches to implement the gas allowance, one option is on the app/wallet level through the use of account abstraction and the other one 
 is to set it at the OP Stack level through sequencer reimbursements or separate fee markets for unique humans where unique humans are not charged or their fees are paid for
 by non-human transactions in the mempool which are executed by the sequencer. The simplest one is to implement a World ID gatekept [EIP4337](https://www.erc4337.io/) [paymaster](https://www.alchemy.com/overviews/what-is-a-paymaster)
 where each `userOp` or group of `userOps` per user requires a World ID proof. More details on gas allowance for humans coming soon.

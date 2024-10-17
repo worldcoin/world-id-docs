@@ -179,6 +179,7 @@ export const worldIdNavigation = [
 			{ title: 'Template Repositories', href: '/world-id/quick-start/templates' },
 			{ title: 'Installation', href: '/world-id/quick-start/installation' },
 			{ title: 'Configuration', href: '/world-id/quick-start/configuration' },
+			{ title: 'Libraries', href: '/world-id/quick-start/libraries' },
 			{ title: 'Testing', href: '/world-id/quick-start/testing' },
 		],
 	},

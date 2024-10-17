@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { title } from 'process'
 import { Tag } from '@/components/Tag'
 import { useRouter } from 'next/router'
 import { remToPx } from '@/lib/remToPx'
@@ -163,74 +164,162 @@ const NavigationGroup: FC<{
 	)
 }
 
-export const navigation = [
+export const worldIdNavigation = [
 	{
 		title: 'Introduction',
 		links: [
 			{ title: 'What is World ID?', href: '/world-id' },
-			{ title: 'Core Concepts', href: '/concepts' },
-			{ title: 'Try it Out', href: '/try' },
+			{ title: 'Core Concepts', href: '/world-id/concepts' },
+			{ title: 'Try it Out', href: '/world-id/try' },
 		],
 	},
 	{
 		title: 'Quick Start',
 		links: [
-			{ title: 'Template Repositories', href: '/quick-start/templates' },
-			{ title: 'Installation', href: '/quick-start/installation' },
-			{ title: 'Configuration', href: '/quick-start/configuration' },
-			{ title: 'Testing', href: '/quick-start/testing' },
+			{ title: 'Template Repositories', href: '/world-id/quick-start/templates' },
+			{ title: 'Installation', href: '/world-id/quick-start/installation' },
+			{ title: 'Configuration', href: '/world-id/quick-start/configuration' },
+			{ title: 'Libraries', href: '/world-id/quick-start/libraries' },
+			{ title: 'Testing', href: '/world-id/quick-start/testing' },
 		],
 	},
 	{
 		title: 'Incognito Actions',
 		links: [
-			{ title: 'Cloud Verification', href: '/id/cloud' },
-			{ title: 'On-Chain Verification', href: '/id/on-chain' },
-			{ title: 'Common Pitfalls', href: '/id/pitfalls' },
-			{ title: 'Supported Libraries', href: '/id/libraries' },
+			{ title: 'Cloud Verification', href: '/world-id/id/cloud' },
+			{ title: 'On-Chain Verification', href: '/world-id/id/on-chain' },
+			{ title: 'Common Pitfalls', href: '/world-id/id/pitfalls' },
 		],
 	},
 	{
 		title: 'Sign In with World ID',
 		links: [
-			{ title: 'OpenID Connect (OIDC)', href: '/sign-in' },
-			{ title: 'Common Pitfalls', href: '/sign-in/pitfalls' },
+			{ title: 'OpenID Connect (OIDC)', href: '/world-id/sign-in' },
+			{ title: 'Common Pitfalls', href: '/world-id/sign-in/pitfalls' },
 		],
 	},
 	{
 		title: 'Technical Reference',
 		links: [
-			{ title: 'IDKit Reference', href: '/reference/idkit' },
-			{ title: 'API Reference', href: '/reference/api' },
-			{ title: 'Sign In Reference', href: '/reference/sign-in' },
-			{ title: 'Smart Contracts', href: '/reference/contracts' },
-			{ title: 'Address Book', href: '/reference/address-book' },
-			{ title: 'Errors', href: '/reference/errors' },
-			{ title: 'World ID 2.0 Migration Guide', href: '/reference/world-id-2-migration-guide' },
+			{ title: 'IDKit Reference', href: '/world-id/reference/idkit' },
+			{ title: 'API Reference', href: '/world-id/reference/api' },
+			{ title: 'Sign In Reference', href: '/world-id/reference/sign-in' },
+			{ title: 'Smart Contracts', href: '/world-id/reference/contracts' },
+			{ title: 'Address Book', href: '/world-id/reference/address-book' },
+			{ title: 'Errors', href: '/world-id/reference/errors' },
+			{ title: 'World ID 2.0 Migration Guide', href: '/world-id/reference/world-id-2-migration-guide' },
 		],
 	},
 	{
 		title: 'Further Reading',
 		links: [
-			{ title: 'OIDC Explainer', href: '/further-reading/oidc' },
-			{ title: 'Protocol Internals', href: '/further-reading/protocol-internals' },
-			{ title: 'Zero-Knowledge Proofs', href: '/further-reading/zero-knowledge-proofs' },
-			{ title: 'World ID Reset', href: '/further-reading/world-id-reset' },
+			{ title: 'OIDC Explainer', href: '/world-id/further-reading/oidc' },
+			{ title: 'Protocol Internals', href: '/world-id/further-reading/protocol-internals' },
+			{ title: 'Zero-Knowledge Proofs', href: '/world-id/further-reading/zero-knowledge-proofs' },
+			{ title: 'World ID Reset', href: '/world-id/further-reading/world-id-reset' },
 		],
 	},
-] as const
+]
+
+export const miniAppsNavigation = [
+	{
+		title: 'Introduction',
+		links: [{ title: 'What are Mini Apps?', href: '/mini-apps' }],
+	},
+	{
+		title: 'Quick Start',
+		links: [
+			{ title: 'Installing Minikit', href: '/mini-apps/quick-start/installing' },
+			{ title: 'Commands', href: '/mini-apps/quick-start/commands' },
+			{ title: 'Responses', href: '/mini-apps/quick-start/responses' },
+			{ title: 'Testing', href: '/mini-apps/quick-start/testing' },
+			{ title: 'Publishing', href: '/mini-apps/quick-start/publishing' },
+		],
+	},
+	{
+		title: 'Commands',
+		links: [
+			{ title: 'Verify', href: '/mini-apps/commands/verify' },
+			{ title: 'Pay', href: '/mini-apps/commands/pay' },
+			{ title: 'Wallet Auth', href: '/mini-apps/commands/wallet-auth' },
+			{ title: 'Send Transaction', href: '/mini-apps/commands/send-transaction' },
+			{ title: 'Sign Message', href: '/mini-apps/commands/sign-message' },
+			{ title: 'Sign Typed Data', href: '/mini-apps/commands/sign-typed-data' },
+			{ title: 'Share Social Graph (soon)', href: '/mini-apps/commands/share-social-graph' },
+			{ title: 'Send Notifications (soon)', href: '/mini-apps/commands/notifications' },
+		],
+	},
+	{
+		title: 'Sign In with World ID',
+		links: [{ title: 'Sign In', href: '/mini-apps/sign-in/setup' }],
+	},
+	{
+		title: 'Technical Reference',
+		links: [
+			{ title: 'API Reference', href: '/mini-apps/reference/api' },
+			{ title: 'Sharing', href: '/mini-apps/reference/sharing' },
+			{ title: 'Errors', href: '/mini-apps/reference/errors' },
+		],
+	},
+	{
+		title: 'Further Reading',
+		links: [
+			{ title: 'Security', href: '/mini-apps/more/security' },
+			{ title: 'App Store Guidelines', href: '/mini-apps/more/guidelines' },
+			{ title: 'Promotion', href: '/mini-apps/more/promotion' },
+			{ title: 'Troubleshooting', href: '/mini-apps/more/troubleshooting' },
+		],
+	},
+]
+
+export const worldChainNavigation = [
+	{
+		title: 'Introduction',
+		links: [{ title: 'What is World Chain?', href: '/world-chain' }],
+	},
+	{
+		title: 'Quick Start',
+		links: [{ title: 'Network Information', href: '/world-chain/quick-start/info' }],
+	},
+	{
+		title: 'Infrastructure Providers',
+		links: [{ title: 'Core', href: '/world-chain/providers/infrastructure' }],
+	},
+	{
+		title: 'Technical Reference',
+		links: [{ title: 'Address Book', href: '/world-chain/reference/address-book' }],
+	},
+]
 
 export const Navigation: FC<{
 	className?: string
 }> = props => {
+	const router = useRouter()
+
+	const getNavigationGroups = () => {
+		if (router.pathname.includes('world-id')) {
+			return worldIdNavigation
+		} else if (router.pathname.includes('mini-apps')) {
+			return miniAppsNavigation
+		} else if (router.pathname.includes('world-chain')) {
+			return worldChainNavigation
+		}
+		// Default case or error handling
+		return []
+	}
+
+	const navigationGroups = getNavigationGroups()
+
+	const isWorldID = router.pathname.includes('world-id')
+
 	return (
 		<nav {...props}>
 			<ul role="list">
-				{navigation.map((group, groupIndex) => (
-					// @ts-ignore
-					<NavigationGroup key={group.title} group={group} className={groupIndex === 0 && 'md:mt-0'} />
+				{navigationGroups.map((group, groupIndex) => (
+					<NavigationGroup key={group.title} group={group} className={clsx(groupIndex === 0 && 'md:mt-0')} />
 				))}
-				<li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
+
+				<li className="sticky bottom-0 z-10 mt-6 min-[]:hidden">
 					<Button href="https://developer.worldcoin.org" target="_blank" className="w-full">
 						Developer Portal
 					</Button>

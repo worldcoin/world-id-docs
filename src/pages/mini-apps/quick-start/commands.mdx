@@ -1,0 +1,61 @@
+import { Link } from '@/components/Link'
+
+# Commands
+Commands are defined payloads that the mini app can send to the World App.
+<br/><br/>These are the current commands available in Minikit:
+<table>
+    <thead>
+        <tr>
+        <th className="p-2">Command</th>
+        <th className="p-2">Description</th>
+        </tr>
+    </thead>
+    <tbody >
+        <tr>
+        <td className="flex items-center p-2">Verify</td>
+        <td className="align-middle p-2">Verify an action with World ID.</td>
+        </tr>
+        <tr>
+        <td className="align-middle p-2">Pay</td>
+        <td className="align-middle p-2">Initiate a payment request.</td>
+        </tr>
+        <tr>
+        <td className="flex items-center p-2">Wallet Auth</td>
+        <td className="align-middle p-2">Authenticate via Sign in with Ethereum</td>
+        </tr>
+        <tr>
+        <td className="flex items-center p-2">Send Transaction</td>
+        <td className="align-middle p-2">Write to smart contracts</td>
+        </tr>
+        <tr>
+        <td className="flex items-center p-2">Sign Message</td>
+        <td className="align-middle p-2">Sign personal messages with your wallet</td>
+        </tr>
+        <tr>
+        <td className="flex items-center p-2">Sign Typed Data</td>
+        <td className="align-middle p-2">Sign EIP-712 payloads with your wallet</td>
+        </tr>
+        <tr>
+        <td className="flex items-center p-2">Share Social Graph (coming soon)</td>
+        <td className="align-middle p-2">Allows users to share their contacts in a privacy preserving way with apps</td>
+        </tr>
+        <tr>
+        <td className="flex items-center p-2">Notifications (coming soon)</td>
+        <td className="align-middle p-2">Send notifications to users</td>
+        </tr>
+    </tbody>
+</table>
+
+### Example
+Below is an example of how to use the `Verify` command in your mini app.
+```tsx
+import { MiniKit, VerificationLevel, VerifyCommandInput } from '@worldcoin/minikit-js';
+
+const verifyPayload: VerifyCommandInput = {
+  action: "voting-action",
+  verification_level: VerificationLevel.Orb,
+  signal: "0x12312" // Optional
+};
+
+const payload = MiniKit.commands.verify(verifyPayload);
+```

@@ -1,6 +1,4 @@
-import useSWR from 'swr'
 import { FC } from 'react'
-import { Stats } from './Stats'
 import { Link } from '@/components/Link'
 import RedirectIcon from './icons/RedirectIcon'
 import { SoonUseCases } from '@/components/SoonUseCases'
@@ -191,7 +189,6 @@ export const UseCasesList: FC<{}> = () => {
 			</div>
 
 			<SoonUseCases />
-
 
 			{/* FIXME: Retturn stats after solving the DB load problem */}
 			{/* <h2 className="m-0 mt-16 font-bold text-xl text-black text-center">Join the Worldcoin builder community</h2> */}

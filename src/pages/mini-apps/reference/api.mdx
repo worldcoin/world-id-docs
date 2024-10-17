@@ -1,0 +1,205 @@
+# API Reference
+Minikit introduces a new api for verifying transactions.
+
+### Base URL
+
+```
+https://developer.worldcoin.org
+```
+
+## Get Transaction{{ tag: "GET", label: "/api/v2/minikit/transaction/{transaction_id}?app_id=&type=" }}
+
+<Row>
+    <Col>
+        This endpoint lets you query your apps transactions for their current status. You will only be able to
+        query for transactions of apps where you possess the `api_key`.
+
+        ### Query Params
+        <Properties>
+            <Property name="app_id" type="string" required={true}>
+            The `app_id` corresponding to the transaction that is being queried.
+            </Property>
+            <Property name="type" type="string" required={true}>
+            The `type` is either payment (pay) or transaction (sendTransaction) depending on the command you used.
+            </Property>
+        </Properties>
+
+        ### Request Headers
+        <Properties>
+            <Property name="Authorization" type="string" required={true}>
+            The `Authorization` header should be the `api_key` for your app from the Developer Portal. Make sure to
+            prefix it with `Bearer {api_key}`.
+            </Property>
+        </Properties>
+    </Col>
+    <Col>
+        <CodeGroup title="Request" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=">
+            ```bash {{ title: "cURL" }}
+            curl -X GET "/api/v2/minikit/transaction/{transaction_id}" \
+                -H "Authorization: Bearer {api_key}" 
+            ```
+            ```js
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer {api_key}',
+                }
+            })
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+<hr/>
+### Response
+<Row>
+    <Col>
+        <Properties>
+            <Property name="reference" type="string" >
+            The `reference` is your specified unique identifier for the transaction.
+            </Property>
+            <Property name="transaction_hash" type="string" >
+            The `transaction_hash` is the hash of the transaction on the blockchain.
+            </Property>
+            <Property name="transaction_status" type="string" >
+            The current `transaction_status`, can be either 'pending', 'mined', or 'failed'.
+            </Property>
+            <Property name="from" type="string" >
+            The `from` is the address of the sender.
+            </Property>
+            <Property name="chain" type="string" >
+            The `chain` is the name of the blockchain network.
+            </Property>
+            <Property name="timestamp" type="string">
+            The `timestamp` is the time when the transaction was created, in ISO 8601 format.
+            </Property>
+            <Property name="token_amount" type="string">
+            The `token_amount` is the amount of tokens transferred, in BigInt with 6 decimals.
+            </Property>
+            <Property name="token" type="string">
+            The `token` is the type of token transferred.
+            </Property>
+            <Property name="to" type="string">
+            The `to` is the address of the receiver.
+            </Property>
+            <Property name="app_id" type="string">
+            The `app_id` is the identifier of the app initiating the transaction.
+            </Property>
+        </Properties>
+    </Col>
+     <Col>
+        <CodeGroup title="Response" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}?app_id=&type=">
+            ```json {{ title: "Payment" }}
+            {
+                "reference": "1fa38f30-8ee1-4e4b-9988-0517a774f96c",
+                "transaction_hash": "0xfb25cb74b13d51deeb1a91460619c3d86a7637d40dd29831aa38dd6cbb05e880",
+                "transaction_status": "pending | mined | failed",
+                "from": "0x0c892815f0B058E69987920A23FBb33c834289cf",
+                "chain": "optimism",
+                "timestamp": "2024-01-01T00:00:00.000Z", // ISO 8601
+                "token_amount": "100000000", // amount in BigInt with 6 decimals
+                "token": "USDCE",
+                "to": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+                "app_id": "app_9a73963d73efdf2e7d9472593dc9dffd"
+            }
+            ```
+            ```json {{ title: "Transaction" }}
+           {
+                "transactionId": "0xa5b02107433da9e2a450c433560be1db01963a9146c14eed076cbf2c61837d60",
+                "transactionHash": "0xa8388148b630b49a3d5a739eaad9e98b5766235cdb21a5ec8d3f89053d982a71",
+                "transactionStatus": "failed",
+                "miniappId": "app_staging_5748c49d2e6c68849479e0b321bc5257",
+                "updatedAt": "2024-09-09T15:18:25.320Z",
+                "network": "optimism",
+                "fromWalletAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558",
+                "toContractAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558"
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+<hr/>
+
+## Get Prices {{ tag: "GET", label: "https://app-backend.toolsforhumanity.com/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDCE&fiatCurrencies=" }}
+
+<Row>
+    <Col>
+This endpoint lets you query the latest prices of the Worldcoin token in various fiat currencies. 
+We offer this as a service to make it easier to use WLD as a currency.
+
+
+        ### Query Params
+        <Properties>
+            <Property name="fiatCurrencies" type="string" required={true}>
+            The `fiatCurrencies` is a comma-separated list of fiat currencies following ISO4217 currency code.
+            eg. `USD,EUR,JPY,ARS`
+            </Property>
+        </Properties>
+         <Properties>
+            <Property name="cryptoCurrencies" type="string" required={true}>
+            The `cryptoCurrencies` is a comma-separated list of currencies we support.
+            eg. `USDCE,WLD`
+            </Property>
+        </Properties>
+
+    </Col>
+    <Col>
+        <CodeGroup title="Request" tag="GET" label="https://app-backend.toolsforhumanity.com/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDCE&fiatCurrencies=">
+            ```bash {{ title: "cURL" }}
+            curl -X GET "https://app-backend.toolsforhumanity.com/public/v1/prices/latest/wld?fiatCurrencies=USD"
+            ```
+            ```js
+            fetch(apiUrl, {
+                method: 'GET',
+            })
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+<hr/>
+
+### Response (abridged)
+Detailed are a just a few values in the return that could be confusing. See the response object in the bottom right column for the full list of fields
+<Row>
+    <Col>
+        <Properties>
+            <Property name="prices" type="string" >
+            The `prices` is an object where each key is the respective currency code
+            </Property>
+            <Property name="amount" type="string" >
+            The `amount` represents the non converted value for the price of 1 WLD for a given currency
+            </Property>
+            <Property name="decimals" type="string" >
+            The current `decimals`, should be used to calculate the converted price. ie an amount of 1000000 with 6 decimals would mean a price of $1.00 
+            via, 1000000 * 10^-6
+            </Property>
+        </Properties>
+    </Col>
+     <Col>
+        <CodeGroup title="Response" tag="GET" label="https://app-backend.toolsforhumanity.com/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDCE&fiatCurrencies=">
+            ```json
+            {
+                "result": {
+                    "prices": {
+                        "WLD": {
+                            "USD": {
+                                "asset": "USD",
+                                "amount": "1510763",
+                                "decimals": 6,
+                                "symbol": "USD"
+                            },
+                        },
+                        "USDCE": {
+                            "USD": {
+                                "asset": "USD",
+                                "amount": "1000058",
+                                "decimals": 6,
+                                "symbol": "USD"
+                            },
+                        }
+                    }
+                }
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>

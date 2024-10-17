@@ -1,0 +1,31 @@
+# Troubleshooting
+
+If you're having trouble with your mini-app, here are some common issues and solutions.
+### **Triggering a command on initialize**
+
+**Problem:** Since we use a client side component to install the minikit provider onto the `Window` object.
+If you try to trigger a command seperately as soon as the page opens via a separate `useEffect` hook 
+it can result in a race condition where minikit is not yet installed when you call the command.
+
+**Fix:** If you wish to call a command on open include the command inside the same `useEffect` hook you use to install Minikit.
+```tsx {{ title: '/components/MiniKitProvider.tsx' }}
+"use client";
+
+import { MiniKit } from "@worldcoin/minikit-js";
+import { useEffect, ReactNode } from "react";
+
+export const MiniKitProvider = ({ children }: { children: ReactNode }) => {
+  useEffect(() => {
+    MiniKit.install();
+
+    // Add any commands you wish to trigger on start here to prevent race conditions
+    MiniKit.commands.walletAuth({
+      // ...
+    })
+  }, []);
+
+  return <>{children}</>;
+};
+
+
+```

@@ -40,12 +40,12 @@ const nextConfig = {
 			},
 			{
 				source: '/idkit',
-				destination: '/id/cloud',
+				destination: '/world-id/id/cloud',
 				permanent: true,
 			},
 			{
 				source: '/js',
-				destination: '/id/cloud',
+				destination: '/world-id/id/cloud',
 				permanent: true,
 			},
 			{
@@ -55,7 +55,7 @@ const nextConfig = {
 			},
 			{
 				source: '/id/sign-in',
-				destination: '/sign-in',
+				destination: '/world-id/sign-in',
 				permanent: true,
 			},
 			{
@@ -65,12 +65,12 @@ const nextConfig = {
 			},
 			{
 				source: '/test',
-				destination: '/quick-start',
+				destination: '/world-id/quick-start/testing',
 				permanent: false,
 			},
 			{
 				source: '/simulator',
-				destination: '/quick-start/testing',
+				destination: '/world-id/quick-start/testing',
 				permanent: false,
 			},
 			{
@@ -80,12 +80,12 @@ const nextConfig = {
 			},
 			{
 				source: '/zkp',
-				destination: '/advanced/zero-knowledge-proofs',
+				destination: '/world-id/further-reading/zero-knowledge-proofs',
 				permanent: false,
 			},
 			{
 				source: '/id/anonymous-actions',
-				destination: '/id/incognito-actions',
+				destination: '/world-id/id/incognito-actions',
 				permanent: false,
 			},
 		]

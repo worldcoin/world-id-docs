@@ -299,7 +299,7 @@ export const worldChainNavigation = [
 			{ title: 'EVM Equivalence', href: '/world-chain/developers/evm-equivalence' },
 			{
 				title: 'Scaling World Chain 🔗',
-				href: 'https://worldcoin.org/blog/engineering/finding-scalable-home-for-worldcoin',
+				href: 'https://world.org/blog/engineering/finding-scalable-home-for-worldcoin',
 			},
 			{ title: 'Human Collective Grants', href: '/world-chain/developers/grants' },
 		],
@@ -338,8 +338,8 @@ export const worldChainNavigation = [
 	{
 		title: 'Others',
 		links: [
-			{ title: 'Brand Kit 🔗', href: 'https://worldcoin.org/press' },
-			{ title: 'Worldcoin Whitepaper 🔗', href: 'https://whitepaper.worldcoin.org/' },
+			{ title: 'Brand Kit 🔗', href: 'https://world.org/press' },
+			{ title: 'Worldcoin Whitepaper 🔗', href: 'https://whitepaper.world.org/' },
 		],
 	},
 	{

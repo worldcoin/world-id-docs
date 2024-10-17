@@ -1,6 +1,6 @@
+import LogoIcon from './icons/LogoIcon'
 import { Link } from '@/components/Link'
 import DiscordIcon from '@/components/icons/DiscordIcon'
-import LogoIcon from './icons/LogoIcon'
 
 export const Cta = (props: {}) => {
 	return (
@@ -16,7 +16,7 @@ export const Cta = (props: {}) => {
 			</p>
 			<Link
 				className="absolute bottom-[16px] right-[16px] flex items-center justify-center w-8 h-8 bg-[#7B53F2] rounded-full"
-				href="https://worldcoin.org/discord"
+				href="https://world.org/discord"
 				target="_blank"
 			>
 				<DiscordIcon className="w-5 text-white" />

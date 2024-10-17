@@ -20,7 +20,7 @@ After the orb verifies you are a unique human, your identity commitment is added
 
 ### How does it work?
 
-A user's World ID lives in their device, and only in their device. The user installs a compatible identity wallet (such as the [World App](https://worldcoin.org/download)). A unique and random private key is generated on-device, where it is securely stored. Identity wallets may incorporate their own recovery mechanisms, however Protocol-level recovery is being implemented soon.
+A user's World ID lives in their device, and only in their device. The user installs a compatible identity wallet (such as the [World App](https://world.org/download)). A unique and random private key is generated on-device, where it is securely stored. Identity wallets may incorporate their own recovery mechanisms, however Protocol-level recovery is being implemented soon.
 
 From the user's private key, a public _identity commitment_ is generated and published on-chain (currently Ethereum Mainnet), which acts as the source of truth for the protocol. An identity commitment is analogous to a public key in an asymmetric key-pair, or a wallet address, but in the World ID protocol this value is not broadly shared. The private key is used as input to each World ID verification, specifically as part of the [ZKP](/advanced/zero-knowledge-proofs).
 

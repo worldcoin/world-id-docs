@@ -210,7 +210,7 @@ export const UseCasesList: FC<{}> = () => {
 						description="The Quick Start is the easiest place to start"
 					/>
 					<LinkCard
-						href="https://worldcoin.org/discord"
+						href="https://world.org/discord"
 						heading="Join our Discord community"
 						description="Jam on ideas, see what others are building, ask questions. Look for the #sdk-developers channel."
 					/>

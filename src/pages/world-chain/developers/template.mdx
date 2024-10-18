@@ -1,0 +1,208 @@
+# Deploy a World ID template app
+
+In this tutorial we are going to deploy a [World ID template app](https://github.com/worldcoin/world-id-onchain-template) on a World Chain Sepolia local fork using anvil.
+This app will be a simple web application that allows users to create a World ID proof of personhood and verify it.
+The app will be deployed on World Chain Sepolia and will interact with the `WorldIDRouter` smart contract
+to verify the ZK proofs of personhood.
+
+## Prerequisites
+
+Before we start, make sure you have the following tools installed:
+
+- [Git](https://git-scm.com/) (usually pre-installed on most systems)
+- [Node.js](https://nodejs.org/en/) 
+- [pnpm](https://yarnpkg.com/) (or equivalent like npm, yarn or bun)
+- [Foundry CLI](https://book.getfoundry.sh/)
+
+## Clone template 
+
+First, clone the World ID template app repository from GitHub:
+
+```bash
+git clone https://github.com/worldcoin/world-id-onchain-template.git && cd world-id-onchain-template
+```
+
+## Install dependencies
+
+Next, install the dependencies for the World ID template app:
+
+```bash
+pnpm install
+```
+
+## Build the smart contracts
+
+Next we are going to compile the smart contracts for the World ID template app:
+
+```bash
+cd contracts && forge build
+```
+
+## Understanding World ID 
+
+Before we deploy the World ID template app, let's take a look at the smart contracts that are part of the app:
+
+```solidity {{title: "contracts/src/Contract.sol"}}
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+import { ByteHasher } from './helpers/ByteHasher.sol';
+import { IWorldID } from './interfaces/IWorldID.sol';
+
+contract Contract {
+	using ByteHasher for bytes;
+
+	///////////////////////////////////////////////////////////////////////////////
+	///                                  ERRORS                                ///
+	//////////////////////////////////////////////////////////////////////////////
+
+	/// @notice Thrown when attempting to reuse a nullifier
+	error DuplicateNullifier(uint256 nullifierHash);
+
+	/// @dev The World ID instance that will be used for verifying proofs
+	IWorldID internal immutable worldId;
+
+	/// @dev The contract's external nullifier hash
+	uint256 internal immutable externalNullifier;
+
+	/// @dev The World ID group ID (always 1)
+	uint256 internal immutable groupId = 1;
+
+	/// @dev Whether a nullifier hash has been used already. Used to guarantee an action is only performed once by a single person
+	mapping(uint256 => bool) internal nullifierHashes;
+
+	/// @param nullifierHash The nullifier hash for the verified proof
+	/// @dev A placeholder event that is emitted when a user successfully verifies with World ID
+	event Verified(uint256 nullifierHash);
+
+	/// @param _worldId The WorldID router that will verify the proofs
+	/// @param _appId The World ID app ID
+	/// @param _actionId The World ID action ID
+	constructor(IWorldID _worldId, string memory _appId, string memory _actionId) {
+		worldId = _worldId;
+		externalNullifier = abi.encodePacked(abi.encodePacked(_appId).hashToField(), _actionId).hashToField();
+	}
+
+	/// @param signal An arbitrary input from the user, usually the user's wallet address (check README for further details)
+	/// @param root The root of the Merkle tree (returned by the JS widget).
+	/// @param nullifierHash The nullifier hash for this proof, preventing double signaling (returned by the JS widget).
+	/// @param proof The zero-knowledge proof that demonstrates the claimer is registered with World ID (returned by the JS widget).
+	/// @dev Feel free to rename this method however you want! We've used `claim`, `verify` or `execute` in the past.
+	function verifyAndExecute(address signal, uint256 root, uint256 nullifierHash, uint256[8] calldata proof) public {
+		// First, we make sure this person hasn't done this before
+		if (nullifierHashes[nullifierHash]) revert DuplicateNullifier(nullifierHash);
+
+		// We now verify the provided proof is valid and the user is verified by World ID
+		worldId.verifyProof(
+			root,
+			groupId,
+			abi.encodePacked(signal).hashToField(),
+			nullifierHash,
+			externalNullifier,
+			proof
+		);
+
+		// We now record the user has done this, so they can't do it again (proof of uniqueness)
+		nullifierHashes[nullifierHash] = true;
+
+		// Finally, execute your logic here, for example issue a token, NFT, etc...
+		// Make sure to emit some kind of event afterwards!
+
+		emit Verified(nullifierHash);
+	}
+}
+```
+
+This contract has all the necessary pieces that any app that wants to integrate World ID proofs of personhood will require. 
+The World ID docs have a [detailed explanation](https://docs.worldcoin.org/world-id) of how the World ID system works and how to integrate it into your app.
+But we will go over the main parts of the contract here:
+
+1. The `Contract` contract is the main contract that will be deployed to World Chain Sepolia. It has a constructor that
+ takes the `IWorldID` interface, the app ID and the action ID as parameters. The `IWorldID` interface is the World ID router
+ that will verify the proofs, the app ID is the ID of the app can be created by the developer using the 
+[World ID Developer Portal](https://developer.worldcoin.org/login) and and the action ID is the ID of the action that the user
+is performing which will be generated automatically by the [IDKit SDK](https://docs.worldcoin.org/reference/idkit) and derived
+from `action` string defined in the Developer Portal.
+2. The [`nullifierHashes` mapping](https://docs.worldcoin.org/reference/contracts#sybil-resistance) is used to keep track of
+the nullifier hashes that have been used already. This is used to guarantee that an action is only performed once by a single
+person in order to achieve sybil resistance.
+3. The `verifyAndExecute` function is the main function that will be called by the user to verify their proof of personhood.
+It takes the user's wallet address, the root of the Merkle tree, the nullifier hash, and the proof as parameters.
+4. The function first checks if the nullifier hash has been used already and reverts if it has.
+5. It then verifies the proof using the `worldId.verifyProof` function which is part of the `IWorldID` interface.
+6. If the proof is valid, the function records the nullifier hash and executes the logic of the app. In this case, it emits 
+the `Verified` event.
+
+If you want an example of a production application which uses the World ID protocol, you can check out the
+[Worldcoin grants contracts](https://github.com/worldcoin/worldcoin-grants-contracts).
+Specifically, the [`RecurringGrantDrop.sol`](https://github.com/worldcoin/worldcoin-grants-contracts/blob/main/src/RecurringGrantDrop.sol)
+contract which uses the World ID protocol to verify that the user is a unique human before they can claim a grant.
+
+## Deploy template app
+
+First, you have to go to a node provider that supports World Chain Sepolia. You can use [Alchemy](https://www.alchemy.com/)
+or any of the other providers listed in the [World Chain documentation](/world-chain/providers/nodes). Once you have a node provider
+account, you need to get an RPC URL for the World Chain Sepolia network. For a simple deployment, the public RPC URL is sufficient.
+However, for doing a fork deployment, you will need to run a local fork of World Chain Sepolia using anvil which requires higher
+requirements on the RPC provider for forking the network.
+
+First, we will fork the World Chain Sepolia network using anvil:
+
+
+```bash
+# Substitute the RPC_URL with the RPC URL of the World Chain Sepolia network
+anvil -f $RPC_URL
+```
+
+We need to also set three important environment variables that are required for the deployment of the World ID template app:
+- `WORLD_ID_ROUTER`: The address of the World ID router contract that will verify the proofs (can be found in the [World ID documentation](https://docs.worldcoin.org/reference/address-book))
+- `NEXT_PUBLIC_APP_ID`: The app ID that was generated in the [Developer Portal](https://developer.worldcoin.org/login)
+- `NEXT_PUBLIC_ACTION`: The action ID as configured in the [Developer Portal](https://developer.worldcoin.org/login)
+
+Once the fork is running, you can deploy the World ID template app to the World Chain Sepolia network using the Foundry CLI:
+
+```bash
+# cd into the contracts directory
+cd contracts
+forge create --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 src/Contract.sol:Contract --constructor-args $WORLD_ID_ROUTER $NEXT_PUBLIC_APP_ID $NEXT_PUBLIC_ACTION
+```
+
+This command will deploy the `Contract` contract to the World Chain Sepolia network using the provided RPC URL and private key.
+
+## Local Web Setup
+
+Set up your environment variables in the `.env` file. You will need to set the following variables:
+- `NEXT_PUBLIC_APP_ID`: The app ID as configured in the [Worldcoin Developer Portal](https://developer.worldcoin.org).
+- `NEXT_PUBLIC_ACTION`: The action ID as configured in the Worldcoin Developer Portal.
+- `NEXT_PUBLIC_WALLETCONNECT_ID`: Your WalletConnect ID.
+- `NEXT_PUBLIC_CONTRACT_ADDRESS`: The address of the contract deployed in the previous step.
+
+Back in the root directory of the World ID template app, you can start the local web server:
+
+```bash
+pnpm dev
+```
+
+The Contract ABI will be automatically re-generated and saved to `src/abi/ContractAbi.json` on each run of `pnpm dev`.
+
+## Iterating
+
+After making changes to the contract, you should:
+- re-run the `forge create` command from above
+- replace the `NEXT_PUBLIC_CONTRACT_ADDRESS` environment variable with the new contract address
+- if your contract ABI has changed, restart the local web server
+
+## Testing
+
+You'll need to import the private keys on the local testnet into your wallet used for local development. The default development seed phrase is `test test test test test test test test test test test junk`.
+
+<Note> This is only for local development. Do not use this seed phrase on mainnet or any public testnet. </Note>
+
+When connecting your wallet to the local development environment, you will be prompted to add the network to your wallet.
+
+Use the [Worldcoin Simulator](https://simulator.worldcoin.org) in place of World App to scan the IDKit QR codes and generate the zero-knowledge proofs.
+
+## Further resources
+
+If you want to learn more about the World ID protocol, you can check out the [World ID documentation](/world-id). If you want to build an application 
+that uses World ID and targets existing World App users, check out [miniapps](/mini-apps)!

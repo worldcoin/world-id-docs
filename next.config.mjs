@@ -24,12 +24,12 @@ const nextConfig = {
 		return [
 			{
 				source: '/apps',
-				destination: 'https://worldcoin.org/apps',
+				destination: 'https://world.org/apps',
 				permanent: true,
 			},
 			{
 				source: '/world-id-2',
-				destination: 'https://worldcoin.org/blog/announcements/introducing-world-id-2.0',
+				destination: 'https://world.org/blog/announcements/introducing-world-id-2.0',
 				permanent: true,
 			},
 			{
@@ -54,7 +54,7 @@ const nextConfig = {
 			},
 			{
 				source: '/protocol',
-				destination: 'https://whitepaper.worldcoin.org/technical-implementation#worldcoin-protocol',
+				destination: 'https://whitepaper.world.org/technical-implementation#worldcoin-protocol',
 				permanent: false,
 			},
 			{
@@ -69,7 +69,7 @@ const nextConfig = {
 			},
 			{
 				source: '/privacy',
-				destination: 'https://whitepaper.worldcoin.org/technical-implementation#privacy',
+				destination: 'https://whitepaper.world.org/technical-implementation#privacy',
 				permanent: false,
 			},
 			{

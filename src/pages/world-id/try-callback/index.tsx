@@ -9,8 +9,8 @@ import ErrorIcon from './icons/ErrorIcon'
 import logo from 'public/worldcoin-logo.svg'
 import SuccessIcon from './icons/SuccessIcon'
 import { CodeGroup, Pre } from '@/components/Code'
-import ChevronRightIcon from './icons/ChevronRightIcon'
 import ArrowIcon from '@/components/icons/ArrowIcon'
+import ChevronRightIcon from './icons/ChevronRightIcon'
 
 enum State {
 	Error = 'error',
@@ -55,9 +55,9 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 			<Image src={logo} className="h-6" alt="" />
 
 			<div className="lg:min-w-[720px] max-w-[1024px]">
-                <Link href="/try">
-                    <ArrowIcon width="32" className="absolute text-gray-400 transform -scale-x-100 m-6" />
-                </Link>
+				<Link href="/try">
+					<ArrowIcon width="32" className="absolute text-gray-400 transform -scale-x-100 m-6" />
+				</Link>
 				<div className="pt-10 md:pt-16 md:pb-4 pb-8 px-6 grid gap-y-8 justify-items-center bg-white rounded-xl">
 					{content[result].icon}
 
@@ -179,7 +179,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ req }) => 
 
 	if (error) {
 		switch (error) {
-			case "code_not_provided":
+			case 'code_not_provided':
 				return {
 					props: {
 						result: State.Error,
@@ -187,7 +187,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ req }) => 
 					},
 				}
 
-			case "state_not_provided":
+			case 'state_not_provided':
 				return {
 					props: {
 						result: State.Error,
@@ -195,11 +195,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ req }) => 
 					},
 				}
 
-			case "token_endpoint_error":
+			case 'token_endpoint_error':
 				return {
 					props: {
 						result: State.Error,
-						details: { error: 'Error exchanging Authorization Code for Access Token. The Authorization Code may be expired.' },
+						details: {
+							error: 'Error exchanging Authorization Code for Access Token. The Authorization Code may be expired.',
+						},
 					},
 				}
 		}
@@ -220,9 +222,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ req }) => 
 			props: {
 				result: State.Error,
 				details: {
-					error: `Unable to obtain user info (${
-						userResponse.status
-					}): \n\n${await userResponse.text()}`,
+					error: `Unable to obtain user info (${userResponse.status}): \n\n${await userResponse.text()}`,
 				},
 			},
 		}

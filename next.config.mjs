@@ -22,12 +22,8 @@ const nextConfig = {
 	},
 	async redirects() {
 		return [
-            // remove when world chain docs are live 
-			{
-				source: '/world-chain',
-				destination: 'https://worldcoin.notion.site/World-Chain-Developer-Preview-Guide-23c94a67683f4e71986e5303ab88c9f3',
-				permanent: false,
-			},
+			// remove when world chain docs are live
+
 			{
 				source: '/apps',
 				destination: 'https://world.org/apps',

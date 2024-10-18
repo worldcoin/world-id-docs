@@ -22,8 +22,6 @@ const nextConfig = {
 	},
 	async redirects() {
 		return [
-			// remove when world chain docs are live
-
 			{
 				source: '/apps',
 				destination: 'https://world.org/apps',
@@ -36,12 +34,12 @@ const nextConfig = {
 			},
 			{
 				source: '/idkit',
-				destination: '/world-id/id/cloud',
+				destination: '/world-id/cloud',
 				permanent: true,
 			},
 			{
 				source: '/js',
-				destination: '/world-id/id/cloud',
+				destination: '/world-id/cloud',
 				permanent: true,
 			},
 			{
@@ -61,7 +59,7 @@ const nextConfig = {
 			},
 			{
 				source: '/test',
-				destination: '/world-id/quick-start/testing',
+				destination: '/quick-start',
 				permanent: false,
 			},
 			{
@@ -76,12 +74,12 @@ const nextConfig = {
 			},
 			{
 				source: '/zkp',
-				destination: '/world-id/further-reading/zero-knowledge-proofs',
+				destination: '/world-id/advanced/zero-knowledge-proofs',
 				permanent: false,
 			},
 			{
 				source: '/id/anonymous-actions',
-				destination: '/world-id/id/incognito-actions',
+				destination: '/world-id/incognito-actions',
 				permanent: false,
 			},
 		]

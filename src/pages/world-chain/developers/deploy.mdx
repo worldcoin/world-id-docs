@@ -100,7 +100,7 @@ group chat on [Telegram](https://t.me/worldcoindevelopers) or [Discord](https://
 Now that you have a wallet and you funded it with World Chain Sepolia ETH, you can deploy the `HelloWorldChain` contract to World Chain Sepolia using the following `forge create` command:
 
 ```bash {{title: "Deploy the contract"}}
-forge create src/HelloWorldChain.sol --rpc-url 	https://worldchain-sepolia.g.alchemy.com/public --private-key 0xcc1b30a6af68ea9a9917f1dda20c927704c5cdb2bbe0076901a8a0e40bf997c5
+forge create src/HelloWorldChain.sol:HelloWorldChain --rpc-url https://worldchain-sepolia.g.alchemy.com/public --private-key 0xcc1b30a6af68ea9a9917f1dda20c927704c5cdb2bbe0076901a8a0e40bf997c5
 ```
 
 Here we are using the `--rpc-url` flag to specify the RPC URL of the World Chain Sepolia network and the <br />`--private-key` flag to specify the private key of the wallet we generated earlier. 

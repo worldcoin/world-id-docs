@@ -49,7 +49,7 @@ const nextConfig = {
 			},
 			{
 				source: '/id/sign-in',
-				destination: '/sign-in',
+				destination: '/world-id/sign-in',
 				permanent: true,
 			},
 			{
@@ -64,7 +64,7 @@ const nextConfig = {
 			},
 			{
 				source: '/simulator',
-				destination: '/quick-start/testing',
+				destination: '/world-id/quick-start/testing',
 				permanent: false,
 			},
 			{
@@ -74,12 +74,12 @@ const nextConfig = {
 			},
 			{
 				source: '/zkp',
-				destination: '/advanced/zero-knowledge-proofs',
+				destination: '/world-id/advanced/zero-knowledge-proofs',
 				permanent: false,
 			},
 			{
 				source: '/id/anonymous-actions',
-				destination: '/id/incognito-actions',
+				destination: '/world-id/incognito-actions',
 				permanent: false,
 			},
 		]

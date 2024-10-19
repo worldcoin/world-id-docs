@@ -186,6 +186,7 @@ export const worldIdNavigation = [
 		title: 'Incognito Actions',
 		links: [
 			{ title: 'Cloud Verification', href: '/world-id/id/cloud' },
+			{ title: 'Libraries', href: '/world-id/id/libraries' },
 			{ title: 'On-Chain Verification', href: '/world-id/id/on-chain' },
 			{ title: 'Common Pitfalls', href: '/world-id/id/pitfalls' },
 		],

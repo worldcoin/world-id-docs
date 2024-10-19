@@ -241,6 +241,7 @@ export const miniAppsNavigation = [
 			{ title: 'Verify', href: '/mini-apps/commands/verify' },
 			{ title: 'Pay', href: '/mini-apps/commands/pay' },
 			{ title: 'Wallet Auth', href: '/mini-apps/commands/wallet-auth' },
+			{ title: 'Connect Wallet', href: '/mini-apps/commands/connect-wallet' },
 			{ title: 'Send Transaction', href: '/mini-apps/commands/send-transaction' },
 			{ title: 'Sign Message', href: '/mini-apps/commands/sign-message' },
 			{ title: 'Sign Typed Data', href: '/mini-apps/commands/sign-typed-data' },

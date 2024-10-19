@@ -363,10 +363,10 @@ export const Navigation: FC<{
 	const router = useRouter()
 
 	const getNavigationGroups = () => {
-		if (router.pathname.includes('world-id')) {
-			return worldIdNavigation
-		} else if (router.pathname.includes('mini-apps')) {
+		if (router.pathname.includes('mini-apps')) {
 			return miniAppsNavigation
+		} else if (router.pathname.includes('world-id')) {
+			return worldIdNavigation
 		} else if (router.pathname.includes('world-chain')) {
 			return worldChainNavigation
 		}

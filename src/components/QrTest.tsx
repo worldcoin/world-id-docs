@@ -16,7 +16,7 @@ export const QRCodeGenerator: React.FC = () => {
 		<div>
 			<input
 				type="text"
-				placeholder="Enter App Id eg. app_f88bb2a...."
+				placeholder="Enter App Id (eg. app_f88bb2a....)"
 				value={url}
 				onChange={handleInputChange}
 				className="rounded-lg p-2 border-2 w-96"

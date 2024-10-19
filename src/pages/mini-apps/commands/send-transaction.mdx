@@ -52,7 +52,11 @@ the index of the permit2 object in the transaction array.
 Additionally if you introduce a new ERC20 token we will automatically approve the permit2 contract to spend the tokens.
 
 If you need `setApprovalForAll` or are working with NFTs please reach out. 
-
+<Note type="info">
+	Tips: 
+  1. Send transaction has a max payload size. Try to only include the abi for the function you're calling otherwise your transaction will fail.
+  2. Wrap all your arguments in strings to avoid overflow errors when passing to the SDK. We will auto parse your arguments to match the types in the ABI.
+</Note>
 ``` tsx {{ title: 'app/page.tsx' }}
 import { MiniKit } from '@worldcoin/minikit-js'
 import DEXABI from "../../abi/DEX.json";

@@ -59,8 +59,8 @@ Thanks to all [the contributors](CONTRIBUTING.md) who have made the Worldcoin SD
 <p align="right"> Powered by
   <a href="https://world.org">
     <picture align="right">
-      <source media="(prefers-color-scheme: light)" srcset="public/worldcoin-logo.svg" height="24" />
-      <source media="(prefers-color-scheme: dark)" srcset="public/worldcoin-logo-white.svg" height="24" />
+      <source media="(prefers-color-scheme: light)" srcset="public/world-logo.svg" height="24" />
+      <source media="(prefers-color-scheme: dark)" srcset="public/world-logo-white.svg" height="24" />
       <img />
     </picture>
   </a>

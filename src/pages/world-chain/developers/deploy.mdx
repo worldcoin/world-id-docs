@@ -29,7 +29,13 @@ If you are using VSCode, it should something look like this:
 
 ## Write the HelloWorldChain contract
 
-You can delete the template file called `Counter.sol` in the `/src` directory, create a new file called `HelloWorldChain.sol` and add the following code to it:
+First, delete the template file called Counter.sol in the /src directory:
+
+```bash {{title: "Delete Template"}}
+rm src/Counter.sol
+```
+
+Next, create a new file called HelloWorldChain.sol in the /src directory and add the following code to it:
 
 ```solidity {{title: "HelloWorldChain.sol"}}
 // SPDX-License-Identifier: MIT
@@ -56,6 +62,57 @@ contract HelloWorldChain {
 ```
 
 This contract has a `word` variable that stores a string and two functions: `setWord` to update the word and `getWord` to return the current word.
+
+## Update Scripts and Tests
+
+Since we deleted `Counter.sol`, we need to update or remove the scripts and tests that reference it to prevent compilation errors.
+
+**Delete the `script` directory**
+
+The script directory contains scripts that import `Counter.sol`. Since we no longer have `Counter.sol`, we can delete the entire script directory to avoid any compilation issues:
+
+```bash {{title: "Delete Script Directory"}}
+rm -rf script
+```
+
+**Replace** `Counter.t.sol` with `HelloWorldChain.t.sol`
+
+In the test directory, delete the existing `Counter.t.sol` and create a new test file called `HelloWorldChain.t.sol` and add the following simple tests:
+
+```solidity {{title: "HelloWorldChain.t.sol"}}
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.28;
+
+import "forge-std/Test.sol";
+import "../src/HelloWorldChain.sol";
+
+contract HelloWorldChainTest is Test {
+    HelloWorldChain helloWorldChain;
+
+    function setUp() public {
+        helloWorldChain = new HelloWorldChain();
+    }
+
+    function testInitialWord() public {
+        string memory expected = "Hello World Chain!";
+        string memory actual = helloWorldChain.getWord();
+        assertEq(actual, expected);
+    }
+
+    function testSetWord() public {
+        string memory newWord = "Hello Foundry!";
+        helloWorldChain.setWord(newWord);
+        string memory actual = helloWorldChain.getWord();
+        assertEq(actual, newWord);
+    }
+}
+```
+
+**Now You can Run tests:**
+
+```bash {{title: "Test the contract"}}
+forge test
+```
 
 ## Compile the contract
 

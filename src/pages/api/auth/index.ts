@@ -10,11 +10,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	// TODO: Properly generate and store temporary nonces to exemplify proper usage
 
 	if (!code) {
-		return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/world-id/try-callback/?error=code_not_provided`)
+		return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/try-callback/?error=code_not_provided`)
 	}
 
 	if (!state) {
-		return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/world-id/try-callback/?error=state_not_provided`)
+		return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/try-callback/?error=state_not_provided`)
 	}
 
 	const client_id =

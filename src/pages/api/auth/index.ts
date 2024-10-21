@@ -36,10 +36,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	})
 
 	if (!tokenResponse.ok) {
-		return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/world-id/try-callback/?error=token_endpoint_error`)
+		return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/try-callback/?error=token_endpoint_error`)
 	}
 
 	const access_token = (await tokenResponse.json()).access_token
 
-	return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/world-id/try-callback/?token=${access_token}`)
+	return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/try-callback/?token=${access_token}`)
 }

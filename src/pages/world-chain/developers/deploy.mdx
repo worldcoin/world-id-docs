@@ -93,7 +93,7 @@ contract HelloWorldChainTest is Test {
         helloWorldChain = new HelloWorldChain();
     }
 
-    function testInitialWord() public {
+    function testInitialWord() public view {
         string memory expected = "Hello World Chain!";
         string memory actual = helloWorldChain.getWord();
         assertEq(actual, expected);

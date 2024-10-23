@@ -4,9 +4,7 @@ import { Link } from '@/components/Link'
 Send transaction is our command that lets you write to arbitrary smart contracts. 
 One important policy restriction we enforce is that we do not allow approvals. In order to use funds
 you must use the Signature Transfer function of <Link href="https://docs.uniswap.org/contracts/permit2/reference/signature-transfer">permit2</Link>.
-This command is available from version 2.7.63 and above. As a design principle we expect you to only request funds for what will be consumed in the transaction.
 
-For the example we will be using a sample <Link href="https://optimistic.etherscan.io/address/0x34afd47fbdcc37344d1eb6a2ed53b253d4392a2f#code">contract</Link> on Optimism.
 
 ## Crafting the payload
 
@@ -70,7 +68,7 @@ import DEXABI from "../../abi/DEX.json";
         // transfers can also be at most 1 hour in the future.
         const permitTransfer = {
             permitted: {
-                token: testTokens.optimism.USDCE,
+                token: testTokens.worldchain.USDCE,
                 amount: "10000",
             },
             nonce: Date.now().toString(),
@@ -84,7 +82,7 @@ import DEXABI from "../../abi/DEX.json";
 
         const permitTransfer2 = {
             permitted: {
-                token: testTokens.optimism.USDCE,
+                token: testTokens.worldchain.USDCE,
                 amount: "20000",
             },
             nonce: deadline,
@@ -255,7 +253,7 @@ Example response from `/minikit/transaction`
     "transactionStatus": "failed",
     "miniappId": "app_staging_5748c49d2e6c68849479e0b321bc5257",
     "updatedAt": "2024-09-09T15:18:25.320Z",
-    "network": "optimism",
+    "network": "worldchain",
     "fromWalletAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558",
     "toContractAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558"
 }

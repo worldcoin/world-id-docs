@@ -13,11 +13,10 @@ PBH ensures that ordinary users aren't unfairly disadvantaged by automated syste
 and reduces the need to pay significant gas fees to be included in a block. PBH also enables future flexibility, allowing for a separate EIP-1559-style
 market for human transactions.
 
-The implementation details of how PBH is going to work are going to be published soon as a standalone blog post. 
+If you want to learn the details of how Priority Blockspace for Humans will work, please read the [World Blog PBH article](https://world.org/blog/engineering/introducing-pbh-priority-blockspace-for-humans).
 
 If you are interested in PBH, how it works or if you would like to apply for a grant to help contribute to the roadmap, check out the [Human Collective Grants section](/world-chain/developers/grants)
  or send us a message to grants@worldcoin.org.
-
 
 ## Gas Allowance for Humans
 
@@ -29,4 +28,3 @@ There are two main approaches to implement the gas allowance, one option is on t
 is to set it at the OP Stack level through sequencer reimbursements or separate fee markets for unique humans where unique humans are not charged or their fees are paid for
 by non-human transactions in the mempool which are executed by the sequencer. The simplest one is to implement a World ID gatekept [EIP4337](https://www.erc4337.io/) [paymaster](https://www.alchemy.com/overviews/what-is-a-paymaster)
 where each `userOp` or group of `userOps` per user requires a World ID proof. More details on gas allowance for humans coming soon.
-

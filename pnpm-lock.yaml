@@ -89,6 +89,9 @@ importers:
       posthog-js:
         specifier: ^1.57.3
         version: 1.57.3
+      qrcode.react:
+        specifier: ^4.0.1
+        version: 4.0.1(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -2945,6 +2948,11 @@ packages:
   punycode@2.3.0:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}
     engines: {node: '>=6'}
+
+  qrcode.react@4.0.1:
+    resolution: {integrity: sha512-Lpj0tPBn561WiQ3QQWXbkx8xTtB8BZkJeMZWLJIL8iaPBCoWzW1IpCeU3gY5MDqsb0+efCvEGkl9O0naP64crA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
 
   qrcode@1.5.3:
     resolution: {integrity: sha512-puyri6ApkEHYiVl4CFzo1tDkAZ+ATcnbJrJ6RiBM1Fhctdn/ix9MTE3hRph33omisEbC/2fcfemsseiKgBPKZg==}
@@ -7006,6 +7014,10 @@ snapshots:
   property-information@6.2.0: {}
 
   punycode@2.3.0: {}
+
+  qrcode.react@4.0.1(react@18.2.0):
+    dependencies:
+      react: 18.2.0
 
   qrcode@1.5.3:
     dependencies:

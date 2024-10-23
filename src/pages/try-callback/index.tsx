@@ -6,7 +6,7 @@ import { Link } from '@/components/Link'
 import { GetServerSideProps } from 'next'
 import { FC, memo, useMemo } from 'react'
 import ErrorIcon from './icons/ErrorIcon'
-import logo from 'public/worldcoin-logo.svg'
+import logo from 'public/world-logo.svg'
 import SuccessIcon from './icons/SuccessIcon'
 import { CodeGroup, Pre } from '@/components/Code'
 import ArrowIcon from '@/components/icons/ArrowIcon'
@@ -55,7 +55,7 @@ const TryCallback: FC<Props> = ({ result, userData, details }) => {
 			<Image src={logo} className="h-6" alt="" />
 
 			<div className="lg:min-w-[720px] max-w-[1024px]">
-				<Link href="/try">
+				<Link href="/world-id/try">
 					<ArrowIcon width="32" className="absolute text-gray-400 transform -scale-x-100 m-6" />
 				</Link>
 				<div className="pt-10 md:pt-16 md:pb-4 pb-8 px-6 grid gap-y-8 justify-items-center bg-white rounded-xl">

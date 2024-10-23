@@ -4,7 +4,7 @@ import { Button } from './Button'
 import { useRouter } from 'next/router'
 import { Link } from '@/components/Link'
 import GitHubIcon from './icons/GitHubIcon'
-import logo from 'public/worldcoin-logo.svg'
+import logo from 'public/world-logo.svg'
 import { MobileSearch, Search } from './Search'
 import { useMobileNavigationStore } from '@/components/MobileNavigation'
 import { motion, MotionStyle, useScroll, useTransform } from 'framer-motion'
@@ -64,7 +64,7 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 						(isInsideMobileNavigation || !mobileNavIsOpen) && 'bg-zinc-900/7.5 dark:bg-white/7.5'
 					)}
 				/>
-				<div className="hidden lg:flex">
+				<div className="hidden lg:flex justify-self-start">
 					<Link href="/" aria-label="Home">
 						<Image src={logo} className="h-6" alt="World" />
 					</Link>

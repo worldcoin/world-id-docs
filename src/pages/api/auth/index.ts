@@ -1,6 +1,5 @@
-
-import { NextApiRequest, NextApiResponse } from "next"
-import { redirect } from "next/dist/server/api-utils"
+import { redirect } from 'next/dist/server/api-utils'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const url = new URL(req.url!, process.env.NEXT_PUBLIC_APP_URL)
@@ -10,16 +9,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 	// TODO: Properly generate and store temporary nonces to exemplify proper usage
 
-    if (!code) {
+	if (!code) {
 		return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/try-callback/?error=code_not_provided`)
 	}
 
 	if (!state) {
 		return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/try-callback/?error=state_not_provided`)
-    }
+	}
 
-	const client_id = (state == "production") ? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP : process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP
-	const client_secret = state == "production" ? process.env.SIGN_IN_SECRET_PROD : process.env.SIGN_IN_SECRET_STAGING
+	const client_id =
+		state == 'production' ? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP : process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP
+	const client_secret = state == 'production' ? process.env.SIGN_IN_SECRET_PROD : process.env.SIGN_IN_SECRET_STAGING
 
 	const tokenResponse = await fetch(`${process.env.NEXT_PUBLIC_SIGN_IN_WITH_WORLDCOIN_ENDPOINT}/token`, {
 		method: 'POST',
@@ -41,5 +41,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 	const access_token = (await tokenResponse.json()).access_token
 
-    return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/try-callback/?token=${access_token}`)
+	return redirect(res, `${process.env.NEXT_PUBLIC_APP_URL}/try-callback/?token=${access_token}`)
 }

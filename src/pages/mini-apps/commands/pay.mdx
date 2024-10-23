@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
 We currently support WLD and USDC payments on Worldchain. Below is the expected input for the Pay command.
 Since World App sponsors the gas fee, there is a minimum transfer amount of $0.1 for all tokens.
 ``` tsx {{title: 'PayCommandInput' }}
+// Represents tokens you allow the user to pay with and amount for each
 export type TokensPayload = {
   symbol: Tokens;
   token_amount: string;

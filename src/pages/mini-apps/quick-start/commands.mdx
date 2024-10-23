@@ -2,11 +2,8 @@ import { Link } from '@/components/Link'
 
 # Commands
 
-Commands are defined payloads that the mini app can send to the World App.
+Commands are defined actions your mini app can perform in World App.
 
-<br />
-<br />
-These are the current commands available in MiniKit:
 <table>
 	<thead>
 		<tr>
@@ -41,9 +38,7 @@ These are the current commands available in MiniKit:
 		</tr>
 		<tr>
 			<td className="flex items-center p-2">Share Social Graph (coming soon)</td>
-			<td className="p-2 align-middle">
-				Allows users to share their contacts in a privacy preserving way with apps
-			</td>
+			<td className="p-2 align-middle">Share your contacts in a privacy preserving way with apps</td>
 		</tr>
 		<tr>
 			<td className="flex items-center p-2">Notifications (coming soon)</td>
@@ -51,19 +46,3 @@ These are the current commands available in MiniKit:
 		</tr>
 	</tbody>
 </table>
-
-### Example
-
-Below is an example of how to use the `Verify` command in your mini app.
-
-```tsx
-import { MiniKit, VerificationLevel, VerifyCommandInput } from '@worldcoin/minikit-js'
-
-const verifyPayload: VerifyCommandInput = {
-	action: 'voting-action',
-	verification_level: VerificationLevel.Orb,
-	signal: '0x12312', // Optional
-}
-
-const payload = MiniKit.commands.verify(verifyPayload)
-```

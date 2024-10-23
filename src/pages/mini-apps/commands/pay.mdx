@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
 ```
 ## Sending the command
-We currently support WLD and USDC payments. For now, payments will all be done on Optimism. Below is the expected input for the Pay command.
+We currently support WLD and USDC payments on Worldchain. Below is the expected input for the Pay command.
 Since World App sponsors the gas fee, there is a minimum transfer amount of $0.1 for all tokens.
 ``` tsx {{title: 'PayCommandInput' }}
 export type TokensPayload = {
@@ -49,9 +49,7 @@ export type PayCommandInput = {
   description: string;
 };
 ```
-Using the Pay command.
-
-Note for convenience, we offer a public endpoint to query the current price of 1 WLD in various currencies detailed <Link href="/mini-apps/reference/api#get-prices">here</Link>. 
+For convenience, we offer a public endpoint to query the current price of WLD in various currencies detailed <Link href="/mini-apps/reference/api#get-prices">here</Link>. 
 ``` tsx {{ title: 'app/page.tsx' }}
 import { MiniKit, tokenToDecimals, Tokens, PayCommandInput } from '@worldcoin/minikit-js'
     // ...

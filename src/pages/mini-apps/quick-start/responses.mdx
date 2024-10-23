@@ -1,22 +1,14 @@
 # Responses
 
-World App will return responses to your mini app based on the command sent. You can define custom logic to handle these responses with MiniKit.<br/>
-
-You can choose to mount these responses globally, but we recommend adding them only to the pages where they're triggered and cleaning
-them up after.
+World App will return responses to your mini app based on the command sent. You can define custom logic to handle these responses with MiniKit. We recommend adding listeners only to the pages where they are triggered.
 
 ### Example Response
-
 Listening for a response from the `Verify` command in your mini app.
 
 ```tsx
 import { MiniKit, ResponseEvent } from '@worldcoin/minikit-js'
 // ...
 useEffect(() => {
-	if (!MiniKit.isInstalled()) {
-		return
-	}
-
 	MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async verifyResponse => {
 		if (payload.status === 'error') {
 			return console.log('Error payload', payload)
@@ -31,6 +23,7 @@ useEffect(() => {
 			body: JSON.stringify({
 				payload: verifyResponse,
 				action: verifyResponse.action,
+				signal: ...
 			}),
 		})
 	})

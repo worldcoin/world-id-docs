@@ -54,7 +54,7 @@ const nextConfig = {
 			},
 			{
 				source: '/protocol',
-				destination: 'https://whitepaper.world.org/technical-implementation#worldcoin-protocol',
+				destination: 'https://whitepaper.world.org/#protocol',
 				permanent: false,
 			},
 			{

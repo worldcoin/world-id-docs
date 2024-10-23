@@ -91,9 +91,7 @@ const SocialLink: FC<
 
 const SmallPrint = () => (
 	<div className="flex flex-col items-center justify-between gap-5 border-t border-zinc-900/5 pt-8 dark:border-white/5 sm:flex-row">
-		<p className="text-xs text-zinc-600 dark:text-zinc-400">
-			&copy; {new Date().getFullYear()} Worldcoin Foundation
-		</p>
+		<p className="text-xs text-zinc-600 dark:text-zinc-400">&copy; {new Date().getFullYear()} World Foundation</p>
 		<div className="flex gap-4">
 			<SocialLink href="https://twitter.com/worldcoin" icon={TwitterIcon}>
 				Follow us on Twitter

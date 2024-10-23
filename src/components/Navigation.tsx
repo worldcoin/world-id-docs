@@ -341,7 +341,7 @@ export const worldChainNavigation = [
 		title: 'Others',
 		links: [
 			{ title: 'Brand Kit 🔗', href: 'https://world.org/press' },
-			{ title: 'Worldcoin Whitepaper 🔗', href: 'https://whitepaper.world.org/' },
+			{ title: 'World Whitepaper 🔗', href: 'https://whitepaper.world.org/' },
 		],
 	},
 	{

@@ -66,14 +66,14 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 				/>
 				<div className="hidden lg:flex">
 					<Link href="/" aria-label="Home">
-						<Image src={logo} className="h-6" alt="Worldcoin" />
+						<Image src={logo} className="h-6" alt="World" />
 					</Link>
 				</div>
 				<Search />
 				<div className="flex items-center gap-5 lg:hidden">
 					<MobileNavigation />
 					<Link href="/" aria-label="Home">
-						<Image src={logo} className="h-6" alt="Worldcoin" />
+						<Image src={logo} className="h-6" alt="World" />
 					</Link>
 				</div>
 				<div className="flex items-center gap-5">

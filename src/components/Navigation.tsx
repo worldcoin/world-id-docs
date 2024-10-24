@@ -248,6 +248,7 @@ export const miniAppsNavigation = [
 			{ title: 'Share Contacts', href: '/mini-apps/commands/share-contacts' },
 			{ title: 'Send Notifications', href: '/mini-apps/commands/send-notifications' },
 			{ title: 'Get Permissions', href: '/mini-apps/commands/get-permissions' },
+			{ title: 'Send Haptic Feedback', href: '/mini-apps/commands/send-haptic-feedback' },
 		],
 	},
 	{

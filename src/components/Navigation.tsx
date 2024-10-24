@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import { title } from 'process'
 import { Tag } from '@/components/Tag'
 import { useRouter } from 'next/router'
 import { remToPx } from '@/lib/remToPx'
@@ -237,6 +236,10 @@ export const miniAppsNavigation = [
 		],
 	},
 	{
+		title: 'Design Standards',
+		links: [{ title: 'Guidelines', href: '/mini-apps/design/app-guidelines' }],
+	},
+	{
 		title: 'Commands',
 		links: [
 			{ title: 'Verify', href: '/mini-apps/commands/verify' },
@@ -265,9 +268,10 @@ export const miniAppsNavigation = [
 	{
 		title: 'Further Reading',
 		links: [
-			{ title: 'Security', href: '/mini-apps/more/security' },
-			{ title: 'App Store Guidelines', href: '/mini-apps/more/guidelines' },
 			{ title: 'Promotion', href: '/mini-apps/more/promotion' },
+			{ title: 'Grants', href: '/mini-apps/more/grants' },
+			{ title: 'Guidelines', href: '/mini-apps/more/guidelines' },
+			{ title: 'Security', href: '/mini-apps/more/security' },
 			{ title: 'Troubleshooting', href: '/mini-apps/more/troubleshooting' },
 		],
 	},

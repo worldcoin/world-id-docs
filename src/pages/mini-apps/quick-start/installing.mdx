@@ -57,7 +57,9 @@ import { MiniKit } from '@worldcoin/minikit-js'
 
 export default function MiniKitProvider({ children }: { children: ReactNode }) {
 	useEffect(() => {
-		MiniKit.install()
+		// Passing appId in the install is optional 
+		// but allows you to access it later via `window.MiniKit.appId`
+		MiniKit.install(appId?) 
 	}, [])
 
 	return <>{children}</>

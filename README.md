@@ -58,10 +58,10 @@ All the technical docs for the World SDK, World ID Protocol, World Chain, Mini A
 
 To develop locally and contribute to these docs, you can follow these steps after cloning the repo.
 
--   Activate required Node version (18.x)
+-   Activate required Node version (LTS 18)
 
 ```bash
-nvm use 18 # only if you are using nvm
+nvm use
 ```
 
 -   Install dependencies
@@ -73,7 +73,7 @@ pnpm install
 -   Run locally
 
 ```bash
-pnpm start
+pnpm dev
 ```
 
 -   Open browser at `http://localhost:3000`

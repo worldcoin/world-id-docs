@@ -273,7 +273,6 @@ export const miniAppsNavigation = [
 			{ title: 'Promotion', href: '/mini-apps/more/promotion' },
 			{ title: 'Grants', href: '/mini-apps/more/grants' },
 			{ title: 'Guidelines', href: '/mini-apps/more/guidelines' },
-			{ title: 'Security', href: '/mini-apps/more/security' },
 			{ title: 'Troubleshooting', href: '/mini-apps/more/troubleshooting' },
 		],
 	},

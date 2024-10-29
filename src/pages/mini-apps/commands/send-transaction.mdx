@@ -1,212 +1,324 @@
 import { Link } from '@/components/Link'
+import Tabs, { TabItem } from '@/components/Tabs'
 
 # Send Transaction
-Send transaction is our command that lets you write to arbitrary smart contracts. 
+
+Send transaction is our command that lets you write to arbitrary smart contracts.
 One important policy restriction we enforce is that we do not allow approvals. In order to use funds
 you must use the Signature Transfer function of <Link href="https://docs.uniswap.org/contracts/permit2/reference/signature-transfer">permit2</Link>.
 
-
 ## Crafting the payload
 
-Send transaction will automatically create the permit2 signatures for you. 
+Send transaction will automatically create the permit2 signatures for you.
+
 <Note type="info">
-	Make sure you specify the contracts and tokens you are interacting with in the Developer Portal (configuration/advanced) otherwise we will block the transaction.
+	Make sure you specify the contracts and tokens you are interacting with in the Developer Portal
+	(configuration/advanced) otherwise we will block the transaction.
 </Note>
-``` ts
+
+```ts
 export type SendTransactionInput = {
-  transaction: Transaction[];
-  permit2?: Permit2[]; // Optional
-};
+	transaction: Transaction[]
+	permit2?: Permit2[] // Optional
+}
 
 export type Permit2 = {
-  permitted: {
-    token: string;
-    amount: string | unknown;
-  };
-  spender: string;
-  nonce: string | unknown;
-  deadline: string | unknown;
-};
+	permitted: {
+		token: string
+		amount: string | unknown
+	}
+	spender: string
+	nonce: string | unknown
+	deadline: string | unknown
+}
 
 export type Transaction = {
-  address: string; // Contract address
-  abi: Abi | readonly unknown[]; // Only include the abi for the function you're calling
-  functionName: ContractFunctionName<
-    Abi | readonly unknown[],
-    "payable" | "nonpayable"
-  >;
-  args: ContractFunctionArgs< // Wrap all your arguments in strings to avoid overflow errors
-    Abi | readonly unknown[],
-    "payable" | "nonpayable",
-    ContractFunctionName<Abi | readonly unknown[], "payable" | "nonpayable">
-  >;
-};
+	address: string // Contract address
+	abi: Abi | readonly unknown[] // Only include the abi for the function you're calling
+	functionName: ContractFunctionName<Abi | readonly unknown[], 'payable' | 'nonpayable'>
+	args: ContractFunctionArgs<
+		// Wrap all your arguments in strings to avoid overflow errors
+		Abi | readonly unknown[],
+		'payable' | 'nonpayable',
+		ContractFunctionName<Abi | readonly unknown[], 'payable' | 'nonpayable'>
+	>
+}
 ```
 
 ## Using the command
-In this example we will use two nested transactions. If your function requires a permit2 signature use `PERMIT2_SIGNATURE_PLACEHOLDER_{n}` with 
-the index of the permit2 object in the transaction array. 
+
+In this example we will use two nested transactions. If your function requires a permit2 signature use `PERMIT2_SIGNATURE_PLACEHOLDER_{n}` with
+the index of the permit2 object in the transaction array.
 
 Additionally if you introduce a new ERC20 token we will automatically approve the permit2 contract to spend the tokens.
 
-If you need `setApprovalForAll` or are working with NFTs please reach out. 
+If you need `setApprovalForAll` or are working with NFTs please reach out.
+
 <Note type="info">
-  - Send transaction has a max payload size. Keep your abi small.
+	
+  - Send transaction has a max payload size. Keep your abi small. 
   - Wrap all your arguments in strings to avoid overflow errors when passing to the SDK. We will auto parse your arguments to match the types in the ABI.
+
 </Note>
-``` tsx {{ title: 'app/page.tsx' }}
-import { MiniKit } from '@worldcoin/minikit-js'
-import DEXABI from "../../abi/DEX.json";
-    
-    // ...  
-   const sendTransactionCommand = () => {
-        const deadline = Math.floor(
-            (Date.now() + 30 * 60 * 1000) / 1000
-        ).toString();
 
-        // Transfers can also be at most 1 hour in the future.
-        const permitTransfer = {
-            permitted: {
-                token: testTokens.worldchain.USDCE,
-                amount: "10000",
-            },
-            nonce: Date.now().toString(),
-            deadline,
-        };
+<Tabs>
+	<TabItem label="Event listeners">
 
-        const permitTransferArgsForm = [
-            [permitTransfer.permitted.token, permitTransfer.permitted.amount],
-            permitTransfer.nonce,
-            permitTransfer.deadline,
-        ];
+    ```tsx {{ title: 'app/page.tsx' }}
+    import DEXABI from '../../abi/DEX.json'
+    import { MiniKit } from '@worldcoin/minikit-js'
 
-        const transferDetails = {
-            to: "0x126f7998Eb44Dd2d097A8AB2eBcb28dEA1646AC8",
-            requestedAmount: "10000",
-        };
+    // ...
+    const sendTransactionCommand = () => {
+      const deadline = Math.floor((Date.now() + 30 * 60 * 1000) / 1000).toString()
 
-        const transferDetailsArgsForm = [
-            transferDetails.to,
-            transferDetails.requestedAmount,
-        ];
+      // Transfers can also be at most 1 hour in the future.
+      const permitTransfer = {
+        permitted: {
+          token: testTokens.worldchain.USDCE,
+          amount: '10000',
+        },
+        nonce: Date.now().toString(),
+        deadline,
+      }
 
-        const payload = MiniKit.commands.sendTransaction({
-            transaction: [
-                {
-                    address: "0x34afd47fbdcc37344d1eb6a2ed53b253d4392a2f",
-                    abi: DEXABI,
-                    functionName: "signatureTransfer",
-                    args: [
-                        permitTransferArgsForm,
-                        transferDetailsArgsForm,
-                        "PERMIT2_SIGNATURE_PLACEHOLDER_0",
-                    ],
-                }
-            ],
-            permit2: [
-                {
-                    ...permitTransfer,
-                    spender: "0x34afd47fbdcc37344d1eb6a2ed53b253d4392a2f",
-                }
-            ],
-        });
-  };
+      const permitTransferArgsForm = [
+        [permitTransfer.permitted.token, permitTransfer.permitted.amount],
+        permitTransfer.nonce,
+        permitTransfer.deadline,
+      ]
 
-```
+      const transferDetails = {
+        to: '0x126f7998Eb44Dd2d097A8AB2eBcb28dEA1646AC8',
+        requestedAmount: '10000',
+      }
 
-## Receiving the response
-The transaction will be first simulated and checked for errors. If there are no errors the user will be prompted to sign the transaction. To make it easier we let you install hooks built on top of Viem.
+      const transferDetailsArgsForm = [transferDetails.to, transferDetails.requestedAmount]
 
-This requires installing the `@worldcoin/minikit-react` package.
-```bash {{ title: "Usage" }}
-pnpm i @worldcoin/minikit-react
-```
+      const payload = MiniKit.commands.sendTransaction({
+        transaction: [
+          {
+            address: '0x34afd47fbdcc37344d1eb6a2ed53b253d4392a2f',
+            abi: DEXABI,
+            functionName: 'signatureTransfer',
+            args: [permitTransferArgsForm, transferDetailsArgsForm, 'PERMIT2_SIGNATURE_PLACEHOLDER_0'],
+          },
+        ],
+        permit2: [
+          {
+            ...permitTransfer,
+            spender: '0x34afd47fbdcc37344d1eb6a2ed53b253d4392a2f',
+          },
+        ],
+      })
+    }
+    ```
 
-In this flow we will use the hook `useWaitForTransactionReceipt` to check the status of the transaction. 
-```tsx
-interface UseTransactionReceiptResult {
-  transactionHash?: `0x${string}`;
-  receipt?: TransactionReceipt;
-  isError: boolean;
-  isLoading: boolean;
-  isSuccess: boolean;
-  error?: Error;
-  retrigger: () => void;
-}
-```
+    ### Receiving the response
 
-``` tsx {{ title: 'app/page.tsx' }}
-const [transactionId, setTransactionId] = useState<string>("");
+    The transaction will be first simulated and checked for errors. If there are no errors the user will be prompted to sign the transaction. To make it easier we let you install hooks built on top of Viem.
 
-  const client = createPublicClient({
-    chain: worldchain,
-    transport: http("https://worldchain-mainnet.g.alchemy.com/public"),
-  });
+    This requires installing the `@worldcoin/minikit-react` package.
 
-  const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
+    ```bash {{ title: "Usage" }}
+    pnpm i @worldcoin/minikit-react
+    ```
+
+    In this flow we will use the hook `useWaitForTransactionReceipt` to check the status of the transaction.
+
+    ```tsx
+    interface UseTransactionReceiptResult {
+      transactionHash?: `0x${string}`
+      receipt?: TransactionReceipt
+      isError: boolean
+      isLoading: boolean
+      isSuccess: boolean
+      error?: Error
+      retrigger: () => void
+    }
+    ```
+
+    ```tsx {{ title: 'app/page.tsx' }}
+    const [transactionId, setTransactionId] = useState<string>('')
+
+    const client = createPublicClient({
+      chain: worldchain,
+      transport: http('https://worldchain-mainnet.g.alchemy.com/public'),
+    })
+
+    const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
       client: client,
       appConfig: {
-        app_id: "<app_id>",
+        app_id: '<app_id>',
       },
       transactionId: transactionId,
-    });
+    })
 
-  useEffect(() => {
-    if (!MiniKit.isInstalled()) {
-      return;
-    }
-
-    MiniKit.subscribe(
-      ResponseEvent.MiniAppSendTransaction,
-      async (payload: MiniAppSendTransactionPayload) => {
-        if (payload.status === "error") {
-            console.error("Error sending transaction", payload);
-        } else {
-          setTransactionId(payload.transaction_id);
-        }
+    useEffect(() => {
+      if (!MiniKit.isInstalled()) {
+        return
       }
-    );
 
-    return () => {
-      MiniKit.unsubscribe(ResponseEvent.MiniAppSendTransaction);
-    };
-  }, []);
+      MiniKit.subscribe(ResponseEvent.MiniAppSendTransaction, async (payload: MiniAppSendTransactionPayload) => {
+        if (payload.status === 'error') {
+          console.error('Error sending transaction', payload)
+        } else {
+          setTransactionId(payload.transaction_id)
+        }
+      })
 
-```
+      return () => {
+        MiniKit.unsubscribe(ResponseEvent.MiniAppSendTransaction)
+      }
+    }, [])
+    ```
 
-## Alternative: Verifying the transaction 
-If you don't want to use our hook you can choose to query for the hash yourself using this endpoint. Make sure to specify `type=transaction` in the query string. 
+  </TabItem>
+  <TabItem label="Async handlers">
+
+    ### Sending the transaction & receiving the response
+
+    ```tsx {{ title: 'app/page.tsx' }}
+    import DEXABI from '../../abi/DEX.json'
+    import { MiniKit } from '@worldcoin/minikit-js'
+
+    // ...
+    const sendTransaction = async () => {
+      if (!MiniKit.isInstalled()) {
+        return;
+      }
+
+      const deadline = Math.floor((Date.now() + 30 * 60 * 1000) / 1000).toString()
+
+      // Transfers can also be at most 1 hour in the future.
+      const permitTransfer = {
+        permitted: {
+          token: testTokens.worldchain.USDCE,
+          amount: '10000',
+        },
+        nonce: Date.now().toString(),
+        deadline,
+      }
+
+      const permitTransferArgsForm = [
+        [permitTransfer.permitted.token, permitTransfer.permitted.amount],
+        permitTransfer.nonce,
+        permitTransfer.deadline,
+      ]
+
+      const transferDetails = {
+        to: '0x126f7998Eb44Dd2d097A8AB2eBcb28dEA1646AC8',
+        requestedAmount: '10000',
+      }
+
+      const transferDetailsArgsForm = [transferDetails.to, transferDetails.requestedAmount]
+
+      const {commandPayload, finalPayload} = await MiniKit.commandsAsync.sendTransaction({
+        transaction: [
+          {
+            address: '0x34afd47fbdcc37344d1eb6a2ed53b253d4392a2f',
+            abi: DEXABI,
+            functionName: 'signatureTransfer',
+            args: [permitTransferArgsForm, transferDetailsArgsForm, 'PERMIT2_SIGNATURE_PLACEHOLDER_0'],
+          },
+        ],
+        permit2: [
+          {
+            ...permitTransfer,
+            spender: '0x34afd47fbdcc37344d1eb6a2ed53b253d4392a2f',
+          },
+        ],
+      })
+    }
+    ```
+
+    ### Check transaction status
+
+
+    The transaction will be first simulated and checked for errors. If there are no errors the user will be prompted to sign the transaction. To make it easier we let you install hooks built on top of Viem.
+
+    This requires installing the `@worldcoin/minikit-react` package.
+
+    ```bash {{ title: "Usage" }}
+    pnpm i @worldcoin/minikit-react
+    ```
+
+    In this flow we will use the hook `useWaitForTransactionReceipt` to check the status of the transaction.
+
+
+    ```tsx {{ title: 'app/page.tsx' }}
+    import { useWaitForTransactionReceipt } from '@worldcoin/minikit-react'
+
+    const [transactionId, setTransactionId] = useState<string>('')
+
+    const client = createPublicClient({
+      chain: worldchain,
+      transport: http('https://worldchain-mainnet.g.alchemy.com/public'),
+    })
+
+    const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+      client: client,
+      appConfig: {
+        app_id: '<app_id>',
+      },
+      transactionId: transactionId,
+    })
+
+    const sendTransaction = async () => {
+      if (!MiniKit.isInstalled()) {
+        return;
+      }
+      // ...
+      const {commandPayload, finalPayload} = await MiniKit.commandsAsync.sendTransaction({
+        // ...
+      })
+
+      if (payload.status === 'error') {
+        console.error('Error sending transaction', payload)
+      } else {
+        setTransactionId(payload.transaction_id)
+      }
+    }
+    ```
+
+  </TabItem>
+
+</Tabs>
+
+## Alternative: Verifying the transaction
+
+If you don't want to use our hook you can choose to query for the hash yourself using this endpoint. Make sure to specify `type=transaction` in the query string.
 
 Transactions are sent via our relayer currently and so we provide you an internal id rather than a hash in the original response above.
-``` tsx {{ title: 'app/confirm-transaction/route.ts' }}
-import { MiniAppSendTransactionSuccessPayload } from "@worldcoin/minikit-js";
-import { NextRequest, NextResponse } from "next/server";
+
+```tsx {{ title: 'app/confirm-transaction/route.ts' }}
+import { NextRequest, NextResponse } from 'next/server'
+import { MiniAppSendTransactionSuccessPayload } from '@worldcoin/minikit-js'
 
 interface IRequestPayload {
-  payload: MiniAppSendTransactionSuccessPayload;
+	payload: MiniAppSendTransactionSuccessPayload
 }
 
 export async function POST(req: NextRequest) {
-  const { payload } = (await req.json()) as IRequestPayload;
-  
-  
-    const response = await fetch(
-      `https://developer.worldcoin.org/api/v2/minikit/transaction/${payload.transaction_id}?app_id=${process.env.APP_ID}&type=transaction`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${process.env.DEV_PORTAL_API_KEY}`,
-        },
-      }
-    );
-    const transaction = await response.json();
+	const { payload } = (await req.json()) as IRequestPayload
 
-    return NextResponse.json(transaction);
+	const response = await fetch(
+		`https://developer.worldcoin.org/api/v2/minikit/transaction/${payload.transaction_id}?app_id=${process.env.APP_ID}&type=transaction`,
+		{
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${process.env.DEV_PORTAL_API_KEY}`,
+			},
+		}
+	)
+	const transaction = await response.json()
 
-  }
+	return NextResponse.json(transaction)
+}
 ```
+
 Example response from `/minikit/transaction`
+
 ```tsx
 {
     "transactionId": "0xa5b02107433da9e2a450c433560be1db01963a9146c14eed076cbf2c61837d60",

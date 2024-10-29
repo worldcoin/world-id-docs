@@ -2,66 +2,128 @@
 
 Sign Typed Data lets you create an EIP-712 [signature](https://eips.ethereum.org/EIPS/eip-712).
 
-## Sending the command
-```tsx
-import type { TypedData, TypedDataDomain } from "abitype";
+<Tabs>
+	<TabItem label="Event listeners">
 
-export type SignTypedDataInput = {
-  types: TypedData;
-  primaryType: string;
-  message: Record<string, unknown>;
-  domain?: TypedDataDomain;
-};
-```
-``` tsx {{ title: 'app/page.tsx' }}
-import { MiniKit, SignTypedDataInput } from '@worldcoin/minikit-js'
+    ### Sending the command
 
-  const onSignTypedData = () => {
-    const payload = MiniKit.commands.signTypedData(
-      somePayloadforEIP712 as SignTypedDataInput;
-    );
-  };
-```
+    ```tsx
+    import type { TypedData, TypedDataDomain } from 'abitype'
 
-## Receiving the response
-
-Verifying the signature. Note permit2 payloads and safe operations are not permitted in this command.
-
-```tsx
-type MiniAppSignTypedDataSuccessPayload = {
-  status: "success";
-  signature: string;
-  address: string;
-  version: number;
-};
-```
-
-``` tsx {{ title: 'app/page.tsx' }}
-import { MiniKit, ResponseEvent } from '@worldcoin/minikit-js'
-useEffect(() => {
-    if (!MiniKit.isInstalled()) {
-      return;
+    export type SignTypedDataInput = {
+      types: TypedData
+      primaryType: string
+      message: Record<string, unknown>
+      domain?: TypedDataDomain
     }
+    ```
 
-    MiniKit.subscribe(ResponseEvent.MiniAppSignTypedData,
-      async (payload: MiniAppSignTypedDataPayload) => {
-        if (payload.status === "success") {
-         const messageHash = hashSafeMessage(signTypedDataPayload);
+    ```tsx {{ title: 'app/page.tsx' }}
+    import { MiniKit, SignTypedDataInput } from '@worldcoin/minikit-js'
+
+      const onSignTypedData = () => {
+        const payload = MiniKit.commands.signTypedData(
+          somePayloadforEIP712 as SignTypedDataInput;
+        );
+      };
+    ```
+
+    ### Receiving the response
+
+    Verifying the signature. Note permit2 payloads and safe operations are not permitted in this command.
+
+    ```tsx
+    type MiniAppSignTypedDataSuccessPayload = {
+      status: 'success'
+      signature: string
+      address: string
+      version: number
+    }
+    ```
+
+    ```tsx {{ title: 'app/page.tsx' }}
+    import { MiniKit, ResponseEvent } from '@worldcoin/minikit-js'
+    useEffect(() => {
+      if (!MiniKit.isInstalled()) {
+        return
+      }
+
+      MiniKit.subscribe(ResponseEvent.MiniAppSignTypedData, async (payload: MiniAppSignTypedDataPayload) => {
+        if (payload.status === 'success') {
+          const messageHash = hashSafeMessage(signTypedDataPayload)
 
           const isValid = await (
             await Safe.init({
-              provider:
-                "https://opt-mainnet.g.alchemy.com/v2/your-api-key",
+              provider: 'https://opt-mainnet.g.alchemy.com/v2/your-api-key',
               safeAddress: payload.address,
             })
-          ).isValidSignature(messageHash, payload.signature);
+          ).isValidSignature(messageHash, payload.signature)
 
           // Checks functionally if the signature is correct
           if (isValid) {
-            console.log("Signature is valid");
+            console.log('Signature is valid')
           }
         }
-      }
-    );
-}, []);
-```
+      })
+    }, [])
+    ```
+
+  </TabItem>
+  <TabItem label="Async handlers">
+
+    ### Sending the command & handling the response
+
+    ```tsx
+    import type { TypedData, TypedDataDomain } from 'abitype'
+
+    export type SignTypedDataInput = {
+      types: TypedData
+      primaryType: string
+      message: Record<string, unknown>
+      domain?: TypedDataDomain
+    }
+    ```
+
+    ```tsx
+    type MiniAppSignTypedDataSuccessPayload = {
+      status: 'success'
+      signature: string
+      address: string
+      version: number
+    }
+    ```
+
+    ```tsx {{ title: 'app/page.tsx' }}
+    import { MiniKit, SignTypedDataInput } from '@worldcoin/minikit-js'
+
+      const signAndVerifyTypedData = async () => {
+        if (!MiniKit.isInstalled()) {
+          return
+        }
+
+        const {finalPayload} = await MiniKit.commandsAsync.signTypedData(
+          somePayloadforEIP712 as SignTypedDataInput;
+        );
+
+        // Verifying the signature. Note permit2 payloads and safe operations are not permitted in this command.
+        if (payload.status === 'success') {
+          const messageHash = hashSafeMessage(signTypedDataPayload)
+
+          const isValid = await (
+            await Safe.init({
+              provider: 'https://opt-mainnet.g.alchemy.com/v2/your-api-key',
+              safeAddress: payload.address,
+            })
+          ).isValidSignature(messageHash, payload.signature)
+
+          // Checks functionally if the signature is correct
+          if (isValid) {
+            console.log('Signature is valid')
+          }
+        }
+      };
+    ```
+
+  </TabItem>
+
+</Tabs>

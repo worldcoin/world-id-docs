@@ -2,7 +2,10 @@ import { Link } from '@/components/Link'
 
 # Commands
 
-Commands are defined actions your mini app can perform in World App.
+Commands are defined actions your mini app can perform in World App. Every command is available as either:
+
+-   a synchronous function that dispatches an event, the result of which has to be listened for,
+-   an async function, that can be awaited, resolves with the result.
 
 <table>
 	<thead>

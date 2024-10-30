@@ -8,7 +8,58 @@ Sign message lets you create an EIP-191 signature.
 ## Using the command
 
 <Tabs>
-	<TabItem label="Event listeners">
+	
+  <TabItem label="Async handlers">
+
+    ### Sending the command & handling the response
+
+    The response will include a signature compliant with [EIP-191](https://eips.ethereum.org/EIPS/eip-191).
+    You should verify the signature.
+
+
+    ```ts
+    type MiniAppSignMessageSuccessPayload = {
+      status: "success";
+      signature: string;
+      address: string;
+      version: number;
+    };
+    ```
+
+    ```tsx {{ title: 'app/page.tsx' }}
+    import { MiniKit, SignMessageInput } from '@worldcoin/minikit-js'
+
+    const signAndVerifyMessage = async () => {
+      const signMessagePayload: SignMessageInput = {
+        message: "Hello world",
+      };
+
+      const {finalPayload} = await MiniKit.commandsAsync.signMessage(signMessagePayload);
+
+      if (finalPayload.status === "success") {
+        const messageHash = hashSafeMessage(messageToSign);
+
+        const isValid = await (
+          await Safe.init({
+            provider:
+              "https://opt-mainnet.g.alchemy.com/v2/your-api-key",
+            safeAddress: finalPayload.address,
+          })
+        ).isValidSignature(messageHash, finalPayload.signature);
+
+        // Checks functionally if the signature is correct
+        if (isValid) {
+          console.log("Signature is valid");
+        }
+      }
+    };
+    ```
+
+    Your message is verified!
+
+  </TabItem>
+
+  <TabItem label="Event listeners">
 
     ### Sending the command
 
@@ -81,55 +132,6 @@ Sign message lets you create an EIP-191 signature.
         };
       }, []);
 
-    ```
-
-    Your message is verified!
-
-  </TabItem>
-  <TabItem label="Async handlers">
-
-    ### Sending the command & handling the response
-
-    The response will include a signature compliant with [EIP-191](https://eips.ethereum.org/EIPS/eip-191).
-    You should verify the signature.
-
-
-    ```ts
-    type MiniAppSignMessageSuccessPayload = {
-      status: "success";
-      signature: string;
-      address: string;
-      version: number;
-    };
-    ```
-
-    ```tsx {{ title: 'app/page.tsx' }}
-    import { MiniKit, SignMessageInput } from '@worldcoin/minikit-js'
-
-    const signAndVerifyMessage = async () => {
-      const signMessagePayload: SignMessageInput = {
-        message: "Hello world",
-      };
-
-      const {finalPayload} = await MiniKit.commandsAsync.signMessage(signMessagePayload);
-
-      if (finalPayload.status === "success") {
-        const messageHash = hashSafeMessage(messageToSign);
-
-        const isValid = await (
-          await Safe.init({
-            provider:
-              "https://opt-mainnet.g.alchemy.com/v2/your-api-key",
-            safeAddress: finalPayload.address,
-          })
-        ).isValidSignature(messageHash, finalPayload.signature);
-
-        // Checks functionally if the signature is correct
-        if (isValid) {
-          console.log("Signature is valid");
-        }
-      }
-    };
     ```
 
     Your message is verified!

@@ -1,151 +1,263 @@
 import { Link } from '@/components/Link'
+import Tabs, { TabItem } from '@/components/Tabs'
 
 # Wallet Auth (Sign in with Ethereum)
 
-Wallet Auth is our native support for <Link href="https://eips.ethereum.org/EIPS/eip-4361">Sign in With Ethereum</Link>. 
+Wallet Auth is our native support for <Link href="https://eips.ethereum.org/EIPS/eip-4361">Sign in With Ethereum</Link>.
 
 <Note type="info">
-World App currently uses <Link href="https://safe.global/wallet">Safe</Link> addresses in order to do the SIWE flow. This means that it will not work with common libraries like <Link href="https://github.com/spruceid/siwe">SIWE</Link> which expect EOAs.
+	World App currently uses <Link href="https://safe.global/wallet">Safe</Link> addresses in order to do the SIWE flow.
+	This means that it will not work with common libraries like
+	<Link href="https://github.com/spruceid/siwe">SIWE</Link> which expect EOAs.
 </Note>
+
 ## Creating the nonce
+
 Since the user can modify the client, it's important to create the nonce in the backend. **The nonce must be at least 8 alphanumeric characters in length.**
-``` ts {{ title: 'app/api/nonce.ts' }}
-import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+
+```ts {{ title: 'app/api/nonce.ts' }}
+import {cookies} from "next/headers"; import {(NextRequest, NextResponse)} from "next/server";
 
 export function GET(req: NextRequest) {
   // Expects only alphanumeric characters
   const nonce = crypto.randomUUID().replace(/-/g, "");
 
-  // The nonce should be stored somewhere that is not tamperable by the client
-  // Optionally you can HMAC the nonce with a secret key stored in your environment
-  cookies().set("siwe", nonce, { secure: true });
-  return NextResponse.json({ nonce });
+// The nonce should be stored somewhere that is not tamperable by the client
+// Optionally you can HMAC the nonce with a secret key stored in your environment
+cookies().set("siwe", nonce, { secure: true });
+return NextResponse.json({ nonce });
 }
 
 ```
 
+## Using the command
 
-## Sending the command
+<Tabs>
 
-Below is the expected input for `walletAuth`. 
+    <TabItem label="Async handlers">
 
-``` ts
-interface WalletAuthInput {
-  nonce: string
-  expirationTime?: Date
-  statement?: string
-  requestId?: string
-  notBefore?: Date
-} 
-```
-Using the `walletAuth` command. 
-``` tsx {{ title: 'app/page.tsx' }}
-import { MiniKit, WalletAuthInput } from '@worldcoin/minikit-js'
-  // ...
-  const signInWithWallet = async () => {
-    const res = await fetch(`/api/nonce`);
-    const { nonce } = await res.json();
+    	### Sending & handling the command response
+    	Below is the expected input for `walletAuth`.
 
-    const generateMessageResult = MiniKit.commands.walletAuth({
-      nonce: nonce,
-      requestId: "0", // Optional
-      expirationTime: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
-      notBefore: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-      statement:
-        "This is my statement and here is a link https://worldcoin.com/apps",
-    });
-  };
-```
+    	```ts
+    	interface WalletAuthInput {
+    		nonce: string
+    		expirationTime?: Date
+    		statement?: string
+    		requestId?: string
+    		notBefore?: Date
+    	}
+    	```
 
-## Receiving the response
-The returned message will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-4361">ERC-191</Link>. 
-You're welcome to use any third party libraries to verify the payloads for SIWE, but since World App uses Safe addresses that do not implement `isValidSignature` we created a helper function for you. 
-Under the hood, we use the wallet's EOA private key to sign the message but the address is the Safe address.
+    	Using the async `walletAuth` command.
 
-```tsx
-type MiniAppWalletAuthSuccessPayload = {
-  status: "success";
-  message: string;
-  signature: string;
-  address: string;
-  version: number;
-};
-```
+    	```tsx {{ title: 'app/page.tsx' }}
+    	import { MiniKit, WalletAuthInput } from '@worldcoin/minikit-js'
+    	// ...
+    	const signInWithWallet = async () => {
+    		if (!MiniKit.isInstalled()) {
+    			return
+    		}
+    		const res = await fetch(`/api/nonce`)
+    		const { nonce } = await res.json()
 
-```tsx {{ title: 'app/page.tsx' }}
-import { ResponseEvent } from '@worldcoin/minikit-js'
-  // ...
-  useEffect(() => {
-    if (!MiniKit.isInstalled()) {
-      return;
-    }
+    		const {commandPayload: generateMessageResult, finalPayload} = await MiniKit.commandsAsync.walletAuth({
+    			nonce: nonce,
+    			requestId: '0', // Optional
+    			expirationTime: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+    			notBefore: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+    			statement: 'This is my statement and here is a link https://worldcoin.com/apps',
+    		})
+    		// ...
+    	```
 
-    MiniKit.subscribe(ResponseEvent.MiniAppWalletAuth, async (payload) => {
-      if (payload.status === "error") {
-        return
-      } else {
-        const response = await fetch("/api/complete-siwe", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            payload: payload,
-            nonce,
-          }),
-        });
-      }
-    });
+    	The returned message (in final payload) will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-4361">ERC-191</Link>.
+    	You're welcome to use any third party libraries to verify the payloads for SIWE, but since World App uses Safe addresses that do not implement `isValidSignature` we created a helper function for you.
+    	Under the hood, we use the wallet's EOA private key to sign the message but the address is the Safe address.
 
-    return () => {
-      MiniKit.unsubscribe(ResponseEvent.MiniAppWalletAuth);
-    };
-  }, []);
-  ```
-  You can now additionally access the user's wallet address from the minikit object.
-  ```tsx
-  const walletAddress = MiniKit.walletAddress;
-  // or
-  const walletAddress = window.MiniKit?.walletAddress;
-  ```
+    	```tsx
+    	type MiniAppWalletAuthSuccessPayload = {
+    		status: 'success'
+    		message: string
+    		signature: string
+    		address: string
+    		version: number
+    	}
+    	```
+
+    	```tsx {{ title: 'app/page.tsx' }}
+    	const signInWithWallet = async () => {
+    		if (!MiniKit.isInstalled()) {
+    			return
+    		}
+
+    		const res = await fetch(`/api/nonce`)
+    		const { nonce } = await res.json()
+
+    		const { commandPayload: generateMessageResult, finalPayload } = await MiniKit.commandsAsync.walletAuth({
+    			nonce: nonce,
+    			requestId: '0', // Optional
+    			expirationTime: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+    			notBefore: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+    			statement: 'This is my statement and here is a link https://worldcoin.com/apps',
+    		})
+
+    		if (finalPayload.status === 'error') {
+    			return
+    		} else {
+    			const response = await fetch('/api/complete-siwe', {
+    				method: 'POST',
+    				headers: {
+    					'Content-Type': 'application/json',
+    				},
+    				body: JSON.stringify({
+    					payload: finalPayload,
+    					nonce,
+    				}),
+    			})
+    		}
+    	}
+    	```
+
+    	You can now additionally access the user's wallet address from the minikit object.
+
+    	```tsx
+    	const walletAddress = MiniKit.walletAddress
+    	// or
+    	const walletAddress = window.MiniKit?.walletAddress
+    	```
+    </TabItem>
+
+    <TabItem label="Event listeners">
+
+    	### Sending the command
+
+    	Below is the expected input for `walletAuth`.
+
+    	```ts
+    	interface WalletAuthInput {
+    		nonce: string
+    		expirationTime?: Date
+    		statement?: string
+    		requestId?: string
+    		notBefore?: Date
+    	}
+    	```
+
+    	Using the `walletAuth` command.
+
+    	```tsx {{ title: 'app/page.tsx' }}
+    	import { MiniKit, WalletAuthInput } from '@worldcoin/minikit-js'
+    	// ...
+    	const signInWithWallet = async () => {
+    		const res = await fetch(`/api/nonce`)
+    		const { nonce } = await res.json()
+
+    		const generateMessageResult = MiniKit.commands.walletAuth({
+    			nonce: nonce,
+    			requestId: '0', // Optional
+    			expirationTime: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+    			notBefore: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+    			statement: 'This is my statement and here is a link https://worldcoin.com/apps',
+    		})
+    	}
+    	```
+
+    	### Receiving the response
+
+    	The returned message will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-4361">ERC-191</Link>.
+    	You're welcome to use any third party libraries to verify the payloads for SIWE, but since World App uses Safe addresses that do not implement `isValidSignature` we created a helper function for you.
+    	Under the hood, we use the wallet's EOA private key to sign the message but the address is the Safe address.
+
+    	```tsx
+    	type MiniAppWalletAuthSuccessPayload = {
+    		status: 'success'
+    		message: string
+    		signature: string
+    		address: string
+    		version: number
+    	}
+    	```
+
+    	```tsx {{ title: 'app/page.tsx' }}
+    	import { ResponseEvent } from '@worldcoin/minikit-js'
+    	// ...
+    	useEffect(() => {
+    		if (!MiniKit.isInstalled()) {
+    			return
+    		}
+
+    		MiniKit.subscribe(ResponseEvent.MiniAppWalletAuth, async payload => {
+    			if (payload.status === 'error') {
+    				return
+    			} else {
+    				const response = await fetch('/api/complete-siwe', {
+    					method: 'POST',
+    					headers: {
+    						'Content-Type': 'application/json',
+    					},
+    					body: JSON.stringify({
+    						payload: payload,
+    						nonce,
+    					}),
+    				})
+    			}
+    		})
+
+    		return () => {
+    			MiniKit.unsubscribe(ResponseEvent.MiniAppWalletAuth)
+    		}
+    	}, [])
+    	```
+
+    	You can now additionally access the user's wallet address from the minikit object.
+
+    	```tsx
+    	const walletAddress = MiniKit.walletAddress
+    	// or
+    	const walletAddress = window.MiniKit?.walletAddress
+    	```
+    </TabItem>
+
+</Tabs>
 
 ## Verifying the Login
+
 Finally, complete the sign in by verifying the response from World App in your backend. Here we check the nonce matches the one we created earlier, and
 then verify the signature.
+
 ```ts {{ title: 'app/api/complete-siwe.ts' }}
-import { MiniAppWalletAuthSuccessPayload, verifySiweMessage } from "@worldcoin/minikit-js";
-import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { cookies } from 'next/headers'
+import { NextRequest, NextResponse } from 'next/server'
+import { MiniAppWalletAuthSuccessPayload, verifySiweMessage } from '@worldcoin/minikit-js'
 
 interface IRequestPayload {
-  payload: MiniAppWalletAuthSuccessPayload;
-  nonce: string;
+	payload: MiniAppWalletAuthSuccessPayload
+	nonce: string
 }
 
 export const POST = async (req: NextRequest) => {
-  const { payload, nonce } = (await req.json()) as IRequestPayload;
-  if (nonce != cookies().get("siwe")?.value) {
-    return NextResponse.json({
-      status: "error",
-      isValid: false,
-      message: "Invalid nonce",
-    });
-  }
-  try {
-    const validMessage = await verifySiweMessage(payload, nonce);
-    return NextResponse.json({
-      status: "success",
-      isValid: validMessage.isValid,
-    });
-  } catch (error: any) {
-    // Handle errors in validation or processing
-    return NextResponse.json({
-      status: "error",
-      isValid: false,
-      message: error.message,
-    });
-  }
-};
-
+	const { payload, nonce } = (await req.json()) as IRequestPayload
+	if (nonce != cookies().get('siwe')?.value) {
+		return NextResponse.json({
+			status: 'error',
+			isValid: false,
+			message: 'Invalid nonce',
+		})
+	}
+	try {
+		const validMessage = await verifySiweMessage(payload, nonce)
+		return NextResponse.json({
+			status: 'success',
+			isValid: validMessage.isValid,
+		})
+	} catch (error: any) {
+		// Handle errors in validation or processing
+		return NextResponse.json({
+			status: 'error',
+			isValid: false,
+			message: error.message,
+		})
+	}
+}
 ```

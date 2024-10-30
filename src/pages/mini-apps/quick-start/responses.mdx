@@ -1,36 +1,78 @@
 # Responses
 
-World App will return responses to your mini app based on the command sent. You can define custom logic to handle these responses with MiniKit. We recommend adding listeners only to the pages where they are triggered.
+World App will return responses to your mini app based on the command sent. You can define custom logic to handle these responses with MiniKit.
+If you choose to use event listeners, we recommend adding them only to the pages where they are triggered.
+
+Another way of handling responses is to use async handlers.
+Calling an async handler will call the command and wait for a response from WorldApp
+The resolved object contains the WorldApp response (`finalPayload`) along with an object returned by calling command (`commandPayload`).
+You don't have to worry about cleaning up the listeners, and the command can be simply awaited.
 
 ### Example Response
-Listening for a response from the `Verify` command in your mini app.
 
-```tsx
+Two ways of getting the response:
+
+<CodeGroup>
+
+```tsx {{ title: "Event listeners" }}
 import { MiniKit, ResponseEvent } from '@worldcoin/minikit-js'
-// ...
-useEffect(() => {
-	MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async verifyResponse => {
-		if (payload.status === 'error') {
-			return console.log('Error payload', payload)
-		}
 
-		// Verify the proof in the backend
-		const verifyResponse = await fetch('/api/verify', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				payload: verifyResponse,
-				action: verifyResponse.action,
-				signal: ...
-			}),
+export function ReactComponent() {
+	// ...
+	useEffect(() => {
+		MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async payload => {
+			if (payload.status === 'error') {
+				return console.log('Error payload', payload)
+			}
+
+			// Verify the proof in the backend
+			const verifyResponse = await fetch('/api/verify', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: {
+					//...
+				},
+			})
 		})
+
+		return () => {
+			// Clean up on unmount
+			MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction)
+		}
+	}, [])
+}
+```
+
+```tsx {{ title: "Async handlers" }}
+import { MiniKit } from '@worldcoin/minikit-js'
+// ...
+
+const handleVerify = async () => {
+	// ...
+
+	// The async versions of commands, return an object that contains the final payload, which is the response from World App,
+	// as well as commandPayload, which is the object that is returned after calling the command.
+	const { finalPayload } = await MiniKit.verifyAsync({
+		//...
 	})
 
-	return () => {
-		// Clean up on unmount
-		MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction)
+	if (finalPayload.status === 'error') {
+		return console.log('Error payload', finalPayload)
 	}
-}, [])
+
+	// Verify the proof in the backend
+	const verifyResponse = await fetch('/api/verify', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: {
+			// ...
+		},
+	})
+}
 ```
+
+</CodeGroup>

@@ -6,75 +6,148 @@ The verify command lets you use <Link href="/world-id/id/cloud">incognito action
 
 To use incognito actions, first create one in the <Link href="https://developer.worldcoin.org/">Developer Portal</Link>.
 
-## Sending the command
+<Tabs>
+	<TabItem label="Event listeners">
 
-MiniKit uses a slightly different input payload than IDKit. We do not need to pass in the `app_id`.
+    	### Sending the command
 
-```tsx
-export type VerifyCommandInput = {
-	action: string
-	signal?: string
-	verification_level?: VerificationLevel // Default: Orb
-}
-```
+    	MiniKit uses a slightly different input payload than IDKit. We do not need to pass in the `app_id`.
 
-Using the `verify` command:
+    	```tsx
+    	export type VerifyCommandInput = {
+    		action: string
+    		signal?: string
+    		verification_level?: VerificationLevel // Default: Orb
+    	}
+    	```
 
-```tsx {{ title: 'app/page.tsx' }}
-import { MiniKit, VerifyCommandInput, VerificationLevel } from '@worldcoin/minikit-js'
+    	Using the `verify` command:
 
-const verifyPayload: VerifyCommandInput = {
-	action: 'voting-action', // This is your action ID from the Developer Portal
-	signal: '0x12312', // Optional additional data
-	verification_level: VerificationLevel.Orb, // Orb | Device
-}
+    	```tsx {{ title: 'app/page.tsx' }}
+    	import { MiniKit, VerifyCommandInput, VerificationLevel } from '@worldcoin/minikit-js'
 
-const payload = MiniKit.commands.verify(verifyPayload)
-```
+    	const verifyPayload: VerifyCommandInput = {
+    		action: 'voting-action', // This is your action ID from the Developer Portal
+    		signal: '0x12312', // Optional additional data
+    		verification_level: VerificationLevel.Orb, // Orb | Device
+    	}
 
-## Listening for the response
+    	const payload = MiniKit.commands.verify(verifyPayload)
+    	```
 
-Upon receiving the command from your mini app, World App will open a drawer prompting the user to confirm the operation.
+    	### Listening for the response
 
-```tsx {{ title: 'app/page.tsx' }}
-import { MiniKit, ResponseEvent, ISuccessResult, MiniAppVerifyActionPayload } from '@worldcoin/minikit-js'
+    	Upon receiving the command from your mini app, World App will open a drawer prompting the user to confirm the operation.
 
-// ...
-useEffect(() => {
-	if (!MiniKit.isInstalled()) {
-		return
-	}
+    	```tsx {{ title: 'app/page.tsx' }}
+    	import { MiniKit, ResponseEvent, ISuccessResult, MiniAppVerifyActionPayload } from '@worldcoin/minikit-js'
 
-	MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async (response: MiniAppVerifyActionPayload) => {
-		if (response.status === 'error') {
-			return console.log('Error payload', response)
-		}
+    	// ...
+    	useEffect(() => {
+    		if (!MiniKit.isInstalled()) {
+    			return
+    		}
 
-		// Verify the proof in the backend
-		const verifyResponse = await fetch('/api/verify', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				payload: response as ISuccessResult, // Parses only the fields we need to verify
-				action: 'voting-action',
-				signal: '0x12312', // Optional
-			}),
-		})
+    		MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async (response: MiniAppVerifyActionPayload) => {
+    			if (response.status === 'error') {
+    				return console.log('Error payload', response)
+    			}
 
-		// TODO: Handle Success!
-		const verifyResponseJson = await verifyResponse.json()
-		if (verifyResponseJson.status === 200) {
-			console.log('Verification success!')
-		}
-	})
+    			// Verify the proof in the backend
+    			const verifyResponse = await fetch('/api/verify', {
+    				method: 'POST',
+    				headers: {
+    					'Content-Type': 'application/json',
+    				},
+    				body: JSON.stringify({
+    					payload: response as ISuccessResult, // Parses only the fields we need to verify
+    					action: 'voting-action',
+    					signal: '0x12312', // Optional
+    				}),
+    			})
 
-	return () => {
-		MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction)
-	}
-}, [])
-```
+    			// TODO: Handle Success!
+    			const verifyResponseJson = await verifyResponse.json()
+    			if (verifyResponseJson.status === 200) {
+    				console.log('Verification success!')
+    			}
+    		})
+
+    		return () => {
+    			MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction)
+    		}
+    	}, [])
+    	```
+
+  </TabItem>
+  <TabItem label="Async handlers">
+
+    	### Sending the command & handling the response
+
+    	MiniKit uses a slightly different input payload than IDKit. We do not need to pass in the `app_id`.
+
+    	```tsx
+    	export type VerifyCommandInput = {
+    		action: string
+    		signal?: string
+    		verification_level?: VerificationLevel // Default: Orb
+    	}
+    	```
+
+    	```ts
+    	type MiniAppVerifyActionSuccessPayload = {
+    		status: 'success'
+    		proof: string
+    		merkle_root: string
+    		nullifier_hash: string
+    		verification_level: VerificationLevel
+    		version: number
+    	}
+    	```
+
+    	```tsx {{ title: 'app/page.tsx' }}
+    	import { MiniKit, VerifyCommandInput, VerificationLevel, ISuccessResult } from '@worldcoin/minikit-js'
+
+    	const verifyPayload: VerifyCommandInput = {
+    		action: 'voting-action', // This is your action ID from the Developer Portal
+    		signal: '0x12312', // Optional additional data
+    		verification_level: VerificationLevel.Orb, // Orb | Device
+    	}
+
+    	const handleVerify = async () => {
+    		if (!MiniKit.isInstalled()) {
+    			return
+    		}
+    		// World App will open a drawer prompting the user to confirm the operation, promise is resolved once user confirms or cancels
+    		const {finalPayload} = await MiniKit.commandsAsync.verify(verifyPayload)
+    			if (finalPayload.status === 'error') {
+    				return console.log('Error payload', finalPayload)
+    			}
+
+    			// Verify the proof in the backend
+    			const verifyResponse = await fetch('/api/verify', {
+    				method: 'POST',
+    				headers: {
+    					'Content-Type': 'application/json',
+    				},
+    				body: JSON.stringify({
+    				payload: finalPayload as ISuccessResult, // Parses only the fields we need to verify
+    				action: 'voting-action',
+    				signal: '0x12312', // Optional
+    			}),
+    		})
+
+    		// TODO: Handle Success!
+    		const verifyResponseJson = await verifyResponse.json()
+    		if (verifyResponseJson.status === 200) {
+    			console.log('Verification success!')
+    		}
+    	}
+    	```
+
+  </TabItem>
+
+</Tabs>
 
 ## Verifying the proof
 
@@ -85,7 +158,7 @@ useEffect(() => {
 
 Successful responses will return a `MiniAppVerifyActionSuccessPayload`.
 
-```typescript
+```ts
 type MiniAppVerifyActionSuccessPayload = {
 	status: 'success'
 	proof: string
@@ -98,7 +171,7 @@ type MiniAppVerifyActionSuccessPayload = {
 
 To verify the proof, you will need to make a backend route.
 
-```typescript {{ title: 'app/api/verify/route.ts' }}
+```ts {{ title: 'app/api/verify/route.ts' }}
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyCloudProof, IVerifyResponse, ISuccessResult } from '@worldcoin/minikit-js'
 

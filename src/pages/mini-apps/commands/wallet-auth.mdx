@@ -166,9 +166,7 @@ return NextResponse.json({ nonce });
     	### Receiving the response
 
     	The returned message will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-4361">ERC-191</Link>.
-    	You're welcome to use any third party libraries to verify the payloads for SIWE, but since World App uses Safe addresses that do not implement `isValidSignature` we created a helper function for you.
-    	Under the hood, we use the wallet's EOA private key to sign the message but the address is the Safe address.
-
+    	
     	```tsx
     	type MiniAppWalletAuthSuccessPayload = {
     		status: 'success'

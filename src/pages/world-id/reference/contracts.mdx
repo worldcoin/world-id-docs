@@ -9,7 +9,7 @@ All of our smart contracts are available on GitHub:
 
 <Note>
 	If you're interested in using World ID and verifying proofs on-chain, see our [On-Chain Verification
-	guide](/id/on-chain).
+	guide](/world-id/id/on-chain).
 </Note>
 
 ## Supported Chains
@@ -79,7 +79,7 @@ All of our smart contracts are available on GitHub:
 	</tbody>
 </table>
 
-<Note>Find our smart contract [address book here](/reference/address-book).</Note>
+<Note>Find our smart contract [address book here](/world-id/reference/address-book).</Note>
 
 ## Architecture
 
@@ -153,7 +153,7 @@ The `verifyProof` method of the **World ID Router** is used to verify proofs on-
 		```
 
 		</Col></Row>
-		<Note>Read more about the External Nullifier in [Protocol Internals](/further-reading/protocol-internals#external-nullifier).</Note>
+		<Note>Read more about the External Nullifier in [Protocol Internals](/world-id/further-reading/protocol-internals#external-nullifier).</Note>
 	</Property>
 	<Property name="proof" type="uint256[8]" required={true}>
 		<Row><Col>
@@ -183,7 +183,7 @@ While the World ID protocol makes it very easy to make your contracts sybil resi
 -   Store the `nullifierHash` of each user that has successfully verified a proof.
 -   When a user attempts to verify a proof, check that the `nullifierHash` is not already in the list of used `nullifierHash`es.
 
-Here's an example function doing the above. You can also use the [World ID starter kits](/id/on-chain) to get started with sybil resistance.
+Here's an example function doing the above. You can also use the [World ID starter kits](/world-id/id/on-chain) to get started with sybil resistance.
 
 ```solidity
 /// @param root The root (returned by the IDKit widget).

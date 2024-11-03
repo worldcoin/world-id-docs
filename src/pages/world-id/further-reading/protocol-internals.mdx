@@ -33,7 +33,7 @@ The Wallet Bridge acts as the intermediary between IDKit and the user's World ID
 </Note>
 1. IDKit initiates the proof request session on the Wallet Bridge.
     - An app configures and opens IDKit with the required parameters `app_id` and `action`, and the optional parameters `signal`, `credential_types`, and `action_description`.
-        - If an application is self-hosted, the `app_id` must be equal to `self_hosted`. See more details about self-hosted applications [here](/reference/idkit#self-hosted-applications).
+        - If an application is self-hosted, the `app_id` must be equal to `self_hosted`. See more details about self-hosted applications [here](/world-id/reference/idkit#self-hosted-applications).
     - IDKit generates an AES-GCM `key` and `iv`, used to encrypt the verification request. IDKit temporarily stores the `key` in memory.
     - IDKit encrypts the above parameters with the `key` and `iv`, forming the encrypted body of the request to the Wallet Bridge. The `iv` is included unencrypted in the request body.
         <CodeGroup title="Bridge POST Request">
@@ -115,11 +115,11 @@ The Wallet Bridge acts as the intermediary between IDKit and the user's World ID
             }
             ```
         </CodeGroup>
-        <Note>View the [Errors Reference](/reference/errors) for more information on potential error codes.</Note>
+        <Note>View the [Errors Reference](/world-id/reference/errors) for more information on potential error codes.</Note>
 
 ## External Nullifier
 
-Within [Semaphore](https://semaphore.appliedzkp.org/), the [zero knowledge](/advanced/zero-knowledge-proofs) protocol that World ID is based on, the external nullifier is a public 32-byte value that scopes the uniqueness of verifications. It is one of two inputs in the ZK circuit, the other being the secret identity nullifier. These two values are hashed to produce the nullifier hash, which identifies the user.
+Within [Semaphore](https://semaphore.appliedzkp.org/), the [zero knowledge](/world-id/advanced/zero-knowledge-proofs) protocol that World ID is based on, the external nullifier is a public 32-byte value that scopes the uniqueness of verifications. It is one of two inputs in the ZK circuit, the other being the secret identity nullifier. These two values are hashed to produce the nullifier hash, which identifies the user.
 
 World ID actions (whether for Sign In or Incognito Actions) are identified by their external nullifiers. This value is derived from the `app_id` and stringified action passed by IDKit to the World app. Our implementation can be [found here](https://github.com/worldcoin/idkit-js/blob/main/idkit/src/lib/hashing.ts#L94).
 

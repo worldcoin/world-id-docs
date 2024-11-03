@@ -24,7 +24,7 @@ Mini apps enable third-party developers to create native-like applications withi
 
 Mini Apps work by sending [Commands](http://docs.world.org/mini-apps/quick-start/commands) via the MiniKit SDK to World App, and listening for [Responses](http://docs.world.org/mini-apps/quick-start/responses) passed back.
 
-To make it easy to build mini apps, we’ve release the [MiniKit-JS SDK](https://www.npmjs.com/package/@worldcoin/minikit-js).
+To make it easy to build mini apps, we have released the [MiniKit-JS SDK](https://www.npmjs.com/package/@worldcoin/minikit-js).
 
 ## World Chain
 

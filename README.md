@@ -32,7 +32,7 @@ World Chain is a blockchain for humans. World chain offers several unique primit
 
 -   Free gas fees for all verified humans
 -   Native mobile distribution to all World App users through mini-apps
--   Simplified crypto transaction through mini apps
+-   Simplified crypto transactions through mini apps
 -   Sybil resistance for developers via World ID
 -   Airdrop of WLD tokens to all verified humans
 
@@ -44,21 +44,11 @@ World Chain is built on the [Superchain](https://docs.optimism.io/stack/explaine
 
 All the technical docs for the World SDK, World ID Protocol, World Chain, Mini Apps and their examples, guides can be found at <https://docs.world.org/>.
 
-<a href="https://docs.world.org">
-  <p align="center">
-    <picture align="center">
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/public/images/shared-readme/visit-documentation-dark.png" height="50px" />
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/public/images/shared-readme/visit-documentation-light.png" height="50px" />
-      <img />
-    </picture>
-  </p>
-</a>
-
 ## 🧑‍💻 Developing locally
 
 To develop locally and contribute to these docs, you can follow these steps after cloning the repo.
 
--   Activate required Node version (LTS 18)
+-   Activate required Node version (LTS 20)
 
 ```bash
 nvm use

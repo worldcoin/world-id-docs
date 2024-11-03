@@ -20,12 +20,12 @@ After the orb verifies you are a unique human, your identity commitment is added
 
 ### How does it work?
 
-A user's World ID lives in their device, and only in their device. The user installs a compatible identity wallet (such as the [World App](https://world.org/download)). A unique and random private key is generated on-device, where it is securely stored. Identity wallets may incorporate their own recovery mechanisms, however Protocol-level recovery is being implemented soon.
+A user's World ID lives in their device, and only in their device. The user installs a compatible identity wallet (such as the [World App](https://world.org/world-app)). A unique and random private key is generated on-device, where it is securely stored. Identity wallets may incorporate their own recovery mechanisms, however Protocol-level recovery is being implemented soon.
 
 From the user's private key, a public _identity commitment_ is generated and published on-chain (currently Ethereum Mainnet), which acts as the source of truth for the protocol. An identity commitment is analogous to a public key in an asymmetric key-pair, or a wallet address, but in the World ID protocol this value is not broadly shared. The private key is used as input to each World ID verification, specifically as part of the [ZKP](/world-id/further-reading/zero-knowledge-proofs).
 
 The user's wallet (e.g. World App) generates a ZKP for every verification a user makes. Verifications cannot be linked across applications or actions, which means that the user's privacy is cryptographically protected.
 
-After a user verifies, a _nullifier hash_ is returned to the application. The nullifier hash is the user's unique identifier for the application (and the action, if using [Incognito Actions](/world-id/id/incognito-actions)). Nullifiers are unique to the application, and cannot be linked to other nullifiers from the same person, even resistant to colluding applications.
+After a user verifies, a _nullifier hash_ is returned to the application. The nullifier hash is the user's unique identifier for the application (and the action, if using [Incognito Actions](/world-id/id/cloud)). Nullifiers are unique to the application, and cannot be linked to other nullifiers from the same person, even resistant to colluding applications.
 
-If you want to learn more about ZKPs, here is a great resource: [https://github.com/ingonyama-zk/ingopedia](https://github.com/ingonyama-zk/ingopedia).
+If you want to learn more about ZKPs, [Ingopedia](https://www.ingonyama.com/ingopedia/communityguide) is a great resource.

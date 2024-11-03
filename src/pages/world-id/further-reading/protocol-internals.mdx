@@ -6,7 +6,7 @@ Documentation of certain protocol elements.
 
 ## Universal Link
 
-The universal link is used so that the World App can recognize a World ID request and handle it correctly. As more clients are built, the universal link will be extended to other wallets. The structure of the universal link is documented here. The source of truth function for this can be found [on GitHub](https://github.com/worldcoin/idkit-js/blob/main/idkit/src/services/wld-bridge.ts#L86).
+The universal link is used so that the World App can recognize a World ID request and handle it correctly. As more clients are built, the universal link will be extended to other wallets. The structure of the universal link is documented here. The source of truth function for this can be found [on GitHub](https://github.com/worldcoin/idkit-js/blob/main/packages/core/src/bridge.ts).
 
 -   The universal link base is: `https://worldcoin.org/verify`.
     -   If the query string `t` is equal to `wld`, the request is using the Wallet Bridge, and the following requirements apply:

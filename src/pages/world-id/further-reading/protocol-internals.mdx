@@ -119,7 +119,7 @@ The Wallet Bridge acts as the intermediary between IDKit and the user's World ID
 
 ## External Nullifier
 
-Within [Semaphore](https://semaphore.appliedzkp.org/), the [zero knowledge](/world-id/further-reading/zero-knowledge-proofs) protocol that World ID is based on, the external nullifier is a public 32-byte value that scopes the uniqueness of verifications. It is one of two inputs in the ZK circuit, the other being the secret identity nullifier. These two values are hashed to produce the nullifier hash, which identifies the user.
+Within [Semaphore](https://docs.semaphore.pse.dev/), the [zero knowledge](/world-id/further-reading/zero-knowledge-proofs) protocol that World ID is based on, the external nullifier is a public 32-byte value that scopes the uniqueness of verifications. It is one of two inputs in the ZK circuit, the other being the secret identity nullifier. These two values are hashed to produce the nullifier hash, which identifies the user.
 
 World ID actions (whether for Sign In or Incognito Actions) are identified by their external nullifiers. This value is derived from the `app_id` and stringified action passed by IDKit to the World app. Our implementation can be [found here](https://github.com/worldcoin/idkit-js/blob/main/packages/core/src/lib/hashing.ts).
 

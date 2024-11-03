@@ -12,7 +12,7 @@ This repository contains the technical documentation for the World SDK and the W
 
 World ID is the privacy-first identity protocol that brings global proof of personhood to the internet. More on World ID in the [announcement blog post](https://world.org/blog/announcements/introducing-world-id-and-sdk).
 
-World ID lets you seamlessly integrate authentication into your app that verifies accounts belong to real persons through [Sign in with World ID](https://docs.world.org/id/sign-in). For additional flexibility and cases where you need extreme privacy, [Incognito Actions](https://docs.world.org/id/incognito-actions) lets you verify users in a way that cannot be tracked across verifications.
+World ID lets you seamlessly integrate authentication into your app that verifies accounts belong to real persons through [Sign in with World ID](https://docs.world.org/world-id/reference/sign-in). For additional flexibility and cases where you need extreme privacy, [Incognito Actions](https://docs.world.org/world-id/id/cloud) lets you verify users in a way that cannot be tracked across verifications.
 
 Follow the [Quick Start](https://docs.world.org/world-id/) guide for the easiest way to get started.
 
@@ -24,7 +24,7 @@ Mini apps enable third-party developers to create native-like applications withi
 
 Mini Apps work by sending [Commands](http://docs.world.org/mini-apps/quick-start/commands) via the MiniKit SDK to World App, and listening for [Responses](http://docs.world.org/mini-apps/quick-start/responses) passed back.
 
-To make it easy to build mini apps, we’ve release the [MiniKit-JS SDK](https://www.npmjs.com/package/@worldcoin/minikit-js).
+To make it easy to build mini apps, we have released the [MiniKit-JS SDK](https://www.npmjs.com/package/@worldcoin/minikit-js).
 
 ## World Chain
 
@@ -32,7 +32,7 @@ World Chain is a blockchain for humans. World chain offers several unique primit
 
 -   Free gas fees for all verified humans
 -   Native mobile distribution to all World App users through mini-apps
--   Simplified crypto transaction through mini apps
+-   Simplified crypto transactions through mini apps
 -   Sybil resistance for developers via World ID
 -   Airdrop of WLD tokens to all verified humans
 
@@ -43,16 +43,6 @@ World Chain is built on the [Superchain](https://docs.optimism.io/stack/explaine
 ## 📄 Documentation
 
 All the technical docs for the World SDK, World ID Protocol, World Chain, Mini Apps and their examples, guides can be found at <https://docs.world.org/>.
-
-<a href="https://docs.world.org">
-  <p align="center">
-    <picture align="center">
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/public/images/shared-readme/visit-documentation-dark.png" height="50px" />
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/worldcoin/world-id-docs/main/public/images/shared-readme/visit-documentation-light.png" height="50px" />
-      <img />
-    </picture>
-  </p>
-</a>
 
 ## 🧑‍💻 Developing locally
 

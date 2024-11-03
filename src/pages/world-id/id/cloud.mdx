@@ -1,6 +1,6 @@
 # Cloud Incognito Actions
 
-IDKit is required in your app's frontend for Incognito Actions, and the [zero-knowledge proof](/concepts#vocabulary) received from the user will be verified via the **Developer Portal API** in your backend.
+IDKit is required in your app's frontend for Incognito Actions, and the [zero-knowledge proof](/world-id/concepts#vocabulary) received from the user will be verified via the **Developer Portal API** in your backend.
 
 ## Creating actions
 
@@ -54,14 +54,14 @@ import { IDKitWidget, VerificationLevel } from '@worldcoin/idkit'
 </IDKitWidget>
 ```
 
-More configuration options can be found in the [IDKit reference](/reference/idkit).
+More configuration options can be found in the [IDKit reference](/world-id/reference/idkit).
 
 When a user clicks the button, the IDKit modal will open and prompt them to scan a QR code and verify with World ID. Once this proof is received, the optional `handleVerify` callback is called immediately and the `onSuccess` callback will be called when the modal is closed.
 One of these callbacks should begin the process of verifying the proof.
 
 {/* ### IDKit with Dynamic Actions
 
-To accommodate dynamic content, actions can also be created at the time a user completes a World ID verification. Simply pass the desired `action` and `action_description` values in [IDKit's parameters](/reference/idkit#parameters). A new action will automatically be created and tracked, and will appear the next time you log into the Developer Portal.
+To accommodate dynamic content, actions can also be created at the time a user completes a World ID verification. Simply pass the desired `action` and `action_description` values in [IDKit's parameters](/world-id/reference/idkit#parameters). A new action will automatically be created and tracked, and will appear the next time you log into the Developer Portal.
 
 As an example, using IDKit with Dynamic Actions may look like this:
 
@@ -160,6 +160,6 @@ const onSuccess = (result: ISuccessResult) => {
 ```
 
 <Note>
-	For more information on configuration, see the [IDKit](/reference/idkit) and [Cloud API](/reference/api) reference
+	For more information on configuration, see the [IDKit](/world-id/reference/idkit) and [Cloud API](/world-id/reference/api) reference
 	pages.
 </Note>

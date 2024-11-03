@@ -48,7 +48,7 @@ const nextConfig = {
 			},
 			{
 				source: '/id/sign-in',
-				destination: '/world-id/sign-in',
+				destination: '/world-id/id/sign-in',
 				permanent: true,
 			},
 			{
@@ -73,12 +73,12 @@ const nextConfig = {
 			},
 			{
 				source: '/zkp',
-				destination: '/world-id/advanced/zero-knowledge-proofs',
+				destination: '/world-id/further-reading/zero-knowledge-proofs',
 				permanent: false,
 			},
 			{
 				source: '/id/anonymous-actions',
-				destination: '/world-id/incognito-actions',
+				destination: '/world-id/id/incognito-actions',
 				permanent: false,
 			},
 		]

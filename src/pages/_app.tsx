@@ -43,8 +43,8 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 	let router = useRouter()
 
 	const title = useMemo(() => {
-		if (router.pathname === '/' || !pageProps.title) return 'Worldcoin Docs'
-		return `${pageProps.title} | Worldcoin Docs`
+		if (router.pathname === '/' || !pageProps.title) return 'World Docs'
+		return `${pageProps.title} | World Docs`
 	}, [pageProps.title, router.pathname])
 
 	const section = useMemo(() => {
@@ -80,7 +80,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 				openGraph={{
 					title,
 					type: 'website',
-					site_name: 'Worldcoin Docs',
+					site_name: 'World Docs',
 					description: pageProps.description,
 					images: [
 						{
@@ -92,7 +92,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 									  }`,
 							width: 1920,
 							height: 1080,
-							alt: 'Worldcoin Docs',
+							alt: 'World Docs',
 						},
 					],
 				}}

@@ -5,12 +5,6 @@ import Tabs, { TabItem } from '@/components/Tabs'
 
 Wallet Auth is our native support for <Link href="https://eips.ethereum.org/EIPS/eip-4361">Sign in With Ethereum</Link>.
 
-<Note type="info">
-	World App currently uses <Link href="https://safe.global/wallet">Safe</Link> addresses in order to do the SIWE flow.
-	This means that it will not work with common libraries like
-	<Link href="https://github.com/spruceid/siwe">SIWE</Link> which expect EOAs.
-</Note>
-
 ## Creating the nonce
 
 Since the user can modify the client, it's important to create the nonce in the backend. **The nonce must be at least 8 alphanumeric characters in length.**

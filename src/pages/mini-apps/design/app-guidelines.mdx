@@ -1,20 +1,34 @@
 import { Link } from '@/components/Link'
 
 # Guidelines
-These guidelines are meant to help you succeed as a mini app developer.
+These guidelines are meant to help you succeed as a mini app developer. Please follow them to ensure your app is approved.
 
 ## MiniKit Integration
 
-Apps should integrate with MiniKit. MiniKit supercharges your web application into a mini app with features that
-are not available anywhere else. Specifically, **World ID** and **Wallet** access. Thinking through how your app can leverage these features will help you succeed
-and make your application much more interesting to users. 
+Integrate MiniKit to supercharge your web app with exclusive features like World ID and Wallet access, making your mini app more engaging and valuable to users.
+
+To get your mini app approved, it’s essential to use the MiniKit SDK commands effectively to enhance the user experience. 
+We’re looking for meaningful integrations, whether through   *World ID* and *Wallet access* , or other creative uses that add real value.
+
 
 
 ## Mobile First
 
-Mini apps are inherently access via mobile. Your application UI should look and feel like an app.
-This includes tab navigation, snap to text boxes, no footers, no sidebars, 
-minimal scrolling, no hamburger menus, and smooth transitions.
+Mini apps are inherently accessed via mobile, so your application UI should look and feel like a mobile app.
+
+### Key considerations for a mobile-first experience:
+
+- Use tab navigation to simplify movement within the app.
+- Implement snap-to text boxes for easy user input.
+- Avoid footers, sidebars, and excessive scrolling.
+- Provide clear and direct navigation without hamburger menus.
+- Ensure smooth transitions between different screens or sections.
+- Use consistent background colors for a cohesive visual experience.
+- Provide clear navigation cues to help users understand where they are and how to proceed.
+- Ensure all UI elements are responsive and adapt well to different screen sizes.
+- Use fonts that are optimized for readability on mobile devices.
+- Include a splash page for sign-in if needed.
+
 <div className='grid grid-cols-2'>
     <div className='grid justify-items-center text-center'>
         <video className="m-auto" width="300" autoPlay muted loop playsInline>
@@ -44,8 +58,14 @@ These languages are particularly important given our users:
 
 
 ## Usernames
-You should never display the user's wallet address, instead use their username.
-Usernames are our ENS compatible username for every World App user. See the <Link href="https://usernames.worldcoin.org/docs">docs</Link> on how to implement.
+
+You should never display the user's wallet address; instead, always use their username. 
+Usernames are ENS-compatible identifiers for every World App user, ensuring consistency and easy recognition.
+For example, when displaying transaction history, show the username instead of the wallet address to make it more user-friendly and private. 
+For implementation details, refer to the documentation:<Link href="https://usernames.worldcoin.org/docs">World Usernames Documentation</Link>.
+
+If you use Sign in with World ID you should not be doing any transactions with the user's wallet address. Instead, you should be using the username.
+Sign in with World ID and Verify offer the same World ID guarantees, but Verify is more reliable. 
 
 
 ## Using the Address Book
@@ -56,9 +76,14 @@ address is World ID Orb verified.
 
 ## Design Patterns
 Here are some design patterns that we recommend you follow:
-1. Wallet Auth -> Show Usernames
-2. Wallet Auth -> Verify Command
-3. Wallet Auth -> Resolve verification via Address Book
+1. When a user is authenticated through their wallet, always show their username instead of the wallet address
+2. Use the "Verify" command to confirm important actions or identity verification.
+3. When dealing with wallet addresses, use an address book to link them to recognizable usernames or other identifiers
 
-If you use Sign in with World ID you should not be doing any transactions with the user's wallet address. Instead, you should be using the username.
-Sign in with World ID and Verify offer the same World ID guarantees, but Verify is more reliable. 
+Inspiration
+
+Looking for inspiration? Check out the approved mini apps to see what successful integrations look like and learn from their best practices.
+Seeing how others have effectively used MiniKit can provide you with ideas for creating an engaging and valuable experience for your users.
+Join our developer network to connect with fellow developers, share insights, and get support:
+<Link href="https://t.me/worldcoindevelopers">World Developers Telegram</Link>
+

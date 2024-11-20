@@ -81,6 +81,47 @@ const nextConfig = {
 				destination: '/world-id/id/incognito-actions',
 				permanent: false,
 			},
+			{
+				source: '/quick-start',
+				destination: 'https://docs.world.org/world-chain/quick-start',
+				permanent: true,
+				basePath: false,
+			},
+			{
+				source: '/id/incognito-actions',
+				destination: 'https://docs.world.org/world-id/id/cloud',
+				permanent: true,
+			},
+			{
+				source: '/id/idkit',
+				destination: 'https://docs.world.org/world-id/reference/idkit',
+				permanent: true,
+			},
+			{
+				source: '/apps/discord',
+				destination: 'https://discord.com/invite/worldnetwork',
+				permanent: true,
+			},
+			{
+				source: '/api-docs',
+				destination: 'https://docs.world.org/world-id/reference/api',
+				permanent: true,
+			},
+			{
+				source: '/advanced/zero-knowledge-proofs',
+				destination: 'https://docs.world.org/world-id/further-reading/zero-knowledge-proofs',
+				permanent: true,
+			},
+			{
+				source: '/advanced/privacy',
+				destination: 'https://vault.pactsafe.io/s/8a18d792-fd76-44db-9b92-b0bb7981c248/legal.html#contract-s1ytru6kk',
+				permanent: true,
+			},
+			{
+				source: '/advanced/on-chain',
+				destination: 'https://docs.world.org/world-id/id/on-chain',
+				permanent: true,
+			},
 		]
 	},
 }

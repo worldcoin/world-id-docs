@@ -83,18 +83,18 @@ const nextConfig = {
 			},
 			{
 				source: '/quick-start',
-				destination: 'https://docs.world.org/world-chain/quick-start',
+				destination: '/world-chain/quick-start',
 				permanent: true,
 				basePath: false,
 			},
 			{
 				source: '/id/incognito-actions',
-				destination: 'https://docs.world.org/world-id/id/cloud',
+				destination: '/world-id/id/cloud',
 				permanent: true,
 			},
 			{
 				source: '/id/idkit',
-				destination: 'https://docs.world.org/world-id/reference/idkit',
+				destination: '/world-id/reference/idkit',
 				permanent: true,
 			},
 			{
@@ -104,12 +104,12 @@ const nextConfig = {
 			},
 			{
 				source: '/api-docs',
-				destination: 'https://docs.world.org/world-id/reference/api',
+				destination: '/world-id/reference/api',
 				permanent: true,
 			},
 			{
 				source: '/advanced/zero-knowledge-proofs',
-				destination: 'https://docs.world.org/world-id/further-reading/zero-knowledge-proofs',
+				destination: '/world-id/further-reading/zero-knowledge-proofs',
 				permanent: true,
 			},
 			{
@@ -119,7 +119,7 @@ const nextConfig = {
 			},
 			{
 				source: '/advanced/on-chain',
-				destination: 'https://docs.world.org/world-id/id/on-chain',
+				destination: '/world-id/id/on-chain',
 				permanent: true,
 			},
 		]

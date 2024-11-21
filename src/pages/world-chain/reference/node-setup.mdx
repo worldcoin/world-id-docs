@@ -1,0 +1,73 @@
+# How to setup a World Chain node
+
+Follow this guide to setup your own World Chain node.
+
+## Overview
+
+World Chain mainet and testnet both run on the OP Stack as part of the Superchain. There are multiple docs available for configuring and running nodes both built from source and via Docker containers. Be sure to review the relevant documentation and select the approach that best meets your specific needs. For further information, please see the Optimism [node operator tutorials](https://docs.optimism.io/builders/node-operators/tutorials) and the [release images](https://docs.optimism.io/builders/node-operators/releases).
+
+## Running World Chain Mainnet
+
+The following configuration information will help you spin up a World Chain Mainnet node. You will need the [Genesis](https://github.com/worldcoin/world-id-docs/tree/main/public/code/world-chain/genesis.json) and [Rollup](https://github.com/worldcoin/world-id-docs/tree/main/public/code/world-chain/rollup.json) JSON files for World Chain mainnet.
+
+The following is a sample set of flags for running both op-geth and op-node. Please note the hardfork activation heights.
+
+```bash {{ title: "op-geth"}}
+# use latest image according to OP docs
+op-geth
+--nodiscover 
+--maxpeers=0
+--rollup.disabletxpoolgossip=true
+--rollup.sequencerhttp=https://worldchain-mainnet-sequencer.g.alchemy.com
+--override.fjord=1721826000
+--override.granite=1727780400
+--override.ecotone=0
+--override.canyon=0
+```
+
+```bash {{ title: "op-node"}}
+# use latest image according to OP docs
+op-node
+--p2p.bootnodes=enode://dd4e44e87d68dd43bfc16d4fd5d9a6a2cd428986f75ddf15c8a72add0ad425852b9c36b6c5999ab7a37cc64d9bc1b68d549bc088dfa728e84dea7ae617f64e04@107.22.23.212:0?discport=30301,enode://47bd99d0bc393c6ca5569058b2d031067a3df5d05214036a5b88c9b817d52e08d7514d452b1aa623cfb3dd415136dcaf90c962e62d9337ff511fee0e9d1c8b28@18.207.96.148:0?discport=30301
+--override.fjord=1721826000
+--override.granite=1727780400
+--override.ecotone=0
+--override.canyon=0
+```
+
+## Running World Chain Sepolia 
+
+
+
+The following configuration information will help you spin up a World Chain Sepolia node. You will need the [Genesis](https://github.com/worldcoin/world-id-docs/tree/main/public/code/world-chain-sepolia/testnet_genesis.json) and [Rollup](https://github.com/worldcoin/world-id-docs/tree/main/public/code/world-chain-sepolia/testnet_rollup.json) JSON files for World Chain Sepolia.
+
+```bash {{ title: "op-geth"}}
+# use latest image according to OP docs
+op-geth
+--nodiscover 
+--maxpeers=0
+--rollup.disabletxpoolgossip=true
+--rollup.sequencerhttp=https://worldchain-mainnet-sequencer.g.alchemy.com
+--override.fjord=1721826000
+--override.granite=1727780400
+--override.ecotone=0
+--override.canyon=0
+```
+
+```bash {{ title: "op-node"}}
+# use latest image according to OP docs
+op-node
+--p2p.bootnodes=enode://10b8de7f6a76c4fdadcf479c7ff16cbadefae98046287eb38a8759960714050d2892d98f31b060d1fd72b3fd584558699aa2caa238318bd7c471957e7e2652f0@3.91.92.199:0?discport=30301,enode://c939580fbd433bacaa947a2c89fd7af059f9da77c0b3c77e93d6688908745b1668a1393d353ade83e7fcf8c4cffa2021d20a700e0bc4318ea303062700d0abce@18.209.12.245:0?discport=30301
+--override.fjord=1721739600
+--override.granite=1726570800
+--override.ecotone=0
+--override.canyon=0
+```
+
+Sepolia-specific flags (use the correct activation heights): <br />
+`fjord_activation_time: 1721739600`
+`granite_activation_time: 1726570800`
+
+Other considerations: 
+- Other activation times like ecotone_activation_time are 0.
+- `op-geth` and `op-node` versions are the same as mainnet

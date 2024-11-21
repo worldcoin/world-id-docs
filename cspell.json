@@ -9,6 +9,9 @@
 	"ignoreWords": ["signup"],
 	"ignoreRegExpList": ["app_[a-z0-9]+", "jwk_[a-z0-9]+", "ey[a-zA-Z0-9]+\\.ey[a-zA-Z0-9]+\\.[a-zA-Z0-9]+"],
 	"words": [
+		"enode",
+		"nodiscover",
+		"disabletxpoolgossip",
 		"anonymized",
 		"clippy",
 		"clsx",

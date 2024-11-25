@@ -38,8 +38,80 @@ export async function POST(req: NextRequest) {
 ## Using the command
 
 <Tabs>
-	<TabItem label="Event listeners">
-  
+
+  <TabItem label="Async handlers">
+      ### Sending the command & handling the response
+
+      We currently support WLD and USDC payments on Worldchain. Below is the expected input for the Pay command.
+      Since World App sponsors the gas fee, there is a minimum transfer amount of $0.1 for all tokens.
+
+      ``` tsx {{title: 'PayCommandInput' }}
+      // Represents tokens you allow the user to pay with and amount for each
+      export type TokensPayload = {
+        symbol: Tokens;
+        token_amount: string;
+      };
+
+      export type PayCommandInput = {
+        reference: string;
+        to: string;
+        tokens: TokensPayload[];
+        network?: Network; // Optional
+        description: string;
+      };
+      ```
+
+      For convenience, we offer a public endpoint to query the current price of WLD in various currencies detailed <Link href="/mini-apps/reference/api#get-prices">here</Link>.
+
+      ``` tsx {{ title: 'app/page.tsx' }}
+      import { MiniKit, tokenToDecimals, Tokens, PayCommandInput } from '@worldcoin/minikit-js'
+
+      const sendPayment = async () => {
+        const res = await fetch('/api/initiate-payment', {
+          method: 'POST',
+        })
+        const { id } = await res.json()
+
+        const payload: PayCommandInput = {
+          reference: id,
+          to: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', // Test address
+          tokens: [
+            {
+              symbol: Tokens.WLD,
+              token_amount: tokenToDecimals(1, Tokens.WLD).toString(),
+            },
+            {
+              symbol: Tokens.USDCE,
+              token_amount: tokenToDecimals(3, Tokens.USDCE).toString(),
+            },
+          ],
+          description: 'Test example payment for minikit',
+        }
+
+        if (MiniKit.isInstalled()) {
+          return
+        }
+
+        const { finalPayload } = await MiniKit.commandsAsync.pay(payload)
+
+        if (finalPayload.status == 'success') {
+          const res = await fetch(`/api/confirm-payment`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(finalPayload),
+          })
+          const payment = await res.json()
+          if (payment.success) {
+            // Congrats your payment was successful!
+          }
+        }
+      }
+      ```
+
+  </TabItem>
+
+  <TabItem label="Event listeners">
+
       ### Sending the command
 
       We currently support WLD and USDC payments on Worldchain. Below is the expected input for the Pay command.
@@ -130,76 +202,7 @@ export async function POST(req: NextRequest) {
         }, []);
       ```
 
-    </TabItem>
-    <TabItem label="Async handlers">
-      ### Sending the command & handling the response
-
-      We currently support WLD and USDC payments on Worldchain. Below is the expected input for the Pay command.
-      Since World App sponsors the gas fee, there is a minimum transfer amount of $0.1 for all tokens.
-
-      ``` tsx {{title: 'PayCommandInput' }}
-      // Represents tokens you allow the user to pay with and amount for each
-      export type TokensPayload = {
-        symbol: Tokens;
-        token_amount: string;
-      };
-
-      export type PayCommandInput = {
-        reference: string;
-        to: string;
-        tokens: TokensPayload[];
-        network?: Network; // Optional
-        description: string;
-      };
-      ```
-
-      For convenience, we offer a public endpoint to query the current price of WLD in various currencies detailed <Link href="/mini-apps/reference/api#get-prices">here</Link>.
-
-      ``` tsx {{ title: 'app/page.tsx' }}
-      import { MiniKit, tokenToDecimals, Tokens, PayCommandInput } from '@worldcoin/minikit-js'
-
-      const sendPayment = async () => {
-        const res = await fetch('/api/initiate-payment', {
-          method: 'POST',
-        })
-        const { id } = await res.json()
-
-        const payload: PayCommandInput = {
-          reference: id,
-          to: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', // Test address
-          tokens: [
-            {
-              symbol: Tokens.WLD,
-              token_amount: tokenToDecimals(1, Tokens.WLD).toString(),
-            },
-            {
-              symbol: Tokens.USDCE,
-              token_amount: tokenToDecimals(3, Tokens.USDCE).toString(),
-            },
-          ],
-          description: 'Test example payment for minikit',
-        }
-
-        if (MiniKit.isInstalled()) {
-          return
-        }
-
-        const { finalPayload } = await MiniKit.commandsAsync.pay(payload)
-
-        if (finalPayload.status == 'success') {
-          const res = await fetch(`/api/confirm-payment`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(finalPayload),
-          })
-          const payment = await res.json()
-          if (payment.success) {
-            // Congrats your payment was successful!
-          }
-        }
-      }
-      ```
-    </TabItem>
+  </TabItem>
 
 </Tabs>
 
@@ -266,3 +269,13 @@ export async function POST(req: NextRequest) {
 	}
 }
 ```
+## Success Result on World App
+
+If implemented correctly, the user will see the following drawer on World App.
+
+    <div className='grid justify-items-center text-center'>
+        <video className="m-auto" width="300" autoPlay muted loop playsInline>
+            <source src="/images/docs/mini-apps/commands/pay-command.mp4" type="video/mp4" />
+			Your browser does not support the video tag.
+		</video>
+	</div>

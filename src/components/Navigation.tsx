@@ -272,7 +272,6 @@ export const miniAppsNavigation = [
 			{ title: 'App Store Policy', href: '/mini-apps/more/policy' },
 			{ title: 'Promotion', href: '/mini-apps/more/promotion' },
 			{ title: 'Grants', href: '/mini-apps/more/grants' },
-			{ title: 'Guidelines', href: '/mini-apps/more/guidelines' },
 			{ title: 'Troubleshooting', href: '/mini-apps/more/troubleshooting' },
 		],
 	},
@@ -325,7 +324,10 @@ export const worldChainNavigation = [
 	},
 	{
 		title: 'Technical Reference',
-		links: [{ title: 'Address Book', href: '/world-chain/reference/address-book' }],
+		links: [
+			{ title: 'Address Book', href: '/world-chain/reference/address-book' },
+			{ title: 'Set up a node', href: '/world-chain/reference/node-setup' },
+		],
 	},
 	{
 		title: 'Tokens',

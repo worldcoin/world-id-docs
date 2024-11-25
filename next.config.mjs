@@ -81,6 +81,47 @@ const nextConfig = {
 				destination: '/world-id/id/incognito-actions',
 				permanent: false,
 			},
+			{
+				source: '/quick-start',
+				destination: '/world-chain/quick-start',
+				permanent: true,
+				basePath: false,
+			},
+			{
+				source: '/id/incognito-actions',
+				destination: '/world-id/id/cloud',
+				permanent: true,
+			},
+			{
+				source: '/id/idkit',
+				destination: '/world-id/reference/idkit',
+				permanent: true,
+			},
+			{
+				source: '/apps/discord',
+				destination: 'https://discord.com/invite/worldnetwork',
+				permanent: true,
+			},
+			{
+				source: '/api-docs',
+				destination: '/world-id/reference/api',
+				permanent: true,
+			},
+			{
+				source: '/advanced/zero-knowledge-proofs',
+				destination: '/world-id/further-reading/zero-knowledge-proofs',
+				permanent: true,
+			},
+			{
+				source: '/advanced/privacy',
+				destination: 'https://vault.pactsafe.io/s/8a18d792-fd76-44db-9b92-b0bb7981c248/legal.html#contract-s1ytru6kk',
+				permanent: true,
+			},
+			{
+				source: '/advanced/on-chain',
+				destination: '/world-id/id/on-chain',
+				permanent: true,
+			},
 		]
 	},
 }

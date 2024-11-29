@@ -1,0 +1,23 @@
+# Webview Specifications
+
+The widget is opened within the World App via a WebView. This means providers can tailor their solutions by considering the specific features and restrictions of these platforms.
+
+### **Capabilities:**
+
+- **WebView Engine:**
+    - **Android:** Uses Android's native WebView implementation.
+    - **iOS:** Uses **WKWebView**, the recommended web rendering engine on iOS, offering enhanced security and performance.
+- **File System and Camera Access:**
+    - Access to the camera and file system (e.g., for file uploads) is possible if the user grants permission.
+- **Cookies and DOM Storage:**
+    - Supported on both platforms with explicit activation for Android and default behavior for iOS.
+
+### **Restrictions:**
+
+- **Geolocation and Other Extra Permissions:**
+    - By default, neither platform enables geolocation or additional permissions. Each new type of permission must be discussed and implemented separately if required.
+- **New Windows:**
+    - Opening new browser windows is prohibited. All navigation remains within the current WebView instance.
+- **Zooming:**
+    - **Android:** Not restricted by default.
+    - **iOS:** Disabled.

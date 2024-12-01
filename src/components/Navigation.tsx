@@ -193,7 +193,8 @@ export const worldIdNavigation = [
 	{
 		title: 'Sign In with World ID',
 		links: [
-			{ title: 'OpenID Connect (OIDC)', href: '/world-id/sign-in' },
+			{ title: 'Overview', href: '/world-id/sign-in' },
+			{ title: 'OpenID Connect (OIDC)', href: '/world-id/sign-in/oidc' },
 			{ title: 'Common Pitfalls', href: '/world-id/sign-in/pitfalls' },
 		],
 	},

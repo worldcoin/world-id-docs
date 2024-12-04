@@ -5,6 +5,18 @@ import Tabs, { TabItem } from '@/components/Tabs'
 
 Wallet Auth is our native support for <Link href="https://eips.ethereum.org/EIPS/eip-4361">Sign in With Ethereum</Link>.
 
+Wallet Auth is a command that:
+
+- Authenticates users through their Ethereum wallet using the SIWE protocol (EIP-4361).
+- Provides the user's Ethereum address after successful authentication.
+- Verifies ownership of the wallet address via a signed message.
+
+With this, developers can:
+
+- Identify users securely and without centralized credentials.
+- Implement token-based access controls.
+- Enable blockchain-related features like transactions tied to the authenticated address.
+
 ## Creating the nonce
 
 Since the user can modify the client, it's important to create the nonce in the backend. **The nonce must be at least 8 alphanumeric characters in length.**

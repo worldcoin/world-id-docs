@@ -42,7 +42,7 @@ Sign message lets you create an EIP-191 signature.
         const isValid = await (
           await Safe.init({
             provider:
-              "https://opt-mainnet.g.alchemy.com/v2/your-api-key",
+              "https://worldchain-mainnet.g.alchemy.com/v2/your-api-key",
             safeAddress: finalPayload.address,
           })
         ).isValidSignature(messageHash, finalPayload.signature);

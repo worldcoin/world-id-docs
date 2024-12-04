@@ -48,7 +48,7 @@ Sign Typed Data lets you create an EIP-712 [signature](https://eips.ethereum.org
 
           const isValid = await (
             await Safe.init({
-              provider: 'https://opt-mainnet.g.alchemy.com/v2/your-api-key',
+              provider: 'https://worldchain-mainnet.g.alchemy.com/v2/your-api-key',
               safeAddress: payload.address,
             })
           ).isValidSignature(messageHash, payload.signature)

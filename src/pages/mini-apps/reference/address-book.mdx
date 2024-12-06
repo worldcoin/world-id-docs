@@ -1,0 +1,28 @@
+# Address Book
+
+The Address Book is a contract that stores verified World ID addresses. You can check if a user's address and associated ENS name (if available) is Orb verified using the `getIsUserVerified` helper function.
+
+## Considerations
+
+- Default RPC is `https://worldchain-mainnet.g.alchemy.com/public`
+- Contract Address is [0x57b930D551e677CC36e2fA036Ae2fe8FdaE0330D](https://worldscan.org/address/0x57b930D551e677CC36e2fA036Ae2fe8FdaE0330D#readContract).
+
+## Implementation
+
+The helper function connects to the World Chain and checks if a given wallet address is verified by querying the Address Book contract.
+
+## Example Usage
+```typescript
+import { getIsUserVerified } from "@worldcoin/minikit-js"
+
+const userWalletAddress = "0x000000000000000000000000000000000000dEaD"
+const isUserVerified = await getIsUserVerified(userWalletAddress) // optionally you can provide your rpc url as a second argument to the function
+```
+- Returns `true` if the address is verified
+- Returns `false` if the address is not verified
+- Throws an error if the verification check fails
+
+
+## React Bindings
+
+For React applications, we provide a hook `useIsUserVerified` that handles the verification check and loading state.

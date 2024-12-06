@@ -16,7 +16,7 @@ The helper function connects to the World Chain and checks if a given wallet add
 import { getIsUserVerified } from "@worldcoin/minikit-js"
 
 const userWalletAddress = "0x000000000000000000000000000000000000dEaD"
-const isUserVerified = getIsUserVerified(userWalletAddress) // optionally you can provide your rpc url as a second argument to the function
+const isUserVerified = await getIsUserVerified(userWalletAddress) // optionally you can provide your rpc url as a second argument to the function
 ```
 - Returns `true` if the address is verified
 - Returns `false` if the address is not verified

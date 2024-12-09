@@ -5243,7 +5243,7 @@ snapshots:
 
   browserslist@4.21.9:
     dependencies:
-      caniuse-lite: 1.0.30001644
+      caniuse-lite: 1.0.30001669
       electron-to-chromium: 1.4.466
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11(browserslist@4.21.9)
@@ -7847,7 +7847,7 @@ snapshots:
     dependencies:
       browserslist: 4.21.9
       escalade: 3.1.1
-      picocolors: 1.0.0
+      picocolors: 1.1.1
 
   update-browserslist-db@1.1.1(browserslist@4.24.2):
     dependencies:

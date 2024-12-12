@@ -8,6 +8,13 @@ Ensure you've added your application's sign in callback URL to the list of allow
 
 <Note>Redirect URIs using `http`, `localhost`, or port numbers are only allowed for Staging applications.</Note>
 
+```{{ title: 'Redirect URI Example' }}
+https://example.com/path/to/auth/callback 
+```
+```{{ title: 'Next.js example' }}
+https://example.com/api/auth/callback.
+``` 
+
 ## Unauthenticated Errors
 
 Ensure your Client ID and Client Secret are properly set in your environment variables according to your authentication library's documentation.

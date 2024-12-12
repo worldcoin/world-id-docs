@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
           description: 'Test example payment for minikit',
         }
 
-        if (MiniKit.isInstalled()) {
+        if (!MiniKit.isInstalled()) {
           return
         }
 

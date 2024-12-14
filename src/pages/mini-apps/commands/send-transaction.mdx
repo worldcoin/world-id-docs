@@ -56,7 +56,7 @@ If you need `setApprovalForAll` or are working with NFTs please reach out.
 
 <Note type="info">
 	
-  - Send transaction has a max payload size. Keep your abi small. 
+  - Send transaction has a max payload size of 8kb. Keep your abi to just your function.
   - Wrap all your arguments in strings to avoid overflow errors when passing to the SDK. We will auto parse your arguments to match the types in the ABI.
 
 </Note>
@@ -68,6 +68,8 @@ If you need `setApprovalForAll` or are working with NFTs please reach out.
     ### Sending the transaction & receiving the response
 
     ```tsx {{ title: 'app/page.tsx' }}
+    // Make sure this is only the function you're calling 
+    // Otherwise you will get an error
     import DEXABI from '../../abi/DEX.json'
     import { MiniKit } from '@worldcoin/minikit-js'
 
@@ -281,6 +283,56 @@ If you need `setApprovalForAll` or are working with NFTs please reach out.
         MiniKit.unsubscribe(ResponseEvent.MiniAppSendTransaction)
       }
     }, [])
+    ```
+
+  </TabItem>
+
+  <TabItem label="ABI">
+
+    ```tsx
+    [
+      {
+        "inputs": [
+          {
+            "components": [
+              {
+                "components": [
+                  { "internalType": "address", "name": "token", "type": "address" },
+                  { "internalType": "uint256", "name": "amount", "type": "uint256" }
+                ],
+                "internalType": "struct ISignatureTransfer.TokenPermissions",
+                "name": "permitted",
+                "type": "tuple"
+              },
+              { "internalType": "uint256", "name": "nonce", "type": "uint256" },
+              { "internalType": "uint256", "name": "deadline", "type": "uint256" }
+            ],
+            "internalType": "struct ISignatureTransfer.PermitTransferFrom",
+            "name": "permitTransferFrom",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              { "internalType": "address", "name": "to", "type": "address" },
+              {
+                "internalType": "uint256",
+                "name": "requestedAmount",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct ISignatureTransfer.SignatureTransferDetails",
+            "name": "transferDetails",
+            "type": "tuple"
+          },
+          { "internalType": "bytes", "name": "signature", "type": "bytes" }
+        ],
+        "name": "buyNFTWithPermit2",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ]
+
     ```
 
   </TabItem>

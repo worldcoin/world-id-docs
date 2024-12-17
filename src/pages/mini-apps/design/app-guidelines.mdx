@@ -50,6 +50,18 @@ Mini apps are inherently accessed via mobile, so your application UI should look
 We recommend you avoid scroll bounce error on iOS devices. This error might happen when you use vh, vw or 100%.
 Try disabling autoscroll & maybe fixed position elements or  using 100dvh instead of 100vh. 
 
+```css
+html,body {
+  width: 100vw;
+  height: 100vh;
+  overscroll-behavior: none;
+  overflow: hidden;
+}
+```
+
+## App Icon 
+
+Your app icon should be a **square** image with a non white background.
 
 ## Load times
 For mini apps, 2-3 seconds max for initial load and under 1 second for subsequent actions should be your target.

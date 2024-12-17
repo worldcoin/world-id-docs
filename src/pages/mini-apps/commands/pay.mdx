@@ -3,8 +3,14 @@ import Tabs, { TabItem } from '@/components/Tabs'
 
 # Pay
 
-Pay, as the name suggests, allows developers to build native payment experiences directly inside of their mini app.
-At launch, WLD and USDC.e will be supported. Payments are easy to use and only have three simple steps.
+This command is essential for applications that need to facilitate payments directly within the app, 
+enabling seamless transactions for users. At launch, WLD and USDC.e will be supported.
+
+**Example:** Enabling an e-commerce platform to allow users to purchase digital goods using cryptocurrencies,
+providing a smooth checkout experience.
+
+
+Payments are easy to use and only have three simple steps.
 
 1. Creating the transaction
 2. Sending the command
@@ -88,7 +94,7 @@ export async function POST(req: NextRequest) {
           description: 'Test example payment for minikit',
         }
 
-        if (MiniKit.isInstalled()) {
+        if (!MiniKit.isInstalled()) {
           return
         }
 

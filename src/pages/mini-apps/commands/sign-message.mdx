@@ -3,7 +3,14 @@ import Tabs, { TabItem } from '@/components/Tabs'
     
 # Sign Message
 
-Sign message lets you create an EIP-191 signature.
+Sign message lets you create an [EIP-191](https://eips.ethereum.org/EIPS/eip-191).
+    You should verify the signature.
+
+**Use Case:** This command is useful for applications that need to sign messages for verification purposes,
+ensuring that the message was indeed created by the owner of the wallet.
+
+**Example:** A voting app that requires users to sign a message to prove ownership
+of their wallet before allowing them to vote.
 
 ## Using the command
 
@@ -13,7 +20,7 @@ Sign message lets you create an EIP-191 signature.
 
     ### Sending the command & handling the response
 
-    The response will include a signature compliant with [EIP-191](https://eips.ethereum.org/EIPS/eip-191).
+    The response will include a signature compliant with EIP-191.
     You should verify the signature.
 
 

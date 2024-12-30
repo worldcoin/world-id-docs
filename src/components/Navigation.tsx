@@ -193,7 +193,8 @@ export const worldIdNavigation = [
 	{
 		title: 'Sign In with World ID',
 		links: [
-			{ title: 'OpenID Connect (OIDC)', href: '/world-id/sign-in' },
+			{ title: 'Overview', href: '/world-id/sign-in' },
+			{ title: 'OpenID Connect (OIDC)', href: '/world-id/sign-in/oidc' },
 			{ title: 'Common Pitfalls', href: '/world-id/sign-in/pitfalls' },
 		],
 	},
@@ -263,6 +264,7 @@ export const miniAppsNavigation = [
 			{ title: 'API Reference', href: '/mini-apps/reference/api' },
 			{ title: 'Sharing', href: '/mini-apps/reference/sharing' },
 			{ title: 'Errors', href: '/mini-apps/reference/errors' },
+			{ title: 'Address Book', href: '/mini-apps/reference/address-book' },
 		],
 	},
 	{
@@ -273,6 +275,7 @@ export const miniAppsNavigation = [
 			{ title: 'Promotion', href: '/mini-apps/more/promotion' },
 			{ title: 'Grants', href: '/mini-apps/more/grants' },
 			{ title: 'Troubleshooting', href: '/mini-apps/more/troubleshooting' },
+			{ title: 'Webview Specifications', href: '/mini-apps/more/webview-spec' },
 		],
 	},
 ]

@@ -1,6 +1,6 @@
 # Sign In with World ID Common Pitfalls
 
-<br/>
+<br />
 
 ## Invalid Redirect URI
 
@@ -8,8 +8,17 @@ Ensure you've added your application's sign in callback URL to the list of allow
 
 <Note>Redirect URIs using `http`, `localhost`, or port numbers are only allowed for Staging applications.</Note>
 
+### Redirect URI Example
+
+```tsx
+https://example.com/path/to/auth/callback/worldcoin
+```
+
 ## Unauthenticated Errors
 
 Ensure your Client ID and Client Secret are properly set in your environment variables according to your authentication library's documentation.
 
-<Note>The Client Secret should never be exposed in client-side code. If accidentally committed to your codebase, you should rotate the client secret in the Developer Portal.</Note>
+<Note>
+	The Client Secret should never be exposed in client-side code. If accidentally committed to your codebase, you
+	should rotate the client secret in the Developer Portal.
+</Note>

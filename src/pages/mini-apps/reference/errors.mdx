@@ -153,3 +153,60 @@ Below are the error codes you could receive with the `walletAuth` command
 		</tr>
 	</tbody>
 </table>
+
+
+## Transactions
+
+Below are the error codes you could receive with the `Transaction` command
+
+<table>
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Description</th>
+			<th>How to fix?</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>`invalid_operation`</td>
+			<td>Transaction included an operation that was invalid</td>
+			<td>Your app tried using a disallowed operation. These include approve, setAllowance, setApprovalForAll, or setApprovalForAll.</td>
+		</tr>
+		<tr>
+			<td>`invalid_contract`</td>
+			<td>App must whitelist the contract you're calling in the Developer Portal</td>
+			<td>Go to the Developer Portal and whitelist the contract you're calling</td>
+		</tr>
+		<tr>
+			<td>`user_rejected`</td>
+			<td>User declined the transaction modal</td>
+			<td>User closed the transaction modal.</td>
+		</tr>
+		<tr>
+			<td>`input_error`</td>
+			<td>Payload received does not conform to specified type</td>
+			<td>Ensure the request is properly formed and try again. Note all args must be string. Payload has max size of 8kb so your ABI should just be for your function</td>
+		</tr>
+		<tr>
+			<td>`simulation_failed`</td>
+			<td>Simulation provider transaction simulation failed (this can include insufficient balance)</td>
+			<td>Txn simulation failed see the debugUrl returned to understand why</td>
+		</tr>
+		<tr>
+			<td>`transaction_failed`</td>
+			<td>Transaction failed please try again later</td>
+			<td>Try again later. Could be blob fees too high or network congestion</td>
+		</tr>
+		<tr>
+			<td>`generic_error`</td>
+			<td>Request failed for unknown reason</td>
+			<td>Try the request again. If the problem persists, contact the app owner.</td>
+		</tr>
+	</tbody>
+</table>
+
+Other helpful things
+1. If you get a GS026 error, it means the signature is not valid. Most likely there's something switched in your args vs your permit.
+Double check each argument usually this is the nonce and timestamp getting mixed up. 
+

@@ -5,6 +5,18 @@ import Tabs, { TabItem } from '@/components/Tabs'
 
 Wallet Auth is our native support for <Link href="https://eips.ethereum.org/EIPS/eip-4361">Sign in With Ethereum</Link>.
 
+Wallet Auth is a command that:
+
+- Authenticates users through their Ethereum wallet using the SIWE protocol (EIP-4361).
+- Provides the user's Ethereum address after successful authentication.
+- Verifies ownership of the wallet address via a signed message.
+
+With this, developers can:
+
+- Identify users securely and without centralized credentials.
+- Implement token-based access controls.
+- Enable blockchain-related features like transactions tied to the authenticated address.
+
 ## Creating the nonce
 
 Since the user can modify the client, it's important to create the nonce in the backend. **The nonce must be at least 8 alphanumeric characters in length.**
@@ -65,9 +77,8 @@ return NextResponse.json({ nonce });
     		// ...
     	```
 
-    	The returned message (in final payload) will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-4361">ERC-191</Link>.
-    	You're welcome to use any third party libraries to verify the payloads for SIWE, but since World App uses Safe addresses that do not implement `isValidSignature` we created a helper function for you.
-    	Under the hood, we use the wallet's EOA private key to sign the message but the address is the Safe address.
+    	The returned message (in final payload) will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-191">ERC-191</Link>.
+    	You're welcome to use any third party libraries to verify the payloads for SIWE.
 
     	```tsx
     	type MiniAppWalletAuthSuccessPayload = {

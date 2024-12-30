@@ -1,16 +1,15 @@
 import { Link } from '@/components/Link'
 
 # Guidelines
+
 These guidelines are meant to help you succeed as a mini app developer. Please follow them to ensure your app is approved.
 
 ## MiniKit Integration
 
 Integrate MiniKit to supercharge your web app with exclusive features like World ID and Wallet access, making your mini app more engaging and valuable to users.
 
-To get your mini app approved, it’s essential to use the MiniKit SDK commands effectively to enhance the user experience. 
-We’re looking for meaningful integrations, whether through   *World ID* and *Wallet access* , or other creative uses that add real value.
-
-
+To get your mini app approved, it’s essential to use the MiniKit SDK commands effectively to enhance the user experience.
+We’re looking for meaningful integrations, whether through _World ID_ and _Wallet access_ , or other creative uses that add real value.
 
 ## Mobile First
 
@@ -18,64 +17,87 @@ Mini apps are inherently accessed via mobile, so your application UI should look
 
 ### Key considerations for a mobile-first experience:
 
-- Use tab navigation to simplify movement within the app.
-- Implement snap-to text boxes for easy user input.
-- Avoid footers, sidebars, and excessive scrolling.
-- Provide clear and direct navigation without hamburger menus.
-- Ensure smooth transitions between different screens or sections.
-- Use consistent background colors for a cohesive visual experience.
-- Provide clear navigation cues to help users understand where they are and how to proceed.
-- Ensure all UI elements are responsive and adapt well to different screen sizes.
-- Use fonts that are optimized for readability on mobile devices.
-- Include a splash page for sign-in if needed.
+-   Use tab navigation to simplify movement within the app.
+-   Implement snap-to text boxes for easy user input.
+-   Avoid footers, sidebars, and excessive scrolling.
+-   Provide clear and direct navigation without hamburger menus.
+-   Ensure smooth transitions between different screens or sections.
+-   Use consistent background colors for a cohesive visual experience.
+-   Provide clear navigation cues to help users understand where they are and how to proceed.
+-   Ensure all UI elements are responsive and adapt well to different screen sizes.
+-   Use fonts that are optimized for readability on mobile devices.
+-   Include a splash page for sign-in if needed.
 
-<div className='grid grid-cols-2'>
-    <div className='grid justify-items-center text-center'>
-        <video className="m-auto" width="300" autoPlay muted loop playsInline>
-            <source src="/images/docs/mini-apps/guidelines/bad-compressed.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-        </video>
-        ❌ Bad Example <br/> Footer and long scrolling
-    </div>
-    <div className='grid justify-items-center text-center'>
-        <video className="m-auto" width="300"  autoPlay muted loop playsInline>
-            <source src="/images/docs/mini-apps/guidelines/good-compressed.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-        </video>
-        ✅ Good Example <br/> Bottom tab navigation and anchored buttons
-    </div>
+<div className="grid grid-cols-2">
+	<div className="grid justify-items-center text-center">
+		<video className="m-auto" width="300" autoPlay muted loop playsInline>
+			<source src="/images/docs/mini-apps/guidelines/bad-compressed.mp4" type="video/mp4" />
+			Your browser does not support the video tag.
+		</video>
+		❌ Bad Example <br /> Footer and long scrolling
+	</div>
+	<div className="grid justify-items-center text-center">
+		<video className="m-auto" width="300" autoPlay muted loop playsInline>
+			<source src="/images/docs/mini-apps/guidelines/good-compressed.mp4" type="video/mp4" />
+			Your browser does not support the video tag.
+		</video>
+		✅ Good Example <br /> Bottom tab navigation and anchored buttons
+	</div>
 </div>
+## Scroll Bounce on IOS.{' '}
+
+We recommend you avoid scroll bounce error on iOS devices. Try disabling autoscroll & maybe fixed position elements or using 100dvh instead of 100vh.
+
+If you are not using a bottom navigation bar, you can use the following CSS to disable the scroll bounce error:
+
+```css
+html,
+body {
+	width: 100vw;
+	height: 100vh;
+	overscroll-behavior: none;
+	overflow: hidden;
+}
+```
+
+## App Icon
+
+Your app icon should be a **square** image with a non white background.
+
+## Load times
+
+For mini apps, 2-3 seconds max for initial load and under 1 second for subsequent actions should be your target.
+However, always test for real-world scenarios and provide visual feedback during loading to maintain user trust.
 
 ## Localisation
-Many of our users are located around the world. Apps that are localised for each region will perform significantly better. 
+
+Many of our users are located around the world. Apps that are localised for each region will perform significantly better.
 You can recognize the user's locale by using the <Link href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language">Accept-Language</Link> header
 
 These languages are particularly important given our users:
+
 1. English
 2. Spanish
 3. Japanese
 4. Korean
 
-
 ## Usernames
 
-You should never display the user's wallet address; instead, always use their username. 
-Usernames are ENS-compatible identifiers for every World App user, ensuring consistency and easy recognition.
-For example, when displaying transaction history, show the username instead of the wallet address to make it more user-friendly and private. 
-For implementation details, refer to the documentation <Link href="https://usernames.worldcoin.org/docs">World Usernames Documentation</Link>.
-
-If you use Sign in with World ID you should not be doing any transactions with the user's wallet address. Instead, you should be using the username.
-Sign in with World ID and Verify offer the same World ID guarantees, but Verify is more reliable. 
-
+You should never display the user's wallet address, always use their username.
+If you use Sign in with World ID you should not be doing any transactions with the user's wallet address, instead you should be using the username.
+Sign in with World ID and Verify offer the same World ID guarantees, but Verify is more reliable.
 
 ## Using the Address Book
+
 World ID inherently allows anonymity between applications. We generally encourage
 developers to use their own Verify Command and verify the proof. However, we also offer a World ID
 address book. This contract stores a mapping `addressVerifiedUntil` you can query to see if a World App
 address is World ID Orb verified.
 
 ## Design Patterns
+
 Here are some design patterns that we recommend you follow:
+
 1. When a user is authenticated through their wallet, always show their username instead of the wallet address
 2. Use the "Verify" command to confirm important actions or identity verification.
 3. When dealing with wallet addresses, use an address book to link them to recognizable usernames or other identifiers
@@ -85,5 +107,15 @@ Here are some design patterns that we recommend you follow:
 Looking for inspiration? Check out the approved mini apps to see what successful integrations look like and learn from their best practices.
 Seeing how others have effectively used MiniKit can provide you with ideas for creating an engaging and valuable experience for your users.
 Join our developer network to connect with fellow developers, share insights, and get support:
+
 <Link href="https://t.me/worldcoindevelopers">World Developers Telegram</Link>
 
+If your inspiration is still off, here are some concepts that you can follow to build your mini app. Always keep in mind adding value to users through the minikit commands.
+
+-   **Limited Edition Art Distribution**: Build an app that allows artists to distribute limited editions of their work, ensuring that each human can claim only a certain number of pieces.
+-   **Sybil-Resistant Airdrop Platform**: Build a platform for distributing tokens to verified humans, ensuring that airdrops reach genuine users.
+-   **Community Engagement Airdrops**: Create an app that rewards users for participating in community activities, verified through proof of personhood.
+-   **Bot-Free Social Network**: Build a social platform that integrates World ID to limit bot activity, enhancing content quality and user engagement.
+-   **Human-AI Interaction Platform**: Develop an app where AI agents can interact with verified humans for tasks like customer support or data collection.
+-   **Decentralized Credit Marketplace**: Build a platform that connects borrowers and lenders, using proof of personhood and zero-knowledge attributes to assess creditworthiness.
+-   **Merchant Payment Solutions**: Develop a platform for local businesses to accept payments in cryptocurrencies, leveraging the World ecosystem for seamless transactions.

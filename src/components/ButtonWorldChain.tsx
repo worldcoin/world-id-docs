@@ -48,7 +48,7 @@ export const ButtonWorldChain: FC<Props> = ({ variant = 'primary', className = '
 								decimals: 18,
 							},
 							rpcUrls: ['https://worldchain-mainnet.g.alchemy.com/public'], // Replace with World Chain RPC URL
-							blockExplorerUrls: ['worldchain-mainnet.explorer.alchemy.com'], // Replace with World Chain explorer URL
+							blockExplorerUrls: ['https://worldscan.org/'], // Replace with World Chain explorer URL
 						},
 					],
 				})
@@ -70,7 +70,7 @@ export const ButtonWorldChain: FC<Props> = ({ variant = 'primary', className = '
 								decimals: 18,
 							},
 							rpcUrls: ['https://worldchain-sepolia.g.alchemy.com/public'], // Replace with World Chain Testnet RPC URL
-							blockExplorerUrls: ['worldchain-sepolia.explorer.alchemy.com'], // Replace with World Chain Testnet explorer URL
+							blockExplorerUrls: ['https://sepolia.worldscan.org/'], // Replace with World Chain Testnet explorer URL
 						},
 					],
 				})

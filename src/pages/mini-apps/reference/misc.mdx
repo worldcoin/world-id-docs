@@ -1,0 +1,15 @@
+# Misc
+
+## Usernames
+
+To ge the user's username you can either complete Wallet Auth and access the username/profile picture url from MiniKit directly:
+
+```tsx
+const username = MiniKit.user.username
+```
+
+Or you can request it manually, using the `getUserByAddress` method on MiniKit:
+
+```tsx
+const worldIdUser = await MiniKit.getUserByAddress(userAddress)
+```

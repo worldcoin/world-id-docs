@@ -265,6 +265,7 @@ export const miniAppsNavigation = [
 			{ title: 'Sharing', href: '/mini-apps/reference/sharing' },
 			{ title: 'Errors', href: '/mini-apps/reference/errors' },
 			{ title: 'Address Book', href: '/mini-apps/reference/address-book' },
+			{ title: 'Misc', href: '/mini-apps/reference/misc' },
 		],
 	},
 	{

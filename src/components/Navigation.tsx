@@ -191,14 +191,6 @@ export const worldIdNavigation = [
 		],
 	},
 	{
-		title: 'Sign In with World ID',
-		links: [
-			{ title: 'Overview', href: '/world-id/sign-in' },
-			{ title: 'OpenID Connect (OIDC)', href: '/world-id/sign-in/oidc' },
-			{ title: 'Common Pitfalls', href: '/world-id/sign-in/pitfalls' },
-		],
-	},
-	{
 		title: 'Technical Reference',
 		links: [
 			{ title: 'IDKit Reference', href: '/world-id/reference/idkit' },
@@ -253,10 +245,6 @@ export const miniAppsNavigation = [
 			{ title: 'Share Social Graph (soon)', href: '/mini-apps/commands/share-social-graph' },
 			{ title: 'Send Notifications (soon)', href: '/mini-apps/commands/notifications' },
 		],
-	},
-	{
-		title: 'Sign In with World ID',
-		links: [{ title: 'Sign In', href: '/mini-apps/sign-in/setup' }],
 	},
 	{
 		title: 'Technical Reference',

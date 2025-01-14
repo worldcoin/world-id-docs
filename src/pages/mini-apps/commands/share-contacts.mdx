@@ -1,0 +1,119 @@
+# Share Contacts
+
+Sharing contacts is a command that allows you to request users to share contacts in their phone in a privacy preserving way. 
+This command will be available from v1.4.0 of minikit and v2.8.71 of World App.
+
+## Crafting the payload
+
+```ts
+export type ShareContactsInput = {
+  isMultiSelectEnabled: boolean;
+  inviteMessage?: string;
+}
+```
+- `isMultiSelectEnabled` is a boolean that determines if the user can select multiple contacts, by default you can only select one contact in the modal.
+- `inviteMessage` is an optional custom message that will be displayed to the user when the user invites a non world app user while inside of your mini app.
+
+
+## Using the command
+Here is an example of how to use the shareContacts command. 
+
+<Tabs>
+  <TabItem label="Async handlers">
+
+        ### Sending the command and handling the response
+        ```tsx
+        // Example function of how to use the command
+        const shareContacts = useCallback(
+            async (isMultiSelectEnabled: boolean = false, inviteMessage?: string) => {
+                const shareContactsPayload: ShareContactsPayload = {
+                    isMultiSelectEnabled,
+                    inviteMessage,
+                };
+                const payload = await MiniKit.commandsAsync.shareContacts(shareContactsPayload);
+                // Handle the response
+            },
+            []
+        );
+        ```
+
+  </TabItem>
+
+  <TabItem label="Event listeners">
+        ### Sending the command 
+        ```tsx
+        // Example function of how to use the command
+        const shareContacts = useCallback(
+            (isMultiSelectEnabled: boolean = false, inviteMessage?: string) => {
+                const shareContactsPayload: ShareContactsPayload = {
+                    isMultiSelectEnabled,
+                    inviteMessage,
+                };
+                const payload = MiniKit.commands.shareContacts(shareContactsPayload);
+                },
+            []
+        );
+        ```
+
+        ### Handling the response
+        The user will then see a modal of their contacts as well as be able to search for other users.
+
+        ``` tsx {{ title: 'app/page.tsx' }}
+        import { MiniKit, tokenToDecimals, Tokens, PayCommandInput, ResponseEvent } from '@worldcoin/minikit-js'
+            // ...
+            useEffect(() => {
+                if (!MiniKit.isInstalled()) {
+                    console.error("MiniKit is not installed");
+                    return;
+                }
+
+                MiniKit.subscribe(
+                    ResponseEvent.MiniAppShareContacts,
+                    async (response: MiniAppShareContactsPayload) => {
+                        if (response.status == "success") {
+                            const contacts = await res.json();
+                            // Handle the response
+                        }
+                    }
+                );
+
+                return () => {
+                    MiniKit.unsubscribe(ResponseEvent.MiniAppShareContacts);
+                };
+            }, []);
+        ```
+
+    </TabItem>
+
+</Tabs>
+## Response type 
+The response will contain an array of contacts that the user has selected.
+### Success response payload
+``` ts
+type MiniAppShareContactsSuccessPayload = {
+    status: 'success';
+    contacts: Array<{
+        username: string;
+        walletAddress: string;
+        profilePictureUrl: string | null;
+    }>;
+    timestamp: string;
+    version: number;
+};
+```
+### Error response payload
+``` ts
+type MiniAppShareContactsErrorPayload = {
+    status: 'error';
+    error_code: ShareContactsErrorCodes;
+    version: number;
+}
+```
+
+The possible error codes are:
+- `user_rejected` - The user rejected the request
+- `generic_error` - An unknown error occurred
+
+
+
+

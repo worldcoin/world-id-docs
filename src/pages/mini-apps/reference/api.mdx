@@ -2,7 +2,105 @@ import { Link } from '@/components/Link'
 
 # API Reference
 
-MiniKit introduces a new api for verifying transactions.
+## Send Notification{{ tag: "POST", label: "https://developer.worldcoin.org/api/v2/minikit/send-notification" }}
+
+<Row>
+    <Col>
+        This endpoint lets you send notifications to users of your mini app and requires an `api_key`.
+
+        ### Body Params
+        <Properties>
+            <Property name="wallet_addresses" type="string[]" required={true}>
+            The `wallet_addresses` is an array of wallet addresses to send the notification to. Users must have opted in to notifications for your app. Max 1000 users per call.
+            </Property>
+            <Property name="title" type="string" required={true}>
+            The `title` is the title of the notification. It should be 30 characters or less.
+            </Property>
+            <Property name="message" type="string" required={true}>
+            The `message` is the message of the notification. It should be 200 characters or less.
+            </Property>
+            <Property name="mini_app_path" type="string" required={true}>
+            The `mini_app_path` is the url encoded path of the mini app where your notification should link to when the user clicks on it. 
+            </Property>
+        </Properties>
+
+        ### Request Headers
+        <Properties>
+            <Property name="Authorization" type="string" required={true}>
+            The `Authorization` header should be the `api_key` for your app from the Developer Portal. Make sure to
+            prefix it with `Bearer {api_key}`.
+            </Property>
+        </Properties>
+    </Col>
+    <Col>
+        <CodeGroup title="Request" tag="POST" label="/api/v2/minikit/send-notification">
+            ```bash {{ title: "cURL" }}
+            curl -X POST "/api/v2/minikit/send-notification" \
+                -H "Authorization: Bearer {api_key}" \
+                -d '{"app_id": "app_id", "wallet_addresses": ["0x123", "0x456"], "title": "title", "message": "message", "mini_app_path": "mini_app_path"}'
+            ```
+            ```js
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer {api_key}',
+                },
+                body: JSON.stringify({
+                    app_id: "app_id",
+                    wallet_addresses: ["0x123", "0x456"],
+                    title: "title",
+                    message: "message",
+                    mini_app_path: "mini_app_path"
+                })
+            })
+            ```
+        </CodeGroup>
+    </Col>
+
+</Row>
+<hr/>
+### Response
+<Row>
+    <Col>
+        <Properties>
+            <Property name="success" type="boolean">
+            Indicates if the API request was successful.
+            </Property>
+            <Property name="status" type="number">
+            The HTTP status code of the response.
+            </Property>
+            <Property name="result" type="array">
+            An array of notification delivery results for each wallet address, where each item contains:
+                - `walletAddress` (string): The wallet address that the notification was attempted to be sent to
+                - `sent` (boolean): Whether the notification was successfully sent to this wallet address
+                - `reason` (string, optional): If the notification failed to send, this field contains the reason
+            </Property>
+        </Properties>
+    </Col>
+    <Col>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "success": true,
+                "status": 200,
+                "result": [
+                    {
+                        "walletAddress": "0x377da9cab87c04a1d6f19d8b4be9aef8df26fcdd",
+                        "sent": true
+                    },
+                    {
+                        "walletAddress": "0x444da9cab87c04a1d6f19d8b4be9aef8df26fcdd",
+                        "sent": false,
+                        "reason": "User has notification disabled for World App"
+                    }
+                ]
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+<hr/>
+
 
 ## Get Transaction{{ tag: "GET", label: "https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}?app_id=&type=" }}
 

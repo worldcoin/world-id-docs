@@ -1,8 +1,25 @@
-# Sharing your Mini App
-World App supports universal links for your mini app. Urls will follow the schema below. 
+# Quick Actions
 
+### **What Are Quick Actions?**
 
-If a user clicks on your link and has World App installed, it will automatically open the mini app inside of World App to the specified path. Otherwise, it will direct them to the app store and prompt them to install World App.
+A Quick Action is a universal link defined by a schema that triggers a specific flow in your app natively.
+It facilitates direct integrations between mini apps, enabling one app (App A) to utilize a feature or action of another app (App B) seamlessly.
+
+If a user clicks on your link and has World App installed, it will automatically open the mini app inside of World App to the specified path.
+Otherwise, it will direct them to the app store and prompt them to install World App.
+
+### **Benefits of Quick Actions**
+
+1. **Time Efficiency**: Avoid the need to develop complex features from scratch.
+2. **Leverage Expertise**: Utilize tools from apps that specialize in specific functionalities.
+3. **Improved User Experience**: Provide a seamless flow between apps.
+4. **Resource Optimization**: Focus on your apps core functionalities while outsourcing supplementary features.
+5. **Mini app interoperability**: Leverage the user flow of other apps to attract and retain new users.
+6. **Community Growth**: Quick Actions foster community growth by encouraging collaboration. For example, integrating another apps functionality opens opportunities for co-marketing, enhancing visibility and fostering ecosystem-wide collaboration.
+
+### **How to Make a Quick Action**
+
+World App supports universal links for your mini app. Urls will follow the schema below.
 
 ```
  https://worldcoin.org/mini-app?app_id={app_id}&path={path}
@@ -11,10 +28,33 @@ If a user clicks on your link and has World App installed, it will automatically
 ### Parameters
 
 <Properties>
-    <Property name="app_id" type="string" required={true}>
-        The `app_id` corresponding to your mini app.
-    </Property>
-    <Property name="path" type="string">
-        Should be the url encoded path where you want to link to inside of your mini app
-    </Property>
+	<Property name="app_id" type="string" required={true}>
+		The `app_id` corresponding to your mini app.
+	</Property>
+	<Property name="path" type="string">
+		Should be the url encoded path where you want to link to inside of your mini app
+	</Property>
 </Properties>
+
+## Live Quick Actions
+
+This are production quick actions built by developers for developers to enable them to create streamlined
+user experience by leveraging existing tools and services from partner apps, saving development time and resources while maximizing functionality.
+
+### Create a worldchat session with username and custom message.
+
+```
+https://world.app/:username/draft?message=xyz
+```
+
+### Create a worldchat session with username and custom payment request.
+
+```
+https://world.app/:username/draft?request
+```
+
+### ### Create a worldchat session with username and pay.
+
+```
+https://world.app/:username/draft?pay
+```

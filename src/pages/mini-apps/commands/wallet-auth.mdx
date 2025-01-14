@@ -7,15 +7,22 @@ Wallet Auth is our native support for <Link href="https://eips.ethereum.org/EIPS
 
 Wallet Auth is a command that:
 
-- Authenticates users through their Ethereum wallet using the SIWE protocol (EIP-4361).
-- Provides the user's Ethereum address after successful authentication.
-- Verifies ownership of the wallet address via a signed message.
+-   Authenticates users through their Ethereum wallet using the SIWE protocol (EIP-4361).
+-   Provides the user's Ethereum address after successful authentication.
+-   Verifies ownership of the wallet address via a signed message.
 
 With this, developers can:
 
-- Identify users securely and without centralized credentials.
-- Implement token-based access controls.
-- Enable blockchain-related features like transactions tied to the authenticated address.
+-   Identify users securely and without centralized credentials.
+-   Implement token-based access controls.
+-   Enable blockchain-related features like transactions tied to the authenticated address.
+
+There's an additional benefit of Wallet Auth - apart from the verified wallet address you get the user's username and profile picture url.
+After a successful Wallet Auth, you can access these values from the MiniKit class directly:
+
+```tsx
+const username = MiniKit.user.username
+```
 
 ## Creating the nonce
 
@@ -171,7 +178,7 @@ return NextResponse.json({ nonce });
     	### Receiving the response
 
     	The returned message will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-4361">ERC-191</Link>.
-    	
+
     	```tsx
     	type MiniAppWalletAuthSuccessPayload = {
     		status: 'success'

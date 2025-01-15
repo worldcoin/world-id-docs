@@ -33,9 +33,9 @@ import { Link } from '@/components/Link'
         </Properties>
     </Col>
     <Col>
-        <CodeGroup title="Request" tag="POST" label="/api/v2/minikit/send-notification">
+        <CodeGroup title="Request" tag="POST" label="https://developer.worldcoin.org/api/v2/minikit/send-notification">
             ```bash {{ title: "cURL" }}
-            curl -X POST "/api/v2/minikit/send-notification" \
+            curl -X POST "https://developer.worldcoin.org/api/v2/minikit/send-notification" \
                 -H "Authorization: Bearer {api_key}" \
                 -d '{"app_id": "app_id", "wallet_addresses": ["0x123", "0x456"], "title": "title", "message": "message", "mini_app_path": "mini_app_path"}'
             ```

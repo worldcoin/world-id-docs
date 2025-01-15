@@ -3,11 +3,10 @@ import { Link } from '@/components/Link'
 # API Reference
 
 ## Send Notification{{ tag: "POST", label: "https://developer.worldcoin.org/api/v2/minikit/send-notification" }}
+This endpoint lets you send notifications to users of your mini app and requires an `api_key`.
 
 <Row>
     <Col>
-        This endpoint lets you send notifications to users of your mini app and requires an `api_key`.
-
         ### Body Params
         <Properties>
             <Property name="wallet_addresses" type="string[]" required={true}>

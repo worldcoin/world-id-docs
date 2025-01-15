@@ -5,8 +5,10 @@
 A Quick Action is a universal link defined by a schema that triggers a specific flow in your app natively.
 It facilitates direct integrations between mini apps, enabling one app (App A) to utilize a feature or action of another app (App B) seamlessly.
 
-If a user clicks on your link and has World App installed, it will automatically open the mini app inside of World App to the specified path.
-Otherwise, it will direct them to the app store and prompt them to install World App.
+<Note type="info">
+	If a user clicks on your link and has World App installed, it will automatically open the mini app inside of World
+	App to the specified path. Otherwise, it will direct them to the app store and prompt them to install World App.
+</Note>
 
 ### **Benefits of Quick Actions**
 
@@ -19,7 +21,10 @@ Otherwise, it will direct them to the app store and prompt them to install World
 
 ### **How to Make a Quick Action**
 
-World App supports universal links for your mini app. Urls will follow the schema below.
+1. **Create a Universal Link Schema**: Define a schema with a custom path that aligns with the functionality you want to provide.
+2. **Add Documentation**: Create a shareable Notion link, share it by email to [mateo.sauton@toolsforhumanity.com](mailto:mateo.sauton@toolsforhumanity.com) and our team will add it to this page.
+
+Urls will follow the schema below.
 
 ```
  https://worldcoin.org/mini-app?app_id={app_id}&path={path}
@@ -41,20 +46,4 @@ World App supports universal links for your mini app. Urls will follow the schem
 This are production quick actions built by developers for developers to enable them to create streamlined
 user experience by leveraging existing tools and services from partner apps, saving development time and resources while maximizing functionality.
 
-### Create a worldchat session with username and custom message.
-
-```
-https://world.app/:username/draft?message=xyz
-```
-
-### Create a worldchat session with username and custom payment request.
-
-```
-https://world.app/:username/draft?request
-```
-
-### ### Create a worldchat session with username and pay.
-
-```
-https://world.app/:username/draft?pay
-```
+<Note type="info">All live quick actions will be displayed below for other developers to use.</Note>

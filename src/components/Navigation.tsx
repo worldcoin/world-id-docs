@@ -242,8 +242,8 @@ export const miniAppsNavigation = [
 			{ title: 'Send Transaction', href: '/mini-apps/commands/send-transaction' },
 			{ title: 'Sign Message', href: '/mini-apps/commands/sign-message' },
 			{ title: 'Sign Typed Data', href: '/mini-apps/commands/sign-typed-data' },
-			{ title: 'Share Social Graph (soon)', href: '/mini-apps/commands/share-social-graph' },
-			{ title: 'Send Notifications (soon)', href: '/mini-apps/commands/notifications' },
+			{ title: 'Share Contacts', href: '/mini-apps/commands/share-contacts' },
+			{ title: 'Send Notifications', href: '/mini-apps/commands/send-notifications' },
 		],
 	},
 	{

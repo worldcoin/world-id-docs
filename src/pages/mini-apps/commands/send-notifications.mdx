@@ -1,0 +1,130 @@
+# Send Notifications
+
+Sending notifications has two parts
+- Requesting permission to send notifications via minikit
+- Sending the notification
+
+This command will be available from v1.4.0 of minikit and v2.8.71 of World App.
+
+
+## Requesting permission
+Here is an example of how to use the requestPermission command. 
+Note this modal will only allow you to show it once. If you reject it, you will need to direct the user to settings in order to re-enable this. 
+You can find this out by checking the `error_code` in the response.
+
+The schema for the settings page is: worldcoin.org/settings/miniapps
+
+<Tabs>
+  <TabItem label="Async handlers">
+
+        ### Sending the command and handling the response
+        ```tsx
+        import { MiniKit, RequestPermissionPayload, Permission } from '@worldcoin/minikit-js'
+
+        // Example function of how to use the command
+        const requestPermission = useCallback(
+            async () => {
+                const requestPermissionPayload: RequestPermissionPayload = {
+                    permission: Permission.Notifications,
+                };
+                const payload = await MiniKit.commandsAsync.requestPermission(requestPermissionPayload);
+                // Handle the response
+            },
+            []
+        );
+        ```
+
+  </TabItem>
+
+  <TabItem label="Event listeners">
+        ### Sending the command 
+        ```tsx
+        // Example function of how to use the command
+        const shareContacts = useCallback(
+            (isMultiSelectEnabled: boolean = false, inviteMessage?: string) => {
+                const shareContactsPayload: ShareContactsPayload = {
+                    isMultiSelectEnabled,
+                    inviteMessage,
+                };
+                const payload = MiniKit.commands.shareContacts(shareContactsPayload);
+                },
+            []
+        );
+        ```
+
+        ### Handling the response
+        The user will then see a modal of their contacts as well as be able to search for other users.
+
+        ``` tsx {{ title: 'app/page.tsx' }}
+        import { MiniKit, tokenToDecimals, Tokens, PayCommandInput, ResponseEvent } from '@worldcoin/minikit-js'
+            // ...
+            useEffect(() => {
+                if (!MiniKit.isInstalled()) {
+                    console.error("MiniKit is not installed");
+                    return;
+                }
+
+                MiniKit.subscribe(
+                    ResponseEvent.MiniAppRequestPermission,
+                    async (response: MiniAppRequestPermissionPayload) => {
+                        if (response.status == "success") {
+                            const response = await res.json();
+                            // Handle the response
+                        }
+                    }
+                );
+
+                return () => {
+                    MiniKit.unsubscribe(ResponseEvent.MiniAppRequestPermission);
+                };
+            }, []);
+        ```
+
+    </TabItem>
+
+</Tabs>
+## Response type 
+The response will contain an array of contacts that the user has selected.
+### Success response payload
+``` ts
+type MiniAppShareContactsSuccessPayload = {
+    status: 'success';
+    permission: 'notifications';
+    timestamp: string;  // ISO-8601
+    version: number;    // same version that was received from MiniKit
+};
+```
+### Error response payload
+``` ts
+type MiniAppShareContactsErrorPayload = {
+    status: 'error';
+    error_code: ShareContactsErrorCodes;
+    version: number;
+}
+```
+
+The possible error codes are:
+- `user_rejected` - User declined permission request
+- `generic_error` - Request failed for unknown reason
+- `already_requested` - User has already declined turning on notifications once
+- `permission_disabled` - User has notification disabled for World App
+- `already_granted` - User has already granted this mini app permission
+- `unsupported_permission` - Permission is not supported yet
+
+## Calling the notification endpoint
+
+You can send notifications to this endpoint: https://developer.worldcoin.org/api/v2/minikit/send-notification.
+For detailed information on the endpoint, see the [API Reference](/mini-apps/reference/api#send-notification).
+
+Business rules about this endpoint
+- We do not allow marketing notifications. These should be purely functional notifications.
+- We do not allow notifications that are not related to the mini app.
+- We do not allow notifications that are not related to the user.
+- The endpoint is limited to 1000 users per call
+- Messages are limited to 200 characters
+- Titles are limited to 30 characters
+
+
+
+
+

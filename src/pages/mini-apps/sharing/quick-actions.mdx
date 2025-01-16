@@ -1,0 +1,41 @@
+# Quick Actions
+
+### **What Are Quick Actions?**
+
+A Quick Action is a universal deeplink defined by a schema that navigates to a specific path inside your app.
+It facilitates direct integrations between mini apps, enabling one app (App A) to use a feature or action of another app (App B) seamlessly.
+In short, you can create a quick action for you own mini app to share it with other developers or use other mini app quick actions that will be listed in this page.
+
+<Note type="info">
+	If a user clicks on your link and has World App installed, it will automatically open the mini app inside of World
+	App to the specified path. Otherwise, it will direct them to the app store and prompt them to install World App.
+</Note>
+
+### **Benefits of Quick Actions**
+
+1. **Leverage Expertise**: Use other mini apps already working specific features.
+2. **Resource & Time Optimization**: Focus on your apps core functionalities while outsourcing supplementary features.
+3. **Community Growth**: Integrating another apps functionality opens opportunities for co-marketing.
+
+### **How to Make a Quick Action**
+
+1. **Create a Universal Link Schema**: Define a schema with a custom path that aligns with the functionality you want to provide.
+
+2. **Publish it in our docs for all devs to use**: Fill this [form](https://forms.gle/UBcKMrnxtyxqX4dq6) for our team to test and publish your quick action on this page.
+
+Urls will follow the schema below.
+
+```
+ https://worldcoin.org/mini-app?app_id={app_id}&path={path}
+```
+
+### Parameters
+
+<Properties>
+	<Property name="app_id" type="string" required={true}>
+		The `app_id` corresponding to your mini app.
+	</Property>
+	<Property name="path" type="string">
+		Should be the url encoded path where you want to link to inside of your mini app
+	</Property>
+</Properties>

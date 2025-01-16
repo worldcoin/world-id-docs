@@ -250,11 +250,14 @@ export const miniAppsNavigation = [
 		title: 'Technical Reference',
 		links: [
 			{ title: 'API Reference', href: '/mini-apps/reference/api' },
-			{ title: 'Sharing', href: '/mini-apps/reference/sharing' },
 			{ title: 'Errors', href: '/mini-apps/reference/errors' },
 			{ title: 'Address Book', href: '/mini-apps/reference/address-book' },
 			{ title: 'Usernames', href: '/mini-apps/reference/usernames' },
 		],
+	},
+	{
+		title: 'Quick Actions',
+		links: [{ title: 'Quick Actions', href: '/mini-apps/sharing/quick-actions' }],
 	},
 	{
 		title: 'Further Reading',

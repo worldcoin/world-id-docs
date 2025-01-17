@@ -40,13 +40,12 @@ The schema for the settings page is: worldcoin.org/settings/miniapps
         ### Sending the command 
         ```tsx
         // Example function of how to use the command
-        const shareContacts = useCallback(
-            (isMultiSelectEnabled: boolean = false, inviteMessage?: string) => {
-                const shareContactsPayload: ShareContactsPayload = {
-                    isMultiSelectEnabled,
-                    inviteMessage,
+        const requestPermission = useCallback(
+            () => {
+                const requestPermissionPayload: RequestPermissionPayload = {
+                    permission: Permission.Notifications,
                 };
-                const payload = MiniKit.commands.shareContacts(shareContactsPayload);
+                const payload = MiniKit.commands.requestPermission(requestPermissionPayload);
                 },
             []
         );

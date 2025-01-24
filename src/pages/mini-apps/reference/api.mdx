@@ -21,6 +21,9 @@ This endpoint lets you send notifications to users of your mini app and requires
             <Property name="mini_app_path" type="string" required={true}>
             The `mini_app_path` is the url encoded path of the mini app where your notification should link to when the user clicks on it. <br/><br/> Should be of the format `worldapp://mini-app?app_id=[app_id]&path=[path]` (path is optional).
             </Property>
+            <Property name="app_id" type="string" required={true}>
+            The `app_id` is the identifier of the app initiating the transaction.
+            </Property>
         </Properties>
 
         ### Request Headers

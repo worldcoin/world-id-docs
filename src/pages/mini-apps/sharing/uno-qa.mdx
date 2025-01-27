@@ -1,0 +1,97 @@
+# UNO Quick Action
+
+[UNO](https://worldcoin.org/ecosystem/app_a4f7f3e62c1de0b9490a5260cb390b56) is your simple, secure token wallet.
+View your token balances and check prices all in one place. Buy, Sell, Swap, or Send tokens in a fun and simple interface.
+
+Uno now supports a Quick Action to deeplink directly to the swap tab, with a specific swap ready to be executed.
+
+<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+	<div style={{ flex: 1 }}>
+		<h3>Parameters</h3>
+		<Properties>
+			<Property name="tab" type="string" required={true}>
+				Currently only supports "swap"; this allows deep linking to the swap tab.
+			</Property>
+			<Property name="fromToken" type="string">
+				Token address for the from token.
+			</Property>
+			<Property name="amount" type="string">
+				Base units amount of the from token.
+			</Property>
+			<Property name="toToken" type="string">
+				Token address for the to token.
+			</Property>
+			<Property name="referrerAppId" type="string">
+				World Miniapp App id of the referring World Miniapp. When provided, a “Go Back” deeplink button will
+				appear in the top left of the header that takes the user back to the referring Miniapp.
+			</Property>
+			<Property name="referrerDeeplinkPath" type="string">
+				Deeplink path for referring World Miniapp Quick Actions. When provided, this path will be added to the
+				“Go Back” deeplink button so that the referring Miniapp can execute a Quick Action when the user taps
+				“Go Back” in Uno.
+			</Property>
+		</Properties>
+	</div>
+	<div style={{ marginLeft: '20px' }}>
+		<img
+			src="/images/docs/mini-apps/quick-actions/uno-qa.png"
+			alt="Swap Screen"
+			style={{ maxWidth: '300px', height: 'auto' }}
+		/>
+	</div>
+</div>
+
+## Helper function
+
+```tsx
+
+const UNO_APP_ID = "app_a4f7f3e62c1de0b9490a5260cb390b56";
+
+function getUnoDeeplinkUrl(
+  fromToken: string,
+  amount: string,
+  toToken: string,
+  referrerAppId?: string,
+  referrerDeeplinkPath?: string
+) {
+  let path = `?tab=swap&fromToken=${fromToken}&toToken=${toToken}&amount=${amount}`;
+  if (referrerAppId) {
+    path += `&referrerAppId=${referrerAppId}`;
+  }
+  if (referrerDeeplinkPath) {
+    path += `&referrerDeeplinkPath=${encodeURIComponent(referrerDeeplinkPath)}`;
+  }
+  const encodedPath = encodeURIComponent(path);
+  return `https://worldcoin.org/mini-app?app_id=${UNO_APP_ID}&path=${encodedPath}`;
+}
+
+
+// create a trade for 1.2345 USDC to WETH
+console.log(
+  getUnoDeeplinkUrl(
+    "0x79A02482A880bCE3F13e09Da970dC34db4CD24d1",
+    "1234500"
+    "0x4200000000000000000000000000000000000006",
+  )
+);
+```
+
+### Example output link
+
+```
+https://worldcoin.org/mini-app?app_id=app_282f12de8a6524fed41b02ff37bc29e6&path=%3Ftab%3Dswap%26fromToken%3D0x79A02482A880bCE3F13e09Da970dC34db4CD24d1%26toToken%3D0x4200000000000000000000000000000000000006%26amount%3D1234500
+```
+
+### Apendix
+
+**Terminology**
+
+-   **fromToken** - token that is being swapped away for another token. Other names for this parameter are “sell token”, or “input token”.
+-   **toToken** - token that is being swapped into for another token. Other names for this parameter are “buy token”, or “output token”.
+-   **referrer** - In the cases that the UNO Quick Action link is used from a different Miniapp, the referrer is the Miniapp where that link was used.
+    Specifying the referrerAppId allows UNO to provide a “Go back” to the Miniapp that provided the link to the UNO Quick Action.
+
+**Caveats/Warnings**
+
+-   If the user does not have the fromToken (sell token).
+-   Amount should be in the base units of the fromToken.

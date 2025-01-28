@@ -230,7 +230,10 @@ export const miniAppsNavigation = [
 	},
 	{
 		title: 'Design Standards',
-		links: [{ title: 'Guidelines', href: '/mini-apps/design/app-guidelines' }],
+		links: [
+			{ title: 'Guidelines', href: '/mini-apps/design/app-guidelines' },
+			{ title: 'UI Kit', href: '/mini-apps/design/ui-kit' },
+		],
 	},
 	{
 		title: 'Commands',

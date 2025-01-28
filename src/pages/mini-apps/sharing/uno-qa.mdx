@@ -44,51 +44,49 @@ Uno now supports a Quick Action to deeplink directly to the swap tab, with a spe
 ## Helper function
 
 ```tsx
-
-const UNO_APP_ID = "app_a4f7f3e62c1de0b9490a5260cb390b56";
+const UNO_APP_ID = 'app_a4f7f3e62c1de0b9490a5260cb390b56'
 
 function getUnoDeeplinkUrl({
-  fromToken,
-  toToken,
-  amount,
-  referrerAppId,
-  referrerDeeplinkPath,
+	fromToken,
+	toToken,
+	amount,
+	referrerAppId,
+	referrerDeeplinkPath,
 }: {
-  fromToken?: string;
-  toToken?: string;
-  amount?: string;
-  referrerAppId?: string;
-  referrerDeeplinkPath?: string;
+	fromToken?: string
+	toToken?: string
+	amount?: string
+	referrerAppId?: string
+	referrerDeeplinkPath?: string
 }) {
-  let path = `?tab=swap`;
-  if (fromToken) {
-    path += `&fromToken=${fromToken}`;
-    if (amount) {
-      path += `&amount=${amount}`;
-    }
-  }
-  if (toToken) {
-    path += `&toToken=${toToken}`;
-  }
-  if (referrerAppId) {
-    path += `&referrerAppId=${referrerAppId}`;
-  }
-  if (referrerDeeplinkPath) {
-    path += `&referrerDeeplinkPath=${encodeURIComponent(referrerDeeplinkPath)}`;
-  }
-  const encodedPath = encodeURIComponent(path);
-  return `https://worldcoin.org/mini-app?app_id=${UNO_APP_ID}&path=${encodedPath}`;
+	let path = `?tab=swap`
+	if (fromToken) {
+		path += `&fromToken=${fromToken}`
+		if (amount) {
+			path += `&amount=${amount}`
+		}
+	}
+	if (toToken) {
+		path += `&toToken=${toToken}`
+	}
+	if (referrerAppId) {
+		path += `&referrerAppId=${referrerAppId}`
+	}
+	if (referrerDeeplinkPath) {
+		path += `&referrerDeeplinkPath=${encodeURIComponent(referrerDeeplinkPath)}`
+	}
+	const encodedPath = encodeURIComponent(path)
+	return `https://worldcoin.org/mini-app?app_id=${UNO_APP_ID}&path=${encodedPath}`
 }
-
 
 // create a trade for 1.2345 USDC to WETH
 console.log(
-  getUnoDeeplinkUrl({
-    fromToken: "0x79A02482A880bCE3F13e09Da970dC34db4CD24d1",
-    amount: "1234500",
-    toToken: "0x4200000000000000000000000000000000000006",
-  })
-);
+	getUnoDeeplinkUrl({
+		fromToken: '0x79A02482A880bCE3F13e09Da970dC34db4CD24d1',
+		amount: '1234500',
+		toToken: '0x4200000000000000000000000000000000000006',
+	})
+)
 ```
 
 ### Example output link
@@ -106,7 +104,7 @@ https://worldcoin.org/mini-app?app_id=app_a4f7f3e62c1de0b9490a5260cb390b56&path=
 -   **referrer** - In the cases that the UNO Quick Action link is used from a different Miniapp, the referrer is the Miniapp where that link was used.
     Specifying the referrerAppId allows UNO to provide a “Go back” to the Miniapp that provided the link to the UNO Quick Action.
 
-**Caveats/Warnings**
+**Caveats/Warnings** Swap will if not taken into consideration.
 
 -   If the user does not have the fromToken (sell token).
 -   Amount should be in the base units of the fromToken.

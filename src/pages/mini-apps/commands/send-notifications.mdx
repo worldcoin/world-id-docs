@@ -52,8 +52,6 @@ The schema for the settings page is: worldcoin.org/settings/miniapps
         ```
 
         ### Handling the response
-        The user will then see a modal of their contacts as well as be able to search for other users.
-
         ``` tsx {{ title: 'app/page.tsx' }}
         import { MiniKit, tokenToDecimals, Tokens, PayCommandInput, ResponseEvent } from '@worldcoin/minikit-js'
             // ...
@@ -83,10 +81,9 @@ The schema for the settings page is: worldcoin.org/settings/miniapps
 
 </Tabs>
 ## Response type 
-The response will contain an array of contacts that the user has selected.
 ### Success response payload
 ``` ts
-type MiniAppShareContactsSuccessPayload = {
+type MiniAppRequestPermissionSuccessPayload = {
     status: 'success';
     permission: 'notifications';
     timestamp: string;  // ISO-8601
@@ -95,9 +92,9 @@ type MiniAppShareContactsSuccessPayload = {
 ```
 ### Error response payload
 ``` ts
-type MiniAppShareContactsErrorPayload = {
+type MiniAppRequestPermissionErrorPayload = {
     status: 'error';
-    error_code: ShareContactsErrorCodes;
+    error_code: RequestPermissionErrorCodes;
     version: number;
 }
 ```
@@ -124,6 +121,8 @@ Business rules about this endpoint
 - Titles are limited to 30 characters
 
 
+## Testing
 
-
-
+We currently have a limit of 40 notifications per 4 hours for unverified apps. This is to help you test your notification implementations.
+Currently you will need to create a new app if your app is verified as it will default to the verified app's metadata. In addition, you need 
+to enable notifications for your mini app inside of World App to receive them.

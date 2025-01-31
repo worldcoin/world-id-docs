@@ -264,6 +264,7 @@ export const miniAppsNavigation = [
 			{ title: 'Quick Actions', href: '/mini-apps/sharing/quick-actions' },
 			{ title: 'UNO Swap', href: '/mini-apps/sharing/uno-qa' },
 			{ title: 'Eggs Vault Smash', href: '/mini-apps/sharing/eggs-vault-qa' },
+			{ title: 'Earn WLD Pool', href: '/mini-apps/sharing/earn-wld-qa' },
 		],
 	},
 	{

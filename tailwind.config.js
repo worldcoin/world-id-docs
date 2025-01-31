@@ -51,6 +51,11 @@ module.exports = {
 					},
 				},
 				gray: {
+					A1: '#18181A',
+					A5: '##53535C',
+					A7: '#E7E7E8',
+					A9: '#F3F4F5',
+					A10: '#F9F9F8',
 					25: '#FBFBFC',
 					50: '#F9FAFB',
 					100: '#F3F4F5',
@@ -61,6 +66,11 @@ module.exports = {
 					700: '#3C424B',
 					900: '#191C20',
 				},
+
+				'black-A1': '#000000',
+				AG1: '#73737C',
+				AG2: '#BBBBC2',
+				'purple-H2': '#6E66E7',
 
 				accents: {
 					info: {

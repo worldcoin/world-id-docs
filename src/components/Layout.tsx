@@ -43,7 +43,7 @@ export const Layout: FC<
 		<SectionProvider sections={sections}>
 			<Header />
 			<div
-				className={clsx('lg:ml-72 xl:ml-80 mt-14 overflow-x-hidden', {
+				className={clsx('lg:ml-72 xl:ml-80 mt-14 overflow-x-hidden bg-gray-A10', {
 					'!ml-0 justify-center items-center sm:flex mt-24': basePath === '',
 				})}
 			>
@@ -75,7 +75,7 @@ export const Layout: FC<
 					<main className="pb-16">
 						<Prose as="article">
 							{currentSection && (
-								<p className="uppercase tracking-wide text-neutral-400 mb-1">{currentSection.title}</p>
+								<p className="uppercase tracking-wide text-AG2 mb-1">{currentSection.title}</p>
 							)}
 							{children}
 						</Prose>

@@ -1,22 +1,23 @@
 # Share Contacts
 
-Sharing contacts is a command that allows you to request users to share contacts in their phone in a privacy preserving way. 
+Sharing contacts is a command that allows you to request users to share contacts in their phone in a privacy preserving way.
 This command will be available from v1.4.0 of minikit and v2.8.72 of World App.
 
 ## Crafting the payload
 
 ```ts
 export type ShareContactsInput = {
-  isMultiSelectEnabled: boolean;
-  inviteMessage?: string;
+	isMultiSelectEnabled: boolean
+	inviteMessage?: string
 }
 ```
-- `isMultiSelectEnabled` is a boolean that determines if the user can select multiple contacts, by default you can only select one contact in the modal.
-- `inviteMessage` is an optional custom message that will be displayed to the user when the user invites a non world app user while inside of your mini app.
 
+-   `isMultiSelectEnabled` is a boolean that determines if the user can select multiple contacts, by default you can only select one contact in the modal.
+-   `inviteMessage` is an optional custom message that will be displayed to the user when the user invites a non world app user while inside of your mini app.
 
 ## Using the command
-Here is an example of how to use the shareContacts command. 
+
+Here is an example of how to use the shareContacts command.
 
 <Tabs>
   <TabItem label="Async handlers">
@@ -111,9 +112,17 @@ type MiniAppShareContactsErrorPayload = {
 ```
 
 The possible error codes are:
-- `user_rejected` - The user rejected the request
-- `generic_error` - An unknown error occurred
 
+-   `user_rejected` - The user rejected the request
+-   `generic_error` - An unknown error occurred
 
+## Success Result on World App
 
+If implemented correctly, the user will see the following drawer on World App.
 
+    <div className='grid justify-items-center text-center'>
+        <video className="m-auto" width="300" autoPlay muted loop playsInline>
+            <source src="/images/docs/mini-apps/commands/contacts-command.mp4" type="video/mp4" />
+    		Your browser does not support the video tag.
+    	</video>
+    </div>

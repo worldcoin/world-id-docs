@@ -115,7 +115,7 @@ const SectionTab = (props: { className?: string; text: string; isActive: boolean
 				'text-gray-900 border-black border-b': isActive,
 			})}
 		>
-			<a href={href} className={clsx('text-AG2 text-sm', { 'text-gray-900': isActive }, className)}>
+			<a href={href} className={clsx('text-gray-AG2 text-sm', { 'text-gray-900': isActive }, className)}>
 				{text}
 			</a>
 		</div>

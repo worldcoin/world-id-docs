@@ -43,14 +43,14 @@ export const Layout: FC<
 		<SectionProvider sections={sections}>
 			<Header />
 			<div
-				className={clsx('lg:ml-72 xl:ml-80 mt-14 overflow-x-hidden bg-gray-A10', {
+				className={clsx('lg:ml-72 xl:ml-80 mt-24 overflow-x-hidden bg-gray-A10', {
 					'!ml-0 justify-center items-center sm:flex mt-24': basePath === '',
 				})}
 			>
 				<motion.header
 					layoutScroll
 					className={clsx(
-						'contents lg:pointer-events-none lg:fixed lg:inset-0 lg:top-14 lg:z-[8] lg:flex mt-14',
+						'contents lg:pointer-events-none lg:fixed lg:inset-0 lg:top-14 lg:z-[8] lg:flex mt-24',
 						{
 							invisible: basePath === '',
 						}
@@ -71,11 +71,11 @@ export const Layout: FC<
 					</ScrollArea.Root>
 				</motion.header>
 
-				<div className="relative px-4 pt-14 sm:px-6 lg:px-8">
+				<div className="relative px-4 pt-24 sm:px-6 lg:px-8">
 					<main className="pb-16">
 						<Prose as="article">
 							{currentSection && (
-								<p className="uppercase tracking-wide text-AG2 mb-1">{currentSection.title}</p>
+								<p className="uppercase tracking-wide text-gray-AG2 mb-1">{currentSection.title}</p>
 							)}
 							{children}
 						</Prose>

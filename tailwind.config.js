@@ -51,11 +51,13 @@ module.exports = {
 					},
 				},
 				gray: {
-					A1: '#18181A',
-					A5: '##53535C',
-					A7: '#E7E7E8',
-					A9: '#F3F4F5',
+					A1: '#2D2C2C',
+					A5: '#575654',
+					A7: '#E7E5E2',
+					A9: '#F3F2F0',
 					A10: '#F9F9F8',
+					AG1: '#75726F',
+					AG2: '#9D9B96',
 					25: '#FBFBFC',
 					50: '#F9FAFB',
 					100: '#F3F4F5',
@@ -68,9 +70,7 @@ module.exports = {
 				},
 
 				'black-A1': '#000000',
-				AG1: '#73737C',
-				AG2: '#BBBBC2',
-				'purple-H2': '#6E66E7',
+				'purple-H2': '#454EBA',
 
 				accents: {
 					info: {

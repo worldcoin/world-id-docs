@@ -114,12 +114,18 @@ const nextConfig = {
 			},
 			{
 				source: '/advanced/privacy',
-				destination: 'https://vault.pactsafe.io/s/8a18d792-fd76-44db-9b92-b0bb7981c248/legal.html#contract-s1ytru6kk',
+				destination:
+					'https://vault.pactsafe.io/s/8a18d792-fd76-44db-9b92-b0bb7981c248/legal.html#contract-s1ytru6kk',
 				permanent: true,
 			},
 			{
 				source: '/advanced/on-chain',
 				destination: '/world-id/id/on-chain',
+				permanent: true,
+			},
+			{
+				source: '/about/glossary',
+				destination: '/world-id/concepts',
 				permanent: true,
 			},
 		]

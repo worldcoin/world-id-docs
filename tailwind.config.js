@@ -69,7 +69,6 @@ module.exports = {
 					900: '#191C20',
 				},
 
-				'black-A1': '#000000',
 				'purple-H2': '#454EBA',
 
 				accents: {

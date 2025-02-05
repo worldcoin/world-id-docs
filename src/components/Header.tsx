@@ -57,7 +57,7 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 				} as MotionStyle
 			}
 		>
-			<div className="flex h-14 items-center justify-between gap-12 border px-4 sm:px-6 ">
+			<div className="flex h-14 items-center justify-between gap-12 border-x px-4 sm:px-6 border-t">
 				<div
 					className={clsx(
 						'absolute inset-x-0 top-full h-px transition',
@@ -111,11 +111,12 @@ const SectionTab = (props: { className?: string; text: string; isActive: boolean
 	const { className, text, isActive, href } = props
 	return (
 		<div
-			className={clsx('h-full flex items-center text-center justify-center', {
-				'text-gray-900 border-black border-b': isActive,
+			className={clsx('h-full flex items-center text-center justify-center relative', {
+				'text-gray-900 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-black after:-mb-px':
+					isActive,
 			})}
 		>
-			<a href={href} className={clsx('text-gray-AG2 text-sm', { 'text-gray-900': isActive }, className)}>
+			<a href={href} className={clsx('text-gray-AG2 text-sm', { 'text-gray-A1': isActive }, className)}>
 				{text}
 			</a>
 		</div>

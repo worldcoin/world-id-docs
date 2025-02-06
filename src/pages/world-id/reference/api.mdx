@@ -333,8 +333,6 @@ fetch('/api/v1/jwks')
 
 </CodeGroup>
 
-{/* cSpell:disable */}
-
 ```json {{ title: "Response" }}
 {
 	"keys": [
@@ -347,8 +345,6 @@ fetch('/api/v1/jwks')
 	]
 }
 ```
-
-{/* cSpell:enable */}
 
 </Col></Row>
 
@@ -369,33 +365,6 @@ Authorization: Bearer $API_KEY
 <Row><Col>
 
 Interaction with the Developer Portal API is mostly done through a GraphQL endpoint, which enables retrieving information and interacting with any of the API objects. You can read more about [queries](https://hasura.io/docs/latest/graphql/core/api-reference/graphql-api/query/) and [mutations](https://hasura.io/docs/latest/graphql/core/api-reference/graphql-api/mutation/) for GraphQL to help you construct your query.
-
-<CodeGroup title="Example Queries">
-
-```graphql {{ title: "Listing Apps" }}
-query MyApps {
-	app {
-		id
-		name
-	}
-}
-```
-
-```graphql {{ title: "Listing nullifiers for action" }}
-query ActionNullifiers($action_id: String) {
-	action(where: { id: { _eq: $action_id }, status: { _eq: "active" } }) {
-		id
-		status
-		max_accounts_per_user
-		max_verifications
-		nullifiers {
-			nullifier_hash
-		}
-	}
-}
-```
-
-</CodeGroup>
 
 </Col><Col sticky>
 
@@ -421,6 +390,33 @@ fetch('/v1/graphql', {
 		query: 'YOUR_GRAPHQL_QUERY_HERE',
 	}),
 })
+```
+
+</CodeGroup>
+
+<CodeGroup title="Example Queries">
+
+```graphql {{ title: "Listing Apps" }}
+query MyApps {
+	app {
+		id
+		name
+	}
+}
+```
+
+```graphql {{ title: "Listing nullifiers for action" }}
+query ActionNullifiers($action_id: String) {
+	action(where: { id: { _eq: $action_id }, status: { _eq: "active" } }) {
+		id
+		status
+		max_accounts_per_user
+		max_verifications
+		nullifiers {
+			nullifier_hash
+		}
+	}
+}
 ```
 
 </CodeGroup>

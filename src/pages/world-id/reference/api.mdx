@@ -231,24 +231,36 @@ fetch(`/api/v1/precheck/${appId}`, {
 		Whether the action request is for Sign in with World ID.
 	</Property>
 	<Property name="can_user_verify" type='"yes" | "no" | "on-chain" | "undetermined"'>
-		If the user is eligible to verify for this action. - `"yes"`: The user has not reached the maximum number of
-		verifications for this action based on the `nullifier_hash` provided. Always returned when `is_sign_in` is
-		`true`. - `"no"`: The user has reached the maximum number of verifications for this action based on the
-		`nullifier_hash` provided. - `"undetermined"`: A nullifier_hash was not provided, so the user's eligibility
-		cannot be determined. - `"on-chain"`: The app is configured for **On-Chain** verifications, so the user's
-		eligibility cannot be determined. Verification eligibility is determined solely by the application's smart
-		contract.
-	</Property>
-	<Property name="action" type="JSON">
-		Information about the action being verified. - `name`: The action's human-readable name as configured in the
-		Developer Portal. - `action`: The action identifier as configured in the Developer Portal. Typically a slugified
-		version of the action's name. - `description`: The action's description as configured in the Developer Portal. -
-		`max_verifications`: The maximum number of verifications allowed for this action. Will be `0` if the action is
-		configured for unlimited verifications. - `max_accounts_per_user`: The maximum number of accounts allowed per
-		user for Sign in with World ID. Will always be `1`. - `external_nullifier`: The action's external nullifier.
-		**Intended for internal use only.** - `status`: Will return `active` if the action is active, otherwise will
-		return `inactive`. - `__typename`: Always returns `action`.
-	</Property>
+		If the user is eligible to verify for this action.
+
+    	- `"yes"`: The user has not reached the maximum number of verifications for this action based on the `nullifier_hash` provided. Always returned when `is_sign_in` is `true`.
+
+    	- `"no"`: The user has reached the maximum number of verifications for this action based on the `nullifier_hash` provided.
+
+    	- `"undetermined"`: A nullifier_hash was not provided, so the user's eligibility cannot be determined.
+
+    	- `"on-chain"`: The app is configured for **On-Chain** verifications, so the user's eligibility cannot be determined. Verification eligibility is determined solely by the application's smart contract.
+    </Property>
+    <Property name="action" type="JSON">
+    	Information about the action being verified.
+
+    	- `name`: The action's human-readable name as configured in the Developer Portal.
+
+    	- `action`: The action identifier as configured in the Developer Portal. Typically a slugified version of the action's name.
+
+    	- `description`: The action's description as configured in the Developer Portal.
+
+    	- `max_verifications`: The maximum number of verifications allowed for this action. Will be `0` if the action is configured for unlimited verifications.
+
+    	- `max_accounts_per_user`: The maximum number of accounts allowed per user for Sign in with World ID. Will always be `1`.
+
+    	- `external_nullifier`: The action's external nullifier. **Intended for internal use only.**
+
+    	- `status`: Will return `active` if the action is active, otherwise will return `inactive`.
+
+    	- `__typename`: Always returns `action`.
+    </Property>
+
 </Properties>
 
 </Col><Col sticky>

@@ -37,7 +37,7 @@ Open your `.env` file in an editor of your choice. The following values must be 
 		When using `op-geth`, determines which type of node to run. Either `full` (less storage, but only recent history) or `archive` (more storage, all history).
 	</Property>
 	<Property name="OP_NODE__RPC_ENDPOINT" type="URL" required={true}>
-		An L1 (Ethereum) RPC endpoint. We recommend using [Alchemy](https://www.alchemy.com/), but any Ethereum RPC provider or archive node will work.
+		An L1 (Ethereum) RPC endpoint. We recommend using [Alchemy](https://www.alchemy.com/) or [QuickNode](https://www.quicknode.com), but any Ethereum RPC provider or archive node will work.
 	</Property>
 	<Property name="OP_NODE__L1_BEACON" type="URL" required={true}>
 		An L1 Beacon Archive RPC endpoint. Note that this is not the same as a standard RPC endpoint, as this is used to retrieve Blobs from the Ethereum Beacon Chain. We recommend using [QuickNode](https://www.quicknode.com/).

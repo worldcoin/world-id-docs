@@ -400,7 +400,7 @@ const sendTransaction = async () => {
     const payload = await MiniKit.commandsAsync.sendTransaction({
       transaction: [
         {
-          address: '0x087d5449a126e4e439495fcBc62A853eB3257936',
+          address: '0x087d5449a126e4e439495fcBc62A853eB3257936', // Forward.sol
           abi: ForwardABI,
           functionName: 'pay',
           args: ['0x377da9cab87c04a1d6f19d8b4be9aef8df26fcdd'], // To Whom

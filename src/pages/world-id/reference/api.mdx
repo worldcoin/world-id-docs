@@ -9,7 +9,8 @@ https://developer.worldcoin.org
 ```
 
 <Note>
-    All requests to the Developer Portal API must include a `Content-Type: application/json` header, a `User-Agent` header, and a valid JSON body.
+	All requests to the Developer Portal API must include a `Content-Type: application/json` header, a `User-Agent`
+	header, and a valid JSON body.
 </Note>
 
 ## Verify Proof {{ tag: "POST", label: "/api/v2/verify/{app_id}" }}
@@ -19,29 +20,33 @@ https://developer.worldcoin.org
 Enables you to verify a World ID proof for a **Cloud action.** To ensure sybil-resistance, by default, a single person can only verify once for every action. The number of allowed verifications for a single user can be configured in the Developer Portal.
 
 <Note>
-    This endpoint is now on **version 2**. The previous version at `/api/v1/verify/{app_id}` will be unavailable after June 30, 2024.
+	This endpoint is now on **version 2**. The previous version at `/api/v1/verify/{app_id}` will be unavailable after
+	June 30, 2024.
 </Note>
 
 ### Request Body
 
 <Properties>
 	<Property name="nullifier_hash" type="string" required={true}>
-	The unique user identifier (called the nullifier hash in the ZKP), as provided by IDKit. See [IDKit response](/world-id/reference/idkit#types) for details.
+		The unique user identifier (called the nullifier hash in the ZKP), as provided by IDKit. See [IDKit
+		response](/world-id/reference/idkit#types) for details.
 	</Property>
 	<Property name="proof" type="string" required={true}>
-	The zero-knowledge proof, as provided by IDKit. See [IDKit response](/world-id/reference/idkit#types) for details.
+		The zero-knowledge proof, as provided by IDKit. See [IDKit response](/world-id/reference/idkit#types) for
+		details.
 	</Property>
 	<Property name="merkle_root" type="string" required={true}>
-	Part of the ZKP, the hash of the Merkle root that proves membership to the set of credentials. As provided by IDKit. See [IDKit response](/world-id/reference/idkit#types) for details.
+		Part of the ZKP, the hash of the Merkle root that proves membership to the set of credentials. As provided by
+		IDKit. See [IDKit response](/world-id/reference/idkit#types) for details.
 	</Property>
 	<Property name="verification_level" type="string" required={true}>
-	The verification level, as provided by IDKit. See [IDKit response](/world-id/reference/idkit#types) for details.
+		The verification level, as provided by IDKit. See [IDKit response](/world-id/reference/idkit#types) for details.
 	</Property>
 	<Property name="action" type="string" required={true}>
-	Same action identifier as passed to IDKit.
+		Same action identifier as passed to IDKit.
 	</Property>
 	<Property name="signal_hash" type="string" defaultValue="hashToField('').digest">
-	The hash of the signal that was used to generate the proof. Defaults to the hash of an empty string.
+		The hash of the signal that was used to generate the proof. Defaults to the hash of an empty string.
 	</Property>
 </Properties>
 
@@ -123,17 +128,17 @@ fetch(apiUrl, {
 
 ```json {{ title: "400 User Exceeded Maximum Verifications" }}
 {
-    "code": "exceeded_max_verifications",
-    "detail": "This user has exceeded the maximum number of verifications allowed for this proof.",
-    "attribute": null
+	"code": "exceeded_max_verifications",
+	"detail": "This user has exceeded the maximum number of verifications allowed for this proof.",
+	"attribute": null
 }
 ```
 
 ```json {{ title: "400 User Already Verified" }}
 {
-    "code": "already_verified",
-    "detail": "This person has already verified for this action.",
-    "attribute": null
+	"code": "already_verified",
+	"detail": "This person has already verified for this action.",
+	"attribute": null
 }
 ```
 
@@ -151,13 +156,16 @@ Enables fetching information about a particular app to determine eligibility for
 
 <Properties>
 	<Property name="action" type="string" defaultValue='""' required={true}>
-		The action to check. This is the same action that was passed to IDKit. Defaults to an empty string for Sign in with World ID.
+		The action to check. This is the same action that was passed to IDKit. Defaults to an empty string for Sign in
+		with World ID.
 	</Property>
 	<Property name="nullifier_hash" type="string" defaultValue='""'>
-		The ZKP's nullifier hash, as provided by IDKit. See [IDKit response](/world-id/idkit/reference#response) for details. Defaults to an empty string.
+		The ZKP's nullifier hash, as provided by IDKit. See [IDKit response](/world-id/reference/api#response) for
+		details. Defaults to an empty string.
 	</Property>
 	<Property name="external_nullifier" type="string" deprecated={true}>
-		The ZKP's external nullifier. This parameter is deprecated and will be removed in a future release, and should no longer be used. Instead, pass the `action` parameter.
+		The ZKP's external nullifier. This parameter is deprecated and will be removed in a future release, and should
+		no longer be used. Instead, pass the `action` parameter.
 	</Property>
 </Properties>
 
@@ -207,7 +215,8 @@ fetch(`/api/v1/precheck/${appId}`, {
 		Whether the app is configured for use with **Cloud** or **On-Chain** proof verifications.
 	</Property>
 	<Property name="is_staging" type="boolean">
-		Whether the app is a staging app. If `true`, the [Worldcoin Simulator](https://simulator.worldcoin.org) must be used to verify.
+		Whether the app is a staging app. If `true`, the [Worldcoin Simulator](https://simulator.worldcoin.org) must be
+		used to verify.
 	</Property>
 	<Property name="is_verified" type="string">
 		Whether the app has been verified by Worldcoin.
@@ -222,23 +231,36 @@ fetch(`/api/v1/precheck/${appId}`, {
 		Whether the action request is for Sign in with World ID.
 	</Property>
 	<Property name="can_user_verify" type='"yes" | "no" | "on-chain" | "undetermined"'>
-		If the user is eligible to verify for this action. 
-		- `"yes"`: The user has not reached the maximum number of verifications for this action based on the `nullifier_hash` provided. Always returned when `is_sign_in` is `true`.
-		- `"no"`: The user has reached the maximum number of verifications for this action based on the `nullifier_hash` provided.
-		- `"undetermined"`: A nullifier_hash was not provided, so the user's eligibility cannot be determined. 
-		- `"on-chain"`: The app is configured for **On-Chain** verifications, so the user's eligibility cannot be determined. Verification eligibility is determined solely by the application's smart contract.
-	</Property>
-	<Property name="action" type="JSON">
-		Information about the action being verified.
-		- `name`: The action's human-readable name as configured in the Developer Portal.
-		- `action`: The action identifier as configured in the Developer Portal. Typically a slugified version of the action's name.
-		- `description`: The action's description as configured in the Developer Portal.
-		- `max_verifications`: The maximum number of verifications allowed for this action. Will be `0` if the action is configured for unlimited verifications.
-		- `max_accounts_per_user`: The maximum number of accounts allowed per user for Sign in with World ID. Will always be `1`.
-		- `external_nullifier`: The action's external nullifier. **Intended for internal use only.**
-		- `status`: Will return `active` if the action is active, otherwise will return `inactive`.
-		- `__typename`: Always returns `action`.
-	</Property>
+		If the user is eligible to verify for this action.
+
+    	- `"yes"`: The user has not reached the maximum number of verifications for this action based on the `nullifier_hash` provided. Always returned when `is_sign_in` is `true`.
+
+    	- `"no"`: The user has reached the maximum number of verifications for this action based on the `nullifier_hash` provided.
+
+    	- `"undetermined"`: A nullifier_hash was not provided, so the user's eligibility cannot be determined.
+
+    	- `"on-chain"`: The app is configured for **On-Chain** verifications, so the user's eligibility cannot be determined. Verification eligibility is determined solely by the application's smart contract.
+    </Property>
+    <Property name="action" type="JSON">
+    	Information about the action being verified.
+
+    	- `name`: The action's human-readable name as configured in the Developer Portal.
+
+    	- `action`: The action identifier as configured in the Developer Portal. Typically a slugified version of the action's name.
+
+    	- `description`: The action's description as configured in the Developer Portal.
+
+    	- `max_verifications`: The maximum number of verifications allowed for this action. Will be `0` if the action is configured for unlimited verifications.
+
+    	- `max_accounts_per_user`: The maximum number of accounts allowed per user for Sign in with World ID. Will always be `1`.
+
+    	- `external_nullifier`: The action's external nullifier. **Intended for internal use only.**
+
+    	- `status`: Will return `active` if the action is active, otherwise will return `inactive`.
+
+    	- `__typename`: Always returns `action`.
+    </Property>
+
 </Properties>
 
 </Col><Col sticky>
@@ -360,33 +382,6 @@ Authorization: Bearer $API_KEY
 
 Interaction with the Developer Portal API is mostly done through a GraphQL endpoint, which enables retrieving information and interacting with any of the API objects. You can read more about [queries](https://hasura.io/docs/latest/graphql/core/api-reference/graphql-api/query/) and [mutations](https://hasura.io/docs/latest/graphql/core/api-reference/graphql-api/mutation/) for GraphQL to help you construct your query.
 
-<CodeGroup title="Example Queries">
-
-```graphql {{ title: "Listing Apps" }}
-query MyApps {
-	app {
-		id
-		name
-	}
-}
-```
-
-```graphql {{ title: "Listing nullifiers for action" }}
-query ActionNullifiers($action_id: String) {
-	action(where: { id: { _eq: $action_id }, status: { _eq: "active" } }) {
-		id
-		status
-		max_accounts_per_user
-		max_verifications
-		nullifiers {
-			nullifier_hash
-		}
-	}
-}
-```
-
-</CodeGroup>
-
 </Col><Col sticky>
 
 <CodeGroup title="Request" tag="POST" label="/api/v1/graphql">
@@ -411,6 +406,33 @@ fetch('/v1/graphql', {
 		query: 'YOUR_GRAPHQL_QUERY_HERE',
 	}),
 })
+```
+
+</CodeGroup>
+
+<CodeGroup title="Example Queries">
+
+```graphql {{ title: "Listing Apps" }}
+query MyApps {
+	app {
+		id
+		name
+	}
+}
+```
+
+```graphql {{ title: "Listing nullifiers for action" }}
+query ActionNullifiers($action_id: String) {
+	action(where: { id: { _eq: $action_id }, status: { _eq: "active" } }) {
+		id
+		status
+		max_accounts_per_user
+		max_verifications
+		nullifiers {
+			nullifier_hash
+		}
+	}
+}
 ```
 
 </CodeGroup>

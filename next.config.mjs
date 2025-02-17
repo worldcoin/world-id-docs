@@ -124,8 +124,18 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: '/about/glossary',
-				destination: '/world-id/concepts',
+				source: '/world-chain/providers/worldchain-mainnet.explorer.alchemy.com',
+				destination: '/world-chain/providers/explorers',
+				permanent: true,
+			},
+			{
+				source: '/world-chain/providers/thirdweb.com',
+				destination: '/world-chain/providers/developer-tooling#thirdweb',
+				permanent: true,
+			},
+			{
+				source: '/world-id/idkit/reference',
+				destination: '/world-id/reference/idkit',
 				permanent: true,
 			},
 		]

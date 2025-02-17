@@ -14,7 +14,11 @@ Here is an example of how to use the requestPermission command.
 Note this modal will only allow you to show it once. If you reject it, you will need to direct the user to settings in order to re-enable this.
 You can find this out by checking the `error_code` in the response.
 
-The schema for the settings page is: worldcoin.org/settings/miniapps
+The schema for the settings page is:
+
+```
+worldcoin.org/settings/miniapps
+```
 
 <Tabs>
   <TabItem label="Async handlers">
@@ -129,6 +133,7 @@ Business rules about this endpoint
 We currently have a limit of 40 notifications per 4 hours for unverified apps. This is to help you test your notification implementations.
 Currently you will need to create a new app if your app is verified as it will default to the verified app's metadata. In addition, you need
 to enable notifications for your mini app inside of World App to receive them.
+
 
 ## Success Result on World App
 

@@ -1,0 +1,126 @@
+import { Link } from '@/components/Link'
+
+# Status Page
+
+You can check the current status of World services at <Link href="https://status.worldcoin.org">status.worldcoin.org</Link>.
+
+<Note type="info">The Networks section is not up to date yet.</Note>
+
+For transactions, status is determined by:
+
+-   **Disruption**: Transactions taking longer than 45 seconds
+-   **Outage**: Transactions taking longer than 5 minutes
+
+## Get Status {{ tag: "GET", label: "https://status.worldcoin.org/api/services" }}
+
+<Row>
+    <Col>
+        This endpoint returns the current status of all World services.
+
+        ### Query Params
+        <Properties>
+            <Property name="logs" type="boolean">
+            Include `logs=true` to get historical status logs for each service.
+            </Property>
+        </Properties>
+    </Col>
+    <Col>
+        <CodeGroup title="Request" tag="GET" label="/api/services">
+            ```bash {{ title: "cURL" }}
+            curl -X GET "https://status.worldcoin.org/api/services?logs=true"
+            ```
+            ```js
+            fetch('https://status.worldcoin.org/api/services?logs=true')
+            ```
+        </CodeGroup>
+    </Col>
+
+</Row>
+<hr/>
+
+### Response
+
+<Row>
+    <Col>
+        <Properties>
+            <Property name="services" type="array">
+            Array of service status objects, each containing:
+            </Property>
+            <Property name="name" type="string">
+            Service name (e.g., "Mini Apps", "World ID Verifications")
+            </Property>
+            <Property name="id" type="string">
+            Service identifier
+            </Property>
+            <Property name="description" type="string">
+            Description of the service
+            </Property>
+            <Property name="categoryId" type="string">
+            Category the service belongs to (e.g., "mini-apps", "world-id", "finance")
+            </Property>
+            <Property name="status" type="string">
+            Current service status: "ok", "warning", or "error"
+            </Property>
+            <Property name="logs" type="array">
+            Historical status changes, containing:
+            - `datetime`: Unix timestamp
+            - `status`: Status at that time
+            - `name`: Event name
+            - `description`: Event description
+            - `downtime`: Duration in seconds (if applicable)
+            </Property>
+            <Property name="uptimeRatio" type="object">
+            Uptime percentages for different time periods:
+            - `1`: Last 24 hours
+            - `7`: Last 7 days
+            - `30`: Last 30 days
+            - `90`: Last 90 days
+            </Property>
+        </Properties>
+    </Col>
+    <Col>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "services": [
+                    {
+                        "name": "Crypto Transactions",
+                        "id": "crypto-transactions",
+                        "description": "",
+                        "categoryId": "mini-apps",
+                        "status": "ok",
+                        "logs": [
+                            {
+                                "datetime": 1739546233,
+                                "status": "ok",
+                                "name": "Running again",
+                                "description": "Service outage"
+                            }
+                        ],
+                        "uptimeRatio": {
+                            "1": 99.7,
+                            "7": 100,
+                            "30": 100,
+                            "90": 100
+                        }
+                    }
+                ],
+                "categories": [
+                    {
+                        "id": "mini-apps",
+                        "name": "Mini Apps",
+                        "status": "ok"
+                    }
+                ],
+                "uptimeRatio": {
+                    "1": 98,
+                    "7": 98.7,
+                    "30": 99.6,
+                    "90": 99.9
+                },
+                "status": "ok"
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>

@@ -33,16 +33,16 @@ Open your `.env` file in an editor of your choice. The following values must be 
 	<Property name="COMPOSE_PROFILES" type="geth | reth" required={true}>
         Used to select your execution client, either `geth` (default) or `reth` (experimental).
 	</Property>
-	<Property name="NODE_TYPE" type="full | archive" required={true}>
+	<Property name="GETH_NODE_TYPE" type="full | archive" required={true}>
 		When using `op-geth`, determines which type of node to run. Either `full` (less storage, but only recent history) or `archive` (more storage, all history).
 	</Property>
-	<Property name="OP_NODE__RPC_ENDPOINT" type="URL" required={true}>
-		An L1 (Ethereum) RPC endpoint. We recommend using [Alchemy](https://www.alchemy.com/), but any Ethereum RPC provider or archive node will work.
+	<Property name="L1_RPC_ENDPOINT" type="URL" required={true}>
+		An L1 (Ethereum) RPC endpoint. We recommend using [Alchemy](https://www.alchemy.com/) or [QuickNode](https://www.quicknode.com), but any Ethereum RPC provider or archive node will work.
 	</Property>
-	<Property name="OP_NODE__L1_BEACON" type="URL" required={true}>
+	<Property name="L1_BEACON_RPC_ENDPOINT" type="URL" required={true}>
 		An L1 Beacon Archive RPC endpoint. Note that this is not the same as a standard RPC endpoint, as this is used to retrieve Blobs from the Ethereum Beacon Chain. We recommend using [QuickNode](https://www.quicknode.com/).
 	</Property>
-	<Property name="OP_NODE__RPC_TYPE" type="string" required={true}>
+	<Property name="L1_RPC_TYPE" type="string" required={true}>
 		Selects which RPC provider is set in `OP_NODE__RPC_ENDPOINT`. This allows for more efficient syncing given different RPC capabilities. Choose from `alchemy`, `quicknode`, `erigon`, or `basic` for other RPC providers.
 	</Property>
 </Properties>

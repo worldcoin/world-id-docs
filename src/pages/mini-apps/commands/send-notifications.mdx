@@ -1,18 +1,24 @@
 # Send Notifications
 
-Sending notifications has two parts
-- Requesting the permission in the Dev Portal Advanced settings
-- Requesting permission to send notifications via minikit
-- Sending the notification
+Sending notifications has three parts:
+
+-   Requesting the permission in the Dev Portal Advanced settings
+-   Requesting permission to send notifications via minikit
+-   Sending the notification
 
 This command will be available from v1.4.0 of minikit and v2.8.72 of World App.
 
 ## Requesting permission
-Here is an example of how to use the requestPermission command. 
-Note this modal will only allow you to show it once. If you reject it, you will need to direct the user to settings in order to re-enable this. 
+
+Here is an example of how to use the requestPermission command.
+Note this modal will only allow you to show it once. If you reject it, you will need to direct the user to settings in order to re-enable this.
 You can find this out by checking the `error_code` in the response.
 
-The schema for the settings page is: worldcoin.org/settings/miniapps
+The schema for the settings page is:
+
+```
+worldcoin.org/settings/miniapps
+```
 
 <Tabs>
   <TabItem label="Async handlers">
@@ -100,12 +106,13 @@ type MiniAppRequestPermissionErrorPayload = {
 ```
 
 The possible error codes are:
-- `user_rejected` - User declined permission request
-- `generic_error` - Request failed for unknown reason
-- `already_requested` - User has already declined turning on notifications once
-- `permission_disabled` - User has notification disabled for World App
-- `already_granted` - User has already granted this mini app permission
-- `unsupported_permission` - Permission is not supported yet
+
+-   `user_rejected` - User declined permission request
+-   `generic_error` - Request failed for unknown reason
+-   `already_requested` - User has already declined turning on notifications once
+-   `permission_disabled` - User has notification disabled for World App
+-   `already_granted` - User has already granted this mini app permission
+-   `unsupported_permission` - Permission is not supported yet
 
 ## Calling the notification endpoint
 
@@ -113,16 +120,16 @@ You can send notifications to this endpoint: https://developer.worldcoin.org/api
 For detailed information on the endpoint, see the [API Reference](/mini-apps/reference/api#send-notification).
 
 Business rules about this endpoint
-- We do not allow marketing notifications. These should be purely functional notifications.
-- We do not allow notifications that are not related to the mini app.
-- We do not allow notifications that are not related to the user.
-- The endpoint is limited to 1000 users per call
-- Messages are limited to 200 characters
-- Titles are limited to 30 characters
 
+-   We do not allow marketing notifications. These should be purely functional notifications.
+-   We do not allow notifications that are not related to the mini app.
+-   We do not allow notifications that are not related to the user.
+-   The endpoint is limited to 1000 users per call
+-   Messages are limited to 200 characters
+-   Titles are limited to 30 characters
 
 ## Testing
 
 We currently have a limit of 40 notifications per 4 hours for unverified apps. This is to help you test your notification implementations.
-Currently you will need to create a new app if your app is verified as it will default to the verified app's metadata. In addition, you need 
+Currently you will need to create a new app if your app is verified as it will default to the verified app's metadata. In addition, you need
 to enable notifications for your mini app inside of World App to receive them.

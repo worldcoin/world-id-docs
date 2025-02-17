@@ -36,6 +36,7 @@ export type Transaction = {
 	address: string // Contract address
 	abi: Abi | readonly unknown[] // Only include the abi for the function you're calling
 	functionName: ContractFunctionName<Abi | readonly unknown[], 'payable' | 'nonpayable'>
+  value?: string // Hex string representation of the value to send with the function call
 	args: ContractFunctionArgs<
 		// Wrap all your arguments in strings to avoid overflow errors
 		Abi | readonly unknown[],
@@ -382,5 +383,30 @@ Example response from `/minikit/transaction`
     "network": "worldchain",
     "fromWalletAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558",
     "toContractAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558"
+}
+```
+
+
+## Calling a payable function to send ETH
+<Note type="info">
+This functionality is available from minikit-js 1.6.0 onwards.
+</Note>
+Send transaction supports sending to payable functions. Make sure you have ETH in your wallet. 
+For ease of use, we have a simple contract that lets you send ETH by forwarding the value. [Forward.sol](https://worldscan.org/address/0x087d5449a126e4e439495fcBc62A853eB3257936#code)
+
+```tsx
+// Sending eth via Forward.sol
+const sendTransaction = async () => {
+    const payload = await MiniKit.commandsAsync.sendTransaction({
+      transaction: [
+        {
+          address: '0x087d5449a126e4e439495fcBc62A853eB3257936', // Forward.sol
+          abi: ForwardABI,
+          functionName: 'pay',
+          args: ['0x377da9cab87c04a1d6f19d8b4be9aef8df26fcdd'], // To Whom
+          value: '0x9184E72A000', // Send 0.00001 ETH hex encoded
+        },
+      ],
+    });
 }
 ```

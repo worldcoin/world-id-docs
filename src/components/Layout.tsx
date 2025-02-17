@@ -43,8 +43,9 @@ export const Layout: FC<
 		<SectionProvider sections={sections}>
 			<Header />
 			<div
-				className={clsx('lg:ml-72 xl:ml-80 mt-24 overflow-x-hidden bg-gray-A10', {
-					'!ml-0 justify-center items-center sm:flex mt-24': basePath === '',
+				className={clsx('lg:ml-72 xl:ml-80 mt-24 bg-gray-A10', {
+					'max-w-[1600px] mx-auto': basePath === '',
+					'overflow-x-hidden': basePath !== '',
 				})}
 			>
 				<motion.header
@@ -71,7 +72,7 @@ export const Layout: FC<
 					</ScrollArea.Root>
 				</motion.header>
 
-				<div className="relative px-4 pt-24 sm:px-6 lg:px-8">
+				<div className="relative px-4 pt-24 sm:px-6 lg:px-8 max-w-[1400px] mx-auto">
 					<main className="pb-16">
 						<Prose as="article">
 							{currentSection && (

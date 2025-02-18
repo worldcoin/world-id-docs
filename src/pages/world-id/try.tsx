@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { Link } from '@/components/Link'
 import SunIcon from '@/components/icons/SunIcon'
+import Tabs, { TabItem } from '@/components/Tabs'
 import MoonIcon from '@/components/icons/MoonIcon'
 import LogoIcon from '@/components/icons/LogoIcon'
 import ChartIcon from '@/components/icons/CharIcon'
@@ -10,7 +11,6 @@ import RedirectIcon from '@/components/icons/RedirectIcon'
 import { memo, ReactNode, Suspense, useMemo, useState } from 'react'
 import { useForm, UseFormRegisterReturn, useWatch } from 'react-hook-form'
 import { VerificationLevel, IDKitWidget, ISuccessResult } from '@worldcoin/idkit'
-import Tabs, { TabItem } from '@/components/Tabs'
 
 type Environment = 'staging' | 'production'
 
@@ -22,16 +22,16 @@ enum SignInScopes {
 
 // ANCHOR: Create action in dev portal
 async function createAction(action: string, isStaging: boolean) {
-    await fetch('/api/action', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            action,
-            is_staging: isStaging,
-        }),
-    })
+	await fetch('/api/action', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			action,
+			is_staging: isStaging,
+		}),
+	})
 }
 
 // ANCHOR: Staging/Promotion button
@@ -89,13 +89,10 @@ const ExamplesWrapper = ({
 }: {
 	id: string
 	valid: boolean
-	children: (params: {
-		variants: Record<string, boolean | undefined>[] | string[]
-		styleOption: number
-	}) => ReactNode
+	children: (params: { variants: Record<string, boolean | undefined>[] | string[]; styleOption: number }) => ReactNode
 }): JSX.Element => {
 	const [selected, setSelected] = useState(0)
-	const [theme, setTheme] = useState<"dark" | "light">('light')
+	const [theme, setTheme] = useState<'dark' | 'light'>('light')
 
 	const variants = useMemo(
 		() => [
@@ -224,7 +221,7 @@ const Try = (): JSX.Element => {
 			signInScopes: [],
 			signInEnvironment: 'production',
 			testingEnvironment: 'production',
-			action: ("test-action-" + Math.random().toString(36).substring(2, 7)),
+			action: 'test-action-' + Math.random().toString(36).substring(2, 7),
 			verification_level: VerificationLevel.Orb,
 		},
 	})
@@ -276,7 +273,7 @@ const Try = (): JSX.Element => {
 	}, [signInEnvironment, signInScopes])
 
 	async function handleVerify(result: ISuccessResult) {
-		console.log("Result from IDKit: ", result)
+		console.log('Result from IDKit: ', result)
 
 		const res = await fetch('/api/verify', {
 			method: 'POST',
@@ -285,17 +282,17 @@ const Try = (): JSX.Element => {
 			},
 			body: JSON.stringify({
 				...result,
-				action: watch("action"),
-				env: watch("testingEnvironment"),
+				action: watch('action'),
+				env: watch('testingEnvironment'),
 			}),
 		})
 
 		const data = await res.json()
 
 		if (res.status == 200) {
-			console.log("Successful response from backend:\n", data); // Log the response from our backend for visibility
+			console.log('Successful response from backend:\n', data) // Log the response from our backend for visibility
 		} else {
-			throw new Error(`Error code ${res.status} (${data.code}): ${data.detail}` ?? "Unknown error."); // Throw an error if verification fails
+			throw new Error(`Error code ${res.status} (${data.code}): ${data.detail || 'Unknown error'}`) // Throw an error if verification fails
 		}
 	}
 
@@ -307,7 +304,10 @@ const Try = (): JSX.Element => {
 			<Tabs>
 				{/* @ts-ignore */}
 				<TabItem label="Incognito Actions">
-					<div className="mt-4 text-sm text-gray-600">Here you can test out various Incognito Actions configurations, including ones that will fail (such as a device-verified user attempting an action requiring Orb verification).</div>
+					<div className="mt-4 text-sm text-gray-600">
+						Here you can test out various Incognito Actions configurations, including ones that will fail
+						(such as a device-verified user attempting an action requiring Orb verification).
+					</div>
 
 					<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8">
 						Step 1 • Choose Staging or Production
@@ -383,8 +383,8 @@ const Try = (): JSX.Element => {
 									verification_level={watch('verification_level')}
 									app_id={
 										testingEnvironment === 'production'
-											? process.env.NEXT_PUBLIC_TRY_IT_OUT_APP! as `app_${string}`
-											: process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP! as `app_${string}`
+											? (process.env.NEXT_PUBLIC_TRY_IT_OUT_APP! as `app_${string}`)
+											: (process.env.NEXT_PUBLIC_TRY_IT_OUT_STAGING_APP! as `app_${string}`)
 									}
 									autoClose={false}
 								>
@@ -392,10 +392,10 @@ const Try = (): JSX.Element => {
 										<div className="relative">
 											<button
 												onClick={() => {
-                                                    // Create action in dev portal when opening IDKit, so precheck succeeds on mobile
-                                                    createAction(watch('action'), testingEnvironment === 'staging')
-                                                    open()
-                                                }}
+													// Create action in dev portal when opening IDKit, so precheck succeeds on mobile
+													createAction(watch('action'), testingEnvironment === 'staging')
+													open()
+												}}
 												className={clsx(
 													'flex items-center gap-x-4 transition-all',
 													variants[styleOption]
@@ -408,15 +408,16 @@ const Try = (): JSX.Element => {
 												</span>
 											</button>
 
-											{watch('testingEnvironment') && watch('testingEnvironment') === 'staging' && (
-												<Link
-													className="flex justify-center items-center gap-x-1 mt-3.5 absolute -bottom-8 inset-x-0"
-													href="https://simulator.worldcoin.org/"
-												>
-													<span>Scan with Simulator</span>
-													<RedirectIcon />
-												</Link>
-											)}
+											{watch('testingEnvironment') &&
+												watch('testingEnvironment') === 'staging' && (
+													<Link
+														className="flex justify-center items-center gap-x-1 mt-3.5 absolute -bottom-8 inset-x-0"
+														href="https://simulator.worldcoin.org/"
+													>
+														<span>Scan with Simulator</span>
+														<RedirectIcon />
+													</Link>
+												)}
 										</div>
 									)}
 								</IDKitWidget>
@@ -427,7 +428,11 @@ const Try = (): JSX.Element => {
 				{/* @ts-ignore */}
 				<TabItem label="Sign in with World ID">
 					<div>
-						<div className='mt-4 text-sm text-gray-600'>Try authentication with World ID using the OpenID Connect (OIDC) standard. You can use our integration on the Auth0 Marketplace, easily integrate with existing SSO systems (like Okta, OneLogin, Azure AD, and many others), or roll out your own authentication.</div>
+						<div className="mt-4 text-sm text-gray-600">
+							Try authentication with World ID using the OpenID Connect (OIDC) standard. You can use our
+							integration on the Auth0 Marketplace, easily integrate with existing SSO systems (like Okta,
+							OneLogin, Azure AD, and many others), or roll out your own authentication.
+						</div>
 
 						<div className="leading-none text-2xs uppercase text-gray-400 tracking-[-0.01em] mt-8">
 							Step 1 • action configuration
@@ -480,13 +485,18 @@ const Try = (): JSX.Element => {
 
 					<ExamplesWrapper id="sign-in" valid={true}>
 						{({ variants, styleOption }) => (
-							<div className='relative'>
+							<div className="relative">
 								<Link
 									href={authLink ?? '#'}
-									className={clsx('flex items-center gap-x-4 transition-all no-underline', variants[styleOption])}
+									className={clsx(
+										'flex items-center gap-x-4 transition-all no-underline',
+										variants[styleOption]
+									)}
 								>
 									<LogoIcon />
-									<span className="text-base leading-normal font-sora font-semibold">Sign in with World ID</span>
+									<span className="text-base leading-normal font-sora font-semibold">
+										Sign in with World ID
+									</span>
 								</Link>
 								{watch('signInEnvironment') && watch('signInEnvironment') === 'staging' && (
 									<Link
@@ -502,8 +512,6 @@ const Try = (): JSX.Element => {
 					</ExamplesWrapper>
 				</TabItem>
 			</Tabs>
-
-
 		</div>
 	)
 }
@@ -517,4 +525,3 @@ export async function getStaticProps() {
 		},
 	}
 }
-

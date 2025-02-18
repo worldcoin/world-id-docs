@@ -133,3 +133,15 @@ Business rules about this endpoint
 We currently have a limit of 40 notifications per 4 hours for unverified apps. This is to help you test your notification implementations.
 Currently you will need to create a new app if your app is verified as it will default to the verified app's metadata. In addition, you need
 to enable notifications for your mini app inside of World App to receive them.
+
+
+## Success Result on World App
+
+If implemented correctly, the user will see the following drawer on World App.
+
+    <div className='grid justify-items-center text-center'>
+        <video className="m-auto" width="300" autoPlay muted loop playsInline>
+            <source src="/images/docs/mini-apps/commands/notifications-command.mp4" type="video/mp4" />
+    		Your browser does not support the video tag.
+    	</video>
+    </div>

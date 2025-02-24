@@ -267,6 +267,7 @@ export const miniAppsNavigation = [
 			{ title: 'Eggs Vault Smash', href: '/mini-apps/sharing/eggs-vault-qa' },
 			{ title: 'Earn WLD Pool', href: '/mini-apps/sharing/earn-wld-qa' },
 			{ title: 'DNA Send & Swap', href: '/mini-apps/sharing/dna-qa' },
+			{ title: 'Sage Support', href: '/mini-apps/sharing/sage-qa' },
 		],
 	},
 	{

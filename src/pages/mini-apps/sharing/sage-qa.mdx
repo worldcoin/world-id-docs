@@ -8,7 +8,35 @@ Sage Support enables developers to integrate Sage chats seamlessly into their Wo
 
 - **Seamless Integration**: Easily embed Sage chats within any World Mini App.
 - **Custom Context Parameters**: Tailor Sage's responses based on Mini App specific data.
-- **Logs and Analytics**: Track and understand what types of questions your users are asking
+- **Logs and Analytics**: Track and understand what types of questions your users are asking.
+
+<div style={{ position: 'relative', width: '100%' }}>
+    <img
+        src="/images/docs/mini-apps/quick-actions/sage1-qa.png"
+        alt="Sage Developer Dashboard Analytics"
+        style={{ 
+            position: 'absolute',
+            width: '100%',
+            maxWidth: '600px',
+            zIndex: 1,
+            borderRadius: '12px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+        }}
+    />
+    <img
+        src="/images/docs/mini-apps/quick-actions/sage2-qa.png"
+        alt="Sage Developer Dashboard Settings"
+        style={{ 
+            position: 'relative',
+            width: '100%',
+            maxWidth: '600px',
+            marginLeft: '33%',
+            zIndex: 2,
+            borderRadius: '12px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+        }}
+    />
+</div>
 
 ---
 
@@ -20,7 +48,7 @@ Go to the [Sage Developer dashboard](https://dev-dashboard-gamma.vercel.app) and
 
 ### 2. Customising Sage to fit your app
 
-With a project created, head over to the project’s settings, this page is accessible by going into: **Apps > Your App > Settings**. (Navigation is available through the menu bar on the top right or  the top left breadcrumbs)
+With a project created, head over to the project's settings, this page is accessible by going into: **Apps > Your App > Settings**. (Navigation is available through the menu bar on the top right or  the top left breadcrumbs)
 
 In this page you can find parameters to fine tune Sage to best interact with your users in the context of your app, a comprehensive description of these parameters is present [below](#app-settings).
 
@@ -48,10 +76,10 @@ More configuration options for the component are available [below](#sage-support
 
 ### Analytics
 
-Once you’ve started using Sage Support in your Mini App, analytics are also available in the [Sage Developer Dashboard](https://dev-dashboard-gamma.vercel.app), allowing you to identify the usage of Sage Support in your app and understand how users are using it. You can find more information about analytics [below](#app-analytics).
+Once you've started using Sage Support in your Mini App, analytics are also available in the [Sage Developer Dashboard](https://dev-dashboard-gamma.vercel.app), allowing you to identify the usage of Sage Support in your app and understand how users are using it. You can find more information about analytics [below](#app-analytics).
 
 <Note>
-    This is all you need to get Sage Support working. If you wish to customize it further or better understand the various parameters continue reading below.
+    This is all you need to get Sage Support working. If you wish to customize it further, or better understand the various parameters continue reading below.
 </Note>
 
 ---
@@ -62,7 +90,7 @@ Located at **Apps > Your App > Settings**, the Settings page allows you to fine 
 
 ### `App Name`
 
-This name only lives in the [Sage Developer dashboard](https://dev-dashboard-gamma.vercel.app) universe and serves the purpose of differentiating between multiple Sage Support integrations, it’s recommended that this field is set accordingly.
+This name only lives in the [Sage Developer dashboard](https://dev-dashboard-gamma.vercel.app) universe and serves the purpose of differentiating between multiple Sage Support integrations, it's recommended that this field is set accordingly.
 
 ### `App ID`
 
@@ -70,7 +98,7 @@ Uniquely identifies your Sage Developer App and is used to link your `SageSuppor
 
 ### `Introduction Message`
 
-Defines the first message to be sent by the Sage assistant once a new chat is created/open by a user. This field is also capable of encompassing a custom variable (`%USER%`) which Sage will replace by the user’s username.
+Defines the first message to be sent by the Sage assistant once a new chat is created/open by a user. This field is also capable of encompassing a custom variable (`%USER%`) which Sage will replace by the user's username.
 
 ### `App Description`
 
@@ -132,7 +160,7 @@ Other props allow you to customise both the aesthetic and behaviour of the Sage 
         Links your component to your Sage Developer project, used for analytics and behaviour.
 	</Property>
 	<Property name="returnURI" type="string">
-        Allows you to make use of the return button on the top left of the Sage Support chat window. The value to be passed to this prop is a [quick action uri/url](https://docs.world.org/mini-apps/sharing/quick-actions).
+        Allows you to make use of the return button on the top left of the Sage Support chat window. The value to be passed to this prop is a [quick action URL](https://docs.world.org/mini-apps/sharing/quick-actions).
 	</Property>
     <Property name="className" type="string">
         Allows you to pass custom CSS classes to affect the fallback default button.

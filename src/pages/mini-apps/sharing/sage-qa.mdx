@@ -1,0 +1,171 @@
+# Sage Quick Action
+
+[Sage](https://worldcoin.org/ecosystem/app_5dee2f19cd6eef599eb6ab275a0a7523) is an AI chatbot that lets users ask questions and get answers.
+
+Sage Support enables developers to integrate Sage chats seamlessly into their World Mini Apps. Developers get a white label version of Sage that acts as a support assistant for their Mini App using the context they give it.
+
+## Key Features
+
+- **Seamless Integration**: Easily embed Sage chats within any World Mini App.
+- **Custom Context Parameters**: Tailor Sage's responses based on Mini App specific data.
+- **Logs and Analytics**: Track and understand what types of questions your users are asking.
+
+<div style={{ position: 'relative', width: '100%' }}>
+    <img
+        src="/images/docs/mini-apps/quick-actions/sage1-qa.png"
+        alt="Sage Developer Dashboard Analytics"
+        style={{ 
+            position: 'absolute',
+            width: '100%',
+            maxWidth: '600px',
+            zIndex: 1,
+            borderRadius: '12px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+        }}
+    />
+    <img
+        src="/images/docs/mini-apps/quick-actions/sage2-qa.png"
+        alt="Sage Developer Dashboard Settings"
+        style={{ 
+            position: 'relative',
+            width: '100%',
+            maxWidth: '600px',
+            marginLeft: '33%',
+            zIndex: 2,
+            borderRadius: '12px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+        }}
+    />
+</div>
+
+---
+
+## Getting Started
+
+### 1. Create a Sage Developer project
+
+Go to the [Sage Developer dashboard](https://dev-dashboard-gamma.vercel.app) and sign in. Create a new project.
+
+### 2. Customizing Sage to fit your app
+
+With a project created, head over to the project's settings, this page is accessible by going into: **Apps > Your App > Settings**. (Navigation is available through the menu bar on the top right or  the top left breadcrumbs)
+
+In this page you can find parameters to fine tune Sage to best interact with your users in the context of your app, a comprehensive description of these parameters is present [below](#app-settings).
+
+### 3. Integrating Sage Support in your app
+
+The final step to integrating Sage Support into your React application is to install and make use of the `SageSupport` component.
+
+Add the npm package with the command:
+
+```bash
+npm install sage-support
+```
+
+Once the dependency installed, the simplest way to integrate Sage Support is:
+
+```tsx
+import { SageSupport } from 'sage-support';
+
+<SageSupport projectId={YOUR_APP_ID} />
+```
+
+Where `YOUR_APP_ID` is the App ID (number) you can find in the [Sage Developer Dashboard](https://dev-dashboard-gamma.vercel.app) (top right).
+
+More configuration options for the component are available [below](#sage-support-component).
+
+### Analytics
+
+Once you've started using Sage Support in your Mini App, analytics are also available in the [Sage Developer Dashboard](https://dev-dashboard-gamma.vercel.app), allowing you to identify the usage of Sage Support in your app and understand how users are using it. You can find more information about analytics [below](#app-analytics).
+
+<Note>
+    This is all you need to get Sage Support working. If you wish to customize it further, or better understand the various parameters continue reading below.
+</Note>
+
+---
+
+## App Settings
+
+Located at **Apps > Your App > Settings**, the Settings page allows you to fine tune the Sage Support assistant to meet the needs and context of your Mini App.
+
+### `App Name`
+
+This name only lives in the [Sage Developer dashboard](https://dev-dashboard-gamma.vercel.app) universe and serves the purpose of differentiating between multiple Sage Support integrations, it's recommended that this field is set accordingly.
+
+### `App ID`
+
+Uniquely identifies your Sage Developer App and is used to link your `SageSupport` component to the [Sage Developer dashboard](https://dev-dashboard-gamma.vercel.app). This field is automatically generated and cannot be changed.
+
+### `Introduction Message`
+
+Defines the first message to be sent by the Sage assistant once a new chat is created/open by a user. This field is also capable of encompassing a custom variable (`%USER%`) which Sage will replace by the user's username.
+
+### `App Description`
+
+Provide a solid description about your app and what it focuses on, this field is processed by Sage as an additional context parameter, and is useful to keep the assistant behavior and subject within the landscape of your Mini App.
+
+---
+
+## App Analytics
+
+Located at **Apps > Your App > Analytics**, the Analytics page allows you to view statistics and analytic data about the usage of Sage Support within your Mini App.
+
+### `Messages`
+
+See how many messages were sent to Sage Support chats from your Mini App in each of the last 7 days.
+
+### `Users`
+
+See how many users interacted with Sage Support chats from your Mini App in each of the last 7 days.
+
+### `Keywords`
+
+Currently not available.
+
+### `Next Step`
+
+Currently not available.
+
+### `Logs`
+
+See how users chat with Sage Support inside your app, this data is shown anonymously and provides the developer with a more in-depth tool to explore the interactions between users and Sage Support.
+
+---
+
+## `SageSupport` Component
+
+### Installation
+
+To use the Sage Support React component you must first install it using npm (or your package manager of choice).
+
+```bash
+npm install sage-support
+```
+
+### Basic Usage
+
+From the get go you can use Sage Support by using the basic implementation, the only mandatory parameter to be passed to the component is the `projectId`. This ID (App ID) is retrieve from the Settings page in the [Sage Developer dashboard](https://dev-dashboard-gamma.vercel.app).
+
+```tsx
+import { SageSupport } from 'sage-support';
+
+<SageSupport projectId={YOUR_APP_ID} />
+```
+
+### Props & Personalisation
+
+Other props allow you to customize both the aesthetic and behavior of the Sage Support Chat.
+<Properties>
+	<Property name="projectId" type="number" required={true}>
+        Links your component to your Sage Developer project, used for analytics and behavior.
+	</Property>
+	<Property name="returnURI" type="string">
+        Allows you to make use of the return button on the top left of the Sage Support chat window. The value to be passed to this prop is a [quick action URL](https://docs.world.org/mini-apps/sharing/quick-actions).
+	</Property>
+    <Property name="className" type="string">
+        Allows you to pass custom CSS classes to affect the fallback default button.
+    </Property>
+    <Property name="children" type="React.ReactNode">
+        Allows you to pass a custom React element to replace the default button.
+    </Property>
+</Properties>

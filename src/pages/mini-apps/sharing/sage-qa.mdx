@@ -46,7 +46,7 @@ Sage Support enables developers to integrate Sage chats seamlessly into their Wo
 
 Go to the [Sage Developer dashboard](https://dev-dashboard-gamma.vercel.app) and sign in. Create a new project.
 
-### 2. Customising Sage to fit your app
+### 2. Customizing Sage to fit your app
 
 With a project created, head over to the project's settings, this page is accessible by going into: **Apps > Your App > Settings**. (Navigation is available through the menu bar on the top right or  the top left breadcrumbs)
 
@@ -102,7 +102,7 @@ Defines the first message to be sent by the Sage assistant once a new chat is cr
 
 ### `App Description`
 
-Provide a solid description about your app and what it focuses on, this field is processed by Sage as an additional context parameter, and is useful to keep the assistant behaviour and subject within the landscape of your Mini App.
+Provide a solid description about your app and what it focuses on, this field is processed by Sage as an additional context parameter, and is useful to keep the assistant behavior and subject within the landscape of your Mini App.
 
 ---
 
@@ -154,10 +154,10 @@ import { SageSupport } from 'sage-support';
 
 ### Props & Personalisation
 
-Other props allow you to customise both the aesthetic and behaviour of the Sage Support Chat.
+Other props allow you to customize both the aesthetic and behavior of the Sage Support Chat.
 <Properties>
 	<Property name="projectId" type="number" required={true}>
-        Links your component to your Sage Developer project, used for analytics and behaviour.
+        Links your component to your Sage Developer project, used for analytics and behavior.
 	</Property>
 	<Property name="returnURI" type="string">
         Allows you to make use of the return button on the top left of the Sage Support chat window. The value to be passed to this prop is a [quick action URL](https://docs.world.org/mini-apps/sharing/quick-actions).

@@ -260,7 +260,7 @@ export const miniAppsNavigation = [
 		],
 	},
 	{
-		title: 'Quick Actions',
+		title: 'Quick Actions (Sharing)',
 		links: [
 			{ title: 'Quick Actions', href: '/mini-apps/sharing/quick-actions' },
 			{ title: 'UNO Swap', href: '/mini-apps/sharing/uno-qa' },

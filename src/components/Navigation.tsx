@@ -268,6 +268,7 @@ export const miniAppsNavigation = [
 			{ title: 'Earn WLD Pool', href: '/mini-apps/sharing/earn-wld-qa' },
 			{ title: 'DNA Send & Swap', href: '/mini-apps/sharing/dna-qa' },
 			{ title: 'Sage Support', href: '/mini-apps/sharing/sage-qa' },
+			{ title: 'World Chat', href: '/mini-apps/sharing/world-chat-qa' },
 		],
 	},
 	{

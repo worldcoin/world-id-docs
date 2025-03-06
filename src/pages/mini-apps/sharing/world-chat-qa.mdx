@@ -1,0 +1,115 @@
+# World Chat Quick Action
+
+World Chat is a messaging platform in the World App ecosystem.
+Quick Actions let you link to specific chat features.
+
+Url follows the schema below.
+
+```
+https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741
+```
+
+<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+	<div style={{ flex: 1 }}>
+		<h3>Parameters</h3>
+		<Properties>
+			<Property name="username" type="string" required={true}>
+				The username of the recipient you want to chat with. You can resolve a username using the user's [wallet
+				address](/mini-apps/reference/address-book).
+			</Property>
+			<Property name="message" type="string">
+				Predefined message text to include in the draft chat.
+			</Property>
+			<Property name="pay" type="string">
+				When included, opens a draft chat with the send payment option pre-selected.
+			</Property>
+			<Property name="request" type="string">
+				When included, opens a draft chat with the paymentrequest option pre-selected.
+			</Property>
+		</Properties>
+	</div>
+	<div style={{ marginLeft: '20px' }}>
+		<img
+			src="/images/docs/mini-apps/quick-actions/world-chat-qa.png"
+			alt="World Chat Screen"
+			style={{ maxWidth: '300px', height: 'auto' }}
+		/>
+	</div>
+</div>
+
+## Helper function
+
+```tsx
+const WORLD_CHAT_APP_ID = 'app_e293fcd0565f45ca296aa317212d8741'
+
+function getWorldChatDeeplinkUrl({
+	username,
+	message,
+	pay = false,
+	request = false,
+}: {
+	username: string
+	message?: string
+	pay?: string
+	request?: string
+}) {
+	let path = `/${username}/draft`
+
+	if (message) {
+		path += `?message=${message}`
+	} else if (pay) {
+		path += `?pay`
+	} else if (request) {
+		path += `?request`
+	}
+
+	const encodedPath = encodeURIComponent(path)
+	return `https://worldcoin.org/mini-app?app_id=${WORLD_CHAT_APP_ID}&path=${encodedPath}`
+}
+
+// Create a chat with predefined message
+console.log(
+	getWorldChatDeeplinkUrl({
+		username: 'johndoe',
+		message: 'Hello from my mini app!',
+	})
+)
+
+// Create a chat with send payment option
+console.log(
+	getWorldChatDeeplinkUrl({
+		username: 'johndoe',
+		pay: 'true',
+	})
+)
+
+// Create a chat with payment request option
+console.log(
+	getWorldChatDeeplinkUrl({
+		username: 'johndoe',
+		request: 'true',
+	})
+)
+```
+
+### Example output links
+
+```
+// Message draft
+https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fjohndoe%2Fdraft%3Fmessage%3DHello
+
+// Payment draft
+https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fjohndoe%2Fdraft%3Fpay
+
+// Request draft
+https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fjohndoe%2Fdraft%3Frequest
+```
+
+### Appendix
+
+**Caveats/Warnings**
+
+-   The username must be a valid World ID username.
+-   Only one quick action type (message, pay, or request) can be used at a time.
+-   If the recipient does not exist, the app will show an appropriate error message.
+-   Only USDC.e is supported for payments.

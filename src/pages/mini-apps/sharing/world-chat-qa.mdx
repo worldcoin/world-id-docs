@@ -21,10 +21,12 @@ https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741
 				Predefined message text to include in the draft chat.
 			</Property>
 			<Property name="pay" type="string">
-				When included, opens a draft chat with the send payment option pre-selected.
+				When included, opens a draft chat with the send payment option pre-selected. You can optionally specify
+				an amount by using `pay=amount` where amount is the numeric value in USDC.e.
 			</Property>
 			<Property name="request" type="string">
-				When included, opens a draft chat with the paymentrequest option pre-selected.
+				When included, opens a draft chat with the payment request option pre-selected. You can optionally
+				specify an amount by using `request=amount` where amount is the numeric value in USDC.e.
 			</Property>
 		</Properties>
 	</div>
@@ -45,22 +47,30 @@ const WORLD_CHAT_APP_ID = 'app_e293fcd0565f45ca296aa317212d8741'
 function getWorldChatDeeplinkUrl({
 	username,
 	message,
-	pay = false,
-	request = false,
+	pay,
+	request,
 }: {
 	username: string
 	message?: string
-	pay?: string
-	request?: string
+	pay?: string | number
+	request?: string | number
 }) {
 	let path = `/${username}/draft`
 
 	if (message) {
 		path += `?message=${message}`
-	} else if (pay) {
-		path += `?pay`
-	} else if (request) {
-		path += `?request`
+	} else if (pay !== undefined) {
+		if (pay === 'true' || pay === true) {
+			path += `?pay`
+		} else {
+			path += `?pay=${pay}` // Pay with amount
+		}
+	} else if (request !== undefined) {
+		if (request === 'true' || request === true) {
+			path += `?request`
+		} else {
+			path += `?request=${request}` // Request with amount
+		}
 	}
 
 	const encodedPath = encodeURIComponent(path)
@@ -83,11 +93,27 @@ console.log(
 	})
 )
 
+// Create a chat with send payment option and amount
+console.log(
+	getWorldChatDeeplinkUrl({
+		username: 'johndoe',
+		pay: 5.25,
+	})
+)
+
 // Create a chat with payment request option
 console.log(
 	getWorldChatDeeplinkUrl({
 		username: 'johndoe',
 		request: 'true',
+	})
+)
+
+// Create a chat with payment request option and amount
+console.log(
+	getWorldChatDeeplinkUrl({
+		username: 'johndoe',
+		request: 10,
 	})
 )
 ```
@@ -98,11 +124,11 @@ console.log(
 // Message draft
 https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fjohndoe%2Fdraft%3Fmessage%3DHello
 
-// Payment draft
-https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fjohndoe%2Fdraft%3Fpay
+// Payment draft with amount
+https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fjohndoe%2Fdraft%3Fpay%3D5.25
 
-// Request draft
-https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fjohndoe%2Fdraft%3Frequest
+// Request draft with amount
+https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fjohndoe%2Fdraft%3Frequest%3D10
 ```
 
 ### Appendix
@@ -113,3 +139,4 @@ https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=
 -   Only one quick action type (message, pay, or request) can be used at a time.
 -   If the recipient does not exist, the app will show an appropriate error message.
 -   Only USDC.e is supported for payments.
+-   Currency amounts should be specified as decimal numbers (e.g., 5.25 for 5.25 USDC.e).

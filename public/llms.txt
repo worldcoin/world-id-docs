@@ -1,0 +1,29 @@
+# World Documentation
+
+> World is building the world's largest identity and financial network as a public utility, giving ownership to everyone. It consists of World ID (a privacy-preserving digital identity solution), World App, and the Worldcoin Token (WLD).
+
+For complete documentation, see [llms-full.txt](/llms-full.txt).
+
+## World ID Documentation
+
+- [Overview](/world-id): Introduction to World ID and its key components
+- [Core Concepts](/world-id/concepts): Explanation of key World ID concepts and terminology
+- [Integration Guide](/world-id/quick-start/installation): Guide to integrating World ID into your application
+
+## Developer Resources
+
+- [API Reference](/world-id/reference/api): Complete API documentation
+- [IDKit Reference](/world-id/reference/idkit): Details on the World ID integration library
+- [Contract Reference](/world-id/reference/contracts): Smart contract details and addresses
+- [Error Reference](/world-id/reference/errors): Common errors and troubleshooting
+
+## Additional Products
+
+- [World App](https://world.org/world-app): Mobile application for payments and identity
+- [World Chain](/world-chain): A chain designed for real humans
+- [Mini Apps](/mini-apps): Native-like applications integrated in World App
+
+## Resources
+
+- [Protocol Whitepaper](https://whitepaper.world.org): Technical details of the World ID protocol
+- [Developer Portal](https://developer.worldcoin.org): Create and manage World ID applications 

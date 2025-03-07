@@ -240,6 +240,7 @@ export const miniAppsNavigation = [
 		links: [
 			{ title: 'Verify', href: '/mini-apps/commands/verify' },
 			{ title: 'Pay', href: '/mini-apps/commands/pay' },
+			{ title: 'Payment Methods', href: '/mini-apps/commands/payment-methods' },
 			{ title: 'Wallet Auth', href: '/mini-apps/commands/wallet-auth' },
 			{ title: 'Connect Wallet', href: '/mini-apps/commands/connect-wallet' },
 			{ title: 'Send Transaction', href: '/mini-apps/commands/send-transaction' },

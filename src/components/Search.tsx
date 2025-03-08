@@ -83,11 +83,11 @@ const SearchDialog: FC<{ open: boolean; setOpen: (open: boolean) => void; classN
 		<DocSearchModal
 			insights={true}
 			// cspell:disable-next-line
-			appId="9BGXSWLSR1" // public Algolia ID for the Worldcoin docs
+			appId="VGCVR5ETO7" // public Algolia ID for the Worldcoin docs
 			initialScrollY={0}
 			indexName="worldcoin"
 			onClose={() => setOpen(false)}
-			apiKey="f08f4ba9366cfefd94f0522bd514c93f" // public Algolia key for the Worldcoin docs
+			apiKey="0700ef31277eed22f40c778e84dc9129" // public Algolia key for the Worldcoin docs
 		/>
 	)
 }

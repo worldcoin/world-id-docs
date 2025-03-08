@@ -203,6 +203,26 @@ Below are the error codes you could receive with the `Transaction` command
 			<td>Request failed for unknown reason</td>
 			<td>Try the request again. If the problem persists, contact the app owner.</td>
 		</tr>
+		<tr>
+			<td>`daily_tx_limit_reached`</td>
+			<td>Daily transaction limit reached</td>
+			<td>Max 100 transactions per day. Wait until the next day.</td>
+		</tr>
+		<tr>
+			<td>`disallowed_operation`</td>
+			<td>Transaction included an operation that was disallowed</td>
+			<td>Make sure you are not calling functions on the user's safe, doing approvals, calling safe admin functions, etc.</td>
+		</tr>
+		<tr>
+			<td>`permitted_amount_exceeds_slippage`</td>
+			<td>Permitted amount exceeds slippage</td>
+			<td>You must spend at least 90% of the permitted amount</td>
+		</tr>
+		<tr>
+			<td>`permitted_amount_not_found`</td>
+			<td>Permitted amount not found</td>
+			<td>Permitted amount not found in permit2 payload</td>
+		</tr>
 	</tbody>
 </table>
 

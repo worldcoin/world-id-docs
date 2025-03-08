@@ -57,7 +57,7 @@ It is strongly recommended to execute using only one transaction.
 {/* If you need `setApprovalForAll` or are working with NFTs please reach out. */}
 
 <Note type="info">
-	  - Wrap all your arguments in strings to avoid overflow errors when passing to the SDK. We will auto parse your arguments to match the types in the ABI.
+Note this function only accepts stringified values.
 </Note>
 
 <Tabs>
@@ -231,6 +231,8 @@ It is strongly recommended to execute using only one transaction.
     ### Receiving the response
 
     The transaction will be first simulated and checked for errors. If there are no errors the user will be prompted to sign the transaction. To make it easier we let you install hooks built on top of Viem.
+    
+    Read more about errors [here](/mini-apps/reference/errors#transactions)
 
     This requires installing the `@worldcoin/minikit-react` package.
 

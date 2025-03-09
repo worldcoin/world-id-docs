@@ -85,7 +85,7 @@ const SearchDialog: FC<{ open: boolean; setOpen: (open: boolean) => void; classN
 			// cspell:disable-next-line
 			appId="VGCVR5ETO7" // public Algolia ID for the Worldcoin docs
 			initialScrollY={0}
-			indexName="worldcoin"
+			indexName="World Docs"
 			onClose={() => setOpen(false)}
 			apiKey="0700ef31277eed22f40c778e84dc9129" // public Algolia key for the Worldcoin docs
 		/>

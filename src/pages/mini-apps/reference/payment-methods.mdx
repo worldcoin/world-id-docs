@@ -1,0 +1,162 @@
+# Integrate Payment Methods
+
+Integrate Apple Pay and Google Pay into your mini-app
+
+import { Link } from '@/components/Link'
+import Tabs, { TabItem } from '@/components/Tabs'
+
+<Note type="info">
+	Both Apple Pay and Google Pay run directly in the WebView environment of your mini-app, using their respective
+	JavaScript APIs.
+</Note>
+
+## Environment Setup
+
+First, ensure your mini-app has a secure HTTPS environment, as both Apple Pay and Google Pay require it.
+
+<Tabs>
+	<TabItem label="Apple Pay">
+		<div>
+			<p>For Apple Pay, you must:</p>
+			<ul className="list-disc space-y-2 pl-6">
+				<li>Register for an Apple Developer account</li>
+				<li>Configure your merchant ID</li>
+				<li>Register your domain with Apple</li>
+				<li>Set up merchant validation on your server</li>
+			</ul>
+			<p className="mt-2">
+				<a href="https://applepaydemo.apple.com/" target="_blank" rel="noopener noreferrer">
+					Complete setup guide on Apple's website
+				</a>
+			</p>
+		</div>
+	</TabItem>
+	<TabItem label="Google Pay">
+		<div>
+			<p>For Google Pay, you must:</p>
+			<ul className="list-disc space-y-2 pl-6">
+				<li>Set up a Google Pay merchant account</li>
+				<li>Configure your Google Pay API in the Google Pay Business Console</li>
+				<li>Obtain your merchant ID</li>
+			</ul>
+			<p className="mt-2">
+				<a
+					href="https://developers.google.com/pay/api/web/guides/resources/demos"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Complete setup guide on Google's website
+				</a>
+			</p>
+		</div>
+	</TabItem>
+</Tabs>
+### Testing
+
+Test your integration thoroughly using test cards and sandbox environments.
+
+<Tabs>
+	<TabItem label="Apple Pay">
+		<div className="flex flex-col md:flex-row gap-6">
+			<div className="md:w-3/5">
+				<p>
+					<strong>Development Environment:</strong>
+				</p>
+				<ul className="list-disc space-y-2 pl-6">
+					<li>Use Apple Pay's sandbox environment</li>
+					<li>Test with Apple's test cards</li>
+				</ul>
+
+    			<p className="mt-3">
+    				<strong>Test Cards:</strong>
+    			</p>
+    			<ul className="list-disc space-y-2 pl-6">
+    				<li>You can use any valid card number in the sandbox</li>
+    				<li>No actual charges will be processed</li>
+    			</ul>
+
+    			<p className="mt-3">
+    				<strong>Testing Checklist:</strong>
+    			</p>
+    			<ul className="list-disc space-y-2 pl-6">
+    				<li>Verify merchant validation works</li>
+    				<li>Test on both iOS devices and Safari on macOS</li>
+    				<li>Check error handling</li>
+    				<li>Verify payment completion flows</li>
+    			</ul>
+    		</div>
+
+    		<div className="md:w-2/5">
+    			<div className="sticky top-24">
+    				<video controls className="rounded-lg w-full shadow-md border border-gray-200">
+    					<source src="/images/docs/mini-apps/commands/apple-pay.mp4" type="video/mp4" />
+    					Your browser does not support the video tag.
+    				</video>
+    				<p className="text-sm text-gray-500 mt-1 text-center">Apple Pay integration demo</p>
+    			</div>
+    		</div>
+    	</div>
+    </TabItem>
+    <TabItem label="Google Pay">
+    	<div className="flex flex-col md:flex-row gap-6">
+    		<div className="md:w-3/5">
+    			<p>
+    				<strong>Development Environment:</strong>
+    			</p>
+    			<ul className="list-disc space-y-2 pl-6">
+    				<li>Use Google Pay's TEST environment</li>
+    				<li>Test with Google's test cards</li>
+    			</ul>
+
+    			<p className="mt-3">
+    				<strong>Test Cards:</strong>
+    			</p>
+    			<ul className="list-disc space-y-2 pl-6">
+    				<li>Use test PAN: 4111 1111 1111 1111</li>
+    				<li>Expiration: Any future date</li>
+    				<li>CVV: Any 3 digits</li>
+    			</ul>
+
+    			<p className="mt-3">
+    				<strong>Testing Checklist:</strong>
+    			</p>
+    			<ul className="list-disc space-y-2 pl-6">
+    				<li>Verify button displays correctly</li>
+    				<li>Test on Android devices</li>
+    				<li>Check error handling</li>
+    				<li>Verify payment completion flows</li>
+    			</ul>
+    		</div>
+
+    		<div className="md:w-2/5">
+    			<div className="sticky top-24">
+    				<img
+    					src="/images/docs/mini-apps/commands/google-pay-demo.jpg"
+    					alt="Google Pay integration example"
+    					className="rounded-lg w-full shadow-md border border-gray-200"
+    				/>
+    				<p className="text-sm text-gray-500 mt-1 text-center">Google Pay integration example</p>
+    			</div>
+    		</div>
+    	</div>
+    </TabItem>
+
+</Tabs>
+
+## Limitations and Considerations
+
+-   **Platform Restrictions**: Apple Pay only works on iOS/macOS devices with Safari, while Google Pay is primarily for Android
+-   **Device Support**: Users must have devices that support these payment methods
+-   **WebView Context**: Some features might behave differently in the mini-app WebView compared to a standard browser
+
+<Note type="warning">
+	For Apple Pay merchant validation, your server needs to be accessible via HTTPS and properly configured with Apple's
+	developer portal.
+</Note>
+
+## Additional Resources
+
+-   [Apple Pay Demo and Documentation](https://applepaydemo.apple.com/)
+-   [Google Pay API Documentation](https://developers.google.com/pay/api/web/guides/resources/demos)
+-   [Apple Pay Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/apple-pay/overview/)
+-   [Google Pay Web Integration Guide](https://developers.google.com/pay/api/web/guides/tutorial)

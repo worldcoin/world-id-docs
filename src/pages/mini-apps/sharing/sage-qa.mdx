@@ -1,3 +1,5 @@
+import { SageSupportLinkWizard } from '@/components/SageSupportLinkWizard'
+
 # Sage Quick Action
 
 [Sage](https://worldcoin.org/ecosystem/app_5dee2f19cd6eef599eb6ab275a0a7523) is an AI chatbot that lets users ask questions and get answers.
@@ -73,6 +75,10 @@ import { SageSupport } from 'sage-support';
 Where `YOUR_APP_ID` is the App ID (number) you can find in the [Sage Developer Dashboard](https://dev-dashboard-gamma.vercel.app) (top right).
 
 More configuration options for the component are available [below](#sage-support-component).
+
+### 4. Sage Support Link
+
+Generate your app's Support Link using the [Support Link wizard](#support-link-generator) and use it as the Support URL under **Worldcoin Developer > Mini App > Configuration > App Store > Support > Link**. 
 
 ### Analytics
 
@@ -169,3 +175,41 @@ Other props allow you to customize both the aesthetic and behavior of the Sage S
         Allows you to pass a custom React element to replace the default button.
     </Property>
 </Properties>
+
+---
+
+## Support Link
+
+You can also integrate Sage Support directly into your World Mini App by using a Support Link. This allows your users to access Sage's AI-powered support without requiring you to install any additional packages or components.
+
+The Support Link is a quick action URL that opens the Sage Support chat interface directly within the World App. When users click on this link, they'll be able to ask questions and get support related to your Mini App.
+
+This link is particularly useful for developers to use Sage as their Mini App's native Support link, available under **Worldcoin Developer > Mini App > Configuration > App Store > Support > Link**
+
+### Base URL & Parameters
+
+The base URL to access a support chat is:
+
+`https://worldcoin.org/mini-app?app_id=app_5dee2f19cd6eef599eb6ab275a0a7523&path=/support-chat`
+
+This support link, akin to the [`SageSupport` component](#sage-support-component), accepts and requires some parameters to be passed, in this case URL Query Parameters, for the Support Chat to work like expected.
+
+<Properties>
+	<Property name="devProjectId" type="number" required={true}>
+        Links your Support Link to your Sage Developer project, used for analytics and behavior.
+	</Property>
+	<Property name="devReturnURI" type="string">
+        Allows you to make use of the return button on the top left of the Sage Support chat window by passing a Mini App quick atcion URI/URL. Due to some encoding functionalities and implementation caveats, the value to be passed to this parameter has to be formatted accordingly beforehand:
+
+        1. The URL must be submitted to a [UTF-8 encoding](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent).
+
+        2. All ampersand characters (such as the one in `&path`) have to be replaced with the sequence `(amps)`.
+
+        To make this process easier, you can make use of the generator below or inside the [Sage Developer Dashboard](https://dev-dashboard-gamma.vercel.app). Any URIs outside of the `worldcoin.org/mini-app` space are not allowed.
+	</Property>
+</Properties>
+
+### Support Link Generator
+
+<SageSupportLinkWizard />
+

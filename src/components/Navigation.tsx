@@ -247,6 +247,7 @@ export const miniAppsNavigation = [
 			{ title: 'Sign Typed Data', href: '/mini-apps/commands/sign-typed-data' },
 			{ title: 'Share Contacts', href: '/mini-apps/commands/share-contacts' },
 			{ title: 'Send Notifications', href: '/mini-apps/commands/send-notifications' },
+			{ title: 'Get Permissions', href: '/mini-apps/commands/get-permissions' },
 		],
 	},
 	{

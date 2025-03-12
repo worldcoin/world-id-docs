@@ -1,0 +1,101 @@
+# Get Permissions
+This command will let you check the status of permissions a user has granted to your mini app.
+
+This command will be available from v1.7.0 of minikit and v2.8.76 of World App.
+
+## Using the command
+
+Currently this command only supports notifications.
+
+<Tabs>
+  <TabItem label="Async handlers">
+
+        ### Sending the command and handling the response
+        ```tsx
+        import { MiniKit, GetPermissionsPayload, Permission } from '@worldcoin/minikit-js'
+
+        // Example function of how to use the command
+        const getPermissions = useCallback(
+            async () => {
+                const payload = await MiniKit.commandsAsync.getPermissions();
+                // Handle the response
+            },
+            []
+        );
+        ```
+
+  </TabItem>
+
+  <TabItem label="Event listeners">
+        ### Sending the command 
+        ```tsx
+        // Example function of how to use the command
+        const getPermissions = useCallback(
+            () => {
+                const payload = MiniKit.commands.getPermissions();
+                },
+            []
+        );
+        ```
+
+        ### Handling the response
+        ``` tsx {{ title: 'app/page.tsx' }}
+        import { MiniKit, ResponseEvent } from '@worldcoin/minikit-js'
+            // ...
+            useEffect(() => {
+                if (!MiniKit.isInstalled()) {
+                    console.error("MiniKit is not installed");
+                    return;
+                }
+
+                MiniKit.subscribe(
+                    ResponseEvent.MiniAppGetPermissions,
+                    async (response: MiniAppGetPermissionsPayload) => {
+                        if (response.status == "success") {
+                            const response = await res.json();
+                            // Handle the response
+                        }
+                    }
+                );
+
+                return () => {
+                    MiniKit.unsubscribe(ResponseEvent.MiniAppGetPermissions);
+                };
+            }, []);
+        ```
+
+    </TabItem>
+
+</Tabs>
+## Response type 
+### Success response payload
+``` ts
+type MiniAppGetPermissionsSuccessPayload = {
+    status: 'success';
+    permissions: Permission[];
+    version: number;    // same version that was received from MiniKit
+};
+```
+``` json
+{
+  "permissions": {
+    "notifications": false
+  },
+  "status": "success",
+  "timestamp": "2025-03-11T18:21:49.741-07:00",
+  "version": 1
+}
+```
+
+### Error response payload
+``` ts
+type MiniAppGetPermissionsErrorPayload = {
+    status: 'error';
+    error_code: GetPermissionsErrorCodes;
+    version: number;
+}
+```
+
+The possible error codes are:
+-   `generic_error` - Request failed for unknown reason
+

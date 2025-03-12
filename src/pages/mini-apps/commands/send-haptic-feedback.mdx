@@ -29,11 +29,13 @@ Haptic feedback can improve the user experience by:
 ```tsx {{ title: 'app/page.tsx' }}
 export type SendHapticFeedbackInput = {
 	hapticsType: 'impact'
-	impactType: 'light'
+	style: 'light'
 }
 ```
 
 ## Using the command
+
+There's no response from this command.
 
 ```tsx {{ title: 'app/page.tsx' }}
 import { MiniKit } from '@worldcoin/minikit-js'
@@ -41,7 +43,7 @@ import { MiniKit } from '@worldcoin/minikit-js'
 const sendHapticFeedbackCommand = () =>
 	MiniKit.commands.sendHapticFeedback({
 		hapticsType: 'impact',
-		impactType: 'light',
+		style: 'light',
 	})
 
 const ImportantPage = () => {

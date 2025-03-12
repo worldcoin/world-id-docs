@@ -1,0 +1,58 @@
+# Send Haptic Feedback
+
+Send Haptic Feedback is our command that lets you create more immersive experiences, by providing tactile feedback to users.
+This command is available from minikit 1.7.1 and World App 2.8.7602 onwards.
+Haptic feedback can improve the user experience by:
+
+-   **Enhancing Responsiveness**: Immediate tactile feedback makes interactions feel faster and more satisfying.
+-   **Improving Accessibility**: Haptics can help users with visual impairments by providing an additional layer of feedback.
+-   **Increasing Engagement**: Users are more likely to enjoy and continue using apps that feel interactive and responsive.
+
+## Available payloads
+
+| hapticsType        | style     | description                                                                       |
+| ------------------ | --------- | --------------------------------------------------------------------------------- |
+| `impact`           | `light`   | Collision between small UI elements.                                              |
+| `impact`           | `medium`  | Collision between medium UI elements.                                             |
+| `impact`           | `heavy`   | Collision between big UI elements.                                                |
+| `impact`           | `soft`    | Collision between flexible UI elements.                                           |
+| `impact`           | `rigid`   | Collision between inflexible UI elements.                                         |
+|                    |           |                                                                                   |
+| `notification`     | `success` | Indicates that an action was successful.                                          |
+| `notification`     | `warning` | Indicates that something is not right and user should take notice.                |
+| `notification`     | `error`   | Indicates that an action has failed.                                              |
+|                    |           |                                                                                   |
+| `selectionChanged` | ---       | Informs the user that a selection has changed, for example a checkbox was clicked |
+
+## Creating the payload
+
+```tsx {{ title: 'app/page.tsx' }}
+export type SendHapticFeedbackInput = {
+	hapticsType: 'impact'
+	style: 'light'
+}
+```
+
+## Using the command
+
+There's no response from this command.
+
+```tsx {{ title: 'app/page.tsx' }}
+import { MiniKit } from '@worldcoin/minikit-js'
+
+const sendHapticFeedbackCommand = () =>
+	MiniKit.commands.sendHapticFeedback({
+		hapticsType: 'impact',
+		style: 'light',
+	})
+
+const ImportantPage = () => {
+	const handleClick = () => {
+		// ...
+		sendHapticFeedbackCommand()
+	}
+	return <button onClick={handleClick}>Click me</button>
+}
+
+export default ImportantPage
+```

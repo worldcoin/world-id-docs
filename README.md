@@ -38,7 +38,7 @@ World Chain is a blockchain for humans. World chain offers several unique primit
 
 These primitives enable World Chain builders to build never before possible applications and reach a global audience.
 
-World Chain is built on the [Superchain](https://docs.optimism.io/stack/explainer).
+World Chain is built on the [Superchain](https://docs.optimism.io/stack/interop/explainer).
 
 ## 📄 Documentation
 

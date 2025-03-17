@@ -3,6 +3,7 @@ import { Link } from '@/components/Link'
 # API Reference
 
 ## Send Notification{{ tag: "POST", label: "https://developer.worldcoin.org/api/v2/minikit/send-notification" }}
+
 This endpoint lets you send notifications to users of your mini app and requires an `api_key`.
 
 <Row>
@@ -39,6 +40,7 @@ This endpoint lets you send notifications to users of your mini app and requires
             ```bash {{ title: "cURL" }}
             curl -X POST "https://developer.worldcoin.org/api/v2/minikit/send-notification" \
                 -H "Authorization: Bearer {api_key}" \
+                -H "Content-Type: application/json" \
                 -d '{"app_id": "app_id", "wallet_addresses": ["0x123", "0x456"], "title": "title", "message": "message", "mini_app_path": "mini_app_path"}'
             ```
             ```js
@@ -102,7 +104,6 @@ This endpoint lets you send notifications to users of your mini app and requires
     </Col>
 </Row>
 <hr/>
-
 
 ## Get Transaction{{ tag: "GET", label: "https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}?app_id=&type=" }}
 

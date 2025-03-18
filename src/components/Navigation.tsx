@@ -273,6 +273,7 @@ export const miniAppsNavigation = [
 			{ title: 'Sage Support', href: '/mini-apps/sharing/sage-qa' },
 			{ title: 'World Chat', href: '/mini-apps/sharing/world-chat-qa' },
 			{ title: 'World Companies Finder', href: '/mini-apps/sharing/world-companies-finder-qa' },
+			{ title: 'OnePay', href: '/mini-apps/sharing/one-pay-qa' },
 		],
 	},
 	{

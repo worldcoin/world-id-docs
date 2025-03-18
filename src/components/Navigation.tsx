@@ -274,6 +274,7 @@ export const miniAppsNavigation = [
 			{ title: 'World Chat', href: '/mini-apps/sharing/world-chat-qa' },
 			{ title: 'World Companies Finder', href: '/mini-apps/sharing/world-companies-finder-qa' },
 			{ title: 'OnePay', href: '/mini-apps/sharing/one-pay-qa' },
+			{ title: 'PUF', href: '/mini-apps/sharing/puf-qa' },
 		],
 	},
 	{

@@ -1,0 +1,32 @@
+# World Companies Finder Quick Action
+
+Find businesses accepting World cryptocurrency as payment
+
+World Companies Finder provides an interactive map that showcases businesses around the globe accepting World cryptocurrency. This Quick Action allows you to deeplink directly to the map interface.
+
+<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+	<div style={{ flex: 1 }}>
+		<h3>Parameters</h3>
+		<Properties>
+			<Property name="id" type="string">
+				Links to a specific business listing. If provided, it will go to the business detail page.
+			</Property>
+			<Property name="path" type="string">
+				If set to "new", allows users to add a new business to the map.
+			</Property>
+		</Properties>
+	</div>
+	<div style={{ marginLeft: '20px' }}>
+		<img
+			src="/images/docs/mini-apps/quick-actions/wcf-qa.png"
+			alt="World Companies Finder Map"
+			style={{ maxWidth: '300px', height: 'auto' }}
+		/>
+	</div>
+</div>
+
+Url follows the schema below. Navigate there to use this Quick Action.
+
+```
+https://worldcoin.org/mini-app?app_id=app_a11be267c4baa35bca6d18b3cdd6a23c&path=new
+```

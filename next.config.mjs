@@ -124,6 +124,11 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
+				source: '/about/glossary',
+				destination: '/world-id/concepts',
+				permanent: true,
+			},
+			{
 				source: '/world-chain/providers/worldchain-mainnet.explorer.alchemy.com',
 				destination: '/world-chain/providers/explorers',
 				permanent: true,

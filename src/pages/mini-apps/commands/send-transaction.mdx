@@ -36,7 +36,7 @@ export type Transaction = {
 	address: string // Contract address
 	abi: Abi | readonly unknown[] // Only include the abi for the function you're calling
 	functionName: ContractFunctionName<Abi | readonly unknown[], 'payable' | 'nonpayable'>
-  value?: string // Hex string representation of the value to send with the function call
+	value?: string // Hex string representation of the value to send with the function call
 	args: ContractFunctionArgs<
 		// Wrap all your arguments in strings to avoid overflow errors
 		Abi | readonly unknown[],
@@ -56,9 +56,7 @@ Additionally if you introduce a new ERC20 token we will automatically approve th
 It is strongly recommended to execute using only one transaction.
 {/* If you need `setApprovalForAll` or are working with NFTs please reach out. */}
 
-<Note type="info">
-Note this function only accepts stringified values.
-</Note>
+<Note type="info">Note this function only accepts stringified values.</Note>
 
 <Tabs>
 	
@@ -67,7 +65,7 @@ Note this function only accepts stringified values.
     ### Sending the transaction & receiving the response
 
     ```tsx {{ title: 'app/page.tsx' }}
-    // Make sure this is only the function you're calling 
+    // Make sure this is only the function you're calling
     // Otherwise you will get an error
     import DEXABI from '../../abi/DEX.json'
     import { MiniKit } from '@worldcoin/minikit-js'
@@ -231,7 +229,7 @@ Note this function only accepts stringified values.
     ### Receiving the response
 
     The transaction will be first simulated and checked for errors. If there are no errors the user will be prompted to sign the transaction. To make it easier we let you install hooks built on top of Viem.
-    
+
     Read more about errors [here](/mini-apps/reference/errors#transactions)
 
     This requires installing the `@worldcoin/minikit-react` package.
@@ -343,7 +341,6 @@ Note this function only accepts stringified values.
 
 </Tabs>
 
-
 ## Alternative: Verifying the transaction
 
 If you don't want to use our hook you can choose to query for the hash yourself using this endpoint. Make sure to specify `type=transaction` in the query string.
@@ -388,27 +385,36 @@ Example response from `/minikit/transaction`
 }
 ```
 
-
 ## Calling a payable function to send ETH
-<Note type="info">
-This functionality is available from minikit-js 1.6.0 onwards.
-</Note>
-Send transaction supports sending to payable functions. Make sure you have ETH in your wallet. 
-For ease of use, we have a simple contract that lets you send ETH by forwarding the value. [Forward.sol](https://worldscan.org/address/0x087d5449a126e4e439495fcBc62A853eB3257936#code)
+
+<Note type="info">This functionality is available from minikit-js 1.6.0 onwards.</Note>
+Send transaction supports sending to payable functions. Make sure you have ETH in your wallet. For ease of use, we have a
+simple contract that lets you send ETH by forwarding the value. [Forward.sol](https://worldscan.org/address/0x087d5449a126e4e439495fcBc62A853eB3257936#code)
 
 ```tsx
 // Sending eth via Forward.sol
 const sendTransaction = async () => {
-    const payload = await MiniKit.commandsAsync.sendTransaction({
-      transaction: [
-        {
-          address: '0x087d5449a126e4e439495fcBc62A853eB3257936', // Forward.sol
-          abi: ForwardABI,
-          functionName: 'pay',
-          args: ['0x377da9cab87c04a1d6f19d8b4be9aef8df26fcdd'], // To Whom
-          value: '0x9184E72A000', // Send 0.00001 ETH hex encoded
-        },
-      ],
-    });
+	const payload = await MiniKit.commandsAsync.sendTransaction({
+		transaction: [
+			{
+				address: '0x087d5449a126e4e439495fcBc62A853eB3257936', // Forward.sol
+				abi: ForwardABI,
+				functionName: 'pay',
+				args: ['0x377da9cab87c04a1d6f19d8b4be9aef8df26fcdd'], // To Whom
+				value: '0x9184E72A000', // Send 0.00001 ETH hex encoded
+			},
+		],
+	})
 }
 ```
+
+## Success Result on World App
+
+If implemented correctly, the user will see the following drawer on World App.
+
+<div className="grid justify-items-center text-center">
+	<video className="m-auto" width="300" autoPlay muted loop playsInline>
+		<source src="/images/docs/mini-apps/commands/send-transaction.mp4" type="video/mp4" />
+		Your browser does not support the video tag.
+	</video>
+</div>

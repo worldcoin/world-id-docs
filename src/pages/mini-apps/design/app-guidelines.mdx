@@ -60,6 +60,17 @@ body {
 }
 ```
 
+Alternatively, you can try this approach which allows scrolling while still preventing the bounce effect (shoutout to for the help @Meister):
+
+```css
+html,
+body {
+	-webkit-overflow-scrolling: touch;
+	overscroll-behavior: none;
+	overflow: scroll;
+}
+```
+
 ## App Icon
 
 Your app icon should be a **square** image with a non white background.

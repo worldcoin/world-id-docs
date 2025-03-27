@@ -1952,13 +1952,6 @@ Mini apps are simply web applications opened via webview inside of World App. Us
 native-like and interact with the World ecosystem.
 # Grants
 
-## Fast Grants Program
-The Fast Grants program offers grants in the range of $1-5k and are available
-to US citizens as well. We aim to provide a decision within 48 hours of application. These grants are aimed to help developers build their MVPs.
-
-Apply Here: [Fast Grants Program](https://docs.google.com/forms/d/e/1FAIpQLSeFTCejKwtD6wqFRq5b8xljeZkRVYQRtqFiznPD8Y9dQ4_VNA/viewform)
-
-
 ## Foundation Grants
 
 In addition to Fast Grants you can apply for Foundation Grants. These grants are larger and have a formal review process.

@@ -29,7 +29,7 @@ jobs:
         run: |
           # Check llms.txt
           echo "Comparing llms.txt..."
-          if diff -q generated/llms.txt llms.txt > /dev/null; then
+          if diff -q generated/llms.txt llms.txt > /llms.txt; then
             echo "Error: llms.txt matches the generated version."
             echo "Please use the preview URL provided by the Vercel deployment of this PR to generate the new version of llms.txt, then update the file and push your changes."
             exit 1
@@ -37,7 +37,7 @@ jobs:
 
           # Check llms-full.txt
           echo "Comparing llms-full.txt..."
-          if diff -q generated/llms-full.txt llms-full.txt > /dev/null; then
+          if diff -q generated/llms-full.txt llms-full.txt > /llms-full.txt; then
             echo "Error: llms-full.txt matches the generated version."
             echo "Please use the preview URL provided by the Vercel deployment of this PR to generate the new version of llms-full.txt, then update the file and push your changes."
             exit 1

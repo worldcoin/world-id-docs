@@ -1,0 +1,46 @@
+name: Verify llms files
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  verify_llms:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v3
+
+      - name: Generate llms files from API
+        env:
+        
+          # Replace 'your-custom-url' with your specific value
+          YOUR_URL: https://docs.world.org/
+        run: |
+          mkdir -p generated
+          echo "Fetching llms-full.txt..."
+          curl -s "http://llmstxt.firecrawl.dev/{YOUR_URL}/full" -o generated/llms-full.txt
+          echo "Fetching llms.txt..."
+          curl -s "http://llmstxt.firecrawl.dev/{YOUR_URL}" -o generated/llms.txt
+
+      - name: Compare generated files with PR files
+        run: |
+          # Check llms.txt
+          echo "Comparing llms.txt..."
+          if diff -q generated/llms.txt llms.txt > /dev/null; then
+            echo "Error: llms.txt matches the generated version."
+            echo "Please use the preview URL provided by the Vercel deployment of this PR to generate the new version of llms.txt, then update the file and push your changes."
+            exit 1
+          fi
+
+          # Check llms-full.txt
+          echo "Comparing llms-full.txt..."
+          if diff -q generated/llms-full.txt llms-full.txt > /dev/null; then
+            echo "Error: llms-full.txt matches the generated version."
+            echo "Please use the preview URL provided by the Vercel deployment of this PR to generate the new version of llms-full.txt, then update the file and push your changes."
+            exit 1
+          fi
+
+          echo "Files have been updated and differ from the generated versions."

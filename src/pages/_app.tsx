@@ -72,6 +72,19 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 		return true
 	}, [pagesWithoutLayout, router.pathname])
 
+	const getOgImageUrl = () => {
+		if (router.pathname.startsWith('/mini-apps')) {
+			return `${process.env.NEXT_PUBLIC_APP_URL!}/images/docs/mini-apps-cover.png`
+		}
+		if (router.pathname.startsWith('/world-id')) {
+			return `${process.env.NEXT_PUBLIC_APP_URL!}/images/docs/world-id-cover.png`
+		}
+		if (router.pathname.startsWith('/world-chain')) {
+			return `${process.env.NEXT_PUBLIC_APP_URL!}/images/docs/worldchain-cover.png`
+		}
+		return `${process.env.NEXT_PUBLIC_APP_URL!}/images/og/og.png`
+	}
+
 	return (
 		<div className={sora.variable}>
 			<NextSeo
@@ -84,12 +97,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 					description: pageProps.description,
 					images: [
 						{
-							url:
-								router.pathname == '/'
-									? `${process.env.NEXT_PUBLIC_APP_URL!}/images/og/og.png`
-									: `${process.env.NEXT_PUBLIC_APP_URL!}/api/og?category=${section ?? ''}&title=${
-											pageProps.title
-									  }`,
+							url: getOgImageUrl(),
 							width: 1920,
 							height: 1080,
 							alt: 'World Docs',

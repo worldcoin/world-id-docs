@@ -143,6 +143,176 @@ const nextConfig = {
 				destination: '/world-id/reference/idkit',
 				permanent: true,
 			},
+			{
+				source: '/concepts',
+				destination: '/world-id/concepts',
+				permanent: true,
+			},
+			{
+				source: '/further-reading/protocol-internals',
+				destination: '/world-id/further-reading/protocol-internals',
+				permanent: true,
+			},
+			{
+				source: '/further-reading/world-id-reset',
+				destination: '/world-id/further-reading/world-id-reset',
+				permanent: true,
+			},
+			{
+				source: '/further-reading/zero-knowledge-proofs',
+				destination: '/world-id/further-reading/zero-knowledge-proofs',
+				permanent: true,
+			},
+			{
+				source: '/id/cloud',
+				destination: '/world-id/id/cloud',
+				permanent: true,
+			},
+			{
+				source: '/id/libraries',
+				destination: '/world-id/id/libraries',
+				permanent: true,
+			},
+			{
+				source: '/id/on-chain',
+				destination: '/world-id/id/on-chain',
+				permanent: true,
+			},
+			{
+				source: '/idkit/reference',
+				destination: '/world-id/reference/idkit',
+				permanent: true,
+			},
+			{
+				source: '/quick-start/configuration',
+				destination: '/world-id/quick-start/configuration',
+				permanent: true,
+			},
+			{
+				source: '/quick-start/installation',
+				destination: '/world-id/quick-start/installation',
+				permanent: true,
+			},
+			{
+				source: '/reference/address-book',
+				destination: '/world-id/reference/address-book',
+				permanent: true,
+			},
+			{
+				source: '/reference/api',
+				destination: '/world-id/reference/api',
+				permanent: true,
+			},
+			{
+				source: '/reference/contracts',
+				destination: '/world-id/reference/contracts',
+				permanent: true,
+			},
+			{
+				source: '/reference/errors',
+				destination: '/world-id/reference/errors',
+				permanent: true,
+			},
+			{
+				source: '/reference/idkit',
+				destination: '/world-id/reference/idkit',
+				permanent: true,
+			},
+			{
+				source: '/reference/sign-in',
+				destination: '/world-id/reference/sign-in',
+				permanent: true,
+			},
+			{
+				source: '/reference/world-id-2-migration-guide',
+				destination: '/world-id/reference/world-id-2-migration-guide',
+				permanent: true,
+			},
+			{
+				source: '/sign-in',
+				destination: '/world-id',
+				permanent: true,
+			},
+			{
+				source: '/try',
+				destination: '/world-id/try',
+				permanent: true,
+			},
+			{
+				source: '/use-cases',
+				destination: '/mini-apps/design/app-guidelines#inspiration',
+				permanent: true,
+			},
+			{
+				source: '/use-cases/customer-incentives',
+				destination: '/mini-apps/design/app-guidelines#inspiration',
+				permanent: true,
+			},
+			{
+				source: '/use-cases/defi-and-fintech',
+				destination: '/mini-apps/design/app-guidelines#inspiration',
+				permanent: true,
+			},
+			{
+				source: '/use-cases/events',
+				destination: '/mini-apps/design/app-guidelines#inspiration',
+				permanent: true,
+			},
+			{
+				source: '/use-cases/marketplaces',
+				destination: '/mini-apps/design/app-guidelines#inspiration',
+				permanent: true,
+			},
+			{
+				source: '/use-cases/nfts',
+				destination: '/mini-apps/design/app-guidelines#inspiration',
+				permanent: true,
+			},
+			{
+				source: '/use-cases/social-media',
+				destination: '/mini-apps/design/app-guidelines#inspiration',
+				permanent: true,
+			},
+			{
+				source: '/use-cases/token-airdrops',
+				destination: '/mini-apps/design/app-guidelines#inspiration',
+				permanent: true,
+			},
+			{
+				source: '/use-cases/voting',
+				destination: '/mini-apps/design/app-guidelines#inspiration',
+				permanent: true,
+			},
+			{
+				source: '/use-cases/wealth-distribution',
+				destination: '/mini-apps/design/app-guidelines#inspiration',
+				permanent: true,
+			},
+			{
+				source: '/world-id/id/incognito-actions',
+				destination: '/world-id/id/cloud',
+				permanent: true,
+			},
+			{
+				source: '/world-id/id/sign-in',
+				destination: '/world-id',
+				permanent: true,
+			},
+			{
+				source: '/world-id/sign-in',
+				destination: '/world-id',
+				permanent: true,
+			},
+			{
+				source: '/world-id/sign-in/oidc',
+				destination: '/world-id/further-reading/oidc',
+				permanent: true,
+			},
+			{
+				source: '/world-id/sign-in/pitfalls',
+				destination: '/world-id/id/pitfalls',
+				permanent: true,
+			},
 		]
 	},
 }

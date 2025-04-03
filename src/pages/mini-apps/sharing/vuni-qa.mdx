@@ -1,0 +1,66 @@
+# VUNI Quick Action
+
+Decentralized investment fund powered by a smart contract that securely manages user funds. A trading bot automatically executes trades on Uniswap based on real-time alerts from TradingView, optimizing investment strategies without manual intervention.
+
+<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+	<div style={{ flex: 1 }}>
+		<h3>Parameters</h3>
+		<Properties>
+			<Property name="app_id" type="string" required={true}>
+				Unique ID for the VUNI mini app.
+			</Property>
+			<Property name="path" type="string" required={false}>
+				URL encoded path to specific sections of the app.
+			</Property>
+			<Property name="ref" type="string" required={false}>
+				Referral code for tracking purposes.
+			</Property>
+		</Properties>
+
+    	<h3>Available Routes</h3>
+
+    	<h4>1. /pool</h4>
+    	<Properties>
+    		<Property name="tab" type="string" required={false}>
+    			Active tab on page load. Values: "stats" | "tokens" | "trades" | "top-investors". Default: "stats"
+    		</Property>
+    	</Properties>
+
+    	<h4>2. /investor/${'{'}address{'}'}</h4>
+    	<Properties>
+    		<Property name="tab" type="string" required={false}>
+    			Active tab on page load. Values: "tokens" | "deposits" | "withdrawals" | "referrals". Default: "tokens"
+    		</Property>
+    	</Properties>
+
+    	<h4>3. /sign-in</h4>
+    	<p>Access the sign-in page.</p>
+
+    	<h3>Localization</h3>
+    	<p>All routes support an optional locale prefix (e.g., /en/) for localization.</p>
+    </div>
+    <div style={{ marginLeft: '20px' }}>
+    	<img
+    		src="/images/docs/mini-apps/quick-actions/vuni-qa.png"
+    		alt="VUNI Interface"
+    		style={{ maxWidth: '300px', height: 'auto' }}
+    	/>
+    </div>
+
+</div>
+
+Example URLs:
+
+```
+# Access pools with trades tab
+https://worldcoin.org/mini-app?app_id=app_10ca32093aa9ad0e52bc812d63daf818&path=%2Fpool%3Ftab%3Dtrades
+
+# View investor info with referrals tab
+https://worldcoin.org/mini-app?app_id=app_10ca32093aa9ad0e52bc812d63daf818&path=%2Finvestor%2F0x6917A2418aBDc514E1745207200bFbA75E1dfd6E%3Ftab%3Dreferrals
+
+# Access with referral code
+https://worldcoin.org/mini-app?app_id=app_10ca32093aa9ad0e52bc812d63daf818&path=%3Fref%3DGD9WWI
+
+# Access pools with stats tab (localized)
+https://worldcoin.org/mini-app?app_id=app_10ca32093aa9ad0e52bc812d63daf818&path=%2Fen%2Fpool%3Ftab%3Dstats
+```

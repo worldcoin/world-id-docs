@@ -131,9 +131,9 @@ This endpoint lets you send notifications to users of your mini app and requires
         </Properties>
     </Col>
     <Col>
-        <CodeGroup title="Request" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}">
+        <CodeGroup title="Request" tag="GET" label="https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}">
             ```bash {{ title: "cURL" }}
-            curl -X GET "/api/v2/minikit/transaction/{transaction_id}" \
+            curl -X GET "https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}" \
                 -H "Authorization: Bearer {api_key}"
             ```
             ```js
@@ -186,7 +186,7 @@ This endpoint lets you send notifications to users of your mini app and requires
         </Properties>
     </Col>
      <Col>
-        <CodeGroup title="Response" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}">
+        <CodeGroup title="Response" tag="GET" label="https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}">
             ```json {{ title: "Payment" }}
             {
                 "reference": "1fa38f30-8ee1-4e4b-9988-0517a774f96c",
@@ -241,9 +241,9 @@ This endpoint lets you send notifications to users of your mini app and requires
         </Properties>
     </Col>
     <Col>
-        <CodeGroup title="Request" tag="GET" label="/api/v2/minikit/transaction/debug">
+        <CodeGroup title="Request" tag="GET" label="https://developer.worldcoin.org/api/v2/minikit/transaction/debug">
             ```bash {{ title: "cURL" }}
-            curl -X GET "/api/v2/minikit/transaction/debug?app_id={app_id}" \
+            curl -X GET "https://developer.worldcoin.org/api/v2/minikit/transaction/debug?app_id={app_id}" \
                 -H "Authorization: Bearer {api_key}"
             ```
             ```js
@@ -318,7 +318,7 @@ We offer this as a service to make it easier to use WLD as a currency.
 
     </Col>
     <Col>
-        <CodeGroup title="Request" tag="GET" label="/public/v1/miniapps/prices?...">
+        <CodeGroup title="Request" tag="GET" label="https://app-backend.worldcoin.dev/public/v1/miniapps/prices?...">
             ```bash {{ title: "cURL" }}
             curl -X GET "https://app-backend.worldcoin.dev/public/v1/miniapps/prices?cryptoCurrencies=WLD&fiatCurrencies=USD"
             ```
@@ -353,7 +353,7 @@ Detailed are a just a few values in the return that could be confusing. See the 
         </Properties>
     </Col>
      <Col>
-        <CodeGroup title="Response" tag="GET" label="/public/v1/miniapps/prices?...">
+        <CodeGroup title="Response" tag="GET" label="https://app-backend.worldcoin.dev/public/v1/miniapps/prices?...">
             ```json
             {
                 "result": {

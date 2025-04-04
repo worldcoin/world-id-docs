@@ -74,13 +74,13 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 
 	const getOgImageUrl = () => {
 		if (router.pathname.startsWith('/mini-apps')) {
-			return `${process.env.NEXT_PUBLIC_APP_URL!}/images/docs/mini-apps-cover.png`
+			return `${process.env.NEXT_PUBLIC_APP_URL!}/images/docs/mini-apps-meta.png`
 		}
 		if (router.pathname.startsWith('/world-id')) {
-			return `${process.env.NEXT_PUBLIC_APP_URL!}/images/docs/world-id-cover.png`
+			return `${process.env.NEXT_PUBLIC_APP_URL!}/images/docs/world-id-meta.png`
 		}
 		if (router.pathname.startsWith('/world-chain')) {
-			return `${process.env.NEXT_PUBLIC_APP_URL!}/images/docs/worldchain-cover.png`
+			return `${process.env.NEXT_PUBLIC_APP_URL!}/images/docs/worldchain-meta.png`
 		}
 		return `${process.env.NEXT_PUBLIC_APP_URL!}/images/og/og.png`
 	}

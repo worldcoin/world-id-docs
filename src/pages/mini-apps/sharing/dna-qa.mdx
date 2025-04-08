@@ -1,3 +1,6 @@
+import { Link } from '@/components/Link'
+import Tabs, { TabItem } from '@/components/Tabs'
+
 # DNA Quick Action
 
 Generate deep links to the DNA app for quick actions like Swap and Send.
@@ -19,7 +22,7 @@ into the wallet interface, allowing users to perform specific actions like sendi
 				The contract address of the token being received (`toToken`). This is used in **swap** actions.
 			</Property>
 			<Property name="recipientAddress or username" type="string">
-				The recipient’s wallet address or username for sending tokens.
+				The recipient's wallet address or username for sending tokens.
 			</Property>
 			<Property name="amount" type="string">
 				The amount of the `fromToken` to be sent, specified in its **base unit** .
@@ -32,13 +35,22 @@ into the wallet interface, allowing users to perform specific actions like sendi
 			</Property>
 		</Properties>
 	</div>
-	<div style={{ marginLeft: '20px' }}>
-		<img
-			src="/images/docs/mini-apps/quick-actions/dna-qa.png"
-			alt="Liquidity Pool Screen"
-			style={{ maxWidth: '300px', height: 'auto' }}
-		/>
-	</div>
+	<Tabs>
+		<TabItem label="Send">
+			<img
+				src="/images/docs/mini-apps/quick-actions/dna-qa-send.png"
+				alt="Send Screen"
+				style={{ maxWidth: '300px', height: 'auto' }}
+			/>
+		</TabItem>
+		<TabItem label="Swap">
+			<img
+				src="/images/docs/mini-apps/quick-actions/dna-qa-swap.png"
+				alt="Swap Screen"
+				style={{ maxWidth: '300px', height: 'auto' }}
+			/>
+		</TabItem>
+	</Tabs>
 </div>
 
 ## Helper Function
@@ -101,14 +113,14 @@ A string representing the complete deeplink URL to the DNA application with the 
 
 ```typescript
 const deeplinkUrl = getDNADeeplinkUrl({
-  fromToken: '0x79A02482A880bCE3F13e09Da970dC34db4CD24d1',
-  toToken: '0x4200000000000000000000000000000000000006',
-  recipientAddress: '0xRecipientAddressHere',
-  amount: ‘1235',
-  sourceAppId: 'app_a4f7f3e62c1de0b9490a5260cb390b56',
-  sourceDeeplinkPath: ‘/path’,
-});
-console.log(deeplinkUrl);
+	fromToken: '0x79A02482A880bCE3F13e09Da970dC34db4CD24d1',
+	toToken: '0x4200000000000000000000000000000000000006',
+	recipientAddress: '0xRecipientAddressHere',
+	amount: '1235',
+	sourceAppId: 'app_a4f7f3e62c1de0b9490a5260cb390b56',
+	sourceDeeplinkPath: '/path',
+})
+console.log(deeplinkUrl)
 ```
 
 ## **Generated Deeplink URL:**
@@ -122,7 +134,7 @@ https://worldcoin.org/mini-app?app_id=app_8e407cfbae7ae51c19b07faff837aeeb&path=
 -   Ensure that the **amount** is specified in the unit of the fromToken (e.g., wei for Ethereum-based tokens).
 -   The **sourceDeeplinkPath** is URL-encoded to ensure it is correctly interpreted when the deeplink is accessed.
 -   The **DNA_APP_ID** should be defined in your environment to match the application ID assigned to your DNA instance.
--   If the tab is **Send**, it is necessary/recommended to provide **fromToken**, **amount**, and **the recipient’s address or username** _(toToken is not required)_.
+-   If the tab is **Send**, it is necessary/recommended to provide **fromToken**, **amount**, and **the recipient's address or username** _(toToken is not required)_.
 -   If the tab is **Swap**, it is necessary/recommended to provide **fromToken**, **toToken**, and **amount** _(in base unit)_.
 
 This function facilitates the creation of deeplink URLs that can be used to direct users seamlessly into specific actions within the DNA application, enhancing the user experience by pre-filling transaction details.

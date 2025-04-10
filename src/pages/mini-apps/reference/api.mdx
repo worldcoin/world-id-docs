@@ -122,13 +122,6 @@ This endpoint lets you send notifications to users of your mini app and requires
             </Property>
         </Properties>
 
-        ### Request Headers
-        <Properties>
-            <Property name="Authorization" type="string" required={true}>
-            The `Authorization` header should be the `api_key` for your app from the Developer Portal. Make sure to
-            prefix it with `Bearer {api_key}`.
-            </Property>
-        </Properties>
     </Col>
     <Col>
         <CodeGroup title="Request" tag="GET" label="https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}">
@@ -139,9 +132,6 @@ This endpoint lets you send notifications to users of your mini app and requires
             ```js
             fetch(apiUrl, {
                 method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer {api_key}',
-                }
             })
             ```
         </CodeGroup>

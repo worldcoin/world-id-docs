@@ -285,6 +285,7 @@ export const miniAppsNavigation = [
 			{ title: 'App Store Policy', href: '/mini-apps/more/policy' },
 			{ title: 'Promotion', href: '/mini-apps/more/promotion' },
 			{ title: 'Grants', href: '/mini-apps/more/grants' },
+			{ title: 'Developer Rewards Pilot', href: '/mini-apps/more/developer-rewards-pilot' },
 			{ title: 'Troubleshooting', href: '/mini-apps/more/troubleshooting' },
 			{ title: 'Webview Specifications', href: '/mini-apps/more/webview-spec' },
 			{ title: 'Releases', href: '/mini-apps/more/releases' },

@@ -1,0 +1,39 @@
+# Virality
+
+Finding ways to get your app in front of more users is a challenge for many developers. 
+Here are a few ways to help you get started both inside and outside of World App.
+
+## Bringing in users from outside of World App
+
+Getting new users to install World App and try out your app. 
+
+### Universal Links
+You can deep link users to your mini app using universal links. Link previews currently use your first showcase image as the preview.
+
+```
+https://world.org/mini-app?app_id={app_id}&path={path}
+```
+
+Path is a url encoded path to the page you want to link to inside of your mini app. If you're having trouble try adding or removing the leading `/` in the path.
+
+Traditional `https` links can sometimes be blocked by ad blockers and other webviews. If the user already has World App installed, you can use a deep link to open the app. 
+However, if the user doesn't have World App installed, this link will do nothing.
+
+```
+worldapp://mini-app?app_id={app_id}&path={path}
+```
+
+[Ecosystem pages](https://world.org/ecosystem/app_e8288209fbe1fc4a1b80619e925a79bd) can also be shared on social platforms and are set up to support both link extensions.
+
+## Inside World App
+
+Getting users already within World App to try out your app.
+
+### Quick Actions
+[Quick Actions](/mini-apps/sharing/quick-actions) enable seamless collaboration between mini apps within World App. The best apps are designed around a single core feature. 
+If you need to offer distinct functionalities, consider creating separate mini apps that can interact with each other via Quick Actions.
+It's also recommended to use other developers apps as a source of partnership!
+
+
+
+

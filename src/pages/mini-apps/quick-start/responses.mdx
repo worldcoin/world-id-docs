@@ -1,49 +1,10 @@
 # Responses
 
 World App will return responses to your mini app based on the command sent. You can define custom logic to handle these responses with MiniKit.
-If you choose to use event listeners, we recommend adding them only to the pages where they are triggered.
 
-Another way of handling responses is to use async handlers.
-Calling an async handler will call the command and wait for a response from WorldApp
-The resolved object contains the WorldApp response (`finalPayload`) along with an object returned by calling command (`commandPayload`).
-You don't have to worry about cleaning up the listeners, and the command can be simply awaited.
+There are two ways to handle responses:
 
-### Example Response
-
-Two ways of getting the response:
-
-<CodeGroup>
-
-```tsx {{ title: "Event listeners" }}
-import { MiniKit, ResponseEvent } from '@worldcoin/minikit-js'
-
-export function ReactComponent() {
-	// ...
-	useEffect(() => {
-		MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async payload => {
-			if (payload.status === 'error') {
-				return console.log('Error payload', payload)
-			}
-
-			// Verify the proof in the backend
-			const verifyResponse = await fetch('/api/verify', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: {
-					//...
-				},
-			})
-		})
-
-		return () => {
-			// Clean up on unmount
-			MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction)
-		}
-	}, [])
-}
-```
+1. **Async Handling**: The most common use case is to use async handlers. These let you simply await the commands. The response is returned in the `finalPayload` object.
 
 ```tsx {{ title: "Async handlers" }}
 import { MiniKit } from '@worldcoin/minikit-js'
@@ -75,4 +36,35 @@ const handleVerify = async () => {
 }
 ```
 
-</CodeGroup>
+2. **Synchronous Handling**: Synchronous require you to subscribe to the event.
+
+```tsx {{ title: "Event listeners" }}
+import { MiniKit, ResponseEvent } from '@worldcoin/minikit-js'
+
+export function ReactComponent() {
+	// ...
+	useEffect(() => {
+		MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async payload => {
+			if (payload.status === 'error') {
+				return console.log('Error payload', payload)
+			}
+
+			// Verify the proof in the backend
+			const verifyResponse = await fetch('/api/verify', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: {
+					//...
+				},
+			})
+		})
+
+		return () => {
+			// Clean up on unmount
+			MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction)
+		}
+	}, [])
+}
+```

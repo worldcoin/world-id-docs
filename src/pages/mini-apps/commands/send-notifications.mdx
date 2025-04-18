@@ -114,6 +114,24 @@ The possible error codes are:
 -   `already_granted` - User has already granted this mini app permission
 -   `unsupported_permission` - Permission is not supported yet
 
+## Sending notifications from Developer Portal
+
+You can send notifications to multiple wallet addresses directly from the Developer Portal.
+
+![Notification Interface in the Developer Portal](/images/docs/mini-apps/commands/notifications-dev-portal.png)
+
+1. Enter wallet addresses separated by commas or import addresses via CSV file (Limited to 1000 addresses per request).
+
+2. Add a notification title (up to 30 characters).
+
+3. Enter your notification message (up to 200 characters).
+
+4. Specify the path inside your mini app that will open when the notification is tapped.
+
+5. Enter your Developer Portal API key (format: api\_...). You can obtain this from the API Keys tab.
+
+6. Click the button to dispatch notifications to the specified addresses.
+
 ## Calling the notification endpoint
 
 You can send notifications to this endpoint: https://developer.worldcoin.org/api/v2/minikit/send-notification.
@@ -133,7 +151,6 @@ Business rules about this endpoint
 We currently have a limit of 40 notifications per 4 hours for unverified apps. This is to help you test your notification implementations.
 Currently you will need to create a new app if your app is verified as it will default to the verified app's metadata. In addition, you need
 to enable notifications for your mini app inside of World App to receive them.
-
 
 ## Success Result on World App
 

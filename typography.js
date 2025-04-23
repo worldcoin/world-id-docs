@@ -41,6 +41,7 @@ module.exports = ({ theme }) => ({
 			color: 'var(--tw-prose-body)',
 			fontSize: theme('fontSize.base')[0],
 			lineHeight: theme('lineHeight.7'),
+			fontWeight: '300',
 
 			// Layout
 			'> *': {
@@ -112,7 +113,7 @@ module.exports = ({ theme }) => ({
 				paddingLeft: theme('spacing[1.5]'),
 			},
 			'ol > li::marker': {
-				fontWeight: '400',
+				fontWeight: '300',
 				color: 'var(--tw-prose-counters)',
 			},
 			'ul > li::marker': {
@@ -160,7 +161,7 @@ module.exports = ({ theme }) => ({
 
 			// Quotes
 			blockquote: {
-				fontWeight: '500',
+				fontWeight: '450',
 				fontStyle: 'italic',
 				color: 'var(--tw-prose-quotes)',
 				borderLeftWidth: '0.25rem',
@@ -180,14 +181,14 @@ module.exports = ({ theme }) => ({
 			// Headings
 			h1: {
 				color: 'var(--tw-prose-headings)',
-				fontWeight: '700',
+				fontWeight: '450',
 				fontSize: theme('fontSize.3xl')[0],
 				...theme('fontSize.2xl')[1],
 				marginBottom: theme('spacing.4'),
 			},
 			h2: {
 				color: 'var(--tw-prose-headings)',
-				fontWeight: '600',
+				fontWeight: '450',
 				fontSize: theme('fontSize.xl')[0],
 				...theme('fontSize.xl')[1],
 				marginTop: theme('spacing.10'),
@@ -197,7 +198,7 @@ module.exports = ({ theme }) => ({
 				color: 'var(--tw-prose-headings)',
 				fontSize: theme('fontSize.lg')[0],
 				...theme('fontSize.lg')[1],
-				fontWeight: '600',
+				fontWeight: '450',
 				marginTop: theme('spacing.10'),
 				marginBottom: theme('spacing.2'),
 			},
@@ -205,7 +206,7 @@ module.exports = ({ theme }) => ({
 				color: 'var(--tw-prose-headings)',
 				fontSize: theme('fontSize.base')[0],
 				...theme('fontSize.base')[1],
-				fontWeight: '600',
+				fontWeight: '450',
 				marginTop: theme('spacing.10'),
 				marginBottom: theme('spacing.2'),
 			},
@@ -243,7 +244,7 @@ module.exports = ({ theme }) => ({
 			},
 			'thead th': {
 				color: 'var(--tw-prose-headings)',
-				fontWeight: '600',
+				fontWeight: '450',
 				verticalAlign: 'bottom',
 				paddingRight: theme('spacing.2'),
 				paddingBottom: theme('spacing.2'),
@@ -301,7 +302,7 @@ module.exports = ({ theme }) => ({
 			},
 			strong: {
 				color: 'var(--tw-prose-bold)',
-				fontWeight: '500',
+				fontWeight: '450',
 			},
 			':is(a, blockquote, thead th) strong': {
 				color: 'inherit',

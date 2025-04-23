@@ -11,16 +11,11 @@ export default async function handler(req: NextRequest) {
 	const category = searchParams.get('category')
 	const title = searchParams.get('title')
 
-	const gtAmerica500 = await fetch(
-		'https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-medium-webfont.woff'
-	)
+	const twkLausanne300 = await fetch('/fonts/TWKLausanne-300.woff')
+	const twkLausanne450 = await fetch('/fonts/TWKLausanne-450.woff')
 
-	const gtAmerica900 = await fetch(
-		'https://world-id-public.s3.amazonaws.com/docs/gt-america-standard-bold-webfont.woff'
-	)
-
-	const gtAmerica500Data = await gtAmerica500.arrayBuffer()
-	const gtAmerica900Data = await gtAmerica900.arrayBuffer()
+	const twkLausanne300Data = await twkLausanne300.arrayBuffer()
+	const twkLausanne450Data = await twkLausanne450.arrayBuffer()
 
 	return new ImageResponse(
 		(
@@ -31,14 +26,17 @@ export default async function handler(req: NextRequest) {
 
 				<div tw="flex flex-col">
 					{category && (
-						<span tw="text-[56px] text-gray-500 leading-none" style={{ fontFamily: 'GT America 500' }}>
+						<span
+							tw="text-[56px] text-gray-500 leading-none"
+							style={{ fontFamily: 'TWK Lausanne', fontWeight: '300' }}
+						>
 							{category}
 						</span>
 					)}
 
 					<span
-						tw="text-[124px] text-gray-900 leading-[1] mt-8 font-bold"
-						style={{ fontFamily: 'GT America 900' }}
+						tw="text-[124px] text-gray-900 leading-[1] mt-8"
+						style={{ fontFamily: 'TWK Lausanne', fontWeight: '450' }}
 					>
 						{title}
 					</span>
@@ -49,8 +47,8 @@ export default async function handler(req: NextRequest) {
 			width: 1920,
 			height: 1080,
 			fonts: [
-				{ name: 'GT America 900', data: gtAmerica900Data, style: 'normal' },
-				{ name: 'GT America 500', data: gtAmerica500Data, style: 'normal' },
+				{ name: 'TWK Lausanne', data: twkLausanne300Data, style: 'normal', weight: 300 },
+				{ name: 'TWK Lausanne', data: twkLausanne450Data, style: 'normal', weight: 400 },
 			],
 		}
 	)

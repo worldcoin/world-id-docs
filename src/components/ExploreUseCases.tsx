@@ -4,7 +4,7 @@ import { Link } from '@/components/Link'
 import { CSSProperties, FC } from 'react'
 
 //ANCHOR: Single explore use cases link component
-const UseCaseLink: FC<{ image: string; title: string; color: string; href: string, disabled?: boolean, }> = ({
+const UseCaseLink: FC<{ image: string; title: string; color: string; href: string; disabled?: boolean }> = ({
 	image,
 	title,
 	color,
@@ -14,10 +14,9 @@ const UseCaseLink: FC<{ image: string; title: string; color: string; href: strin
 	return (
 		<Link
 			href={href}
-			className={clsx(
-				'grid grid-cols-auto/1fr gap-y-1 gap-x-4 !no-underline transition-color', {
-					'text-gray-400 hover:!text-[--hoverColor]': !disabled,
-					'text-gray-300 cursor-default': disabled,
+			className={clsx('grid grid-cols-auto/1fr gap-y-1 gap-x-4 !no-underline transition-color', {
+				'text-gray-400 hover:!text-[--hoverColor]': !disabled,
+				'text-gray-300 cursor-default': disabled,
 			})}
 			style={
 				{

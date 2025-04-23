@@ -44,10 +44,10 @@ module.exports = {
 			gridTemplateRows: gridTemplates,
 
 			colors: {
-				primary: '#4940E0',
+				primary: '#1989FB',
 				accents: {
 					info: {
-						700: '#506DFF',
+						700: '#1989FB',
 					},
 				},
 				gray: {
@@ -68,10 +68,6 @@ module.exports = {
 					700: '#3C424B',
 					900: '#191C20',
 				},
-
-				'purple-H2': '#454EBA',
-				'PB-2': '#1989FB',
-
 				accents: {
 					info: {
 						700: '#506DFF',
@@ -93,8 +89,19 @@ module.exports = {
 			},
 
 			fontFamily: {
-				sans: ['"GT America"', ...defaultTheme.fontFamily.sans],
+				sans: ['"TWK Lausanne"', ...defaultTheme.fontFamily.sans],
 				sora: ['var(--font-sora)', ...defaultTheme.fontFamily.sans],
+			},
+
+			fontWeight: {
+				light: '300',
+				normal: '300',
+				regular: '300',
+				middle: '450',
+				semibold: '450',
+				bold: '450',
+				extrabold: '450',
+				black: '450',
 			},
 
 			opacity: {

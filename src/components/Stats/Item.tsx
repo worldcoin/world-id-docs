@@ -36,14 +36,14 @@ export const Item: FC<{
 
 	return (
 		<div className={clsx('grid gap-y-1 justify-items-center', className)}>
-			<div className="leading-none text-[64px] font-bold text-black">{total}</div>
+			<div className="leading-none text-[64px] font-bold text-gray-A1">{total}</div>
 
 			<div className="leading-5 text-xl font-bold flex items-baseline">
-				<span ref={countUpRef} className="text-black" />
-				<span className="ml-1 text-black">last week</span>
+				<span ref={countUpRef} className="text-gray-A1" />
+				<span className="ml-1 text-gray-A1">last week</span>
 			</div>
 
-			<span className="mt-1 leading-5 text-sm text-black/50">{footnote}</span>
+			<span className="mt-1 leading-5 text-sm text-gray-A1/50">{footnote}</span>
 		</div>
 	)
 }

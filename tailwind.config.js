@@ -70,6 +70,7 @@ module.exports = {
 				},
 
 				'purple-H2': '#454EBA',
+				'PB-2': '#1989FB',
 
 				accents: {
 					info: {

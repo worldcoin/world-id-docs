@@ -93,7 +93,7 @@ export const Header: ForwardRefExoticComponent<{ className?: string }> = forward
 					<MobileSearch />
 					<div className="hidden md:block md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15" />
 					<a href="https://github.com/worldcoin/world-id-docs/" target="_blank" rel="noreferrer">
-						<GitHubIcon className="h-6 w-6 text-black" />
+						<GitHubIcon className="h-6 w-6 text-gray-A1" />
 					</a>
 				</div>
 			</div>
@@ -112,11 +112,11 @@ const SectionTab = (props: { className?: string; text: string; isActive: boolean
 	return (
 		<div
 			className={clsx('h-full flex items-center text-center justify-center relative', {
-				'text-gray-900 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-black after:-mb-px':
+				'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-gray-A1 after:-mb-px':
 					isActive,
 			})}
 		>
-			<a href={href} className={clsx('text-gray-AG2 text-sm', { 'text-gray-A1': isActive }, className)}>
+			<a href={href} className={clsx('text-sm', isActive ? 'text-gray-A1' : 'text-gray-AG2', className)}>
 				{text}
 			</a>
 		</div>

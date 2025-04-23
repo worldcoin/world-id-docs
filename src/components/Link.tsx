@@ -16,7 +16,7 @@ export const Link: FC<PropsWithChildren<Omit<HTMLProps<HTMLAnchorElement>, 'ref'
 			)}
 
 			{!external && (
-				<NextLink href={props.href ?? '!#'} className="text-purple-H2" {...props}>
+				<NextLink href={props.href ?? '!#'} className="text-PB-2" {...props}>
 					{props.children}
 				</NextLink>
 			)}

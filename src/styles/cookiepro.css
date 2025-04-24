@@ -19,7 +19,7 @@ html {
 			@apply pointer-events-none bg-transparent focus:!outline-none;
 
 			& > div {
-				@apply pointer-events-auto fixed left-0 right-0 bottom-0 bg-black;
+				@apply pointer-events-auto fixed bottom-0 left-0 right-0 bg-gray-A1;
 
 				& #onetrust-close-btn-container {
 					@apply hidden;
@@ -43,7 +43,7 @@ html {
 							@apply m-0;
 
 							& #onetrust-policy-text {
-								@apply !font-sans !text-base !my-0 !ml-0 !mr-7 !leading-normal text-white xl:!mr-44;
+								@apply !my-0 !ml-0 !mr-7 !font-sans !text-base !leading-normal text-white xl:!mr-44;
 							}
 						}
 					}
@@ -55,12 +55,12 @@ html {
 							@apply !m-0 !flex !w-full !flex-col gap-2 sm:!w-auto sm:!flex-row lg:justify-between;
 
 							& #onetrust-pc-btn-handler.cookie-setting-link {
-								@apply !text-sm !mx-0 !mb-0 !mt-0 !min-w-0 bg-transparent !py-3 !px-4 !text-center font-normal !leading-normal text-white !outline-none transition-colors duration-200 hover:text-opacity-80 sm:!text-left;
+								@apply !mx-0 !mb-0 !mt-0 !min-w-0 bg-transparent !px-4 !py-3 !text-center !text-sm font-normal !leading-normal text-white !outline-none transition-colors duration-200 hover:text-opacity-80 sm:!text-left;
 							}
 
 							& #onetrust-accept-btn-handler,
 							& #onetrust-reject-all-handler {
-								@apply !text-sm -order-1 !m-0 !h-auto !rounded-lg !border-none !bg-white !py-3 !px-4 !font-normal !leading-3 !tracking-normal text-black !transition-colors !duration-200 hover:!bg-opacity-80 hover:!opacity-100 sm:order-none;
+								@apply -order-1 !m-0 !h-auto !rounded-lg !border-none !bg-white !px-4 !py-3 !text-sm !font-normal !leading-3 !tracking-normal text-gray-A1 !transition-colors !duration-200 hover:!bg-opacity-80 hover:!opacity-100 sm:order-none;
 							}
 						}
 					}
@@ -98,18 +98,18 @@ html {
 
 			& #ot-category-title,
 			#ot-pc-title {
-				@apply !font-sans !text-base !m-0 !p-0 !font-medium !leading-normal !text-black;
+				@apply !m-0 !p-0 !font-sans !text-base !font-medium !leading-normal !text-gray-A1;
 			}
 
 			& #ot-pc-content {
-				@apply !top-4 !bottom-[70px] !m-0 !w-auto pt-0 !pl-4 pr-[6px];
+				@apply !bottom-[70px] !top-4 !m-0 !w-auto !pl-4 pr-[6px] pt-0;
 
 				& #ot-pc-desc {
-					@apply !font-sans !text-sm !mb-0 pt-4 !leading-normal !text-black;
+					@apply !mb-0 pt-4 !font-sans !text-sm !leading-normal !text-gray-A1;
 				}
 
 				& #accept-recommended-btn-handler {
-					@apply !text-2xs !mt-6 !mb-8 !mr-0 !h-auto max-w-none !rounded-lg !border-none !bg-black !py-3 !px-4 !font-normal !leading-3 !tracking-normal !text-white !transition-all hover:!opacity-80;
+					@apply !mb-8 !mr-0 !mt-6 !h-auto max-w-none !rounded-lg !border-none !bg-gray-A1 !px-4 !py-3 !text-2xs !font-normal !leading-3 !tracking-normal !text-white !transition-all hover:!opacity-80;
 				}
 
 				& .ot-sdk-row {
@@ -124,13 +124,13 @@ html {
 					}
 
 					& .ot-accordion-layout {
-						@apply border-gray-100 !rounded-none !border-[0.5px];
+						@apply !rounded-none !border-[0.5px] border-gray-100;
 
 						& .ot-acc-hdr {
 							@apply !grid grid-cols-auto/1fr/auto;
 
 							& .ot-cat-header {
-								@apply !font-sans !text-2xs !min-h-0 w-full !font-medium !text-black;
+								@apply !min-h-0 w-full !font-sans !text-2xs !font-medium !text-gray-A1;
 							}
 
 							& .ot-always-active {
@@ -143,7 +143,7 @@ html {
 								}
 
 								& .ot-switch-nob {
-									@apply bg-zinc-400 before:bg-zinc-100 p-0.5;
+									@apply bg-zinc-400 p-0.5 before:bg-zinc-100;
 								}
 
 								& input:checked + .ot-switch .ot-switch-nob:before {
@@ -151,13 +151,13 @@ html {
 								}
 
 								& input:checked + .ot-switch .ot-switch-nob {
-									@apply !rounded-full border-transparent bg-black !p-0;
+									@apply !rounded-full border-transparent bg-gray-A1 !p-0;
 								}
 							}
 						}
 
 						& .ot-acc-txt p {
-							@apply !font-sans !text-2xs !leading-normal !text-black;
+							@apply !font-sans !text-2xs !leading-normal !text-gray-A1;
 						}
 					}
 				}
@@ -168,7 +168,7 @@ html {
 					@apply !px-4 py-4.5;
 
 					& .save-preference-btn-handler {
-						@apply !text-2xs !m-0 !h-auto !rounded-lg !border-none !bg-black !py-3 !px-4 !font-normal !leading-3 !tracking-normal !text-white !transition-colors !duration-200 hover:!bg-opacity-80 hover:!opacity-100;
+						@apply !m-0 !h-auto !rounded-lg !border-none !bg-gray-A1 !px-4 !py-3 !text-2xs !font-normal !leading-3 !tracking-normal !text-white !transition-colors !duration-200 hover:!bg-opacity-80 hover:!opacity-100;
 					}
 				}
 

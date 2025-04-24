@@ -44,7 +44,7 @@ Mini apps are inherently accessed via mobile, so your application UI should look
 		✅ Good Example <br /> Bottom tab navigation and anchored buttons
 	</div>
 </div>
-## Scroll Bounce on IOS.{' '}
+## Scroll Bounce on IOS.
 
 We recommend you avoid scroll bounce error on iOS devices. Try disabling autoscroll & maybe fixed position elements or using 100dvh instead of 100vh.
 
@@ -57,6 +57,17 @@ body {
 	height: 100vh;
 	overscroll-behavior: none;
 	overflow: hidden;
+}
+```
+
+Alternatively, you can try this approach which allows scrolling while still preventing the bounce effect:
+
+```css
+html,
+body {
+	-webkit-overflow-scrolling: touch;
+	overscroll-behavior: none;
+	overflow: scroll;
 }
 ```
 
@@ -84,10 +95,12 @@ We recommend developers to avoid building chance based games, as these games hav
 **Chance based** = prize awarded based on chance, not skill. This means you are using a RNG to determine a winner.
 You can still have prizes but they need to be awarded based on skill. Not randomness. So winning a game where I get a prize is skill based.
 
-## Localisation
+## Localization
 
 Many of our users are located around the world. Apps that are localised for each region will perform significantly better.
 You can recognize the user's locale by using the <Link href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language">Accept-Language</Link> header
+
+For next.js apps, you can use [Next.js Internationalization](https://nextjs.org/docs/app/building-your-application/routing/internationalization) to localize your app.
 
 These languages are particularly important given our users:
 
@@ -95,6 +108,7 @@ These languages are particularly important given our users:
 2. Spanish
 3. Japanese
 4. Korean
+5. Portuguese
 
 ## Usernames
 

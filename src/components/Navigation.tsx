@@ -221,7 +221,7 @@ export const miniAppsNavigation = [
 	{
 		title: 'Quick Start',
 		links: [
-			{ title: 'Installing MiniKit', href: '/mini-apps/quick-start/installing' },
+			{ title: 'Getting Started', href: '/mini-apps/quick-start/installing' },
 			{ title: 'Commands', href: '/mini-apps/quick-start/commands' },
 			{ title: 'Responses', href: '/mini-apps/quick-start/responses' },
 			{ title: 'Testing', href: '/mini-apps/quick-start/testing' },
@@ -229,11 +229,8 @@ export const miniAppsNavigation = [
 		],
 	},
 	{
-		title: 'Design Standards',
-		links: [
-			{ title: 'Guidelines', href: '/mini-apps/design/app-guidelines' },
-			{ title: 'UI Kit', href: '/mini-apps/design/ui-kit' },
-		],
+		title: 'Authentication',
+		links: [{ title: 'Wallet Authentication', href: '/mini-apps/authentication/wallet-auth' }],
 	},
 	{
 		title: 'Commands',
@@ -241,7 +238,7 @@ export const miniAppsNavigation = [
 			{ title: 'Verify', href: '/mini-apps/commands/verify' },
 			{ title: 'Pay', href: '/mini-apps/commands/pay' },
 			{ title: 'Wallet Auth', href: '/mini-apps/commands/wallet-auth' },
-			{ title: 'Connect Wallet', href: '/mini-apps/commands/connect-wallet' },
+			// { title: 'Connect Wallet', href: '/mini-apps/commands/connect-wallet' },
 			{ title: 'Send Transaction', href: '/mini-apps/commands/send-transaction' },
 			{ title: 'Sign Message', href: '/mini-apps/commands/sign-message' },
 			{ title: 'Sign Typed Data', href: '/mini-apps/commands/sign-typed-data' },
@@ -263,7 +260,18 @@ export const miniAppsNavigation = [
 		],
 	},
 	{
-		title: 'Quick Actions (Sharing)',
+		title: 'Virality',
+		links: [{ title: 'Virality', href: '/mini-apps/virality/virality' }],
+	},
+	{
+		title: 'Design Standards',
+		links: [
+			{ title: 'Guidelines', href: '/mini-apps/design/app-guidelines' },
+			{ title: 'UI Kit', href: '/mini-apps/design/ui-kit' },
+		],
+	},
+	{
+		title: 'Quick Actions',
 		links: [
 			{ title: 'Quick Actions', href: '/mini-apps/sharing/quick-actions' },
 			{ title: 'Add Money', href: '/mini-apps/sharing/add-money-qa' },
@@ -287,6 +295,7 @@ export const miniAppsNavigation = [
 			{ title: 'App Store Policy', href: '/mini-apps/more/policy' },
 			{ title: 'Promotion', href: '/mini-apps/more/promotion' },
 			{ title: 'Grants', href: '/mini-apps/more/grants' },
+			{ title: 'Developer Rewards Pilot', href: '/mini-apps/more/developer-rewards-pilot' },
 			{ title: 'Troubleshooting', href: '/mini-apps/more/troubleshooting' },
 			{ title: 'Webview Specifications', href: '/mini-apps/more/webview-spec' },
 			{ title: 'Releases', href: '/mini-apps/more/releases' },

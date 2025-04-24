@@ -5,6 +5,8 @@ import Tabs, { TabItem } from '@/components/Tabs'
 
 Wallet Auth is our native support for <Link href="https://eips.ethereum.org/EIPS/eip-4361">Sign in With Ethereum</Link>.
 
+> **Important**: Wallet Auth should be used as the primary authentication method for mini apps. Do not use the Verify command for user login purposes.
+
 Wallet Auth is a command that:
 
 -   Authenticates users through their Ethereum wallet using the SIWE protocol (EIP-4361).
@@ -13,11 +15,12 @@ Wallet Auth is a command that:
 
 With this, developers can:
 
+-   Use as a sign-in method for your mini app. Check out our [templates](/mini-apps/quick-start/installing#template-repository) for examples.
 -   Identify users securely and without centralized credentials.
 -   Implement token-based access controls.
 -   Enable blockchain-related features like transactions tied to the authenticated address.
 
-There's an additional benefit of Wallet Auth - apart from the verified wallet address you get the user's username and profile picture url.
+There's an additional benefit of Wallet Auth - apart from the verified wallet address you get the user's username.
 After a successful Wallet Auth, you can access these values from the MiniKit class directly:
 
 ```tsx

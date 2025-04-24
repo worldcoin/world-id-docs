@@ -122,26 +122,15 @@ This endpoint lets you send notifications to users of your mini app and requires
             </Property>
         </Properties>
 
-        ### Request Headers
-        <Properties>
-            <Property name="Authorization" type="string" required={true}>
-            The `Authorization` header should be the `api_key` for your app from the Developer Portal. Make sure to
-            prefix it with `Bearer {api_key}`.
-            </Property>
-        </Properties>
     </Col>
     <Col>
-        <CodeGroup title="Request" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}">
+        <CodeGroup title="Request" tag="GET" label="https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}">
             ```bash {{ title: "cURL" }}
-            curl -X GET "/api/v2/minikit/transaction/{transaction_id}" \
-                -H "Authorization: Bearer {api_key}"
+            curl -X GET "https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}" 
             ```
             ```js
             fetch(apiUrl, {
                 method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer {api_key}',
-                }
             })
             ```
         </CodeGroup>
@@ -186,7 +175,7 @@ This endpoint lets you send notifications to users of your mini app and requires
         </Properties>
     </Col>
      <Col>
-        <CodeGroup title="Response" tag="GET" label="/api/v2/minikit/transaction/{transaction_id}">
+        <CodeGroup title="Response" tag="GET" label="https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}">
             ```json {{ title: "Payment" }}
             {
                 "reference": "1fa38f30-8ee1-4e4b-9988-0517a774f96c",
@@ -218,6 +207,86 @@ This endpoint lets you send notifications to users of your mini app and requires
 </Row>
 <hr/>
 
+## Get Transaction Debug URL{{ tag: "GET", label: "https://developer.worldcoin.org/api/v2/minikit/transaction/debug?app_id=" }}
+
+<Row>
+    <Col>
+        This endpoint lets you debug transactions that failed during the prepare stage. It provides Tenderly URLs for permit2 operations with expired permits.
+        You will only be able to query for transactions of apps where you possess the `api_key`.
+    
+        The debug URL is only available once the permit2 expires. So for development it will be better to set a shorter expiry time so you 
+        can get the debug URL quicker.
+
+        ### Query Params
+        <Properties>
+            <Property name="app_id" type="string" required={true}>
+            The `app_id` corresponding to the transaction that is being queried.
+            </Property>
+        </Properties>
+
+        ### Request Headers
+        <Properties>
+            <Property name="Authorization" type="string" required={true}>
+            The `Authorization` header should be the `api_key` for your app from the Developer Portal. Make sure to
+            prefix it with `Bearer {api_key}`.
+            </Property>
+        </Properties>
+    </Col>
+    <Col>
+        <CodeGroup title="Request" tag="GET" label="https://developer.worldcoin.org/api/v2/minikit/transaction/debug">
+            ```bash {{ title: "cURL" }}
+            curl -X GET "https://developer.worldcoin.org/api/v2/minikit/transaction/debug?app_id={app_id}" \
+                -H "Authorization: Bearer {api_key}"
+            ```
+            ```js
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer {api_key}',
+                }
+            })
+            ```
+        </CodeGroup>
+    </Col>
+
+</Row>
+<hr/>
+### Response
+<Row>
+    <Col>
+        <Properties>
+            <Property name="transactions" type="array">
+            An array of transaction debug information, where each item contains:
+                - `debugUrl` (string): The Tenderly URL for debugging the transaction
+                - `createdAt` (string): The timestamp when the transaction was created, in ISO 8601 format
+                - `block` (number): The block number where the transaction was attempted
+                - `simulationRequestId` (string): The ID of the simulation request
+                - `simulationError` (string): The error message from the simulation, if any
+                - `walletAddress` (string): The wallet address associated with the transaction
+            </Property>
+        </Properties>
+    </Col>
+    <Col>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "transactions": [
+                    {
+                        "debugUrl": "https://dashboard.tenderly.co/tx/...",
+                        "createdAt": "2024-03-21T10:30:00.000Z",
+                        "block": 12345678,
+                        "simulationRequestId": "sim_abc123def456",
+                        "simulationError": "Permit signature expired",
+                        "walletAddress": "0x1234..."
+                    }
+                ]
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+<hr/>
+
 ## Get Prices {{ tag: "GET", label: "https://app-backend.worldcoin.dev/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDCE&fiatCurrencies=" }}
 
 <Row>
@@ -241,9 +310,9 @@ We offer this as a service to make it easier to use WLD as a currency.
 
     </Col>
     <Col>
-        <CodeGroup title="Request" tag="GET" label="/public/v1/miniapps/prices?...">
+        <CodeGroup title="Request" tag="GET" label="https://app-backend.worldcoin.dev/public/v1/miniapps/prices?...">
             ```bash {{ title: "cURL" }}
-            curl -X GET "https://app-backend.worldcoin.dev/public/v1/prices?cryptoCurrencies=WLD&fiatCurrencies=USD"
+            curl -X GET "https://app-backend.worldcoin.dev/public/v1/miniapps/prices?cryptoCurrencies=WLD&fiatCurrencies=USD"
             ```
             ```js
             fetch(apiUrl, {
@@ -276,7 +345,7 @@ Detailed are a just a few values in the return that could be confusing. See the 
         </Properties>
     </Col>
      <Col>
-        <CodeGroup title="Response" tag="GET" label="/public/v1/miniapps/prices?...">
+        <CodeGroup title="Response" tag="GET" label="https://app-backend.worldcoin.dev/public/v1/miniapps/prices?...">
             ```json
             {
                 "result": {

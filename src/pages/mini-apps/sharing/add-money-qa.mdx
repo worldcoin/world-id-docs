@@ -1,0 +1,30 @@
+# Add Money Quick Action
+
+Add money to your World Wallet directly from exchanges like Binance and Coinbase. Deposit, withdraw, and swap tokens across multiple exchanges and chains effortlessly.
+
+<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+	<div style={{ flex: 1 }}>
+		<h3>Parameters</h3>
+		<Properties>
+			<Property name="app_id" type="string" required={true}>
+				Unique ID for the Add Money mini app.
+			</Property>
+			<Property name="path" type="string" required={true}>
+				URL encoded path to the bridge interface.
+			</Property>
+		</Properties>
+	</div>
+	<div style={{ marginLeft: '20px' }}>
+		<img
+			src="/images/docs/mini-apps/quick-actions/add-money-qa.png"
+			alt="Add Money Screen"
+			style={{ maxWidth: '300px', height: 'auto' }}
+		/>
+	</div>
+</div>
+
+Url follows the schema below. Navigate there to use this Quick Action.
+
+```
+https://worldcoin.org/mini-app?app_id=app_e7d27c5ce2234e00558776f227f791ef&path=https%3A%2F%2Fgiftcard.pay.daimo.xyz%2Fbridge
+```

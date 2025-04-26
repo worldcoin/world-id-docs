@@ -37,7 +37,7 @@ Using [NextAuth](https://authjs.dev/getting-started) you can easily create and m
 To extend this to other wallet providers, you simply need to trigger the [wallet auth command](/mini-apps/commands/wallet-auth) and verify the response with [verifySiweMessage](https://github.com/worldcoin/minikit-js/blob/c3aff19f80d07fe1635e68541f91205862500baa/demo/next-15-template/src/auth/index.ts#L41-L74).
 
 <Note type='info'>
-    Currently our Sign in With Ethereum implementation requires using our implementation of verifySiweMessage. We will be compatible with all SIWE providers soon. 
+    Starting from World App 2.8.79 and higher, we support the standard SIWE verification library.
 </Note>
 
 ## Other Providers

@@ -51,7 +51,7 @@ export const MobileNavigation = () => {
 							leaveFrom="opacity-100"
 							leaveTo="opacity-0"
 						>
-							<div className="fixed inset-0 top-14 bg-zinc-400/20 backdrop-blur-sm dark:bg-black/40" />
+							<div className="fixed inset-0 top-14 bg-zinc-400/20 backdrop-blur-sm dark:bg-gray-A1/40" />
 						</Transition.Child>
 
 						<Dialog.Panel>

@@ -44,7 +44,7 @@ export const Layout: FC<
 			<div className="min-h-screen bg-gray-A10">
 				<Header />
 				<div
-					className={clsx('lg:ml-72 xl:ml-80 mt-24', {
+					className={clsx('lg:ml-72 xl:ml-80 mt-16', {
 						'max-w-[1600px] mx-auto': basePath === '',
 						'overflow-x-hidden': basePath !== '',
 					})}

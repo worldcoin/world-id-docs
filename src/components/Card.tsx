@@ -12,8 +12,8 @@ export const Card = (props: {
 }) => {
 	const { imagePath, title, content, className, alt, link } = props
 	return (
-		<Link href={link} className="block no-underline color  hover:no-underline">
-			<div className="gap-y-3 grid p-5 border rounded-2xl border-gray-200 h-full transition-all hover:border-gray-AG2">
+		<Link href={link} className="block no-underline hover:no-underline">
+			<div className="gap-y-3 grid p-5 border rounded-2xl border-gray-200 h-full transition-all hover:shadow-md">
 				<Image
 					width={300}
 					height={300}

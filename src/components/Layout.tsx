@@ -44,9 +44,9 @@ export const Layout: FC<
 			<div className="min-h-screen bg-gray-A10">
 				<Header />
 				<div
-					className={clsx('lg:ml-72 xl:ml-80 mt-16', {
+					className={clsx('mt-16', {
+						'lg:ml-72 xl:ml-80 overflow-x-hidden': basePath !== '',
 						'max-w-[1600px] mx-auto': basePath === '',
-						'overflow-x-hidden': basePath !== '',
 					})}
 				>
 					<motion.header

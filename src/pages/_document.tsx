@@ -7,7 +7,7 @@ export default function Document() {
 			<Head />
 			<meta name="algolia-site-verification" content="9ED47D91389C7847" />
 
-			<body className="bg-white antialiased dark:bg-zinc-900">
+			<body className="bg-white antialiased dark:bg-zinc-900 overflow-x-hidden">
 				<Main />
 				<NextScript />
 			</body>

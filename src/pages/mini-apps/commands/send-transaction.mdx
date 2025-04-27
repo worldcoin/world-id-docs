@@ -3,18 +3,16 @@ import Tabs, { TabItem } from '@/components/Tabs'
 
 # Send Transaction
 
-Send transaction is our command that lets you write to arbitrary smart contracts.
-One important policy restriction we enforce is that we do not allow approvals. In order to use funds
-you must use the Signature Transfer function of <Link href="https://docs.uniswap.org/contracts/permit2/reference/signature-transfer">permit2</Link>.
+The "Send Transaction" feature allows you to interact with arbitrary smart contracts. 
+One important caveat is that approvals are not permitted. 
+To transfer funds, you must either use Permit2 Signature Transfer or directly call the asset's transfer function.
 
-## Crafting the payload
+Ensure you specify the contracts and tokens you are interacting with in the Developer Portal (under Configuration → Advanced) ; otherwise, the backend will block the transaction. 
+Gas fees are covered on World Chain; however, there is a limit of 300 transactions per user per day.
 
-Send transaction will automatically create the permit2 signatures for you.
+## Creating a transaction
 
-<Note type="info">
-	Make sure you specify the contracts and tokens you are interacting with in the Developer Portal
-	(configuration/advanced) otherwise we will block the transaction.
-</Note>
+This command accepts an array of transactions, allowing you to specify multiple actions that will be executed atomically in a single multicall.
 
 ```ts
 export type SendTransactionInput = {
@@ -22,23 +20,12 @@ export type SendTransactionInput = {
 	permit2?: Permit2[] // Optional
 }
 
-export type Permit2 = {
-	permitted: {
-		token: string
-		amount: string | unknown
-	}
-	spender: string
-	nonce: string | unknown
-	deadline: string | unknown
-}
-
 export type Transaction = {
-	address: string // Contract address
-	abi: Abi | readonly unknown[] // Only include the abi for the function you're calling
+	address: string // Contract address you're interacting with
+	abi: Abi | readonly unknown[] // It's recommended to only include the functions you're using.
 	functionName: ContractFunctionName<Abi | readonly unknown[], 'payable' | 'nonpayable'>
 	value?: string // Hex string representation of the value to send with the function call
 	args: ContractFunctionArgs<
-		// Wrap all your arguments in strings to avoid overflow errors
 		Abi | readonly unknown[],
 		'payable' | 'nonpayable',
 		ContractFunctionName<Abi | readonly unknown[], 'payable' | 'nonpayable'>
@@ -46,98 +33,38 @@ export type Transaction = {
 }
 ```
 
-## Using the command
-
-In this example we will use two nested transactions. If your function requires a permit2 signature use `PERMIT2_SIGNATURE_PLACEHOLDER_{n}` with
-the index of the permit2 object in the transaction array.
-
-Additionally if you introduce a new ERC20 token we will automatically approve the permit2 contract to spend the tokens.
-
-It is strongly recommended to execute using only one transaction.
-{/* If you need `setApprovalForAll` or are working with NFTs please reach out. */}
-
-<Note type="info">Note this function only accepts stringified values.</Note>
-
 <Tabs>
 	
-  <TabItem label="Async handlers">
-
-    ### Sending the transaction & receiving the response
+  <TabItem label="Send Transaction">
+    
 
     ```tsx {{ title: 'app/page.tsx' }}
-    // Make sure this is only the function you're calling
-    // Otherwise you will get an error
-    import DEXABI from '../../abi/DEX.json'
+    import SimpleABI from '../../abi/SimpleABI.json'
     import { MiniKit } from '@worldcoin/minikit-js'
 
-    // ...
     const sendTransaction = async () => {
-      if (!MiniKit.isInstalled()) {
-        return;
-      }
-
-      const deadline = Math.floor((Date.now() + 30 * 60 * 1000) / 1000).toString()
-
-      // Transfers can also be at most 1 hour in the future.
-      const permitTransfer = {
-        permitted: {
-          token: testTokens.worldchain.USDCE,
-          amount: '10000',
-        },
-        nonce: Date.now().toString(),
-        deadline,
-      }
-
-      const permitTransferArgsForm = [
-        [permitTransfer.permitted.token, permitTransfer.permitted.amount],
-        permitTransfer.nonce,
-        permitTransfer.deadline,
-      ]
-
-      const transferDetails = {
-        to: '0x126f7998Eb44Dd2d097A8AB2eBcb28dEA1646AC8',
-        requestedAmount: '10000',
-      }
-
-      const transferDetailsArgsForm = [transferDetails.to, transferDetails.requestedAmount]
-
       const {commandPayload, finalPayload} = await MiniKit.commandsAsync.sendTransaction({
         transaction: [
           {
-            address: '0x34afd47fbdcc37344d1eb6a2ed53b253d4392a2f',
-            abi: DEXABI,
-            functionName: 'signatureTransfer',
-            args: [permitTransferArgsForm, transferDetailsArgsForm, 'PERMIT2_SIGNATURE_PLACEHOLDER_0'],
-          },
-        ],
-        permit2: [
-          {
-            ...permitTransfer,
-            spender: '0x34afd47fbdcc37344d1eb6a2ed53b253d4392a2f',
+            address: '0x9Cf4F011F55Add3ECC1B1B497A3e9bd32183D6e8',
+            abi: SimpleABI,
+            functionName: 'mintToken',
+            args: ['0x126f7998Eb44Dd2d097A8AB2eBcb28dEA1646AC8'],
           },
         ],
       })
     }
     ```
 
-    Learn more about your errors see [errors](/mini-apps/reference/errors#transactions)
 
 
-    ### Check transaction status
+    ### Confirming the transaction
 
-
-    The transaction will be first simulated and checked for errors. If there are no errors the user will be prompted to sign the transaction. To make it easier we let you install hooks built on top of Viem.
-
-    This requires installing the `@worldcoin/minikit-react` package.
-
-    ```bash {{ title: "Usage" }}
-    pnpm i @worldcoin/minikit-react
-    ```
-
-    In this flow we will use the hook `useWaitForTransactionReceipt` to check the status of the transaction.
-
+    Once the transaction is sent, you will receive a `transaction_id`. You can use this ID to check the transaction status and retrieve the transaction hash after confirmation.
+    In this flow, we will use the useWaitForTransactionReceipt hook to monitor the transaction status.
 
     ```tsx {{ title: 'app/page.tsx' }}
+    // Make sure you have the @worldcoin/minikit-react package installed
     import { useWaitForTransactionReceipt } from '@worldcoin/minikit-react'
 
     const [transactionId, setTransactionId] = useState<string>('')
@@ -156,10 +83,6 @@ It is strongly recommended to execute using only one transaction.
     })
 
     const sendTransaction = async () => {
-      if (!MiniKit.isInstalled()) {
-        return;
-      }
-      // ...
       const {commandPayload, finalPayload} = await MiniKit.commandsAsync.sendTransaction({
         // ...
       })
@@ -174,85 +97,123 @@ It is strongly recommended to execute using only one transaction.
 
   </TabItem>
 
-  <TabItem label="Event listeners">
+ 
+
+  <TabItem label="ABI">
+
+    ```tsx {{ title: 'abi/SimpleAbi.json' }}
+    [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+           ],
+          "name": "mintToken",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+    ]
+
+    ```
+
+  </TabItem>
+
+</Tabs>
+
+
+
+## With permit2
+This example demonstrates how to send a transaction using Permit2. You must specify additional configuration options in the Developer Portal (under Configuration → Advanced) to enable a particular token.
+
+Note that Permit2 requires a signature. Our backend automatically replaces the placeholder with the correct signature; you simply need to indicate this using `PERMIT2_SIGNATURE_PLACEHOLDER_{index}`. 
+The index corresponds to the position of the Permit2 value within the permit2 array.
+
+```ts
+export type Permit2 = {
+	permitted: {
+		token: string
+		amount: string | unknown
+	}
+	spender: string
+	nonce: string | unknown
+	deadline: string | unknown
+}
+```
+
+<Tabs>
+	
+  <TabItem label="Send Transaction (Permit2)">
+
+    ### Sending the transaction & receiving the response
 
     ```tsx {{ title: 'app/page.tsx' }}
-    import DEXABI from '../../abi/DEX.json'
+    import Permit2 from '../../abi/Permit2.json'
     import { MiniKit } from '@worldcoin/minikit-js'
 
-    // ...
-    const sendTransactionCommand = () => {
-      const deadline = Math.floor((Date.now() + 30 * 60 * 1000) / 1000).toString()
-
-      // Transfers can also be at most 1 hour in the future.
+   const onClickUsePermit2 = async () => {
+      // Permit2 is valid for max 1 hour
       const permitTransfer = {
         permitted: {
-          token: testTokens.worldchain.USDCE,
-          amount: '10000',
+          token: "0x..." // The token I'm sending
+          amount: (0.5 * 10 ** 18).toString(),
         },
         nonce: Date.now().toString(),
-        deadline,
-      }
-
-      const permitTransferArgsForm = [
-        [permitTransfer.permitted.token, permitTransfer.permitted.amount],
-        permitTransfer.nonce,
-        permitTransfer.deadline,
-      ]
+        deadline: Math.floor((Date.now() + 30 * 60 * 1000) / 1000).toString(),
+      };
 
       const transferDetails = {
-        to: '0x126f7998Eb44Dd2d097A8AB2eBcb28dEA1646AC8',
-        requestedAmount: '10000',
+        to: address,
+        requestedAmount: (0.5 * 10 ** 18).toString(),
+      };
+
+      try {
+        const { finalPayload } = await MiniKit.commandsAsync.sendTransaction({
+          transaction: [
+            {
+              address: "0xF0882554ee924278806d708396F1a7975b732522",
+              abi: Permit2,
+              functionName: 'signatureTransfer',
+              args: [
+                [
+                  [
+                    permitTransfer.permitted.token,
+                    permitTransfer.permitted.amount,
+                  ],
+                  permitTransfer.nonce,
+                  permitTransfer.deadline,
+                ],
+                [transferDetails.to, transferDetails.requestedAmount],
+                'PERMIT2_SIGNATURE_PLACEHOLDER_0', // Placeholders will automatically be replaced with the correct signature. 
+              ],
+            },
+          ],
+          permit2: [
+            {
+              ...permitTransfer,
+              spender: myContractToken,
+            }, // If you have more than one permit2 you can add more values here.
+          ],
+        });
       }
-
-      const transferDetailsArgsForm = [transferDetails.to, transferDetails.requestedAmount]
-
-      const payload = MiniKit.commands.sendTransaction({
-        transaction: [
-          {
-            address: '0x34afd47fbdcc37344d1eb6a2ed53b253d4392a2f',
-            abi: DEXABI,
-            functionName: 'signatureTransfer',
-            args: [permitTransferArgsForm, transferDetailsArgsForm, 'PERMIT2_SIGNATURE_PLACEHOLDER_0'],
-          },
-        ],
-        permit2: [
-          {
-            ...permitTransfer,
-            spender: '0x34afd47fbdcc37344d1eb6a2ed53b253d4392a2f',
-          },
-        ],
-      })
     }
     ```
 
-    ### Receiving the response
 
-    The transaction will be first simulated and checked for errors. If there are no errors the user will be prompted to sign the transaction. To make it easier we let you install hooks built on top of Viem.
 
-    Read more about errors [here](/mini-apps/reference/errors#transactions)
+    ### Confirming the transaction
+
+    Once the transaction is sent you will receive back a transaction id. You can use this to check the status of the transaction and will also be able to get the transaction hash
+    once the transaction is confirmed.
 
     This requires installing the `@worldcoin/minikit-react` package.
 
-    ```bash {{ title: "Usage" }}
-    pnpm i @worldcoin/minikit-react
-    ```
-
-    In this flow we will use the hook `useWaitForTransactionReceipt` to check the status of the transaction.
-
-    ```tsx
-    interface UseTransactionReceiptResult {
-      transactionHash?: `0x${string}`
-      receipt?: TransactionReceipt
-      isError: boolean
-      isLoading: boolean
-      isSuccess: boolean
-      error?: Error
-      retrigger: () => void
-    }
-    ```
-
     ```tsx {{ title: 'app/page.tsx' }}
+    import { useWaitForTransactionReceipt } from '@worldcoin/minikit-react'
+
     const [transactionId, setTransactionId] = useState<string>('')
 
     const client = createPublicClient({
@@ -260,6 +221,7 @@ It is strongly recommended to execute using only one transaction.
       transport: http('https://worldchain-mainnet.g.alchemy.com/public'),
     })
 
+    // You can use isSuccess to check if the transaction is mined
     const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
       client: client,
       appConfig: {
@@ -268,46 +230,58 @@ It is strongly recommended to execute using only one transaction.
       transactionId: transactionId,
     })
 
-    useEffect(() => {
-      if (!MiniKit.isInstalled()) {
-        return
-      }
-
-      MiniKit.subscribe(ResponseEvent.MiniAppSendTransaction, async (payload: MiniAppSendTransactionPayload) => {
-        if (payload.status === 'error') {
-          console.error('Error sending transaction', payload)
-        } else {
-          setTransactionId(payload.transaction_id)
-        }
+    const sendTransaction = async () => {
+      const {commandPayload, finalPayload} = await MiniKit.commandsAsync.sendTransaction({
+        // ...
       })
 
-      return () => {
-        MiniKit.unsubscribe(ResponseEvent.MiniAppSendTransaction)
+      if (payload.status === 'error') {
+        console.error('Error sending transaction', payload)
+      } else {
+        setTransactionId(payload.transaction_id)
       }
-    }, [])
+    }
     ```
 
   </TabItem>
 
+ 
+
   <TabItem label="ABI">
 
-    ```tsx
+    ```tsx {{ title: 'abi/Permit2.json' }}
     [
-      {
+        {
         "inputs": [
           {
             "components": [
               {
                 "components": [
-                  { "internalType": "address", "name": "token", "type": "address" },
-                  { "internalType": "uint256", "name": "amount", "type": "uint256" }
+                  {
+                    "internalType": "address",
+                    "name": "token",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                  }
                 ],
                 "internalType": "struct ISignatureTransfer.TokenPermissions",
                 "name": "permitted",
                 "type": "tuple"
               },
-              { "internalType": "uint256", "name": "nonce", "type": "uint256" },
-              { "internalType": "uint256", "name": "deadline", "type": "uint256" }
+              {
+                "internalType": "uint256",
+                "name": "nonce",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deadline",
+                "type": "uint256"
+              }
             ],
             "internalType": "struct ISignatureTransfer.PermitTransferFrom",
             "name": "permitTransferFrom",
@@ -315,7 +289,11 @@ It is strongly recommended to execute using only one transaction.
           },
           {
             "components": [
-              { "internalType": "address", "name": "to", "type": "address" },
+              {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+              },
               {
                 "internalType": "uint256",
                 "name": "requestedAmount",
@@ -326,13 +304,17 @@ It is strongly recommended to execute using only one transaction.
             "name": "transferDetails",
             "type": "tuple"
           },
-          { "internalType": "bytes", "name": "signature", "type": "bytes" }
+          {
+            "internalType": "bytes",
+            "name": "signature",
+            "type": "bytes"
+          }
         ],
-        "name": "buyNFTWithPermit2",
+        "name": "signatureTransfer",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
-      }
+      },
     ]
 
     ```
@@ -340,6 +322,25 @@ It is strongly recommended to execute using only one transaction.
   </TabItem>
 
 </Tabs>
+
+
+## Success Result on World App
+
+If implemented correctly, the user will see the following drawer on World App.
+
+<div className="grid justify-items-center text-center">
+	<video className="m-auto" width="300" autoPlay muted loop playsInline>
+		<source src="/images/docs/mini-apps/commands/send-transaction.mp4" type="video/mp4" />
+		Your browser does not support the video tag.
+	</video>
+</div>
+
+## Debugging
+
+Sending transactions can be tricky. If you encounter a simulation_failed error, you will receive a debug_url that allows you to inspect the error in Tenderly.
+However, when using Permit2, the debug_url won't be available until your Permit2 signature expires. Therefore, it's recommended to set a shorter deadline during testing.
+For details on other types of [errors](/mini-apps/reference/errors#transactions)
+
 
 ## Alternative: Verifying the transaction
 
@@ -370,7 +371,7 @@ export async function POST(req: NextRequest) {
 }
 ```
 
-Example response from `/minikit/transaction`
+Example response from api call.
 
 ```tsx
 {
@@ -385,7 +386,7 @@ Example response from `/minikit/transaction`
 }
 ```
 
-## Calling a payable function to send ETH
+## Using ETH
 
 <Note type="info">This functionality is available from minikit-js 1.6.0 onwards.</Note>
 Send transaction supports sending to payable functions. Make sure you have ETH in your wallet. For ease of use, we have a
@@ -407,14 +408,3 @@ const sendTransaction = async () => {
 	})
 }
 ```
-
-## Success Result on World App
-
-If implemented correctly, the user will see the following drawer on World App.
-
-<div className="grid justify-items-center text-center">
-	<video className="m-auto" width="300" autoPlay muted loop playsInline>
-		<source src="/images/docs/mini-apps/commands/send-transaction.mp4" type="video/mp4" />
-		Your browser does not support the video tag.
-	</video>
-</div>

@@ -2,18 +2,26 @@ import Image from 'next/image'
 
 # Virality
 
-Finding ways to get your app in front of more users is a challenge for many developers. 
+Finding ways to get your app in front of more users is a challenge for many developers.
 Here are a few ways to help you get started both inside and outside of World App.
 
 ## Bringing in users from outside of World App
 
-Getting new users to install World App and try out your app. 
+Getting new users to install World App and try out your app.
+
 <Note type="info">
-If the user doesn't have your mini app installed and opens the link, the path parameter
-will be preserved after they install and open your app. This enables invite programs.
+	If the user doesn't have your mini app installed and opens the link, the path parameter will be preserved after they
+	install and open your app. This enables invite programs.
 </Note>
 
+### Meta tag images
+
+In the developer portal, you can specify a meta tag image that will be used when your app is shared on
+social platforms. If the image is not set, we fallback to your first showcase image.
+The updated metatag will start showing up 1 hour after your app is approved.
+
 ### Universal Links
+
 You can deep link users to your mini app using universal links. Link previews currently use your first showcase image as the preview.
 
 ```
@@ -22,7 +30,7 @@ https://world.org/mini-app?app_id={app_id}&path={path}
 
 Path is a url encoded path to the page you want to link to inside of your mini app. If you're having trouble try adding or removing the leading `/` in the path.
 
-Traditional `https` links can sometimes be blocked by ad blockers and other webviews. If the user already has World App installed, you can use a deep link to open the app. 
+Traditional `https` links can sometimes be blocked by ad blockers and other webviews. If the user already has World App installed, you can use a deep link to open the app.
 However, if the user doesn't have World App installed, this link will do nothing.
 
 ```
@@ -36,17 +44,17 @@ worldapp://mini-app?app_id={app_id}&path={path}
 Getting users already within World App to try out your app.
 
 ### Quick Actions
-[Quick Actions](/mini-apps/sharing/quick-actions) enable seamless collaboration between mini apps within World App. The best apps are designed around a single core feature. 
+
+[Quick Actions](/mini-apps/sharing/quick-actions) enable seamless collaboration between mini apps within World App. The best apps are designed around a single core feature.
 If you need to offer distinct functionalities, consider creating separate mini apps that can interact with each other via Quick Actions.
 It's also recommended to use other developers apps as a source of partnership!
-
 
 ### Widget
 
 Your mini apps can also be directly accessible from the home screen.
 Prompt users to add the widget to their home screen (ios/android) and even just pin the mini apps to their home screen (android only).
 
-<div className="flex flex-col justify-center items-center">
-  <Image src="/images/docs/mini-apps/virality/widget.jpg" alt="Widget" width={300} height={300} />
-  <p className="text-sm italic mt-1">Widget on iOS</p>
+<div className="flex flex-col items-center justify-center">
+	<Image src="/images/docs/mini-apps/virality/widget.jpg" alt="Widget" width={300} height={300} />
+	<p className="mt-1 text-sm italic">Widget on iOS</p>
 </div>

@@ -225,7 +225,7 @@ export const miniAppsNavigation = [
 			{ title: 'Commands', href: '/mini-apps/quick-start/commands' },
 			{ title: 'Responses', href: '/mini-apps/quick-start/responses' },
 			{ title: 'Testing', href: '/mini-apps/quick-start/testing' },
-			{ title: 'App Store', href: '/mini-apps/quick-start/app-store' },
+			{ title: 'Mini Apps', href: '/mini-apps/quick-start/app-store' },
 		],
 	},
 	{
@@ -292,7 +292,7 @@ export const miniAppsNavigation = [
 		title: 'Further Reading',
 		links: [
 			{ title: 'Security', href: '/mini-apps/more/security' },
-			{ title: 'App Store Policy', href: '/mini-apps/more/policy' },
+			{ title: 'Mini Apps Policy', href: '/mini-apps/more/policy' },
 			{ title: 'Promotion', href: '/mini-apps/more/promotion' },
 			{ title: 'Grants', href: '/mini-apps/more/grants' },
 			{ title: 'Developer Rewards Pilot', href: '/mini-apps/more/developer-rewards-pilot' },

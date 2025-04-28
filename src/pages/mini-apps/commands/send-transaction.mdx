@@ -5,7 +5,7 @@ import Tabs, { TabItem } from '@/components/Tabs'
 
 The "Send Transaction" feature allows you to interact with arbitrary smart contracts. 
 One important caveat is that approvals are not permitted. 
-To transfer funds, you must either use Permit2 Signature Transfer or directly call the asset's transfer function.
+To transfer funds, you must either use Permit2 [Signature Transfer](https://docs.uniswap.org/contracts/permit2/reference/signature-transfer) or directly call the asset's transfer function.
 
 Ensure you specify the contracts and tokens you are interacting with in the Developer Portal (under Configuration → Advanced) ; otherwise, the backend will block the transaction. 
 Gas fees are covered on World Chain; however, there is a limit of 300 transactions per user per day.
@@ -13,11 +13,13 @@ Gas fees are covered on World Chain; however, there is a limit of 300 transactio
 ## Creating a transaction
 
 This command accepts an array of transactions, allowing you to specify multiple actions that will be executed atomically in a single multicall.
+We default to formatting the payload to avoid validation errors, but if you are experiencing issues, you can set `formatPayload` to `false`.
 
 ```ts
 export type SendTransactionInput = {
 	transaction: Transaction[]
 	permit2?: Permit2[] // Optional
+  formatPayload?: boolean // Optional, default is true. If this is causing errors, you can set this to false.
 }
 
 export type Transaction = {
@@ -408,3 +410,9 @@ const sendTransaction = async () => {
 	})
 }
 ```
+
+## Why Approvals are not supported
+
+Approvals are not supported in order to create a better user experience. Any user transfer of funds will
+only show one confirmation modal. This is to help cater towards users who are less familiar with the user patterns
+of crypto. 

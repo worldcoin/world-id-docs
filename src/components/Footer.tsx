@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { Link } from '@/components/Link'
 import GitHubIcon from './icons/GitHubIcon'
@@ -106,9 +107,19 @@ const SmallPrint = () => (
 	</div>
 )
 
-export const Footer = () => (
-	<footer className="mx-auto max-w-2xl space-y-10 pb-16 lg:max-w-5xl">
-		<PageNavigation />
-		<SmallPrint />
-	</footer>
-)
+export function Footer() {
+	const { pathname } = useRouter()
+	const isHome = pathname === '/'
+
+	// for home, rely on parent wrapper; for others, use container
+	const innerClasses = isHome ? 'space-y-10' : 'container mx-auto px-4 sm:px-6 lg:px-8 space-y-10'
+
+	return (
+		<footer className="w-full pb-16">
+			<div className={innerClasses}>
+				<PageNavigation />
+				<SmallPrint />
+			</div>
+		</footer>
+	)
+}

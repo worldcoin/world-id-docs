@@ -46,7 +46,6 @@ export const Layout: FC<
 				<div
 					className={clsx('mt-16', {
 						'lg:ml-72 xl:ml-80 overflow-x-hidden': basePath !== '',
-						'max-w-[1600px] mx-auto': basePath === '',
 					})}
 				>
 					<motion.header
@@ -73,16 +72,35 @@ export const Layout: FC<
 						</ScrollArea.Root>
 					</motion.header>
 
-					<div className="relative px-4 pt-24 sm:px-6 lg:px-8 max-w-[1400px] mx-auto">
-						<main className="pb-16">
-							<Prose as="article">
-								{currentSection && (
-									<p className="uppercase tracking-wide text-gray-AG2 mb-1">{currentSection.title}</p>
-								)}
-								{children}
-							</Prose>
-						</main>
-						<Footer />
+					<div className="relative pt-24">
+						{basePath === '' && (
+							<div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+								<main className="pb-16">
+									{currentSection && (
+										<p className="uppercase tracking-wide text-gray-AG2 mb-1">
+											{currentSection.title}
+										</p>
+									)}
+									{children}
+								</main>
+								<Footer />
+							</div>
+						)}
+						{basePath !== '' && (
+							<div className="container mx-auto px-4 sm:px-6 lg:px-8">
+								<main className="pb-16">
+									<Prose as="article" className="mx-auto max-w-3xl">
+										{currentSection && (
+											<p className="uppercase tracking-wide text-gray-AG2 mb-1">
+												{currentSection.title}
+											</p>
+										)}
+										{children}
+									</Prose>
+								</main>
+								<Footer />
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

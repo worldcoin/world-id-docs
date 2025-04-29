@@ -111,12 +111,8 @@ export function Footer() {
 	const { pathname } = useRouter()
 	const isHome = pathname === '/'
 
-	const innerClasses = clsx(
-		'mx-auto space-y-10',
-		isHome
-			? 'max-w-2xl lg:max-w-3xl lg:ml-[calc(50%-min(50%,33rem))] lg:mr-[calc(50%-min(50%,33rem))]'
-			: 'px-4 sm:px-6 lg:px-8 max-w-[1400px]'
-	)
+	// for home, rely on parent wrapper; for others, use container
+	const innerClasses = isHome ? 'space-y-10' : 'container mx-auto px-4 sm:px-6 lg:px-8 space-y-10'
 
 	return (
 		<footer className="w-full pb-16">

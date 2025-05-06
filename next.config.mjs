@@ -57,6 +57,11 @@ const nextConfig = {
 				permanent: false,
 			},
 			{
+				source: '/mini-apps/virality/virality',
+				destination: '/mini-apps/virality/sharing',
+				permanent: true,
+			},
+			{
 				source: '/test',
 				destination: '/quick-start',
 				permanent: false,

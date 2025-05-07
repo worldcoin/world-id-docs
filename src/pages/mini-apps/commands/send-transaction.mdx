@@ -10,6 +10,8 @@ To transfer funds, you must either use Permit2 [Signature Transfer](https://docs
 Ensure you specify the contracts and tokens you are interacting with in the Developer Portal (under Configuration → Advanced) ; otherwise, the backend will block the transaction. 
 Gas fees are covered on World Chain; however, there is a limit of 300 transactions per user per day.
 
+Users can sign and send multiple transactions in parallel, without needing to wait for previous transactions to be signed or mined. Sequential execution is not enforced for miniapp transactions, unless those transactions are placed in the transaction array and sent as a single sendTransaction command.
+
 ## Creating a transaction
 
 This command accepts an array of transactions, allowing you to specify multiple actions that will be executed atomically in a single multicall.

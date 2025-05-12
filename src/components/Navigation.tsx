@@ -344,6 +344,7 @@ export const worldChainNavigation = [
 			{ title: 'Data', href: '/world-chain/providers/data' },
 			{ title: 'Block Explorers', href: '/world-chain/providers/explorers' },
 			{ title: 'Developer Tooling', href: '/world-chain/providers/developer-tooling' },
+			{ title: 'Oracles', href: '/world-chain/providers/oracles' },
 			{ title: 'Paymasters', href: '/world-chain/providers/paymasters' },
 			{ title: 'Onramps', href: '/world-chain/providers/onramps' },
 		],

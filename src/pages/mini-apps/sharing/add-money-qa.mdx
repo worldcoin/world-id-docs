@@ -10,7 +10,25 @@ Add money to your World Wallet directly from exchanges like Binance and Coinbase
 				Unique ID for the Add Money mini app.
 			</Property>
 			<Property name="path" type="string" required={true}>
-				URL encoded path to the bridge interface.
+				URL-encoded path to the bridge interface (typically `%2Fbridge`).
+			</Property>
+			<Property name="toAddress" type="string" required={true}>
+				Address of the recipient World Wallet user.
+			</Property>
+			<Property name="toToken" type="string" required={true}>
+				Token contract address to deposit (supports USDC.e or WLD).
+			</Property>
+			<Property name="amountUsd" type="string">
+				USD amount to deposit. If omitted, the user selects the amount in-app.
+			</Property>
+			<Property name="sourceAppId" type="string">
+				App ID of the source app for quick navigation back.
+			</Property>
+			<Property name="sourceAppName" type="string">
+				Name of the source app displayed in the "Go Back" button.
+			</Property>
+			<Property name="sourceDeeplinkPath" type="string">
+				Path within the source app to deeplink back to (URL-encoded).
 			</Property>
 		</Properties>
 	</div>
@@ -26,5 +44,12 @@ Add money to your World Wallet directly from exchanges like Binance and Coinbase
 Url follows the schema below. Navigate there to use this Quick Action.
 
 ```
-https://worldcoin.org/mini-app?app_id=app_e7d27c5ce2234e00558776f227f791ef&path=https%3A%2F%2Fgiftcard.pay.daimo.xyz%2Fbridge
+https://worldcoin.org/mini-app?app_id=app_e7d27c5ce2234e00558776f227f791ef
+&path={%2Fbridge}
+&toAddress={0xRecipientAddressHere}
+&toToken={0xUSDCeOrWLDAddress}
+&amountUsd={100}
+&sourceAppId={app_source1234567890abcdef}
+&sourceAppName={My%20App}
+&sourceDeeplinkPath={%2Fdashboard}
 ```

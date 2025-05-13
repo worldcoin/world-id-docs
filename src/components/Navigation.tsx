@@ -170,6 +170,7 @@ export const worldIdNavigation = [
 			{ title: 'What is World ID?', href: '/world-id' },
 			{ title: 'Core Concepts', href: '/world-id/concepts' },
 			{ title: 'Try it Out', href: '/world-id/try' },
+			{ title: 'Quick Start', href: '/world-id/quick-start' },
 		],
 	},
 	{

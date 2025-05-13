@@ -318,6 +318,26 @@ const nextConfig = {
 				destination: '/world-id/id/pitfalls',
 				permanent: true,
 			},
+			{
+				source: '/world-id/quick-start/testing',
+				destination: '/world-id/id/testing',
+				permanent: true,
+			},
+			{
+				source: '/world-id/quick-start/installation',
+				destination: '/world-id/id/getting-started',
+				permanent: true,
+			},
+			{
+				source: '/world-id/quick-start/configuration',
+				destination: '/world-id/id/getting-started',
+				permanent: true,
+			},
+			{
+				source: '/world-id/quick-start/templates',
+				destination: '/world-id/quick-start',
+				permanent: true,
+			},
 		]
 	},
 }

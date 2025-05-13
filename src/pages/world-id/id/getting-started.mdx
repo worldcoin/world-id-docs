@@ -1,0 +1,66 @@
+# Integrating World ID
+
+We created the IDKit libraries, to help you integrate World ID into your app in 3 simple steps:
+
+1. Create an application in our [Developer Portal](http://developer.worldcoin.org/)
+2. Retrieve user's verification proof using an IDkit library
+3. Verify the proof
+
+# Step 1: Create an application in the Developer Portal
+
+When you create your application you'll choose **External** as the integration type. External apps use IDKit to collect proofs from your end-users and return them to your backend for verification.
+
+### Decide upfront
+
+1. **Environment**  
+   • **Production** – live users on mainnet.  
+   • **Staging / Development** – internal testing against the test registry.
+
+2. **Verification target**  
+   • **Cloud** – we host the verifier; your backend calls our REST endpoint.  
+   • **On-chain** – verify proofs directly inside a smart contract using our Solidity SDK.
+
+Once you create the application you'll need to create an incognito action.
+
+# Step 2: Retrieve a proof with IDKit
+
+IDKit is available for multiple runtimes so you can collect proofs wherever your users are:
+
+| Platform                             | Docs                            |
+| ------------------------------------ | ------------------------------- |
+| Web (React)                          | [Integrate on the web](./web)   |
+| Mobile (React Native, Swift, Kotlin) | [Integrate on mobile](./mobile) |
+
+<Note>Find a full list of supported SDKs [here](./libraries)</Note>
+
+Regardless of the platform the flow is the same:
+
+1. Initiate a verification session with a minimum `verification_level`
+2. User will be redirect or prompted to use the World App
+3. When the user succeeds you receive a **proof object** containing `merkle_root`, `nullifier_hash`, `proof`, and the user's `verification_level`.
+
+```json {{ title: 'ISuccessResult' }}
+{
+	"merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
+	"nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
+	"proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394...",
+	"verification_level": "orb"
+}
+```
+
+Persist this response (e.g. in a POST body or contract call) so you can verify it in the next step.
+
+# Step 3: Verify the proof
+
+Choose where you want to verify proofs:
+
+| Target            | Recommended when                                                    | Docs                           |
+| ----------------- | ------------------------------------------------------------------- | ------------------------------ |
+| Cloud verifier    | You already maintain a backend server and prefer a simple REST call | [Verify in the cloud](./cloud) |
+| On-chain verifier | You need trust-minimised verification inside a smart contract       | [Verify on-chain](./on-chain)  |
+
+<Note>
+	Cloud verifications from the Developer portal automatically handle sybil-resistance for you, ensuring that a user
+	cannot perform the same action more than a set amount. If you want to verify proofs on-chain you need to handle
+	this, more details [here](./on-chain)
+</Note>

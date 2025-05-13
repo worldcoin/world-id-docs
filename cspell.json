@@ -114,7 +114,7 @@
 		"USDCE",
 		"viem",
 		"Virality",
-    "VUNI",
+		"VUNI",
 		"wagmi",
 		"WalletConnect",
 		"wcsep",
@@ -124,6 +124,7 @@
 		"Zerion",
 		"zeth",
 		"zkhack",
+		"zrok",
 		"zustand"
 	]
 }

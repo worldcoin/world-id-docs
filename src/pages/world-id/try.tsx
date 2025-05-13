@@ -388,7 +388,7 @@ const Try = (): JSX.Element => {
 									}
 									autoClose={false}
 								>
-									{({ open }) => (
+									{({ open }: { open: () => void }) => (
 										<div className="relative">
 											<button
 												onClick={() => {
@@ -408,16 +408,15 @@ const Try = (): JSX.Element => {
 												</span>
 											</button>
 
-											{watch('testingEnvironment') &&
-												watch('testingEnvironment') === 'staging' && (
-													<Link
-														className="flex justify-center items-center gap-x-1 mt-3.5 absolute -bottom-8 inset-x-0"
-														href="https://simulator.worldcoin.org/"
-													>
-														<span>Scan with Simulator</span>
-														<RedirectIcon />
-													</Link>
-												)}
+											{watch('testingEnvironment') && watch('testingEnvironment') === 'staging' && (
+												<Link
+													className="flex justify-center items-center gap-x-1 mt-3.5 absolute -bottom-8 inset-x-0"
+													href="https://simulator.worldcoin.org/"
+												>
+													<span>Scan with Simulator</span>
+													<RedirectIcon />
+												</Link>
+											)}
 										</div>
 									)}
 								</IDKitWidget>

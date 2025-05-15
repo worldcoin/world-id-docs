@@ -6,6 +6,28 @@ Sign Typed Data lets you create an [EIP-712 signature](https://eips.ethereum.org
 
 **Example:** An insurance platform that requires users to sign typed data to confirm the terms of their insurance policy.
 
+> 💡 **Note:** The `domain` must match the Safe’s EIP-712 domain, as user wallets are [Safe](https://safe.global/) smart contract wallets.
+
+```ts
+{
+  types: {
+    YourTypes: [
+      { type: 'bytes', name: 'data' },
+      { type: 'uint8', name: 'number' },
+    ],
+    EIP712Domain: [
+      { type: 'uint256', name: 'chainId' },
+      { type: 'address', name: 'verifyingContract' },
+    ],
+  },
+  domain: {
+    chainId: 480,
+    verifyingContract: userWallet, // The Safe address
+  },
+  primaryType: 'YourTypes',
+  message:{ data: '0xffffffff', operation: 15}
+}
+```
 
 ## Using the command
 
@@ -22,7 +44,7 @@ Sign Typed Data lets you create an [EIP-712 signature](https://eips.ethereum.org
       types: TypedData
       primaryType: string
       message: Record<string, unknown>
-      domain?: TypedDataDomain
+      domain: TypedDataDomain
     }
     ```
 
@@ -47,7 +69,7 @@ Sign Typed Data lets you create an [EIP-712 signature](https://eips.ethereum.org
           somePayloadforEIP712 as SignTypedDataInput;
         );
 
-        // Verifying the signature. Note permit2 payloads and safe operations are not permitted in this command.
+        // Verifying the signature. Note permit2 payloads and SafeTx operations are not permitted in this command.
         if (payload.status === 'success') {
           const messageHash = hashSafeMessage(signTypedDataPayload)
 
@@ -79,7 +101,7 @@ Sign Typed Data lets you create an [EIP-712 signature](https://eips.ethereum.org
       types: TypedData
       primaryType: string
       message: Record<string, unknown>
-      domain?: TypedDataDomain
+      domain: TypedDataDomain
     }
     ```
 
@@ -119,7 +141,7 @@ Sign Typed Data lets you create an [EIP-712 signature](https://eips.ethereum.org
 
           const isValid = await (
             await Safe.init({
-              provider: 'https://opt-mainnet.g.alchemy.com/v2/your-api-key',
+              provider: 'https://worldchain-mainnet.g.alchemy.com/v2/your-api-key',
               safeAddress: payload.address,
             })
           ).isValidSignature(messageHash, payload.signature)

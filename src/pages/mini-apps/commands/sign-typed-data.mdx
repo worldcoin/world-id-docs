@@ -6,7 +6,18 @@ Sign Typed Data lets you create an [EIP-712 signature](https://eips.ethereum.org
 
 **Example:** An insurance platform that requires users to sign typed data to confirm the terms of their insurance policy.
 
-> 💡 **Note:** The `domain` must match the Safe’s EIP-712 domain, as user wallets are [Safe](https://safe.global/) smart contract wallets.
+> 💡 **Note:** The `domain` must match the Safe’s EIP-712 domain. User wallets are [Safe](https://safe.global/) smart contract wallets.
+>
+> ✅ `EIP712Domain` must always include only:
+>
+> -   `chainId`
+> -   `verifyingContract` (the user's wallet address, typically the Safe address)
+>
+> 🚫 On **Worldchain**, only custom typed data is permitted.
+>
+> -   SafeTx and Permit/Permit2 types are **not allowed**.
+>
+> 🌐 On **all other chains**, any valid EIP-712 structure is supported, including SafeTx and Permit types.
 
 ```ts
 {
@@ -69,7 +80,6 @@ Sign Typed Data lets you create an [EIP-712 signature](https://eips.ethereum.org
           somePayloadforEIP712 as SignTypedDataInput;
         );
 
-        // Verifying the signature. Note permit2 payloads and SafeTx operations are not permitted in this command.
         if (payload.status === 'success') {
           const messageHash = hashSafeMessage(signTypedDataPayload)
 

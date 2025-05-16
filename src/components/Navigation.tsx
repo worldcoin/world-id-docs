@@ -170,24 +170,19 @@ export const worldIdNavigation = [
 			{ title: 'What is World ID?', href: '/world-id' },
 			{ title: 'Core Concepts', href: '/world-id/concepts' },
 			{ title: 'Try it Out', href: '/world-id/try' },
+			{ title: 'Quick Start', href: '/world-id/quick-start' },
 		],
 	},
 	{
-		title: 'Quick Start',
+		title: 'ID Kit',
 		links: [
-			{ title: 'Template Repositories', href: '/world-id/quick-start/templates' },
-			{ title: 'Installation', href: '/world-id/quick-start/installation' },
-			{ title: 'Configuration', href: '/world-id/quick-start/configuration' },
-			{ title: 'Testing', href: '/world-id/quick-start/testing' },
-		],
-	},
-	{
-		title: 'Incognito Actions',
-		links: [
+			{ title: 'Getting Started', href: '/world-id/id/getting-started' },
+			{ title: 'Integrate on web', href: '/world-id/id/web' },
+			{ title: 'Integrate on mobile', href: '/world-id/id/mobile' },
 			{ title: 'Cloud Verification', href: '/world-id/id/cloud' },
-			{ title: 'Libraries', href: '/world-id/id/libraries' },
 			{ title: 'On-Chain Verification', href: '/world-id/id/on-chain' },
-			{ title: 'Common Pitfalls', href: '/world-id/id/pitfalls' },
+			{ title: 'Libraries', href: '/world-id/id/libraries' },
+			{ title: 'Testing', href: '/world-id/id/testing' },
 		],
 	},
 	{

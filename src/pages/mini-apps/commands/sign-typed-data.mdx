@@ -6,13 +6,13 @@ Sign Typed Data lets you create an [EIP-712 signature](https://eips.ethereum.org
 
 **Example:** An insurance platform that requires users to sign typed data to confirm the terms of their insurance policy.
 
-> 💡 **Note:** The `EIP712Domain` must always include `chainId`.
+> Note: The `EIP712Domain` must always include `chainId`.
 >
-> 🚫 On **Worldchain**, only custom typed data is permitted.
+> On **Worldchain**, only custom typed data is permitted.
 >
-> -   SafeTx and Permit/Permit2 types are **not allowed**.
+> -   SafeTx and Permit/Permit2 types are not allowed.
 >
-> 🌐 On **all other chains**, any valid EIP-712 structure is supported, including SafeTx and Permit types.
+> On **all other chains**, any valid EIP-712 structure is supported, including SafeTx and Permit types.
 
 ```ts
 {

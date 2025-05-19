@@ -6,12 +6,7 @@ Sign Typed Data lets you create an [EIP-712 signature](https://eips.ethereum.org
 
 **Example:** An insurance platform that requires users to sign typed data to confirm the terms of their insurance policy.
 
-> 💡 **Note:** The `domain` must match the Safe’s EIP-712 domain. User wallets are [Safe](https://safe.global/) smart contract wallets.
->
-> ✅ `EIP712Domain` must always include only:
->
-> -   `chainId`
-> -   `verifyingContract` (the user's wallet address, typically the Safe address)
+> 💡 **Note:** The `EIP712Domain` must always include `chainId`.
 >
 > 🚫 On **Worldchain**, only custom typed data is permitted.
 >
@@ -24,7 +19,7 @@ Sign Typed Data lets you create an [EIP-712 signature](https://eips.ethereum.org
   types: {
     YourTypes: [
       { type: 'bytes', name: 'data' },
-      { type: 'uint8', name: 'number' },
+      { type: 'uint8', name: 'operation' },
     ],
     EIP712Domain: [
       { type: 'uint256', name: 'chainId' },
@@ -33,7 +28,7 @@ Sign Typed Data lets you create an [EIP-712 signature](https://eips.ethereum.org
   },
   domain: {
     chainId: 480,
-    verifyingContract: userWallet, // The Safe address
+    verifyingContract: "0x1234...",
   },
   primaryType: 'YourTypes',
   message:{ data: '0xffffffff', operation: 15}

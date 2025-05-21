@@ -82,4 +82,4 @@ export const TabItem = (props: { value: string; isActive: boolean; children: Rea
 	return props.isActive ? <div className="">{props.children}</div> : <></>
 }
 
-export default Tabs
+export { Tabs }

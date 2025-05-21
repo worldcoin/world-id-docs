@@ -4,7 +4,7 @@ import { Heading } from '@/components/Heading'
 import { FC, Fragment, PropsWithChildren, ReactNode } from 'react'
 export { Button } from '@/components/Button'
 import InfoIcon from './icons/InfoIcon'
-import Tabs, { TabItem, Tab } from './Tabs'
+import { Tabs, TabItem, Tab } from './Tabs'
 import DangerIcon from './icons/DangerIcon'
 export { CodeGroup, Code as code, Pre as pre } from '@/components/Code'
 export { Cta } from '@/components/Cta'
@@ -64,10 +64,7 @@ export const Col: FC<PropsWithChildren<{ sticky?: boolean }>> = ({ children, sti
 
 export const Properties: FC<PropsWithChildren<{}>> = ({ children }) => (
 	<div className="my-6">
-		<ul
-			role="list"
-			className="m-0 max-w-full list-none divide-y divide-zinc-900/5 p-0"
-		>
+		<ul role="list" className="m-0 max-w-full list-none divide-y divide-zinc-900/5 p-0">
 			{children}
 		</ul>
 	</div>
@@ -88,21 +85,31 @@ export const Property: FC<
 			<dd>
 				<code>{name}</code>
 			</dd>
-			{defaultValue ? <>
-				<dt className="sr-only">Type</dt>
-				<dd className="font-mono text-xs text-zinc-400 dark:text-zinc-500">{type}: <code className='text-zinc-500'>{defaultValue}</code></dd>
-			</> : <>
-				<dt className="sr-only">Type</dt>
-				<dd className="font-mono text-xs text-zinc-400 dark:text-zinc-500">{type}</dd>
-			</>}
-			{required && <>
-				<dt className="sr-only">Required</dt>
-				<dd className=" text-xs text-red-400 dark:text-red-500">REQUIRED</dd>
-			</>}
-			{deprecated && <>
-				<dt className="sr-only">Deprecated</dt>
-				<dd className=" text-xs text-red-400 dark:text-red-500">DEPRECATED</dd>
-			</>}
+			{defaultValue ? (
+				<>
+					<dt className="sr-only">Type</dt>
+					<dd className="font-mono text-xs text-zinc-400 dark:text-zinc-500">
+						{type}: <code className="text-zinc-500">{defaultValue}</code>
+					</dd>
+				</>
+			) : (
+				<>
+					<dt className="sr-only">Type</dt>
+					<dd className="font-mono text-xs text-zinc-400 dark:text-zinc-500">{type}</dd>
+				</>
+			)}
+			{required && (
+				<>
+					<dt className="sr-only">Required</dt>
+					<dd className=" text-xs text-red-400 dark:text-red-500">REQUIRED</dd>
+				</>
+			)}
+			{deprecated && (
+				<>
+					<dt className="sr-only">Deprecated</dt>
+					<dd className=" text-xs text-red-400 dark:text-red-500">DEPRECATED</dd>
+				</>
+			)}
 			<dt className="sr-only">Description</dt>
 			<dd className="w-full flex-none [&>:first-child]:mt-0 [&>:last-child]:mb-0">{children}</dd>
 		</dl>

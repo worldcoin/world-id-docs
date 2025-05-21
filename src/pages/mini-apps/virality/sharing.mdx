@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { Link } from '@/components/Link'
 
 # Sharing
 
@@ -41,6 +42,21 @@ worldapp://mini-app?app_id={app_id}&path={path}
 [Ecosystem pages](https://world.org/ecosystem/app_e8288209fbe1fc4a1b80619e925a79bd) can also be shared on social platforms and are set up to support both link extensions.
 
 You can add `open_out_of_window=true` to the query params to force the link to open externally.
+
+
+### Deferred Deep Links (Android)
+Android has the concept of a deferred deep link where you can prompt a user who doesn't event have 
+World App installed to install the app and then World App will remember the path you specified
+and direct the user to your mini app after onboarding. This is extremely useful for invite campaigns.
+
+URL Format:
+```
+https://play.google.com/store/apps/details?id=com.worldcoin&referrer=app_id%3D{app_id}%%26path%3D{path}
+```
+Make sure to url encode the `app_id` and `path` parameters.
+
+
+
 ## Inside World App
 
 Getting users already within World App to try out your app.
@@ -60,3 +76,9 @@ Prompt users to add the widget to their home screen (ios/android) and even just 
 	<Image src="/images/docs/mini-apps/virality/widget.jpg" alt="Widget" width={300} height={300} />
 	<p className="mt-1 text-sm italic">Widget on iOS</p>
 </div>
+
+
+### Share Command
+Try out the new share command to get users to share content from your mini app to others in their network 
+easily. 
+<Link href="/mini-apps/commands/share">Read more here</Link>

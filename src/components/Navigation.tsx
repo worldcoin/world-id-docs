@@ -252,6 +252,7 @@ export const miniAppsNavigation = [
 	{
 		title: 'Technical Reference',
 		links: [
+			{ title: 'Init', href: '/mini-apps/reference/init' },
 			{ title: 'API Reference', href: '/mini-apps/reference/api' },
 			{ title: 'Errors', href: '/mini-apps/reference/errors' },
 			{ title: 'Address Book', href: '/mini-apps/reference/address-book' },

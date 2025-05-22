@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { Link } from '@/components/Link'
 import SunIcon from '@/components/icons/SunIcon'
-import Tabs, { TabItem } from '@/components/Tabs'
+import { TabItem, Tabs } from '@/components/Tabs'
 import MoonIcon from '@/components/icons/MoonIcon'
 import LogoIcon from '@/components/icons/LogoIcon'
 import ChartIcon from '@/components/icons/CharIcon'

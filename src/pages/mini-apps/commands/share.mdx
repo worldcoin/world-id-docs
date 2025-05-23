@@ -1,0 +1,47 @@
+# Share
+
+Share will be the primary way to access the browsers native share drawer. 
+This command will let you prompt users to share content, files, and links with other users through
+any of the communication apps installed on their device. This command will also support downloading media to their device from your mini app. 
+
+This command will be available from MiniKit 2.0.0 and World App 2.8.84 onwards.
+
+## Creating the payload
+
+{/* This command is an abstraction on top of the web [Navigator.share](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share) API. */}
+
+```tsx {{ title: 'app/page.tsx' }}
+
+export type SharePayload = {
+  files: File[];
+  title?: string;
+  text?: string;
+  url?: string;
+};
+```
+
+## Using the command
+
+There's no response from this command.
+
+```tsx {{ title: 'app/page.tsx' }}
+import { MiniKit } from '@worldcoin/minikit-js'
+
+const shareCommand = async () => {
+	await MiniKit.commandsAsync.share({
+		title: 'Invite Link', // Preview used in share drawer
+		text: 'Use this invite code to join my mini app', // Text sent in shared message
+		url: 'https://worldcoin.org', // URL to share
+	})
+}
+
+
+const ImportantPage = () => {
+	const handleClick = () => {
+		// ...
+		await shareCommand()
+	}
+	return <button onClick={handleClick}>Invite Friends</button>
+}
+
+```

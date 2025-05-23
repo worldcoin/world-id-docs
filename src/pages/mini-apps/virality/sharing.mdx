@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { Link } from '@/components/Link'
 
 # Sharing
 
@@ -11,7 +12,7 @@ Getting new users to install World App and try out your app.
 
 <Note type="info">
 	If the user doesn't have your mini app installed and opens the link, the path parameter will be preserved after they
-	install and open your app. This enables invite programs.
+	install and open your app. This preservation of the path parameter enables invite programs.
 </Note>
 
 ### Meta tag images
@@ -32,15 +33,30 @@ https://world.org/mini-app?app_id={app_id}&path={path}
 Path is a url encoded path to the page you want to link to inside of your mini app. If you're having trouble try adding or removing the leading `/` in the path.
 
 Traditional `https` links can sometimes be blocked by ad blockers and other webviews. If the user already has World App installed, you can use a deep link to open the app.
-However, if the user doesn't have World App installed, this link will do nothing.
+However, if the user doesn't have World App installed, the `worldapp://` deep link will do nothing.
 
 ```
 worldapp://mini-app?app_id={app_id}&path={path}
 ```
 
-[Ecosystem pages](https://world.org/ecosystem/app_e8288209fbe1fc4a1b80619e925a79bd) can also be shared on social platforms and are set up to support both link extensions.
+[Ecosystem pages](https://world.org/ecosystem/app_e8288209fbe1fc4a1b80619e925a79bd) can also be shared on social platforms and are set up to support both `https://` universal links and `worldapp://` deep links.
 
-You can add `open_out_of_window=true` to the query params to force the link to open externally.
+To force a universal link to open in an external browser rather than within a webview (if applicable), you can add the `open_out_of_window=true` query parameter. Using this parameter can be useful for specific user experiences where breaking out of an embedded view is desired.
+
+
+### Deferred Deep Links (Android)
+Android has the concept of a deferred deep link where you can prompt a user who doesn't event have 
+World App installed to install the app and then World App will remember the path you specified
+and direct the user to your mini app after onboarding. This deferred deep linking mechanism is extremely useful for invite campaigns.
+
+URL Format:
+```
+https://play.google.com/store/apps/details?id=com.worldcoin&referrer=app_id%3D{app_id}%%26path%3D{path}
+```
+Make sure to url encode the `app_id` and `path` parameters.
+
+
+
 ## Inside World App
 
 Getting users already within World App to try out your app.
@@ -49,7 +65,7 @@ Getting users already within World App to try out your app.
 
 [Quick Actions](/mini-apps/sharing/quick-actions) enable seamless collaboration between mini apps within World App. The best apps are designed around a single core feature.
 If you need to offer distinct functionalities, consider creating separate mini apps that can interact with each other via Quick Actions.
-It's also recommended to use other developers apps as a source of partnership!
+We also recommend using other developers' apps as a source of partnership.
 
 ### Widget
 
@@ -60,3 +76,9 @@ Prompt users to add the widget to their home screen (ios/android) and even just 
 	<Image src="/images/docs/mini-apps/virality/widget.jpg" alt="Widget" width={300} height={300} />
 	<p className="mt-1 text-sm italic">Widget on iOS</p>
 </div>
+
+
+### Share Command
+Try out the new share command to get users to share content from your mini app to others in their network 
+easily. This command allows users to trigger the native sharing functionality of their device, making it simple to distribute links, text, or other data from your mini app.
+<Link href="/mini-apps/commands/share">Read more here</Link>

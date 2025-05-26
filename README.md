@@ -2,7 +2,7 @@
   <img src="/public/images/shared-readme/readme-header.png" alt="" />
 </a>
 
-# World Documentation
+# DM Documentation
 
 This repository contains the technical documentation for the World SDK and the World ID Protocol.
 

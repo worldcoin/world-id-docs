@@ -352,7 +352,7 @@ export const worldChainNavigation = [
 	{
 		title: 'Technical Reference',
 		links: [
-			{ title: 'Address Book', href: '/world-chain/reference/address-book' },
+			{ title: 'Useful Contract Deployments', href: '/world-chain/reference/useful-contracts' },
 			{ title: 'Set up a node', href: '/world-chain/reference/node-setup' },
 		],
 	},

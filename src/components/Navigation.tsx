@@ -266,7 +266,7 @@ export const miniAppsNavigation = [
 	{
 		title: 'Notifications',
 		links: [
-			{ title: 'Tips & Guidelines', href: '/mini-apps/notifications/tips-and-guidelines' },
+			{ title: 'Tips & Guidelines', href: '/mini-apps/notifications/features-and-guidelines' },
 			{ title: 'How To Send Notifications', href: '/mini-apps/notifications/how-to-send-notifications' },
 		],
 	},

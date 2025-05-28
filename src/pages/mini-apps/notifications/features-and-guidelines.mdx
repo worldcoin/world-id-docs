@@ -1,8 +1,14 @@
 # Tips & Guidelines
 
-## Feature set
+## Guidelines
 
-### Username Substitution
+To keep notifications high quality, we enforce the following guidelines:
+
+-   No marketing notifications. These should be purely functional notifications,
+-   no notifications that are not related to the mini app,
+-   no notifications that are not related to the user.
+
+## Username Substitution
 
 It's super easy to personalize your notifications, by using the receiving user's username.
 Use a special string `${username}` in your notification message, and it'll get automatically substituted by a corresponding username
@@ -16,7 +22,7 @@ when sent to users, becomes:<br/>
 🧑‍🍳 We're cooking something special for you struck<br/>
 and so on
 
-### Notification Badges
+## Notification Badges
 
 If a user has pending notifications for your miniapp, and you maintain
 a 7day rolling average open rate of 15% or higher, we'll show a badge on the user's home screen,
@@ -24,15 +30,7 @@ next to your miniapp's icon.
 
 It's cleared once the miniapp is opened.
 
-## Guidelines
-
-To keep notifications high quality, we enforce the following guidelines:
-
--   No marketing notifications. These should be purely functional notifications,
--   no notifications that are not related to the mini app,
--   no notifications that are not related to the user.
-
-### Notification Permission pause
+## Notification Permission Pause
 
 Given that notifications can be disruptive and reflect negatively on the entire miniapp ecosystem,
 we enforce additional rules based on open rates. If your miniapp's notification permissions are enabled,
@@ -42,12 +40,12 @@ If your miniapp's 7day rolling average is less than 10%, we pause the permission
 This is a signal for you to rethink your strategy. After the pause, your permissions will be resumed,
 and up for reevaluation the following week.
 
-## Tips
+## Open Rate Goal
 
 An excellent goal to aim for is a 25% open rate. This % means your notifications drive strong traffic to the miniapp.
 You can easily see this stat in your dashboard in Developer Portal .
 
-### Use Emoji & Curiosity in Titles
+## Use Emoji & Curiosity in Titles
 
 Increases visual salience and emotion.<br/>
 Examples:<br/>

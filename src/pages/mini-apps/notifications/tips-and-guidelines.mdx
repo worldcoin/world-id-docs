@@ -1,5 +1,29 @@
 # Tips & Guidelines
 
+## Feature set
+
+### Username Substitution
+
+It's super easy to personalize your notifications, by using the receiving user's username.
+Use a special string `${username}` in your notification message, and it'll get automatically substituted by a corresponding username
+before sending it to the user.
+
+Example message:<br/>
+🧑‍🍳 We're cooking something special for you \$\{username\} <br/>
+when sent to users, becomes:<br/>
+🧑‍🍳 We're cooking something special for you mistico<br/>
+🧑‍🍳 We're cooking something special for you tute<br/>
+🧑‍🍳 We're cooking something special for you struck<br/>
+and so on
+
+### Notification Badges
+
+If a user has pending notifications for your miniapp, and you maintain
+a 7day rolling average open rate of 15% or higher, we'll show a badge on the user's home screen,
+next to your miniapp's icon.
+
+It's cleared once the miniapp is opened.
+
 ## Guidelines
 
 To keep notifications high quality, we enforce the following guidelines:
@@ -21,20 +45,6 @@ and up for reevaluation the following week.
 ## Tips
 
 An excellent goal to aim for is a 25% open rate. This % means your notifications drive strong traffic to the miniapp.
-
-### Personalization
-
-It's super easy to personalize your notifications, by using the receiving user's username.
-Use a special string `${username}` in your notification message, and it'll get automatically substituted by a corresponding username
-before sending it to the user.
-
-Example message:<br/>
-🧑‍🍳 We're cooking something special for you \$\{username\} <br/>
-when sent to users, becomes:<br/>
-🧑‍🍳 We're cooking something special for you mistico<br/>
-🧑‍🍳 We're cooking something special for you tute<br/>
-🧑‍🍳 We're cooking something special for you struck<br/>
-and so on
 
 ### Use Emoji & Curiosity in Titles
 

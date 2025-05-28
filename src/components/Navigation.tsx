@@ -243,8 +243,8 @@ export const miniAppsNavigation = [
 			{ title: 'Sign Message', href: '/mini-apps/commands/sign-message' },
 			{ title: 'Sign Typed Data', href: '/mini-apps/commands/sign-typed-data' },
 			{ title: 'Share Contacts', href: '/mini-apps/commands/share-contacts' },
-			{ title: 'Send Notifications', href: '/mini-apps/commands/send-notifications' },
-			{ title: 'Get Permissions', href: '/mini-apps/commands/get-permissions' },
+			{ title: `Request Permission`, href: '/mini-apps/commands/request-permission' },
+			{ title: `Get Permissions`, href: '/mini-apps/commands/get-permissions' },
 			{ title: 'Send Haptic Feedback', href: '/mini-apps/commands/send-haptic-feedback' },
 		],
 	},
@@ -262,6 +262,13 @@ export const miniAppsNavigation = [
 	{
 		title: 'Virality',
 		links: [{ title: 'Sharing', href: '/mini-apps/virality/sharing' }],
+	},
+	{
+		title: 'Notifications',
+		links: [
+			{ title: 'Tips & Guidelines', href: '/mini-apps/notifications/tips-and-guidelines' },
+			{ title: 'How To Send Notifications', href: '/mini-apps/notifications/how-to-send-notifications' },
+		],
 	},
 	{
 		title: 'Design Standards',

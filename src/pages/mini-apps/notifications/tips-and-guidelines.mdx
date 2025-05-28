@@ -1,0 +1,52 @@
+# Tips & Guidelines
+
+## Guidelines
+
+To keep notifications high quality, we enforce the following guidelines:
+
+-   No marketing notifications. These should be purely functional notifications,
+-   no notifications that are not related to the mini app,
+-   no notifications that are not related to the user.
+
+### Notification Permission pause
+
+Given that notifications can be disruptive and reflect negatively on the entire miniapp ecosystem,
+we enforce additional rules based on open rates. If your miniapp's notification permissions are enabled,
+we evaluate your notification open rates weekly (from May 5th 2025 on).
+
+If your miniapp's 7day rolling average is less than 10%, we pause the permission for a week.
+This is a signal for you to rethink your strategy. After the pause, your permissions will be resumed,
+and up for reevaluation the following week.
+
+## Tips
+
+An excellent goal to aim for is a 25% open rate. This % means your notifications drive strong traffic to the miniapp.
+
+### Personalization
+
+It's super easy to personalize your notifications, by using the receiving user's username.
+Use a special string `${username}` in your notification message, and it'll get automatically substituted by a corresponding username
+before sending it to the user.
+
+Example message:<br/>
+🧑‍🍳 We're cooking something special for you \$\{username\} <br/>
+when sent to users, becomes:<br/>
+🧑‍🍳 We're cooking something special for you mistico<br/>
+🧑‍🍳 We're cooking something special for you tute<br/>
+🧑‍🍳 We're cooking something special for you struck<br/>
+and so on
+
+### Use Emoji & Curiosity in Titles
+
+Increases visual salience and emotion.<br/>
+Examples:<br/>
+`🔥 \$\{username\}, you're missing out on rewards`<br/>
+`🕹️ A new level just unlocked in \_\_\_`<br/>
+`🤔 What's waiting inside \_\_\_ today?`<br/>
+
+## Useful links
+
+-   [How To Send Notifications](/mini-apps/notifications/how-to-send-notifications)
+-   [How To Request Notification Permissions](/mini-apps/commands/request-permission)
+-   [How To Get Notification Permissions](/mini-apps/commands/get-permissions)
+-   [Send Notification API Reference](/mini-apps/reference/api#send-notification)

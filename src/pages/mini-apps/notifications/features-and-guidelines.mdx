@@ -2,48 +2,48 @@
 
 ## Guidelines
 
-To keep notifications high quality, we enforce the following guidelines:
+To maintain high-quality notifications, please adhere to the following guidelines:
 
--   No marketing notifications. These should be purely functional notifications,
--   no notifications that are not related to the mini app,
--   no notifications that are not related to the user.
+-   Notifications should be purely functional, not marketing-related.
+-   Notifications must be directly related to the mini app.
+-   Notifications must be relevant to the user.
 
 ## Username Substitution
 
-It's super easy to personalize your notifications, by using the receiving user's username.
-Use a special string `${username}` in your notification message, and it'll get automatically substituted by a corresponding username
-before sending it to the user.
+It's extremely easy to personalize your notifications, by using usernames.
+Use the special string `${username}` in your notification message, and it will substitute in
+the recipient's username.
 
 Example message:<br/>
-🧑‍🍳 We're cooking something special for you \$\{username\} <br/>
+`🧑‍🍳 We're cooking something special for you \$\{username\}` <br/>
 when sent to users, becomes:<br/>
-🧑‍🍳 We're cooking something special for you mistico<br/>
-🧑‍🍳 We're cooking something special for you tute<br/>
-🧑‍🍳 We're cooking something special for you struck<br/>
+`🧑‍🍳 We're cooking something special for you mistico`<br/>
+`🧑‍🍳 We're cooking something special for you tute`<br/>
+`🧑‍🍳 We're cooking something special for you struck`<br/>
 and so on
 
 ## Notification Badges
 
 If a user has pending notifications for your miniapp, and you maintain
-a 7day rolling average open rate of 15% or higher, we'll show a badge on the user's home screen,
+a 7 day rolling average open rate of 15% or higher, we'll show a badge on the user's home screen,
 next to your miniapp's icon.
 
 It's cleared once the miniapp is opened.
 
-## Notification Permission Pause
+## Notification Quality Enforcement
 
 Given that notifications can be disruptive and reflect negatively on the entire miniapp ecosystem,
 we enforce additional rules based on open rates. If your miniapp's notification permissions are enabled,
 we evaluate your notification open rates weekly (from May 5th 2025 on).
 
-If your miniapp's 7day rolling average is less than 10%, we pause the permission for a week.
+If your miniapp's 7 day rolling average is less than 10%, we will pause any further notifications for a week.
 This is a signal for you to rethink your strategy. After the pause, your permissions will be resumed,
 and up for reevaluation the following week.
 
 ## Open Rate Goal
 
 An excellent goal to aim for is a 25% open rate. This % means your notifications drive strong traffic to the miniapp.
-You can easily see this stat in your dashboard in Developer Portal .
+You can see this stat in your dashboard in Developer Portal .
 
 ## Use Emoji & Curiosity in Titles
 

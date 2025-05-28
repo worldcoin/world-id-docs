@@ -225,7 +225,7 @@ export const miniAppsNavigation = [
 			{ title: 'Commands', href: '/mini-apps/quick-start/commands' },
 			{ title: 'Responses', href: '/mini-apps/quick-start/responses' },
 			{ title: 'Testing', href: '/mini-apps/quick-start/testing' },
-			{ title: 'Mini Apps', href: '/mini-apps/quick-start/app-store' },
+			{ title: 'Mini App Store', href: '/mini-apps/quick-start/app-store' },
 		],
 	},
 	{

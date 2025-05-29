@@ -14,13 +14,27 @@ It's extremely easy to personalize your notifications, by using usernames.
 Use the special string `${username}` in your notification message, and it will substitute in
 the recipient's username.
 
-Example message:<br/>
-`🧑‍🍳 We're cooking something special for you ${username}` <br/>
-when sent to users, becomes:<br/>
-`🧑‍🍳 We're cooking something special for you mistico`<br/>
-`🧑‍🍳 We're cooking something special for you tute`<br/>
-`🧑‍🍳 We're cooking something special for you struck`<br/>
-and so on
+ <CodeGroup title="Request" tag="POST" label="https://developer.worldcoin.org/api/v2/minikit/send-notification">
+            ```bash {{ title: "cURL" }}
+            curl -X POST "https://developer.worldcoin.org/api/v2/minikit/send-notification" \
+                -H "Authorization: Bearer {api_key}" \
+                -H "Content-Type: application/json" \
+                -d '{
+                      "app_id": "app_id", 
+                      "wallet_addresses": ["0x123", "0x456"], 
+                      "title": "title", 
+                      "message": "🧑‍🍳 We're cooking something special for you ${username}", 
+                      "mini_app_path": "worldapp://mini-app?app_id=[app_id]&path=[path]"
+                    }'
+            ```
+            
+        </CodeGroup>
+
+when sent to users, the messagebecomes:<br />
+`🧑‍🍳 We're cooking something special for you mistico`<br />
+`🧑‍🍳 We're cooking something special for you tute`<br />
+`🧑‍🍳 We're cooking something special for you struck`<br />
+and so on.
 
 ## Notification Badges
 
@@ -49,7 +63,7 @@ You can see this stat in your dashboard in Developer Portal .
 
 Increases visual salience and emotion.<br/>
 Examples:<br/>
-`🔥 ${username}, you're missing out on rewards`<br/>
+`🔥 You're missing out on rewards`<br/>
 `🕹️ A new level just unlocked`<br/>
 `🤔 What's waiting inside the vault today?`<br/>
 

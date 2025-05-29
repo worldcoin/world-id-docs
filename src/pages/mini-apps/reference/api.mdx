@@ -14,10 +14,10 @@ This endpoint lets you send notifications to users of your mini app and requires
             The `wallet_addresses` is an array of wallet addresses to send the notification to. Users must have opted in to notifications for your app. Max 1000 users per call.
             </Property>
             <Property name="title" type="string" required={true}>
-            The `title` is the title of the notification. It should be 30 characters or less.
+            The `title` is the title of the notification. It should be 30 characters or less. May contain emojis.
             </Property>
             <Property name="message" type="string" required={true}>
-            The `message` is the message of the notification. It should be 200 characters or less.
+            The `message` is the message of the notification. It should be 200 characters or less. You can include the special variable `${username}` in your message, which will be replaced with the actual username of the recipient when the notification is delivered.
             </Property>
             <Property name="mini_app_path" type="string" required={true}>
             The `mini_app_path` is the url encoded path of the mini app where your notification should link to when the user clicks on it. <br/><br/> Should be of the format `worldapp://mini-app?app_id=[app_id]&path=[path]` (path is optional).
@@ -41,7 +41,7 @@ This endpoint lets you send notifications to users of your mini app and requires
             curl -X POST "https://developer.worldcoin.org/api/v2/minikit/send-notification" \
                 -H "Authorization: Bearer {api_key}" \
                 -H "Content-Type: application/json" \
-                -d '{"app_id": "app_id", "wallet_addresses": ["0x123", "0x456"], "title": "title", "message": "message", "mini_app_path": "mini_app_path"}'
+                -d '{"app_id": "app_id", "wallet_addresses": ["0x123", "0x456"], "title": "title", "message": "Hello ${username}, your transaction is complete!", "mini_app_path": "mini_app_path"}'
             ```
             ```js
             fetch(apiUrl, {
@@ -53,7 +53,7 @@ This endpoint lets you send notifications to users of your mini app and requires
                     app_id: "app_id",
                     wallet_addresses: ["0x123", "0x456"],
                     title: "title",
-                    message: "message",
+                    message: "Hello ${username}, your transaction is complete!",
                     mini_app_path: "mini_app_path"
                 })
             })
@@ -126,7 +126,7 @@ This endpoint lets you send notifications to users of your mini app and requires
     <Col>
         <CodeGroup title="Request" tag="GET" label="https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}">
             ```bash {{ title: "cURL" }}
-            curl -X GET "https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}" 
+            curl -X GET "https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}"
             ```
             ```js
             fetch(apiUrl, {

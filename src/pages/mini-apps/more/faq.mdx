@@ -1,0 +1,33 @@
+# Frequently Asked Questions
+
+## Who covers gas fees for transactions?
+
+World App sponsors gas fees for most transactions on Worldchain, subject to transaction minimums and restrictions.
+
+## Do I need approval to launch a Mini App?
+
+Yes. After development, submit your Mini App for review through the [Developer Portal](https://developer.worldcoin.org/). Approval is required before it's publicly listed.
+
+## Can I use the simulator to test transactions on mini apps?
+
+No, mini app needs to be developed on mainnet. Gas is covered in the world app, so there's only deployment costs for you to develop on mainnet. Deploy "test" contracts to mainnet, and then redeploy "prod" mainnet contracts.
+
+## How do I debug send transaction failed simulation?
+
+Use the [Get Transaction Debug URL endpoint](/mini-apps/reference/api#get-transaction-debug-url) to get the debug URL for the transaction.
+
+## How do I check how commands work and it's implementation?
+
+Check the [Prod QA App](https://world.org/es-es/ecosystem/app_dfbe55706a640c82dce839bb0ecae74d) to check commands and the [minikit-js](https://github.com/worldcoin/minikit-js) repository.
+
+## How do I test my mini app on mobile?
+
+Remember that minikit ONLY works inside World App, so in order to test your mini app commands you must run it on mobile.
+
+To test your Mini App directly on your phone, expose your app publicly using ngrok or any other tunneling service. After the URL is generated, go to the [Developer Portal](https://developer.worldcoin.org/)to configure it.
+
+Example:
+
+```bash
+ngrok http http://localhost:3000
+```

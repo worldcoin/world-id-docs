@@ -167,10 +167,8 @@ export const worldIdNavigation = [
 	{
 		title: 'Introduction',
 		links: [
-			{ title: 'What is World ID?', href: '/world-id' },
+			{ title: 'Quick Start', href: '/world-id' },
 			{ title: 'Core Concepts', href: '/world-id/concepts' },
-			{ title: 'Quick Start', href: '/world-id/quick-start' },
-			{ title: 'Quick Start(new)', href: '/world-id/quick-start-new' },
 		],
 	},
 	{

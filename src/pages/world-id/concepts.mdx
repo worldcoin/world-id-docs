@@ -13,8 +13,8 @@ World ID supports multiple "Verification Levels" to prove that a person is a uni
 <table>
   <thead>
     <tr>
-      <th>Verification Level</th>
-      <th>Humanness Level</th>
+      <th className="whitespace-nowrap">Verification Level</th>
+      <th className="whitespace-nowrap">Humanness Level</th>
       <th>Description</th>
     </tr>
   </thead>
@@ -25,6 +25,16 @@ World ID supports multiple "Verification Levels" to prove that a person is a uni
       <td className="align-middle">Unique mobile device check.</td>
     </tr>
     <tr>
+      <td className="align-middle"><img src="/icons/credential-orb.svg" alt="" className="h-8 w-8 m-0 mr-2 inline" />NFC</td>
+      <td className="align-middle">High</td>
+      <td className="align-middle">Biometric verification via NFC.</td>
+    </tr>
+    <tr>
+      <td className="flex items-center"><img src="/icons/credential-orb.svg" alt="" className="h-8 w-8 m-0 mr-2 inline" />Secure NFC</td>
+      <td className="align-middle">High</td>
+      <td className="align-middle">Enhanced biometric verification via NFC with additional security measures,</td>
+    </tr>
+    <tr>
       <td className="align-middle"><img src="/icons/credential-orb.svg" alt="" className="h-8 w-8 m-0 mr-2 inline" />Orb</td>
       <td className="align-middle">Strong</td>
       <td className="align-middle">Biometric verification, uniqueness through iris (<Link href="https://world.org/blog/engineering/opening-orb-look-inside-worldcoin-biometric-imaging-device">details</Link>).</td>
@@ -32,7 +42,7 @@ World ID supports multiple "Verification Levels" to prove that a person is a uni
     <tr>
       <td className="flex items-center"><img src="/icons/credential-face.svg" alt="" className="h-8 w-8 m-0 mr-2" />Orb+</td>
       <td className="align-middle">Very Strong</td>
-      <td className="align-middle">Orb verification, plus authentication which verifies the person using World ID is the legitimate holder.</td>
+      <td className="align-middle">[Coming soon] Orb verification, plus authentication which verifies the person using World ID is the legitimate holder.</td>
     </tr>
   </tbody>
 </table>

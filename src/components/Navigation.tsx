@@ -201,7 +201,7 @@ export const worldIdNavigation = [
 			{ title: 'Errors', href: '/world-id/reference/errors' },
 		],
 	},
-	// Temporarily hiding until we update the content @Takaros999
+	// Temporarily hiding until we update the content
 	// {
 	// 	title: 'Further Reading',
 	// 	links: [

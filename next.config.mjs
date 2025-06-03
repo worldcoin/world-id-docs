@@ -309,11 +309,6 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: '/world-id/sign-in/oidc',
-				destination: '/world-id/further-reading/oidc',
-				permanent: true,
-			},
-			{
 				source: '/world-id/sign-in/pitfalls',
 				destination: '/world-id/id/pitfalls',
 				permanent: true,

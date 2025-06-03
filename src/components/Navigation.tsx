@@ -170,6 +170,7 @@ export const worldIdNavigation = [
 			{ title: 'What is World ID?', href: '/world-id' },
 			{ title: 'Core Concepts', href: '/world-id/concepts' },
 			{ title: 'Quick Start', href: '/world-id/quick-start' },
+			{ title: 'Quick Start(new)', href: '/world-id/quick-start-new' },
 		],
 	},
 	{
@@ -185,6 +186,13 @@ export const worldIdNavigation = [
 		],
 	},
 	{
+		title: 'Sign in with World ID',
+		links: [
+			{ title: 'Getting Started', href: '/world-id/sign-in/getting-started' },
+			{ title: 'OIDC Explainer', href: '/world-id/sign-in/oidc' },
+		],
+	},
+	{
 		title: 'Technical Reference',
 		links: [
 			{ title: 'IDKit Reference', href: '/world-id/reference/idkit' },
@@ -193,18 +201,16 @@ export const worldIdNavigation = [
 			{ title: 'Smart Contracts', href: '/world-id/reference/contracts' },
 			{ title: 'Address Book', href: '/world-id/reference/address-book' },
 			{ title: 'Errors', href: '/world-id/reference/errors' },
-			{ title: 'World ID 2.0 Migration Guide', href: '/world-id/reference/world-id-2-migration-guide' },
 		],
 	},
-	{
-		title: 'Further Reading',
-		links: [
-			{ title: 'OIDC Explainer', href: '/world-id/further-reading/oidc' },
-			{ title: 'Protocol Internals', href: '/world-id/further-reading/protocol-internals' },
-			{ title: 'Zero-Knowledge Proofs', href: '/world-id/further-reading/zero-knowledge-proofs' },
-			{ title: 'World ID Reset', href: '/world-id/further-reading/world-id-reset' },
-		],
-	},
+	// These pages are outdated and need to be updated
+	// {
+	// 	title: 'Further Reading',
+	// 	links: [
+	// 		{ title: 'Protocol Internals', href: '/world-id/further-reading/protocol-internals' },
+	// 		{ title: 'Zero-Knowledge Proofs', href: '/world-id/further-reading/zero-knowledge-proofs' },
+	// 	],
+	// },
 ]
 
 export const miniAppsNavigation = [

@@ -39,9 +39,12 @@ To extend this to other wallet providers, you simply need to trigger the [wallet
 
 <Note type="info">Starting from World App 2.8.79 and higher, we support the standard SIWE verification library.</Note>
 
-## Other Providers
+## SIWE Implementations
 
--   OAUTH (Google, Apple, etc.). These providers are supported but it's recommended to trigger this outside of
-    the World App and then simply redirect back to your mini app with the access token `worldapp://mini-app?app_id=appId&path=/handle-oauth?accessToken=...`.
--   Sign in with World ID. This is not recommended as it doesn't provide the user's wallet address.
--   Privy you can find a complete integration guide at [Worldcoin Mini App SIWE with Privy](https://docs.privy.io/recipes/react/worldcoin-siwe-guide)
+-   **Privy**: You can find a complete integration guide at [Worldcoin Mini App SIWE with Privy](https://docs.privy.io/recipes/react/worldcoin-siwe-guide)
+-   **Custom Implementation**: Use the [wallet auth command](/mini-apps/commands/wallet-auth).
+
+## Alternative Authentication Methods
+
+-   **OAuth** (Google, Apple, etc.): These providers are supported but it's recommended to trigger this outside of the World App and then redirect back to your mini app with the access token `worldapp://mini-app?app_id=appId&path=/handle-oauth?accessToken=...`.
+-   **Sign in with World ID**: Not recommended as it doesn't provide the user's wallet address.

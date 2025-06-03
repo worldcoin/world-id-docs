@@ -246,11 +246,13 @@ export const miniAppsNavigation = [
 			{ title: `Request Permission`, href: '/mini-apps/commands/request-permission' },
 			{ title: `Get Permissions`, href: '/mini-apps/commands/get-permissions' },
 			{ title: 'Send Haptic Feedback', href: '/mini-apps/commands/send-haptic-feedback' },
+			{ title: 'Share', href: '/mini-apps/commands/share' },
 		],
 	},
 	{
 		title: 'Technical Reference',
 		links: [
+			{ title: 'Init', href: '/mini-apps/reference/init' },
 			{ title: 'API Reference', href: '/mini-apps/reference/api' },
 			{ title: 'Errors', href: '/mini-apps/reference/errors' },
 			{ title: 'Address Book', href: '/mini-apps/reference/address-book' },

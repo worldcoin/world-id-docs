@@ -14,10 +14,10 @@ When you create your application you'll choose **External** as the integration t
 
 1. **Environment**  
    • **Production** – live users on mainnet.  
-   • **Staging / Development** – internal testing against the test registry.
+   • **Staging / Development** – internal testing against the test identities.
 
 2. **Verification target**  
-   • **Cloud** – we host the verifier; your backend calls our REST endpoint.  
+   • **Cloud** – verify proofs via a REST endpoint.  
    • **On-chain** – verify proofs directly inside a smart contract using our Solidity SDK.
 
 Once you create the application you'll need to create an incognito action.
@@ -54,10 +54,10 @@ Persist this response (e.g. in a POST body or contract call) so you can verify i
 
 Choose where you want to verify proofs:
 
-| Target            | Recommended when                                                    | Docs                           |
-| ----------------- | ------------------------------------------------------------------- | ------------------------------ |
-| Cloud verifier    | You already maintain a backend server and prefer a simple REST call | [Verify in the cloud](./cloud) |
-| On-chain verifier | You need trust-minimized verification inside a smart contract       | [Verify on-chain](./on-chain)  |
+| Target            | Recommended when                                                    | Docs                          |
+| ----------------- | ------------------------------------------------------------------- | ----------------------------- |
+| Cloud verifier    | You already maintain a backend server and prefer a simple REST call | [Verify via REST](./cloud)    |
+| On-chain verifier | You need trust-minimized verification inside a smart contract       | [Verify on-chain](./on-chain) |
 
 <Note>
 	Cloud verifications from the Developer portal automatically handle sybil-resistance for you, ensuring that a user

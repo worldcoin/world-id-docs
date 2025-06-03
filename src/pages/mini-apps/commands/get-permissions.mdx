@@ -1,7 +1,6 @@
 # Get Permissions
-This command will let you check the status of permissions a user has granted to your mini app.
 
-This command will be available from v1.7.0 of minikit and v2.8.76 of World App.
+This command lets you check the status of permissions a user has granted to your mini app.
 
 ## Using the command
 
@@ -88,14 +87,15 @@ type MiniAppGetPermissionsSuccessPayload = {
 ```
 
 ### Error response payload
-``` ts
+
+```ts
 type MiniAppGetPermissionsErrorPayload = {
-    status: 'error';
-    error_code: GetPermissionsErrorCodes;
-    version: number;
+	status: 'error'
+	error_code: GetPermissionsErrorCodes
+	version: number
 }
 ```
 
 The possible error codes are:
--   `generic_error` - Request failed for unknown reason
 
+-   `generic_error` - Request failed for unknown reason

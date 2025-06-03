@@ -374,7 +374,13 @@ const Try = (): JSX.Element => {
 					</div>
 
 					<ExamplesWrapper id="testing" valid={isTestingWidgetValid}>
-						{({ styleOption, variants }) => (
+						{({
+							styleOption,
+							variants,
+						}: {
+							styleOption: number
+							variants: Record<string, boolean | undefined>[] | string[]
+						}) => (
 							<Suspense>
 								<IDKitWidget
 									onSuccess={console.log}

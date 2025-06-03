@@ -45,6 +45,19 @@ const ImportantPage = () => {
 }
 
 ```
+On Android, we use the native share sheet which does alert the user to the success or failure of the share, however on iOS, we use the native web share sheet which has no response.
+
+If you want to know if the share was successful, you can use the `share` event.
+
+```tsx {{ title: 'app/page.tsx' }}
+MiniKit.subscribe(ResponseEvent.MiniAppShare, (payload) => {
+	// Do nothing here to simply handle the error response
+	console.log('Share Response', payload);
+});
+
+```
+
+
 ### Example in World App
 Here's what the share drawer looks like in World App.
 

@@ -5,9 +5,15 @@ import {Card} from "@/components/Card"
 
 <p className='text-xl text-gray-700 my-5'>Building the world's largest identity and financial network as a public utility, giving ownership to everyone.</p>
 
+<p className='text-lg text-gray-600 my-5'>Choose your integration path:</p>
+<ul className='list-disc pl-6 text-gray-600 mb-5'>
+    <li><strong>Mini Apps</strong> - Build native-like applications that run inside World App. Perfect for indie developers and startups who want to leverage World App's built-in wallet, user distribution, and exclusive features. No need to worry about web3 complexity or transaction handling.</li>
+    <li><strong>External Integrations</strong> - Add World ID's proof-of-personhood verification to your existing platform. Works seamlessly with your current tech stack while providing enhanced security and trusted user verification.</li>
+    <li><strong>World Chain</strong> - Build directly on our blockchain infrastructure.</li>
+</ul>
 
 <span className="grid lg:grid-flow-col gap-x-8 mt-10 sm:grid-cols-3">
     <Card alt="Mini Apps" title={"Create a Mini App"} content="Native like applications integrated in World App" link="/mini-apps" imagePath="/images/docs/mini-apps-cover.png"/>
-    <Card alt="External Integrations" title={"Integrate World ID"} content="Simple, private, and secure proof of humanity" link="/world-id" imagePath="/images/docs/world-id-cover.png"/>
+    <Card alt="External Integrations" title={"External integrations"} content="Add World ID verification to your existing platform" link="/world-id" imagePath="/images/docs/world-id-cover.png"/>
     <Card alt="World Chain" title={"Integrate World Chain"} content="A chain designed for real humans." link="/world-chain" imagePath="/images/docs/worldchain-cover.png"/>
 </span>

@@ -130,7 +130,7 @@ The `action` ID should be accessible in your backend as an environment variable{
 After performing your own backend actions based on the result, you then pass the success or error messages back to your frontend.
 
 ```typescript {{ title: 'pages/api/verify.ts' }}
-import { type IVerifyResponse, verifyCloudProof } from '@worldcoin/idkit'
+import { type IVerifyResponse, verifyCloudProof } from '@worldcoin/idkit-core'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const { proof, signal } = req.body

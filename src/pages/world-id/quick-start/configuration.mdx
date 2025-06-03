@@ -52,7 +52,7 @@ The `handleVerify` callback sends the proof to your backend for verification. Th
 <Note type="warning">The call to the Developer Portal API must be made from your backend, not from the frontend.</Note>
 
 ```tsx {{ title: "/api/verify.ts"}}
-import { type IVerifyResponse, verifyCloudProof } from '@worldcoin/idkit'
+import { type IVerifyResponse, verifyCloudProof } from '@worldcoin/idkit-core'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const proof = req.body

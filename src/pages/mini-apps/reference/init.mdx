@@ -1,0 +1,46 @@
+# Init
+
+Upon opening a mini app, World App will set a window.WorldApp object. This object contains useful metadata about the device, user, and commands that can be used to customize the mini app.
+
+```json {{ title: 'window.WorldApp' }}
+{
+  "pending_notifications": "number",
+  "supported_commands": [
+    {
+      "name": "string",
+      "supported_versions": ["number"]
+    }
+  ],
+  "world_app_version": "number",
+  "safe_area_insets": {
+    "top": "number",
+    "right": "number",
+    "bottom": "number",
+    "left": "number"
+  },
+  "device_os": "string",
+  "is_optional_analytics": "boolean"
+}
+```
+
+For simplicity we make it easy to access these values in Minikit.
+
+```tsx {{ title: 'app/page.tsx' }}
+interface MiniKit {
+  deviceProperties: {
+    safeAreaInsets: { // The safe area insets of the device.
+      top: number;
+      right: number;
+      bottom: number;
+      left: number;
+    };
+    deviceOS: string;
+    worldAppVersion: number; // 
+  };
+  user: {
+    optedIntoOptionalAnalytics: boolean; // If this is false, you should not collect any analytics for this user.
+  };
+}
+```
+
+

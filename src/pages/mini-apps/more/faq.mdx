@@ -3,6 +3,9 @@
 ## Who covers gas fees for transactions?
 
 World App sponsors gas fees for most transactions on Worldchain, subject to transaction minimums and restrictions.
+When someone verifies their identity with World ID and uses the World App, their transactions on Worldchain are automatically covered by the network.
+This means users don't need to hold or spend ETH to interact with mini apps, send tokens, or perform on-chain actions.
+The sponsorship is handled behind the scenes with a paymaster contract that pays the gas fees whenever a verified user initiates a transaction.
 
 ## Do I need approval to launch a Mini App?
 
@@ -25,7 +28,7 @@ This signed message can be sent back to your backend for verification, ensuring 
 
 ## Can I use the simulator to test transactions on mini apps?
 
-No, mini app needs to be developed on mainnet (we don't support testnet). Gas is covered in the world app, so there's only deployment costs for you to develop on mainnet. Deploy "test" contracts to mainnet, and then redeploy "prod" mainnet contracts.
+No, mini app needs to be developed on mainnet (we don't support testnet). Gas is covered in the World App, so there's only deployment costs for you to develop on mainnet. Deploy "test" contracts to mainnet, and then redeploy "prod" mainnet contracts.
 
 ## How do I debug send transaction failed simulation?
 
@@ -33,13 +36,13 @@ Use the [Get Transaction Debug URL endpoint](/mini-apps/reference/api#get-transa
 
 ## How do I check how commands work and it's implementation?
 
-Check the [Prod QA App](https://world.org/es-es/ecosystem/app_dfbe55706a640c82dce839bb0ecae74d) to check commands and the [minikit-js](https://github.com/worldcoin/minikit-js) repository.
+Check the [Prod QA App](https://world.org/ecosystem/app_dfbe55706a640c82dce839bb0ecae74d) to check commands and the [minikit-js](https://github.com/worldcoin/minikit-js) repository.
 
 ## How do I test my mini app on mobile?
 
-Remember that minikit ONLY works inside World App, so in order to test your mini app commands you must run it on mobile.
+Remember that minikit ONLY works inside World App, so in order to test your mini app commands you must open it in World App
 
-To test your Mini App directly on your phone, expose your app publicly using ngrok or any other tunneling service. After the URL is generated, go to the [Developer Portal](https://developer.worldcoin.org/)to configure it.
+To test your Mini App directly on your phone, expose your app publicly using ngrok or any other tunneling service. After the URL is generated, go to the [Developer Portal](https://developer.worldcoin.org/) to configure it.
 
 Example:
 

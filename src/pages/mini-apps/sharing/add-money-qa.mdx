@@ -16,7 +16,7 @@ Add money to your World Wallet directly from exchanges like Binance and Coinbase
 				Address of the recipient World Wallet user.
 			</Property>
 			<Property name="toToken" type="string" required={true}>
-				Token contract address to deposit (supports USDC.e or WLD).
+				Token contract address to deposit (supports USDC or WLD).
 			</Property>
 			<Property name="amountUsd" type="string">
 				USD amount to deposit. If omitted, the user selects the amount in-app.
@@ -47,7 +47,7 @@ Url follows the schema below. Navigate there to use this Quick Action.
 https://worldcoin.org/mini-app?app_id=app_e7d27c5ce2234e00558776f227f791ef
 &path={%2Fbridge}
 &toAddress={0xRecipientAddressHere}
-&toToken={0xUSDCeOrWLDAddress}
+&toToken={0xUSDCOrWLDAddress}
 &amountUsd={100}
 &sourceAppId={app_source1234567890abcdef}
 &sourceAppName={My%20App}

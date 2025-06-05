@@ -1,0 +1,291 @@
+import { Link } from '@/components/Link'
+
+# USDC on World Chain Quick Start
+
+USDC is a digital dollar issued by Circle, also known as a stablecoin, designed to represent US dollars on the internet and operate seamlessly across many of the world's leading blockchains, including World Chain. Backed 100% by highly liquid cash and cash-equivalent assets, USDC is always redeemable 1:1 for USD. Circle provides monthly attestation reports for USDC reserve holdings on its [Transparency page](https://www.circle.com/en/transparency).
+
+On World Chain, USDC can be transferred using its token contract, enabling fast, secure, and programmable digital dollar transactions. This guide will walk you through building a simple script to perform your first USDC transaction on World Chain.
+
+## Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+
+## Part 1: Setup up your project
+
+### Step 1: Create a new project directory:
+
+```bash
+mkdir usdc-world-transfer
+cd usdc-world-transfer
+npm init -y
+```
+
+### Step 2: Enable ES module support:
+
+In your `package.json`, add the following line:
+
+```json
+{
+  "type": "module"
+}
+```
+
+This allows you to use the modern ES module syntax (`import/export`) in your script.
+
+**Tip:** Alternatively, you can use the following command to set `"type": "module"` directly:
+
+### Step 3: Install required dependencies:
+
+```bash
+npm install viem @inquirer/prompts
+```
+
+### Step 4: Create your script file:
+
+Create a new file called `index.js`:
+
+```bash
+touch index.js
+```
+
+## Part 2: Build the script
+
+Open `index.js` and complete the following sections:
+
+### Step 1: Import Dependencies
+
+```javascript
+import { createWalletClient, http, formatEther, createPublicClient } from 'viem';
+import { privateKeyToAccount, generatePrivateKey } from 'viem/accounts';
+import { worldchainSepolia } from 'viem/chains';
+import { input } from '@inquirer/prompts';
+import fs from 'fs';
+import path from 'path';
+```
+
+These imports include:
+
+- `viem` for blockchain interactions
+- `@inquirer/prompts` for interactive CLI prompts
+- `fs` and `path` for saving private key backups
+
+### Step 2: Define Constants
+
+```javascript
+// USDC contract address on World Chain Sepolia
+const USDC_CONTRACT = '0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88';
+const USDC_DECIMALS = 6;
+```
+
+- `USDC_CONTRACT` is the address of the USDC token on World Chain Sepolia
+- `USDC_DECIMALS` is the number of decimals used in USDC calculations
+
+```javascript
+// USDC ABI (minimal for transfer)
+const USDC_ABI = [
+  {
+    name: 'transfer',
+    type: 'function',
+    stateMutability: 'nonpayable',
+    inputs: [
+      { name: 'to', type: 'address' },
+      { name: 'amount', type: 'uint256' }
+    ],
+    outputs: [{ name: '', type: 'bool' }]
+  },
+  {
+    name: 'balanceOf',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [{ name: 'account', type: 'address' }],
+    outputs: [{ name: '', type: 'uint256' }]
+  },
+  {
+    name: 'decimals',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [],
+    outputs: [{ name: '', type: 'uint8' }]
+  }
+];
+```
+
+The above ABI defines the minimum required functions for:
+
+- Transferring USDC
+- Checking USDC balance
+- Getting USDC decimals
+
+### Step 3: Add Helper Functions
+
+```javascript
+async function generateWallet() {
+  const privateKey = generatePrivateKey();
+  const account = privateKeyToAccount(privateKey);
+  return { privateKey, address: account.address };
+}
+```
+
+```javascript
+async function savePrivateKeyBackup(sourceWallet, destinationWallet) {
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const backupDir = path.join(process.cwd(), 'backups');
+
+  if (!fs.existsSync(backupDir)) {
+    fs.mkdirSync(backupDir);
+  }
+
+  const backupFile = path.join(backupDir, `wallet-backup-${timestamp}.txt`);
+  const content = `Wallet Backup (${timestamp})
+
+Source Wallet:
+Address: ${sourceWallet.address}
+Private Key: ${sourceWallet.privateKey}
+
+Destination Wallet:
+Address: ${destinationWallet.address}
+Private Key: ${destinationWallet.privateKey}
+
+⚠️ IMPORTANT: Keep this file secure and delete it after use.
+`;
+
+  fs.writeFileSync(backupFile, content);
+  return backupFile;
+}
+```
+
+These functions:
+
+- Generate new wallets
+- Save them as JSON files for backup
+
+### Step 4: Add Main Function
+
+```javascript
+async function main() {
+  try {
+    console.log('\n1. Creating source wallet...');
+    await input({ message: 'Press Enter to generate source wallet...' });
+    const sourceWallet = await generateWallet();
+    console.log('Source Address:', sourceWallet.address);
+    await input({ message: 'Press Enter to continue...' });
+
+    console.log('\n2. Creating destination wallet...');
+    await input({ message: 'Press Enter to generate destination wallet...' });
+    const destinationWallet = await generateWallet();
+    console.log('Destination Address:', destinationWallet.address);
+    await input({ message: 'Press Enter to continue...' });
+
+    console.log('\n3. Saving wallet information...');
+    const backupFile = await savePrivateKeyBackup(sourceWallet, destinationWallet);
+    console.log('Backup saved to:', backupFile);
+
+    console.log('\n4. Fund your source wallet:');
+    console.log('Get testnet ETH from: https://www.alchemy.com/faucets/world-chain-sepolia');
+    console.log('Get testnet USDC from: https://faucet.circle.com');
+    console.log('Source Wallet Address:', sourceWallet.address);
+    
+    await input({ message: 'Press Enter after funding your wallet...' });
+
+    console.log('\n5. Checking wallet balances...');
+    const publicClient = createPublicClient({
+      chain: worldchainSepolia,
+      transport: http()
+    });
+
+    let ethBalance, usdcBalance;
+    let isFunded = false;
+
+    while (!isFunded) {
+      ethBalance = await publicClient.getBalance({ address: sourceWallet.address });
+      usdcBalance = await publicClient.readContract({
+        address: USDC_CONTRACT,
+        abi: USDC_ABI,
+        functionName: 'balanceOf',
+        args: [sourceWallet.address]
+      });
+
+      console.log('ETH Balance:', formatEther(ethBalance), 'ETH');
+      console.log('USDC Balance:', Number(usdcBalance) / 10 ** USDC_DECIMALS, 'USDC');
+
+      if (ethBalance === 0n || usdcBalance === 0n) {
+        console.log('\nPlease fund your wallet with testnet ETH and USDC before proceeding.');
+        await input({ message: 'Press Enter after funding your wallet...' });
+      } else {
+        isFunded = true;
+      }
+    }
+
+    console.log('\n6. Ready to transfer USDC to Destination Address:', destinationWallet.address);
+    const amount = await input({
+      message: 'Enter amount of USDC to transfer:',
+      validate: (value) => {
+        const num = Number(value);
+        if (isNaN(num) || num <= 0) return 'Please enter a valid positive number';
+        if (num > Number(usdcBalance) / 10 ** USDC_DECIMALS) return 'Insufficient USDC balance';
+        return true;
+      }
+    });
+
+    const amountInDecimals = BigInt(Math.floor(Number(amount) * 10 ** USDC_DECIMALS));
+    
+    const walletClient = createWalletClient({
+      account: privateKeyToAccount(sourceWallet.privateKey),
+      chain: worldchainSepolia,
+      transport: http()
+    });
+
+    console.log('\nExecuting transfer...');
+    const hash = await walletClient.writeContract({
+      address: USDC_CONTRACT,
+      abi: USDC_ABI,
+      functionName: 'transfer',
+      args: [destinationWallet.address, amountInDecimals]
+    });
+
+    console.log('\nTransfer successful!');
+    console.log('Transaction Hash:', hash);
+    console.log('View on Explorer:', `https://sepolia.worldscan.org/tx/${hash}`);
+
+  } catch (error) {
+    console.error('\nError:', error.message);
+  }
+}
+
+main();
+```
+
+This function drives the full flow to:
+
+- Create wallets
+- Back up credentials
+- Prompt you to fund the source wallet
+- Send USDC to the destination
+- Print the transaction hash
+
+## Part 3: Run the Script
+
+Enter the following command:
+
+```bash
+node index.js
+```
+
+Follow the prompts in your terminal.
+
+## What This Script Does
+
+1. Creates source and destination wallets
+2. Saves wallet information securely
+3. Prompts you to fund the source wallet
+4. Transfers USDC between wallets
+5. Displays the transaction hash and link to the explorer
+
+## Important Notes
+
+- Keep your private keys secure
+- Delete backup files after use
+- Always test with small amounts first
+- This script uses World Chain Sepolia testnet, not mainnet
+

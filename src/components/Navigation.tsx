@@ -306,6 +306,7 @@ export const miniAppsNavigation = [
 			{ title: 'Troubleshooting', href: '/mini-apps/more/troubleshooting' },
 			{ title: 'Webview Specifications', href: '/mini-apps/more/webview-spec' },
 			{ title: 'Releases', href: '/mini-apps/more/releases' },
+			{ title: 'Community Tools & Perks', href: '/mini-apps/more/community-tools-perks' },
 			{ title: 'FAQ', href: '/mini-apps/more/faq' },
 		],
 	},
@@ -368,8 +369,8 @@ export const worldChainNavigation = [
 		title: 'Tokens',
 		links: [
 			{ title: 'Bridging an L1 token to World Chain', href: '/world-chain/tokens/bridging' },
-
 			{ title: 'Superchain Token Bridging', href: '/world-chain/tokens/superchain-token' },
+			{ title: 'USDC on World Chain Quick Start', href: '/world-chain/tokens/usdc' },
 		],
 	},
 	{

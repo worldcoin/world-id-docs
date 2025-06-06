@@ -197,7 +197,7 @@ export const worldIdNavigation = [
 			{ title: 'API Reference', href: '/world-id/reference/api' },
 			{ title: 'Sign In Reference', href: '/world-id/reference/sign-in' },
 			{ title: 'Smart Contracts', href: '/world-id/reference/contracts' },
-			{ title: 'Address Book', href: '/world-id/reference/address-book' },
+			{ title: 'Contract Deployments', href: '/world-id/reference/contract-deployments' },
 			{ title: 'Errors', href: '/world-id/reference/errors' },
 		],
 	},

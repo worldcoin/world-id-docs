@@ -333,6 +333,11 @@ const nextConfig = {
 				destination: '/world-id/quick-start',
 				permanent: true,
 			},
+			{
+				source: '/world-id/reference/address-book',
+				destination: '/world-id/reference/contract-deployments',
+				permanent: true,
+			},
 		]
 	},
 }

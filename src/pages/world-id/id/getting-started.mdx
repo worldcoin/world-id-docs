@@ -13,12 +13,12 @@ When you create your application you'll choose **External** as the integration t
 ### Decide upfront
 
 1. **Environment**  
-   • **Production** – live users on mainnet.  
+   • **Production** – Real Human World IDs.  
    • **Staging / Development** – internal testing against the test identities.
 
 2. **Verification target**  
    • **Cloud** – verify proofs via a REST endpoint.  
-   • **On-chain** – verify proofs directly inside a smart contract using our Solidity SDK.
+   • **On-chain** – verify proofs directly inside a smart contract.
 
 Once you create the application you'll need to create an incognito action.
 
@@ -48,7 +48,9 @@ Regardless of the platform the flow is the same:
 }
 ```
 
-Persist this response (e.g. in a POST body or contract call) so you can verify it in the next step.
+<Note type="warning">
+	Retrieving the proof is not enough. You must verify the proof in Step 3 to prevent replay attacks. Without verification, your application could be vulnerable to malicious actors reusing old proofs.
+</Note>
 
 # Step 3: Verify the proof
 

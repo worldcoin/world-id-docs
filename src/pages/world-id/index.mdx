@@ -1,34 +1,25 @@
-# World ID {{ className: 'text-5xl' }}
+# How-to
 
-Building the world's largest identity and financial network as a public utility, giving ownership to everyone. {{ className: 'text-2xl' }}
+Currently there are two ways of integrating World ID in external applications:
 
-<hr className="my-10" />
+-   **IDKit libraries:** Our lightweight SDKs that make it easy verifying users in your applications.
+-   **Sign with World ID:** Our [OIDC](https://openid.net/developers/how-connect-works/) implementation that integrates World ID into OIDC
 
-![World App](/images/docs/world-id-cover.png)
+## Which should I use?
 
-<span className="grid lg:grid-flow-col gap-8">
-<Col>
-	## World App
-	Enables payment, purchases and transfers globally using the Worldcoin token, digital assets and traditional currencies.
+**Choose IDKit if you:**
 
-    [Learn more](https://world.org/world-app).
+-   Want full control over the user interface
+-   Need to verify users without page redirects
+-   Want the quickest setup
+-   Want to uniquely verify your existing users too
 
-</Col>
+**Choose Sign with World ID if you:**
 
-<Col>
-	## Worldcoin Token
-	The first token (WLD) to be globally and freely distributed to people, for both utility and future governance, just for
-	being a unique individual.
+-   Already use OAuth/OIDC providers (Google, GitHub)
+-   Want a standard authentication flow
 
-    [Learn more](https://world.org/).
-
-</Col>
-
-<Col>
-	## World ID
-	Digital identity that proves you are a real and unique person while fully protecting your privacy.
-	
-    [Learn more](https://world.org/world-id).
-
-</Col>
-</span>
+<Note type="info">
+	Note: Currently, Sign with World ID creates new user accounts and cannot link to existing accounts. This limitation
+	may be addressed in future updates
+</Note>

@@ -2,8 +2,8 @@
 
 Currently there are two ways of integrating World ID in external applications:
 
--   **IDKit libraries:** Our lightweight SDKs that make easy verifying users in your applications.
--   **Sign with World ID:** Our [OIDC](https://openid.net/developers/how-connect-works/) wrapper that integrates World ID
+-   **IDKit libraries:** Our lightweight SDKs that make it easy verifying users in your applications.
+-   **Sign with World ID:** Our [OIDC](https://openid.net/developers/how-connect-works/) implementation that integrates World ID into OIDC
 
 ## Which should I use?
 
@@ -12,8 +12,14 @@ Currently there are two ways of integrating World ID in external applications:
 -   Want full control over the user interface
 -   Need to verify users without page redirects
 -   Want the quickest setup
+-   Want to uniquely verify your existing users too
 
 **Choose Sign with World ID if you:**
 
 -   Already use OAuth/OIDC providers (Google, GitHub)
 -   Want a standard authentication flow
+
+<Note type="info">
+	Note: Currently, Sign with World ID creates new user accounts and cannot link to existing accounts. This limitation
+	may be addressed in future updates
+</Note>

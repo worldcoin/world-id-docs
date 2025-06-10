@@ -259,6 +259,7 @@ export const miniAppsNavigation = [
 			{ title: 'Usernames', href: '/mini-apps/reference/usernames' },
 			{ title: 'Status Page', href: '/mini-apps/reference/status-page' },
 			{ title: 'Payment Methods', href: '/mini-apps/reference/payment-methods' },
+			{ title: 'Microphone', href: '/mini-apps/reference/microphone' },
 		],
 	},
 	{

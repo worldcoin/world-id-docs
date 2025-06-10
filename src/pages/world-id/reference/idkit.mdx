@@ -341,6 +341,94 @@ This method returns a Promise object that will resolve when the `onSuccess` call
 IDKit.open()
 ```
 
+
+### Session API
+
+#### `IDKitSession`
+
+The `IDKitSession` object provides a session-based approach to World ID verification with full control over the verification flow. Unlike the widget approach, this gives you complete control over UI and state management.
+
+```jsx
+import { IDKitSession, VerificationState } from '@worldcoin/idkit'
+
+// Create a session
+await IDKitSession.create({
+	app_id: 'app_staging_12345',
+	action: 'login',
+	signal: 'user_123',
+})
+
+// Get QR code URI
+const sessionURI = IDKitSession.getURI()
+
+// Poll for updates
+const status = await IDKitSession.pollStatus()
+if (status.state === VerificationState.Confirmed) {
+	console.log('Verification successful!', status.result) // Verify the proof in your backend
+}
+
+// Clean up
+IDKitSession.destroy()
+```
+
+
+#### `IDKitSession.create(config)`
+
+Creates a new World ID verification session. If a session already exists, it will be destroyed and replaced.
+
+<Properties>
+	<Property name="config" type="IDKitConfig" required={true}>
+		Same configuration options as IDKitWidget
+	</Property>
+</Properties>
+
+**Returns:** Promise that resolves when session is created
+
+#### `IDKitSession.getURI()`
+
+Gets the current session URI for QR code generation.
+
+**Returns:** `string | null` - The session URI or null if no active session
+
+#### `IDKitSession.pollStatus()`
+
+Polls for verification updates and returns current session status.
+
+**Returns:** Promise with `SessionStatus` object
+
+<Properties>
+	<Property name="state" type="VerificationState">
+		Current verification state
+	</Property>
+	<Property name="result" type="ISuccessResult | null">
+		Verification result if successful
+	</Property>
+	<Property name="errorCode" type="AppErrorCodes | null">
+		Error code if verification failed
+	</Property>
+	<Property name="sessionURI" type="string | null">
+		Session URI for QR code generation
+	</Property>
+</Properties>
+
+#### `IDKitSession.destroy()`
+
+Destroys the current session and cleans up resources.
+
+**Returns:** `void`
+
+#### `IDKitSession.isActive`
+
+Property that returns whether there's an active session.
+
+**Returns:** `boolean`
+
+```jsx
+if (IDKitSession.isActive) {
+	const status = await IDKitSession.pollStatus()
+}
+```
+
 ## Advanced configuration
 
 This section outlines advanced configuration options that may be unstable or subject to change. These options are passed as a JSON object to the `advanced` prop of the `IDKitWidget` component.

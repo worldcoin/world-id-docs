@@ -12,7 +12,7 @@ These two conditions must be met in order to use the microphone:
 
 ## Using the microphone
 Request permission from the user to enable microphone for your mini app with the <Link href="/mini-apps/commands/request-permission">request permission command</Link>. 
-- If you receive a `world_app_permission_not_enabled` error code, you must prompt the user to enable microphone for World App first. 
+- If you receive a `world_app_permission_not_enabled` or `permission_disabled` error code, you must prompt the user to enable microphone for World App first. 
 This can be done by simply trying to start recording. 
 - If the microphone turns off after a few seconds it's because the user has not granted permission to your mini app to use the microphone.
 - The microphone will automatically be turned off if the user closes your mini app or World App.

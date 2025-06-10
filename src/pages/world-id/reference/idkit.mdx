@@ -101,6 +101,77 @@ return (
 )
 ```
 
+
+#### `useSession`
+
+The `useSession` hook provides a React-friendly way to handle World ID verification sessions with full control over the UI. It automatically manages session creation and polling for verification updates.
+
+```jsx 
+import { useSession, VerificationState } from '@worldcoin/idkit'
+
+const { status, sessionURI, result, errorCode, reset } = useSession({
+	app_id: 'app_staging_12345',
+	action: 'login',
+	signal: 'user_123',
+})
+
+if (status === VerificationState.WaitingForConnection && sessionURI) {
+	return <QRCodeSVG value={sessionURI} />
+}
+
+if (status === VerificationState.Confirmed && result) {
+	return <div>Verification successful!</div>
+}
+```
+
+**Parameters:**
+
+<Properties>
+	<Property name="config" type="UseSessionConfig" required={true}>
+		Same configuration options as IDKitWidget
+	</Property>
+</Properties>
+
+**Returns (UseSessionResult):**
+
+<Properties>
+	<Property name="status" type="VerificationState">
+		Current verification state
+	</Property>
+	<Property name="sessionURI" type="string | null">
+		QR code URI for users to scan
+	</Property>
+	<Property name="result" type="ISuccessResult | null">
+		Verification result if successful
+	</Property>
+	<Property name="errorCode" type="AppErrorCodes | null">
+		Error code if verification failed
+	</Property>
+	<Property name="reset" type="() => void">
+		Function to reset the session and start over
+	</Property>
+</Properties>
+
+**Verification States:**
+
+<Properties>
+	<Property name="PreparingClient" type="VerificationState">
+		Initializing session
+	</Property>
+	<Property name="WaitingForConnection" type="VerificationState">
+		Ready for QR code scan
+	</Property>
+	<Property name="WaitingForApp" type="VerificationState">
+		Waiting for use to
+	</Property>
+	<Property name="Confirmed" type="VerificationState">
+		Verification completed successfully
+	</Property>
+	<Property name="Failed" type="VerificationState">
+		Verification failed
+	</Property>
+</Properties>
+
 ### Functions
 
 #### `verifyCloudProof`

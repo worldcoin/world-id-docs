@@ -32,7 +32,7 @@ First, add the `IDKitWidget` component to your site. The values for the `app_id`
 import { IDKitWidget, VerificationLevel, ISuccessResult } from '@worldcoin/idkit'
 
 // ...
-<IDKitWidget
+;<IDKitWidget
 	app_id="your app id" // obtained from the Developer Portal
 	action="your action id" // obtained from the Developer Portal
 	onSuccess={onSuccess} // callback when the modal is closed
@@ -124,5 +124,5 @@ const { status, sessionURI, result, errorCode } = useSession({
 After that you need to handle the following possible statuses:
 
 -   **WaitingForConnection**: Display the `sessionURI` to the user eg. with a QR code
--   **Confirmed**: Session ended sucessfully, now you **must** verify the `result` proof in your backend.
+-   **Confirmed**: Session ended successfully, now you **must** verify the `result` proof in your backend.
 -   **Failed**: Session failed, check `errorCode`

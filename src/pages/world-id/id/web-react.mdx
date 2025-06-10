@@ -1,14 +1,9 @@
-# Integrating on Web
+# Integrating on Web (React)
 
-IDKit is a single React component, and we'll be writing two callback functions: `handleVerify` and `onSuccess`.
+For react integrations, we support 2 paths:
 
-This widget will prompt the user to scan a QR code that will redirect him to the World App to verify.
-
-<Note>
-	If you want to use IDKit in Vanilla JS application refer to this
-	[example](https://github.com/worldcoin/idkit-js/tree/main/examples/with-html) using `@worldcoin/idkit-standalone`
-	[package](https://www.npmjs.com/package/@worldcoin/idkit-standalone).
-</Note>
+-   [**Widget**](#id-kit-widget): A plug-and-play widget that handles UI/State management for you. Find an example [here](https://github.com/worldcoin/idkit-js/tree/main/examples/with-next)
+-   [**Session API**](#session-hook): A react hook that gives you total control of the user journey and UI/State management. Find an example [here](https://github.com/worldcoin/idkit-js/tree/main/examples/with-session).
 
 ## Install
 
@@ -51,7 +46,7 @@ import { IDKitWidget, VerificationLevel, ISuccessResult } from '@worldcoin/idkit
 </IDKitWidget>
 ```
 
-## handleVerify
+### handleVerify
 
 The `handleVerify` callback is called when the user's proof is received. This will send the proof to your backend for verification:
 
@@ -103,7 +98,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 <Note>If you want to verify the proof onchain read more about it [here](./on-chain).</Note>
 
-## onSuccess
+### onSuccess
 
 The `onSuccess` callback is called when the user closes the modal. This is where you can perform any necessary actions, such as redirecting the user to a new page.
 
@@ -114,3 +109,20 @@ const onSuccess = () => {
 	window.location.href = '/success'
 }
 ```
+
+## Session Hook
+
+First, setup the session hook with your configuration:
+
+```tsx {{ title: "/verify.tsx" }}
+const { status, sessionURI, result, errorCode } = useSession({
+	app_id: 'your app id',
+	action: 'your action id',
+})
+```
+
+After that you need to handle the following possible statuses:
+
+-   **WaitingForConnection**: Display the `sessionURI` to the user eg. with a QR code
+-   **Confirmed**: Session ended sucessfully, now you **must** verify the `result` proof in your backend.
+-   **Failed**: Session failed, check `errorCode`

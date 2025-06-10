@@ -1,0 +1,149 @@
+# Integrating on Web (Vanilla)
+
+For standalone web integrations, we support 2 paths:
+
+-   [**Widget**](#id-kit-widget): A plug-and-play widget that handles UI/State management for you.
+-   [**Session API**](#session-api): An API that gives you total control of the user journey and UI/State management.
+
+For full examples check out this [repo](https://github.com/worldcoin/idkit-js/tree/main/examples/with-html).
+
+## Install
+
+<CodeGroup title="Install">
+
+```bash {{ title: "npm" }}
+npm i @worldcoin/idkit-standalone
+```
+
+```bash {{ title: "pnpm" }}
+pnpm i @worldcoin/idkit-standalone
+```
+
+```bash {{ title: "yarn" }}
+yarn add @worldcoin/idkit-standalone
+```
+
+</CodeGroup>
+
+## IDKitWidget
+
+A plug-and-play widget that handles UI and state management automatically. Initialize once, then call `open()` to show the verification modal.
+
+```javascript
+import '@worldcoin/idkit-standalone'
+
+// Initialize the widget
+IDKit.init({
+	app_id: 'app_ce4cb73cb75fc3b73b71ffb4de178410',
+	action: 'test-action',
+	signal: 'user_12345',
+	action_description: 'Verify your World ID',
+	verification_level: 'orb',
+	handleVerify: async response => {
+		// Verify the proof on your backend
+		const verifyRes = await fetch('/api/verify', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(response),
+		})
+		if (!verifyRes.ok) throw new Error('Verification failed')
+	},
+	onSuccess: response => {
+		console.log('Verification successful:', response)
+	},
+})
+
+// Trigger verification
+await IDKit.open()
+```
+
+## Session API
+
+For custom UIs and full control over the verification flow. Create a session, display the QR code, and poll for status updates.
+
+```javascript
+import '@worldcoin/idkit-standalone'
+
+// Create a session
+await IDKitSession.create({
+	app_id: 'app_ce4cb73cb75fc3b73b71ffb4de178410',
+	action: 'test-action',
+	signal: 'user_12345',
+	action_description: 'Verify your World ID',
+	verification_level: 'orb',
+})
+
+// Get QR code URI
+const sessionURI = IDKitSession.getURI()
+// Display QR code using your preferred method
+
+// Poll for updates
+const status = await IDKitSession.pollStatus()
+console.log('State:', status.state) // 'awaiting_connection', 'confirmed', 'failed'
+
+if (status.state === 'confirmed' && status.result) {
+	// Verify the proof on your backend
+	const verifyRes = await fetch('/api/verify', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(status.result),
+	})
+
+	if (verifyRes.ok) {
+		console.log('Verification successful!')
+	} else {
+		console.error('Verification failed')
+	}
+}
+
+// Clean up when done
+IDKitSession.destroy()
+```
+
+## Backend Verification
+
+**Critical:** You must verify all proofs on your backend. Never trust client-side verification alone.
+
+Your `/api/verify` endpoint should validate the World ID proof:
+
+```javascript
+// Example Node.js/Express endpoint
+app.post('/api/verify', async (req, res) => {
+	const { proof, merkle_root, nullifier_hash, verification_level } = req.body
+
+	try {
+		const verifyRes = await fetch('https://developer.worldcoin.org/api/v1/verify/app_your_app_id', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				nullifier_hash,
+				merkle_root,
+				proof,
+				verification_level,
+				action: 'your-action',
+				signal: 'your-signal', // Optional: must match frontend
+			}),
+		})
+
+		if (verifyRes.ok) {
+			const { verified } = await verifyRes.json()
+			if (verified) {
+				// Store nullifier_hash to prevent reuse
+				// Grant access to user
+				res.json({ success: true })
+			} else {
+				res.status(400).json({ error: 'Invalid proof' })
+			}
+		} else {
+			res.status(400).json({ error: 'Verification failed' })
+		}
+	} catch (error) {
+		res.status(500).json({ error: 'Verification error' })
+	}
+})
+```
+
+### **Important considerations:**
+
+-   Store `nullifier_hash` to prevent proof reuse
+-   Match `action` and `signal` values between frontend and backend

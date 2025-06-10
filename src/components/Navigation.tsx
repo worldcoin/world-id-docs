@@ -175,7 +175,8 @@ export const worldIdNavigation = [
 		title: 'ID Kit',
 		links: [
 			{ title: 'Getting Started', href: '/world-id/id/getting-started' },
-			{ title: 'Integrate on web', href: '/world-id/id/web' },
+			{ title: 'Integrate on web (React)', href: '/world-id/id/web-react' },
+			{ title: 'Integrate on web (Vanilla)', href: '/world-id/id/web-vanilla' },
 			{ title: 'Integrate on mobile', href: '/world-id/id/mobile' },
 			{ title: 'Cloud Verification', href: '/world-id/id/cloud' },
 			{ title: 'On-Chain Verification', href: '/world-id/id/on-chain' },

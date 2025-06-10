@@ -225,7 +225,7 @@ export const miniAppsNavigation = [
 			{ title: 'Commands', href: '/mini-apps/quick-start/commands' },
 			{ title: 'Responses', href: '/mini-apps/quick-start/responses' },
 			{ title: 'Testing', href: '/mini-apps/quick-start/testing' },
-			{ title: 'Mini Apps', href: '/mini-apps/quick-start/app-store' },
+			{ title: 'Mini App Store', href: '/mini-apps/quick-start/app-store' },
 		],
 	},
 	{
@@ -243,14 +243,16 @@ export const miniAppsNavigation = [
 			{ title: 'Sign Message', href: '/mini-apps/commands/sign-message' },
 			{ title: 'Sign Typed Data', href: '/mini-apps/commands/sign-typed-data' },
 			{ title: 'Share Contacts', href: '/mini-apps/commands/share-contacts' },
-			{ title: 'Send Notifications', href: '/mini-apps/commands/send-notifications' },
-			{ title: 'Get Permissions', href: '/mini-apps/commands/get-permissions' },
+			{ title: `Request Permission`, href: '/mini-apps/commands/request-permission' },
+			{ title: `Get Permissions`, href: '/mini-apps/commands/get-permissions' },
 			{ title: 'Send Haptic Feedback', href: '/mini-apps/commands/send-haptic-feedback' },
+			{ title: 'Share', href: '/mini-apps/commands/share' },
 		],
 	},
 	{
 		title: 'Technical Reference',
 		links: [
+			{ title: 'Init', href: '/mini-apps/reference/init' },
 			{ title: 'API Reference', href: '/mini-apps/reference/api' },
 			{ title: 'Errors', href: '/mini-apps/reference/errors' },
 			{ title: 'Address Book', href: '/mini-apps/reference/address-book' },
@@ -262,6 +264,13 @@ export const miniAppsNavigation = [
 	{
 		title: 'Virality',
 		links: [{ title: 'Sharing', href: '/mini-apps/virality/sharing' }],
+	},
+	{
+		title: 'Notifications',
+		links: [
+			{ title: 'Features & Guidelines', href: '/mini-apps/notifications/features-and-guidelines' },
+			{ title: 'How To Send Notifications', href: '/mini-apps/notifications/how-to-send-notifications' },
+		],
 	},
 	{
 		title: 'Design Standards',
@@ -299,6 +308,8 @@ export const miniAppsNavigation = [
 			{ title: 'Troubleshooting', href: '/mini-apps/more/troubleshooting' },
 			{ title: 'Webview Specifications', href: '/mini-apps/more/webview-spec' },
 			{ title: 'Releases', href: '/mini-apps/more/releases' },
+			{ title: 'Community Tools & Perks', href: '/mini-apps/more/community-tools-perks' },
+			{ title: 'FAQ', href: '/mini-apps/more/faq' },
 		],
 	},
 ]
@@ -352,7 +363,7 @@ export const worldChainNavigation = [
 	{
 		title: 'Technical Reference',
 		links: [
-			{ title: 'Address Book', href: '/world-chain/reference/address-book' },
+			{ title: 'Useful Contract Deployments', href: '/world-chain/reference/useful-contracts' },
 			{ title: 'Set up a node', href: '/world-chain/reference/node-setup' },
 		],
 	},
@@ -360,8 +371,8 @@ export const worldChainNavigation = [
 		title: 'Tokens',
 		links: [
 			{ title: 'Bridging an L1 token to World Chain', href: '/world-chain/tokens/bridging' },
-
 			{ title: 'Superchain Token Bridging', href: '/world-chain/tokens/superchain-token' },
+			{ title: 'USDC on World Chain Quick Start', href: '/world-chain/tokens/usdc' },
 		],
 	},
 	{

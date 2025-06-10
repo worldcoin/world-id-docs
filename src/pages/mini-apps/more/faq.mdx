@@ -1,0 +1,51 @@
+# Frequently Asked Questions
+
+## Who covers gas fees for transactions?
+
+World App sponsors gas fees for most transactions on Worldchain, subject to transaction minimums and restrictions.
+When someone verifies their identity with World ID and uses the World App, their transactions on Worldchain are automatically covered by the network.
+This means users don't need to hold or spend ETH to interact with mini apps, send tokens, or perform on-chain actions.
+The sponsorship is handled behind the scenes with a paymaster contract that pays the gas fees whenever a verified user initiates a transaction.
+
+## Do I need approval to launch a Mini App?
+
+Yes. After development, submit your Mini App for review through the [Developer Portal](https://developer.worldcoin.org/). Approval is required before it's publicly listed.
+
+## How does Send transaction command work?
+
+The [Send Transaction command](/mini-apps/commands/send-transaction) is designed to execute on-chain transactions from the Mini App. When developers invoke this command,
+they supply the target contract address, the encoded function call (calldata), and transaction parameters such as value.
+For security, World App requires that any smart contract or token interactions are pre-approved (whitelisted) in the Developer Portal to prevent unauthorized transfers.
+In cases where ERC-20 tokens are involved, instead of directly calling the approve function (which could expose the contract to front-running or manipulation), permits like Permit2 are used.
+Permit2 enables users to sign a transaction off-chain that allows a specific allowance without sending an approval transaction, reducing friction and gas costs while providing a secure, non-custodial mechanism for token transfers.
+
+## How does Sign Message command work?
+
+The [Sign Message command](/mini-apps/commands/sign-message) prompts the user to cryptographically sign an arbitrary message using
+their wallet's private key. When you call the command (e.g., MiniKit.commands.signMessage()), World App generates a standardized payload that may include a nonce, timestamp, and other context to prevent replay attacks.
+The user's wallet then signs this message using ECDSA, producing a signature that proves the user controls the wallet, all without exposing the private key.
+This signed message can be sent back to your backend for verification, ensuring the integrity of user actions and serving as secure off-chain authorization for various operations.
+
+## Can I use the simulator to test transactions on mini apps?
+
+No, mini app needs to be developed on mainnet (we don't support testnet). Gas is covered in the World App, so there's only deployment costs for you to develop on mainnet. Deploy "test" contracts to mainnet, and then redeploy "prod" mainnet contracts.
+
+## How do I debug send transaction failed simulation?
+
+Use the [Get Transaction Debug URL endpoint](/mini-apps/reference/api#get-transaction-debug-url) to get the debug URL for the transaction.
+
+## How do I check how commands work and it's implementation?
+
+Check the [Prod QA App](https://world.org/ecosystem/app_dfbe55706a640c82dce839bb0ecae74d) to check commands and the [minikit-js](https://github.com/worldcoin/minikit-js) repository.
+
+## How do I test my mini app on mobile?
+
+Remember that minikit ONLY works inside World App, so in order to test your mini app commands you must open it in World App
+
+To test your Mini App directly on your phone, expose your app publicly using ngrok or any other tunneling service. After the URL is generated, go to the [Developer Portal](https://developer.worldcoin.org/) to configure it.
+
+Example:
+
+```bash
+ngrok http http://localhost:3000
+```

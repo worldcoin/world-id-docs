@@ -66,7 +66,7 @@ import Tabs, { TabItem } from '@/components/Tabs'
 # Pay
 
 This command is essential for applications that need to facilitate payments directly within the app,
-enabling seamless transactions for users. At launch, WLD and USDC.e will be supported.
+enabling seamless transactions for users. At launch, WLD and USDC will be supported.
 
 **Example:** Enabling an e-commerce platform to allow users to purchase digital goods using cryptocurrencies,
 providing a smooth checkout experience.
@@ -148,8 +148,8 @@ export async function POST(req: NextRequest) {
               token_amount: tokenToDecimals(1, Tokens.WLD).toString(),
             },
             {
-              symbol: Tokens.USDCE,
-              token_amount: tokenToDecimals(3, Tokens.USDCE).toString(),
+              symbol: Tokens.USDC,
+              token_amount: tokenToDecimals(3, Tokens.USDC).toString(),
             },
           ],
           description: 'Test example payment for minikit',
@@ -220,8 +220,8 @@ export async function POST(req: NextRequest) {
                   token_amount: tokenToDecimals(1, Tokens.WLD).toString(),
                 },
                 {
-                  symbol: Tokens.USDCE,
-                  token_amount: tokenToDecimals(3, Tokens.USDCE).toString(),
+                  symbol: Tokens.USDC,
+                  token_amount: tokenToDecimals(3, Tokens.USDC).toString(),
                 },
               ],
               description: "Test example payment for minikit",
@@ -567,7 +567,7 @@ It is strongly recommended to execute using only one transaction.
       // Transfers can also be at most 1 hour in the future.
       const permitTransfer = {
         permitted: {
-          token: testTokens.worldchain.USDCE,
+          token: testTokens.worldchain.USDC,
           amount: '10000',
         },
         nonce: Date.now().toString(),
@@ -673,7 +673,7 @@ It is strongly recommended to execute using only one transaction.
       // Transfers can also be at most 1 hour in the future.
       const permitTransfer = {
         permitted: {
-          token: testTokens.worldchain.USDCE,
+          token: testTokens.worldchain.USDC,
           amount: '10000',
         },
         nonce: Date.now().toString(),
@@ -2606,7 +2606,7 @@ This endpoint lets you send notifications to users of your mini app and requires
                 "chain": "worldchain",
                 "timestamp": "2024-01-01T00:00:00.000Z", // ISO 8601
                 "token_amount": "100000000", // amount in BigInt with 6 decimals
-                "token": "USDCE",
+                "token": "USDC",
                 "to": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
                 "app_id": "app_9a73963d73efdf2e7d9472593dc9dffd"
             }
@@ -2628,7 +2628,7 @@ This endpoint lets you send notifications to users of your mini app and requires
 </Row>
 <hr/>
 
-## Get Prices {{ tag: "GET", label: "https://app-backend.worldcoin.dev/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDCE&fiatCurrencies=" }}
+## Get Prices {{ tag: "GET", label: "https://app-backend.worldcoin.dev/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDC&fiatCurrencies=" }}
 
 <Row>
     <Col>
@@ -2645,7 +2645,7 @@ We offer this as a service to make it easier to use WLD as a currency.
          <Properties>
             <Property name="cryptoCurrencies" type="string" required={true}>
             The `cryptoCurrencies` is a comma-separated list of currencies we support.
-            eg. `USDCE,WLD`
+            eg. `USDC,WLD`
             </Property>
         </Properties>
 
@@ -2699,7 +2699,7 @@ Detailed are a just a few values in the return that could be confusing. See the 
                                 "symbol": "USD"
                             },
                         },
-                        "USDCE": {
+                        "USDC": {
                             "USD": {
                                 "asset": "USD",
                                 "amount": "1000058",
@@ -4879,7 +4879,7 @@ If you want to learn more about World Chain, OP Stack and the Superchain, you ca
       <td className="align-middle">WETH</td>
       <td className="align-middle">[`0x4200000000000000000000000000000000000006`](https://worldscan.org/address/0x4200000000000000000000000000000000000006)</td>
     </tr>    <tr>
-      <td className="align-middle">USDC.e</td>
+      <td className="align-middle">USDC</td>
       <td className="align-middle">[`0x79A02482A880bCE3F13e09Da970dC34db4CD24d1`](https://worldscan.org/address/0x79A02482A880bCE3F13e09Da970dC34db4CD24d1)</td>
     </tr>    <tr>
       <td className="align-middle">L1 OpUSDCBridgeAdapter (Ethereum mainnet)</td>

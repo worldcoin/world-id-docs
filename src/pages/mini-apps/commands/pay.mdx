@@ -4,7 +4,7 @@ import Tabs, { TabItem } from '@/components/Tabs'
 # Pay
 
 This command is essential for applications that need to facilitate payments directly within the app,
-enabling seamless transactions for users. At launch, WLD and USDC.e will be supported.
+enabling seamless transactions for users. At launch, WLD and USDC will be supported.
 
 **Example:** Enabling an e-commerce platform to allow users to purchase digital goods using cryptocurrencies,
 providing a smooth checkout experience.
@@ -88,8 +88,8 @@ export async function POST(req: NextRequest) {
               token_amount: tokenToDecimals(1, Tokens.WLD).toString(),
             },
             {
-              symbol: Tokens.USDCE,
-              token_amount: tokenToDecimals(3, Tokens.USDCE).toString(),
+              symbol: Tokens.USDC,
+              token_amount: tokenToDecimals(3, Tokens.USDC).toString(),
             },
           ],
           description: 'Test example payment for minikit',
@@ -160,8 +160,8 @@ export async function POST(req: NextRequest) {
                   token_amount: tokenToDecimals(1, Tokens.WLD).toString(),
                 },
                 {
-                  symbol: Tokens.USDCE,
-                  token_amount: tokenToDecimals(3, Tokens.USDCE).toString(),
+                  symbol: Tokens.USDC,
+                  token_amount: tokenToDecimals(3, Tokens.USDC).toString(),
                 },
               ],
               description: "Test example payment for minikit",

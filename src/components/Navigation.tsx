@@ -167,27 +167,28 @@ export const worldIdNavigation = [
 	{
 		title: 'Introduction',
 		links: [
-			{ title: 'What is World ID?', href: '/world-id' },
+			{ title: 'Quick Start', href: '/world-id' },
 			{ title: 'Core Concepts', href: '/world-id/concepts' },
-			{ title: 'Try it Out', href: '/world-id/try' },
 		],
 	},
 	{
-		title: 'Quick Start',
+		title: 'ID Kit',
 		links: [
-			{ title: 'Template Repositories', href: '/world-id/quick-start/templates' },
-			{ title: 'Installation', href: '/world-id/quick-start/installation' },
-			{ title: 'Configuration', href: '/world-id/quick-start/configuration' },
-			{ title: 'Testing', href: '/world-id/quick-start/testing' },
-		],
-	},
-	{
-		title: 'Incognito Actions',
-		links: [
+			{ title: 'Getting Started', href: '/world-id/id/getting-started' },
+			{ title: 'Integrate on web (React)', href: '/world-id/id/web-react' },
+			{ title: 'Integrate on web (Vanilla)', href: '/world-id/id/web-vanilla' },
+			{ title: 'Integrate on mobile', href: '/world-id/id/mobile' },
 			{ title: 'Cloud Verification', href: '/world-id/id/cloud' },
-			{ title: 'Libraries', href: '/world-id/id/libraries' },
 			{ title: 'On-Chain Verification', href: '/world-id/id/on-chain' },
-			{ title: 'Common Pitfalls', href: '/world-id/id/pitfalls' },
+			{ title: 'Libraries', href: '/world-id/id/libraries' },
+			{ title: 'Testing', href: '/world-id/id/testing' },
+		],
+	},
+	{
+		title: 'Sign in with World ID',
+		links: [
+			{ title: 'Getting Started', href: '/world-id/sign-in/getting-started' },
+			{ title: 'OIDC Explainer', href: '/world-id/sign-in/oidc' },
 		],
 	},
 	{
@@ -197,20 +198,18 @@ export const worldIdNavigation = [
 			{ title: 'API Reference', href: '/world-id/reference/api' },
 			{ title: 'Sign In Reference', href: '/world-id/reference/sign-in' },
 			{ title: 'Smart Contracts', href: '/world-id/reference/contracts' },
-			{ title: 'Address Book', href: '/world-id/reference/address-book' },
+			{ title: 'Contract Deployments', href: '/world-id/reference/contract-deployments' },
 			{ title: 'Errors', href: '/world-id/reference/errors' },
-			{ title: 'World ID 2.0 Migration Guide', href: '/world-id/reference/world-id-2-migration-guide' },
 		],
 	},
-	{
-		title: 'Further Reading',
-		links: [
-			{ title: 'OIDC Explainer', href: '/world-id/further-reading/oidc' },
-			{ title: 'Protocol Internals', href: '/world-id/further-reading/protocol-internals' },
-			{ title: 'Zero-Knowledge Proofs', href: '/world-id/further-reading/zero-knowledge-proofs' },
-			{ title: 'World ID Reset', href: '/world-id/further-reading/world-id-reset' },
-		],
-	},
+	// Temporarily hiding until we update the content
+	// {
+	// 	title: 'Further Reading',
+	// 	links: [
+	// 		{ title: 'Protocol Internals', href: '/world-id/further-reading/protocol-internals' },
+	// 		{ title: 'Zero-Knowledge Proofs', href: '/world-id/further-reading/zero-knowledge-proofs' },
+	// 	],
+	// },
 ]
 
 export const miniAppsNavigation = [
@@ -259,6 +258,7 @@ export const miniAppsNavigation = [
 			{ title: 'Usernames', href: '/mini-apps/reference/usernames' },
 			{ title: 'Status Page', href: '/mini-apps/reference/status-page' },
 			{ title: 'Payment Methods', href: '/mini-apps/reference/payment-methods' },
+			{ title: 'Microphone', href: '/mini-apps/reference/microphone' },
 		],
 	},
 	{

@@ -1,0 +1,49 @@
+import { Link } from '@/components/Link';
+
+
+# Microphone
+<Note type="info">
+Microphone is only available from World App 2.8.85 and MiniKit 1.9.6.
+</Note>
+Microphone uses the standard web api [Navigator.mediaDevices](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/mediaDevices). 
+These two conditions must be met in order to use the microphone:
+- The user must grant permission to your mini app to use the microphone.
+- The user must grant permission to World App to use the microphone.
+
+## Using the microphone
+Request permission from the user to enable microphone for your mini app with the <Link href="/mini-apps/commands/request-permission">request permission command</Link>. 
+- If you receive a `world_app_permission_not_enabled` or `permission_disabled` error code, you must prompt the user to enable microphone for World App first. 
+This can be done by simply trying to start recording. 
+- The microphone will automatically be turned off if the user closes your mini app or World App.
+
+```tsx
+  const [isMicOn, setIsMicOn] = useState(false);
+  const [stream, setStream] = useState<MediaStream | null>(null);
+  // ...
+  const toggleMicrophone = useCallback(async () => {
+    if (isMicOn) {
+      // Stop microphone access
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+        setStream(null);
+      }
+      setIsMicOn(false);
+    } else {
+      // Start microphone access
+      try {
+        const newStream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
+        setStream(newStream);
+        setIsMicOn(true);
+      } catch (error) {
+        console.error('Error accessing microphone:', error);
+      }
+    }
+  }, [isMicOn, stream]);
+```
+
+
+## Debugging
+- If you receive a `DomException Error`, it's most likely because the user hasn't granted permission to your mini app to use the microphone.
+- If the microphone turns off after a few seconds it's because the user has not granted permission to your mini app to use the microphone.

@@ -1,10 +1,10 @@
 # Request Permission
 
-This command lets you request permission to send notifications to a user.
+This command lets you request permissions to the user's device. This currently includes notifications and microphone. 
 
 ## Using the command
 
-Note this will only allow you to show the modal once. If a user rejects it, you will need to direct them to settings in order to re-enable the permission.
+This command only supports requesting one permission at a time. Additionally, it will only show the user the modal once. If a user rejects it, you will need to direct them to settings in order to re-enable the permission.
 
 <Note type="info">
 	If a user removes your mini app from their World App home screen, you will need to request the permission again.
@@ -12,6 +12,15 @@ Note this will only allow you to show the modal once. If a user rejects it, you 
 
 ```
 worldcoin.org/settings/miniapps
+```
+
+Permission Types:
+```tsx
+// Types of permissions you can request. You can only request one at a time.
+export enum Permission {
+  Notifications = 'notifications',
+  Microphone = 'microphone',
+}
 ```
 
 <Tabs>
@@ -29,9 +38,7 @@ worldcoin.org/settings/miniapps
                 };
                 const payload = await MiniKit.commandsAsync.requestPermission(requestPermissionPayload);
                 // Handle the response
-            },
-            []
-        );
+            }, []);
         ```
 
   </TabItem>
@@ -107,6 +114,7 @@ The possible error codes are:
 -   `permission_disabled` - User has notification disabled for World App
 -   `already_granted` - User has already granted this mini app permission
 -   `unsupported_permission` - Permission is not supported yet
+-   `world_app_permission_not_enabled` - User has not granted permission to World App. This means you need to prompt the user to enable microphone for World App first.
 
 ## Success Result on World App
 

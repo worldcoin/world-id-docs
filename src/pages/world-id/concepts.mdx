@@ -13,26 +13,36 @@ World ID supports multiple "Verification Levels" to prove that a person is a uni
 <table>
   <thead>
     <tr>
-      <th>Verification Level</th>
-      <th>Humanness Level</th>
+      <th className="whitespace-nowrap">Verification Level</th>
+      <th className="whitespace-nowrap">Humanness Level</th>
       <th>Description</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td className="flex items-center"><img src="/icons/credential-phone.svg" alt="" className="h-8 w-8 m-0 mr-2" />Device</td>
-      <td className="align-middle">Medium</td>
-      <td className="align-middle">Unique mobile device check.</td>
+      <td className="flex items-center"><img src="/icons/credential-face.svg" alt="" className="h-8 w-8 m-0 mr-2" />Orb+</td>
+      <td className="align-top pt-3">Very Strong</td>
+      <td className="align-middle">[Coming soon] Orb verification, plus authentication which verifies the person using World ID is the legitimate holder.</td>
     </tr>
     <tr>
-      <td className="align-middle"><img src="/icons/credential-orb.svg" alt="" className="h-8 w-8 m-0 mr-2 inline" />Orb</td>
+      <td className="flex items-center"><img src="/icons/credential-orb.svg" alt="" className="h-8 w-8 m-0 mr-2 inline" />Orb</td>
       <td className="align-middle">Strong</td>
       <td className="align-middle">Biometric verification, uniqueness through iris (<Link href="https://world.org/blog/engineering/opening-orb-look-inside-worldcoin-biometric-imaging-device">details</Link>).</td>
     </tr>
     <tr>
-      <td className="flex items-center"><img src="/icons/credential-face.svg" alt="" className="h-8 w-8 m-0 mr-2" />Orb+</td>
-      <td className="align-middle">Very Strong</td>
-      <td className="align-middle">Orb verification, plus authentication which verifies the person using World ID is the legitimate holder.</td>
+      <td className="flex items-center"><img src="/icons/credential-passport-nfc.svg" alt="" className="h-8 w-8 m-0 mr-[9px] ml-[2px] !rounded-[2px] inline" />Secure Document</td>
+      <td className="align-middle">High</td>
+      <td className="align-middle">Document verification eg. Passport with security chip verification</td>
+    </tr>
+    <tr>
+      <td className="flex items-center"><img src="/icons/credential-passport.svg" alt="" className="h-8 w-auto m-0 mr-[13px] ml-[5px] !rounded-[2px] inline" />Document</td>
+      <td className="align-middle">High</td>
+      <td className="align-middle">Document verification eg. Passport</td>
+    </tr>
+    <tr>
+      <td className="flex items-center"><img src="/icons/credential-phone.svg" alt="" className="h-8 w-8 m-0 mr-2" />Device</td>
+      <td className="align-middle">Medium</td>
+      <td className="align-middle">Unique mobile device check.</td>
     </tr>
   </tbody>
 </table>
@@ -42,6 +52,13 @@ World ID supports multiple "Verification Levels" to prove that a person is a uni
 Some terms are used throughout the World ID documentation. Here are a few of the most important ones:
 
 - **World ID**: A user's self-custodial identity, as well as the name of the protocol.
+- **App ID**: The ID of your app that is assigned in our [Developer Portal](https://developer.worldcoin.org/).
+- **Action**: A developer-facing primitive that lets you put any app operation behind a unique-human gate. An app can have one or more actions depending on your use case.
 - **Zero-Knowledge Proof (ZKP)**: A cryptographic method to prove that a statement is true without revealing any information about the statement itself. World ID uses ZKPs to prove that a user is verified without revealing the user's identity.
-- **Nullifier Hash**: A component of the World ID ZKP; a unique identifier for a combination of a user, `app_id`, and action. It is used to prevent sybil attacks and ensure a user is only able to perform an action once.
-- **Signal**: A component of the World ID ZKP; data attached to the proof that cannot be tampered with. An example may be a user's choice for a governance proposal.
+- **Nullifier Hash**: A component of the World ID ZKP; a unique identifier for a combination of a user, `app_id`, and `action`.
+- **Signal**: A component of the World ID ZKP; data attached to the proof that cannot be tampered with. An example may be a user's choice for an election.
+- **Merkle Root**: A component of the World ID ZKP; The root of the [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree) that identity commitments are inserted to.  
+
+It's important to note the difference between the two types of verification, depending on the context:
+- **Orb/Passport Verification**: A user's identity can be verified through either an Orb, Device or Passport and their identity commitment is then recorded on the blockchain. 
+- **Proof Verification**: The process of validating a user's Zero-Knowledge Proof (ZKP) either off-chain via a REST endpoint we host or on-chain using our Smart Contracts.

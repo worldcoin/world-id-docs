@@ -38,6 +38,38 @@ Use the [Get Transaction Debug URL endpoint](/mini-apps/reference/api#get-transa
 
 Check the [Prod QA App](https://world.org/ecosystem/app_dfbe55706a640c82dce839bb0ecae74d) to check commands and the [minikit-js](https://github.com/worldcoin/minikit-js) repository.
 
+## Why does my command fail when triggered immediately on page load?
+
+This happens due to a race condition where MiniKit hasn't finished installing when you try to call a command. Since MiniKit uses a client-side component to install the provider onto the `Window` object, triggering a command in a separate `useEffect` hook right after page load can fail.
+
+**Solution:** Include any commands you want to trigger on initialization inside the same `useEffect` hook where you install MiniKit:
+
+```tsx {{ title: '/components/MiniKitProvider.tsx' }}
+'use client'
+
+import { useEffect, ReactNode } from 'react'
+import { MiniKit } from '@worldcoin/minikit-js'
+
+export const MiniKitProvider = ({ children }: { children: ReactNode }) => {
+	useEffect(() => {
+		MiniKit.install()
+
+		// Add any commands you wish to trigger on start here to prevent race conditions
+		MiniKit.commands.walletAuth({
+			// ...
+		})
+	}, [])
+
+	return <>{children}</>
+}
+```
+
+## What security considerations should I keep in mind when building Mini Apps?
+
+MiniKit is purely a communication channel between the client and the app. Your application should never trust any payloads it receives on the client side by default.
+
+**All Verify, Pay, and Wallet Auth operations should be verified on your backend.** Never rely solely on client-side validation for sensitive operations, as client-side data can be manipulated. Always implement server-side verification to ensure the integrity and authenticity of user actions.
+
 ## How do I test my mini app on mobile?
 
 Remember that minikit ONLY works inside World App, so in order to test your mini app commands you must open it in World App

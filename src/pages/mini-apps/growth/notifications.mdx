@@ -1,0 +1,457 @@
+import { Link } from '@/components/Link'
+
+# Retention via Notifications
+
+**Goal**: Achieve 25% notification open rate to drive consistent user re-engagement and earn home screen badge visibility.
+
+Smart notifications are your most direct line to users when they're not actively using your mini app. The key is sending the right message at the right time—based on user behavior, not arbitrary schedules.
+
+## Why It Works
+
+Push notifications can increase app retention by up to 3x when done well. However, World App enforces strict quality standards: maintain a 7-day average open rate of 15% or higher to earn a persistent home screen badge, and avoid dropping below 10% to prevent temporary notification pauses.
+
+## World App Notification Rules
+
+| Rule                         | Implementation Notes                                                                                                                   |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **Quality > Quantity**       | World pauses your permission if 7-day avg open-rate < 10%. Maintain 15% to earn a persistent home-screen badge (huge free visibility). |
+| **Personalise**              | Use `${username}` token for easy name insertion—takes 1 minute and can lift opens 2-8×.                                                |
+| **Behaviour-Based Triggers** | Highest open rates come from "something just happened" messages, not scheduled broadcasts.                                             |
+| **Copy & Emojis**            | Short title (< 30 chars), 1-2 emojis, curiosity gap: "🔓 Your vault is waiting…"                                                       |
+| **Path-Deep Link**           | Include `mini_app_path` so the tap jumps to the right screen.                                                                          |
+| **Cadence**                  | Start with 1 notification/day max; evaluate churn. Add frequency only if retention rises.                                              |
+
+## High-Converting Notification Types
+
+### 1. Behavior-Triggered Notifications
+
+The most effective notifications respond to user actions:
+
+```typescript
+// Send when user achieves something
+async function sendAchievementNotification(userId: string, achievement: string) {
+	await sendNotification(userId, {
+		title: `🎉 Achievement unlocked!`,
+		message: `You just earned "${achievement}", ${username}! See what's next.`,
+		mini_app_path: `/achievements?highlight=${achievement}`,
+	})
+}
+
+// Send when user's streak is at risk
+async function sendStreakReminderNotification(userId: string, streakCount: number) {
+	if (streakCount >= 3) {
+		// Only remind for meaningful streaks
+		await sendNotification(userId, {
+			title: `🔥 Don't break your ${streakCount}-day streak!`,
+			message: `Quick check-in to keep it going, ${username}`,
+			mini_app_path: `/dashboard?action=checkin`,
+		})
+	}
+}
+
+// Send when friends take action
+async function sendSocialNotification(userId: string, friendName: string, action: string) {
+	await sendNotification(userId, {
+		title: `👋 ${friendName} just ${action}`,
+		message: `See what they're up to, ${username}!`,
+		mini_app_path: `/friends/${friendName}`,
+	})
+}
+```
+
+### 2. Time-Sensitive Notifications
+
+Create urgency with limited-time opportunities:
+
+```typescript
+// Daily mystery box available
+async function sendDailyRewardNotification(userId: string) {
+	await sendNotification(userId, {
+		title: `📦 Your daily mystery box is ready`,
+		message: `What's inside today, ${username}? Tap to find out!`,
+		mini_app_path: `/rewards/daily`,
+	})
+}
+
+// Limited-time event
+async function sendEventNotification(userId: string, eventName: string, timeLeft: string) {
+	await sendNotification(userId, {
+		title: `⏰ ${eventName} ends in ${timeLeft}`,
+		message: `Don't miss out, ${username}! Join now for exclusive rewards.`,
+		mini_app_path: `/events/${eventName}`,
+	})
+}
+```
+
+### 3. Re-engagement Notifications
+
+Bring back dormant users with personalized content:
+
+```typescript
+// User hasn't opened app in 3 days
+async function sendReengagementNotification(userId: string, lastActivity: Date) {
+	const daysAway = Math.floor((Date.now() - lastActivity.getTime()) / (1000 * 60 * 60 * 24))
+
+	if (daysAway === 3) {
+		await sendNotification(userId, {
+			title: `🤔 We miss you, ${username}!`,
+			message: `Your friends have been active. See what you've missed.`,
+			mini_app_path: `/feed`,
+		})
+	} else if (daysAway === 7) {
+		await sendNotification(userId, {
+			title: `🎁 Welcome back bonus waiting`,
+			message: `Claim your return reward, ${username}!`,
+			mini_app_path: `/rewards/comeback`,
+		})
+	}
+}
+```
+
+## Implementation Guide
+
+### 1. Send Notification API
+
+```typescript
+interface NotificationPayload {
+	app_id: string
+	wallet_addresses: string[]
+	title: string
+	message: string
+	mini_app_path?: string
+}
+
+async function sendNotification(
+	userId: string,
+	notification: {
+		title: string
+		message: string
+		mini_app_path?: string
+	}
+) {
+	const user = await getUser(userId)
+	if (!user.wallet_address || !user.notifications_enabled) {
+		return { success: false, reason: 'notifications_disabled' }
+	}
+
+	try {
+		const response = await fetch('https://developer.worldcoin.org/api/v2/minikit/send-notification', {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${process.env.WORLD_API_KEY}`,
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				app_id: process.env.WORLD_APP_ID,
+				wallet_addresses: [user.wallet_address],
+				title: notification.title,
+				message: notification.message.replace('${username}', user.username || 'friend'),
+				mini_app_path: notification.mini_app_path || '/',
+			}),
+		})
+
+		const result = await response.json()
+
+		// Track the notification
+		await trackEvent('notification_sent', {
+			user_id: userId,
+			type: 'behavior_triggered',
+			title: notification.title,
+		})
+
+		return { success: true, result }
+	} catch (error) {
+		console.error('Notification send failed:', error)
+		return { success: false, error }
+	}
+}
+```
+
+### 2. Smart Notification Scheduler
+
+Don't spam users—send notifications based on their behavior patterns:
+
+```typescript
+interface NotificationSchedule {
+	userId: string
+	type: string
+	scheduledFor: Date
+	payload: any
+}
+
+class NotificationScheduler {
+	private schedules: Map<string, NotificationSchedule[]> = new Map()
+
+	// Schedule a notification
+	schedule(userId: string, type: string, delay: number, payload: any) {
+		const scheduledFor = new Date(Date.now() + delay)
+		const schedule: NotificationSchedule = {
+			userId,
+			type,
+			scheduledFor,
+			payload,
+		}
+
+		const userSchedules = this.schedules.get(userId) || []
+		userSchedules.push(schedule)
+		this.schedules.set(userId, userSchedules)
+	}
+
+	// Cancel scheduled notifications
+	cancel(userId: string, type?: string) {
+		const userSchedules = this.schedules.get(userId) || []
+		const filtered = type ? userSchedules.filter(s => s.type !== type) : []
+
+		this.schedules.set(userId, filtered)
+	}
+
+	// Process due notifications
+	async processDue() {
+		const now = new Date()
+
+		for (const [userId, schedules] of this.schedules.entries()) {
+			const due = schedules.filter(s => s.scheduledFor <= now)
+			const remaining = schedules.filter(s => s.scheduledFor > now)
+
+			// Update schedules
+			this.schedules.set(userId, remaining)
+
+			// Send due notifications
+			for (const schedule of due) {
+				await this.sendScheduledNotification(schedule)
+			}
+		}
+	}
+
+	private async sendScheduledNotification(schedule: NotificationSchedule) {
+		switch (schedule.type) {
+			case 'streak_reminder':
+				await sendStreakReminderNotification(schedule.userId, schedule.payload.streakCount)
+				break
+			case 'daily_reward':
+				await sendDailyRewardNotification(schedule.userId)
+				break
+			case 'reengagement':
+				await sendReengagementNotification(schedule.userId, schedule.payload.lastActivity)
+				break
+		}
+	}
+}
+
+// Usage
+const scheduler = new NotificationScheduler()
+
+// When user completes action, schedule streak reminder for tomorrow
+function onUserAction(userId: string) {
+	const user = getUser(userId)
+	scheduler.cancel(userId, 'streak_reminder') // Cancel previous reminder
+	scheduler.schedule(userId, 'streak_reminder', 20 * 60 * 60 * 1000, {
+		// 20 hours
+		streakCount: user.streak.current,
+	})
+}
+```
+
+### 3. Notification Performance Tracking
+
+Monitor your notification quality to maintain high open rates:
+
+```typescript
+interface NotificationMetrics {
+	sent: number
+	delivered: number
+	opened: number
+	clicked: number
+	open_rate: number
+	click_rate: number
+}
+
+class NotificationTracker {
+	async trackSent(userId: string, notificationId: string, type: string) {
+		await trackEvent('notification_sent', {
+			user_id: userId,
+			notification_id: notificationId,
+			type,
+		})
+	}
+
+	async trackOpened(userId: string, notificationId: string) {
+		await trackEvent('notification_opened', {
+			user_id: userId,
+			notification_id: notificationId,
+			opened_at: new Date(),
+		})
+	}
+
+	async getMetrics(days: number = 7): Promise<NotificationMetrics> {
+		const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
+
+		const sent = await countEvents('notification_sent', since)
+		const opened = await countEvents('notification_opened', since)
+
+		return {
+			sent,
+			delivered: sent, // Assume all were delivered
+			opened,
+			clicked: opened, // In mini apps, open = click
+			open_rate: sent > 0 ? (opened / sent) * 100 : 0,
+			click_rate: sent > 0 ? (opened / sent) * 100 : 0,
+		}
+	}
+}
+```
+
+## Copy That Converts
+
+### Titles That Work
+
+-   **Achievement-based**: "🏆 New high score achieved!"
+-   **Social**: "👥 3 friends joined today"
+-   **Urgency**: "⏰ 2 hours left to claim"
+-   **Mystery**: "🎁 Something special is waiting"
+-   **Personal**: "🔥 Your 7-day streak is impressive!"
+
+### Messages That Convert
+
+-   **Curiosity gap**: "Your vault has something new..."
+-   **Social proof**: "Join 1,000+ users who claimed this"
+-   **Personal achievement**: "You're in the top 10% of users!"
+-   **Benefit-focused**: "This takes 30 seconds and earns 50 coins"
+
+### Avoid These Patterns
+
+-   ❌ Generic broadcasts: "Check out our new feature"
+-   ❌ Too frequent: More than 1 per day initially
+-   ❌ No personalization: Missing username tokens
+-   ❌ Vague calls-to-action: "Open app now"
+
+## A/B Testing Notification Copy
+
+Test different approaches to optimize your open rates:
+
+```typescript
+interface NotificationTest {
+	variant: 'A' | 'B'
+	title: string
+	message: string
+}
+
+async function sendTestNotification(userId: string, testId: string) {
+	const variant = Math.random() < 0.5 ? 'A' : 'B'
+	const tests: Record<string, Record<string, NotificationTest>> = {
+		streak_reminder: {
+			A: {
+				variant: 'A',
+				title: "🔥 Don't break your streak!",
+				message: 'Keep it going, ${username}!',
+			},
+			B: {
+				variant: 'B',
+				title: "🎯 You're on fire!",
+				message: '${username}, one more check-in to continue your streak',
+			},
+		},
+	}
+
+	const test = tests[testId][variant]
+
+	await sendNotification(userId, {
+		title: test.title,
+		message: test.message,
+		mini_app_path: '/dashboard',
+	})
+
+	// Track which variant was sent
+	await trackEvent('notification_test', {
+		user_id: userId,
+		test_id: testId,
+		variant: test.variant,
+	})
+}
+```
+
+## Integration with Other Growth Strategies
+
+### Link to Gamification
+
+```typescript
+// Notify when user earns a badge
+async function onBadgeEarned(userId: string, badge: Badge) {
+	await sendNotification(userId, {
+		title: `🎖️ New badge: ${badge.name}`,
+		message: `Show it off, ${username}! See what's next to unlock.`,
+		mini_app_path: `/badges?new=${badge.id}`,
+	})
+}
+```
+
+### Link to Viral Loops
+
+```typescript
+// Notify when friend accepts invite
+async function onFriendJoined(userId: string, friendName: string) {
+	await sendNotification(userId, {
+		title: `🎉 ${friendName} joined!`,
+		message: `Your invite worked, ${username}! You both earned rewards.`,
+		mini_app_path: `/friends/${friendName}`,
+	})
+}
+```
+
+## Best Practices Checklist
+
+-   [ ] **Request permission at the right moment** (after first value delivery)
+-   [ ] **Use username personalization** in every notification
+-   [ ] **Include specific deep links** to relevant screens
+-   [ ] **Limit to 1 notification per day** initially
+-   [ ] **Track open rates** and pause if below 10%
+-   [ ] **A/B test notification copy** monthly
+-   [ ] **Send behavior-triggered notifications** not scheduled broadcasts
+-   [ ] **Monitor notification badges** eligibility (15% open rate)
+
+## Metrics Dashboard
+
+Track these KPIs to optimize your notification strategy:
+
+```typescript
+const notificationKPIs = {
+	open_rate_7d: '% notifications opened in last 7 days',
+	badge_eligible: 'Whether app qualifies for home screen badge',
+	avg_time_to_open: 'How quickly users respond to notifications',
+	best_performing_type: 'Which notification type has highest open rate',
+	churn_after_notification: '% users who uninstall after notification',
+}
+```
+
+## Real-World Example
+
+A habit-tracking mini app optimized their notification strategy:
+
+**Before**:
+
+-   Sent daily "Don't forget to log your habit" at 9 AM
+-   8% open rate, notifications paused by World App
+
+**After**:
+
+-   Sent behavior-triggered notifications: streak reminders, achievement celebrations, social updates
+-   Personalized all messages with usernames
+-   Limited to 1 notification per day maximum
+-   A/B tested copy monthly
+
+**Results**:
+
+-   Open rate increased to 23%
+-   Earned home screen notification badge
+-   34% increase in daily active users
+-   Reduced churn by 18%
+
+## Next Steps
+
+1. **Implement permission request** after user experiences first value
+2. **Set up behavior-triggered notifications** for key user actions
+3. **Add username personalization** to all notification copy
+4. **Track open rates** and optimize based on data
+5. **A/B test notification copy** to find what resonates with your users
+
+<Link href="/mini-apps/growth/analytics">Next: Data & Analytics →</Link>{' '}

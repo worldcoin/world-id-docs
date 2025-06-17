@@ -1,0 +1,194 @@
+import { Link } from '@/components/Link'
+
+# Invites, Sharing & Viral Loops
+
+## Why It Works
+
+Referral programs are proven growth drivers because they leverage trust. People are 4x more likely to try something recommended by a friend versus discovering it through ads. PayPal's $20/$20 referral program produced 7-10% daily growth, while Dropbox's free storage rewards drove 3900% growth in 15 months.
+
+## Implementation Components
+
+| Component                         | Why it Works                                                                                                                      | Implementation in World Mini App                                                                                                                                                                                                             |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Universal/Deferred Deep Links** | The link carries a `path` param all the way from web share → app-store install → post-onboarding. Makes invite flows "just work." | Use World universal-link schema: `https://world.org/mini-app?app_id={APP_ID}&path={URL_ENCODED_REF}`. Android deferred deep linking: `https://play.google.com/store/apps/details?id=com.worldcoin&referrer=app_id%3D{APP_ID}%26path%3D{REF}` |
+| **In-App Share Action**           | One-tap sharing turns moments of delight (wins, purchases, badges) into word-of-mouth.                                            | Call `MiniKit.commandsAsync.share({ title, text, url })`. Add meta-tag images in Dev Portal for rich previews.                                                                                                                               |
+| **Two-Sided Rewards**             | Giving _both_ parties something (credits, in-game currency, NFT perks) doubles motivation.                                        | Keep rewards lightweight (e.g., "unlock dark mode for both people"). For token rewards, cap lifetime totals so costs remain predictable.                                                                                                     |
+| **Smart Placement & Timing**      | Ask for an invite right after the "aha!" moment—when users first experience real value.                                           | Add a final onboarding step: "Get a bonus by inviting a friend." Pre-fill via `shareContacts` or render QR codes.                                                                                                                            |
+| **Abuse Prevention**              | World ID guarantees _one human = one account_—perfect for blocking multi-account farming.                                         | Gate rewards on `MiniKit.user.worldIdVerified === true`.                                                                                                                                                                                     |
+
+## Step-by-Step Implementation
+
+### 1. Set Up Universal Links
+
+Create server-side invite pages that work across all platforms:
+
+```typescript
+// pages/invite.tsx
+export default function InvitePage({ code }: { code: string }) {
+	useEffect(() => {
+		// Redirect to mini app
+		window.location.href = `https://world.org/mini-app?app_id=YOUR_APP_ID&path=/welcome?ref=${code}`
+	}, [code])
+
+	return <div>Redirecting to mini app...</div>
+}
+```
+
+### 2. Generate Share Links
+
+Create a shareable link that includes the referral information:
+
+```typescript
+function generateInviteLink(userId: string): string {
+	const baseUrl = 'https://world.org/mini-app'
+	const appId = 'your_app_id'
+	const path = encodeURIComponent(`/invite?code=${userId}`)
+
+	return `${baseUrl}?app_id=${appId}&path=${path}`
+}
+```
+
+### 3. Implement Share Functionality
+
+Add share buttons at key moments in your user journey:
+
+```typescript
+import { MiniKit } from '@worldcoin/minikit-js'
+
+async function shareInvite() {
+	const inviteLink = generateInviteLink(currentUser.id)
+
+	try {
+		await MiniKit.commandsAsync.share({
+			title: 'Join me on [Your App Name]!',
+			text: `I'm using this amazing mini app. Join me and we both get rewards! 🎁`,
+			url: inviteLink,
+		})
+
+		// Track the share event
+		trackEvent('invite_link_created', {
+			user_id: currentUser.id,
+			share_method: 'native',
+		})
+	} catch (error) {
+		console.error('Share failed:', error)
+	}
+}
+```
+
+### 4. Handle Incoming Referrals
+
+Process referral codes when new users sign up:
+
+```typescript
+// On app initialization
+function handleReferral() {
+	const urlParams = new URLSearchParams(window.location.search)
+	const refCode = urlParams.get('ref')
+
+	if (refCode && !currentUser.referredBy) {
+		// Credit the referrer
+		fetch('/api/process-referral', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				newUserId: currentUser.id,
+				referrerCode: refCode,
+			}),
+		})
+	}
+}
+```
+
+### 5. Reward System
+
+Implement two-sided rewards that benefit both parties:
+
+```typescript
+// api/process-referral.ts
+export async function processReferral(data: { newUserId: string; referrerCode: string }) {
+	const referrer = await getUserByCode(data.referrerCode)
+	if (!referrer || !referrer.worldIdVerified) {
+		return { success: false, reason: 'invalid_referrer' }
+	}
+
+	// Credit both users
+	await Promise.all([
+		creditUser(referrer.id, {
+			type: 'referral_bonus',
+			amount: 100,
+			reason: 'Friend joined via your invite',
+		}),
+		creditUser(data.newUserId, {
+			type: 'signup_bonus',
+			amount: 50,
+			reason: 'Welcome bonus for joining via invite',
+		}),
+	])
+
+	return { success: true }
+}
+```
+
+## Design Best Practices
+
+### Placement Strategy
+
+-   **After first value delivery**: When user completes their first meaningful action
+-   **Post-achievement**: Right after earning a badge, completing a level, or winning
+-   **Onboarding finale**: As the last step of user setup
+
+### Copy That Converts
+
+-   **Personal benefit first**: "Get 100 coins for each friend who joins"
+-   **Mutual benefit**: "You both get rewards when they sign up"
+-   **Social proof**: "Join 10,000+ users already earning rewards"
+
+### Visual Design
+
+-   Use prominent, action-oriented buttons ("Invite Friends", "Share & Earn")
+-   Show potential rewards clearly with icons or progress bars
+-   Include preview of what the shared content looks like
+
+## Metrics to Track
+
+Monitor these key events to measure your viral loop performance:
+
+```typescript
+// Essential tracking events
+const events = {
+	invite_link_created: { user_id, share_method },
+	invite_link_clicked: { ref_code, source },
+	signup_source_invite: { ref_code, new_user_id },
+	referral_reward_granted: { referrer_id, new_user_id, reward_amount },
+}
+```
+
+### Key Metrics Dashboard
+
+-   **Invite Conversion Rate**: (Signups from invites) / (Total invite links clicked)
+-   **K-Factor**: (New users from invites) / (Total active users)
+-   **Viral Cycle Time**: Average time from invite sent to new user activated
+-   **Reward Cost per Acquisition**: Total rewards paid / New users acquired
+
+## Quick A/B Test Ideas
+
+Test these variables to optimize your viral loop:
+
+1. **Reward Amount**: Test 50 vs 100 vs 200 coin rewards
+2. **Timing**: Share prompt after first win vs after onboarding
+3. **Copy**: Personal benefit vs mutual benefit messaging
+4. **Incentive Type**: Coins vs premium features vs exclusive content
+
+<Note type="warning">
+	Start with small reward amounts and scale up based on unit economics. Cap total lifetime rewards per user to control
+	costs.
+</Note>
+
+## Next Steps
+
+1. Implement universal links for your invite flow
+2. Add share buttons after key user achievements
+3. Set up two-sided rewards with World ID verification
+4. Track invite metrics and run small A/B tests
+5. Scale successful invite mechanics across more touchpoints

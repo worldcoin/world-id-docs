@@ -6,16 +6,6 @@ import { Link } from '@/components/Link'
 
 Referral programs are proven growth drivers because they leverage trust. People are 4x more likely to try something recommended by a friend versus discovering it through ads. PayPal's $20/$20 referral program produced 7-10% daily growth, while Dropbox's free storage rewards drove 3900% growth in 15 months.
 
-## Implementation Components
-
-| Component                         | Why it Works                                                                                                                      | Implementation in World Mini App                                                                                                                                                                                                             |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Universal/Deferred Deep Links** | The link carries a `path` param all the way from web share → app-store install → post-onboarding. Makes invite flows "just work." | Use World universal-link schema: `https://world.org/mini-app?app_id={APP_ID}&path={URL_ENCODED_REF}`. Android deferred deep linking: `https://play.google.com/store/apps/details?id=com.worldcoin&referrer=app_id%3D{APP_ID}%26path%3D{REF}` |
-| **In-App Share Action**           | One-tap sharing turns moments of delight (wins, purchases, badges) into word-of-mouth.                                            | Call `MiniKit.commandsAsync.share({ title, text, url })`. Add meta-tag images in Dev Portal for rich previews.                                                                                                                               |
-| **Two-Sided Rewards**             | Giving _both_ parties something (credits, in-game currency, NFT perks) doubles motivation.                                        | Keep rewards lightweight (e.g., "unlock dark mode for both people"). For token rewards, cap lifetime totals so costs remain predictable.                                                                                                     |
-| **Smart Placement & Timing**      | Ask for an invite right after the "aha!" moment—when users first experience real value.                                           | Add a final onboarding step: "Get a bonus by inviting a friend." Pre-fill via `shareContacts` or render QR codes.                                                                                                                            |
-| **Abuse Prevention**              | World ID guarantees _one human = one account_—perfect for blocking multi-account farming.                                         | Gate rewards on `MiniKit.user.worldIdVerified === true`.                                                                                                                                                                                     |
-
 ## Step-by-Step Implementation
 
 ### 1. Set Up Universal Links
@@ -27,7 +17,7 @@ Create server-side invite pages that work across all platforms:
 export default function InvitePage({ code }: { code: string }) {
 	useEffect(() => {
 		// Redirect to mini app
-		window.location.href = `https://world.org/mini-app?app_id=YOUR_APP_ID&path=/welcome?ref=${code}`
+		window.location.href = `https://world.org/mini-app?app_id=${YOUR_APP_ID}&path=/invite?code=${code}`
 	}, [code])
 
 	return <div>Redirecting to mini app...</div>
@@ -108,7 +98,7 @@ Implement two-sided rewards that benefit both parties:
 // api/process-referral.ts
 export async function processReferral(data: { newUserId: string; referrerCode: string }) {
 	const referrer = await getUserByCode(data.referrerCode)
-	if (!referrer || !referrer.worldIdVerified) {
+	if (!referrer) {
 		return { success: false, reason: 'invalid_referrer' }
 	}
 

@@ -1,8 +1,6 @@
 import { Link } from '@/components/Link'
 
-# Gamification (Low-Code Mechanics)
-
-**Goal**: Increase user retention and engagement through carefully designed game mechanics that create habit loops.
+# Gamification
 
 Gamification isn't about turning your app into a game—it's about using proven psychological principles to make routine actions more engaging and rewarding.
 
@@ -22,7 +20,7 @@ Game mechanics tap into fundamental human psychology: our need for achievement, 
 
 ## Strategic Implementation
 
-### 1. Daily Streaks (Start Here)
+### 1. Daily Streaks
 
 **Why this first**: Highest retention impact with moderate effort. Creates powerful daily habit loops.
 
@@ -43,18 +41,16 @@ const updateStreak = (lastActive: string) => {
 }
 ```
 
-**World App integration**: Use notification badges to show current streak count on home screen.
-
 ### 2. Progress Bars & Visual Momentum
 
-**Psychology**: Users hate leaving things 80% complete. Visual progress creates urgency to finish.
+Users hate leaving things 80% complete. Visual progress creates urgency to finish.
 
 **Where to use**:
 
--   Profile completion ("2/5 steps remaining")
--   Daily/weekly goals ("7/10 tasks done")
--   Social milestones ("3/5 friends invited")
--   Skill progression ("Level 4: 80% to Level 5")
+-   **Profile completion:** 2/5 steps remaining
+-   **Daily/weekly goals:** 7/10 tasks done
+-   **Social milestones:** 3/5 friends invited
+-   **Skill progression**: Level 4: 80% to Level 5
 
 **Key principle**: Always show progress toward the next achievable milestone, not distant end goals.
 
@@ -71,8 +67,7 @@ const updateStreak = (lastActive: string) => {
 
 **Design tips**:
 
--   Use emoji icons (🦋, ⚔️, 🏆) for zero design cost
--   Make early badges easy to get (within first session)
+-   Make early badges easy to get within first session
 -   Create clear progression: Common → Rare → Epic
 -   Show badge collection in user profile for social proof
 
@@ -89,7 +84,6 @@ const updateStreak = (lastActive: string) => {
 **Key strategies**:
 
 -   Keep it simple: Top 10 list with current user highlighted
--   Use emoji rankings (🥇🥈🥉) for positions 1-3
 -   Refresh weekly to prevent permanent dominance
 -   Only show verified users to prevent gaming
 
@@ -137,14 +131,6 @@ Users should earn their first badge/reward within 30 seconds of first use. This 
 Track key events: `streak_extended`, `badge_earned`, `leaderboard_viewed`, `reward_claimed`
 
 **Golden rule**: If a mechanic doesn't improve D7 retention after 2 weeks, remove it.
-
-## World App Integration
-
-**Notification badges**: Use `MiniKit.setBadgeCount()` to show current streak on home screen icon—powerful visibility boost.
-
-**Fair competition**: Leverage World ID verification (`MiniKit.user.worldIdVerified`) to ensure only real humans compete on leaderboards.
-
-**Share achievements**: Integrate with share command to let users broadcast major accomplishments to friends.
 
 ## Common Pitfalls
 

@@ -262,8 +262,14 @@ export const miniAppsNavigation = [
 		],
 	},
 	{
-		title: 'Virality',
-		links: [{ title: 'Sharing', href: '/mini-apps/virality/sharing' }],
+		title: 'Growth Playbook',
+		links: [
+			{ title: 'Overview', href: '/mini-apps/growth' },
+			{ title: 'Invites & Viral Loops', href: '/mini-apps/growth/invites-viral' },
+			{ title: 'Gamification', href: '/mini-apps/growth/gamification' },
+			{ title: 'Retention via Notifications', href: '/mini-apps/growth/notifications' },
+			{ title: 'Data & Analytics', href: '/mini-apps/growth/analytics' },
+		],
 	},
 	{
 		title: 'Notifications',

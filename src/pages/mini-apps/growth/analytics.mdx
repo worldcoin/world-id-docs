@@ -1,0 +1,57 @@
+import { Link } from '@/components/Link'
+
+# Data & Analytics
+
+Track only what answers **critical product questions**—nothing more.  
+This page shows you **what to measure, why, and how to start in one sprint**.
+
+## 1 · Mental Model _Q → M → E_
+
+> **Question → Metric → Event**
+
+1. **Question** you want answered
+2. **Metric** that quantifies it
+3. **Event** (or two) that feed that metric
+
+| Product Question             | Metric (M)                    | Minimal Events (E)               |
+| ---------------------------- | ----------------------------- | -------------------------------- |
+| Do users see value on day 0? | **Conversion to First Value** | `signup`, `first_value`          |
+| Do they come back?           | **D1 / D7 Retention**         | `app_open`                       |
+| Will growth be organic?      | **Invite Acceptance Rate**    | `invite_sent`, `invite_accepted` |
+| Can we re‑engage them?       | **Push Open Rate**            | `notification_open`              |
+
+If an event doesn't roll up to a key question, skip it.
+
+## 2 · Core Event Set (6 Lines of Code)
+
+```ts
+track('app_open') // every launch
+track('signup', { method: 'id' })
+track('first_value', { action: '🎉' })
+track('invite_sent')
+track('invite_accepted')
+track('notification_open')
+```
+
+That is enough to build funnels, retention, and viral metrics.
+
+## 3 · Action Plan
+
+**Focus on these 4 metrics weekly until they're all green:**
+
+-   **Signup → First Value %** (target: ≥40%) - Are users getting value immediately?
+-   **D1 Retention** (target: ≥25%) - Are they coming back the next day?
+-   **Invite Acceptance %** (target: ≥15%) - Is word-of-mouth working?
+-   **Push Open %** (target: ≥15%) - Can we re-engage users?
+
+**Next steps:** Pick the lowest metric and spend 1-2 sprints fixing it. Don't touch anything else until all four are hitting targets.
+
+## 4 · Common Pitfalls to Dodge
+
+-   **Event sprawl** – >10 events = analysis paralysis.
+-   **Vanity charts** – page views ≠ value.
+-   **No cohorts** – averages hide churn.
+-   **Premature segmentation** – wait for 1k users.
+-   **Ignoring retention** – acquisition is useless without it.
+
+Analytics should light the path, not become the journey. Keep it lean, learn fast, and build what moves the needle.

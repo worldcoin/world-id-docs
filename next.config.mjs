@@ -338,6 +338,11 @@ const nextConfig = {
 				destination: '/world-id/reference/contract-deployments',
 				permanent: true,
 			},
+			{
+				source: '/mini-apps/virality/sharing',
+				destination: '/mini-apps/growth',
+				permanent: true,
+			},
 		]
 	},
 }

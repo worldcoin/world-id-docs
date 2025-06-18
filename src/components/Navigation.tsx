@@ -272,10 +272,6 @@ export const miniAppsNavigation = [
 		],
 	},
 	{
-		title: 'Virality',
-		links: [{ title: 'Sharing', href: '/mini-apps/virality/sharing' }],
-	},
-	{
 		title: 'Notifications',
 		links: [
 			{ title: 'Features & Guidelines', href: '/mini-apps/notifications/features-and-guidelines' },

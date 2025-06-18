@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Link } from '@/components/Link'
 
 # Invites, Sharing & Viral Loops
@@ -23,6 +24,16 @@ export default function InvitePage({ code }: { code: string }) {
 	return <div>Redirecting to mini app...</div>
 }
 ```
+
+Universal-link format
+
+`https://world.org/mini-app?app_id={app_id}&path={path}`
+
+Deep-link (opens World App directly if installed)
+
+`worldapp://mini-app?app_id={app_id}&path={path}`
+
+<Note> Need to break out of an in-app web-view? Append open_out_of_window=true.</Note>
 
 ### 2. Generate Share Links
 
@@ -119,6 +130,29 @@ export async function processReferral(data: { newUserId: string; referrerCode: s
 	return { success: true }
 }
 ```
+
+### 6 · Support Deferred Deep Links (Android)
+
+```
+https://play.google.com/store/apps/details?id=com.worldcoin&referrer=app_id%3D{app_id}%26path%3D{path}
+```
+
+World App prompts the install and then automatically forwards the user to your specified path.
+
+### Optimising Social-Share Previews
+
+Specify a meta-tag image in the developer portal. If unset, the first showcase image is used. Localised versions are supported so you can translate on-image text.
+
+### Inside World App Discovery
+
+-   **Quick Actions**: Mini apps can hand off context to one another. Split distinct flows into focused apps that trigger each other with Quick Actions.
+
+-   **Widget**: Your mini app can live on the phone’s home screen. Prompt the user to add the mini app as a widget in the home screen.
+
+<div className="flex flex-col items-center justify-center">
+	<Image src="/images/docs/mini-apps/virality/widget.jpg" alt="Widget" width={300} height={300} />
+	<p className="mt-1 text-sm italic">Widget on iOS</p>
+</div>
 
 ## Design Best Practices
 

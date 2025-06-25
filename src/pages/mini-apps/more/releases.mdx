@@ -1,62 +1,155 @@
 # Minikit Releases
 
-## Week of 17th March 2025
+<style>
+	{`
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+`}
+</style>
 
-    ### Mobile
+  <div className="relative">
+    <div className="absolute w-3 h-3 bg-gray-400 rounded-full -left-[1.4375rem] top-2.5 border-2 border-white"></div>
+    <details open>
+      <summary><h2 className="inline text-xl font-semibold hover:text-blue-500 cursor-pointer">19th of May 2025</h2></summary>
+      <div className="mt-4 text-gray-600 space-y-6">
+        ### **Mobile**
+        -   [Android] Multi-File Selection added.
+        -   [iOS] Improved microphone permissions.
+        -   [Both] Notification badges for the home screen.
+        -   [Both] Refactored Mini App impressions work.
+        -   [Both] Transaction failure messages improved.
 
-    - [Both] Search Has gotten much faster in the Mini Apps
-    - [Both] Mini Apps Deeplinking fixes
-    - [Both] World Mini Apps Widget
-    - [Android] Added safeTxHash and userOpHash in response from send transaction
-    - [Android] Added contacts to Get Permissions command
-    - [Android] Show settings in the pop-up menu on long press
+        ### **Developer Portal**
+        -   Notification opt in rate added to the dashboard.
+        -   Updated draft mini app logic & notifications.
+        -   Sharing and deferred linking.
 
-    ### Minikit
+        ### **Minikit 1.9.5**
+        -   Added transaction parallelism.
+        -   Updated Signed Typed Data.
+        -   Fixed versioning issues blocking wallet-auth
 
-    - Added NFC ID support to Minikit. Now you can receive  more detailed verification_level response
+        ### **Docs**
+        -   Updated Send Transaction implementation guide.
+        -   Updated Sign Typed Data implementation guide.
+        -   New integrations for Worldchain.
+        -   Added Oracles to Worldchain.
+        -   Sharing and deferred linking implementation guidelines.
+      </div>
+    </details>
 
-    ### Dev Portal
+  </div>
 
-    - Notification sending from developer portal.
-    - 'Import wallets as CSV'
+  <div className="relative">
+    <div className="absolute w-3 h-3 bg-gray-400 rounded-full -left-[1.4375rem] top-2.5 border-2 border-white"></div>
+    <details>
+      <summary><h2 className="inline text-xl font-semibold hover:text-blue-500 cursor-pointer">30th of April 2025</h2></summary>
+      <div className="mt-4 text-gray-600 space-y-6">
+        ### **Mobile**
+        -   [iOS] Enhanced keyboard interaction within the App Store search.
+        -   [iOS] Fixes for UI issues, including layering and scrolling behavior.
+        -   [Both] World App 4.0 Update: Comprehensive updates for Mini Apps.
+        -   [Both] Updated App Store.
+        -   [Both] Fixes on deeplinking both internal and from external apps.
+        -   [Both] Wallet Auth V2 improvements.
+        -   [Both] The Contacts tab has been moved into Mini App for streamlined navigation.
+        -   [Both] Updated settings menu and UI/UX enhancements.
+        -   [Both] Mini App state management enhancements.
+        -   [Both] New haptic feedback command implemented for Mini Apps.
+        -   [Both] Spotlight Search now supported for Mini Apps.
+        -   [Both] Widgets are now customizable with reordering support.
+        -   [Both] Add the category ranking of the app to the app store detail page
+        -   [Both] Get Started page for new users.
 
-    ### Docs
+        ### **Minikit**
+        -   New Web3 template.
+        -   New template npx @worldcoin/create-mini-app my-first-mini-app.
+        -   Prod QA mini app for testing commands.
 
-    - New Quick Actions
-        - PUF
-        - World Companies Finder
-        - One Pay
-        - Orbital X
-    - Added Send Transaction and Wallet Auth GIFs
-    - NSFW Prohibition
+        ### **Dev Portal**
+        -   Improved reporting link structure for easier tracking.
+        -   Added Metatag images for sharing mini apps.
 
-## Week of 10th March 2025
+        ### **Docs**
+        -   Virality section.
+        -   Authentication section.
+        -   New templates (community and official) on docs.
+        -   Developer rewards pilot.
+        -   llms-full.txt added on getting started.
+        -   Get Transaction Debug URL.
+      </div>
+    </details>
 
-### Mobile
+  </div>
 
--   [iOS] Notification paths bugs: Fixed
--   [iOS] Contacts modal bugs: Fixed
--   [iOS] Added safeTxHash and userOpHash in response from send transaction
--   [iOS+ Android] Include Mini App ID in Transaction Response Payload
--   [iOS+ Android]Added Haptic Feedback
--   [Android] World Chat Bugs Fixed
--   [iOS+ Android] Mini App rearrange
--   [iOS+ Android] Spotlight Search Fixed
--   [iOS+ Android] Mini App Widget
+  <div className="relative">
+    <div className="absolute w-3 h-3 bg-gray-400 rounded-full -left-[1.4375rem] top-2.5 border-2 border-white"></div>
+    <details>
+      <summary><h2 className="inline text-xl font-semibold hover:text-blue-500 cursor-pointer">17th of March 2025</h2></summary>
+      <div className="mt-4 text-gray-600 space-y-6">
+        ### **Mobile**
+        -   [Android] Added safeTxHash and userOpHash in response from send transaction.
+        -   [Android] Added contacts to Get Permissions command.
+        -   [Android] Show settings in the pop-up menu on long press.
+        -   [Both] Search Has gotten much faster in the Mini Apps.
+        -   [Both] Mini Apps Deeplinking fixes.
+        -   [Both] World Mini Apps Widget.
 
-### Minikit 1.7.1 is out.
+        ### **Minikit**
+        -   Added NFC ID support to Minikit. Now you can receive a more detailed verification_level response.
 
--   Transaction Improvements.
-    -   Support for booleans in send transactions.
-    -   Auto formatting of your content now instead of you needing to stringify
--   Haptics Support.
--   Get Permissions (now you have a command to get the notification permission status of a user without needing to request first)
+        ### **Dev Portal**
+        -   Notification sending from developer portal.
+        -   'Import wallets as CSV'.
 
-### Docs
+        ### **Docs**
+        -   New Quick Actions
+            -   PUF
+            -   World Companies Finder
+            -   One Pay
+            -   Orbital X
+        -   Added Send Transaction and Wallet Auth GIFs.
+        -   NSFW Prohibition.
+      </div>
+    </details>
 
--   World Chat Quick Actions Added
-    -   Pay
-    -   Request Payment
-    -   Draft Message
--   Google & Apple Pay Implementation guides
--   Haptic Feedback implementation guide
+  </div>
+
+  <div className="relative">
+    <div className="absolute w-3 h-3 bg-gray-400 rounded-full -left-[1.4375rem] top-2.5 border-2 border-white"></div>
+    <details>
+      <summary><h2 className="inline text-xl font-semibold hover:text-blue-500 cursor-pointer">10th of March 2025</h2></summary>
+      <div className="mt-4 text-gray-600 space-y-6">
+        ### **Mobile**
+        -   [iOS] Notification paths bugs: Fixed.
+        -   [iOS] Contacts modal bugs: Fixed.
+        -   [iOS] Added safeTxHash and userOpHash in response from send transaction.
+        -   [Android] World Chat Bugs Fixed.
+        -   [Both] Include Mini App ID in Transaction Response Payload.
+        -   [Both]Added Haptic Feedback.
+        -   [Both] Mini App rearrange.
+        -   [Both] Spotlight Search Fixed.
+        -   [Both] Mini App Widget.
+
+        ### **Minikit 1.7.1 is out.**
+        -   Transaction Improvements.
+            -   Support for booleans in send transactions.
+            -   Auto formatting of your content now instead of you needing to stringify.
+        -   Haptics Support.
+        -   Get Permissions (now you have a command to get the notification permission status of a user without needing to request first).
+
+        ### **Docs**
+        -   World Chat Quick Actions Added.
+            -   Pay
+            -   Request Payment
+            -   Draft Message
+        -   Google & Apple Pay Implementation guides.
+        -   Haptic Feedback implementation guide.
+      </div>
+    </details>
+
+  </div>

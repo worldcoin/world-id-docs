@@ -1,0 +1,150 @@
+import { Link } from '@/components/Link'
+
+# Gamification
+
+Gamification isn't about turning your app into a game—it's about using proven psychological principles to make routine actions more engaging and rewarding.
+
+## Why It Works
+
+Game mechanics tap into fundamental human psychology: our need for achievement, progress, and social comparison. Duolingo saw retention jump from 12% D1 to 55% after implementing streak mechanics. The key is choosing mechanics that align with your core user behavior, not just adding badges everywhere.
+
+## Core Mechanics by Impact & Effort
+
+| Mechanic            | Effort | Why It Works                                            | Quick Implementation                                         |
+| ------------------- | ------ | ------------------------------------------------------- | ------------------------------------------------------------ |
+| **Daily Streaks**   | ★★☆☆☆  | Creates habit formation; users hate breaking chains     | Track daily actions, show streak count, celebrate milestones |
+| **Progress Bars**   | ★☆☆☆☆  | Visual momentum; users hate seeing 80% incomplete       | CSS progress indicators for any goal completion              |
+| **Badges & Levels** | ★★☆☆☆  | Collectibles trigger completion bias                    | Emoji icons + achievement unlocks                            |
+| **Leaderboards**    | ★★☆☆☆  | Social comparison drives engagement                     | Simple top 10 list, refresh weekly                           |
+| **Mystery Rewards** | ★★☆☆☆  | Variable rewards release dopamine (slot machine effect) | Daily random reward from small pool                          |
+
+## Strategic Implementation
+
+### 1. Daily Streaks
+
+**Why this first**: Highest retention impact with moderate effort. Creates powerful daily habit loops.
+
+**Core concept**: Track consecutive days of user activity, celebrate milestones, make breaking streaks feel costly.
+
+**Implementation strategy**:
+
+-   Store `currentStreak`, `longestStreak`, `lastActiveDate` per user
+-   Check daily: consecutive day = +1, gap = reset to 1
+-   Celebrate at days 3, 7, 14, 30 with visual rewards
+-   Show streak prominently in app header
+
+```typescript
+// Simple streak logic
+const updateStreak = (lastActive: string) => {
+	const daysSinceLastActive = getDaysDifference(lastActive, today)
+	return daysSinceLastActive === 1 ? streak + 1 : 1
+}
+```
+
+### 2. Progress Bars & Visual Momentum
+
+Users hate leaving things 80% complete. Visual progress creates urgency to finish.
+
+**Where to use**:
+
+-   **Profile completion:** 2/5 steps remaining
+-   **Daily/weekly goals:** 7/10 tasks done
+-   **Social milestones:** 3/5 friends invited
+-   **Skill progression**: Level 4: 80% to Level 5
+
+**Key principle**: Always show progress toward the next achievable milestone, not distant end goals.
+
+### 3. Achievement Badges
+
+**Strategy**: Create collectible moments that trigger completion bias and provide social proof.
+
+**Badge categories that work**:
+
+-   **Onboarding**: "First Steps" (welcome badge), "Explorer" (tried 3 features)
+-   **Social**: "Social Butterfly" (first share), "Connector" (5 friends invited)
+-   **Engagement**: "Week Warrior" (7-day streak), "Power User" (daily active for 30 days)
+-   **Milestones**: "High Achiever" (reached level 10), "Completionist" (100% profile)
+
+**Design tips**:
+
+-   Make early badges easy to get within first session
+-   Create clear progression: Common → Rare → Epic
+-   Show badge collection in user profile for social proof
+
+### 4. Social Leaderboards
+
+**When to use**: Best for apps with clear scoring metrics (points, levels, achievements completed).
+
+**Types that work**:
+
+-   **Weekly leaderboards**: Reset regularly so everyone has a chance
+-   **Friend leaderboards**: Compare with people you know (higher engagement)
+-   **Category leaderboards**: "Top Streaks", "Most Social", "Fastest Completion"
+
+**Key strategies**:
+
+-   Keep it simple: Top 10 list with current user highlighted
+-   Refresh weekly to prevent permanent dominance
+-   Only show verified users to prevent gaming
+
+**World App advantage**: World ID ensures fair competition with one-person-one-account guarantee.
+
+### 5. Variable Reward Systems
+
+**Psychology**: Variable rewards trigger dopamine more than predictable ones (slot machine effect).
+
+**Implementation ideas**:
+
+-   **Daily mystery box**: Random reward from a small pool (coins, badges, features)
+-   **Streak bonuses**: Random multiplier for milestone completions
+-   **Surprise rewards**: Occasional "lucky day" bonuses for regular actions
+-   **Loot boxes**: Earned through achievements, contain random useful items
+
+**Reward pool strategy**:
+
+-   70% common rewards (small coin amounts, basic items)
+-   25% rare rewards (larger bonuses, temporary premium features)
+-   5% epic rewards (exclusive badges, significant bonuses)
+
+**Key principle**: Make the anticipation of opening more exciting than the reward itself.
+
+## Design Principles
+
+### 1. One Core Loop
+
+Pick one primary habit loop and nail it before adding more.
+**Example flow**: Daily check-in → earn streak → unlock reward → share achievement → invite friends
+
+### 2. Early Wins
+
+Users should earn their first badge/reward within 30 seconds of first use. This creates immediate positive reinforcement and sets expectations for future rewards.
+
+### 3. Surface Progress Everywhere
+
+-   Show current streak in app header/navigation
+-   Display progress bars for any incomplete goals
+-   Badge count in user profile for social proof
+-   Preview next achievable reward/milestone
+
+### 4. Measure & Optimize
+
+Track key events: `streak_extended`, `badge_earned`, `leaderboard_viewed`, `reward_claimed`
+
+**Golden rule**: If a mechanic doesn't improve D7 retention after 2 weeks, remove it.
+
+## Common Pitfalls
+
+1. **Over-gamification**: Don't add badges for every tiny action—dilutes achievement value
+2. **Participation trophies**: Make early badges easy but later ones meaningful
+3. **Pay-to-win mechanics**: Keep purchases separate from core progression
+4. **Feature creep**: Start with one mechanic, prove it works, then expand
+
+## Your Next Steps
+
+1. **Start simple**: Implement daily streaks first—highest impact for effort invested
+2. **Add visual progress**: One progress bar or completion indicator
+3. **Create 3-5 early badges**: Tied directly to your core user actions
+4. **Measure ruthlessly**: Track D7 retention before/after each mechanic
+5. **Expand gradually**: Only add new mechanics after current ones prove effective
+
+The goal isn't to build a game —it's to make your core experience more engaging and habit-forming.

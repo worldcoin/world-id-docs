@@ -373,3 +373,108 @@ Detailed are a just a few values in the return that could be confusing. See the 
         </CodeGroup>
     </Col>
 </Row>
+<hr/>
+
+## Get User Grant Cycle{{ tag: "GET", label: "https://developer.worldcoin.org/api/v2/minikit/user-grant-cycle" }}
+
+<Row>
+    <Col>
+        This endpoint lets you retrieve the next grant claim date for a user of your mini app. You will only be able to
+        query for users who have installed your app and have an active grant cycle.
+
+        ### Query Params
+        <Properties>
+            <Property name="wallet_address" type="string" required={true}>
+            The `wallet_address` of the user to query. Must be exactly 42 characters long.
+            </Property>
+            <Property name="app_id" type="string" required={true}>
+            The `app_id` of your mini app.
+            </Property>
+        </Properties>
+
+        ### Request Headers
+        <Properties>
+            <Property name="Authorization" type="string" required={true}>
+            The `Authorization` header should be the `api_key` for your app from the Developer Portal. Make sure to
+            prefix it with `Bearer {api_key}`.
+            </Property>
+        </Properties>
+    </Col>
+    <Col>
+        <CodeGroup title="Request" tag="GET" label="https://developer.worldcoin.org/api/v2/minikit/user-grant-cycle">
+            ```bash {{ title: "cURL" }}
+            curl -X GET "https://developer.worldcoin.org/api/v2/minikit/user-grant-cycle?wallet_address={wallet_address}&app_id={app_id}" \
+                -H "Authorization: Bearer {api_key}"
+            ```
+            ```js
+            const params = new URLSearchParams({
+                wallet_address: "{wallet_address}",
+                app_id: "{app_id}"
+            });
+
+            fetch(`https://developer.worldcoin.org/api/v2/minikit/user-grant-cycle?${params}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer {api_key}',
+                }
+            })
+            ```
+        </CodeGroup>
+    </Col>
+
+</Row>
+<hr/>
+### Response
+<Row>
+    <Col>
+        <Properties>
+            <Property name="success" type="boolean">
+            Indicates if the API request was successful.
+            </Property>
+            <Property name="status" type="number">
+            The HTTP status code of the response.
+            </Property>
+            <Property name="result" type="object">
+            The result object containing:
+                - `nextGrantClaimUTCDate` (string): The UTC date when the user's next grant can be claimed, in ISO 8601 format
+            </Property>
+        </Properties>
+
+        ### Error Responses
+        <Properties>
+            <Property name="user_not_found_for_wallet_address" type="error">
+            The specified wallet address was not found in the system.
+            </Property>
+            <Property name="app_not_installed" type="error">
+            The user has not installed the specified mini app.
+            </Property>
+            <Property name="no_active_grant_cycles" type="error">
+            The user does not have any active grant cycles.
+            </Property>
+        </Properties>
+    </Col>
+    <Col>
+        <CodeGroup title="Response">
+            ```json {{ title: "Success" }}
+            {
+                "success": true,
+                "status": 200,
+                "result": {
+                    "nextGrantClaimUTCDate": "2024-12-31T00:00:00.000Z"
+                }
+            }
+            ```
+            ```json {{ title: "Error" }}
+            {
+                "success": false,
+                "status": 400,
+                "error": {
+                    "code": "user_not_found_for_wallet_address",
+                    "message": "User not found for the provided wallet address",
+                    "attribute": "user_grant_cycle"
+                }
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>

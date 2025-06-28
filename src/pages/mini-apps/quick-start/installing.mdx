@@ -1,20 +1,22 @@
-import { Link } from '@/components/Link'
 import Image from 'next/image'
+import { Link } from '@/components/Link'
 
 # MiniKit-JS SDK
 
 [MiniKit-JS](https://github.com/worldcoin/minikit-js) is our official SDK for creating mini apps that work with World App. It provides handy functions and types to make development a breeze.
 
 ## Quick Start
+
 The fastest way to get started is by using our template next-15 repository.
 Run the following command and follow the instructions to create a new mini app. For cleanliness we recommend using `pnpm` as your package manager.
 
 ```bash
 npx @worldcoin/create-mini-app@latest my-first-mini-app
 ```
-<div className="flex flex-col justify-center items-center">
-  <Image src="/images/docs/mini-apps/quick-start/template.png" alt="Template" width={300} height={700} />
-  <p className="text-sm italic mt-2">Correctly running template should look like this</p>
+
+<div className="flex flex-col items-center justify-center">
+	<Image src="/images/docs/mini-apps/quick-start/template.png" alt="Template" width={300} height={700} />
+	<p className="mt-2 text-sm italic">Correctly running template should look like this</p>
 </div>
 
 ## Manual Installation
@@ -53,7 +55,7 @@ Or use a CDN like <Link href="https://www.jsdelivr.com/package/npm/@worldcoin/mi
 1. Wrap your root with the MiniKitProvider component.This provides the MiniKit object to your app.
 
 ```tsx {{ title: 'src/index.tsx' }}
-import { MiniKitProvider } from '@worldcoin/minikit-js/minikit-provider';
+import { MiniKitProvider } from '@worldcoin/minikit-js/minikit-provider'
 export default async function Root({
 	children,
 }: Readonly<{
@@ -78,15 +80,16 @@ export default async function Root({
 console.log(MiniKit.isInstalled())
 ```
 
-
 ## Build with AI
 
 We have generated a [llms-full.txt](https://docs.world.org/llms-full.txt) file that converts all our documentation into a single markdown document following the https://llmstxt.org/ standard.
 
+Mini Apps specific [llms-full.txt](/miniapps-llms-full.txt) file.
 
 ## Template Repositories
 
 The following template repositories are also available:
+
 -   [Vanilla JS (using a CDN) template (featuring a simple backend for verifications)](https://github.com/new?template_name=minikit-js-template&template_owner=worldcoin),
 -   [Wallet Auth + Send Transaction example](https://github.com/worldcoin/minikit-web3-example).
 -   [Community example - Wallet Auth using JWT](https://github.com/wlding-blocks/wld-mini-apps-101).
@@ -95,6 +98,5 @@ The following template repositories are also available:
 Otherwise, continue below with the installation instructions.
 
 <Note type="info">
-Watch a video tutorial <Link href="https://www.youtube.com/watch?v=QJ0htHP6lb0">here</Link>.
+	Watch a video tutorial <Link href="https://www.youtube.com/watch?v=QJ0htHP6lb0">here</Link>.
 </Note>
-

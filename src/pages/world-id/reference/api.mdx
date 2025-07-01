@@ -48,6 +48,10 @@ Enables you to verify a World ID proof for a **Cloud action.** To ensure sybil-r
 	<Property name="signal_hash" type="string" defaultValue="hashToField('').digest">
 		The hash of the signal that was used to generate the proof. Defaults to the hash of an empty string.
 	</Property>
+	<Property name="max_age" type="number" required={false} min={3600} max={604800} defaultValue={7200}>
+		The maximum age of the root in seconds. This parameter controls how old the Merkle root used in the proof can
+		be. Minimum value is 3600 (1 hour) and maximum value is 604800 (7 days). Defaults to 7200 (2 hours).
+	</Property>
 </Properties>
 
 ### Possible Responses

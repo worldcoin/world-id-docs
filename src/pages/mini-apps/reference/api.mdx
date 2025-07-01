@@ -2,6 +2,156 @@ import { Link } from '@/components/Link'
 
 # API Reference
 
+### Base URL
+
+```
+https://developer.worldcoin.org
+```
+
+## Verify Proof {{ tag: "POST", label: "/api/v2/verify/{app_id}" }}
+
+<Row><Col>
+
+Enables you to verify a World ID proof for a **Cloud action.** To ensure sybil-resistance, by default, a single person can only verify once for every action. The number of allowed verifications for a single user can be configured in the Developer Portal.
+
+### Request Body
+
+<Properties>
+	<Property name="nullifier_hash" type="string" required={true}>
+		The unique user identifier (called the nullifier hash in the ZKP), as provided by IDKit. See [IDKit
+		response](/world-id/reference/idkit#types) for details.
+	</Property>
+	<Property name="proof" type="string" required={true}>
+		The zero-knowledge proof, as provided by IDKit. See [IDKit response](/world-id/reference/idkit#types) for
+		details.
+	</Property>
+	<Property name="merkle_root" type="string" required={true}>
+		Part of the ZKP, the hash of the Merkle root that proves membership to the set of credentials. As provided by
+		IDKit. See [IDKit response](/world-id/reference/idkit#types) for details.
+	</Property>
+	<Property name="verification_level" type="string" required={true}>
+		The verification level, as provided by IDKit. See [IDKit response](/world-id/reference/idkit#types) for details.
+	</Property>
+	<Property name="action" type="string" required={true}>
+		Same action identifier as passed to IDKit.
+	</Property>
+	<Property name="signal_hash" type="string" defaultValue="hashToField('').digest">
+		The hash of the signal that was used to generate the proof. Defaults to the hash of an empty string.
+	</Property>
+	<Property name="max_age" type="number" required={false} min={3600} max={604800} defaultValue={7200}>
+		The maximum age of the root in seconds. This parameter controls how old the Merkle root used in the proof can
+		be. Minimum value is 3600 (1 hour) and maximum value is 604800 (7 days). Defaults to 7200 (2 hours).
+	</Property>
+</Properties>
+
+### Possible Responses
+
+-   `200 OK` - The proof was successfully verified.
+-   `400 Bad Request` - The proof was invalid or the user has already verified for this action.
+
+</Col><Col sticky>
+
+<CodeGroup title="Request" tag="POST" label="/api/v2/verify/{app_id}">
+
+```bash {{ title: "cURL" }}
+curl -X POST "/api/v2/verify/{app_id}" \
+    -H "Content-Type: application/json" \
+    -d '{
+        "nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
+        "merkle_root": "0x2264a66d162d7893e12ea8e3c072c51e785bc085ad655f64c10c1a61e00f0bc2",
+        "proof": "0x1aa8b8f3b2d2de5ff452c0e1a83e29d6bf46fb83ef35dc5957121ff3d3698a1119090fb...",
+        "verification_level": "orb",
+        "action": "my_action",
+        "signal_hash": "0x00c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a4",
+        "max_age": 3600
+    }'
+```
+
+```js
+fetch(apiUrl, {
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		nullifier_hash: '0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8',
+		merkle_root: '0x2264a66d162d7893e12ea8e3c072c51e785bc085ad655f64c10c1a61e00f0bc2',
+		proof: '0x1aa8b8f3b2d2de5ff452c0e1a83e29d6bf46fb83ef35dc5957121ff3d3698a1119090fb...',
+		verification_level: 'orb',
+		action: 'my_action',
+		signal_hash: '0x00c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a4',
+		max_age: 3600,
+	}),
+})
+```
+
+</CodeGroup>
+
+<CodeGroup title="Response">
+
+```json {{ title: "200 OK" }}
+{
+	"success": true,
+	"action": "my_action",
+	"nullifier_hash": "0x2bf8406809dcefb1486dadc96c0a897db9bab002053054cf64272db512c6fbd8",
+	"created_at": "2023-02-18T11:20:39.530041+00:00"
+}
+```
+
+```json {{ title: "400 Invalid Proof" }}
+{
+	"code": "invalid_proof",
+	"detail": "The provided proof is invalid and it cannot be verified. Please check all inputs and try again.",
+	"attribute": null
+}
+```
+
+```json {{ title: "400 Invalid Merkle Root" }}
+{
+	"code": "invalid_merkle_root",
+	"detail": "The provided Merkle root is invalid. User appears to be unverified.",
+	"attribute": null
+}
+```
+
+```json {{ title: "400 Root Too Old" }}
+{
+	"code": "root_too_old",
+	"detail": "The provided merkle root is too old. Please generate a new proof and try again.",
+	"attribute": null
+}
+```
+
+```json {{ title: "400 Invalid Credential Type" }}
+{
+	"code": "invalid",
+	"detail": "Invalid credential type.",
+	"attribute": "credential_type"
+}
+```
+
+```json {{ title: "400 User Exceeded Maximum Verifications" }}
+{
+	"code": "exceeded_max_verifications",
+	"detail": "This user has exceeded the maximum number of verifications allowed for this proof.",
+	"attribute": null
+}
+```
+
+```json {{ title: "400 User Already Verified" }}
+{
+	"code": "already_verified",
+	"detail": "This person has already verified for this action.",
+	"attribute": null
+}
+```
+
+</CodeGroup>
+
+</Col></Row>
+
+<hr />
+
 ## Send Notification{{ tag: "POST", label: "https://developer.worldcoin.org/api/v2/minikit/send-notification" }}
 
 This endpoint lets you send notifications to users of your mini app and requires an `api_key`.

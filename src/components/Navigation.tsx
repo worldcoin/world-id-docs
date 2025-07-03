@@ -182,6 +182,7 @@ export const worldIdNavigation = [
 			{ title: 'On-Chain Verification', href: '/world-id/id/on-chain' },
 			{ title: 'Libraries', href: '/world-id/id/libraries' },
 			{ title: 'Testing', href: '/world-id/id/testing' },
+			{ title: 'Design Guidelines', href: '/world-id/id/design-guidelines' },
 		],
 	},
 	{

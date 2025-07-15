@@ -105,10 +105,8 @@ export async function POST(req: NextRequest) {
           const res = await fetch(`/api/confirm-payment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              payload: finalPayload as MiniAppPaymentSuccessPayload
-            }),
-          });
+            body: JSON.stringify(finalPayload),
+          })
           const payment = await res.json()
           if (payment.success) {
             // Congrats your payment was successful!

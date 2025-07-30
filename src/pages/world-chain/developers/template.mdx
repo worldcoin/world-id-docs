@@ -102,7 +102,7 @@ contract Contract {
 			proof
 		);
 
-		// We now record the user has done this, so they can't do it again (proof of uniqueness)
+		// We now record that the user has done this, so they can't do it again (proof of uniqueness)
 		nullifierHashes[nullifierHash] = true;
 
 		// Finally, execute your logic here, for example issue a token, NFT, etc...
@@ -119,7 +119,7 @@ But we will go over the main parts of the contract here:
 
 1. The `Contract` contract is the main contract that will be deployed to World Chain Sepolia. It has a constructor that
    takes the `IWorldID` interface, the app ID and the action ID as parameters. The `IWorldID` interface is the World ID router
-   that will verify the proofs, the app ID is the ID of the app can be created by the developer using the
+   that will verify the proofs, the app ID is the ID of the app that can be created by the developer using the
    [World ID Developer Portal](https://developer.worldcoin.org/login) and and the action ID is the ID of the action that the user
    is performing which will be generated automatically by the [IDKit SDK](https://docs.worldcoin.org/reference/idkit) and derived
    from `action` string defined in the Developer Portal.
@@ -153,7 +153,7 @@ First, we will fork the World Chain Sepolia network using anvil:
 anvil -f $RPC_URL
 ```
 
-We need to also set three important environment variables that are required for the deployment of the World ID template app:
+We also need to set three important environment variables that are required for the deployment of the World ID template app:
 
 -   `WORLD_ID_ROUTER`: The address of the World ID router contract that will verify the proofs (can be found in the [World ID documentation](https://docs.worldcoin.org/world-chain/reference/useful-contracts))
 -   `NEXT_PUBLIC_APP_ID`: The app ID that was generated in the [Developer Portal](https://developer.worldcoin.org/login)

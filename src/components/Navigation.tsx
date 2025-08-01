@@ -289,15 +289,15 @@ export const miniAppsNavigation = [
 	{
 		title: 'Quick Actions',
 		links: [
-			{ title: 'Quick Actions', href: '/mini-apps/sharing/quick-actions' },
+			{ title: 'Sharing', href: '/mini-apps/sharing/quick-actions' },
 			{ title: 'Add Money', href: '/mini-apps/sharing/add-money-qa' },
 			{ title: 'UNO Swap', href: '/mini-apps/sharing/uno-qa' },
-			{ title: 'Eggs Vault Smash', href: '/mini-apps/sharing/eggs-vault-qa' },
+			//{ title: 'Eggs Vault Smash', href: '/mini-apps/sharing/eggs-vault-qa' },
 			{ title: 'Earn WLD Pool', href: '/mini-apps/sharing/earn-wld-qa' },
 			{ title: 'DNA Send & Swap', href: '/mini-apps/sharing/dna-qa' },
 			{ title: 'Sage Support', href: '/mini-apps/sharing/sage-qa' },
 			{ title: 'VUNI', href: '/mini-apps/sharing/vuni-qa' },
-			{ title: 'World Chat', href: '/mini-apps/sharing/world-chat-qa' },
+			//{ title: 'World Chat', href: '/mini-apps/sharing/world-chat-qa' },
 			{ title: 'World Companies Finder', href: '/mini-apps/sharing/world-companies-finder-qa' },
 			{ title: 'OnePay', href: '/mini-apps/sharing/one-pay-qa' },
 			{ title: 'PUF', href: '/mini-apps/sharing/puf-qa' },

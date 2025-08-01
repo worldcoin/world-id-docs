@@ -1,40 +1,64 @@
-# Quick Actions 
+# Sharing
 
-### **What Are Quick Actions?**
+## Universal Links
 
-A Quick Action is a universal deeplink defined by a schema that navigates to a specific path inside your app. It's meant to be used between mini apps, enabling one app (App A) to use a feature or action of another app (App B) seamlessly.
-In short, you should create a quick action to link to another mini app.
+All mini app links use the same format to navigate to specific paths within any mini app:
+
+**Universal-link format**
+
+```
+https://world.org/mini-app?app_id={app_id}&path={path}
+```
 
 <Note type="info">
 	If a user clicks on your link and has World App installed, it will automatically open the mini app inside of World
 	App to the specified path. Otherwise, it will direct them to the app store and prompt them to install World App.
 </Note>
 
-### **Benefits of Quick Actions**
-
-1. **Leverage Expertise**: Use other mini apps already working specific features.
-2. **Resource & Time Optimization**: Focus on your apps core functionalities while outsourcing supplementary features.
-3. **Community Growth**: Integrating another apps functionality opens opportunities for co-marketing.
-
-### **How to Make a Quick Action**
-
-1. **Create a Universal Link Schema**: Define a schema with a custom path that aligns with the functionality you want to provide.
-
-2. **Publish it in our docs for all devs to use**: Fill this [form](https://forms.gle/UBcKMrnxtyxqX4dq6) for our team to test and publish your quick action on this page.
-
-Urls will follow the schema below.
-
-```
- https://world.org/mini-app?app_id={app_id}&path={path}
-```
-
-### Parameters
+**Parameters:**
 
 <Properties>
 	<Property name="app_id" type="string" required={true}>
-		The `app_id` corresponding to your mini app.
+		The `app_id` corresponding to the target mini app.
 	</Property>
 	<Property name="path" type="string">
-		Should be the url encoded path where you want to link to inside of your mini app
+		URL encoded path to the specific feature inside the target mini app
 	</Property>
 </Properties>
+
+## Growth & Viral Sharing (Your App)
+
+Create shareable invite links for viral growth and referrals:
+
+```typescript
+function generateInviteLink(userId: string): string {
+	const baseUrl = 'https://world.org/mini-app'
+	const appId = 'your_app_id' // Your own app ID
+	const path = encodeURIComponent(`/invite?code=${userId}`)
+	return `${baseUrl}?app_id=${appId}&path=${path}`
+}
+```
+
+**Full viral growth guide**: [Sharing & Viral Growth](/mini-apps/growth/invites-viral)
+
+## Quick Actions (Other Apps)
+
+Link to specific features in other mini apps for cross-app functionality.
+
+**Benefits of Quick Actions:**
+
+-   **Leverage Expertise**: Use other mini apps' specialized features
+-   **Resource Optimization**: Focus on your core functionality
+-   **Community Growth**: Cross-app integration creates co-marketing opportunities
+
+**How to create a Quick Action:**
+
+1. Create a Universal Link Schema with a custom path
+
+    **Example:**
+
+```
+https://world.org/mini-app?app_id=app_8e407cfbae7ae51c19b07faff837aeeb&path=%2Fswap
+```
+
+2. Fill this [form](https://forms.gle/UBcKMrnxtyxqX4dq6) to get your quick action published in our docs.

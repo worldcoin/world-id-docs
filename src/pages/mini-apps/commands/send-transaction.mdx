@@ -8,7 +8,7 @@ One important caveat is that approvals are not permitted.
 To transfer funds, you must either use Permit2 [Signature Transfer](https://docs.uniswap.org/contracts/permit2/reference/signature-transfer) or directly call the asset's transfer function.
 
 Ensure you specify the contracts and tokens you are interacting with in the Developer Portal (under Configuration → Advanced) ; otherwise, the backend will block the transaction. 
-Gas fees are covered on World Chain; however, there is a limit of 300 transactions per user per day.
+Gas fees are covered on World Chain; however, there is a limit of 500 transactions per user per day. Each transaction has a 1 million gas limit.
 
 Users can sign and send multiple transactions in parallel. Sequential execution is not enforced for miniapp transactions, unless those transactions are placed in the transaction array and sent as a single sendTransaction command.
 

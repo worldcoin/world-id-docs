@@ -450,8 +450,6 @@ We offer this as a service to make it easier to use WLD as a currency.
             The `fiatCurrencies` is a comma-separated list of fiat currencies following ISO4217 currency code.
             eg. `USD,EUR,JPY,ARS`
             </Property>
-        </Properties>
-         <Properties>
             <Property name="cryptoCurrencies" type="string" required={true}>
             The `cryptoCurrencies` is a comma-separated list of currencies we support.
             eg. `USDC,WLD`
@@ -525,7 +523,7 @@ Detailed are a just a few values in the return that could be confusing. See the 
 </Row>
 <hr/>
 
-## Create Incognito Action {{ tag: "POST", label: "https://developer.worldcoin.org/api/v2/create-action" }}
+## Create Incognito Action {{ tag: "POST", label: "https://developer.worldcoin.org/api/v2/create-action/[app_id]" }}
 
 <Row>
     <Col>
@@ -536,18 +534,12 @@ Detailed are a just a few values in the return that could be confusing. See the 
             <Property name="action" type="string" required={true}>
                 An identifier of the action that will be created.
             </Property>
-        </Properties>
-         <Properties>
             <Property name="name" type="string" required={false}>
                 A human readable name for the action.
             </Property>
-        </Properties>
-         <Properties>
             <Property name="description" type="string" required={false}>
                 A human readable description for the action.
             </Property>
-        </Properties>
-         <Properties>
             <Property name="max_verifications" type="number" required={false}>
                 The maximum number of verifications that can be performed for the action. Defaults to 1.
             </Property>
@@ -555,9 +547,9 @@ Detailed are a just a few values in the return that could be confusing. See the 
 
     </Col>
     <Col>
-        <CodeGroup title="Request" tag="POST" label="https://developer.worldcoin.org/api/v2/create-action">
+        <CodeGroup title="Request" tag="POST" label="https://developer.worldcoin.org/api/v2/create-action/[app_id]">
             ```bash {{ title: "cURL" }}
-            curl -X POST "https://developer.worldcoin.org/api/v2/create-action" \
+            curl -X POST "https://developer.worldcoin.org/api/v2/create-action/[app_id]" \
                 -H "Authorization: Bearer {api_key}" \
                 -H "Content-Type: application/json" \
                 -d '{
@@ -597,13 +589,13 @@ Detailed are a just a few values in the return that could be confusing. See the 
             <Property name="action" type="boolean">
             The result object containing:
                 - `success` (boolean): Indicates if the API request was successful.
-                - `external_nullifier` (string): The external nullifier of the action.
+                - `external_nullifier` (string): The external nullifier of the action. Hash of `action` and `app_id`. 
                 - `action`,`name`,`description`,`max_verifications` (object): Properties of the action that was created.
             </Property>
         </Properties>
     </Col>
      <Col>
-        <CodeGroup title="Response" tag="POST" label="https://developer.worldcoin.org/api/v2/create-action">
+        <CodeGroup title="Response" tag="POST" label="https://developer.worldcoin.org/api/v2/create-action/[app_id]">
             ```json
             {
                 "action": {

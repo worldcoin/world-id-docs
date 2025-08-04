@@ -450,8 +450,6 @@ We offer this as a service to make it easier to use WLD as a currency.
             The `fiatCurrencies` is a comma-separated list of fiat currencies following ISO4217 currency code.
             eg. `USD,EUR,JPY,ARS`
             </Property>
-        </Properties>
-         <Properties>
             <Property name="cryptoCurrencies" type="string" required={true}>
             The `cryptoCurrencies` is a comma-separated list of currencies we support.
             eg. `USDC,WLD`
@@ -524,6 +522,94 @@ Detailed are a just a few values in the return that could be confusing. See the 
     </Col>
 </Row>
 <hr/>
+
+## Create Incognito Action {{ tag: "POST", label: "https://developer.worldcoin.org/api/v2/create-action/[app_id]" }}
+
+<Row>
+    <Col>
+        This endpoint lets you create incognito actions for your miniapp. Instead of going through the Developer Portal UI, you can create them via this endpoint.
+
+        ### Query Params
+        <Properties>
+            <Property name="action" type="string" required={true}>
+                An identifier of the action that will be created.
+            </Property>
+            <Property name="name" type="string" required={false}>
+                A human readable name for the action.
+            </Property>
+            <Property name="description" type="string" required={false}>
+                A human readable description for the action.
+            </Property>
+            <Property name="max_verifications" type="number" required={false}>
+                The maximum number of verifications that can be performed for the action. Defaults to 1.
+            </Property>
+        </Properties>
+
+    </Col>
+    <Col>
+        <CodeGroup title="Request" tag="POST" label="https://developer.worldcoin.org/api/v2/create-action/[app_id]">
+            ```bash {{ title: "cURL" }}
+            curl -X POST "https://developer.worldcoin.org/api/v2/create-action/[app_id]" \
+                -H "Authorization: Bearer {api_key}" \
+                -H "Content-Type: application/json" \
+                -d '{
+                    "action": "action_id",
+                    "name": "action_name",
+                    "description": "action_description",
+                    "max_verifications": 1
+                }'
+
+            ```
+            ```js
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer {api_key}',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: "action_id",
+                    name: "action_name",
+                    description: "action_description",
+                    max_verifications: 1
+                })
+            })
+            ```
+        </CodeGroup>
+    </Col>
+
+</Row>
+<hr/>
+
+### Response
+
+<Row>
+    <Col>
+        <Properties>
+            <Property name="action" type="boolean">
+            The result object containing:
+                - `success` (boolean): Indicates if the API request was successful.
+                - `external_nullifier` (string): The external nullifier of the action. Hash of `action` and `app_id`. 
+                - `action`,`name`,`description`,`max_verifications` (object): Properties of the action that was created.
+            </Property>
+        </Properties>
+    </Col>
+     <Col>
+        <CodeGroup title="Response" tag="POST" label="https://developer.worldcoin.org/api/v2/create-action/[app_id]">
+            ```json
+            {
+                "action": {
+                    "action": "action",
+                    "name": "name",
+                    "description": "description",
+                    "max_verifications": 1,
+                    "external_nullifier": "external_nullifier",
+                }
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
 
 ## Get User Grant Cycle{{ tag: "GET", label: "https://developer.worldcoin.org/api/v2/minikit/user-grant-cycle" }}
 
@@ -627,4 +713,5 @@ Detailed are a just a few values in the return that could be confusing. See the 
             ```
         </CodeGroup>
     </Col>
+
 </Row>

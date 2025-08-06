@@ -250,29 +250,6 @@ export const miniAppsNavigation = [
 		],
 	},
 	{
-		title: 'Technical Reference',
-		links: [
-			{ title: 'Init', href: '/mini-apps/reference/init' },
-			{ title: 'API Reference', href: '/mini-apps/reference/api' },
-			{ title: 'Errors', href: '/mini-apps/reference/errors' },
-			{ title: 'Address Book', href: '/mini-apps/reference/address-book' },
-			{ title: 'Usernames', href: '/mini-apps/reference/usernames' },
-			{ title: 'Status Page', href: '/mini-apps/reference/status-page' },
-			{ title: 'Payment Methods', href: '/mini-apps/reference/payment-methods' },
-			{ title: 'Microphone', href: '/mini-apps/reference/microphone' },
-		],
-	},
-	{
-		title: 'Growth Playbook',
-		links: [
-			{ title: 'Overview', href: '/mini-apps/growth' },
-			{ title: 'Invites & Viral Loops', href: '/mini-apps/growth/invites-viral' },
-			{ title: 'Gamification', href: '/mini-apps/growth/gamification' },
-			{ title: 'Retention via Notifications', href: '/mini-apps/growth/notifications' },
-			{ title: 'Data & Analytics', href: '/mini-apps/growth/analytics' },
-		],
-	},
-	{
 		title: 'Notifications',
 		links: [
 			{ title: 'Features & Guidelines', href: '/mini-apps/notifications/features-and-guidelines' },
@@ -284,6 +261,16 @@ export const miniAppsNavigation = [
 		links: [
 			{ title: 'Guidelines', href: '/mini-apps/design/app-guidelines' },
 			{ title: 'UI Kit', href: '/mini-apps/design/ui-kit' },
+		],
+	},
+	{
+		title: 'Growth Playbook',
+		links: [
+			{ title: 'Overview', href: '/mini-apps/growth' },
+			{ title: 'Invites & Viral Loops', href: '/mini-apps/growth/invites-viral' },
+			{ title: 'Gamification', href: '/mini-apps/growth/gamification' },
+			{ title: 'Retention via Notifications', href: '/mini-apps/growth/notifications' },
+			{ title: 'Data & Analytics', href: '/mini-apps/growth/analytics' },
 		],
 	},
 	{
@@ -302,6 +289,19 @@ export const miniAppsNavigation = [
 			{ title: 'OnePay', href: '/mini-apps/sharing/one-pay-qa' },
 			{ title: 'PUF', href: '/mini-apps/sharing/puf-qa' },
 			{ title: 'ORBITAL-X', href: '/mini-apps/sharing/orbital-x-qa' },
+		],
+	},
+	{
+		title: 'Technical Reference',
+		links: [
+			{ title: 'Init', href: '/mini-apps/reference/init' },
+			{ title: 'API Reference', href: '/mini-apps/reference/api' },
+			{ title: 'Errors', href: '/mini-apps/reference/errors' },
+			{ title: 'Address Book', href: '/mini-apps/reference/address-book' },
+			{ title: 'Usernames', href: '/mini-apps/reference/usernames' },
+			{ title: 'Status Page', href: '/mini-apps/reference/status-page' },
+			{ title: 'Payment Methods', href: '/mini-apps/reference/payment-methods' },
+			{ title: 'Microphone', href: '/mini-apps/reference/microphone' },
 		],
 	},
 	{

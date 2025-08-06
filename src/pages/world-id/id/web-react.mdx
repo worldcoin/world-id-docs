@@ -38,12 +38,22 @@ import { IDKitWidget, VerificationLevel, ISuccessResult } from '@worldcoin/idkit
 	onSuccess={onSuccess} // callback when the modal is closed
 	handleVerify={handleVerify} // callback when the proof is received
 	verification_level={VerificationLevel.Orb}
+	language="en" // th | en | es 
 >
 	{({ open }) => (
 		// This is the button that will open the IDKit modal
 		<button onClick={open}>Verify with World ID</button>
 	)}
 </IDKitWidget>
+```
+
+### Localization
+
+You can localize the IDKit modal by passing the `language` prop. 
+By default it will try to detect the user's browser language via the `navigator.language` property.
+
+```tsx {{ title: "/verify.tsx"}}
+<IDKitWidget language="en" />
 ```
 
 ### handleVerify

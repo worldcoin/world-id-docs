@@ -225,7 +225,7 @@ export async function POST(req: NextRequest) {
 **Web2** applications can call our Developer Portal API to get the current status of the transaction. Since payments are executed on-chain, it can take up to a few minutes to confirm.
 You can choose to optimistically accept the payments once they've landed on-chain, or poll the endpoint to wait until it's successful mined.
 
-**Web3** applications can choose to search the on-chain event logs temselves via the `TransferReference` event emitted on-chain.
+**Web3** applications can choose to search the on-chain event logs themselves via the `TransferReference` event emitted on-chain.
 Note for reference ID the value on chain will be the keccak256 hash of the reference ID.
 
 ```solidity {{title : 'TransferReference'}}

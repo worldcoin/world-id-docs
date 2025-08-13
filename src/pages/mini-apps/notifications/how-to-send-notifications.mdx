@@ -15,8 +15,9 @@ Notifications are queued on our servers, users may not receive them immediately.
 
 ## Manually sending notifications from Developer Portal
 
-**Note: This form doesn't support localized notifications yet.
-To take advantage of localizations, use the API.**
+<Note type="info">
+	This form doesn't support localized notifications yet. To take advantage of localizations, use the API.
+</Note>
 
 You can send notifications to multiple wallet addresses (up to a thousand) directly from the Developer Portal.
 
@@ -26,136 +27,49 @@ You can send notifications to multiple wallet addresses (up to a thousand) direc
 
 Use the form to input addresses, and content details. Once you click the `Send` button and get a success response, your notifications will be queued for delivery.
 
-## Send Notification API{{ tag: "POST", label: "https://developer.worldcoin.org/api/v2/minikit/send-notification" }}
+## Calling the send-notification endpoint
 
-This endpoint lets you send localized notifications to users of your mini app and requires an `api_key`.
+The API endpoint provides capabilities for sending notifications programmatically. These notifications can be localized,
+which ensures you reach users in their preferred language. This results in a dramatically higher engagement rate.
 
-### How do localizations work?
+### Localization made simple
 
-The user's language is available to you when they access your mini app
-(via [Navigator](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/language)).
+```javascript
+const response = await fetch('https://developer.worldcoin.org/api/v2/minikit/send-notification', {
+	method: 'POST',
+	headers: {
+		Authorization: `Bearer ${process.env.API_KEY}`,
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		app_id: 'your_app_id',
+		wallet_addresses: ['0x123...', '0x456...'],
+		localisations: [
+			{
+				language: 'en',
+				title: '🎉 Rewards Available',
+				message: 'Hey ${username}, your daily rewards are ready!',
+			},
+			{
+				language: 'es',
+				title: '🎉 Recompensas Disponibles',
+				message: 'Hola ${username}, tus recompensas diarias están listas!',
+			},
+			{
+				language: 'fr',
+				title: '🎉 Récompenses Disponibles',
+				message: 'Salut ${username}, vos récompenses quotidiennes sont prêtes!',
+			},
+		],
+		mini_app_path: 'worldapp://mini-app?app_id=your_app_id&path=/rewards',
+	}),
+})
+```
 
-All you need to do is provide localizations. Our backend will automatically infer which language is preferred by the user.
-Currently we support only a subset of languages, with plans to expand. Find the entire list [here](/mini-apps/notifications/how-to-send-notifications#supported-languages).
-You can only specify languages that we support.
+Each user automatically receives the notification in their preferred language.
+If their language isn't included in your localizations, you'll receive a specific `reason` in the response.
 
--   If a user prefers a language that we don't currently support, we will deliver the notification in English.
--   If you don't specify a localization for the user's preferred language, the notification will not be delivered.
-    The response will include a specific `reason` to inform you of this.
-
-<Row>
-    <Col>
-        ### Body Params
-
-        You are required to either specify both `title` and `message` OR `localisations`.
-
-        <Properties>
-            <Property name="wallet_addresses" type="string[]" required>
-            The `wallet_addresses` is an array of wallet addresses to send the notification to. Users must have opted in to notifications for your app. Max 1000 users per call.
-            </Property>
-            <Property name="localisations" type="object[]">
-            `localisations` is an array of objects with properties:
-                - `language` (string, required): The language of the notification.
-                - `title` (string, required): The localized title of the notification.
-                - `message` (string, required): The localized message of the notification.
-            It's required to provide at least the `en` language.
-            </Property>
-            <Property name="title" type="string" deprecated>
-            Note: This will not localize your notifications. The `title` is the title of the notification. It should be 30 characters or less. May contain emojis.
-            </Property>
-            <Property name="message" type="string" deprecated>
-            Note: This will not localize your notifications. The `message` is the message of the notification. It should be 200 characters or less. You can include the special variable `${username}` in your message, which will be replaced with the actual username of the recipient when the notification is delivered.
-            </Property>
-            <Property name="mini_app_path" type="string" required>
-            The `mini_app_path` is the url encoded path of the mini app where your notification should link to when the user clicks on it. <br/><br/> Should be of the format `worldapp://mini-app?app_id=[app_id]&path=[path]` (path is optional).
-            </Property>
-            <Property name="app_id" type="string" required>
-            The `app_id` is the identifier of the app initiating the transaction.
-            </Property>
-        </Properties>
-
-        ### Request Headers
-        <Properties>
-            <Property name="Authorization" type="string" required={true}>
-            The `Authorization` header should be the `api_key` for your app from the Developer Portal. Make sure to
-            prefix it with `Bearer {api_key}`.
-            </Property>
-        </Properties>
-    </Col>
-    <Col>
-        <CodeGroup title="Request" tag="POST" label="https://developer.worldcoin.org/api/v2/minikit/send-notification">
-            ```bash {{ title: "cURL" }}
-            curl -X POST "https://developer.worldcoin.org/api/v2/minikit/send-notification" \
-                -H "Authorization: Bearer {api_key}" \
-                -H "Content-Type: application/json" \
-                -d '{"app_id": "app_id", "wallet_addresses": ["0x123", "0x456"], "localisations": [{"language": "en", "title": "title", "message": "Hello ${username}, your transaction is complete!"}], "mini_app_path": "mini_app_path"}'
-            ```
-            ```js
-            fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer {api_key}',
-                },
-                body: JSON.stringify({
-                    app_id: "app_id",
-                    wallet_addresses: ["0x123", "0x456"],
-                    localisations: [
-                        {
-                            language: "en",
-                            title: "title",
-                            message: "Hello ${username}, your transaction is complete!"
-                        }
-                    ],
-                    mini_app_path: "mini_app_path"
-                })
-            })
-            ```
-        </CodeGroup>
-    </Col>
-
-</Row>
-<hr/>
-### Response
-<Row>
-    <Col>
-        <Properties>
-            <Property name="success" type="boolean">
-            Indicates if the API request was successful.
-            </Property>
-            <Property name="status" type="number">
-            The HTTP status code of the response.
-            </Property>
-            <Property name="result" type="array">
-            An array of notification delivery results for each wallet address, where each item contains:
-                - `walletAddress` (string): The wallet address that the notification was attempted to be sent to
-                - `sent` (boolean): Whether the notification was successfully sent to this wallet address
-                - `reason` (string, optional): If the notification failed to send, this field contains the reason
-            </Property>
-        </Properties>
-    </Col>
-    <Col>
-        <CodeGroup title="Response">
-            ```json
-            {
-                "success": true,
-                "status": 200,
-                "result": [
-                    {
-                        "walletAddress": "0x377da9cab87c04a1d6f19d8b4be9aef8df26fcdd",
-                        "sent": true
-                    },
-                    {
-                        "walletAddress": "0x444da9cab87c04a1d6f19d8b4be9aef8df26fcdd",
-                        "sent": false,
-                        "reason": "User has notification disabled for World App"
-                    }
-                ]
-            }
-            ```
-        </CodeGroup>
-    </Col>
-</Row>
-<hr/>
+For complete API documentation including all supported languages and response formats, see the [API Reference](/mini-apps/reference/api#send-notification).
 
 ## Testing
 
@@ -168,24 +82,4 @@ to enable notifications for your mini app inside of World App to receive them.
 -   [Features & Guidelines](/mini-apps/notifications/guidelines)
 -   [How To Request Notification Permissions](/mini-apps/commands/request-permission)
 -   [How To Get Notification Permissions](/mini-apps/commands/get-permissions)
-
-## Supported Languages
-
-| Language                     | Code     |
-| ---------------------------- | -------- |
-| English                      | `en`     |
-| Catalan                      | `ca`     |
-| Chinese Simplified           | `zh_CN`  |
-| French                       | `fr`     |
-| German                       | `de`     |
-| Hindi                        | `hi`     |
-| Indonesian                   | `id`     |
-| Japanese                     | `ja`     |
-| Korean                       | `ko`     |
-| Malay                        | `ms`     |
-| Polish                       | `pl`     |
-| Portuguese                   | `pt`     |
-| Spanish                      | `es`     |
-| Spanish (Latin America)      | `es_419` |
-| Thai                         | `th`     |
-| Traditional Chinese (Taiwan) | `zh_TW`  |
+-   [Send Notification API Reference](/mini-apps/reference/api#send-notification)

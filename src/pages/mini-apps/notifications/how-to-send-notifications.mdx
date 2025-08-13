@@ -9,7 +9,7 @@ To send notifications to users you need to:
 
 -   Request permission in the Developer Portal Advanced settings, for your mini app,
 -   request permission to send notifications from the user, via MiniKit (see [Request Permission](/mini-apps/commands/request-permission)),
--   actually send the notification using our API or the Developer Portal (see [How To Send Notifications](/mini-apps/notifications/how-to-send-notifications)).
+-   actually send the notification using our API or the Developer Portal.
 
 Notifications are queued on our servers, users may not receive them immediately.
 
@@ -32,15 +32,16 @@ This endpoint lets you send localized notifications to users of your mini app an
 
 ### How do localizations work?
 
-The user language is available to you when a user accesses your mini app
+The user's language is available to you when they access your mini app
 (via [Navigator](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/language)).
 
-All you need to do is provide localizations, in our backend we will infer which language is preferred by the user.
-Currently we support only a subset of languages, with plans to expand - find the entire list [here](/mini-apps/notifications/supported-languages).
+All you need to do is provide localizations. Our backend will automatically infer which language is preferred by the user.
+Currently we support only a subset of languages, with plans to expand. Find the entire list [here](/mini-apps/notifications/how-to-send-notifications#supported-languages).
+You can only specify languages that we support.
 
--   If a user prefers a language that we don't support right now, we will favor English.
--   If you don't specify a language that the user prefers, we will not send the notification.
-    You will be informed about this via a specific `reason` property in the response.
+-   If a user prefers a language that we don't currently support, we will deliver the notification in English.
+-   If you don't specify a localization for the user's preferred language, the notification will not be delivered.
+    The response will include a specific `reason` to inform you of this.
 
 <Row>
     <Col>
@@ -87,7 +88,7 @@ Currently we support only a subset of languages, with plans to expand - find the
             curl -X POST "https://developer.worldcoin.org/api/v2/minikit/send-notification" \
                 -H "Authorization: Bearer {api_key}" \
                 -H "Content-Type: application/json" \
-                -d '{"app_id": "app_id", "wallet_addresses": ["0x123", "0x456"], "title": "title", "message": "Hello ${username}, your transaction is complete!", "mini_app_path": "mini_app_path"}'
+                -d '{"app_id": "app_id", "wallet_addresses": ["0x123", "0x456"], "localisations": [{"language": "en", "title": "title", "message": "Hello ${username}, your transaction is complete!"}], "mini_app_path": "mini_app_path"}'
             ```
             ```js
             fetch(apiUrl, {
@@ -98,8 +99,13 @@ Currently we support only a subset of languages, with plans to expand - find the
                 body: JSON.stringify({
                     app_id: "app_id",
                     wallet_addresses: ["0x123", "0x456"],
-                    title: "title",
-                    message: "Hello ${username}, your transaction is complete!",
+                    localisations: [
+                        {
+                            language: "en",
+                            title: "title",
+                            message: "Hello ${username}, your transaction is complete!"
+                        }
+                    ],
                     mini_app_path: "mini_app_path"
                 })
             })
@@ -162,3 +168,24 @@ to enable notifications for your mini app inside of World App to receive them.
 -   [Features & Guidelines](/mini-apps/notifications/guidelines)
 -   [How To Request Notification Permissions](/mini-apps/commands/request-permission)
 -   [How To Get Notification Permissions](/mini-apps/commands/get-permissions)
+
+## Supported Languages
+
+| Language                     | Code     |
+| ---------------------------- | -------- |
+| English                      | `en`     |
+| Catalan                      | `ca`     |
+| Chinese Simplified           | `zh_CN`  |
+| French                       | `fr`     |
+| German                       | `de`     |
+| Hindi                        | `hi`     |
+| Japanese                     | `ja`     |
+| Korean                       | `ko`     |
+| Polish                       | `pl`     |
+| Portuguese                   | `pt`     |
+| Spanish                      | `es`     |
+| Spanish (Latin America)      | `es_419` |
+| Malay                        | `ms`     |
+| Thai                         | `th`     |
+| Indonesian                   | `id`     |
+| Traditional Chinese (Taiwan) | `zh_TW`  |

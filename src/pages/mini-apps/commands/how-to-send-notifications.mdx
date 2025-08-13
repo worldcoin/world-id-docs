@@ -1,13 +1,13 @@
 # Send Notifications
 
-Please take a minute to read the [Features & Guidelines](/mini-apps/notifications/features-and-guidelines).
+Please take a minute to read the [Features & Guidelines](/mini-apps/guidelines/features-and-guidelines).
 It's important to follow these, otherwise we may disable your ability to send notifications.
 
 To send notifications to users you need to:
 
--   Request permission in the Developer Portal Advanced settings, for your mini app,
--   request permission to send notifications from the user, via MiniKit (see [Request Permission](/mini-apps/commands/request-permission)),
--   actually send the notification using our API or the Developer Portal (see [How To Send Notifications](/mini-apps/notifications/how-to-send-notifications)).
+-   Request permission in the Developer Portal Advanced settings, for your mini app
+-   Request permission to send notifications from the user, via MiniKit (see [Request Permission](/mini-apps/commands/request-permission))
+-   Actually send the notification using our API or the Developer Portal (see [How To Send Notifications](/mini-apps/commands/how-to-send-notifications))
 
 Notifications are queued on our servers, users may not receive them immediately.
 
@@ -15,11 +15,10 @@ Notifications are queued on our servers, users may not receive them immediately.
 
 You can send notifications to multiple wallet addresses (up to 1000) directly from the Developer Portal.
 
-<div style={{ maxWidth: '50%' }}>
-	![Notification Interface in the Developer Portal](/images/docs/mini-apps/commands/notifications-dev-portal.png)
-</div>
+    ![Notification Interface in the Developer
+    Portal](/images/docs/mini-apps/commands/developer-portal-notifications.png)
 
-Use the form to input addresses, and content details. Once you click the `Send` button and get a success response, your notifications will be queued for delivery.
+Use the form to input addresses, and content details. Once you click the `Send Notification` button and get a success response, your notifications will be queued for delivery.
 
 ## Calling the send-notification endpoint
 

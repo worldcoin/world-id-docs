@@ -229,10 +229,6 @@ export const miniAppsNavigation = [
 		],
 	},
 	{
-		title: 'Authentication',
-		links: [{ title: 'Wallet Authentication', href: '/mini-apps/authentication/wallet-auth' }],
-	},
-	{
 		title: 'Commands',
 		links: [
 			{ title: 'Verify', href: '/mini-apps/commands/verify' },
@@ -254,6 +250,10 @@ export const miniAppsNavigation = [
 		links: [
 			{ title: 'Design Guidelines', href: '/mini-apps/guidelines/app-guidelines' },
 			{ title: 'Notifications Guidelines', href: '/mini-apps/guidelines/features-and-guidelines' },
+			{
+				title: 'Smart Contract Development Guidelines',
+				href: '/mini-apps/guidelines/smart-contract-development-guidelines',
+			},
 			{ title: 'App Review Guidelines', href: '/mini-apps/guidelines/policy' },
 		],
 	},

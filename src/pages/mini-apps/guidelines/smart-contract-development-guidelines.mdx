@@ -1,0 +1,85 @@
+# Smart Contract Development Guidelines
+
+These guidelines define the minimum requirements for developing smart contracts for deployment & use within the World App Mini App Store. They are designed to protect users from malicious or negligent behaviors, especially in contracts that custody user funds.
+
+## Applicability
+
+These requirements apply to **all** smart contracts submitted to the Mini App Store that **custody, lock, or manage user-owned assets** (fungible tokens, NFTs, or other on-chain value).
+
+Failure to comply may result in rejection or removal from the platform.
+
+## Custody & Upgradeability Rules
+
+### Non-Upgradeable Custody Contracts
+
+-   **Requirement:** Custody contracts must be **immutable** after deployment.
+
+### Controlled Upgradeability (If Needed)
+
+-   If upgradeability is essential (e.g., for bug fixes), it must:
+    -   Use a **multi-signature upgrade authorization** where **Tools For Humanity (TFH)** holds **1 of 2 keys**.
+    -   Require **TFH review and written approval** before any upgrade is executed.
+    -   Be subject to a **public notice period** (recommended: 48–72 hours) before upgrade execution.
+
+## Restricted Owner Privileges
+
+### Prohibition of User Asset Withdrawal by Owner
+
+-   **No direct owner/admin functions** may exist that allow the developer (or any third party) to:
+    -   Transfer, withdraw, or seize assets deposited by users.
+    -   Change accounting logic in a way that reassigns user balances to the developer.
+
+### Exceptions
+
+-   **Permitted:** Functions to withdraw **protocol fees** or **platform earnings** that are:
+    -   Clearly documented.
+    -   Separately accounted for from user funds.
+    -   Agreed upon during code review.
+
+## Code Quality & Review Requirements
+
+### Testing
+
+-   Contracts must include **comprehensive automated tests**, ideally in a **Foundry** or similar high-quality test framework.
+-   Tests must cover:
+    -   Normal operation flows.
+    -   Edge cases and failure modes.
+    -   Security-critical logic (access control, withdrawals, deposits, upgrades).
+-   Code coverage target: **≥90%** for critical custody logic.
+
+### Repository Access
+
+-   Source code must be stored in a **version-controlled repository**.
+-   The repository must be **shared with the TFH review team** prior to deployment.
+
+### Documentation
+
+-   Contracts must be **fully documented** with:
+    -   **NatSpec comments** for all public/external functions.
+    -   Clear explanation of any access control roles and permissions.
+    -   Rationale for any upgradeability or special privilege mechanisms.
+
+## Security Best Practices
+
+### Recommended Patterns
+
+-   Inherit [**OpenZeppelin contracts**](https://github.com/OpenZeppelin/openzeppelin-contracts) for all token/contract standards
+-   Follow [**Checks-Effects-Interactions**](https://fravoll.github.io/solidity-patterns/checks_effects_interactions.html) pattern ubiquitously
+
+### Audits
+
+-   High-value custody contracts are **strongly recommended** to undergo an **independent security audit**.
+-   Audit reports should be shared with TFH prior to mainnet deployment.
+
+### Common Pitfalls to Avoid
+
+-   No unbounded loops over user-controlled data.
+-   No hardcoded privileged addresses.
+-   Avoid arbitrary external call execution (`call`, `delegatecall`) in external facing functions unless strictly necessary and reviewed.
+
+## Compliance & Enforcement
+
+-   Contracts failing to comply with these guidelines may be:
+    -   Rejected during review.
+    -   Removed from the Mini App Store.
+-   TFH reserves the right to request code changes or audits before approval.

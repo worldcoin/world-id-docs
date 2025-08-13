@@ -13,7 +13,7 @@ Notifications are queued on our servers, users may not receive them immediately.
 
 ## Manually sending notifications from Developer Portal
 
-You can send notifications to multiple wallet addresses (up to a thousand) directly from the Developer Portal.
+You can send notifications to multiple wallet addresses (up to 1000) directly from the Developer Portal.
 
 <div style={{ maxWidth: '50%' }}>
 	![Notification Interface in the Developer Portal](/images/docs/mini-apps/commands/notifications-dev-portal.png)
@@ -27,13 +27,6 @@ You can also call our API to send notifications. For detailed information, see t
 
 ## Testing
 
-We currently have a limit of 40 notifications per 4 hours for unverified apps. This is to help you test your notification implementations.
+We currently have a limit of **40 notifications per 4 hours** for unverified apps. This is to help you test your notification implementations.
 Currently you will need to create a new app if your app is verified as it will default to the verified app's metadata. In addition, you need
 to enable notifications for your mini app inside of World App to receive them.
-
-## Useful links
-
--   [Features & Guidelines](/mini-apps/notifications/guidelines)
--   [How To Request Notification Permissions](/mini-apps/commands/request-permission)
--   [How To Get Notification Permissions](/mini-apps/commands/get-permissions)
--   [Send Notification API Reference](/mini-apps/reference/api#send-notification)

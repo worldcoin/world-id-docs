@@ -1,4 +1,5 @@
 import { Link } from '@/components/Link'
+import { Card } from '@/components/Card'
 
 # Mini Apps {{ className: 'text-5xl' }}
 
@@ -12,3 +13,22 @@ In addition, mini apps introduce smart contract support natively inside of World
 
 Mini apps are simply web applications opened via webview inside of World App. Using the MiniKit SDK, these applications can become
 native-like and interact with the World ecosystem.
+
+## Quick Links
+
+<div className="my-6 grid gap-4 sm:grid-cols-2">
+	<Card
+		alt="Miniapps World"
+		title={'Mini Apps Statistics'}
+		content="Discover apps, their usage by country,  trends and developer rewards"
+		link="https://miniapps.world"
+		imagePath="/images/docs/mini-apps/mini-apps.png"
+	/>
+	<Card
+		alt="Status"
+		title={'Status Page'}
+		content="Live status for Mini Apps, World ID and more"
+		link="https://status.worldcoin.org"
+		imagePath="/images/docs/mini-apps/mini-apps.png"
+	/>
+</div>

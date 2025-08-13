@@ -3,11 +3,33 @@
 	"enabled": true,
 	"language": "en-US",
 	"allowCompoundWords": true,
-	"dictionaries": ["typescript", "node", "npm", "html"],
-	"enabledLanguageIds": ["typescript", "typescriptreact", "javascript", "markdown", "yaml", "json"],
-	"ignorePaths": ["**/node_modules", "package.json", "pnpm-lock.yaml"],
-	"ignoreWords": ["signup"],
-	"ignoreRegExpList": ["app_[a-z0-9]+", "jwk_[a-z0-9]+", "ey[a-zA-Z0-9]+\\.ey[a-zA-Z0-9]+\\.[a-zA-Z0-9]+"],
+	"dictionaries": [
+		"typescript",
+		"node",
+		"npm",
+		"html"
+	],
+	"enabledLanguageIds": [
+		"typescript",
+		"typescriptreact",
+		"javascript",
+		"markdown",
+		"yaml",
+		"json"
+	],
+	"ignorePaths": [
+		"**/node_modules",
+		"package.json",
+		"pnpm-lock.yaml"
+	],
+	"ignoreWords": [
+		"signup"
+	],
+	"ignoreRegExpList": [
+		"app_[a-z0-9]+",
+		"jwk_[a-z0-9]+",
+		"ey[a-zA-Z0-9]+\\.ey[a-zA-Z0-9]+\\.[a-zA-Z0-9]+"
+	],
 	"words": [
 		"abitype",
 		"anonymized",
@@ -17,6 +39,7 @@
 		"CCIP",
 		"clippy",
 		"clsx",
+		"Completionist",
 		"countup",
 		"Csvg",
 		"defi",
@@ -30,6 +53,8 @@
 		"ETHSF",
 		"Fbridge",
 		"Fdashboard",
+		"gamification",
+		"Gamification",
 		"gigagas",
 		"groth",
 		"gtag",
@@ -66,6 +91,7 @@
 		"omnichain",
 		"onramps",
 		"Onramps",
+		"Optimising",
 		"Orbz",
 		"PAYG",
 		"Paylodfor",
@@ -91,6 +117,7 @@
 		"SIWE",
 		"slugified",
 		"snarkyjs",
+		"spammy",
 		"testid",
 		"timestamptz",
 		"tute",
@@ -109,10 +136,6 @@
 		"zeth",
 		"zkhack",
 		"zrok",
-		"zustand",
-		"Completionist",
-		"gamification",
-		"Gamification",
-		"Optimising"
+		"zustand"
 	]
 }

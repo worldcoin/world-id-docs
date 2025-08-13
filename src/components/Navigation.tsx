@@ -238,28 +238,23 @@ export const miniAppsNavigation = [
 			{ title: 'Verify', href: '/mini-apps/commands/verify' },
 			{ title: 'Pay', href: '/mini-apps/commands/pay' },
 			{ title: 'Wallet Auth', href: '/mini-apps/commands/wallet-auth' },
-			// { title: 'Connect Wallet', href: '/mini-apps/commands/connect-wallet' },
 			{ title: 'Send Transaction', href: '/mini-apps/commands/send-transaction' },
 			{ title: 'Sign Message', href: '/mini-apps/commands/sign-message' },
 			{ title: 'Sign Typed Data', href: '/mini-apps/commands/sign-typed-data' },
 			{ title: 'Share Contacts', href: '/mini-apps/commands/share-contacts' },
 			{ title: `Request Permission`, href: '/mini-apps/commands/request-permission' },
 			{ title: `Get Permissions`, href: '/mini-apps/commands/get-permissions' },
+			{ title: `Send Notifications`, href: '/mini-apps/commands/how-to-send-notifications' },
 			{ title: 'Send Haptic Feedback', href: '/mini-apps/commands/send-haptic-feedback' },
 			{ title: 'Share', href: '/mini-apps/commands/share' },
 		],
 	},
 	{
-		title: 'Technical Reference',
+		title: 'Guidelines',
 		links: [
-			{ title: 'Init', href: '/mini-apps/reference/init' },
-			{ title: 'API Reference', href: '/mini-apps/reference/api' },
-			{ title: 'Errors', href: '/mini-apps/reference/errors' },
-			{ title: 'Address Book', href: '/mini-apps/reference/address-book' },
-			{ title: 'Usernames', href: '/mini-apps/reference/usernames' },
-			{ title: 'Status Page', href: '/mini-apps/reference/status-page' },
-			{ title: 'Payment Methods', href: '/mini-apps/reference/payment-methods' },
-			{ title: 'Microphone', href: '/mini-apps/reference/microphone' },
+			{ title: 'Design Guidelines', href: '/mini-apps/guidelines/app-guidelines' },
+			{ title: 'Notifications Guidelines', href: '/mini-apps/guidelines/features-and-guidelines' },
+			{ title: 'App Review Guidelines', href: '/mini-apps/guidelines/policy' },
 		],
 	},
 	{
@@ -273,31 +268,15 @@ export const miniAppsNavigation = [
 		],
 	},
 	{
-		title: 'Notifications',
-		links: [
-			{ title: 'Features & Guidelines', href: '/mini-apps/notifications/features-and-guidelines' },
-			{ title: 'How To Send Notifications', href: '/mini-apps/notifications/how-to-send-notifications' },
-		],
-	},
-	{
-		title: 'Design Standards',
-		links: [
-			{ title: 'Guidelines', href: '/mini-apps/design/app-guidelines' },
-			{ title: 'UI Kit', href: '/mini-apps/design/ui-kit' },
-		],
-	},
-	{
 		title: 'Quick Actions',
 		links: [
 			{ title: 'Sharing', href: '/mini-apps/sharing/quick-actions' },
 			{ title: 'Add Money', href: '/mini-apps/sharing/add-money-qa' },
 			{ title: 'UNO Swap', href: '/mini-apps/sharing/uno-qa' },
-			//{ title: 'Eggs Vault Smash', href: '/mini-apps/sharing/eggs-vault-qa' },
 			{ title: 'Earn WLD Pool', href: '/mini-apps/sharing/earn-wld-qa' },
 			{ title: 'DNA Send & Swap', href: '/mini-apps/sharing/dna-qa' },
 			{ title: 'Sage Support', href: '/mini-apps/sharing/sage-qa' },
 			{ title: 'VUNI', href: '/mini-apps/sharing/vuni-qa' },
-			//{ title: 'World Chat', href: '/mini-apps/sharing/world-chat-qa' },
 			{ title: 'World Companies Finder', href: '/mini-apps/sharing/world-companies-finder-qa' },
 			{ title: 'OnePay', href: '/mini-apps/sharing/one-pay-qa' },
 			{ title: 'PUF', href: '/mini-apps/sharing/puf-qa' },
@@ -307,7 +286,6 @@ export const miniAppsNavigation = [
 	{
 		title: 'Further Reading',
 		links: [
-			{ title: 'Mini Apps Policy', href: '/mini-apps/more/policy' },
 			{ title: 'Webview Specifications', href: '/mini-apps/more/webview-spec' },
 			{ title: 'Releases', href: '/mini-apps/more/releases' },
 			{ title: 'Community Tools & Perks', href: '/mini-apps/more/community-tools-perks' },

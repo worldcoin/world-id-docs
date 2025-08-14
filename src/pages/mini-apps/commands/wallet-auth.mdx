@@ -1,31 +1,49 @@
 import { Link } from '@/components/Link'
 import Tabs, { TabItem } from '@/components/Tabs'
 
-# Wallet Auth (Sign in with Ethereum)
+# Wallet Authentication (Sign in with Ethereum)
 
-Wallet Auth is our native support for <Link href="https://eips.ethereum.org/EIPS/eip-4361">Sign in With Ethereum</Link>.
+<Note type="warning">
+	Use Wallet Authentication as the primary auth flow. Do not use the Verify command for login purposes.
+</Note>
 
-> **Important**: Wallet Auth should be used as the primary authentication method for mini apps. Do not use the Verify command for user login purposes.
-
-Wallet Auth is a command that:
-
--   Authenticates users through their Ethereum wallet using the SIWE protocol (EIP-4361).
--   Provides the user's Ethereum address after successful authentication.
--   Verifies ownership of the wallet address via a signed message.
-
-With this, developers can:
-
--   Use as a sign-in method for your mini app. Check out our [templates](/mini-apps/quick-start/installing#template-repository) for examples.
--   Identify users securely and without centralized credentials.
--   Implement token-based access controls.
--   Enable blockchain-related features like transactions tied to the authenticated address.
-
-There's an additional benefit of Wallet Auth - apart from the verified wallet address you get the user's username.
-After a successful Wallet Auth, you can access these values from the MiniKit class directly:
+Wallet Authentication provides native support for [SIWE](https://eips.ethereum.org/EIPS/eip-4361) and it's the recommended way to authenticate users in your mini app. This provides your app with access to a User object that contains the user's wallet address, username, and other information.
 
 ```tsx
-const username = MiniKit.user.username
+export type User = {
+	walletAddress?: string
+	username?: string
+	profilePictureUrl?: string
+	permissions?: {
+		notifications: boolean
+		contacts: boolean
+	}
+	optedIntoOptionalAnalytics?: boolean
+	worldAppVersion?: number
+	deviceOS?: string
+}
 ```
+
+In addition we have two helper functions to make it easier to get User information.
+
+```tsx
+MiniKit.getUserByAddress(address: string): Promise<User>
+MiniKit.getUserByUsername(username: string): Promise<User>
+
+// Returns
+return {
+    walletAddress: '0x...',
+    username: 'John Doe',
+    profilePictureUrl: 'https://example.com/profile.png',
+};
+```
+
+## How it works / Implementation
+
+Using [NextAuth](https://authjs.dev/getting-started) you can easily create and manage sessions for your app. The starter template is already set up with NextAuth.
+To extend this to other wallet providers, you simply need to trigger the [wallet auth command](/mini-apps/commands/wallet-auth) and verify the response with [verifySiweMessage](https://github.com/worldcoin/minikit-js/blob/c3aff19f80d07fe1635e68541f91205862500baa/demo/next-15-template/src/auth/index.ts#L41-L74).
+
+<Note type="info">Starting from World App 2.8.79 and higher, we support the standard SIWE verification library.</Note>
 
 ## Creating the nonce
 
@@ -87,7 +105,7 @@ return NextResponse.json({ nonce });
     		// ...
     	```
 
-    	The returned message (in final payload) will include a signature compliant with <Link href="https://eips.ethereum.org/EIPS/eip-191">ERC-191</Link>.
+    The returned message (in final payload) will include a signature compliant with [ERC-191](https://eips.ethereum.org/EIPS/eip-191).
     	You're welcome to use any third party libraries to verify the payloads for SIWE.
 
     	```tsx
@@ -281,7 +299,16 @@ If implemented correctly, the user will see the following drawer on World App.
 
     <div className='grid justify-items-center text-center'>
         <video className="m-auto" width="300" autoPlay muted loop playsInline>
-            <source src="/images/docs/mini-apps/commands/wallet-auth-command.mp4" type="video/mp4" />
+            <source src="/images/docs/mini-apps/commands/wallet-authentication-command.mp4" type="video/mp4" />
     		Your browser does not support the video tag.
     	</video>
     </div>
+
+### Other SIWE Implementations
+
+-   **Privy**: You can find a complete integration guide at [Worldcoin Mini App SIWE with Privy](https://docs.privy.io/recipes/react/worldcoin-siwe-guide)
+
+### Alternative Authentication Methods
+
+-   **OAuth** (Google, Apple, etc.): These providers are supported but it's recommended to trigger this outside of the World App and then redirect back to your mini app with the access token `worldapp://mini-app?app_id=appId&path=/handle-oauth?accessToken=...`.
+-   **Sign in with World ID**: Not recommended as it doesn't provide the user's wallet address.

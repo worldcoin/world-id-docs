@@ -1,0 +1,198 @@
+# Design Guidelines
+
+This page gives you quick, visual rules to meet a high design standard for mini apps. Each image shows the intended pattern and a short usage note so you can apply it fast.
+
+## Grid and spacing
+
+#### Usage
+
+Padding is set to a default of 24px, providing ample breathing room around elements while maintaining a clean and structured appearance.
+![Base unit](/images/docs/mini-apps/guidelines/base-unit.png)
+
+## Paddings
+
+#### Usage
+
+Padding is set to a default of 24px, providing ample breathing room around elements while maintaining a clean and structured appearance.
+![Paddings](/images/docs/mini-apps/guidelines/paddings.png)
+
+## Navigation bar
+
+#### Usage
+
+Except for the control components of Mini Apps in the upper-right corner, all the other contents can be configured for custom designs. If interactive elements need to be set near the control components of Mini Apps, the developer shall note that whether the interaction area will conflict with the control components, and whether the operation is easy.
+![Navigation bar](/images/docs/mini-apps/guidelines/navigation-bar.png)
+
+## Main pages
+
+<div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
+	<div>
+		<img src="/images/docs/mini-apps/guidelines/main-pages-1.png" alt="One clear task per page" />
+		<p className="text-muted-foreground mt-2 text-sm">
+			The default space between a header and its associated content is 16px, and the same 16px spacing applies
+			between elements within a section. This consistent use of spacing helps create a clean visual structure and
+			predictable rhythm across the UI.
+		</p>
+	</div>
+	<div>
+		<img src="/images/docs/mini-apps/guidelines/main-pages-2.png" alt="Keep CTAs visible" />
+		<p className="text-muted-foreground mt-2 text-sm">
+			The default space between sections is set to 32px, helping to create clear separation between distinct areas
+			of content. The space between the search bar and the content below is 24px, while the space between a
+			sub-headline and its associated content is 16px.
+		</p>
+	</div>
+	<div>
+		<img src="/images/docs/mini-apps/guidelines/main-pages-4.png" alt="Minimize unnecessary scrolling" />
+		<p className="text-muted-foreground mt-2 text-sm">
+			The default space between header and a section that starts with a sub headline is set to 24px.
+		</p>
+	</div>
+	<div>
+		<img src="/images/docs/mini-apps/guidelines/main-pages-5.png" alt="Prioritize primary actions" />
+		<p className="text-muted-foreground mt-2 text-sm">
+			The default space between last item inside the scrollable area if a bottom bar is presented is 32px.
+		</p>
+	</div>
+</div>
+
+## Secondary pages
+
+#### Usage
+
+The default space between a header and its associated content is 24px, while the space between a header and a secondary title is 32px. The space between secondary title and description should be 12px.
+
+<div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
+	<img
+		src="/images/docs/mini-apps/guidelines/secondary-pages-1.png"
+		alt="Secondary 1"
+		className="mx-auto w-full max-w-[840px]"
+	/>
+	<img
+		src="/images/docs/mini-apps/guidelines/secondary-pages-2.png"
+		alt="Secondary 2"
+		className="mx-auto w-full max-w-[840px]"
+	/>
+</div>
+
+## Tab bar (Android vs iOS)
+
+#### Usage
+
+Navigation bar is positioned with a 12px space from the iOS & Android bottom bar, ensuring optimal accessibility and a comfortable tap area.
+
+<div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
+	<div>
+		<img
+			src="/images/docs/mini-apps/guidelines/tab-bar-android.png"
+			alt="Tab bar Android"
+			className="mx-auto w-full max-w-[840px]"
+		/>
+	</div>
+	<div>
+		<img
+			src="/images/docs/mini-apps/guidelines/tab-bar-ios.png"
+			alt="Tab bar iOS"
+			className="mx-auto w-full max-w-[840px]"
+		/>
+	</div>
+</div>
+
+## Drawers / sheets (Android vs iOS)
+
+#### Usage
+
+Drawer is positioned with a 12px space from the iOS & Android bottom bar, ensuring optimal accessibility and a comfortable tap area.
+
+<div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
+	<div>
+		<img
+			src="/images/docs/mini-apps/guidelines/drawers-android.png"
+			alt="Drawers Android"
+			className="mx-auto w-full max-w-[840px]"
+		/>
+	</div>
+	<div>
+		<img
+			src="/images/docs/mini-apps/guidelines/drawers-ios.png"
+			alt="Drawers iOS"
+			className="mx-auto w-full max-w-[840px]"
+		/>
+	</div>
+</div>
+
+## Toasts (Android vs iOS)
+
+#### Usage
+
+The toast message should be horizontally centered and positioned directly below the header to ensure visibility without disrupting user interaction.
+
+<div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
+	<div>
+		<img
+			src="/images/docs/mini-apps/guidelines/toast-android.png"
+			alt="Toast Android"
+			className="mx-auto w-full max-w-[840px]"
+		/>
+	</div>
+	<div>
+		<img
+			src="/images/docs/mini-apps/guidelines/toast-ios.png"
+			alt="Toast iOS"
+			className="mx-auto w-full max-w-[840px]"
+		/>
+	</div>
+</div>
+
+## Keyboard handling (Android vs iOS)
+
+#### Usage
+
+Buttons are placed 24px above the active keyboard. This spacing ensures that buttons remain easily accessible and visually distinct, even when the keyboard is active, preventing accidental taps or overlap.
+
+<div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
+	<div>
+		<img
+			src="/images/docs/mini-apps/guidelines/keyboard-android.png"
+			alt="Keyboard Android"
+			className="mx-auto w-full max-w-[840px]"
+		/>
+	</div>
+	<div>
+		<img
+			src="/images/docs/mini-apps/guidelines/keyboard-ios.png"
+			alt="Keyboard iOS"
+			className="mx-auto w-full max-w-[840px]"
+		/>
+	</div>
+</div>
+
+## Bottom safe area space (Android vs iOS)
+
+#### Usage
+
+Buttons are positioned with a 24px space from the iOS bottom bar, ensuring optimal accessibility and a comfortable tap area.
+
+<div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
+	<div>
+		<img
+			src="/images/docs/mini-apps/guidelines/bottom-space-android.png"
+			alt="Bottom space Android"
+			className="mx-auto w-full max-w-[840px]"
+		/>
+	</div>
+	<div>
+		<img
+			src="/images/docs/mini-apps/guidelines/bottom-space-ios.png"
+			alt="Bottom space iOS"
+			className="mx-auto w-full max-w-[840px]"
+		/>
+	</div>
+</div>
+
+## States
+
+#### Usage
+
+Middle alignment ensures consistency across various screen sizes and component states, making the interface feel polished and intentional. This alignment strategy is especially effective for empty states, loading indicators, or other transient states, providing a seamless and cohesive user experience.
+![Common states](/images/docs/mini-apps/guidelines/states.png)

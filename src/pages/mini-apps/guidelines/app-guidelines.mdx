@@ -1,15 +1,8 @@
 import { Link } from '@/components/Link'
 
-# Guidelines
+# Design Guidelines
 
 These guidelines are meant to help you succeed as a mini app developer. Please follow them to ensure your app is approved.
-
-## MiniKit Integration
-
-Integrate MiniKit to supercharge your web app with exclusive features like World ID and Wallet access, making your mini app more engaging and valuable to users.
-
-To get your mini app approved, it's essential to use the MiniKit SDK commands effectively to enhance the user experience.
-We're looking for meaningful integrations, whether through _World ID_ and _Wallet access_ , or other creative uses that add real value.
 
 ## Mobile First
 
@@ -71,6 +64,14 @@ body {
 }
 ```
 
+## Design Patterns
+
+Here are some design patterns that we recommend you follow:
+
+1. When a user is authenticated through their wallet, always show their username instead of the wallet address
+2. Use the "Verify" command to confirm important actions or identity verification.
+3. When dealing with wallet addresses, use an address book to link them to recognizable usernames or other identifiers
+
 ## App Icon
 
 Your app icon should be a **square** image with a non white background.
@@ -83,10 +84,9 @@ However, always test for real-world scenarios and provide visual feedback during
 ## Branding & Identity
 
 Do not use the term "official" in your app name, description, or interface. Mini apps are third-party applications and should not create the impression that they are officially endorsed by or affiliated with World.
+Mini apps should maintain their own distinct brand identity while integrating with the World ecosystem
 
-Additionally, do not use the World logo or any modified version of it in your app. This includes using the World logo as part of your app icon or within your app's interface.
-
-Mini apps should maintain their own distinct brand identity while integrating with the World ecosystem. This helps users clearly understand which applications are developed by World and which are created by third-party developers.
+Additionally, do not use the **World logo** or any modified version of it in your app.
 
 ## Chance based
 
@@ -129,28 +129,23 @@ developers to use their own Verify Command and verify the proof. However, we als
 address book. This contract stores a mapping `addressVerifiedUntil` you can query to see if a World App
 address is World ID Orb verified.
 
-## Design Patterns
+## UI Kit
 
-Here are some design patterns that we recommend you follow:
+The Mini Apps UI Kit is a React-based design system for accelerating the development of mini apps. It provides pre-built, reusable UI components that align with World's design guidelines for consistency and high-quality UX.
 
-1. When a user is authenticated through their wallet, always show their username instead of the wallet address
-2. Use the "Verify" command to confirm important actions or identity verification.
-3. When dealing with wallet addresses, use an address book to link them to recognizable usernames or other identifiers
+### Get Started
 
-## Inspiration
+Install the UI Kit via NPM:
 
-Looking for inspiration? Check out the approved mini apps to see what successful integrations look like and learn from their best practices.
-Seeing how others have effectively used MiniKit can provide you with ideas for creating an engaging and valuable experience for your users.
-Join our developer network to connect with fellow developers, share insights, and get support:
+```bash
+npm install @worldcoin/mini-apps-ui-kit-react
+```
 
-<Link href="https://t.me/worldcoindevelopers">World Developers Telegram</Link>
+Learn more in the package README and Storybook:
 
-If your inspiration is still off, here are some concepts that you can follow to build your mini app. Always keep in mind adding value to users through the minikit commands.
-
--   **Limited Edition Art Distribution**: Build an app that allows artists to distribute limited editions of their work, ensuring that each human can claim only a certain number of pieces.
--   **Sybil-Resistant Airdrop Platform**: Build a platform for distributing tokens to verified humans, ensuring that airdrops reach genuine users.
--   **Community Engagement Airdrops**: Create an app that rewards users for participating in community activities, verified through proof of personhood.
--   **Bot-Free Social Network**: Build a social platform that integrates World ID to limit bot activity, enhancing content quality and user engagement.
--   **Human-AI Interaction Platform**: Develop an app where AI agents can interact with verified humans for tasks like customer support or data collection.
--   **Decentralized Credit Marketplace**: Build a platform that connects borrowers and lenders, using proof of personhood and zero-knowledge attributes to assess creditworthiness.
--   **Merchant Payment Solutions**: Develop a platform for local businesses to accept payments in cryptocurrencies, leveraging the World ecosystem for seamless transactions.
+-   <Link href="https://www.npmjs.com/package/@worldcoin/mini-apps-ui-kit-react?activeTab=readme" target="_blank">
+    	Package README
+    </Link>
+-   <Link href="https://mini-apps-ui-kit.world.org" target="_blank">
+    	UI Kit Storybook
+    </Link>

@@ -248,7 +248,8 @@ export const miniAppsNavigation = [
 	{
 		title: 'Guidelines',
 		links: [
-			{ title: 'Design Guidelines', href: '/mini-apps/guidelines/app-guidelines' },
+			{ title: 'App Guidelines', href: '/mini-apps/guidelines/app-guidelines' },
+			{ title: 'Design Guidelines', href: '/mini-apps/guidelines/design-guidelines' },
 			{ title: 'Notifications Guidelines', href: '/mini-apps/guidelines/features-and-guidelines' },
 			{
 				title: 'Smart Contract Development Guidelines',

@@ -1907,7 +1907,7 @@ Looking for inspiration? Check out the approved mini apps to see what successful
 Seeing how others have effectively used MiniKit can provide you with ideas for creating an engaging and valuable experience for your users.
 Join our developer network to connect with fellow developers, share insights, and get support:
 
-<Link href="https://t.me/worldcoindevelopers">World Developers Telegram</Link>
+<Link href="https://t.me/worlddevelopersupport">World Developers Telegram</Link>
 
 If your inspiration is still off, here are some concepts that you can follow to build your mini app. Always keep in mind adding value to users through the minikit commands.
 
@@ -2070,7 +2070,7 @@ To be considered for App of the Week, your app must meet the following <Link hre
 
 
 ## Marketing
-Occasionally we will run marketing campaigns to promote mini apps. Please join our Telegram group @worldcoindevelopers.# Security
+Occasionally we will run marketing campaigns to promote mini apps. Please join our Telegram group @worlddevelopersupport.# Security
 
 MiniKit is purely a communication channel between the client and the app. Your application should never default trust any payloads it receives on the client side.
 
@@ -3587,7 +3587,7 @@ Private key: 0xcc1b30a6af68ea9a9917f1dda20c927704c5cdb2bbe0076901a8a0e40bf997c5
 
 Now that you have a wallet, you need to fund it with some World Chain Sepolia ETH. You can get some World Chain Sepolia ETH from the [World Chain Sepolia faucet](https://www.alchemy.com/faucets/world-chain-sepolia) operated by Alchemy.
 In the form on the faucet page, enter the address of your wallet which you generated above and click the "Send me ETH" button. If you have any issues please send us a message in the developer 
-group chat on [Telegram](https://t.me/worldcoindevelopers) or [Discord](https://discord.gg/worldcoin).
+group chat on [Telegram](https://t.me/worlddevelopersupport) or [Discord](https://discord.gg/worldcoin).
 
 
 ## Deploy the contract
@@ -4267,7 +4267,7 @@ To learn more about what is World Chain, watch our presentation from the [A New 
 
 <Note>
 	{' '}
-	Is anything missing in the documentation? Please reach out on our [Telegram for World Chain developers](https://t.me/worldcoindevelopers){' '}
+	Is anything missing in the documentation? Please reach out on our [Telegram for World Chain developers](https://t.me/worlddevelopersupport){' '}
 </Note>
 # Superchain Bridges
 
@@ -4730,7 +4730,7 @@ Or by manually adding the information available in the <a href='/world-chain/qui
     </tr>
     <tr>
       <td className="align-middle">Developer Telegram</td>
-      <td className="align-middle">[@worldcoindevelopers](https://t.me/worldcoindevelopers)</td>
+      <td className="align-middle">[@worlddevelopersupport](https://t.me/worlddevelopersupport)</td>
     </tr>
   </tbody>
 </table>

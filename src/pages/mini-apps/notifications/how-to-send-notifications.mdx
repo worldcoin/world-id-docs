@@ -1,3 +1,5 @@
+import { Link } from '@/components/Link'
+
 # Send Notifications
 
 Please take a minute to read the [Features & Guidelines](/mini-apps/notifications/features-and-guidelines).
@@ -7,11 +9,15 @@ To send notifications to users you need to:
 
 -   Request permission in the Developer Portal Advanced settings, for your mini app,
 -   request permission to send notifications from the user, via MiniKit (see [Request Permission](/mini-apps/commands/request-permission)),
--   actually send the notification using our API or the Developer Portal (see [How To Send Notifications](/mini-apps/notifications/how-to-send-notifications)).
+-   actually send the notification using our API or the Developer Portal.
 
 Notifications are queued on our servers, users may not receive them immediately.
 
 ## Manually sending notifications from Developer Portal
+
+<Note type="info">
+	This form doesn't support localized notifications yet. To take advantage of localizations, use the API.
+</Note>
 
 You can send notifications to multiple wallet addresses (up to a thousand) directly from the Developer Portal.
 
@@ -23,7 +29,47 @@ Use the form to input addresses, and content details. Once you click the `Send` 
 
 ## Calling the send-notification endpoint
 
-You can also call our API to send notifications. For detailed information, see the [API Reference](/mini-apps/reference/api#send-notification).
+The API endpoint provides capabilities for sending notifications programmatically. These notifications can be localized,
+which ensures you reach users in their preferred language. This results in a dramatically higher engagement rate.
+
+### Localization made simple
+
+```javascript
+const response = await fetch('https://developer.worldcoin.org/api/v2/minikit/send-notification', {
+	method: 'POST',
+	headers: {
+		Authorization: `Bearer ${process.env.API_KEY}`,
+		'Content-Type': 'application/json',
+	},
+	body: JSON.stringify({
+		app_id: 'your_app_id',
+		wallet_addresses: ['0x123...', '0x456...'],
+		localisations: [
+			{
+				language: 'en',
+				title: '🎉 Rewards Available',
+				message: 'Hey ${username}, your daily rewards are ready!',
+			},
+			{
+				language: 'es',
+				title: '🎉 Recompensas Disponibles',
+				message: 'Hola ${username}, tus recompensas diarias están listas!',
+			},
+			{
+				language: 'fr',
+				title: '🎉 Récompenses Disponibles',
+				message: 'Salut ${username}, vos récompenses quotidiennes sont prêtes!',
+			},
+		],
+		mini_app_path: 'worldapp://mini-app?app_id=your_app_id&path=/rewards',
+	}),
+})
+```
+
+Each user automatically receives the notification in their preferred language.
+If their language isn't included in your localizations, you'll receive a specific `reason` in the response.
+
+For complete API documentation including all supported languages and response formats, see the [API Reference](/mini-apps/reference/api#send-notification).
 
 ## Testing
 

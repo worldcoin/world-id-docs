@@ -1,0 +1,60 @@
+# Holdstation Buy Quick Action
+
+[Holdstation Wallet](https://worldcoin.org/ecosystem/app_0d4b759921490adc1f2bd569fda9b53a) is a simple, secure token wallet that allows you to buy, sell, swap, or send tokens.
+
+<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+	<div style={{ flex: 1 }}>
+		<h3>Parameters</h3>
+		<Properties>
+			<Property name="app_id" type="string" required={true}>
+				Unique ID for the Holdstation mini app.
+			</Property>
+			<Property name="path" type="string" required={true}>
+				URL encoded path to the buy token screen with parameters.
+			</Property>
+			<Property name="address" type="string" required={true}>
+				Token address that user wants to buy.
+			</Property>
+			<Property name="from" type="string" required={true}>
+				Token address that user uses to buy (payment token).
+			</Property>
+			<Property name="amount" type="string" required={true}>
+				Dollar amount that user wants to buy.
+			</Property>
+		</Properties>
+	</div>
+	<div style={{ marginLeft: '20px' }}>
+		<img
+			src="/images/docs/mini-apps/quick-actions/holdstation-buy-qa.png"
+			alt="Buy WLD Screen"
+			style={{ maxWidth: '300px', height: 'auto' }}
+		/>
+	</div>
+</div>
+
+## Helper function
+
+```tsx
+const HOLDSTATION_APP_ID = 'app_0d4b759921490adc1f2bd569fda9b53a'
+
+function getHoldstationDeeplinkUrl({ address, from, amount }: { address: string; from: string; amount: string }) {
+	const path = `/token/buy?address=${address}&from=${from}&amount=${amount}`
+	const encodedPath = encodeURIComponent(path)
+	return `https://worldcoin.org/mini-app?app_id=${HOLDSTATION_APP_ID}&path=${encodedPath}`
+}
+
+// Buy $1 worth of WLD using USDC
+console.log(
+	getHoldstationDeeplinkUrl({
+		address: '0x2cFc85d8E48F8EAB294be644d9E25C3030863003', // WLD token address
+		from: '0x79A02482A880bCE3F13e09Da970dC34db4CD24d1', // USDC token address
+		amount: '1',
+	})
+)
+```
+
+### Example output link : Buy $1 worth of WLD using USDC
+
+```
+https://worldcoin.org/mini-app?app_id=app_0d4b759921490adc1f2bd569fda9b53a&path=%2Ftoken%2Fbuy%3Faddress%3D0x2cFc85d8E48F8EAB294be644d9E25C3030863003%26from%3D0x79A02482A880bCE3F13e09Da970dC34db4CD24d1%26amount%3D1
+```

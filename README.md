@@ -73,10 +73,6 @@ pnpm dev
 pnpm build
 ```
 
-## ✨ Contributors
-
-Thanks to all [the contributors](CONTRIBUTING.md) who have made the World SDK possible!
-
 <p align="right"> Powered by
   <a href="https://world.org">
     <picture align="right">

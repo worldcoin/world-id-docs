@@ -48,10 +48,10 @@ All the technical docs for the World SDK, World ID Protocol, World Chain, Mini A
 
 To develop locally and contribute to these docs, you can follow these steps after cloning the repo.
 
--   Activate required Node version (LTS 18)
+-   Activate required Node version (22)
 
 ```bash
-nvm use
+nvm use 22
 ```
 
 -   Install dependencies

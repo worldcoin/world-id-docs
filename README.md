@@ -1,3 +1,7 @@
+> [!IMPORTANT]  
+> This repository is **deprecated** and no longer in use. Please visit https://github.com/worldcoin/developer-docs for the Developer documentation of the World ecosystem.
+
+
 <a href="https://world.org/world-id">
   <img src="/public/images/shared-readme/readme-header.png" alt="" />
 </a>

@@ -241,7 +241,6 @@ export const miniAppsNavigation = [
 			// { title: 'Connect Wallet', href: '/mini-apps/commands/connect-wallet' },
 			{ title: 'Send Transaction', href: '/mini-apps/commands/send-transaction' },
 			{ title: 'Sign Message', href: '/mini-apps/commands/sign-message' },
-			{ title: 'Sign Typed Data', href: '/mini-apps/commands/sign-typed-data' },
 			{ title: 'Share Contacts', href: '/mini-apps/commands/share-contacts' },
 			{ title: `Request Permission`, href: '/mini-apps/commands/request-permission' },
 			{ title: `Get Permissions`, href: '/mini-apps/commands/get-permissions' },

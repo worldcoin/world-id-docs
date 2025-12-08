@@ -154,25 +154,48 @@ fetch(apiUrl, {
 
 ## Send Notification{{ tag: "POST", label: "https://developer.worldcoin.org/api/v2/minikit/send-notification" }}
 
-This endpoint lets you send notifications to users of your mini app and requires an `api_key`.
+This endpoint lets you send localized notifications to users of your mini app and requires an `api_key`.
+
+### How do localizations work?
+
+The user's language is available to you when they access your mini app
+(via [Navigator](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/language)).
+
+All you need to do is provide localizations. Our backend will automatically infer which language is preferred by the user.
+Currently we support only a subset of languages, with plans to expand. Find the entire list [here](/mini-apps/reference/api#supported-languages).
+You can only specify languages that we support.
+
+-   If a user prefers a language that we don't currently support, we will deliver the notification in English.
+-   If you don't specify a localization for the user's preferred language, the notification will not be delivered.
+    The response will include a specific `reason` to inform you of this.
 
 <Row>
     <Col>
         ### Body Params
+
+        You are required to either specify both `title` and `message` OR `localisations`.
+
         <Properties>
-            <Property name="wallet_addresses" type="string[]" required={true}>
+            <Property name="wallet_addresses" type="string[]" required>
             The `wallet_addresses` is an array of wallet addresses to send the notification to. Users must have opted in to notifications for your app. Max 1000 users per call.
             </Property>
-            <Property name="title" type="string" required={true}>
-            The `title` is the title of the notification. It should be 30 characters or less. May contain emojis.
+            <Property name="localisations" type="object[]">
+            `localisations` is an array of objects with properties:
+                - `language` (string, required): The language of the notification.
+                - `title` (string, required): The localized title of the notification.
+                - `message` (string, required): The localized message of the notification.
+            It's required to provide at least the `en` language.
             </Property>
-            <Property name="message" type="string" required={true}>
-            The `message` is the message of the notification. It should be 200 characters or less. You can include the special variable `${username}` in your message, which will be replaced with the actual username of the recipient when the notification is delivered.
+            <Property name="title" type="string">
+            Note: This will not localize your notifications. The `title` is the title of the notification. It should be 30 characters or less. May contain emojis.
             </Property>
-            <Property name="mini_app_path" type="string" required={true}>
+            <Property name="message" type="string">
+            Note: This will not localize your notifications. The `message` is the message of the notification. It should be 200 characters or less. You can include the special variable `${username}` in your message, which will be replaced with the actual username of the recipient when the notification is delivered.
+            </Property>
+            <Property name="mini_app_path" type="string" required>
             The `mini_app_path` is the url encoded path of the mini app where your notification should link to when the user clicks on it. <br/><br/> Should be of the format `worldapp://mini-app?app_id=[app_id]&path=[path]` (path is optional).
             </Property>
-            <Property name="app_id" type="string" required={true}>
+            <Property name="app_id" type="string" required>
             The `app_id` is the identifier of the app initiating the transaction.
             </Property>
         </Properties>
@@ -191,7 +214,7 @@ This endpoint lets you send notifications to users of your mini app and requires
             curl -X POST "https://developer.worldcoin.org/api/v2/minikit/send-notification" \
                 -H "Authorization: Bearer {api_key}" \
                 -H "Content-Type: application/json" \
-                -d '{"app_id": "app_id", "wallet_addresses": ["0x123", "0x456"], "title": "title", "message": "Hello ${username}, your transaction is complete!", "mini_app_path": "mini_app_path"}'
+                -d '{"app_id": "app_id", "wallet_addresses": ["0x123", "0x456"], "localisations": [{"language": "en", "title": "title", "message": "Hello ${username}, your transaction is complete!"}], "mini_app_path": "mini_app_path"}'
             ```
             ```js
             fetch(apiUrl, {
@@ -202,8 +225,13 @@ This endpoint lets you send notifications to users of your mini app and requires
                 body: JSON.stringify({
                     app_id: "app_id",
                     wallet_addresses: ["0x123", "0x456"],
-                    title: "title",
-                    message: "Hello ${username}, your transaction is complete!",
+                    localisations: [
+                        {
+                            language: "en",
+                            title: "title",
+                            message: "Hello ${username}, your transaction is complete!"
+                        }
+                    ],
                     mini_app_path: "mini_app_path"
                 })
             })
@@ -246,6 +274,11 @@ This endpoint lets you send notifications to users of your mini app and requires
                         "walletAddress": "0x444da9cab87c04a1d6f19d8b4be9aef8df26fcdd",
                         "sent": false,
                         "reason": "User has notification disabled for World App"
+                    },
+                    {
+                        "walletAddress": "0x555da9cab87c04a1d6f19d8b4be9aef8df26fcdd",
+                        "sent": false,
+                        "reason": "User's preferred locale was not found in request"
                     }
                 ]
             }
@@ -253,7 +286,29 @@ This endpoint lets you send notifications to users of your mini app and requires
         </CodeGroup>
     </Col>
 </Row>
-<hr/>
+
+### Supported Languages
+
+| Language                     | Code     |
+| ---------------------------- | -------- |
+| English                      | `en`     |
+| Catalan                      | `ca`     |
+| Chinese Simplified           | `zh_CN`  |
+| French                       | `fr`     |
+| German                       | `de`     |
+| Hindi                        | `hi`     |
+| Indonesian                   | `id`     |
+| Japanese                     | `ja`     |
+| Korean                       | `ko`     |
+| Malay                        | `ms`     |
+| Polish                       | `pl`     |
+| Portuguese                   | `pt`     |
+| Spanish                      | `es`     |
+| Spanish (Latin America)      | `es_419` |
+| Thai                         | `th`     |
+| Traditional Chinese (Taiwan) | `zh_TW`  |
+
+<hr />
 
 ## Get Transaction{{ tag: "GET", label: "https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}?app_id=&type=" }}
 

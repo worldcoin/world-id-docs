@@ -1,0 +1,531 @@
+# World Mini-Apps Docs
+
+> Complete developer documentation for building World Mini-Apps in World App with MiniKit SDK. Mini apps are web applications that run inside World App, providing native-like experiences with access to World ID verification, payments, and blockchain functionality.
+
+## What are Mini Apps?
+
+Mini apps enable third-party developers to create native-like applications within World App. They are simply web applications opened via webview inside World App that can become native-like using the MiniKit SDK to interact with the World ecosystem.
+
+Building a mini app provides access to World's rapidly growing user network and monetization opportunities via WLD and USDC tokens. Mini apps introduce smart contract support natively inside World App, allowing seamless blockchain interactions.
+
+## MiniKit SDK Overview
+
+MiniKit is the core SDK that enables mini apps to interact with World App's native features. It provides JavaScript and React packages for easy integration:
+
+- `@worldcoin/minikit-js` - Core framework-agnostic library
+- `@worldcoin/minikit-react` - React hooks for MiniKit integration  
+- `@worldcoin/mini-apps-ui-kit-react` - Official UI component library
+
+The SDK enables commands for user verification, payments, transactions, wallet authentication, message signing, and more.
+
+## Installation & Setup
+
+Install MiniKit packages:
+
+```bash
+npm install @worldcoin/minikit-js
+npm install @worldcoin/minikit-react
+npm install @worldcoin/mini-apps-ui-kit-react
+```
+
+Initialize MiniKit in your application:
+
+```tsx
+import { MiniKit } from '@worldcoin/minikit-js'
+
+// Check if MiniKit is installed
+if (MiniKit.isInstalled()) {
+  // MiniKit is available
+}
+```
+
+## Verify Command
+
+Uses World ID incognito actions for human verification. Essential for applications requiring user verification to access features, ensuring only verified humans can perform actions.
+
+### Implementation
+
+```tsx
+import { MiniKit, VerifyCommandInput, VerificationLevel, ISuccessResult } from '@worldcoin/minikit-js'
+
+const verifyPayload: VerifyCommandInput = {
+  action: 'voting-action', // Your action ID from Developer Portal
+  signal: '0x12312', // Optional additional data
+  verification_level: VerificationLevel.Orb, // Orb | Device
+}
+
+const handleVerify = async () => {
+  if (!MiniKit.isInstalled()) {
+    return
+  }
+  
+  const {finalPayload} = await MiniKit.commandsAsync.verify(verifyPayload)
+  
+  if (finalPayload.status === 'error') {
+    return console.log('Error payload', finalPayload)
+  }
+
+  // Verify the proof in the backend
+  const verifyResponse = await fetch('/api/verify', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      payload: finalPayload as ISuccessResult,
+      action: 'voting-action',
+      signal: '0x12312',
+    }),
+  })
+
+  const verifyResponseJson = await verifyResponse.json()
+  if (verifyResponseJson.status === 200) {
+    console.log('Verification success!')
+  }
+}
+```
+
+### Response Type
+
+```tsx
+type MiniAppVerifyActionSuccessPayload = {
+  status: 'success'
+  proof: string
+  merkle_root: string
+  nullifier_hash: string
+  verification_level: VerificationLevel
+  version: number
+}
+```
+
+## Pay Command
+
+Facilitates WLD and USDC payments on World Chain. Supports minimum transfer amounts of $0.1 with sponsored gas fees. Requires whitelisting recipient addresses in the Developer Portal for security.
+
+### Setup Payment Backend
+
+```tsx
+// app/api/initiate-pay/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+
+export async function POST(req: NextRequest) {
+  const uuid = crypto.randomUUID().replace(/-/g, '')
+  // Store the ID field in your database so you can verify the payment later
+  return NextResponse.json({ id: uuid })
+}
+```
+
+### Implementation
+
+```tsx
+import { MiniKit, tokenToDecimals, Tokens, PayCommandInput } from '@worldcoin/minikit-js'
+
+const sendPayment = async () => {
+  const res = await fetch('/api/initiate-payment', {
+    method: 'POST',
+  })
+  const { id } = await res.json()
+
+  const payload: PayCommandInput = {
+    reference: id,
+    to: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+    tokens: [
+      {
+        symbol: Tokens.WLD,
+        token_amount: tokenToDecimals(1, Tokens.WLD).toString(),
+      },
+      {
+        symbol: Tokens.USDC,
+        token_amount: tokenToDecimals(3, Tokens.USDC).toString(),
+      },
+    ],
+    description: 'Test example payment for minikit',
+  }
+
+  if (!MiniKit.isInstalled()) {
+    return
+  }
+
+  const { finalPayload } = await MiniKit.commandsAsync.pay(payload)
+
+  if (finalPayload.status == 'success') {
+    const res = await fetch(`/api/confirm-payment`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(finalPayload),
+    })
+    const payment = await res.json()
+    if (payment.success) {
+      // Payment successful!
+    }
+  }
+}
+```
+
+### Payment Verification
+
+```tsx
+// app/confirm-payment/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+import { MiniAppPaymentSuccessPayload } from '@worldcoin/minikit-js'
+
+export async function POST(req: NextRequest) {
+  const { payload } = await req.json()
+  const reference = getReferenceFromDB()
+
+  if (payload.reference === reference) {
+    const response = await fetch(
+      `https://developer.worldcoin.org/api/v2/minikit/transaction/${payload.transaction_id}?app_id=${process.env.APP_ID}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${process.env.DEV_PORTAL_API_KEY}`,
+        },
+      }
+    )
+    const transaction = await response.json()
+
+    if (transaction.reference == reference && transaction.status != 'failed') {
+      return NextResponse.json({ success: true })
+    } else {
+      return NextResponse.json({ success: false })
+    }
+  }
+}
+```
+
+## Wallet Auth Command
+
+Implements Sign in with Ethereum (SIWE) protocol for user authentication. Provides user's Ethereum address and username after successful authentication. Should be used as the primary authentication method for mini apps.
+
+### Nonce Generation
+
+```tsx
+// app/api/nonce.ts
+import {cookies} from "next/headers"
+import {NextRequest, NextResponse} from "next/server"
+
+export function GET(req: NextRequest) {
+  const nonce = crypto.randomUUID().replace(/-/g, "")
+  cookies().set("siwe", nonce, { secure: true })
+  return NextResponse.json({ nonce })
+}
+```
+
+### Implementation
+
+```tsx
+import { MiniKit, WalletAuthInput } from '@worldcoin/minikit-js'
+
+const signInWithWallet = async () => {
+  if (!MiniKit.isInstalled()) {
+    return
+  }
+  
+  const res = await fetch(`/api/nonce`)
+  const { nonce } = await res.json()
+
+  const {commandPayload, finalPayload} = await MiniKit.commandsAsync.walletAuth({
+    nonce: nonce,
+    requestId: '0',
+    expirationTime: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+    notBefore: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+    statement: 'This is my statement and here is a link https://worldcoin.com/apps',
+  })
+  
+  // Access username after successful auth
+  const username = MiniKit.user.username
+}
+```
+
+### Response Type
+
+```tsx
+type MiniAppWalletAuthSuccessPayload = {
+  status: 'success'
+  message: string
+  signature: string
+  address: string
+  version: number
+}
+```
+
+## Send Transaction Command
+
+Allows interaction with arbitrary smart contracts on World Chain. Approvals are not permitted - must use Permit2 signature transfer or direct asset transfer functions. Gas fees are covered with a limit of 300 transactions per user per day.
+
+### Basic Transaction
+
+```tsx
+import { MiniKit } from '@worldcoin/minikit-js'
+import SimpleABI from '../../abi/SimpleABI.json'
+
+const sendTransaction = async () => {
+  const {commandPayload, finalPayload} = await MiniKit.commandsAsync.sendTransaction({
+    transaction: [
+      {
+        address: '0x9Cf4F011F55Add3ECC1B1B497A3e9bd32183D6e8',
+        abi: SimpleABI,
+        functionName: 'mintToken',
+        args: ['0x126f7998Eb44Dd2d097A8AB2eBcb28dEA1646AC8'],
+      },
+    ],
+  })
+}
+```
+
+### With Permit2
+
+```tsx
+const permitTransfer = {
+  permitted: {
+    token: "0x...", // The token being sent
+    amount: (0.5 * 10 ** 18).toString(),
+  },
+  nonce: Date.now().toString(),
+  deadline: Math.floor((Date.now() + 30 * 60 * 1000) / 1000).toString(),
+}
+
+const transferDetails = {
+  to: address,
+  requestedAmount: (0.5 * 10 ** 18).toString(),
+}
+
+const { finalPayload } = await MiniKit.commandsAsync.sendTransaction({
+  transaction: [
+    {
+      address: "0xF0882554ee924278806d708396F1a7975b732522",
+      abi: Permit2,
+      functionName: 'signatureTransfer',
+      args: [
+        [
+          [permitTransfer.permitted.token, permitTransfer.permitted.amount],
+          permitTransfer.nonce,
+          permitTransfer.deadline,
+        ],
+        [transferDetails.to, transferDetails.requestedAmount],
+        'PERMIT2_SIGNATURE_PLACEHOLDER_0',
+      ],
+    },
+  ],
+  permit2: [
+    {
+      ...permitTransfer,
+      spender: myContractToken,
+    },
+  ],
+})
+```
+
+### Transaction Monitoring
+
+```tsx
+import { useWaitForTransactionReceipt } from '@worldcoin/minikit-react'
+
+const [transactionId, setTransactionId] = useState<string>('')
+
+const client = createPublicClient({
+  chain: worldchain,
+  transport: http('https://worldchain-mainnet.g.alchemy.com/public'),
+})
+
+const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+  client: client,
+  appConfig: {
+    app_id: '<app_id>',
+  },
+  transactionId: transactionId,
+})
+```
+
+## Sign Message Command
+
+Enable cryptographic signing of arbitrary messages using EIP-191 standard. World App generates a standardized payload that may include a nonce, timestamp, and other context to prevent replay attacks.
+
+```tsx
+import { MiniKit, SignMessageInput } from '@worldcoin/minikit-js'
+
+const signMessage = async () => {
+  const payload: SignMessageInput = {
+    message: "Hello World"
+  }
+  
+  const { finalPayload } = await MiniKit.commandsAsync.signMessage(payload)
+  
+  if (finalPayload.status === 'success') {
+    // Message signed successfully
+    console.log('Signature:', finalPayload.signature)
+  }
+}
+```
+
+## Sign Typed Data Command
+
+Enable signing of structured data using EIP-712 standard for more complex data structures.
+
+```tsx
+import { MiniKit, SignTypedDataInput } from '@worldcoin/minikit-js'
+
+const signTypedData = async () => {
+  const payload: SignTypedDataInput = {
+    domain: {
+      name: 'MyApp',
+      version: '1',
+      chainId: 1,
+      verifyingContract: '0x...'
+    },
+    types: {
+      Person: [
+        { name: 'name', type: 'string' },
+        { name: 'wallet', type: 'address' }
+      ]
+    },
+    primaryType: 'Person',
+    message: {
+      name: 'John Doe',
+      wallet: '0x...'
+    }
+  }
+  
+  const { finalPayload } = await MiniKit.commandsAsync.signTypedData(payload)
+}
+```
+
+## Share Contacts Command
+
+Allows requesting users to share contacts in a privacy-preserving way.
+
+```tsx
+import { MiniKit } from '@worldcoin/minikit-js'
+
+const shareContacts = async () => {
+  const payload = {
+    isMultiSelectEnabled: true,
+    inviteMessage: "Join me on this app!"
+  }
+  
+  const { finalPayload } = await MiniKit.commandsAsync.shareContacts(payload)
+}
+```
+
+## Notifications
+
+Send push notifications to users. Must be purely functional, not marketing-related, and directly relevant to the user and mini app.
+
+### Send Notification API
+
+```bash
+curl -X POST "https://developer.worldcoin.org/api/v2/minikit/send-notification" \
+  -H "Authorization: Bearer {api_key}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "app_id": "app_id", 
+    "wallet_addresses": ["0x123", "0x456"], 
+    "title": "title", 
+    "message": "🧑‍🍳 We're cooking something special for you ${username}", 
+    "mini_app_path": "worldapp://mini-app?app_id=[app_id]&path=[path]"
+  }'
+```
+
+### Username Substitution
+
+Use `${username}` in messages for personalization. Apps with 15%+ open rates get notification badges on the home screen. Quality enforcement pauses notifications for apps with <10% open rates for one week.
+
+## Authentication & Security
+
+Mini apps should use Wallet Auth as the primary authentication method, not the Verify command for login purposes. The nonce for SIWE must be generated server-side and be at least 8 alphanumeric characters. All payment verifications must occur in the backend as users can manipulate frontend information.
+
+Smart contracts and tokens must be pre-approved in the Developer Portal to prevent unauthorized transfers. World App sponsors gas fees for most transactions on World Chain, subject to transaction minimums and restrictions.
+
+MiniKit is purely a communication channel between the client and the app. Your application should never default trust any payloads it receives on the client side. Verify, Pay, and Wallet Auth should all be verified inside of your backend.
+
+## Design Guidelines
+
+Mini apps must follow mobile-first design principles since they're inherently accessed via mobile devices. Key requirements include:
+
+- Tab navigation for simplified movement
+- Snap-to text boxes for easy input
+- Avoid footers, sidebars, and excessive scrolling
+- Clear navigation without hamburger menus
+- Consistent background colors
+- Responsive UI elements for different screen sizes
+- Mobile-optimized fonts for readability
+
+Apps must integrate MiniKit meaningfully through World ID, Wallet access, or other creative uses that add real value to be approved.
+
+## Quick Actions
+
+Universal deeplinks that enable seamless collaboration between mini apps. Format: `https://world.org/mini-app?app_id={app_id}&path={path}`. Allows one app to use features of another app, promoting resource optimization and community growth.
+
+Benefits include leveraging expertise from other apps, resource optimization by focusing on core functionalities, and community growth through integrations.
+
+## Development & Testing
+
+Mini apps must be developed on mainnet as testnet is not supported. Gas is covered in World App, so only deployment costs apply. Use ngrok or similar tunneling for mobile testing. MiniKit only works inside World App.
+
+```bash
+ngrok http http://localhost:3000
+```
+
+Remember that minikit ONLY works inside World App, so to test your mini app commands you must open it in World App.
+
+## Error Handling
+
+Common error types include verification failures, payment issues, wallet authentication problems, and transaction failures. Each command has specific error codes and troubleshooting steps.
+
+Use the Get Transaction Debug URL endpoint to debug failed transactions:
+
+```bash
+curl -X GET "https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}"
+```
+
+## Policy & Compliance
+
+Apps require approval through the Developer Portal before public listing. Must follow safety requirements, legal compliance, technical standards, and user support guidelines. Apps violating design guidelines will be rejected.
+
+For legal reasons, payments are not available in Indonesia and Philippines.
+
+## API Endpoints
+
+### Transaction Status Query
+
+```bash
+curl -X GET "https://developer.worldcoin.org/api/v2/minikit/transaction/{transaction_id}?app_id={app_id}&type={type}"
+```
+
+Response example:
+```json
+{
+  "transactionId": "0xa5b02107433da9e2a450c433560be1db01963a9146c14eed076cbf2c61837d60",
+  "transactionHash": "0xa8388148b630b49a3d5a739eaad9e98b5766235cdb21a5ec8d3f89053d982a71",
+  "transactionStatus": "failed",
+  "miniappId": "app_staging_5748c49d2e6c68849479e0b321bc5257",
+  "updatedAt": "2024-09-09T15:18:25.320Z",
+  "network": "worldchain",
+  "fromWalletAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558",
+  "toContractAddress": "0x2321401e6a175a7236498ab66f25cd1db4b17558"
+}
+```
+
+### Price Feed API
+
+```bash
+curl -X GET "https://app-backend.worldcoin.dev/public/v1/miniapps/prices?cryptoCurrencies=WLD,USDC&fiatCurrencies=USD"
+```
+
+## Templates & Examples
+
+React Template:
+```bash
+git clone https://github.com/new?template_name=minikit-react-template&template_owner=worldcoin
+```
+
+Vanilla JS Template:
+```bash
+git clone https://github.com/new?template_name=minikit-js-template&template_owner=worldcoin
+```
+
+Next.js Template:
+```bash
+git clone https://github.com/new?template_name=minikit-next-template&template_owner=worldcoin
+``` 
